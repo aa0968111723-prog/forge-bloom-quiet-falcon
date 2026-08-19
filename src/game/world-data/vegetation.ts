@@ -231,6 +231,11 @@ export function scatterPlants(density: number): PlantInstance[] {
       const margin = Math.abs(jx) - corridorHalfWidth(jz);
       if (margin < 22) continue; // never inside or looming over the corridor
       if (jx < -150) continue; // river
+      // 牧羊草坪 stays an open lawn with a clear view west to the river —
+      // only the curated specimen banyans stand on it.
+      if (Math.hypot(jx + 58, jz + 298) < 50) continue;
+      // Keep the west view corridor from the meadow to the water open too.
+      if (jx < -100 && jz < -260 && jz > -340) continue;
       if (blockedByBuilding(jx, jz, 5)) continue;
       // Density falls off with distance from the corridor so the far edges
       // stay cheap, and the caller's density knob scales the whole hill.

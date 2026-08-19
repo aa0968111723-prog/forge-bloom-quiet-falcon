@@ -19,6 +19,7 @@ import {
 import { SignedIn, SignedOut, UserButton } from "@/lib/auth/gates";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
 import { LANDMARKS, LANDMARK_BY_ID, TIME_PRESETS, WORLD_BOUNDS, type TimeOfDay } from "@/game/world";
+import { zoneAt } from "@/game/world-data/zones/index.ts";
 import { input } from "@/game/input";
 import { useGame } from "@/game/store";
 import { campusAudio } from "@/game/audio";
@@ -228,6 +229,44 @@ function LookPad() {
   );
 }
 
+/**
+ * Area-title splash: entering a named campus zone fades its name in over the
+ * lower third for a few seconds — the quiet "you have arrived somewhere"
+ * moment adventure games use instead of a toast.
+ */
+function AreaSplash() {
+  const phase = useGame((s) => s.phase);
+  const playerX = useGame((s) => s.playerX);
+  const playerZ = useGame((s) => s.playerZ);
+  const [splash, setSplash] = useState<{ name: string; nameEn: string; key: number } | null>(null);
+  const lastZone = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (phase !== "playing") return;
+    const zone = zoneAt(playerX, playerZ);
+    // Context zones stay silent — only the calibrated places announce themselves.
+    if (!zone || zone.detail !== "reality") return;
+    if (zone.id === lastZone.current) return;
+    const first = lastZone.current === null;
+    lastZone.current = zone.id;
+    if (first) return; // no splash on top of the title screen hand-off
+    setSplash({ name: zone.name, nameEn: zone.nameEn, key: Date.now() });
+    const t = window.setTimeout(() => setSplash(null), 3200);
+    return () => window.clearTimeout(t);
+  }, [phase, playerX, playerZ]);
+
+  if (!splash || phase !== "playing") return null;
+  return (
+    <div key={splash.key} className="tk-splash pointer-events-none absolute inset-x-0 top-[18%] text-center">
+      <p className="font-display text-4xl tracking-[0.18em] text-paper drop-shadow-[0_2px_10px_rgba(10,16,28,0.75)] sm:text-5xl">
+        {splash.name}
+      </p>
+      <p className="mt-2 text-xs uppercase tracking-[0.42em] text-paper/75 sm:text-sm">{splash.nameEn}</p>
+      <div className="mx-auto mt-3 h-px w-36 bg-paper/50" />
+    </div>
+  );
+}
+
 export function GameOverlay() {
   const phase = useGame((s) => s.phase);
   const timeOfDay = useGame((s) => s.timeOfDay);
@@ -247,6 +286,10 @@ export function GameOverlay() {
   useEffect(() => {
     campusAudio.setMuted(muted);
   }, [muted]);
+
+  useEffect(() => {
+    campusAudio.setMood(timeOfDay === "night" ? "night" : "day");
+  }, [timeOfDay]);
 
   useEffect(() => {
     if (phase === "playing") {
@@ -270,6 +313,7 @@ export function GameOverlay() {
   return (
     <div className="pointer-events-none absolute inset-0 font-sans text-paper">
       <RealityComparePanel />
+      <AreaSplash />
       {phase === "title" && (
         <div className="pointer-events-auto flex h-full flex-col justify-end bg-gradient-to-t from-navy-deep via-navy-deep/80 to-transparent p-4 pb-20 sm:p-10 sm:pb-10">
           <div className="mx-auto w-full max-w-xl rounded-2xl bg-navy-deep/70 p-5 sm:p-6">

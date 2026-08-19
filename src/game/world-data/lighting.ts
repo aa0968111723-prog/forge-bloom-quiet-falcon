@@ -93,8 +93,10 @@ export const TIME_PRESETS: Record<TimeOfDay, LightingPreset> = {
     hemiSky: "#ffcda6",
     hemiGround: "#6f513c",
     sunIntensity: 2.1,
-    hemiIntensity: 0.45,
-    ambientIntensity: 0.1,
+    // Golden hour still needs readable shadow sides: dusk sky-fill is strong
+    // in reality, and a pitch-black character kills the postcard shot.
+    hemiIntensity: 0.68,
+    ambientIntensity: 0.18,
     // Low and due west, over the Tamsui River.
     sunPos: [-320, 46, 40],
     fogNear: 120,

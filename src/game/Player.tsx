@@ -6,6 +6,8 @@ import { input } from "./input";
 import { useGame } from "./store";
 import { campusAudio } from "./audio";
 import { landmarkAt, resolveCollision, SPAWN, terrainHeight } from "./world";
+import { pavedAt } from "./world-data/paths.ts";
+import { kenanSection } from "./world-data/kenan.ts";
 
 const tmp = new THREE.Vector3();
 const PLAYER_R = 0.42;
@@ -13,6 +15,16 @@ const WALK = 4.6;
 const SPRINT = 7.8;
 const CAM_DIST = 5.15;
 const CAM_R = 0.7;
+const BASE_FOV = 58;
+const SPRINT_FOV = 63;
+
+/** Shortest-path angular lerp, so the body never spins the long way round. */
+function dampAngle(current: number, target: number, lambda: number, delta: number) {
+  let diff = (target - current) % (Math.PI * 2);
+  if (diff > Math.PI) diff -= Math.PI * 2;
+  if (diff < -Math.PI) diff += Math.PI * 2;
+  return current + diff * (1 - Math.exp(-lambda * delta));
+}
 
 export function Player() {
   const group = useRef<THREE.Group>(null);
@@ -21,6 +33,10 @@ export function Player() {
   const camYaw = useRef(0);
   const camPitch = useRef(0.22);
   const faceYaw = useRef(0);
+  const faceYawTarget = useRef(0);
+  /** Rendered height: follows the logical height smoothly so climbing the 132
+   *  steps reads as a climb, not a 6 Hz stutter. */
+  const visualY = useRef(SPAWN.y);
   const speedRef = useRef(0);
   const hudAcc = useRef(0);
   const { camera, gl } = useThree();
@@ -54,6 +70,7 @@ export function Player() {
         vel.current.set(0, 0, 0);
         camYaw.current = yaw;
         faceYaw.current = yaw;
+        faceYawTarget.current = yaw;
         camPitch.current = 0.22;
         useGame.getState().setPlayer(x, z, yaw);
         useGame.setState({ snapCam: true });
@@ -77,6 +94,7 @@ export function Player() {
       vel.current.set(0, 0, 0);
       camYaw.current = warp.yaw;
       faceYaw.current = warp.yaw;
+      faceYawTarget.current = warp.yaw;
       camPitch.current = 0.22;
       useGame.getState().clearWarp();
       snapped = true;
@@ -132,11 +150,14 @@ export function Player() {
       dz /= mag;
       vel.current.x = THREE.MathUtils.damp(vel.current.x, dx * maxSp, 8, delta);
       vel.current.z = THREE.MathUtils.damp(vel.current.z, dz * maxSp, 8, delta);
-      faceYaw.current = Math.atan2(-dx, -dz);
+      faceYawTarget.current = Math.atan2(-dx, -dz);
     } else {
       vel.current.x = THREE.MathUtils.damp(vel.current.x, 0, 10, delta);
       vel.current.z = THREE.MathUtils.damp(vel.current.z, 0, 10, delta);
     }
+
+    // The body turns toward its heading rather than snapping to it.
+    faceYaw.current = dampAngle(faceYaw.current, faceYawTarget.current, 12, delta);
 
     const sp = Math.hypot(vel.current.x, vel.current.z);
     speedRef.current = sp;
@@ -150,7 +171,10 @@ export function Player() {
         pos.current.x = resolved.x;
         pos.current.z = resolved.z;
         pos.current.y = ground;
-        campusAudio.footstep(performance.now(), actions.sprint);
+        // Stone on the slope and any paving; grass everywhere else.
+        const onStone =
+          kenanSection(resolved.z) !== null || pavedAt(resolved.x, resolved.z, 0.4);
+        campusAudio.footstep(performance.now(), actions.sprint, onStone ? "stone" : "grass");
       } else {
         vel.current.set(0, 0, 0);
       }
@@ -169,15 +193,19 @@ export function Player() {
       }
     }
 
+    // Smooth the rendered height over the stepped ground. Snapped on warps.
+    if (snapped) visualY.current = pos.current.y;
+    else visualY.current = THREE.MathUtils.damp(visualY.current, pos.current.y, 16, delta);
+
     if (group.current) {
-      group.current.position.copy(pos.current);
+      group.current.position.set(pos.current.x, visualY.current, pos.current.z);
       group.current.rotation.y = faceYaw.current + Math.PI;
     }
 
     const lookH = 1.32;
     tmp.set(
       pos.current.x + Math.sin(camYaw.current) * Math.cos(camPitch.current) * CAM_DIST,
-      pos.current.y + lookH + 0.42 + Math.sin(camPitch.current) * CAM_DIST,
+      visualY.current + lookH + 0.42 + Math.sin(camPitch.current) * CAM_DIST,
       pos.current.z + Math.cos(camYaw.current) * Math.cos(camPitch.current) * CAM_DIST,
     );
     const pushed = resolveCollision(tmp.x, tmp.z, CAM_R);
@@ -187,7 +215,26 @@ export function Player() {
     if (tmp.y < camGround) tmp.y = camGround;
     if (snapped) camera.position.copy(tmp);
     else camera.position.lerp(tmp, 1 - Math.exp(-10 * delta));
-    camera.lookAt(pos.current.x, pos.current.y + lookH, pos.current.z);
+
+    // Look-ahead: the camera looks slightly into the direction of travel, so
+    // running opens up the view the way a good third-person rig does.
+    const lookAhead = Math.min(sp / SPRINT, 1) * 1.15;
+    camera.lookAt(
+      pos.current.x + (sp > 0.2 ? (vel.current.x / Math.max(sp, 0.01)) * lookAhead : 0),
+      visualY.current + lookH,
+      pos.current.z + (sp > 0.2 ? (vel.current.z / Math.max(sp, 0.01)) * lookAhead : 0),
+    );
+
+    // Sprint widens the FOV a touch; easing sells the speed change.
+    const persp = camera as THREE.PerspectiveCamera;
+    if (persp.isPerspectiveCamera) {
+      const targetFov = BASE_FOV + (SPRINT_FOV - BASE_FOV) * Math.max(0, (sp - WALK) / (SPRINT - WALK));
+      const next = THREE.MathUtils.damp(persp.fov, targetFov, 4, delta);
+      if (Math.abs(next - persp.fov) > 0.01) {
+        persp.fov = next;
+        persp.updateProjectionMatrix();
+      }
+    }
 
     hudAcc.current += delta;
     if (hudAcc.current > 0.12 || snapped) {

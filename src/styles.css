@@ -106,3 +106,14 @@
     transition: none;
   }
 }
+
+/* Area-title splash: slow fade-in, hold, fade-out (driven by unmount). */
+@keyframes tk-splash-in {
+  0% { opacity: 0; transform: translateY(14px); }
+  18% { opacity: 1; transform: translateY(0); }
+  82% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.tk-splash {
+  animation: tk-splash-in 3.2s ease-out forwards;
+}

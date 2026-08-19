@@ -4,7 +4,6 @@ import { surface, useTamkangMaterials } from "../materials/context";
 import { quality } from "../quality";
 import { RIVER_LEVEL, sampleTerrainElevation, terrainGrid } from "../world-data/elevation.ts";
 import { LAWN_AREAS } from "../world-data/vegetation.ts";
-import { WORLD_BOUNDS } from "../world-data/origin.ts";
 import { gridSurfaceGeometry } from "./geometry";
 
 /**
@@ -89,22 +88,14 @@ export function Terrain({ wetness }: { wetness: number }) {
     return geo;
   }, [mats, q.terrainStep]);
 
-  const riverGeo = useMemo(() => {
-    const g = new THREE.PlaneGeometry(240, WORLD_BOUNDS.maxZ - WORLD_BOUNDS.minZ + 320);
-    g.rotateX(-Math.PI / 2);
-    return g;
-  }, []);
-
   return (
     <group>
       <mesh geometry={geometry} receiveShadow>
         <meshStandardMaterial {...surface(mats["campus/grass"], { wetness })} vertexColors />
       </mesh>
 
-      {/* Tamsui River, and the west vista the avenue is famous for. */}
-      <mesh geometry={riverGeo} position={[-250, RIVER_LEVEL, -120]} receiveShadow>
-        <meshStandardMaterial color="#4d7386" roughness={0.1} metalness={0.4} />
-      </mesh>
+      {/* The west vista the avenue is famous for; the river itself is the
+          animated Water surface in world/Water.tsx. */}
       <group position={[0, RIVER_LEVEL, 0]}>
         {/*
           觀音山 in three overlapping haze layers: the reclining ridge line, a

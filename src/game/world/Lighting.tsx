@@ -43,6 +43,8 @@ export function Lighting({ timeOfDay }: { timeOfDay: TimeOfDay }) {
 
   return (
     <>
+      {/* Background colour only matters for the first frame; the Sky dome
+          covers every pixel after that. */}
       <color attach="background" args={[preset.sky]} />
       <fog attach="fog" args={[preset.fog, preset.fogNear, preset.fogFar]} />
       <hemisphereLight args={[preset.hemiSky, preset.hemiGround, preset.hemiIntensity]} />
@@ -64,11 +66,6 @@ export function Lighting({ timeOfDay }: { timeOfDay: TimeOfDay }) {
         shadow-bias={-0.0004}
         shadow-normalBias={0.5}
       />
-      {/* Sky dome + sun/moon disc. */}
-      <mesh>
-        <sphereGeometry args={[1400, 24, 16]} />
-        <meshBasicMaterial color={preset.sky} side={THREE.BackSide} fog={false} />
-      </mesh>
       {preset.disc && (
         <mesh position={preset.disc.position}>
           <sphereGeometry args={[preset.disc.radius, 14, 12]} />
