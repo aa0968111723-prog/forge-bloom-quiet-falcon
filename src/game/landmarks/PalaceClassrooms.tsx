@@ -64,7 +64,6 @@ function PalaceHall({ position, facing, wetness, detailed, mats, nameMap }: Hall
 
   // The avenue side of this hall.
   const front = -facing;
-  const colonnadeX = front * (depth / 2 + 1.55);
 
   return (
     <group position={position}>

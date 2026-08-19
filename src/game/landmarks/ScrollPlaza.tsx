@@ -15,7 +15,7 @@ import { useCampusSigns } from "../world/labels";
  * closed drum, and the opening is what makes the silhouette recognisable.
  */
 const BLADE_HEIGHT = 7.2;
-const BLADE_RADIUS = 1.35;
+const BLADE_RADIUS = 1.2;
 
 export function ScrollPlaza({ wetness }: { wetness: number }) {
   const mats = useTamkangMaterials();
@@ -55,11 +55,13 @@ export function ScrollPlaza({ wetness }: { wetness: number }) {
   const blades = useMemo(
     () =>
       (
+        // Pinwheel: each shell's open mouth swings a quarter-turn from its
+        // neighbour, so from any side at least one curl reads as a scroll.
         [
-          [-4.6, 4.6, 0.9],
-          [4.6, 4.6, 2.5],
-          [4.6, -4.6, 4.1],
-          [-4.6, -4.6, 5.7],
+          [-4.6, 4.6, 2.6],
+          [4.6, 4.6, 4.2],
+          [4.6, -4.6, 5.8],
+          [-4.6, -4.6, 1.0],
         ] as const
       ).map(([dx, dz, rot]) => ({ dx, dz, rot })),
     [],
