@@ -1,0 +1,317 @@
+{
+  "generator": "scripts/gen-materials.mjs",
+  "note": "Procedural PBR sets for the Tamkang reality pass. Regenerate with `npm run gen:materials`.",
+  "materials": [
+    {
+      "id": "kenan/stone-step",
+      "group": "kenan",
+      "name": "stone-step",
+      "size": 512,
+      "note": "克難坡石階：洗石子踏面，鼻端磨亮、內側積灰",
+      "referenceIds": [
+        "REF_STAIR_TYPICAL_RISE",
+        "REF_KENAN_STEP_COUNT"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/kenan/stone-step-basecolor.png",
+        "normal": "/materials/tamkang/kenan/stone-step-normal.png",
+        "roughness": "/materials/tamkang/kenan/stone-step-roughness.png",
+        "ao": "/materials/tamkang/kenan/stone-step-ao.png"
+      }
+    },
+    {
+      "id": "kenan/retaining-wall",
+      "group": "kenan",
+      "name": "retaining-wall",
+      "size": 256,
+      "note": "護牆：清水混凝土，模板接縫與滴水痕",
+      "referenceIds": [
+        "REF_STAIR_TYPICAL_RISE",
+        "REF_KENAN_STEP_COUNT"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/kenan/retaining-wall-basecolor.png",
+        "normal": "/materials/tamkang/kenan/retaining-wall-normal.png",
+        "roughness": "/materials/tamkang/kenan/retaining-wall-roughness.png"
+      }
+    },
+    {
+      "id": "kenan/old-wall",
+      "group": "kenan",
+      "name": "old-wall",
+      "size": 256,
+      "note": "舊牆面：早期砌石加水泥粉刷、局部剝落",
+      "referenceIds": [
+        "REF_STAIR_TYPICAL_RISE",
+        "REF_KENAN_STEP_COUNT"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/kenan/old-wall-basecolor.png",
+        "normal": "/materials/tamkang/kenan/old-wall-normal.png",
+        "roughness": "/materials/tamkang/kenan/old-wall-roughness.png"
+      }
+    },
+    {
+      "id": "kenan/moss",
+      "group": "kenan",
+      "name": "moss",
+      "size": 256,
+      "note": "青苔：潮濕坡面與排水溝邊，淡水冬季常見",
+      "referenceIds": [
+        "REF_TAMSUI_WEATHER"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/kenan/moss-basecolor.png",
+        "normal": "/materials/tamkang/kenan/moss-normal.png",
+        "roughness": "/materials/tamkang/kenan/moss-roughness.png"
+      }
+    },
+    {
+      "id": "kenan/wet-concrete",
+      "group": "kenan",
+      "name": "wet-concrete",
+      "size": 256,
+      "note": "潮濕鋪面：雨後淡水的地表，反射變強、彩度下降",
+      "referenceIds": [
+        "REF_TAMSUI_WEATHER"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/kenan/wet-concrete-basecolor.png",
+        "normal": "/materials/tamkang/kenan/wet-concrete-normal.png",
+        "roughness": "/materials/tamkang/kenan/wet-concrete-roughness.png"
+      }
+    },
+    {
+      "id": "palace/red-wall",
+      "group": "palace",
+      "name": "red-wall",
+      "size": 512,
+      "note": "宮燈教室紅牆：紅色水泥粉光，牆腳泛白、上緣積塵",
+      "referenceIds": [
+        "REF_PALACE_CLASSROOMS_1954"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/palace/red-wall-basecolor.png",
+        "normal": "/materials/tamkang/palace/red-wall-normal.png",
+        "roughness": "/materials/tamkang/palace/red-wall-roughness.png",
+        "ao": "/materials/tamkang/palace/red-wall-ao.png"
+      }
+    },
+    {
+      "id": "palace/green-roof-tile",
+      "group": "palace",
+      "name": "green-roof-tile",
+      "size": 512,
+      "note": "碧瓦：綠色琉璃筒瓦，接縫積苔",
+      "referenceIds": [
+        "REF_PALACE_CLASSROOMS_1954"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/palace/green-roof-tile-basecolor.png",
+        "normal": "/materials/tamkang/palace/green-roof-tile-normal.png",
+        "roughness": "/materials/tamkang/palace/green-roof-tile-roughness.png",
+        "ao": "/materials/tamkang/palace/green-roof-tile-ao.png"
+      }
+    },
+    {
+      "id": "palace/wood-column",
+      "group": "palace",
+      "name": "wood-column",
+      "size": 256,
+      "note": "朱柱：迴廊漆木柱，直紋與漆面磨損",
+      "referenceIds": [
+        "REF_PALACE_CLASSROOMS_1954"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/palace/wood-column-basecolor.png",
+        "normal": "/materials/tamkang/palace/wood-column-normal.png",
+        "roughness": "/materials/tamkang/palace/wood-column-roughness.png"
+      }
+    },
+    {
+      "id": "palace/lattice-window",
+      "group": "palace",
+      "name": "lattice-window",
+      "size": 512,
+      "note": "窗格：木框方格窗，格內為室內暗面",
+      "referenceIds": [
+        "REF_PALACE_CLASSROOMS_1954"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/palace/lattice-window-basecolor.png",
+        "normal": "/materials/tamkang/palace/lattice-window-normal.png",
+        "roughness": "/materials/tamkang/palace/lattice-window-roughness.png",
+        "ao": "/materials/tamkang/palace/lattice-window-ao.png"
+      }
+    },
+    {
+      "id": "lantern/stone-slab",
+      "group": "lantern",
+      "name": "stone-slab",
+      "size": 512,
+      "note": "宮燈大道鋪面：花崗石板，錯縫排列、縫隙積塵",
+      "referenceIds": [
+        "REF_LANTERN_AVENUE_LENGTH"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/lantern/stone-slab-basecolor.png",
+        "normal": "/materials/tamkang/lantern/stone-slab-normal.png",
+        "roughness": "/materials/tamkang/lantern/stone-slab-roughness.png",
+        "ao": "/materials/tamkang/lantern/stone-slab-ao.png"
+      }
+    },
+    {
+      "id": "lantern/kerb",
+      "group": "lantern",
+      "name": "kerb",
+      "size": 256,
+      "note": "路緣石：預鑄混凝土緣石，上緣被輪胎擦白",
+      "referenceIds": [
+        "REF_AXIS_STRAIGHT_ASSUMPTION"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/lantern/kerb-basecolor.png",
+        "normal": "/materials/tamkang/lantern/kerb-normal.png",
+        "roughness": "/materials/tamkang/lantern/kerb-roughness.png"
+      }
+    },
+    {
+      "id": "lantern/asphalt",
+      "group": "lantern",
+      "name": "asphalt",
+      "size": 256,
+      "note": "柏油：車道面層，粒料外露、輪跡較光",
+      "referenceIds": [
+        "REF_AXIS_STRAIGHT_ASSUMPTION"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/lantern/asphalt-basecolor.png",
+        "normal": "/materials/tamkang/lantern/asphalt-normal.png",
+        "roughness": "/materials/tamkang/lantern/asphalt-roughness.png"
+      }
+    },
+    {
+      "id": "lantern/sidewalk",
+      "group": "lantern",
+      "name": "sidewalk",
+      "size": 256,
+      "note": "人行道：連鎖磚，人字形排列",
+      "referenceIds": [
+        "REF_AXIS_STRAIGHT_ASSUMPTION"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/lantern/sidewalk-basecolor.png",
+        "normal": "/materials/tamkang/lantern/sidewalk-normal.png",
+        "roughness": "/materials/tamkang/lantern/sidewalk-roughness.png"
+      }
+    },
+    {
+      "id": "lantern/tactile-paving",
+      "group": "lantern",
+      "name": "tactile-paving",
+      "size": 256,
+      "note": "導盲磚：黃色點狀警示磚",
+      "referenceIds": [
+        "REF_AXIS_STRAIGHT_ASSUMPTION"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/lantern/tactile-paving-basecolor.png",
+        "normal": "/materials/tamkang/lantern/tactile-paving-normal.png",
+        "roughness": "/materials/tamkang/lantern/tactile-paving-roughness.png"
+      }
+    },
+    {
+      "id": "library/facade",
+      "group": "library",
+      "name": "facade",
+      "size": 512,
+      "note": "圖書館外牆：淺色面磚與水平分割線",
+      "referenceIds": [
+        "REF_LIBRARY_NINE_FLOORS"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/library/facade-basecolor.png",
+        "normal": "/materials/tamkang/library/facade-normal.png",
+        "roughness": "/materials/tamkang/library/facade-roughness.png",
+        "ao": "/materials/tamkang/library/facade-ao.png"
+      }
+    },
+    {
+      "id": "library/glass",
+      "group": "library",
+      "name": "glass",
+      "size": 256,
+      "note": "玻璃：帷幕與窗，反射為主、內部略可見",
+      "referenceIds": [
+        "REF_LIBRARY_NINE_FLOORS"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/library/glass-basecolor.png",
+        "normal": "/materials/tamkang/library/glass-normal.png",
+        "roughness": "/materials/tamkang/library/glass-roughness.png"
+      }
+    },
+    {
+      "id": "campus/grass",
+      "group": "campus",
+      "name": "grass",
+      "size": 512,
+      "note": "草地：混合草皮，密度不均、有踩踏痕",
+      "referenceIds": [
+        "REF_CAMPUS_ON_WUHU_HILL"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/campus/grass-basecolor.png",
+        "normal": "/materials/tamkang/campus/grass-normal.png",
+        "roughness": "/materials/tamkang/campus/grass-roughness.png"
+      }
+    },
+    {
+      "id": "campus/soil",
+      "group": "campus",
+      "name": "soil",
+      "size": 256,
+      "note": "泥土：花圃與樹下裸土",
+      "referenceIds": [
+        "REF_CAMPUS_ON_WUHU_HILL"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/campus/soil-basecolor.png",
+        "normal": "/materials/tamkang/campus/soil-normal.png",
+        "roughness": "/materials/tamkang/campus/soil-roughness.png"
+      }
+    },
+    {
+      "id": "campus/plaza-tile",
+      "group": "campus",
+      "name": "plaza-tile",
+      "size": 512,
+      "note": "廣場地磚：大面積方磚，書卷廣場與圖書館前",
+      "referenceIds": [
+        "REF_SCROLL_PLAZA_1986"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/campus/plaza-tile-basecolor.png",
+        "normal": "/materials/tamkang/campus/plaza-tile-normal.png",
+        "roughness": "/materials/tamkang/campus/plaza-tile-roughness.png",
+        "ao": "/materials/tamkang/campus/plaza-tile-ao.png"
+      }
+    },
+    {
+      "id": "campus/bronze",
+      "group": "campus",
+      "name": "bronze",
+      "size": 256,
+      "note": "銅雕：驚聲銅像、海豚、五虎碑的青銅面",
+      "referenceIds": [
+        "REF_CHINGSHENG_STATUE",
+        "REF_DOLPHIN_MILESTONE"
+      ],
+      "maps": {
+        "basecolor": "/materials/tamkang/campus/bronze-basecolor.png",
+        "normal": "/materials/tamkang/campus/bronze-normal.png",
+        "roughness": "/materials/tamkang/campus/bronze-roughness.png"
+      }
+    }
+  ]
+}

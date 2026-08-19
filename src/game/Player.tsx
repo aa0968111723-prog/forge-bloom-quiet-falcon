@@ -38,6 +38,13 @@ export function Player() {
     window.__controlsTest = {
       getYaw: () => camYaw.current,
       getSpeed: () => speedRef.current,
+      setBenchmark: (id) => useGame.getState().setBenchmark(id),
+      getBenchmark: () => useGame.getState().benchmarkId,
+      setYaw: (yaw: number) => {
+        // Steer without killing momentum — the traversal harness turns while
+        // walking, the way a player does.
+        camYaw.current = yaw;
+      },
       setKeys: (codes) => {
         input.inject = codes;
       },
@@ -79,10 +86,14 @@ export function Player() {
       useGame.getState().clearSnap();
     }
 
+    // Reality Compare Mode (F8) owns the camera outright.
+    if (useGame.getState().benchmarkId) return;
+
     if (phase === "title") {
+      // Drift above 驚聲銅像廣場 looking north down 宮燈大道.
       const t = state.clock.elapsedTime;
-      camera.position.set(-6.4 + Math.sin(t * 0.11) * 1.6, 20.9, 40.8 + Math.cos(t * 0.09) * 1.4);
-      camera.lookAt(0.15, 18.55, 22.5);
+      camera.position.set(-13 + Math.sin(t * 0.1) * 2.2, 31.5, 13 + Math.cos(t * 0.08) * 1.8);
+      camera.lookAt(0.5, 20.6, -46);
       return;
     }
 

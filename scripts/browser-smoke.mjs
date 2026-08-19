@@ -13,6 +13,7 @@
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { chromium } from "playwright";
+import { chromiumExecutablePath } from "./browser-exe.mjs";
 import { checkedOutputPath, checkedUrl } from "./browser-guard.mjs";
 import { computeBrandWarnings } from "./brand-check.mjs";
 
@@ -30,6 +31,7 @@ const pageErrors = [];
 
 const browser = await chromium.launch({
   headless: true,
+  executablePath: chromiumExecutablePath(),
   args: ["--no-sandbox", "--disable-dev-shm-usage"],
 });
 

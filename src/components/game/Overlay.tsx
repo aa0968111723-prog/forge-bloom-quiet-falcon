@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } f
 import { Link } from "@tanstack/react-router";
 import {
   BookOpen,
+  Cloud,
+  CloudRain,
   Compass,
   Map as MapIcon,
   Pause,
@@ -16,17 +18,25 @@ import {
 } from "lucide-react";
 import { SignedIn, SignedOut, UserButton } from "@/lib/auth/gates";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
-import { LANDMARKS, LANDMARK_BY_ID, type TimeOfDay } from "@/game/world";
+import { LANDMARKS, LANDMARK_BY_ID, TIME_PRESETS, WORLD_BOUNDS, type TimeOfDay } from "@/game/world";
 import { input } from "@/game/input";
 import { useGame } from "@/game/store";
 import { campusAudio } from "@/game/audio";
+import { RealityComparePanel } from "@/game/world/RealityCompare";
 import { cn } from "@/lib/cn";
 
-const TIME_LABEL: Record<TimeOfDay, string> = {
-  day: "日晝",
-  sunset: "宮燈夕照",
-  night: "夜訪",
-};
+const TIME_LABEL = Object.fromEntries(
+  Object.entries(TIME_PRESETS).map(([id, p]) => [id, p.label]),
+) as Record<TimeOfDay, string>;
+
+/** Time-of-day picker: icon per preset, order matches the daylight cycle. */
+const TIME_OPTIONS: [TimeOfDay, typeof Sun][] = [
+  ["day", Sun],
+  ["cloudy", Cloud],
+  ["sunset", Sunset],
+  ["night", Moon],
+  ["wet", CloudRain],
+];
 
 function CompassHud() {
   const playerX = useGame((s) => s.playerX);
@@ -92,12 +102,29 @@ function Minimap() {
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = "#1a3f6d";
     ctx.fillRect(0, 0, w, h);
-    const sx = (x: number) => ((x + 90) / 180) * w;
-    const sz = (z: number) => ((z + 70) / 165) * h;
+    // Project the real-scale world bounds into the minimap, with a small margin
+    // so the corridor is not glued to the canvas edge.
+    const minX = WORLD_BOUNDS.minX + 60;
+    const maxX = WORLD_BOUNDS.maxX - 20;
+    const minZ = WORLD_BOUNDS.minZ - 5;
+    const maxZ = WORLD_BOUNDS.maxZ + 5;
+    const sx = (x: number) => ((x - minX) / (maxX - minX)) * w;
+    const sz = (z: number) => ((z - minZ) / (maxZ - minZ)) * h;
+    const river = sx(-118);
     ctx.fillStyle = "#2f6d8c";
-    ctx.fillRect(0, 0, w * 0.14, h);
+    ctx.fillRect(0, 0, Math.max(0, river), h);
     ctx.fillStyle = "#3d5c38";
-    ctx.fillRect(w * 0.14, 0, w, h);
+    ctx.fillRect(Math.max(0, river), 0, w, h);
+    // Main pilgrimage axis, so the map reads as a route rather than dots.
+    ctx.strokeStyle = "#f3eee4";
+    ctx.globalAlpha = 0.35;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(sx(0), sz(WORLD_BOUNDS.maxZ - 20));
+    ctx.lineTo(sx(0), sz(-272));
+    ctx.lineTo(sx(10), sz(-300));
+    ctx.stroke();
+    ctx.globalAlpha = 1;
     for (const l of LANDMARKS) {
       ctx.beginPath();
       ctx.fillStyle = visited.includes(l.id) ? "#f3eee4" : "#c45c4a";
@@ -242,6 +269,7 @@ export function GameOverlay() {
 
   return (
     <div className="pointer-events-none absolute inset-0 font-sans text-paper">
+      <RealityComparePanel />
       {phase === "title" && (
         <div className="pointer-events-auto flex h-full flex-col justify-end bg-gradient-to-t from-navy-deep via-navy-deep/80 to-transparent p-4 pb-20 sm:p-10 sm:pb-10">
           <div className="mx-auto w-full max-w-xl rounded-2xl bg-navy-deep/70 p-5 sm:p-6">
@@ -438,14 +466,8 @@ export function GameOverlay() {
 
             <div className="mt-5">
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">時光</p>
-              <div className="mt-2 grid grid-cols-3 gap-2">
-                {(
-                  [
-                    ["day", Sun, "日晝"],
-                    ["sunset", Sunset, "夕照"],
-                    ["night", Moon, "夜訪"],
-                  ] as const
-                ).map(([id, Icon, label]) => (
+              <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-5">
+                {TIME_OPTIONS.map(([id, Icon]) => (
                   <button
                     key={id}
                     type="button"
@@ -456,7 +478,7 @@ export function GameOverlay() {
                     onClick={() => useGame.getState().setTime(id)}
                   >
                     <Icon className="size-4" />
-                    {label}
+                    {TIME_LABEL[id]}
                   </button>
                 ))}
               </div>

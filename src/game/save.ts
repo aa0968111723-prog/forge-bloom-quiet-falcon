@@ -1,4 +1,4 @@
-import type { TimeOfDay } from "./world";
+import { coerceTimeOfDay, type TimeOfDay } from "./world";
 
 export const SAVE_VERSION = 1;
 const KEY = "tamkang-world-v1";
@@ -27,10 +27,9 @@ export function loadLocal(): SaveBlob {
       ...parsed,
       version: SAVE_VERSION,
       visited: Array.isArray(parsed.visited) ? parsed.visited : [],
-      timeOfDay:
-        parsed.timeOfDay === "day" || parsed.timeOfDay === "night" || parsed.timeOfDay === "sunset"
-          ? parsed.timeOfDay
-          : "sunset",
+      // Saves written before the Reality Pass only knew day / sunset / night;
+      // coerceTimeOfDay accepts those and rejects anything unknown.
+      timeOfDay: coerceTimeOfDay(parsed.timeOfDay) ?? defaults.timeOfDay,
       muted: Boolean(parsed.muted),
     };
   } catch {

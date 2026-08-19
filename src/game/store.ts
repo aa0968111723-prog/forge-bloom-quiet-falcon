@@ -9,6 +9,8 @@ export type Warp = { x: number; z: number; yaw: number };
 type GameState = {
   phase: Phase;
   timeOfDay: TimeOfDay;
+  /** Active Reality Compare benchmark camera (F8 dev tool), or null. */
+  benchmarkId: string | null;
   visited: string[];
   nearbyId: string | null;
   plaqueId: string | null;
@@ -27,6 +29,7 @@ type GameState = {
   openCodex: (from: Phase) => void;
   closeMenu: () => void;
   setTime: (t: TimeOfDay) => void;
+  setBenchmark: (id: string | null) => void;
   setNearby: (id: string | null) => void;
   setPlayer: (x: number, z: number, yaw: number) => void;
   openPlaque: (id: string | null) => void;
@@ -50,6 +53,7 @@ const local = loadLocal();
 export const useGame = create<GameState>((set, get) => ({
   phase: "title",
   timeOfDay: local.timeOfDay,
+  benchmarkId: null,
   visited: local.visited,
   nearbyId: null,
   plaqueId: null,
@@ -76,6 +80,7 @@ export const useGame = create<GameState>((set, get) => ({
     set({ timeOfDay });
     persist({ timeOfDay });
   },
+  setBenchmark: (benchmarkId) => set({ benchmarkId }),
   setNearby: (nearbyId) => {
     if (get().nearbyId !== nearbyId) set({ nearbyId });
   },
