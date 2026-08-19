@@ -28,6 +28,36 @@ function lawnWeight(x: number, z: number): number {
   return w;
 }
 
+/** Low-rise town blocks along the near river bank, silhouette only. */
+function TownStrip() {
+  const blocks = useMemo(() => {
+    const out: { x: number; z: number; w: number; h: number; d: number }[] = [];
+    for (let i = 0; i < 46; i++) {
+      const z = -320 + i * 9.6;
+      const jitter = Math.sin(i * 12.9898) * 43758.5453;
+      const f = jitter - Math.floor(jitter);
+      out.push({
+        x: -168 - f * 26,
+        z,
+        w: 4.5 + f * 6,
+        h: 3 + ((i * 7) % 5) * 2.2,
+        d: 5 + ((i * 3) % 4) * 1.5,
+      });
+    }
+    return out;
+  }, []);
+  return (
+    <group>
+      {blocks.map((b, i) => (
+        <mesh key={i} position={[b.x, RIVER_LEVEL + b.h / 2 + 1.2, b.z]}>
+          <boxGeometry args={[b.w, b.h, b.d]} />
+          <meshStandardMaterial color={i % 3 ? "#9a948a" : "#8b8d92"} roughness={0.9} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 export function Terrain({ wetness }: { wetness: number }) {
   const mats = useTamkangMaterials();
   const q = quality();
@@ -71,24 +101,31 @@ export function Terrain({ wetness }: { wetness: number }) {
         <meshStandardMaterial {...surface(mats["campus/grass"], { wetness })} vertexColors />
       </mesh>
 
-      {/* Tamsui River, and 觀音山 across the water — silhouette only. */}
+      {/* Tamsui River, and the west vista the avenue is famous for. */}
       <mesh geometry={riverGeo} position={[-250, RIVER_LEVEL, -120]} receiveShadow>
-        <meshStandardMaterial color="#456f84" roughness={0.14} metalness={0.35} />
+        <meshStandardMaterial color="#4d7386" roughness={0.1} metalness={0.4} />
       </mesh>
       <group position={[0, RIVER_LEVEL, 0]}>
+        {/*
+          觀音山 in three overlapping haze layers: the reclining ridge line, a
+          nearer shoulder, and low foothills. Fog does the aerial perspective;
+          each layer is flatter and bluer than the last.
+        */}
         {(
           [
-            [-470, 78, -180, 150, 0.2],
-            [-540, 52, 30, 110, -0.3],
-            [-430, 36, 150, 84, 0.1],
-            [-500, 28, -330, 92, 0.4],
+            [-520, 96, -140, 210, 0.14, "#5e7263"],
+            [-470, 58, 20, 140, -0.24, "#66796d"],
+            [-430, 34, -260, 120, 0.32, "#6d7f74"],
+            [-400, 24, 120, 96, 0.05, "#748577"],
           ] as const
-        ).map(([x, h, z, r, rot]) => (
-          <mesh key={`${x}-${z}`} position={[x, h / 2, z]} rotation={[0, rot, 0]}>
-            <coneGeometry args={[r, h, 7]} />
-            <meshStandardMaterial color="#54655a" roughness={0.95} />
+        ).map(([x, h, z, r, rot, color]) => (
+          <mesh key={`${x}-${z}`} position={[x, h / 2 - 2, z]} rotation={[0, rot, 0]} scale={[1, 1, 2.1]}>
+            <coneGeometry args={[r, h, 9]} />
+            <meshStandardMaterial color={color} roughness={1} />
           </mesh>
         ))}
+        {/* 淡水市街: a strip of small blocks along the near shore. */}
+        <TownStrip />
       </group>
     </group>
   );

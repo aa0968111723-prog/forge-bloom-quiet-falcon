@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { surface, useTamkangMaterials, type TamkangMaterialSet } from "../materials/context";
 import { AVENUE_PAVED_WIDTH } from "../world-data/axis.ts";
@@ -6,6 +6,7 @@ import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { PALACE, palaceHallZs } from "../world-data/landmarks.ts";
 import { quality } from "../quality";
 import { hipRoofGeometry, worldUvBox } from "../world/geometry";
+import { InstancedPlanes, type PlaneItem } from "../world/InstancedPlanes";
 import { useCampusSigns } from "../world/labels";
 
 /**
@@ -34,7 +35,6 @@ type HallProps = {
   detailed: boolean;
   mats: TamkangMaterialSet;
   nameMap: THREE.Texture;
-  lampsOn: boolean;
 };
 
 const WALL_H = PALACE.storeys * PALACE.storeyHeight;
@@ -42,7 +42,7 @@ const WALL_H = PALACE.storeys * PALACE.storeyHeight;
 const ROOF_RISE = 3.4;
 const EAVE_OVERHANG = 1.5;
 
-function PalaceHall({ position, facing, wetness, detailed, mats, nameMap, lampsOn }: HallProps) {
+function PalaceHall({ position, facing, wetness, detailed, mats, nameMap }: HallProps) {
   // Long axis runs along Z (parallel to the avenue); depth is across X.
   const width = PALACE.hallWidth;
   const depth = PALACE.hallDepth;
@@ -56,18 +56,11 @@ function PalaceHall({ position, facing, wetness, detailed, mats, nameMap, lampsO
       // 歇山-style hip roof with a real overhang and a slight eave kick.
       roof: hipRoofGeometry(depth, width, EAVE_OVERHANG, ROOF_RISE, roofTile),
       ridge: worldUvBox(0.55, 0.5, width - depth * 0.9 + 1.2, roofTile),
-      column: new THREE.CylinderGeometry(0.17, 0.2, WALL_H + 0.1, 10),
     };
   }, [mats, depth, width]);
 
   const red = surface(mats["palace/red-wall"], { wetness });
   const roofMat = surface(mats["palace/green-roof-tile"], { wetness });
-  const wood = surface(mats["palace/wood-column"], { wetness });
-  const lattice = surface(mats["palace/lattice-window"], {
-    wetness,
-    emissive: lampsOn ? "#ffd8a0" : "#000000",
-    emissiveIntensity: lampsOn ? 0.5 : 0,
-  });
 
   // The avenue side of this hall.
   const front = -facing;
@@ -100,37 +93,10 @@ function PalaceHall({ position, facing, wetness, detailed, mats, nameMap, lampsO
         <meshStandardMaterial {...roofMat} />
       </mesh>
 
-      {/* Lattice windows along the avenue face, white-framed. */}
-      {Array.from({ length: 7 }).map((_, bay) => (
-        <group
-          key={`w${bay}`}
-          position={[front * (depth / 2 + 0.03), 0.55 + WALL_H * 0.55, -width / 2 + 2.2 + bay * ((width - 4.4) / 6)]}
-          rotation={[0, front > 0 ? Math.PI / 2 : -Math.PI / 2, 0]}
-        >
-          <mesh position={[0, 0, -0.01]}>
-            <planeGeometry args={[2.3, 2.15]} />
-            <meshStandardMaterial color="#e8e2d2" roughness={0.7} />
-          </mesh>
-          <mesh position={[0, 0, 0.01]}>
-            <planeGeometry args={[2.05, 1.9]} />
-            <meshStandardMaterial {...lattice} />
-          </mesh>
-        </group>
-      ))}
 
       {detailed && (
         <group>
-          {/* 迴廊: colonnade in front of the wall, with its own roof slab. */}
-          {Array.from({ length: 8 }).map((_, i) => (
-            <mesh
-              key={`c${i}`}
-              geometry={geos.column}
-              position={[colonnadeX, 0.55 + (WALL_H - 0.4) / 2, -width / 2 + 1.6 + i * ((width - 3.2) / 7)]}
-              castShadow
-            >
-              <meshStandardMaterial {...wood} />
-            </mesh>
-          ))}
+          {/* Colonnade roof slab; the columns are batched across all halls. */}
           <mesh
             position={[front * (depth / 2 + 0.85), 0.55 + WALL_H + 0.1, 0]}
             castShadow
@@ -164,8 +130,53 @@ export function PalaceClassrooms({ wetness, lampsOn }: { wetness: number; lampsO
   const q = quality();
   const zs = useMemo(() => palaceHallZs(), []);
 
+  /**
+   * Window frames, lattice panes and colonnade columns batched across all ten
+   * halls: three draw calls instead of ~170 individual meshes.
+   */
+  const batched = useMemo(() => {
+    const frames: PlaneItem[] = [];
+    const panes: PlaneItem[] = [];
+    const columns: { x: number; y: number; z: number }[] = [];
+    const width = PALACE.hallWidth;
+    const depth = PALACE.hallDepth;
+    for (const z of zs) {
+      for (const facing of [-1, 1] as const) {
+        const cx = facing * PALACE.offsetX;
+        const ground = sampleGroundElevation(cx, z);
+        const front = -facing;
+        const faceX = cx + front * (depth / 2 + 0.03);
+        const rotY = front > 0 ? Math.PI / 2 : -Math.PI / 2;
+        for (let bay = 0; bay < 7; bay++) {
+          const bz = z - width / 2 + 2.2 + bay * ((width - 4.4) / 6);
+          const y = ground + 0.55 + WALL_H * 0.55;
+          frames.push({ position: [faceX - front * 0.01, y, bz], rotationY: rotY, width: 2.3, height: 2.15 });
+          panes.push({ position: [faceX + front * 0.015, y, bz], rotationY: rotY, width: 2.05, height: 1.9 });
+        }
+        const colX = cx + front * (depth / 2 + 1.55);
+        for (let i = 0; i < 8; i++) {
+          columns.push({ x: colX, y: ground + 0.55 + (WALL_H - 0.3) / 2, z: z - width / 2 + 1.6 + i * ((width - 3.2) / 7) });
+        }
+      }
+    }
+    return { frames, panes, columns };
+  }, [zs]);
+
+  const lattice = surface(mats["palace/lattice-window"], {
+    wetness,
+    emissive: lampsOn ? "#ffd8a0" : "#000000",
+    emissiveIntensity: lampsOn ? 0.5 : 0,
+  });
+
   return (
     <group>
+      <InstancedPlanes items={batched.frames}>
+        <meshStandardMaterial color="#e8e2d2" roughness={0.7} />
+      </InstancedPlanes>
+      <InstancedPlanes items={batched.panes}>
+        <meshStandardMaterial {...lattice} />
+      </InstancedPlanes>
+      <ColumnBatch columns={batched.columns} wetness={wetness} />
       {zs.map((z, i) =>
         ([-1, 1] as const).map((facing) => (
           <PalaceHall
@@ -178,7 +189,6 @@ export function PalaceClassrooms({ wetness, lampsOn }: { wetness: number; lampsO
             detailed={q.tier === "high" ? i < 4 : i < 1}
             mats={mats}
             nameMap={signs.palace}
-            lampsOn={lampsOn}
           />
         )),
       )}
@@ -200,5 +210,35 @@ export function PalaceClassrooms({ wetness, lampsOn }: { wetness: number; lampsO
         )),
       )}
     </group>
+  );
+}
+
+/** All colonnade columns of both rows in a single instanced draw. */
+function ColumnBatch({
+  columns,
+  wetness,
+}: {
+  columns: { x: number; y: number; z: number }[];
+  wetness: number;
+}) {
+  const mats = useTamkangMaterials();
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const geometry = useMemo(() => new THREE.CylinderGeometry(0.17, 0.2, WALL_H + 0.2, 10), []);
+  useLayoutEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    const dummy = new THREE.Object3D();
+    columns.forEach((c, i) => {
+      dummy.position.set(c.x, c.y, c.z);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.computeBoundingSphere();
+  }, [columns]);
+  return (
+    <instancedMesh ref={ref} args={[geometry, undefined, columns.length]} castShadow>
+      <meshStandardMaterial {...surface(mats["palace/wood-column"], { wetness })} />
+    </instancedMesh>
   );
 }

@@ -27,12 +27,15 @@ export function ScrollPlaza({ wetness }: { wetness: number }) {
     // edge wraps past itself the way the concrete scrolls do. Built as a
     // spiral extrusion to keep the visible edge thin.
     const shape = new THREE.Shape();
-    const turns = Math.PI * 2.4;
-    const steps = 48;
-    const thickness = 0.14;
+    // ~250° of curl: enough to read as a rolled sheet, open enough that the
+    // inner face and the free edge stay visible — the closed look of a full
+    // wrap is exactly what makes it read as a silo instead of a scroll.
+    const turns = Math.PI * 1.4;
+    const steps = 40;
+    const thickness = 0.13;
     for (let i = 0; i <= steps; i++) {
       const t = (i / steps) * turns;
-      const r = BLADE_RADIUS - (t / turns) * 0.72;
+      const r = BLADE_RADIUS - (t / turns) * 0.45;
       const x = Math.cos(t) * r;
       const y = Math.sin(t) * r;
       if (i === 0) shape.moveTo(x, y);
@@ -40,7 +43,7 @@ export function ScrollPlaza({ wetness }: { wetness: number }) {
     }
     for (let i = steps; i >= 0; i--) {
       const t = (i / steps) * turns;
-      const r = BLADE_RADIUS - (t / turns) * 0.72 - thickness;
+      const r = BLADE_RADIUS - (t / turns) * 0.45 - thickness;
       shape.lineTo(Math.cos(t) * r, Math.sin(t) * r);
     }
     shape.closePath();
@@ -53,17 +56,17 @@ export function ScrollPlaza({ wetness }: { wetness: number }) {
     () =>
       (
         [
-          [-4.6, 4.6, 0.5],
-          [4.6, 4.6, 2.1],
-          [-4.6, -4.6, 3.7],
-          [4.6, -4.6, 5.3],
+          [-4.6, 4.6, 0.9],
+          [4.6, 4.6, 2.5],
+          [4.6, -4.6, 4.1],
+          [-4.6, -4.6, 5.7],
         ] as const
       ).map(([dx, dz, rot]) => ({ dx, dz, rot })),
     [],
   );
 
   // The scrolls are pale, near-white concrete shells.
-  const concrete = surface(mats["kenan/retaining-wall"], { wetness, tint: "#f2ede1" });
+  const concrete = surface(mats["lantern/kerb"], { wetness, tint: "#f6f2e8" });
 
   return (
     <group position={[0, ground, AXIS.scrollPlazaZ]}>

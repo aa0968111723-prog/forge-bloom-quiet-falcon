@@ -9,11 +9,16 @@ type StudentProps = {
   castShadow?: boolean;
 };
 
+/**
+ * A Tamkang student, stylised: tee in the accent colour, khaki shorts,
+ * sneakers, backpack. Same animation rig and props as before — only the
+ * proportions and dressing changed, so Player and Npcs are untouched.
+ */
 export function Student({ speed = 0, speedRef, accent = "#1a3f6d", castShadow = true }: StudentProps) {
-  const leftLeg = useRef<THREE.Mesh>(null);
-  const rightLeg = useRef<THREE.Mesh>(null);
-  const leftArm = useRef<THREE.Mesh>(null);
-  const rightArm = useRef<THREE.Mesh>(null);
+  const leftLeg = useRef<THREE.Group>(null);
+  const rightLeg = useRef<THREE.Group>(null);
+  const leftArm = useRef<THREE.Group>(null);
+  const rightArm = useRef<THREE.Group>(null);
   const body = useRef<THREE.Group>(null);
 
   useFrame(({ clock }) => {
@@ -29,42 +34,78 @@ export function Student({ speed = 0, speedRef, accent = "#1a3f6d", castShadow = 
   return (
     <group>
       <group ref={body}>
-        <mesh position={[0, 1.42, 0]} castShadow={castShadow}>
-          <sphereGeometry args={[0.16, 12, 12]} />
-          <meshStandardMaterial color="#1a1714" roughness={0.8} />
+        {/* Head: face, hair cap, fringe. */}
+        <mesh position={[0, 1.5, 0.015]} castShadow={castShadow}>
+          <sphereGeometry args={[0.148, 16, 14]} />
+          <meshStandardMaterial color="#e9c9a8" roughness={0.62} />
         </mesh>
-        <mesh position={[0, 1.38, 0.03]} castShadow={castShadow}>
-          <sphereGeometry args={[0.145, 12, 12]} />
-          <meshStandardMaterial color="#e2c2a4" roughness={0.7} />
+        <mesh position={[0, 1.56, -0.03]} castShadow={castShadow}>
+          <sphereGeometry args={[0.152, 16, 12, 0, Math.PI * 2, 0, Math.PI * 0.62]} />
+          <meshStandardMaterial color="#2b2320" roughness={0.75} />
         </mesh>
-        <mesh position={[0, 1.08, 0]} castShadow={castShadow}>
-          <capsuleGeometry args={[0.18, 0.38, 4, 8]} />
-          <meshStandardMaterial color={accent} roughness={0.55} />
+        <mesh position={[0, 1.585, 0.075]} rotation={[0.5, 0, 0]} castShadow={false}>
+          <sphereGeometry args={[0.105, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.4]} />
+          <meshStandardMaterial color="#2b2320" roughness={0.75} />
         </mesh>
-        <mesh position={[0, 0.98, 0.12]} castShadow={castShadow}>
-          <boxGeometry args={[0.28, 0.22, 0.06]} />
-          <meshStandardMaterial color="#f3eee4" roughness={0.7} />
+        {/* Neck + tee. */}
+        <mesh position={[0, 1.36, 0]}>
+          <cylinderGeometry args={[0.05, 0.06, 0.08, 8]} />
+          <meshStandardMaterial color="#e9c9a8" roughness={0.62} />
         </mesh>
-        <mesh ref={leftArm} position={[-0.24, 1.14, 0]} castShadow={castShadow}>
-          <capsuleGeometry args={[0.055, 0.32, 3, 6]} />
-          <meshStandardMaterial color={accent} roughness={0.55} />
+        <mesh position={[0, 1.14, 0]} castShadow={castShadow}>
+          <capsuleGeometry args={[0.155, 0.3, 6, 12]} />
+          <meshStandardMaterial color={accent} roughness={0.72} />
         </mesh>
-        <mesh ref={rightArm} position={[0.24, 1.14, 0]} castShadow={castShadow}>
-          <capsuleGeometry args={[0.055, 0.32, 3, 6]} />
-          <meshStandardMaterial color={accent} roughness={0.55} />
+        {/* Backpack. */}
+        <mesh position={[0, 1.16, -0.17]} castShadow={castShadow}>
+          <boxGeometry args={[0.24, 0.32, 0.13]} />
+          <meshStandardMaterial color="#c9b48a" roughness={0.8} />
         </mesh>
+        <mesh position={[0, 1.28, -0.2]}>
+          <boxGeometry args={[0.2, 0.09, 0.1]} />
+          <meshStandardMaterial color="#b5a077" roughness={0.8} />
+        </mesh>
+        {/* Arms: sleeve + skin, hinged at the shoulder. */}
+        {([-1, 1] as const).map((side) => (
+          <group
+            key={side}
+            ref={side < 0 ? leftArm : rightArm}
+            position={[side * 0.21, 1.27, 0]}
+          >
+            <mesh position={[0, -0.07, 0]} castShadow={castShadow}>
+              <capsuleGeometry args={[0.055, 0.1, 4, 8]} />
+              <meshStandardMaterial color={accent} roughness={0.72} />
+            </mesh>
+            <mesh position={[0, -0.24, 0]} castShadow={castShadow}>
+              <capsuleGeometry args={[0.042, 0.2, 4, 8]} />
+              <meshStandardMaterial color="#e9c9a8" roughness={0.62} />
+            </mesh>
+          </group>
+        ))}
       </group>
-      <mesh ref={leftLeg} position={[-0.09, 0.42, 0]} castShadow={castShadow}>
-        <capsuleGeometry args={[0.065, 0.38, 3, 6]} />
-        <meshStandardMaterial color="#2a2c32" roughness={0.7} />
-      </mesh>
-      <mesh ref={rightLeg} position={[0.09, 0.42, 0]} castShadow={castShadow}>
-        <capsuleGeometry args={[0.065, 0.38, 3, 6]} />
-        <meshStandardMaterial color="#2a2c32" roughness={0.7} />
-      </mesh>
+
+      {/* Legs: khaki shorts + skin + sneakers, hinged at the hip. */}
+      {([-1, 1] as const).map((side) => (
+        <group key={side} ref={side < 0 ? leftLeg : rightLeg} position={[side * 0.085, 0.86, 0]}>
+          <mesh position={[0, -0.14, 0]} castShadow={castShadow}>
+            <capsuleGeometry args={[0.072, 0.16, 4, 8]} />
+            <meshStandardMaterial color="#8d8168" roughness={0.8} />
+          </mesh>
+          <mesh position={[0, -0.42, 0]} castShadow={castShadow}>
+            <capsuleGeometry args={[0.05, 0.3, 4, 8]} />
+            <meshStandardMaterial color="#e9c9a8" roughness={0.62} />
+          </mesh>
+          <mesh position={[0, -0.62, 0.04]} castShadow={castShadow}>
+            <boxGeometry args={[0.11, 0.09, 0.24]} />
+            <meshStandardMaterial color="#f2efe8" roughness={0.55} />
+          </mesh>
+        </group>
+      ))}
+
+      {/* Soft contact shadow blob. */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}>
-        <circleGeometry args={[0.38, 12]} />
-        <meshBasicMaterial color="#0d243f" transparent opacity={0.28} />
+        <circleGeometry args={[0.34, 14]} />
+        <meshBasicMaterial color="#0d243f" transparent opacity={0.25} />
       </mesh>
     </group>
   );

@@ -32,6 +32,7 @@ const outDir = checkedOutputPath(process.argv[3] || "/workspace/screenshots/real
 mkdirSync(outDir, { recursive: true });
 
 const failures = [];
+let perfResult = null;
 const log = (...a) => process.stderr.write(a.join(" ") + "\n");
 
 const browser = await chromium.launch({
@@ -78,7 +79,38 @@ async function boot(page) {
   }
   await page.evaluate(() => window.__controlsTest.setBenchmark(null));
 
+  // Renderer statistics + a crude FPS probe at the avenue benchmark — the
+  // heaviest sightline. Numbers are printed, and only wildly out-of-budget
+  // values fail the run (headless software GL is not a real GPU).
+  await page.evaluate((id) => window.__controlsTest.setBenchmark(id), "LANTERN_01");
+  await page.waitForTimeout(500);
+  const perf = await page.evaluate(async () => {
+    const info = window.__perfTest?.info;
+    const t0 = performance.now();
+    let frames = 0;
+    await new Promise((resolve) => {
+      const tick = () => {
+        frames += 1;
+        if (performance.now() - t0 > 2000) resolve(null);
+        else requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+    return {
+      calls: info?.render.calls ?? -1,
+      triangles: info?.render.triangles ?? -1,
+      geometries: info?.memory.geometries ?? -1,
+      textures: info?.memory.textures ?? -1,
+      fps: Math.round((frames / (performance.now() - t0)) * 1000),
+    };
+  });
+  log("perf", JSON.stringify(perf));
+  if (perf.calls > 600) failures.push(`perf: ${perf.calls} draw calls at LANTERN_01 (budget 600)`);
+  if (perf.triangles > 2_600_000) failures.push(`perf: ${perf.triangles} triangles at LANTERN_01`);
+  await page.evaluate(() => window.__controlsTest.setBenchmark(null));
+
   if (pageErrors.length) failures.push(`page errors during benchmarks: ${pageErrors.join("; ")}`);
+  perfResult = perf;
   await page.close();
 }
 
@@ -201,4 +233,4 @@ if (failures.length) {
   console.log(JSON.stringify({ ok: false, failures }, null, 2));
   process.exit(2);
 }
-console.log(JSON.stringify({ ok: true, benchmarks: BENCHMARK_CAMERAS.length, outDir }, null, 2));
+console.log(JSON.stringify({ ok: true, benchmarks: BENCHMARK_CAMERAS.length, perf: perfResult, outDir }, null, 2));

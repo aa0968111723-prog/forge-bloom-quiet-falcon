@@ -133,6 +133,16 @@ function avenuePlanting(): PlantInstance[] {
       out.push(plant("palm", s * 8.5, AXIS.avenueNorthZ + 4 + k * 7, 1.1, 0));
     }
   }
+  // Behind both hall rows the hillside canopy closes over, so looking across
+  // the avenue you see roofs floating in green — the defining aerial view.
+  let bi = 0;
+  for (let z = AXIS.avenueSouthZ - 6; z > AXIS.avenueNorthZ; z -= 6.5, bi++) {
+    for (const s of [-1, 1] as const) {
+      const back = PALACE.offsetX + PALACE.hallDepth / 2 + 4 + (bi % 3) * 3.4;
+      const species: PlantSpecies = bi % 3 === 0 ? "banyan" : bi % 2 === 0 ? "broadleaf" : "camphor";
+      out.push(plant(species, s * back, z + (s > 0 ? 2.6 : 0), 1.05 + ((bi * 5) % 4) * 0.12, bi * 1.3));
+    }
+  }
   return out;
 }
 
@@ -211,18 +221,24 @@ export const CURATED_PLANTS: PlantInstance[] = [
  */
 export function scatterPlants(density: number): PlantInstance[] {
   const out: PlantInstance[] = [];
-  const spacing = 14;
-  for (let x = WORLD_BOUNDS.minX + 20; x < WORLD_BOUNDS.maxX - 20; x += spacing) {
-    for (let z = WORLD_BOUNDS.minZ + 20; z < WORLD_BOUNDS.maxZ - 20; z += spacing) {
-      const jx = x + (hash2(x, z, 11) - 0.5) * spacing * 0.8;
-      const jz = z + (hash2(x, z, 23) - 0.5) * spacing * 0.8;
-      if (Math.abs(jx) < corridorHalfWidth(jz) + 26) continue; // never inside the corridor
+  // 五虎崗 is a forested hill: near the corridor the canopy is nearly closed
+  // (~9 m spacing), thinning out towards the map edge. The buildings should
+  // read as emerging from trees, not standing on a lawn.
+  for (let x = WORLD_BOUNDS.minX + 16; x < WORLD_BOUNDS.maxX - 16; x += 9) {
+    for (let z = WORLD_BOUNDS.minZ + 16; z < WORLD_BOUNDS.maxZ - 16; z += 9) {
+      const jx = x + (hash2(x, z, 11) - 0.5) * 7.5;
+      const jz = z + (hash2(x, z, 23) - 0.5) * 7.5;
+      const margin = Math.abs(jx) - corridorHalfWidth(jz);
+      if (margin < 22) continue; // never inside or looming over the corridor
       if (jx < -150) continue; // river
-      if (blockedByBuilding(jx, jz, 6)) continue;
-      if (hash2(x, z, 37) > density) continue;
+      if (blockedByBuilding(jx, jz, 5)) continue;
+      // Density falls off with distance from the corridor so the far edges
+      // stay cheap, and the caller's density knob scales the whole hill.
+      const falloff = margin > 130 ? 0.55 : 1;
+      if (hash2(x, z, 37) > density * falloff) continue;
       const r = hash2(x, z, 53);
-      const species: PlantSpecies = r < 0.16 ? "camphor" : r < 0.3 ? "banyan" : "broadleaf";
-      out.push(plant(species, jx, jz, 0.85 + hash2(x, z, 71) * 0.5, hash2(x, z, 89) * Math.PI * 2));
+      const species: PlantSpecies = r < 0.18 ? "camphor" : r < 0.38 ? "banyan" : "broadleaf";
+      out.push(plant(species, jx, jz, 0.9 + hash2(x, z, 71) * 0.65, hash2(x, z, 89) * Math.PI * 2));
     }
   }
   return out;

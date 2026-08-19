@@ -83,6 +83,8 @@ export function CampusGame() {
           gl={{ antialias: quality().tier === "high", powerPreference: "high-performance" }}
           onCreated={({ gl }) => {
             gl.setClearColor("#e8965a");
+            // Perf probe for the regression harness (dev + prod, negligible cost).
+            window.__perfTest = { info: gl.info };
           }}
         >
           <Suspense fallback={null}>

@@ -5,6 +5,7 @@ import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { LIBRARY } from "../world-data/landmarks.ts";
 import { quality } from "../quality";
 import { worldUvBox } from "../world/geometry";
+import { InstancedPlanes, type PlaneItem } from "../world/InstancedPlanes";
 import { useCampusSigns } from "../world/labels";
 import { ReadingGirl } from "./sculpture";
 
@@ -35,31 +36,36 @@ export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolea
     };
   }, [mats]);
 
-  const facade = surface(mats["library/facade"], { wetness });
+  // Warm tan-brick cast, closer to the real tower than raw grey tile.
+  const facade = surface(mats["library/facade"], { wetness, tint: "#cbb59b" });
   const glass = surface(mats["library/glass"], {
     wetness,
     emissive: lampsOn ? "#ffe6b4" : "#000000",
     emissiveIntensity: lampsOn ? 0.42 : 0,
   });
 
-  /** Continuous glazing band wrapping one mass at one floor. */
-  const band = (w: number, d: number, y: number, key: string) => (
-    <group key={key} position={[0, y, 0]}>
-      {(
-        [
-          [0, d / 2 + 0.06, 0, w],
-          [0, -d / 2 - 0.06, Math.PI, w],
-          [w / 2 + 0.06, 0, Math.PI / 2, d],
-          [-w / 2 - 0.06, 0, -Math.PI / 2, d],
-        ] as const
-      ).map(([px, pz, rot, len], i) => (
-        <mesh key={i} position={[px, 0, pz]} rotation={[0, rot, 0]}>
-          <planeGeometry args={[len - 2.2, FLOOR * 0.56]} />
-          <meshStandardMaterial {...glass} />
-        </mesh>
-      ))}
-    </group>
-  );
+  /** All nine storeys' glazing bands, batched into one instanced draw. */
+  const bands = useMemo(() => {
+    const items: PlaneItem[] = [];
+    const push = (w: number, d: number, y: number) => {
+      const faces = [
+        [0, d / 2 + 0.06, 0, w],
+        [0, -d / 2 - 0.06, Math.PI, w],
+        [w / 2 + 0.06, 0, Math.PI / 2, d],
+        [-w / 2 - 0.06, 0, -Math.PI / 2, d],
+      ] as const;
+      for (const [px, pz, rot, len] of faces) {
+        items.push({ position: [px, y, pz], rotationY: rot, width: len - 2.2, height: FLOOR * 0.56 });
+      }
+    };
+    for (let f = 0; f < LIBRARY.floors; f++) {
+      const y = 1.1 + f * FLOOR + FLOOR * 0.55;
+      if (f < 3) push(LIBRARY.width, LIBRARY.length, y);
+      else if (f < 6) push(LIBRARY.width - 8, LIBRARY.length - 5, y);
+      else push(LIBRARY.width - 18, LIBRARY.length - 9, y);
+    }
+    return items;
+  }, []);
 
   return (
     <group position={[LIBRARY.center[0], ground, LIBRARY.center[1]]}>
@@ -78,12 +84,9 @@ export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolea
       </mesh>
 
       {/* Nine window bands, one per storey, following the setbacks. */}
-      {Array.from({ length: LIBRARY.floors }).map((_, f) => {
-        const y = 1.1 + f * FLOOR + FLOOR * 0.55;
-        if (f < 3) return band(LIBRARY.width, LIBRARY.length, y, `b${f}`);
-        if (f < 6) return band(LIBRARY.width - 8, LIBRARY.length - 5, y, `b${f}`);
-        return band(LIBRARY.width - 18, LIBRARY.length - 9, y, `b${f}`);
-      })}
+      <InstancedPlanes items={bands}>
+        <meshStandardMaterial {...glass} />
+      </InstancedPlanes>
 
       {/* Recessed entrance facing 書卷廣場, under a deep canopy. */}
       <group position={[-8, 0, LIBRARY.length / 2]}>

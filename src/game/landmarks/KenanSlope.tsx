@@ -192,32 +192,6 @@ export function KenanSlope({ wetness }: { wetness: number }) {
     ];
   }, [mats]);
 
-  const rails = useMemo(() => {
-    // Centre handrail on each flight: rail bar plus support posts, oriented by
-    // quaternion so the bar exactly follows the flight's pitch.
-    const up = new THREE.Vector3(0, 1, 0);
-    const build = (zBottom: number, zTop: number, yBottom: number, yTop: number) => {
-      const dir = new THREE.Vector3(0, yTop - yBottom, zTop - zBottom);
-      const length = dir.length();
-      const quaternion = new THREE.Quaternion().setFromUnitVectors(up, dir.clone().normalize());
-      const railHeight = 0.92;
-      const posts: [number, number, number][] = [];
-      for (let t = 0.08; t < 1; t += 0.2) {
-        posts.push([0, yBottom + (yTop - yBottom) * t + railHeight / 2, zBottom + (zTop - zBottom) * t]);
-      }
-      return {
-        length,
-        quaternion,
-        center: [0, (yBottom + yTop) / 2 + railHeight, (zBottom + zTop) / 2] as [number, number, number],
-        posts,
-        postHeight: railHeight,
-      };
-    };
-    return [
-      build(KENAN.bottomZ, KENAN_LANDING_Z[0], 0, KENAN_LANDING_ELEVATION),
-      build(KENAN_LANDING_Z[1], KENAN_TOP_Z, KENAN_LANDING_ELEVATION, KENAN_TOTAL_RISE),
-    ];
-  }, []);
 
   const stone = surface(mats["kenan/stone-step"], { wetness: Math.max(wetness, 0.25) });
   const wall = surface(mats["kenan/retaining-wall"], { wetness });
@@ -254,21 +228,10 @@ export function KenanSlope({ wetness }: { wetness: number }) {
         <meshStandardMaterial color="#4b4d4f" roughness={0.55} metalness={0.5} />
       </instancedMesh>
 
-      {/* 中央扶手: bar + posts on each flight */}
-      {rails.map((rail, i) => (
-        <group key={`rail${i}`}>
-          <mesh position={rail.center} quaternion={rail.quaternion} castShadow>
-            <cylinderGeometry args={[0.042, 0.042, rail.length, 8]} />
-            <meshStandardMaterial color="#8c8880" roughness={0.42} metalness={0.55} />
-          </mesh>
-          {rail.posts.map((p, k) => (
-            <mesh key={k} position={p}>
-              <cylinderGeometry args={[0.03, 0.03, rail.postHeight, 6]} />
-              <meshStandardMaterial color="#7c7870" roughness={0.5} metalness={0.5} />
-            </mesh>
-          ))}
-        </group>
-      ))}
+      {/*
+        The real 克難坡 runs rail-free between its walls — the full 8 m width
+        is open stair, which is part of why the climb reads so monumental.
+      */}
 
       {/* 中間平台護欄柱, so the landing reads as a place to stop */}
       {([-1, 1] as const).map((s) => (

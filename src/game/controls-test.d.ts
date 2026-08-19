@@ -2,6 +2,13 @@ export {};
 
 declare global {
   interface Window {
+    /** WebGL renderer statistics, exposed for the perf regression. */
+    __perfTest?: {
+      info: {
+        render: { calls: number; triangles: number };
+        memory: { geometries: number; textures: number };
+      };
+    };
     __controlsTest?: {
       getYaw: () => number;
       getSpeed: () => number;

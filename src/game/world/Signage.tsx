@@ -101,8 +101,8 @@ export function Signage({ wetness }: { wetness: number }) {
         map={signs.wayfinding}
         position={[5.0, sampleGroundElevation(5.0, AXIS.avenueNorthZ - 4), AXIS.avenueNorthZ - 4]}
         rotationY={-Math.PI / 7}
-        size={[0.9, 0.62]}
-        postHeight={1.7}
+        size={[1.15, 0.42]}
+        postHeight={1.9}
       />
     </group>
   );
