@@ -9,7 +9,8 @@ import {
   type PlantInstance,
   type PlantSpecies,
 } from "../world-data/vegetation.ts";
-import { VendorModel, type VendorInstance, type VendorTint } from "./vendor";
+import { VendorModel, type VendorInstance, type VendorTint, type VendorWind } from "./vendor";
+import { applyWind } from "./wind";
 
 /**
  * Campus planting.
@@ -119,11 +120,25 @@ const BLOOMS = ["#d46a8a", "#c45c6a", "#e8a0b4", "#f3dce4"];
  */
 const TREE_TINT: VendorTint = { Wood: "#6b5540", Green: "#4f7244", DarkGreen: "#3d5f3a" };
 
-const VENDOR_TREES: Partial<Record<PlantSpecies, { url: string; scale: number; tint: VendorTint }>> = {
-  banyan: { url: "/models/vendor/quaternius/Willow_1.glb", scale: 3.4, tint: TREE_TINT },
-  broadleaf: { url: "/models/vendor/quaternius/CommonTree_1.glb", scale: 3.3, tint: TREE_TINT },
-  camphor: { url: "/models/vendor/quaternius/CommonTree_3.glb", scale: 2.9, tint: TREE_TINT },
-  shrub: { url: "/models/vendor/quaternius/Bush_1.glb", scale: 0.9, tint: TREE_TINT },
+/**
+ * Canopy sway (trunk "Wood" stays rigid). Heights are in the file's local
+ * units — the Quaternius models are ~2.5–3.5 units tall before our scale.
+ */
+const TREE_WIND: VendorWind = {
+  Green: { amplitude: 0.055, base: 0.6, top: 2.6 },
+  DarkGreen: { amplitude: 0.055, base: 0.6, top: 2.6 },
+};
+const BUSH_WIND: VendorWind = {
+  Green: { amplitude: 0.045, base: 0.1, top: 1.1 },
+};
+
+const VENDOR_TREES: Partial<
+  Record<PlantSpecies, { url: string; scale: number; tint: VendorTint; wind: VendorWind }>
+> = {
+  banyan: { url: "/models/vendor/quaternius/Willow_1.glb", scale: 3.4, tint: TREE_TINT, wind: TREE_WIND },
+  broadleaf: { url: "/models/vendor/quaternius/CommonTree_1.glb", scale: 3.3, tint: TREE_TINT, wind: TREE_WIND },
+  camphor: { url: "/models/vendor/quaternius/CommonTree_3.glb", scale: 2.9, tint: TREE_TINT, wind: TREE_WIND },
+  shrub: { url: "/models/vendor/quaternius/Bush_1.glb", scale: 0.9, tint: TREE_TINT, wind: BUSH_WIND },
 };
 
 type Batch = {
@@ -214,10 +229,19 @@ function CanopyLayer({
   }, [batch, yOff, squash, isBloom, draw.canopyColor]);
 
   const segments = simple ? 6 : batch.species === "palm" ? 5 : 9;
+  const material = useMemo(() => {
+    const m = new THREE.MeshStandardMaterial({
+      color: isBloom ? "#ffffff" : draw.canopyColor,
+      roughness: 0.9,
+    });
+    // Even the cheap blob canopies breathe; shrubs and beds sway less.
+    applyWind(m, { amplitude: radius > 1 ? 0.16 : 0.05, base: -radius, top: radius });
+    return m;
+  }, [isBloom, draw.canopyColor, radius]);
   return (
     <instancedMesh
       ref={ref}
-      args={[undefined, undefined, batch.plants.length]}
+      args={[undefined, material, batch.plants.length]}
       castShadow={!simple && layer === 0}
       receiveShadow
     >
@@ -226,11 +250,6 @@ function CanopyLayer({
       ) : (
         <sphereGeometry args={[radius, segments, Math.max(4, segments - 2)]} />
       )}
-      <meshStandardMaterial
-        color={isBloom ? "#ffffff" : draw.canopyColor}
-        roughness={0.9}
-        vertexColors={false}
-      />
     </instancedMesh>
   );
 }
@@ -260,6 +279,7 @@ export function Vegetation() {
               url={vendor.url}
               instances={instances}
               tint={vendor.tint}
+              wind={vendor.wind}
             />
           );
         }

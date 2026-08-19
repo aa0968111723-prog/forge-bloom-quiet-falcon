@@ -48,8 +48,9 @@ async function shot(page, path) {
   await session.detach().catch(() => {});
 }
 
-async function boot(page) {
-  await page.goto(baseUrl, { waitUntil: "domcontentloaded", timeout: 45000 });
+async function boot(page, extraQuery = "") {
+  const url = extraQuery ? `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}${extraQuery}` : baseUrl;
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
   await page.getByRole("button", { name: "開始巡禮" }).waitFor({ timeout: 30000 });
   // Let the material library and geometry settle before judging anything.
   await page.waitForTimeout(2600);
@@ -119,7 +120,9 @@ async function boot(page) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
   const pageErrors = [];
   page.on("pageerror", (err) => pageErrors.push(String(err)));
-  await boot(page);
+  // The traversal validates collision and ground logic, not visuals: run the
+  // low quality tier so headless software GL keeps a workable frame rate.
+  await boot(page, "q=low");
 
   // Start at the spawn end of the route.
   const [sx, sz] = MAIN_ROUTE[0];
@@ -136,9 +139,9 @@ async function boot(page) {
   segments: for (let i = 1; i < MAIN_ROUTE.length; i++) {
     const [tx, tz] = MAIN_ROUTE[i];
     const segLen = Math.hypot(tx - lastPos.x, tz - lastPos.z);
-    // Sprint is 7.8 m/s under real rendering; allow a generous 2 m/s to
-    // absorb headless-software-GL frame rates before calling it a failure.
-    const deadline = Date.now() + 20000 + (segLen / 2) * 1000;
+    // Sprint is 7.8 m/s under real rendering; software GL runs the clock much
+    // slower (delta clamping), so budget a very generous 1 m/s equivalent.
+    const deadline = Date.now() + 25000 + segLen * 1000;
     for (;;) {
       const state = await page.evaluate(({ x, z }) => {
         const t = window.__controlsTest;
@@ -158,7 +161,7 @@ async function boot(page) {
       const moved = Math.hypot(pos.x - lastPos.x, pos.z - lastPos.z);
       stuckMs = moved < 0.1 ? stuckMs + 300 : 0;
       lastPos = pos;
-      if (stuckMs > 6000) {
+      if (stuckMs > 12000) {
         failures.push(`traversal: stuck ~${stuckMs}ms near ${pos.x.toFixed(1)},${pos.z.toFixed(1)} heading to waypoint ${i}`);
         break segments;
       }

@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { applyWind, type WindProfile } from "./wind";
 
 /**
  * Instanced rendering for vendored CC0 GLB/GLTF models.
@@ -24,12 +25,15 @@ export type VendorInstance = {
 /** Recolours applied after load, keyed by material name in the file. */
 export type VendorTint = Record<string, string>;
 
+/** Wind profiles keyed by material name — foliage sways, trunks stay rigid. */
+export type VendorWind = Record<string, WindProfile>;
+
 type Prim = { geometry: THREE.BufferGeometry; material: THREE.Material; local: THREE.Matrix4 };
 
 const dummy = new THREE.Object3D();
 const tmpMat = new THREE.Matrix4();
 
-function usePrimitives(url: string, tint?: VendorTint): Prim[] {
+function usePrimitives(url: string, tint?: VendorTint, wind?: VendorWind): Prim[] {
   const gltf = useGLTF(url);
   return useMemo(() => {
     const prims: Prim[] = [];
@@ -40,16 +44,18 @@ function usePrimitives(url: string, tint?: VendorTint): Prim[] {
       const source = mesh.material as THREE.MeshStandardMaterial;
       let material: THREE.Material = source;
       const wanted = tint?.[source.name];
-      if (wanted) {
-        // Clone before recolouring: the loader caches materials per URL.
+      const windProfile = wind?.[source.name];
+      if (wanted || windProfile) {
+        // Clone before modifying: the loader caches materials per URL.
         const clone = source.clone();
-        clone.color = new THREE.Color(wanted);
+        if (wanted) clone.color = new THREE.Color(wanted);
+        if (windProfile) applyWind(clone, windProfile);
         material = clone;
       }
       prims.push({ geometry: mesh.geometry, material, local: mesh.matrixWorld.clone() });
     });
     return prims;
-  }, [gltf, tint]);
+  }, [gltf, tint, wind]);
 }
 
 function PrimLayer({
@@ -91,14 +97,16 @@ export function VendorModel({
   url,
   instances,
   tint,
+  wind,
   castShadow = true,
 }: {
   url: string;
   instances: VendorInstance[];
   tint?: VendorTint;
+  wind?: VendorWind;
   castShadow?: boolean;
 }) {
-  const prims = usePrimitives(url, tint);
+  const prims = usePrimitives(url, tint, wind);
   if (instances.length === 0) return null;
   return (
     <group>

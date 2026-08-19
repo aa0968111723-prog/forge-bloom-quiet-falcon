@@ -12,6 +12,10 @@ import { PalaceClassrooms } from "../landmarks/PalaceClassrooms";
 import { ScrollPlaza } from "../landmarks/ScrollPlaza";
 import { ContextStructures } from "./ContextStructures";
 import { Lighting } from "./Lighting";
+import { Grass } from "./Grass";
+import { Sky, Clouds } from "./Sky";
+import { Water } from "./Water";
+import { WindTicker } from "./WindTicker";
 import { Paths } from "./Paths";
 import { Props } from "./Props";
 import { RealityCameraRig } from "./RealityCompare";
@@ -40,11 +44,16 @@ export function World({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   return (
     <>
       <Lighting timeOfDay={effectiveTime} />
+      <WindTicker timeOfDay={effectiveTime} />
+      <Sky timeOfDay={effectiveTime} />
+      <Clouds timeOfDay={effectiveTime} />
+      <Water timeOfDay={effectiveTime} />
       <RealityCameraRig />
       <Suspense fallback={null}>
         <TamkangMaterialsProvider>
           <Terrain wetness={preset.wetness} />
           <Paths wetness={preset.wetness} />
+          <Grass timeOfDay={effectiveTime} />
 
           <KenanSlope wetness={preset.wetness} />
           <ChingshengPlaza wetness={preset.wetness} />
