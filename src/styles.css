@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #161410;
+  --color-paper: #f3eee4;
+  --color-paper-2: #e7e0d3;
+  --color-muted: #6f675c;
+  --color-navy: #1a3f6d;
+  --color-navy-deep: #0d243f;
+  --color-foam: #e8eef4;
+  --color-line: #cfc6b6;
+  --color-vermilion: #c45c4a;
+  --font-display: "Noto Serif TC", "Songti TC", "PMingLiU", "PingFang TC", "WenQuanYi Zen Hei", serif;
+  --font-sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "WenQuanYi Zen Hei", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+@layer base {
+  html,
+  body,
+  #app {
+    height: 100%;
+  }
+
+  html {
+    background: var(--color-navy-deep);
+    color: var(--color-paper);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-navy-deep);
+    color: var(--color-paper);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .tk-panel {
+    background: color-mix(in oklab, var(--color-paper) 92%, transparent);
+    color: var(--color-ink);
+    border: 1px solid color-mix(in oklab, var(--color-ink) 12%, transparent);
+    box-shadow: 0 18px 50px color-mix(in oklab, var(--color-navy-deep) 28%, transparent);
+  }
+
+  .tk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.7rem 1.15rem;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition:
+      transform 150ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 150ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tk-btn:active {
+    transform: scale(0.98);
+  }
+
+  .tk-btn-primary {
+    background: var(--color-navy);
+    color: var(--color-paper);
+  }
+
+  .tk-btn-primary:hover {
+    background: var(--color-navy-deep);
+  }
+
+  .tk-btn-ghost {
+    background: color-mix(in oklab, var(--color-ink) 6%, transparent);
+    color: var(--color-ink);
+  }
+
+  .tk-btn-ghost:hover {
+    background: color-mix(in oklab, var(--color-ink) 10%, transparent);
+  }
+
+  .tk-btn-on-dark {
+    background: color-mix(in oklab, var(--color-paper) 12%, transparent);
+    color: var(--color-paper);
+    border: 1px solid color-mix(in oklab, var(--color-paper) 22%, transparent);
+  }
+
+  .tk-btn-on-dark:hover {
+    background: color-mix(in oklab, var(--color-paper) 18%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tk-btn {
+    transition: none;
+  }
+}
