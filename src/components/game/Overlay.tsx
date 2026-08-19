@@ -22,6 +22,7 @@ import { LANDMARKS, LANDMARK_BY_ID, TIME_PRESETS, WORLD_BOUNDS, type TimeOfDay }
 import { input } from "@/game/input";
 import { useGame } from "@/game/store";
 import { campusAudio } from "@/game/audio";
+import { RealityComparePanel } from "@/game/world/RealityCompare";
 import { cn } from "@/lib/cn";
 
 const TIME_LABEL = Object.fromEntries(
@@ -268,6 +269,7 @@ export function GameOverlay() {
 
   return (
     <div className="pointer-events-none absolute inset-0 font-sans text-paper">
+      <RealityComparePanel />
       {phase === "title" && (
         <div className="pointer-events-auto flex h-full flex-col justify-end bg-gradient-to-t from-navy-deep via-navy-deep/80 to-transparent p-4 pb-20 sm:p-10 sm:pb-10">
           <div className="mx-auto w-full max-w-xl rounded-2xl bg-navy-deep/70 p-5 sm:p-6">

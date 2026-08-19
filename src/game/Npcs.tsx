@@ -4,38 +4,48 @@ import * as THREE from "three";
 import { Student } from "./Student";
 import { terrainHeight } from "./world";
 
+/**
+ * NPC walking loops on the real-scale campus. Students walk the avenue paving,
+ * loop the colonnade side of 宮燈教室, cross 書卷廣場, and one climbs 克難坡
+ * over and over the way freshmen are made to.
+ */
 const PATHS: [number, number][][] = [
+  // 宮燈大道 down-and-back on the stone slab walk.
   [
-    [0, 40],
-    [0, 22],
-    [0, 8],
-    [0, -12],
-    [0, 8],
-    [0, 22],
+    [1.4, -18],
+    [1.4, -120],
+    [1.4, -210],
+    [-1.4, -210],
+    [-1.4, -120],
+    [-1.4, -18],
   ],
+  // West colonnade of 宮燈教室: down the arcade, back up the verge.
   [
-    [-5.1, 36],
-    [-5.1, 16],
-    [5.1, 16],
-    [5.1, 36],
+    [-8.6, -30],
+    [-8.6, -180],
+    [-5.2, -180],
+    [-5.2, -30],
   ],
+  // 書卷廣場 diamond, weaving between the scroll blades.
   [
-    [14, -28],
-    [24, -2],
-    [4, -14],
-    [14, -28],
+    [0, -254],
+    [10, -272],
+    [0, -288],
+    [-10, -272],
   ],
+  // 圖書館 forecourt to the dolphin roundabout and back.
   [
-    [48, -14],
-    [46, 14],
-    [36, 8],
-    [48, -14],
+    [10, -296],
+    [8, -262],
+    [6.6, -232],
+    [8, -262],
   ],
+  // 克難坡 climber: bottom apron to the plaza and back down.
   [
-    [2.4, 74],
-    [2.4, 52],
-    [2.4, 44],
-    [2.4, 52],
+    [1.8, 82],
+    [1.8, 40],
+    [1.8, 24],
+    [1.8, 40],
   ],
 ];
 

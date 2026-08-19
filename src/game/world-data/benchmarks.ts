@@ -111,9 +111,9 @@ export const BENCHMARK_CAMERAS: BenchmarkCamera[] = [
     id: "PALACE_01",
     label: "宮燈教室正面",
     landmarkId: "palace",
-    position: eye(2.4, PALACE.firstZ + 2),
+    position: eye(8.5, PALACE.firstZ + 3),
     yaw: Math.PI / 2,
-    pitch: -0.05,
+    pitch: -0.04,
     fov: 58,
     time: "day",
     checks: [

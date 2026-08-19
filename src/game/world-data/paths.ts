@@ -96,6 +96,7 @@ export const PATH_SEGMENTS: PathSegment[] = [
     width: AVENUE_PAVED_WIDTH,
     surface: "stone-slab",
     kerb: true,
+    // The historic stone walk itself carries no tactile strip.
     accuracy: "mapped",
     referenceIds: ["REF_LANTERN_AVENUE_LENGTH", ...AXIS_REFS],
   },
@@ -231,3 +232,43 @@ export const PATH_AREAS: PathArea[] = [
     referenceIds: ["REF_LIBRARY_NINE_FLOORS"],
   },
 ];
+
+/** Squared distance from a point to a segment, in XZ. */
+function segDist2(px: number, pz: number, ax: number, az: number, bx: number, bz: number) {
+  const dx = bx - ax;
+  const dz = bz - az;
+  const len2 = dx * dx + dz * dz;
+  const t = len2 === 0 ? 0 : Math.max(0, Math.min(1, ((px - ax) * dx + (pz - az) * dz) / len2));
+  const cx = ax + dx * t;
+  const cz = az + dz * t;
+  return (px - cx) * (px - cx) + (pz - cz) * (pz - cz);
+}
+
+/**
+ * Whether a point lies under any paved surface (with a small margin). Used by
+ * the terrain sampler to sink the soil beneath paving; build-time only, so the
+ * linear scan over segments is fine.
+ */
+export function pavedAt(x: number, z: number, margin = 0.6): boolean {
+  for (const area of PATH_AREAS) {
+    if (area.shape === "circle") {
+      const d = Math.hypot(x - area.center[0], z - area.center[1]);
+      if (d < area.radius + margin) return true;
+    } else {
+      if (
+        Math.abs(x - area.center[0]) < area.size[0] / 2 + margin &&
+        Math.abs(z - area.center[1]) < area.size[1] / 2 + margin
+      )
+        return true;
+    }
+  }
+  for (const seg of PATH_SEGMENTS) {
+    const r = seg.width / 2 + margin;
+    for (let i = 1; i < seg.points.length; i++) {
+      const [ax, az] = seg.points[i - 1];
+      const [bx, bz] = seg.points[i];
+      if (segDist2(x, z, ax, az, bx, bz) < r * r) return true;
+    }
+  }
+  return false;
+}

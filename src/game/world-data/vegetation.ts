@@ -145,6 +145,18 @@ function dolphinAndScrollPlanting(): PlantInstance[] {
     out.push(plant("shrub", Math.sin(t) * r, AXIS.dolphinZ + Math.cos(t) * r, 0.8, t));
   }
   out.push(plant("broadleaf", -3.2, AXIS.dolphinZ - 3.4, 1.15, 0.4));
+  out.push(plant("banyan", 3.4, AXIS.dolphinZ - 4.2, 1.05, 1.7));
+  out.push(plant("camphor", -4.0, AXIS.dolphinZ + 3.6, 1.2, 2.6));
+  // Tall screen north of the roundabout so the avenue vista ends in canopy
+  // rather than in a bare context facade, as it does in reality.
+  for (const [x, z, sc] of [
+    [-8, AXIS.dolphinZ - 14, 1.4],
+    [8.5, AXIS.dolphinZ - 15, 1.3],
+    [-13, AXIS.dolphinZ - 18, 1.25],
+    [13.5, AXIS.dolphinZ - 19, 1.35],
+  ] as const) {
+    out.push(plant("banyan", x, z, sc, x));
+  }
 
   const [w, d] = SCROLL_PLAZA_SIZE;
   for (let k = 0; k < 8; k++) {

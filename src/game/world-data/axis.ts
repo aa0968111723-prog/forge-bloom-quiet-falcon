@@ -1,4 +1,4 @@
-import { KENAN, KENAN_TOP_APRON_Z, KENAN_TOP_Z, KENAN_TOTAL_RISE, KENAN_HALF_WIDTH } from "./kenan.ts";
+import { KENAN, KENAN_TOP_APRON_Z, KENAN_TOP_Z, KENAN_TOTAL_RISE } from "./kenan.ts";
 import { sampleCurve, type ControlPoint } from "./math.ts";
 
 /**
@@ -73,8 +73,10 @@ const HALF_WIDTH_CURVE: readonly ControlPoint[] = [
   [AXIS.gateZ + 24, 7.0], // 水源街 approach
   [AXIS.gateZ, 6.5], // bottom entrance apron
   [AXIS.slopeBottomZ, 6.5],
-  [AXIS.slopeBottomZ - 2, KENAN_HALF_WIDTH],
-  [AXIS.slopeTopZ, KENAN_HALF_WIDTH],
+  // Through the stair the "man-made" ground runs to the retaining wall's outer
+  // face; the planted bank starts above the wall coping (elevation.ts).
+  [AXIS.slopeBottomZ - 2, KENAN.width / 2 + KENAN.wallThickness],
+  [AXIS.slopeTopZ, KENAN.width / 2 + KENAN.wallThickness],
   [AXIS.plazaSouthZ, PLAZA_RADIUS],
   [AXIS.plazaNorthZ, PLAZA_RADIUS],
   [AXIS.avenueSouthZ, AVENUE_PAVED_WIDTH / 2 + AVENUE_PLANTING_WIDTH + 3.4],

@@ -1,5 +1,6 @@
 import { AXIS, PLAZA_ELEVATION, corridorHalfWidth, corridorTransition } from "./axis.ts";
 import { KENAN, kenanRampElevation, kenanStepElevation } from "./kenan.ts";
+import { pavedAt } from "./paths.ts";
 import { clamp01, sampleCurve, smoothstep, type ControlPoint } from "./math.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 
@@ -35,8 +36,8 @@ export const RIVER_LEVEL = -14;
 
 /** Grade at which the hillside climbs away from the slope's retaining walls. */
 const BANK_GRADE = 0.42;
-/** How far the ground behind a retaining wall stands above the tread. */
-const BANK_LIP = 1.15;
+/** The planted bank behind a retaining wall starts just above the wall coping. */
+const BANK_LIP = KENAN.wallHeight + 0.12;
 
 /**
  * Elevation along the campus plateau centreline, north of 驚聲銅像廣場.
@@ -146,9 +147,14 @@ export function sampleGroundElevation(x: number, z: number): number {
 
 /** Surface the terrain mesh is built from. Smooth ramp inside 克難坡. */
 export function sampleTerrainElevation(x: number, z: number): number {
-  // Sink the ramp slightly so tread geometry always wins the depth test.
   const y = sample(x, z, false);
-  return z > AXIS.plazaSouthZ && Math.abs(x) < KENAN.width / 2 + 0.1 ? y - 0.09 : y;
+  // Sink the mesh under the stair treads so they always win the depth test.
+  if (z > AXIS.plazaSouthZ && Math.abs(x) < KENAN.width / 2 + 0.1) return y - 0.09;
+  // Likewise under every paved surface: paving ribbons follow the ground with a
+  // small lift, and dropping the soil beneath them guarantees the terrain grid
+  // can never poke through between two ribbon samples.
+  if (pavedAt(x, z)) return y - 0.12;
+  return y;
 }
 
 /**

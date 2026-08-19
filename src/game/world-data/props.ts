@@ -62,18 +62,12 @@ const prop = (
 function kenanProps(): PropInstance[] {
   const out: PropInstance[] = [];
   const inner = KENAN.width / 2 - KENAN.gutterInset;
-  // Drainage: a continuous channel inside each wall, grated at intervals.
-  for (const s of [-1, 1] as const) {
-    out.push(
-      prop("gutter", s * inner, (KENAN.bottomZ + KENAN_TOP_Z) / 2, "kenan", 0, 1, KENAN.bottomZ - KENAN_TOP_Z),
-    );
-  }
+  // The stair's own component (landmarks/KenanSlope) draws the drainage
+  // channels and the pitched centre handrails as real geometry following the
+  // flights; only the point-like grates are placed from here.
   for (const z of kenanDrainPositions()) {
     for (const s of [-1, 1] as const) out.push(prop("drain-grate", s * inner, z, "kenan"));
   }
-  // Handrail down the middle of each flight plus the wall-top rails.
-  out.push(prop("railing", 0, (KENAN.bottomZ + KENAN_LANDING_Z[0]) / 2, "kenan", 0, 1, KENAN.bottomZ - KENAN_LANDING_Z[0]));
-  out.push(prop("railing", 0, (KENAN_LANDING_Z[1] + KENAN_TOP_Z) / 2, "kenan", 0, 1, KENAN_LANDING_Z[1] - KENAN_TOP_Z));
   // Landing furniture — the place everybody stops to breathe.
   out.push(prop("bench", -2.7, KENAN_LANDING_Z[0] - 2.2, "kenan", 0));
   out.push(prop("bench", 2.7, KENAN_LANDING_Z[0] - 2.2, "kenan", Math.PI));
@@ -93,8 +87,6 @@ function kenanProps(): PropInstance[] {
     const s = i % 2 === 0 ? -1 : 1;
     out.push(prop("street-lamp", s * (KENAN.width / 2 + 1.15), z, "kenan", s > 0 ? -Math.PI / 2 : Math.PI / 2));
   }
-  // Accessible route note: the slope itself has no ramp, the bypass is at the top.
-  out.push(prop("ramp", 7.6, KENAN_TOP_Z - 4.5, "kenan", 0, 1, 12));
   return out;
 }
 
@@ -127,14 +119,9 @@ function avenueProps(): PropInstance[] {
     out.push(prop("lantern-post", -lampX, z, "avenue", 0));
     out.push(prop("lantern-post", lampX, z - spacing / 2, "avenue", 0));
   }
-  // Kerb-line tactile strip down the middle of the stone walk.
-  out.push(
-    prop("tactile-strip", 0, (AXIS.avenueSouthZ + AXIS.avenueNorthZ) / 2, "avenue", 0, 1, Math.abs(AXIS.avenueNorthZ - AXIS.avenueSouthZ) - 6),
-  );
   // Hall-front furniture: name plate, potted plants, AC units on the back wall.
   for (const z of palaceHallZs()) {
     for (const s of [-1, 1] as const) {
-      out.push(prop("name-plate", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 0.15), z, "avenue", s > 0 ? -Math.PI / 2 : Math.PI / 2));
       out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z + 4.2, "avenue"));
       out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z - 4.2, "avenue"));
       out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z + 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));

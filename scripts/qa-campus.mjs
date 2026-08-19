@@ -1,5 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { chromium } from "playwright";
+import { chromiumExecutablePath } from "./browser-exe.mjs";
 
 const log = (...a) => process.stderr.write(a.join(" ") + "\n");
 
@@ -24,7 +25,10 @@ async function waitReady(page) {
 }
 
 log("launch");
-const browser = await chromium.launch({ args: ["--no-sandbox"] });
+const browser = await chromium.launch({
+  executablePath: chromiumExecutablePath(),
+  args: ["--no-sandbox"],
+});
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 page.setDefaultTimeout(8000);
 const errors = [];

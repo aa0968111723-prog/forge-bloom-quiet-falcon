@@ -81,18 +81,24 @@ export const LIBRARY = {
   floorHeight: 4.0,
 } as const;
 
-/** 宮燈教室 rows: five halls a side, mirrored about the avenue. */
+/**
+ * 宮燈教室 rows: five halls a side, mirrored about the avenue.
+ *
+ * Single-storey halls whose green glazed roof carries about half the
+ * elevation — the proportion that makes them read as 宮燈教室 rather than a
+ * generic red block (REF_PALACE_CLASSROOMS_1954, photographic).
+ */
 export const PALACE = {
-  hallWidth: 26,
-  hallDepth: 13,
+  hallWidth: 28,
+  hallDepth: 12,
   halls: 5,
   pitch: 38,
   /** Centre Z of the southern-most hall pair. */
   firstZ: AXIS.avenueSouthZ - 24,
   /** Distance from the avenue centreline to the hall centre. */
-  offsetX: 10.5 + 13 / 2,
-  storeys: 2,
-  storeyHeight: 3.6,
+  offsetX: 10.5 + 12 / 2,
+  storeys: 1,
+  storeyHeight: 4.3,
 } as const;
 
 export function palaceHallZs(): number[] {
@@ -164,7 +170,7 @@ export const LANDMARKS: RealityLandmark[] = [
     elevation: sampleGroundElevation(-PALACE.offsetX, PALACE.firstZ),
     realWidth: PALACE.hallDepth,
     realLength: PALACE.hallWidth,
-    realHeight: PALACE.storeys * PALACE.storeyHeight + 2.6,
+    realHeight: PALACE.storeys * PALACE.storeyHeight + 3.4,
     footprint: rectFootprint(-PALACE.offsetX, PALACE.firstZ, PALACE.hallDepth, PALACE.hallWidth),
     accuracy: "estimated",
     referenceIds: ["REF_PALACE_CLASSROOMS_1954", "REF_PALACE_ARRANGEMENT"],

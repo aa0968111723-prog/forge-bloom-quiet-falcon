@@ -1,5 +1,6 @@
 import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
+import { quality } from "@/game/quality";
 import { useProgress } from "@react-three/drei";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
 import { loadPilgrimage, savePilgrimage } from "@/lib/pilgrimage";
@@ -71,10 +72,15 @@ export function CampusGame() {
       {mounted ? (
         <Canvas
           className="absolute inset-0"
-          shadows
-          dpr={[1, 1.5]}
-          camera={{ fov: 58, near: 0.18, far: 420, position: [-15.5, 22.6, 33.5] }}
-          gl={{ antialias: true, powerPreference: "high-performance" }}
+          shadows={quality().shadows}
+          dpr={quality().dpr}
+          camera={{
+            fov: 58,
+            near: 0.18,
+            far: quality().drawDistance,
+            position: [-13, 31.5, 13],
+          }}
+          gl={{ antialias: quality().tier === "high", powerPreference: "high-performance" }}
           onCreated={({ gl }) => {
             gl.setClearColor("#e8965a");
           }}
