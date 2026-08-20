@@ -5,6 +5,8 @@ import {
   Cloud,
   CloudRain,
   Compass,
+  Gauge,
+  Sparkles,
   Map as MapIcon,
   Pause,
   Play,
@@ -275,6 +277,7 @@ export function GameOverlay() {
   const plaqueId = useGame((s) => s.plaqueId);
   const muted = useGame((s) => s.muted);
   const stampFlash = useGame((s) => s.stampFlash);
+  const graphics = useGame((s) => s.graphics);
   const [coarse, setCoarse] = useState(false);
   const [hint, setHint] = useState(true);
   const [showDone, setShowDone] = useState(false);
@@ -315,16 +318,22 @@ export function GameOverlay() {
       <RealityComparePanel />
       <AreaSplash />
       {phase === "title" && (
-        <div className="pointer-events-auto flex h-full flex-col justify-end bg-gradient-to-t from-navy-deep via-navy-deep/80 to-transparent p-4 pb-20 sm:p-10 sm:pb-10">
-          <div className="mx-auto w-full max-w-xl rounded-2xl bg-navy-deep/70 p-5 sm:p-6">
-            <p className="text-[11px] tracking-[0.28em] text-paper/70 sm:text-sm">TAMKANG · TAMSUI</p>
-            <h1 className="mt-1 font-display text-4xl font-semibold leading-tight tracking-tight text-paper sm:mt-2 sm:text-6xl">
+        // Title: the world is the backdrop, so the plate sits low and light,
+        // letting the drifting camera over 宮燈大道 carry the frame.
+        <div className="pointer-events-auto flex h-full flex-col justify-end bg-gradient-to-t from-navy-deep via-navy-deep/55 to-transparent p-4 pb-16 sm:p-10 sm:pb-12">
+          <div className="tk-title-plate mx-auto w-full max-w-xl">
+            <p className="text-[11px] tracking-[0.42em] text-paper/70 sm:text-sm">TAMKANG · TAMSUI</p>
+            <h1 className="mt-1.5 font-display text-5xl font-semibold leading-none tracking-tight text-paper drop-shadow-[0_4px_18px_rgba(6,10,20,0.85)] sm:mt-3 sm:text-7xl">
               淡江世界
             </h1>
-            <p className="mt-2 hidden max-w-md text-sm leading-relaxed text-paper/80 sm:mt-3 sm:block sm:text-base">
+            <div className="mt-3 flex items-center gap-3">
+              <span className="h-px w-10 bg-paper/45" />
+              <p className="font-display text-base tracking-[0.3em] text-paper/90 sm:text-lg">樸實剛毅</p>
+              <span className="h-px flex-1 bg-paper/25" />
+            </div>
+            <p className="mt-3 hidden max-w-md text-sm leading-relaxed text-paper/75 sm:block sm:text-base">
               依淡水校園真實走道重建：克難坡一百三十二階、驚聲銅像、兩側宮燈教室夾道，北望海豚里程碑與書卷廣場。
             </p>
-            <p className="mt-1 font-display text-base text-paper/90 sm:mt-2 sm:text-lg">樸實剛毅</p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <button
                 type="button"
@@ -526,6 +535,49 @@ export function GameOverlay() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            <div className="mt-5">
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">畫質</p>
+              <div className="mt-2 grid grid-cols-3 gap-2">
+                {(
+                  [
+                    ["auto", "自動"],
+                    ["high", "高"],
+                    ["low", "省電"],
+                  ] as const
+                ).map(([id, label]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className={cn(
+                      "tk-btn tk-btn-ghost gap-1 py-2 text-sm",
+                      graphics.tier === id && "bg-navy text-paper hover:bg-navy",
+                    )}
+                    onClick={() => useGame.getState().setGraphics({ tier: id })}
+                  >
+                    <Gauge className="size-4" />
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                className={cn(
+                  "tk-btn tk-btn-ghost mt-2 w-full justify-between text-sm",
+                  graphics.postFx && "bg-navy/10",
+                )}
+                onClick={() => useGame.getState().setGraphics({ postFx: !graphics.postFx })}
+              >
+                <span className="flex items-center gap-2">
+                  <Sparkles className="size-4" />
+                  光暈與暗角
+                </span>
+                <span className="text-xs text-muted">{graphics.postFx ? "開啟" : "關閉"}</span>
+              </button>
+              <p className="mt-1.5 text-[11px] leading-relaxed text-muted">
+                切換畫質會重新載入場景。省電模式關閉陰影並降低植栽密度，適合手機。
+              </p>
             </div>
 
             <ul className="mt-5 max-h-56 space-y-1 overflow-auto pr-1">

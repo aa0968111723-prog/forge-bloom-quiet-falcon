@@ -1,7 +1,9 @@
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { quality } from "../quality";
+import { useGame } from "../store";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import {
   CURATED_PLANTS,
@@ -234,6 +236,8 @@ function CanopyLayer({
       color: isBloom ? "#ffffff" : draw.canopyColor,
       roughness: 0.9,
     });
+    // Tagged so StylizePass gives it back-lit leaf transmission.
+    m.userData.foliage = true;
     // Even the cheap blob canopies breathe; shrubs and beds sway less.
     applyWind(m, { amplitude: radius > 1 ? 0.16 : 0.05, base: -radius, top: radius });
     return m;
@@ -254,6 +258,86 @@ function CanopyLayer({
   );
 }
 
+/**
+ * Distance LOD for the woody species.
+ *
+ * Within `vegetationRange` a tree is the detailed vendored model; beyond it,
+ * the cheap two-blob canopy, which at that distance is indistinguishable but
+ * costs a fraction of the triangles. The split is recomputed only once the
+ * player has moved `LOD_REBUILD_STEP` metres, so walking the avenue does not
+ * rebuild instance buffers every frame.
+ */
+const LOD_REBUILD_STEP = 25;
+
+function useLodSplit(batch: Batch, range: number, enabled: boolean) {
+  const [split, setSplit] = useState<{ near: PlantInstance[]; far: PlantInstance[] }>(() =>
+    enabled ? { near: [], far: batch.plants } : { near: batch.plants, far: [] },
+  );
+  const anchor = useRef<{ x: number; z: number } | null>(null);
+
+  useFrame(() => {
+    if (!enabled) return;
+    const { playerX, playerZ } = useGame.getState();
+    const a = anchor.current;
+    if (a && Math.hypot(playerX - a.x, playerZ - a.z) < LOD_REBUILD_STEP) return;
+    anchor.current = { x: playerX, z: playerZ };
+    const near: PlantInstance[] = [];
+    const far: PlantInstance[] = [];
+    // Hysteresis band: a tree must be clearly inside or outside the range
+    // before it swaps, so a plant sitting on the boundary cannot flicker.
+    for (const p of batch.plants) {
+      (Math.hypot(p.x - playerX, p.z - playerZ) < range ? near : far).push(p);
+    }
+    setSplit({ near, far });
+  });
+
+  return split;
+}
+
+function WoodyBatch({
+  batch,
+  vendor,
+  range,
+}: {
+  batch: Batch;
+  vendor: { url: string; scale: number; tint: VendorTint; wind: VendorWind };
+  range: number;
+}) {
+  const { near, far } = useLodSplit(batch, range, true);
+  const nearInstances: VendorInstance[] = useMemo(
+    () =>
+      near.map((p) => ({
+        x: p.x,
+        // Rooted slightly below grade so a trunk on a bank never floats on its
+        // downhill side.
+        y: sampleGroundElevation(p.x, p.z) - 0.18,
+        z: p.z,
+        scale: vendor.scale * p.scale,
+        rotationY: p.rotationY,
+      })),
+    [near, vendor.scale],
+  );
+  const farBatch = useMemo<Batch>(() => ({ species: batch.species, plants: far }), [batch.species, far]);
+  const draw = DRAW[batch.species];
+
+  return (
+    <group>
+      <VendorModel
+        url={vendor.url}
+        instances={nearInstances}
+        tint={vendor.tint}
+        wind={vendor.wind}
+      />
+      {far.length > 0 && (
+        <group>
+          {draw.trunk && <TrunkLayer batch={farBatch} />}
+          <CanopyLayer batch={farBatch} layer={0} simple />
+        </group>
+      )}
+    </group>
+  );
+}
+
 export function Vegetation() {
   const q = quality();
   const mats = useTamkangMaterials();
@@ -264,22 +348,12 @@ export function Vegetation() {
       {groups.map((batch) => {
         const vendor = q.simpleTrees ? undefined : VENDOR_TREES[batch.species];
         if (vendor) {
-          const instances: VendorInstance[] = batch.plants.map((p) => ({
-            x: p.x,
-            // Rooted slightly below grade so a trunk on a bank never floats on
-            // its downhill side.
-            y: sampleGroundElevation(p.x, p.z) - 0.18,
-            z: p.z,
-            scale: vendor.scale * p.scale,
-            rotationY: p.rotationY,
-          }));
           return (
-            <VendorModel
+            <WoodyBatch
               key={batch.species}
-              url={vendor.url}
-              instances={instances}
-              tint={vendor.tint}
-              wind={vendor.wind}
+              batch={batch}
+              vendor={vendor}
+              range={q.vegetationRange}
             />
           );
         }

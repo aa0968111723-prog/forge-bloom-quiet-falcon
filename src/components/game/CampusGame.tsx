@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { quality } from "@/game/quality";
+import { quality, setQualityPreference } from "@/game/quality";
 import { useProgress } from "@react-three/drei";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
 import { loadPilgrimage, savePilgrimage } from "@/lib/pilgrimage";
@@ -51,26 +51,38 @@ function LoadScrim() {
   if (done) return null;
   return (
     <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center bg-navy-deep text-paper">
-      <p className="font-display text-3xl">淡江世界</p>
-      <p className="mt-2 text-sm tracking-[0.2em] text-paper/70">載入五虎崗</p>
-      <div className="mt-6 h-1.5 w-44 overflow-hidden rounded-full bg-paper/15">
+      <p className="text-[10px] tracking-[0.5em] text-paper/50">TAMKANG · TAMSUI</p>
+      <p className="mt-3 font-display text-4xl tracking-wide">淡江世界</p>
+      <p className="mt-2 text-sm tracking-[0.3em] text-paper/60">載入五虎崗</p>
+      <div className="mt-7 h-[3px] w-56 overflow-hidden rounded-full bg-paper/12">
         <div
-          className="h-full bg-paper transition-[width] duration-200"
-          style={{ width: `${Math.max(8, Math.round(progress))}%` }}
+          className="h-full rounded-full bg-gradient-to-r from-paper/60 to-paper transition-[width] duration-300 ease-out"
+          style={{ width: `${Math.max(6, Math.round(progress))}%` }}
         />
       </div>
+      <p className="mt-4 text-[11px] tabular-nums tracking-[0.18em] text-paper/35">
+        {Math.max(0, Math.round(progress))}%
+      </p>
     </div>
   );
 }
 
 export function CampusGame() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const sceneEpoch = useGame((s) => s.sceneEpoch);
+  const graphics = useGame((s) => s.graphics);
+
+  useEffect(() => {
+    // Saved preference must land before anything reads quality().
+    setQualityPreference(graphics);
+    setMounted(true);
+  }, [graphics]);
 
   return (
     <div className="relative h-dvh w-full overflow-hidden bg-navy-deep" style={{ touchAction: "none" }}>
       {mounted ? (
         <Canvas
+          key={sceneEpoch}
           className="absolute inset-0"
           shadows={quality().shadows}
           dpr={quality().dpr}

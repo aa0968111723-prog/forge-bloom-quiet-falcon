@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { addPatch } from "./shader-patch";
 
 /**
  * Global wind.
@@ -34,10 +35,7 @@ export type WindProfile = {
  * users want the same profile — clone first otherwise.
  */
 export function applyWind(material: THREE.Material, profile: WindProfile) {
-  const mat = material as THREE.Material & { userData: { windApplied?: boolean } };
-  if (mat.userData.windApplied) return material;
-  mat.userData.windApplied = true;
-  mat.onBeforeCompile = (shader) => {
+  return addPatch(material, "wind", (shader) => {
     shader.uniforms.uWindTime = WIND.time;
     shader.uniforms.uWindStrength = WIND.strength;
     shader.uniforms.uWindAmp = { value: profile.amplitude };
@@ -75,7 +73,5 @@ export function applyWind(material: THREE.Material, profile: WindProfile) {
         }
         `,
       );
-  };
-  mat.needsUpdate = true;
-  return material;
+  });
 }

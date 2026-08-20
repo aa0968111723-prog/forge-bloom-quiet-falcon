@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { LANDMARKS, LANDMARK_BY_ID, SPAWN, type TimeOfDay } from "./world";
-import { loadLocal, saveLocal, type SaveBlob } from "./save";
+import { loadLocal, saveLocal, type GraphicsPref, type SaveBlob } from "./save";
+import { setQualityPreference } from "./quality";
 
 export type Phase = "title" | "playing" | "paused" | "codex";
 
@@ -11,6 +12,9 @@ type GameState = {
   timeOfDay: TimeOfDay;
   /** Active Reality Compare benchmark camera (F8 dev tool), or null. */
   benchmarkId: string | null;
+  graphics: GraphicsPref;
+  /** Bumped whenever a graphics setting needs the 3D scene rebuilt. */
+  sceneEpoch: number;
   visited: string[];
   nearbyId: string | null;
   plaqueId: string | null;
@@ -30,6 +34,7 @@ type GameState = {
   closeMenu: () => void;
   setTime: (t: TimeOfDay) => void;
   setBenchmark: (id: string | null) => void;
+  setGraphics: (patch: Partial<GraphicsPref>) => void;
   setNearby: (id: string | null) => void;
   setPlayer: (x: number, z: number, yaw: number) => void;
   openPlaque: (id: string | null) => void;
@@ -54,6 +59,8 @@ export const useGame = create<GameState>((set, get) => ({
   phase: "title",
   timeOfDay: local.timeOfDay,
   benchmarkId: null,
+  graphics: local.graphics,
+  sceneEpoch: 0,
   visited: local.visited,
   nearbyId: null,
   plaqueId: null,
@@ -81,6 +88,14 @@ export const useGame = create<GameState>((set, get) => ({
     persist({ timeOfDay });
   },
   setBenchmark: (benchmarkId) => set({ benchmarkId }),
+  setGraphics: (patch) => {
+    const graphics = { ...get().graphics, ...patch };
+    set({ graphics, sceneEpoch: get().sceneEpoch + 1 });
+    persist({ graphics });
+    // The tier is read synchronously by geometry builders, so the scene has to
+    // be rebuilt; sceneEpoch keys the 3D subtree to force that.
+    setQualityPreference(graphics);
+  },
   setNearby: (nearbyId) => {
     if (get().nearbyId !== nearbyId) set({ nearbyId });
   },

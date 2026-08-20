@@ -14,9 +14,11 @@ import { ContextStructures } from "./ContextStructures";
 import { Lighting } from "./Lighting";
 import { Grass } from "./Grass";
 import { Sky, Clouds } from "./Sky";
+import { StylizePass } from "./StylizePass";
 import { Water } from "./Water";
 import { WindTicker } from "./WindTicker";
 import { Paths } from "./Paths";
+import { PostFx } from "./PostFx";
 import { Props } from "./Props";
 import { RealityCameraRig } from "./RealityCompare";
 import { Signage } from "./Signage";
@@ -45,6 +47,8 @@ export function World({ timeOfDay }: { timeOfDay: TimeOfDay }) {
     <>
       <Lighting timeOfDay={effectiveTime} />
       <WindTicker timeOfDay={effectiveTime} />
+      <StylizePass timeOfDay={effectiveTime} />
+      <PostFx timeOfDay={effectiveTime} />
       <Sky timeOfDay={effectiveTime} />
       <Clouds timeOfDay={effectiveTime} />
       <Water timeOfDay={effectiveTime} />

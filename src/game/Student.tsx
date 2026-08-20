@@ -7,6 +7,8 @@ type StudentProps = {
   speedRef?: { current: number };
   accent?: string;
   castShadow?: boolean;
+  /** Head yaw/pitch offset in radians, relative to the body's facing. */
+  lookRef?: { current: { yaw: number; pitch: number } };
 };
 
 /**
@@ -69,13 +71,20 @@ function faceTexture(): THREE.CanvasTexture {
   return t;
 }
 
-export function Student({ speed = 0, speedRef, accent = "#1a3f6d", castShadow = true }: StudentProps) {
+export function Student({
+  speed = 0,
+  speedRef,
+  accent = "#1a3f6d",
+  castShadow = true,
+  lookRef,
+}: StudentProps) {
   const leftLeg = useRef<THREE.Group>(null);
   const rightLeg = useRef<THREE.Group>(null);
   const leftArm = useRef<THREE.Group>(null);
   const rightArm = useRef<THREE.Group>(null);
   const body = useRef<THREE.Group>(null);
   const trunk = useRef<THREE.Group>(null);
+  const head = useRef<THREE.Group>(null);
   const smoothSpeed = useRef(0);
   const face = useMemo(() => faceTexture(), []);
 
@@ -103,40 +112,50 @@ export function Student({ speed = 0, speedRef, accent = "#1a3f6d", castShadow = 
       trunk.current.rotation.x = s * 0.1;
       trunk.current.rotation.z = Math.sin(t * (6 + s * 6)) * s * 0.035;
     }
+    if (head.current) {
+      // Glance toward whatever the player is near, with a little idle drift so
+      // the character never looks frozen.
+      const look = lookRef?.current;
+      const idle = Math.sin(t * 0.42) * 0.09 * (1 - Math.min(1, s * 2));
+      head.current.rotation.y = (look?.yaw ?? 0) + idle;
+      head.current.rotation.x = look?.pitch ?? 0;
+    }
   });
 
   return (
     <group ref={trunk}>
       <group ref={body}>
-        {/* Head: face texture on the front hemisphere, hair mass, fringe. */}
-        {/* Sphere UV puts canvas-centre content at +X; -90° turns it to +Z. */}
-        <mesh position={[0, 1.5, 0.015]} rotation={[0, -Math.PI / 2, 0]} castShadow={castShadow}>
-          <sphereGeometry args={[0.15, 18, 16]} />
-          <meshStandardMaterial map={face} roughness={0.55} />
-        </mesh>
-        <mesh position={[0, 1.555, -0.035]} castShadow={castShadow}>
-          <sphereGeometry args={[0.157, 18, 14, 0, Math.PI * 2, 0, Math.PI * 0.58]} />
-          <meshStandardMaterial color="#2b2320" roughness={0.6} />
-        </mesh>
-        {/* Fringe: three overlapping tufts instead of a helmet rim. */}
-        {([-1, 0, 1] as const).map((k) => (
-          <mesh
-            key={k}
-            position={[k * 0.062, 1.588, 0.088 - Math.abs(k) * 0.014]}
-            rotation={[0.62, k * 0.28, 0]}
-            castShadow={false}
-          >
-            <sphereGeometry args={[0.065, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.52]} />
+        {/* Head, pivoting at the neck so it can turn to look at things. */}
+        <group ref={head} position={[0, 1.4, 0]}>
+          {/* Sphere UV puts canvas-centre content at +X; -90° turns it to +Z. */}
+          <mesh position={[0, 0.1, 0.015]} rotation={[0, -Math.PI / 2, 0]} castShadow={castShadow}>
+            <sphereGeometry args={[0.15, 18, 16]} />
+            <meshStandardMaterial map={face} roughness={0.55} />
+          </mesh>
+          <mesh position={[0, 0.155, -0.035]} castShadow={castShadow}>
+            <sphereGeometry args={[0.157, 18, 14, 0, Math.PI * 2, 0, Math.PI * 0.58]} />
             <meshStandardMaterial color="#2b2320" roughness={0.6} />
           </mesh>
-        ))}
-        {/* Side hair covering the ears. */}
-        {([-1, 1] as const).map((sx) => (
-          <mesh key={sx} position={[sx * 0.132, 1.492, -0.01]} castShadow={false}>
-            <sphereGeometry args={[0.052, 8, 8]} />
-            <meshStandardMaterial color="#2b2320" roughness={0.6} />
-          </mesh>
-        ))}
+          {/* Fringe: three overlapping tufts instead of a helmet rim. */}
+          {([-1, 0, 1] as const).map((k) => (
+            <mesh
+              key={k}
+              position={[k * 0.062, 0.188, 0.088 - Math.abs(k) * 0.014]}
+              rotation={[0.62, k * 0.28, 0]}
+              castShadow={false}
+            >
+              <sphereGeometry args={[0.065, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.52]} />
+              <meshStandardMaterial color="#2b2320" roughness={0.6} />
+            </mesh>
+          ))}
+          {/* Side hair covering the ears. */}
+          {([-1, 1] as const).map((sx) => (
+            <mesh key={sx} position={[sx * 0.132, 0.092, -0.01]} castShadow={false}>
+              <sphereGeometry args={[0.052, 8, 8]} />
+              <meshStandardMaterial color="#2b2320" roughness={0.6} />
+            </mesh>
+          ))}
+        </group>
         {/* Neck + tee. */}
         <mesh position={[0, 1.36, 0]}>
           <cylinderGeometry args={[0.05, 0.06, 0.08, 8]} />
