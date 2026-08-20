@@ -38,6 +38,7 @@ export function Player() {
    *  steps reads as a climb, not a 6 Hz stutter. */
   const visualY = useRef(SPAWN.y);
   const speedRef = useRef(0);
+  const lookRef = useRef({ yaw: 0, pitch: 0 });
   const hudAcc = useRef(0);
   const { camera, gl } = useThree();
 
@@ -184,6 +185,26 @@ export function Player() {
 
     const nearby = landmarkAt(pos.current.x, pos.current.z);
     useGame.getState().setNearby(nearby?.id ?? null);
+
+    // Glance at whatever landmark is close, but only when it is off to the
+    // side — staring straight ahead is what the body already does.
+    {
+      let targetYaw = 0;
+      let targetPitch = 0;
+      if (nearby) {
+        const toYaw = Math.atan2(-(nearby.x - pos.current.x), -(nearby.z - pos.current.z));
+        let rel = (toYaw - faceYaw.current) % (Math.PI * 2);
+        if (rel > Math.PI) rel -= Math.PI * 2;
+        if (rel < -Math.PI) rel += Math.PI * 2;
+        // Necks do not swivel: clamp hard and ignore anything behind.
+        if (Math.abs(rel) < 1.5) {
+          targetYaw = THREE.MathUtils.clamp(rel, -0.7, 0.7);
+          targetPitch = -0.08;
+        }
+      }
+      lookRef.current.yaw = THREE.MathUtils.damp(lookRef.current.yaw, targetYaw, 4, delta);
+      lookRef.current.pitch = THREE.MathUtils.damp(lookRef.current.pitch, targetPitch, 4, delta);
+    }
     if (actions.interact && nearby && phase === "playing") {
       if (!useGame.getState().visited.includes(nearby.id)) {
         useGame.getState().stamp(nearby.id);
@@ -245,7 +266,7 @@ export function Player() {
 
   return (
     <group ref={group}>
-      <Student speedRef={speedRef} />
+      <Student speedRef={speedRef} lookRef={lookRef} />
     </group>
   );
 }

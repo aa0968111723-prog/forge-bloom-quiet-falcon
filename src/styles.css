@@ -117,3 +117,22 @@
 .tk-splash {
   animation: tk-splash-in 3.2s ease-out forwards;
 }
+
+/* Title plate: a soft scrim rather than a card, so the 3D world stays visible
+   behind the wordmark, with a slow rise on first paint. */
+@keyframes tk-title-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.tk-title-plate {
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    180deg,
+    rgb(10 16 28 / 0.18) 0%,
+    rgb(10 16 28 / 0.62) 55%,
+    rgb(10 16 28 / 0.78) 100%
+  );
+  backdrop-filter: blur(2px);
+  animation: tk-title-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
