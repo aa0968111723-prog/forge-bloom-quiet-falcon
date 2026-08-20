@@ -191,10 +191,12 @@ export const BENCHMARK_CAMERAS: BenchmarkCamera[] = [
     id: "LIBRARY_01",
     label: "覺生紀念圖書館館前",
     landmarkId: "library",
-    position: eye(10, AXIS.libraryFrontZ + 16),
-    yaw: 0.05,
-    pitch: -0.12,
-    fov: 60,
+    // Far enough back on the forecourt that the whole nine-storey mass and its
+    // setbacks are in frame — the thing this benchmark exists to judge.
+    position: eye(6, AXIS.libraryFrontZ + 52, 2.0),
+    yaw: 0.06,
+    pitch: -0.2,
+    fov: 62,
     time: "day",
     checks: [
       "九層量體，開窗帶水平連續",
