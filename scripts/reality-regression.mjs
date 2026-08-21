@@ -50,19 +50,33 @@ async function shot(page, path) {
 
 /**
  * Wait until the campus has actually been built, rather than sleeping a fixed
- * amount. Geometry count crossing the threshold means the material library
- * resolved and the scene mounted — the thing a fixed timeout only guesses at,
- * and guesses badly on a software renderer.
+ * amount — a fixed timeout guesses, and guesses badly on a software renderer.
+ *
+ * Readiness is "the geometry count stopped growing", not "it passed N".
+ * An absolute threshold silently encodes today's scene complexity, so any
+ * legitimate optimisation trips it: merging the character's twenty loose
+ * meshes into one skinned mesh cut the count by ~60 and broke a hard-coded
+ * 300. Settling is the property we actually mean, and it holds whichever
+ * direction the count moves.
  */
-async function waitForScene(page, minGeometries = 300, timeoutMs = 180000) {
+async function waitForScene(page, timeoutMs = 180000) {
   const deadline = Date.now() + timeoutMs;
+  // The scene has clearly mounted past the sky/water shell by this point.
+  const FLOOR = 120;
+  const STABLE_POLLS = 4;
+  let last = -1;
+  let stable = 0;
   for (;;) {
     const g = await page
       .evaluate(() => window.__perfTest?.info.memory.geometries ?? 0)
       .catch(() => 0);
-    if (g >= minGeometries) return g;
+    stable = g === last ? stable + 1 : 0;
+    last = g;
+    if (g >= FLOOR && stable >= STABLE_POLLS) return g;
     if (Date.now() > deadline) {
-      failures.push(`scene never finished building (geometries ${g} < ${minGeometries})`);
+      failures.push(
+        `scene never finished building (geometries settled at ${g}, floor ${FLOOR})`,
+      );
       return g;
     }
     await page.waitForTimeout(1000);
