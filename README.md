@@ -77,6 +77,21 @@ npm run preview
 - **植栽 LOD**：`vegetationRange` 內用精細模型、外用低面數 blob，玩家移動超過 25 公尺才重建
   instance buffer。
 
+## 角色骨骼動畫
+
+玩家與 NPC 都是**真正的蒙皮角色**，骨架與動作全部以程式生成（`src/game/character/`），
+沒有引入外部角色素材，因此不帶任何授權風險。
+
+- **骨架**（`rig.ts`）：`THREE.Bone` 階層（hips → spine → chest → neck → head、雙臂、雙腿），
+  身體幾何直接在 bind space 建構並帶逐頂點 `skinIndex` / `skinWeight`；關節處與父骨混合權重，
+  所以手肘與膝蓋是彎折而不是剪切。頭、頭髮、臉與背包掛在骨頭下剛性跟隨，不參與蒙皮。
+- **動作**（`clips.ts`）：手寫的 `AnimationClip` — idle（呼吸、重心微移）、walk、run，
+  以步態函式取樣成 `QuaternionKeyframeTrack`，因此兩種步態天生同相位，混合時雙腿不會互穿。
+- **混合**（`useCharacterAnimation.ts`）：三個 action 以連續權重同時播放（而非狀態機切換），
+  速度在走／跑之間時就自然呈現慢跑；步頻＝地面速度÷步幅，避免腳底打滑，並夾在合理範圍內。
+- 角色以 imperative 方式組裝後再交給 R3F —— `SkinnedMesh` 在第一次更新世界矩陣時就會存取
+  `skeleton`，先掛載後綁定必定在第一幀丟例外。
+
 ## 授權
 
 本專案為非官方的校園巡禮作品，地標與建築為程式重建，僅供欣賞與學習。

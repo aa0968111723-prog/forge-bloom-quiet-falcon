@@ -2,6 +2,11 @@ export {};
 
 declare global {
   interface Window {
+    /** Skeletal animation state, published by the player's character. */
+    __characterTest?: {
+      weights: { idle: number; walk: number; run: number; walkRate: number };
+      boneRotation: (name: string) => { x: number; y: number; z: number } | null;
+    };
     /** WebGL renderer statistics, exposed for the perf regression. */
     __perfTest?: {
       info: {

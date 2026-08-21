@@ -1,6 +1,8 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { buildBodyGeometry, buildRig, type Rig } from "./character/rig";
+import { useCharacterAnimation } from "./character/useCharacterAnimation";
 
 type StudentProps = {
   speed?: number;
@@ -12,19 +14,25 @@ type StudentProps = {
 };
 
 /**
- * A Tamkang student, stylised for readability at third-person distance: clear
- * hair mass, painted face (eyes, brows, mouth — memorability lives here), tee
- * in the accent colour, khaki shorts, sneakers, canvas backpack.
+ * A Tamkang student: a genuinely skinned character on a code-authored
+ * armature, animated by an AnimationMixer blending idle / walk / run by speed.
  *
- * Animation is procedural and cheap: leg/arm swing driven by speed, a breath
- * cycle at idle, a lean into acceleration. The rig (refs + props) is the same
- * one Player and Npcs have always used.
+ * The character is assembled **imperatively** and mounted as a single
+ * `<primitive>`. That is not a style choice: three's `SkinnedMesh` dereferences
+ * `this.skeleton` while updating its world matrix, so a mesh that is mounted
+ * first and bound in an effect throws on its very first frame. Building it
+ * complete before React ever sees it is the only correct order.
+ *
+ * Head, hair, face and backpack are parented to the `head` / `chest` bones
+ * rather than skinned — they move rigidly with their bone, which is exactly
+ * right for parts that never deform.
+ *
+ * The props API is unchanged, so Player and Npcs did not have to move.
  */
 const FACE_CACHE = new Map<string, THREE.CanvasTexture>();
 
 function faceTexture(): THREE.CanvasTexture {
-  const key = "face";
-  const hit = FACE_CACHE.get(key);
+  const hit = FACE_CACHE.get("face");
   if (hit) return hit;
   const c = document.createElement("canvas");
   c.width = 128;
@@ -33,7 +41,6 @@ function faceTexture(): THREE.CanvasTexture {
   if (ctx) {
     ctx.fillStyle = "#e9c9a8";
     ctx.fillRect(0, 0, 128, 128);
-    // Eyes: large, dark, slightly glossy — the anime read.
     for (const sx of [-1, 1]) {
       const x = 64 + sx * 20;
       ctx.fillStyle = "#232025";
@@ -44,20 +51,17 @@ function faceTexture(): THREE.CanvasTexture {
       ctx.beginPath();
       ctx.ellipse(x - 2.4, 62, 2.4, 3.2, 0, 0, Math.PI * 2);
       ctx.fill();
-      // Brow
       ctx.strokeStyle = "#4a3a30";
       ctx.lineWidth = 2.6;
       ctx.beginPath();
       ctx.arc(x, 56, 9, Math.PI * 1.15, Math.PI * 1.85);
       ctx.stroke();
     }
-    // Soft smile
     ctx.strokeStyle = "#a3654d";
     ctx.lineWidth = 2.8;
     ctx.beginPath();
     ctx.arc(64, 84, 8, Math.PI * 0.18, Math.PI * 0.82);
     ctx.stroke();
-    // Blush
     ctx.fillStyle = "rgba(228, 130, 110, 0.28)";
     for (const sx of [-1, 1]) {
       ctx.beginPath();
@@ -67,8 +71,130 @@ function faceTexture(): THREE.CanvasTexture {
   }
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
-  FACE_CACHE.set(key, t);
+  FACE_CACHE.set("face", t);
   return t;
+}
+
+const HAIR_COLOR = "#2b2320";
+
+/** Head dressing: face sphere, hair cap, fringe tufts, side hair. */
+function buildHeadDressing(face: THREE.CanvasTexture, castShadow: boolean): THREE.Group {
+  const group = new THREE.Group();
+  group.position.set(0, 0.1, 0);
+  const hair = new THREE.MeshStandardMaterial({ color: HAIR_COLOR, roughness: 0.6 });
+
+  const faceMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(0.15, 18, 16),
+    new THREE.MeshStandardMaterial({ map: face, roughness: 0.55 }),
+  );
+  // Sphere UVs put canvas-centre content at +X; turn it to face +Z.
+  faceMesh.rotation.y = -Math.PI / 2;
+  faceMesh.castShadow = castShadow;
+  group.add(faceMesh);
+
+  const cap = new THREE.Mesh(
+    new THREE.SphereGeometry(0.157, 18, 14, 0, Math.PI * 2, 0, Math.PI * 0.58),
+    hair,
+  );
+  cap.position.set(0, 0.055, -0.035);
+  cap.castShadow = castShadow;
+  group.add(cap);
+
+  for (const k of [-1, 0, 1]) {
+    const tuft = new THREE.Mesh(
+      new THREE.SphereGeometry(0.065, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.52),
+      hair,
+    );
+    tuft.position.set(k * 0.062, 0.088, 0.088 - Math.abs(k) * 0.014);
+    tuft.rotation.set(0.62, k * 0.28, 0);
+    group.add(tuft);
+  }
+  for (const sx of [-1, 1]) {
+    const side = new THREE.Mesh(new THREE.SphereGeometry(0.052, 8, 8), hair);
+    side.position.set(sx * 0.132, -0.008, -0.01);
+    group.add(side);
+  }
+  return group;
+}
+
+/** Backpack, carried on the chest bone. */
+function buildBackpack(castShadow: boolean): THREE.Group {
+  const group = new THREE.Group();
+  group.position.set(0, 0.02, -0.17);
+  const canvasMat = new THREE.MeshStandardMaterial({ color: "#c9b48a", roughness: 0.8 });
+  const trimMat = new THREE.MeshStandardMaterial({ color: "#b5a077", roughness: 0.8 });
+  const strapMat = new THREE.MeshStandardMaterial({ color: "#8d7a56", roughness: 0.8 });
+
+  const body = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.32, 0.13), canvasMat);
+  body.castShadow = castShadow;
+  group.add(body);
+
+  const lid = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.09, 0.1), trimMat);
+  lid.position.set(0, 0.12, -0.03);
+  group.add(lid);
+
+  for (const sx of [-1, 1]) {
+    const strap = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.3, 0.02), strapMat);
+    strap.position.set(sx * 0.07, 0.02, 0.065);
+    strap.rotation.x = 0.12;
+    group.add(strap);
+  }
+  return group;
+}
+
+type Character = {
+  group: THREE.Group;
+  rig: Rig;
+  mesh: THREE.SkinnedMesh;
+  dispose: () => void;
+};
+
+function buildCharacter(accent: string, castShadow: boolean, face: THREE.CanvasTexture): Character {
+  const rig = buildRig();
+  const geometry = buildBodyGeometry(rig, accent);
+  const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.72 });
+
+  const mesh = new THREE.SkinnedMesh(geometry, material);
+  mesh.castShadow = castShadow;
+  mesh.receiveShadow = true;
+  // The armature is small and always near the camera; skipping the cull test
+  // avoids the skinned bounding-box drift that pops limbs mid-stride.
+  mesh.frustumCulled = false;
+  mesh.add(rig.root);
+  mesh.bind(rig.skeleton);
+
+  rig.bones.head.add(buildHeadDressing(face, castShadow));
+  rig.bones.chest.add(buildBackpack(castShadow));
+
+  const shadowBlob = new THREE.Mesh(
+    new THREE.CircleGeometry(0.34, 14),
+    new THREE.MeshBasicMaterial({ color: "#0d243f", transparent: true, opacity: 0.25 }),
+  );
+  shadowBlob.rotation.x = -Math.PI / 2;
+  shadowBlob.position.y = 0.03;
+
+  const group = new THREE.Group();
+  group.add(mesh, shadowBlob);
+
+  return {
+    group,
+    rig,
+    mesh,
+    dispose: () => {
+      geometry.dispose();
+      material.dispose();
+      shadowBlob.geometry.dispose();
+      (shadowBlob.material as THREE.Material).dispose();
+      group.traverse((obj) => {
+        const m = obj as THREE.Mesh;
+        if (m.isMesh && m !== mesh && m !== shadowBlob) {
+          m.geometry?.dispose();
+          const mat = m.material;
+          for (const one of Array.isArray(mat) ? mat : [mat]) one?.dispose();
+        }
+      });
+    },
+  };
 }
 
 export function Student({
@@ -78,151 +204,61 @@ export function Student({
   castShadow = true,
   lookRef,
 }: StudentProps) {
-  const leftLeg = useRef<THREE.Group>(null);
-  const rightLeg = useRef<THREE.Group>(null);
-  const leftArm = useRef<THREE.Group>(null);
-  const rightArm = useRef<THREE.Group>(null);
-  const body = useRef<THREE.Group>(null);
-  const trunk = useRef<THREE.Group>(null);
-  const head = useRef<THREE.Group>(null);
-  const smoothSpeed = useRef(0);
   const face = useMemo(() => faceTexture(), []);
+  const character = useMemo(
+    () => buildCharacter(accent, castShadow, face),
+    [accent, castShadow, face],
+  );
+  useEffect(() => character.dispose, [character]);
 
-  useFrame(({ clock }, delta) => {
-    const raw = Math.min((speedRef?.current ?? speed * 4.6) / 4.6, 1.4);
-    // Smooth the drive signal so gait blends instead of snapping.
-    smoothSpeed.current += (raw - smoothSpeed.current) * Math.min(1, delta * 7);
-    const s = smoothSpeed.current;
-    const t = clock.elapsedTime;
-    const swing = Math.sin(t * (6 + s * 6)) * s * 0.62;
+  /*
+   * Only the player instance carries a lookRef, so use it to decide which
+   * character publishes the animation test seam — mirroring __controlsTest.
+   */
+  const isPlayer = Boolean(lookRef);
+  useCharacterAnimation(
+    character.mesh,
+    speedRef,
+    speed * 4.6,
+    isPlayer
+      ? (weights) => {
+          window.__characterTest = {
+            weights,
+            boneRotation: (name) => {
+              const bone = character.rig.skeleton.bones.find((b) => b.name === name);
+              return bone ? { x: bone.rotation.x, y: bone.rotation.y, z: bone.rotation.z } : null;
+            },
+          };
+        }
+      : undefined,
+  );
 
-    if (leftLeg.current) leftLeg.current.rotation.x = swing;
-    if (rightLeg.current) rightLeg.current.rotation.x = -swing;
-    if (leftArm.current) leftArm.current.rotation.x = -swing * 0.75;
-    if (rightArm.current) rightArm.current.rotation.x = swing * 0.75;
+  useEffect(() => {
+    if (!isPlayer) return;
+    return () => {
+      delete window.__characterTest;
+    };
+  }, [isPlayer]);
 
-    if (body.current) {
-      // Walk bob + idle breath.
-      const bob = Math.abs(Math.sin(t * 8)) * s * 0.045;
-      const breath = (1 - Math.min(1, s * 3)) * Math.sin(t * 1.7) * 0.008;
-      body.current.position.y = bob + breath;
-    }
-    if (trunk.current) {
-      // Lean forward with speed, sway with the stride.
-      trunk.current.rotation.x = s * 0.1;
-      trunk.current.rotation.z = Math.sin(t * (6 + s * 6)) * s * 0.035;
-    }
-    if (head.current) {
-      // Glance toward whatever the player is near, with a little idle drift so
-      // the character never looks frozen.
-      const look = lookRef?.current;
-      const idle = Math.sin(t * 0.42) * 0.09 * (1 - Math.min(1, s * 2));
-      head.current.rotation.y = (look?.yaw ?? 0) + idle;
-      head.current.rotation.x = look?.pitch ?? 0;
-    }
+  /*
+   * Head look, layered on top of the clips: the mixer overwrites the neck and
+   * head rotations every frame, so this adds its offset afterwards.
+   *
+   * Deliberately default priority. A useFrame with priority > 0 takes over
+   * R3F's render loop for the whole canvas, and a callback that then draws
+   * nothing blanks the entire scene. Ordering is already correct without it:
+   * useCharacterAnimation subscribes its mixer first, and R3F runs callbacks
+   * of equal priority in subscription order.
+   */
+  useFrame(() => {
+    const look = lookRef?.current;
+    if (!look) return;
+    const { neck, head } = character.rig.bones;
+    neck.rotation.y += look.yaw * 0.45;
+    neck.rotation.x += look.pitch * 0.5;
+    head.rotation.y += look.yaw * 0.55;
+    head.rotation.x += look.pitch * 0.5;
   });
 
-  return (
-    <group ref={trunk}>
-      <group ref={body}>
-        {/* Head, pivoting at the neck so it can turn to look at things. */}
-        <group ref={head} position={[0, 1.4, 0]}>
-          {/* Sphere UV puts canvas-centre content at +X; -90° turns it to +Z. */}
-          <mesh position={[0, 0.1, 0.015]} rotation={[0, -Math.PI / 2, 0]} castShadow={castShadow}>
-            <sphereGeometry args={[0.15, 18, 16]} />
-            <meshStandardMaterial map={face} roughness={0.55} />
-          </mesh>
-          <mesh position={[0, 0.155, -0.035]} castShadow={castShadow}>
-            <sphereGeometry args={[0.157, 18, 14, 0, Math.PI * 2, 0, Math.PI * 0.58]} />
-            <meshStandardMaterial color="#2b2320" roughness={0.6} />
-          </mesh>
-          {/* Fringe: three overlapping tufts instead of a helmet rim. */}
-          {([-1, 0, 1] as const).map((k) => (
-            <mesh
-              key={k}
-              position={[k * 0.062, 0.188, 0.088 - Math.abs(k) * 0.014]}
-              rotation={[0.62, k * 0.28, 0]}
-              castShadow={false}
-            >
-              <sphereGeometry args={[0.065, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.52]} />
-              <meshStandardMaterial color="#2b2320" roughness={0.6} />
-            </mesh>
-          ))}
-          {/* Side hair covering the ears. */}
-          {([-1, 1] as const).map((sx) => (
-            <mesh key={sx} position={[sx * 0.132, 0.092, -0.01]} castShadow={false}>
-              <sphereGeometry args={[0.052, 8, 8]} />
-              <meshStandardMaterial color="#2b2320" roughness={0.6} />
-            </mesh>
-          ))}
-        </group>
-        {/* Neck + tee. */}
-        <mesh position={[0, 1.36, 0]}>
-          <cylinderGeometry args={[0.05, 0.06, 0.08, 8]} />
-          <meshStandardMaterial color="#e9c9a8" roughness={0.62} />
-        </mesh>
-        <mesh position={[0, 1.14, 0]} castShadow={castShadow}>
-          <capsuleGeometry args={[0.155, 0.3, 6, 12]} />
-          <meshStandardMaterial color={accent} roughness={0.72} />
-        </mesh>
-        {/* Collar detail. */}
-        <mesh position={[0, 1.3, 0.02]} rotation={[0.4, 0, 0]}>
-          <torusGeometry args={[0.075, 0.016, 6, 12, Math.PI]} />
-          <meshStandardMaterial color="#f2efe8" roughness={0.7} />
-        </mesh>
-        {/* Backpack. */}
-        <mesh position={[0, 1.16, -0.17]} castShadow={castShadow}>
-          <boxGeometry args={[0.24, 0.32, 0.13]} />
-          <meshStandardMaterial color="#c9b48a" roughness={0.8} />
-        </mesh>
-        <mesh position={[0, 1.28, -0.2]}>
-          <boxGeometry args={[0.2, 0.09, 0.1]} />
-          <meshStandardMaterial color="#b5a077" roughness={0.8} />
-        </mesh>
-        {([-1, 1] as const).map((sx) => (
-          <mesh key={sx} position={[sx * 0.07, 1.18, -0.105]} rotation={[0.12, 0, 0]}>
-            <boxGeometry args={[0.035, 0.3, 0.02]} />
-            <meshStandardMaterial color="#8d7a56" roughness={0.8} />
-          </mesh>
-        ))}
-        {/* Arms: sleeve + skin, hinged at the shoulder. */}
-        {([-1, 1] as const).map((side) => (
-          <group key={side} ref={side < 0 ? leftArm : rightArm} position={[side * 0.21, 1.27, 0]}>
-            <mesh position={[0, -0.07, 0]} castShadow={castShadow}>
-              <capsuleGeometry args={[0.055, 0.1, 4, 8]} />
-              <meshStandardMaterial color={accent} roughness={0.72} />
-            </mesh>
-            <mesh position={[0, -0.24, 0]} castShadow={castShadow}>
-              <capsuleGeometry args={[0.042, 0.2, 4, 8]} />
-              <meshStandardMaterial color="#e9c9a8" roughness={0.62} />
-            </mesh>
-          </group>
-        ))}
-      </group>
-
-      {/* Legs: khaki shorts + skin + sneakers, hinged at the hip. */}
-      {([-1, 1] as const).map((side) => (
-        <group key={side} ref={side < 0 ? leftLeg : rightLeg} position={[side * 0.085, 0.86, 0]}>
-          <mesh position={[0, -0.14, 0]} castShadow={castShadow}>
-            <capsuleGeometry args={[0.072, 0.16, 4, 8]} />
-            <meshStandardMaterial color="#8d8168" roughness={0.8} />
-          </mesh>
-          <mesh position={[0, -0.42, 0]} castShadow={castShadow}>
-            <capsuleGeometry args={[0.05, 0.3, 4, 8]} />
-            <meshStandardMaterial color="#e9c9a8" roughness={0.62} />
-          </mesh>
-          <mesh position={[0, -0.62, 0.04]} castShadow={castShadow}>
-            <boxGeometry args={[0.11, 0.09, 0.24]} />
-            <meshStandardMaterial color="#f2efe8" roughness={0.55} />
-          </mesh>
-        </group>
-      ))}
-
-      {/* Soft contact shadow blob. */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}>
-        <circleGeometry args={[0.34, 14]} />
-        <meshBasicMaterial color="#0d243f" transparent opacity={0.25} />
-      </mesh>
-    </group>
-  );
+  return <primitive object={character.group} />;
 }
