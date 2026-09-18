@@ -1,0 +1,14 @@
+node_modules
+.git
+.output
+.vercel
+.nitro
+.tanstack
+.cache
+dist
+screenshots
+artifacts
+*.log
+.env
+.env.*
+!.env.example

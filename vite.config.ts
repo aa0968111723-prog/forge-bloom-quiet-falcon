@@ -146,7 +146,13 @@ export default defineConfig(({ command }) => ({
     ...(command === "build"
       ? [
           nitro({
-            preset: "vercel",
+            // Vercel CI sets VERCEL=1. Zeabur / Docker need a long-running
+            // Node listener — the vercel preset writes a serverless function
+            // to .vercel/output and the process exits, which crash-loops.
+            preset:
+              process.env.NITRO_PRESET === "vercel" || process.env.VERCEL
+                ? "vercel"
+                : "node-server",
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
