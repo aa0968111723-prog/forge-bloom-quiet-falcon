@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T21:42:00Z",
-  "branch": "main",
-  "mainSha": "fb932d2671c4",
-  "gameSha": "21f72cde3fbb53847de214d2791abb0f73b5ce4d",
-  "activeItem": "art-library-mass",
-  "sourceHead": "e09a90ff0563494a3dd155f9679e71c22186a7f2",
-  "integrationHead": "21f72cde3fbb53847de214d2791abb0f73b5ce4d",
+  "updated": "2026-11-11T21:50:00Z",
+  "branch": "cursor/integration-culture-mass-3395",
+  "mainSha": "4bd138fa234b",
+  "gameSha": "e3a3059a2a1a783830266293064bf6476f1a0ba7",
+  "activeItem": "art-forum-hall",
+  "sourceHead": "a8558b5ac1ad9a53c1df966744c1c770399c15ba",
+  "integrationHead": "e3a3059a2a1a783830266293064bf6476f1a0ba7",
   "verified": {
-    "hall": "Static 8112, game 21f72cd. High 1280x720 and 390x780 show the glass base, set-back upper volume, and the 覺生綜合大樓 plate. pageErrors empty. SwiftShader.",
+    "forum": "Static 8113, game e3a3059. High 1280x720 and 390x780 show the low pale volume, south glass band, roof overhang, and the 守謙國際會議中心 plate. pageErrors empty. SwiftShader.",
     "route": "Same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The integrated hall is on main: a glass base, a set-back upper volume, and upper windows on that face. Game code is 21f72cde3fbb53847de214d2791abb0f73b5ce4d. The patch from e09a90f is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #65 (conference hall) and then PR #67 (reviewing stand). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #69. Do not merge PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The conference center is a low wide hall with a south glass band and a roof overhang. Game code is e3a3059a2a1a783830266293064bf6476f1a0ba7, branched from origin/main 4bd138fa234b. The patch from a8558b5 is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #65 by itself. Do not merge PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Next after this lands is PR #67, then PR #68, each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

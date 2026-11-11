@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-11T21:42:00Z",
+      "updated": "2026-11-11T21:50:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1005,6 +1005,32 @@
       "integrationPr": 69,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/69",
       "nextAction": "None. The library-hall patch from e09a90f is already in this integration. Do not merge PR #63 by itself. Next is PR #65, then PR #67. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-forum-hall",
+      "line": "art",
+      "scope": "The conference center is a low wide hall with a south glass band and a roof overhang. It no longer uses the shared window strips. The integrated hall stays.",
+      "status": "verified",
+      "pr": 65,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/65",
+      "integrationBranch": "cursor/integration-culture-mass-3395",
+      "sourceBranch": "cursor/culture-mass-1a71",
+      "baseSha": "4bd138fa234b",
+      "headSha": "a8558b5ac1ad9a53c1df966744c1c770399c15ba",
+      "dependencies": ["art-library-mass"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, the mass renderer, the capture script, the LOD test, and the art docs. Kept linked-hall and added forum-hall. Capture keeps integrated and adds forum.",
+        "typecheck": "pass",
+        "npmTest": "261 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8113 high. 1280x720 and 390x780 show the low pale volume, south glass, overhang, and the nameplate. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": "e3a3059a2a1a783830266293064bf6476f1a0ba7",
+      "nextAction": "Open the integration PR and merge it. Source a8558b5 is not an ancestor. Do not merge PR #65 by itself."
     }
   ]
 }
