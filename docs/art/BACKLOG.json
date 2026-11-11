@@ -844,9 +844,12 @@
       "depends": [
         "ART-100"
       ],
-      "status": "planned",
+      "status": "done",
       "acceptance": "依量測調整 LOD／植栽／陰影",
-      "evidence": []
+      "evidence": [
+        "docs/art/evidence/budget/avenue-high.jpg"
+      ],
+      "notes": "同一宮燈大道站點、高畫質 1280×720：詳細樹冠 110 m 時 2,771,219 三角形；改 48 m 後 1,560,511。近處樹仍是細模。戰鬥與返回段沒有重測。真機仍 pending-device。"
     },
     {
       "id": "ART-103",

@@ -42,10 +42,10 @@ const HIGH: QualitySettings = {
   shadowMapSize: 2048,
   shadowExtent: 90,
   vegetationDensity: 0.85,
-  // Radius within which a tree uses its detailed model. The vendored canopies
-  // are ~2.5k triangles each, so a generous radius silently costs millions;
-  // past ~110 m the cheap blob is visually indistinguishable.
-  vegetationRange: 110,
+  // Detailed canopies are about 2.5k triangles. 48 m keeps the trees next to
+  // the player detailed. The old 110 m radius drew 2.77 M triangles on the
+  // avenue, over the 1.6 M outdoor budget. Past this the cheap blob is used.
+  vegetationRange: 48,
   propRange: 190,
   drawDistance: 900,
   terrainStep: 2,
