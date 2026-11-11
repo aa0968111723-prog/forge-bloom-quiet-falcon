@@ -162,6 +162,10 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 宿舍是暖色量體，實驗樓是冷灰量體加屋頂設備，游泳館是偏低的綠灰量體。教學樓是深色基座加淺色上層，橫樑在近處才畫。定步畫面：`docs/art/evidence/themes/sungtao.jpg`、`chemistry.jpg`、`swimming.jpg`、`docs/art/evidence/study/education.jpg`。都是 estimated，不是實測立面。大門與大忠警衛站仍是開口門柱。
 
+## 第 12 輪（標題鏡頭）— 2026-11-11
+
+`node --test scripts/title-camera.test.mjs` 通過。驚聲廣場環上最靠近標題鏡頭的榕樹已留出 16 m。定步標題畫面，頁面無錯誤：`docs/art/evidence/title/card.jpg`、`world.jpg`。廣場、銅像和宮燈教室不再被前景樹冠擋住。
+
 ## 第 12 輪（技能圖示與受擊邊緣）— 2026-11-11
 
 `node --test scripts/skill-glyph.test.mjs` 通過。`tsc --noEmit` 通過。九個學院各有一個不重複的技能圖示。土木工程（工程）的快捷欄是製圖圓規，不再是同一顆星。受擊時 `.ad-hurt` 用較清楚的紅色內緣，狀態卡顯示「受傷」。定步畫面：`docs/art/evidence/icons/engineering.jpg`、`hurt.jpg`。頁面無錯誤。沒有新增音效。
