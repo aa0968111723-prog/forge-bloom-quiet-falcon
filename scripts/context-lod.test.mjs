@@ -5,6 +5,7 @@ import {
   SECONDARY_STRUCTURES,
   contextDetailLimit,
   contextShowsDetail,
+  engTowerProfile,
   glazingBand,
   linkedHallProfile,
 } from "../src/game/world-data/zones/secondary.ts";
@@ -34,6 +35,16 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.kind, "intl-dorm");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.kind, "dorm-block");
+  const tower = SECONDARY_STRUCTURES.find((item) => item.id === "engineering");
+  assert.equal(tower?.kind, "eng-tower");
+  assert.equal(tower?.accuracy, "estimated");
+  assert.notEqual(tower?.kind, "lab-block");
+  const eng = engTowerProfile(tower.size);
+  const towerSouth = eng.towerZ + eng.towerD / 2;
+  assert.ok(Math.abs(eng.glassZ - (towerSouth + 0.08)) < 1e-6, "tower glass sits on the set-back face");
+  assert.ok(eng.towerW < tower.size[0], "the tower is narrower than the podium");
+  assert.ok(eng.podiumH < tower.size[1] * 0.35, "the podium stays the base");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "old-engineering")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "shed");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.accuracy, "estimated");

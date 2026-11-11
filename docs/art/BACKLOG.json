@@ -601,9 +601,10 @@
       "acceptance": "同上",
       "evidence": [
         "scripts/context-lod.test.mjs",
-        "docs/art/evidence/shed/duct.jpg"
+        "docs/art/evidence/shed/duct.jpg",
+        "docs/art/evidence/engineering/tower.jpg"
       ],
-      "notes": "風洞實驗室從實驗樓改成低長廠房，屋頂有一條風管和一端的進氣箱，沒有共用窗帶。化學館等仍是實驗樓。風管尺寸仍是 estimated。"
+      "notes": "風洞實驗室從實驗樓改成低長廠房，屋頂有一條風管和一端的進氣箱，沒有共用窗帶。工學大樓從實驗樓改成深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。工學館與化學館仍是實驗樓。精度仍是 estimated。"
     },
     {
       "id": "ART-065",

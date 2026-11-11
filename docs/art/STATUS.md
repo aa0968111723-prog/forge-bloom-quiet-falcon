@@ -187,6 +187,12 @@
 
 畫面：`docs/art/evidence/reitaku/house.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：工學大樓（ART-064 的一部分）
+
+理工區這棟不再跟化學館共用實驗樓。現在是深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。工學館與化學館仍是實驗樓。外形仍是 estimated。麗澤留著。
+
+畫面：`docs/art/evidence/engineering/tower.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。麗澤已從松濤分開。風洞、司令臺、會議中心與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。工學大樓已從實驗樓分開。工學館、化學館與風洞留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
