@@ -5,6 +5,7 @@ import { quality } from "../../quality";
 import { useRpg } from "../../rpg/store";
 import { useArtModel } from "../assets";
 import { CharacterAnimator, type ActionLayer } from "./animator";
+import { applyHeadLook, captureLookBase, createLookPose, restoreLookBase } from "./look";
 
 export type PlayerActions = {
   swing: number;
@@ -82,6 +83,8 @@ export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
   });
   const motion = useRef({ hair: spring(), charm: spring(), last: new THREE.Vector3(), vel: new THREE.Vector3(), primed: false });
   const tmp = useMemo(() => ({ world: new THREE.Vector3(), local: new THREE.Vector3(), q: new THREE.Quaternion() }), []);
+  const lookPose = useRef(createLookPose());
+  const lookReady = useRef(false);
 
   useEffect(
     () => () => {
@@ -114,20 +117,13 @@ export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
     }
 
     const speed = speedRef.current;
-    // Walk and run do not animate the head, and idle's weight is zero once
-    // speed passes 2.2 m/s, so the mixer stops writing it. Restoring the bind
-    // rotation first keeps the glance that follows a bounded offset instead of
-    // a twist that grows every frame. Neck is restored too: a clip that omits
-    // it would stack the same way.
-    bones.neck.quaternion.identity();
-    bones.head.quaternion.identity();
+    if (lookReady.current) restoreLookBase(bones.neck, bones.head, lookPose.current);
     animator.update(dt, speed);
+    captureLookBase(bones.neck, bones.head, lookPose.current);
+    lookReady.current = true;
 
-    const look = lookRef.current;
-    bones.neck.rotation.y += look.yaw * 0.45;
-    bones.neck.rotation.x += look.pitch * 0.5;
-    bones.head.rotation.y += look.yaw * 0.55;
-    bones.head.rotation.x += look.pitch * 0.5;
+    // One glance on the pose the clips just wrote. Not cumulative.
+    applyHeadLook(bones.neck, bones.head, lookRef.current);
 
     // Secondary motion from the body's own velocity, in the character frame.
     const m = motion.current;

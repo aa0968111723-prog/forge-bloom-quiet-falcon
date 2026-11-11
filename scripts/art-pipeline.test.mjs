@@ -15,7 +15,7 @@ import { checkGlb, rebuildCheck, validate } from "./art/validate-assets.mjs";
 import { buildStudentKit } from "../art/characters/student-kit/kit.ts";
 import { STRIDE, allClips } from "../art/characters/student-kit/clips.ts";
 import { CharacterAnimator } from "../src/game/art/character/animator.ts";
-import { releaseArtInstance } from "../src/game/art/release.ts";
+import { disposeOwnedArt, skeletonsIn } from "../src/game/art/instance.ts";
 import { COLLEGE_CASTS, COLLEGE_CAST_LIFE, buildCollegeCasts, layoutCollegeCast } from "../src/game/art/vfx/college-casts.ts";
 import { JACKET_RINGS } from "../art/characters/student-kit/body.ts";
 import { BONE_NAMES } from "../art/characters/student-kit/skeleton.ts";
@@ -290,7 +290,7 @@ test("releasing an art instance disposes shared skeletons once and frees the bon
   texture.dispose = () => {
     texturesDisposed += 1;
   };
-  releaseArtInstance(root, [material]);
+  disposeOwnedArt([material], skeletonsIn(root));
   assert.equal(texturesDisposed, 1, "two meshes share one skeleton");
   assert.equal(skeleton.boneTexture, null);
   assert.equal(materialsDisposed, 1);

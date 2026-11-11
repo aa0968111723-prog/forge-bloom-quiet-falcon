@@ -10,6 +10,7 @@ import { useRpg } from "../../rpg/store";
 import { useArtModel } from "../assets";
 import type { ArtId } from "../art-manifest.gen";
 import { paperBurst, penCircleGeometry } from "../vfx/combat-vfx";
+import { nextWindupProgress } from "./windup";
 
 type Enemy = ReturnType<typeof useRpg.getState>["enemies"][number];
 export type CreatureKind = Enemy["kind"];
@@ -246,16 +247,27 @@ export function CreatureActor({ enemy }: { enemy: Enemy }) {
     const ground = terrainHeight(enemy.x, enemy.z);
     g.position.set(enemy.x, ground, enemy.z);
     const player = useGame.getState();
+    const simHeld =
+      player.phase !== "playing" ||
+      Boolean(rpg.panel) ||
+      Boolean(player.plaqueId) ||
+      !rpg.departmentId ||
+      rpg.hp <= 0 ||
+      Boolean(player.benchmarkId) ||
+      Boolean(rpg.interiorId);
     const targetYaw = Math.atan2(player.playerX - enemy.x, player.playerZ - enemy.z);
     let d = targetYaw - s.yaw;
     d = Math.atan2(Math.sin(d), Math.cos(d));
     if (!dying) s.yaw += d * Math.min(1, dt * 8);
     root.rotation.y = s.yaw;
 
-    // Windup progress: the store ticks in ≥50 ms buckets, so advance locally
-    // between ticks and resync whenever the real timer moves.
-    const real = THREE.MathUtils.clamp(1 - enemy.timer / TYPE.windup, 0, 1);
-    if (enemy.state === "windup") s.windup = Math.max(real, Math.min(1, s.windup + dt / TYPE.windup));
+    // Windup progress follows the store timer. Between ≥50 ms ticks, ease
+    // forward. A panel or plaque freezes tickRpg, so the graphic holds too.
+    if (enemy.state === "windup") {
+      s.windup = nextWindupProgress(s.windup, enemy.timer, TYPE.windup, dt, simHeld);
+    } else {
+      s.windup = 0;
+    }
     const progress = enemy.state === "windup" ? s.windup : 0;
 
     // Clip weights.
