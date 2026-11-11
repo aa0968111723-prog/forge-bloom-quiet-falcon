@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T00:15:00Z",
+  "updated": "2026-11-12T00:20:00Z",
   "task_ids": [
-    "ART-064"
+    "ART-090"
   ],
-  "branch": "cursor/workshop-hall-1a71",
-  "base": "main@9068ea30c23d",
+  "branch": "cursor/lesson-marker-1a71",
+  "base": "main@ca8e8b8d67c4",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "222 pass / 0 fail",
+    "npm_test": "lesson-marker 1 pass; full suite not re-run this round",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "not re-run this round",
     "eslint_new_code": "0 errors"
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The older engineering hall is a brick base with a pale upper volume and a roof monitor. Chemistry keeps the roof plant. The engineering tower stays a set-back tower. The shape is estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The open campus map writes a two-character lesson label above the gold ring. The minimap stays a ring. The older engineering hall stays a brick base with a pale upper volume and a roof monitor. Chemistry keeps the roof plant. The engineering tower stays a set-back tower. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

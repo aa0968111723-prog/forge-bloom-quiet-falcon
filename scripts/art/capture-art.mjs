@@ -951,6 +951,14 @@ try {
     await page.evaluate(() => window.__rpgQA.rpg.getState().setPanel("map"));
     await frames(page, 3);
     await shot(page, "map", "district legend");
+  } else if (scenario === "lesson") {
+    await setPose(page, 0, -40, 0);
+    await page.evaluate(() => {
+      window.__rpgQA.rpg.setState({ lesson: "move", lessonAnchor: { x: 0, z: -80 } });
+      window.__rpgQA.rpg.getState().setPanel("map");
+    });
+    await frames(page, 4);
+    await shot(page, "map", "lesson marker label");
   } else if (scenario === "budget") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 4 });
