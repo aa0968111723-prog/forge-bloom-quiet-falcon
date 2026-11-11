@@ -193,6 +193,12 @@
 
 畫面：`docs/art/evidence/media/o.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：路網避開牆與門柱（ART-069 的一部分）
+
+估計路網有兩段中線貼著實體。視聽教育館北牆那一段改從牆外 1.6 m 走。大忠警衛站那一段改從門洞中間走。半徑 0.42 m 可以走完。座標仍是 estimated。傳播館留著。
+
+畫面：`docs/art/evidence/roads/hall.jpg`、`gate.jpg`。測試：`scripts/campus-links.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。傳播館已從坡頂分開。麗澤、風洞、司令臺與文學館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。這兩段路已離開牆和門柱。傳播館、麗澤與風洞留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

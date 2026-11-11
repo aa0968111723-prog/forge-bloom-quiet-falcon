@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance } from "../src/game/rpg/campus.ts";
+import { resolveCollision } from "../src/game/world-data/colliders.ts";
 import { entranceRoadPath } from "../src/game/rpg/rules.ts";
 
 function distPointSeg(px, pz, ax, az, bx, bz) {
@@ -39,6 +40,32 @@ test("every campus door walks onto the estimated road grid", () => {
     const path = entranceRoadPath(site);
     assert.ok(path.length >= 2, id);
     assert.ok(distToRoads(path.at(-1)[0], path.at(-1)[1]) < 1.6, id);
+  }
+});
+
+test("estimated road centerlines stay outside solid walls", () => {
+  const radius = 0.42;
+  for (const poly of CAMPUS_ROADS) {
+    for (let i = 1; i < poly.length; i++) {
+      const [ax, az] = poly[i - 1];
+      const [bx, bz] = poly[i];
+      const n = Math.max(1, Math.ceil(Math.hypot(bx - ax, bz - az) / 0.4));
+      let x = ax;
+      let z = az;
+      for (let k = 1; k <= n; k++) {
+        const tx = ax + ((bx - ax) * k) / n;
+        const tz = az + ((bz - az) * k) / n;
+        const next = resolveCollision(tx, tz, radius);
+        const moved = Math.hypot(next.x - x, next.z - z);
+        const wanted = Math.hypot(tx - x, tz - z);
+        assert.ok(
+          wanted <= 0.08 || moved >= wanted * 0.45,
+          `road stuck near ${tx.toFixed(1)}, ${tz.toFixed(1)}`,
+        );
+        x = next.x;
+        z = next.z;
+      }
+    }
   }
 });
 
