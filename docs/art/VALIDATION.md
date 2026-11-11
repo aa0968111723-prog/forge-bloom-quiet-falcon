@@ -108,3 +108,21 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 4 輪（學院施放姿勢）— 2026-11-11
 
 `npm test` 226 通過。九段施放在宮燈教室定步到 0.20 秒，姿勢互不相同：工程下砸用到腿，其餘八段只動上半身。工程沒有 `skill-engineering` 片段，所以仍播原本的 `skill`。畫面：`docs/art/evidence/m2/cast-poses.jpg`。
+
+## 第 6 輪（清冊重產與三類公共室內）— 2026-11-11
+
+`node --test scripts/campus-registry.test.mjs`：11 通過。重新產生的清冊與 `BASELINE.md` 第 6 節筆數、別名 id、saveKey、分區數一致，沒有增刪。每筆非別名都有入口記錄，狀態仍是 `pending-survey`。
+
+三類既有公共室內（遊戲化，不是實測房間）定步進出：
+
+| 房間 | 室內 | 出來之後 |
+| --- | --- | --- |
+| 宮燈教室 | interiorId palace，人在 (0, 4)，hp 100，主修保留 | interiorId null，人在 (-8, -76) |
+| 圖書館閱讀桌 | interiorId library，人在 (0, 4) | interiorId null，人在 (10, -290) |
+| 體育館球場 | interiorId gym，人在 (0, 4) | interiorId null，人在 (166, -104.5) |
+
+畫面：`docs/art/evidence/m2/public-interiors.jpg`。
+
+## 第 7 輪（光照與大道道具）— 2026-11-11
+
+同一站點 `(0, -80)`、高畫質、定步。`timeOfDay` 依序為 day、sunset、night、wet，頁面沒有錯誤。夕照與夜晚路燈亮起，雨後鋪面變暗反光。畫面：`docs/art/evidence/m2/lighting-avenue.jpg`。陰影尺寸跟畫質設定，真機幀時間仍是 `pending-device`。

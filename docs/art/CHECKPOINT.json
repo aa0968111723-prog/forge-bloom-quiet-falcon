@@ -1,9 +1,11 @@
 {
-  "updated": "2026-11-11T16:10:00Z",
+  "updated": "2026-11-11T16:45:00Z",
   "task_ids": [
-    "ART-032"
+    "ART-084",
+    "ART-086",
+    "ART-087"
   ],
-  "branch": "cursor/college-poses-campus-1a71",
+  "branch": "cursor/campus-registry-1a71",
   "base": "main@71f4d3c4742fab66b0d82edff38c7e6c39497f67",
   "commits": [
     {
@@ -86,5 +88,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-059: basic-attack arc that sweeps with the right-hand swipe instead of scaling a ring to attack range. Then ART-060: regenerate the 64-record registry, keep permanentId/saveKey/aliasOf, and separate estimated/mapped from build status."
+  "next_action": "ART-090: replace the raw HP readout on the status card with a readable bar, and check the icon still reads on a narrow viewport. Do not add audio files without a license."
 }

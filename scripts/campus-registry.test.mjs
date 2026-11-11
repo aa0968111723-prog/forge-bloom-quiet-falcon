@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { readFileSync } from "node:fs";
 import { CAMPUS_SITES } from "../src/game/rpg/campus.ts";
 import { LANDMARKS } from "../src/game/world-data/landmarks.ts";
 import {
@@ -19,6 +20,23 @@ import {
   recomputeRoute,
   worldToReal,
 } from "../src/game/world-data/registry/index.ts";
+import { REGISTRY_BASELINE, registrySnapshot } from "./art/registry-snapshot.mjs";
+
+test("the regenerated registry matches the baseline identity and the committed snapshot", () => {
+  const snap = registrySnapshot();
+  const diff = snap.diffFromBaseline;
+  assert.equal(diff.total.now, REGISTRY_BASELINE.total);
+  assert.deepEqual(diff.aliasIds.added, []);
+  assert.deepEqual(diff.aliasIds.removed, []);
+  assert.equal(diff.saveKey.now, REGISTRY_BASELINE.saveKey);
+  assert.deepEqual(diff.kind, []);
+  assert.deepEqual(diff.zone, []);
+  assert.equal(snap.counts.nonAlias, REGISTRY_BASELINE.nonAlias);
+  assert.ok(snap.rows.every((row) => row.accuracy === "estimated" && row.acceptance === "pending-survey"));
+  assert.ok(snap.rows.every((row) => row.aliasOf || row.entrance));
+  const committed = JSON.parse(readFileSync(new URL("../docs/art/registry.json", import.meta.url), "utf8"));
+  assert.deepEqual(committed, snap);
+});
 
 test("permanent ids are unique and every campus site is registered", () => {
   const ids = CAMPUS_REGISTRY.map((row) => row.permanentId);
