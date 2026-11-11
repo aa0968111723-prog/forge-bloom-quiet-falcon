@@ -651,6 +651,24 @@ try {
     const sample = await sampleFrames(page, 1500);
     await shot(page, "avenue", `triangles ${sample.triangles} calls ${sample.drawCalls}`);
     console.log(JSON.stringify(sample));
+  } else if (scenario === "vista") {
+    await hideHud(page);
+    await setPose(page, -36, -348, Math.PI / 2);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(-36, -348);
+      const target = { x: -470, y: y + 36, z: -80 };
+      const dx = -36 - target.x;
+      const dz = -348 - target.z;
+      window.__controlsTest.setPhoto({
+        yaw: Math.atan2(dx, dz),
+        distance: Math.hypot(dx, dz),
+        height: 8 - 28,
+        lookY: 6,
+        target,
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "west", "meadow looking west across the river");
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });
