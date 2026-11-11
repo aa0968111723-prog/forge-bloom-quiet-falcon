@@ -169,6 +169,12 @@
 
 畫面：`docs/art/evidence/forum/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：克難坡到三個門口（ART-069 的一部分）
+
+三條巡禮折線不再穿過驚聲銅像基座。體育館那條改從宮燈教室南緣，再從學生活動中心與教育館之間走到門口。克難坡中線可以從坡底走到坡頂。座標與階數仍是 estimated。
+
+測試：`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。會議中心已分開。覺生綜合大樓與雨留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。三條折線已能走到門口。會議中心與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
