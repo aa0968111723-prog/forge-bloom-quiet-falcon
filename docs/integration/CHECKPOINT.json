@@ -1,0 +1,19 @@
+{
+  "updated": "2026-11-11T15:41:00Z",
+  "branch": "cursor/integration-art-m1-3395",
+  "worktree": "/tmp/worktrees/art-pr6",
+  "mainSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+  "activeItem": "art-m1",
+  "sourceHead": "017b755cf196585ea5bcf134efafdd697f40ceb8",
+  "verified": {
+    "typecheck": "pass",
+    "npmTest": "217 pass / 0 fail",
+    "eslintTouched": "0 errors",
+    "buildSite": "pass",
+    "route": "ok, pageErrors empty, SwiftShader host only"
+  },
+  "notMerged": ["art-m1"],
+  "blocked": [],
+  "waiting": ["backend-sync", "content-pack"],
+  "next_action": "Reconfirm PR 6 head is still 017b755 and main is still 71f4d3c. Merge cursor/integration-art-m1-3395 into main. Fetch the merge SHA, smoke that tree, write mergeSha into QUEUE.json. Then check whether the backend or content agents have pushed a branch."
+}

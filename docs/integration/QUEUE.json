@@ -1,0 +1,100 @@
+{
+  "updated": "2026-11-11T15:41:00Z",
+  "base": "main",
+  "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+  "items": [
+    {
+      "id": "art-m1",
+      "line": "art",
+      "scope": "Asset pipeline, protagonist kit, quiz creature, engineering skill effect, plus integration fixes for head glance and skeleton disposal.",
+      "status": "ready_to_merge",
+      "pr": 6,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/6",
+      "integrationBranch": "cursor/integration-art-m1-3395",
+      "sourceBranch": "cursor/tamkang-art-pipeline-1a71",
+      "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+      "headSha": "017b755cf196585ea5bcf134efafdd697f40ceb8",
+      "dependencies": [],
+      "sharedFiles": [
+        "package.json",
+        "eslint.config.mjs",
+        "tsconfig.json",
+        "src/game/rpg/AdventureApp.tsx",
+        "src/game/rpg/AdventurePlayer.tsx",
+        "src/game/rpg/AdventureWorld.tsx",
+        "src/game/rpg/art/Monster.tsx",
+        "src/game/rpg/art/SkillEffects.tsx",
+        "src/game/controls-test.d.ts"
+      ],
+      "contractVersion": {
+        "artSchema": 1,
+        "savePilgrimage": 2,
+        "saveRpg": 2,
+        "contentSchema": null
+      },
+      "checks": {
+        "diffRead": true,
+        "conflicts": "none",
+        "typecheck": "pass",
+        "npmTest": "217 pass / 0 fail",
+        "buildSite": "pass",
+        "route": "docs/integration/evidence/integration-low.json",
+        "secrets": "none added",
+        "branchProtection": "main.protected=false via branches API; protection endpoint 403 for this token; no rulesets returned"
+      },
+      "conflicts": [
+        {
+          "id": "codex-head-look",
+          "resolution": "Restore the post-clip neck/head pose before applying glance. Walk and run do not animate head, so in-place += twisted it while moving."
+        },
+        {
+          "id": "codex-skeleton-dispose",
+          "resolution": "Unmount disposes cloned skeleton bone textures and cloned materials. Shared geometry and atlas textures stay in the loader cache."
+        }
+      ],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Reconfirm source head 017b755 and main 71f4d3c, merge the integration PR, then record mergeSha. Do not merge PR 6 separately."
+    },
+    {
+      "id": "backend-sync",
+      "line": "backend",
+      "scope": "Identity, database, cloud save, multi-device sync, content API.",
+      "status": "discovered",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": null,
+      "sourceBranch": null,
+      "baseSha": null,
+      "headSha": null,
+      "dependencies": ["art-m1"],
+      "sharedFiles": [],
+      "contractVersion": null,
+      "checks": null,
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Wait for a pushed branch or PR. Do not invent a second save store."
+    },
+    {
+      "id": "content-pack",
+      "line": "content",
+      "scope": "Campus data, image references, story, quests, events, open-source assets.",
+      "status": "discovered",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": null,
+      "sourceBranch": null,
+      "baseSha": null,
+      "headSha": null,
+      "dependencies": [],
+      "sharedFiles": [],
+      "contractVersion": null,
+      "checks": null,
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Wait for a pushed branch or PR. Reconcile department catalogs only when the content line names a canonical id list."
+    }
+  ]
+}
