@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T23:12:00Z",
-  "branch": "main",
-  "mainSha": "33bc10634f09",
-  "gameSha": "770bcdad32277494215bbfb3a206a117aa300a15",
-  "activeItem": "art-watch-post",
-  "sourceHead": "8e6f1e6c752e59c999a388413b05d1549c502898",
-  "integrationHead": "770bcdad32277494215bbfb3a206a117aa300a15",
+  "updated": "2026-11-11T23:25:00Z",
+  "branch": "cursor/integration-eng-tower-3395",
+  "mainSha": "592b6a1488b7",
+  "gameSha": "924f9a5be5bf63e857d4ca520276bfebe055d2b0",
+  "activeItem": "art-eng-tower",
+  "sourceHead": "e0c5feef2fe3002d7f4d885f8b3ab3ec10efc08c",
+  "integrationHead": "924f9a5be5bf63e857d4ca520276bfebe055d2b0",
   "verified": {
-    "watch": "Static 8122, game 770bcda. High 1280x720 shows the low booth, south window, roof mast, and the 勤務監控管制中心 plate. 390x780 is a closer crop of the same face; the window, mast, and plate stay in frame. pageErrors empty. SwiftShader. The shape is estimated.",
-    "route": "8122: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
+    "engineering": "Static 8123, game 924f9a5. High 1280x720 shows the dark podium, set-back pale tower, two glass strips, cornice, and the 工學大樓 plate. 390x780 is a closer crop of the set-back face; both strips, the podium, and the plate stay in frame, and the cornice sits at the top edge. pageErrors empty. SwiftShader. The shape is estimated. The old engineering hall stays a lab block.",
+    "route": "8123: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The security post is on main: a low booth with a south window and a roof mast. Chemistry stays a lab block. The main gate stays an open pair of piers. Game code is 770bcdad32277494215bbfb3a206a117aa300a15. The patch from 8e6f1e6 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #82 (engineering tower, head e0c5fee), then PR #85 (road centerlines, head 15c555c), then PR #86 (Ching-sheng shaft, head 27a50b0), then PR #88 (gym arena, head 6530243), then PR #90 (Liuxian glass bay, head 42980bb), then PR #91 (backpack clearance, head dbf0bbe). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #92. Do not merge PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The engineering building is a dark podium with a set-back pale tower on this integration branch. The glass bands sit on the recessed face. The old engineering hall and chemistry stay lab blocks. Game code is 924f9a5be5bf63e857d4ca520276bfebe055d2b0. The patch from e0c5fee is in this integration; that source SHA is not an ancestor. Do not merge PR #82 by itself. Re-fetch origin/main before the fast-forward. Next in-scope art is PR #85 (road centerlines, head 15c555c), then PR #86 (Ching-sheng shaft, head 27a50b0), then PR #88 (gym arena, head 6530243), then PR #90 (Liuxian glass bay, head 42980bb), then PR #91 (backpack clearance, head dbf0bbe), then PR #93 (older engineering hall workshop, head 37cc7aa). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
