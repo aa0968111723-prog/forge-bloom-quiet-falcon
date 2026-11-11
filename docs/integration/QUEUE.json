@@ -1145,6 +1145,32 @@
       "integrationPr": 81,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/81",
       "nextAction": "None. The media-hall patch from ede6705 is already in this integration. Do not merge PR #72 by itself. Next is PR #73, then PR #75, then PR #77, then PR #79, then PR #80. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-auditorium",
+      "line": "art",
+      "scope": "The audiovisual hall is a dark auditorium with a stage tower. Humanities stays a hip roof. Shared window bands still draw.",
+      "status": "verified",
+      "pr": 73,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/73",
+      "integrationBranch": "cursor/integration-auditorium-3395",
+      "sourceBranch": "cursor/auditorium-1a71",
+      "baseSha": "3b4498ad24ba",
+      "headSha": "8517cae23f13e20b56d2b67909ba1129ee7f4820",
+      "dependencies": ["art-media-halls"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, the mass renderer, the capture script, and the art docs. Kept the earlier kinds and added auditorium. Capture keeps the earlier scenarios and adds auditorium.",
+        "typecheck": "pass",
+        "npmTest": "261 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8118 high. 1280x720 and 390x780 show the dark hall, stage tower, and the nameplate. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": "b805fae8286418332bae03ea2943c03228e377cd",
+      "nextAction": "None. The auditorium patch from 8517cae is already in this integration. Do not merge PR #73 by itself. Next is PR #75, then PR #77, then PR #79, then PR #80, then PR #82. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }

@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T22:32:00Z",
-  "branch": "main",
-  "mainSha": "f82692dd2ae1",
-  "gameSha": "95e9f682bb44281a1061580b58329335b9645eb7",
-  "activeItem": "art-media-halls",
-  "sourceHead": "ede67057db9469f881ad8d01fb3559ebe9ef4398",
-  "integrationHead": "95e9f682bb44281a1061580b58329335b9645eb7",
+  "updated": "2026-11-11T22:40:00Z",
+  "branch": "cursor/integration-auditorium-3395",
+  "mainSha": "3b4498ad24ba",
+  "gameSha": "b805fae8286418332bae03ea2943c03228e377cd",
+  "activeItem": "art-auditorium",
+  "sourceHead": "8517cae23f13e20b56d2b67909ba1129ee7f4820",
+  "integrationHead": "b805fae8286418332bae03ea2943c03228e377cd",
   "verified": {
-    "media": "Static 8117, game 95e9f68. High 1280x720 and 390x780 show the dark base, pale upper volume, roof mast, and the 傳播館 O 館 plate. pageErrors empty. SwiftShader.",
+    "auditorium": "Static 8118, game b805fae. High 1280x720 and 390x780 show the dark hall, stage tower, and the 視聽教育館 plate. pageErrors empty. SwiftShader.",
     "route": "Same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Communication halls O and Q are on main: dark-base media halls with a pale upper volume and a roof mast. Humanities stays a hip roof. Game code is 95e9f682bb44281a1061580b58329335b9645eb7. The patch from ede6705 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #73 (auditorium), then PR #75 (pilgrimage walk, head 3c9cf1d), then PR #77 (architecture studio, head 55a42fb), then PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #81. Do not merge PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The audiovisual hall is a dark auditorium with a stage tower. Humanities stays a hip roof. Game code is b805fae8286418332bae03ea2943c03228e377cd. The patch from 8517cae is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #75 (pilgrimage walk, head 3c9cf1d), then PR #77 (architecture studio, head 55a42fb), then PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
