@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T20:05:00Z",
-  "branch": "main",
-  "mainSha": "95bd4d42035c",
-  "gameSha": "267167bcf9b9eec17829578b85ca354dc8587073",
-  "activeItem": "art-sign-names",
-  "sourceHead": "9a7ae33a174286b2552aadf42a097b47b2ecd364",
-  "integrationHead": "267167bcf9b9eec17829578b85ca354dc8587073",
+  "updated": "2026-11-11T20:36:00Z",
+  "branch": "cursor/integration-coin-spread-3395",
+  "mainSha": "5f6080baa691",
+  "gameSha": "45674fb0b02f55b17b24588b341c8f688f2f2ef9",
+  "activeItem": "art-coin-spread",
+  "sourceHead": "07d1a0b",
+  "integrationHead": "45674fb0b02f55b17b24588b341c8f688f2f2ef9",
   "verified": {
-    "signNames": "typecheck, 256 tests, build:site. science is 騮先紀念科學館 and swimming is 紹謨紀念游泳館. Both stay estimated. High shots at 1280x720 and 390x780 show the new names. pageErrors empty. Route on 8105: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
+    "coinSpread": "typecheck, 256 tests, build:site. One business target spreads the coins, and the chambered slash sits in front of the torso. Sign names stay. High shots at 1280x720 and 390x780, pageErrors empty. Route on 8106: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The secretariat sign names are on main. Game code is 267167bcf9b9eec17829578b85ca354dc8587073. Science is 騮先紀念科學館 and the pool is 紹謨紀念游泳館. Both stay estimated. The business podium, title camera, 48 m canopy switch, district map, skill glyphs, hurt edge, and open gates stay. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 9a7ae33a174286b2552aadf42a097b47b2ecd364 is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #52. Do not merge PR #51 by itself; its game code is already in this integration. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "Business coins spread around one target, and the basic slash chambers in front of the torso. Game code is 45674fb0b02f55b17b24588b341c8f688f2f2ef9. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館. Both stay estimated. The business podium, title camera, 48 m canopy switch, district map, skill glyphs, hurt edge, and open gates stay. The route on this tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 07d1a0b has no pull request of its own. After this integration is on main, do not merge that old baseline by itself. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #51 by itself. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }

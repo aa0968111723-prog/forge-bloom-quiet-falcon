@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11T16:05:00Z",
+  "updated": "2026-11-11T20:36:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -773,6 +773,35 @@
       "integrationPr": 52,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/52",
       "nextAction": "None. Source 9a7ae33 is an ancestor of main. Do not merge PR #51 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-coin-spread",
+      "line": "art",
+      "scope": "Business coins spread around one hit, and the basic slash chambers in front of the torso. Sign names, the business podium, and the combat rules stay.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-coin-spread-3395",
+      "sourceBranch": "cursor/coin-spread-1a71",
+      "baseSha": "5f6080baa691",
+      "headSha": "07d1a0b",
+      "dependencies": ["art-sign-names"],
+      "sharedFiles": [
+        "src/game/art/vfx/basic-swing.ts",
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/rpg/art/SkillEffects.tsx"
+      ],
+      "checks": {
+        "conflicts": "Art checkpoint, handoff, status, and validation. Kept the sign-name round and added the coin round as round 18. Capture keeps signs, business, and title, and moves closer for the business coin travel and impact.",
+        "typecheck": "pass",
+        "npmTest": "256 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8106 high tier: 1280x720 and 390x780 show the coins spread on travel, and the slash on contact. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "nextAction": "Open the integration PR and merge it. Do not merge the source branch by itself. Do not merge PR #32 head 1fc5887."
     }
   ]
 }
