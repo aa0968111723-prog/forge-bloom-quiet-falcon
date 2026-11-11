@@ -1089,6 +1089,32 @@
       "integrationPr": 76,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/76",
       "nextAction": "None. The shed patch from 916a19e is already in this integration. Do not merge PR #68 by itself. Next is PR #70, then PR #72, then PR #73, then PR #75. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-reitaku-mass",
+      "line": "art",
+      "scope": "Reitaku is a cool gray-green house with a glass lobby and a flat cornice. Sungtao stays the warm dorm. Shared window bands still draw.",
+      "status": "verified",
+      "pr": 70,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/70",
+      "integrationBranch": "cursor/integration-reitaku-mass-3395",
+      "sourceBranch": "cursor/reitaku-mass-1a71",
+      "baseSha": "24ffb9da4c9e",
+      "headSha": "add55fe64bed7476e6a5ebb3ebfcb3a82cb1ca7f",
+      "dependencies": ["art-wind-shed"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, the capture script, and the art docs. The mass renderer auto-merged. Kept linked-hall, forum-hall, stand, and shed, and added intl-dorm. Capture keeps the earlier scenarios and adds reitaku.",
+        "typecheck": "pass",
+        "npmTest": "261 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8116 high. 1280x720 shows the gray-green tower, glass lobby, flat cornice, and nameplate. 390x780 is the same mass closer. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": "7a07836c575366aa280313b9ab9ee02381c794c5",
+      "nextAction": "None. The Reitaku patch from add55fe is already in this integration. Do not merge PR #70 by itself. Next is PR #72, then PR #73, then PR #75, then PR #77. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }

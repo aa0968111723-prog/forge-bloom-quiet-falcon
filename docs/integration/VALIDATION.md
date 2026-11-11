@@ -395,6 +395,14 @@ Node 開發頁 `http://127.0.0.1:8081/narrative`。樣板進入大門警衛站�
 
 瀏覽器 `http://127.0.0.1:8115/?qa=1&q=high`。1280×720 與 390×780 都看得到低長廠房、屋頂風管和進氣箱。兩次 `pageErrors` 空。同一站跨系統路線再次通過：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列 `cloudXp` 23、登出 401。`pageErrors` 空。
 
+## 麗澤國際學舍（本輪）
+
+來源 `add55fe` 接到 `24ffb9d`。衝突在量體種類、截圖腳本，以及美術檢查點、交接、狀態與驗收文。量體渲染沒有衝突，`intl-dorm` 加在宿舍量體前面。風洞留在第 26 輪，麗澤記成第 27 輪。截圖腳本留下 `integrated`、`forum`、`stand` 與 `shed`，加上 `reitaku`。大門仍是 `gate`。
+
+`reitaku` 的種類是 `intl-dorm`。淺灰綠牆、底層玻璃門廳、平頂橫樑。主題仍是 `dorm`，所以 id 覆寫要留在主題判斷前面。松濤仍是 `dorm-block`。共用窗帶仍畫。名牌是「麗澤國際學舍」。精度仍是 estimated。沒有新的獎勵帳，扣血仍走既有 `attack()`。`npm run typecheck` 通過。`npm test` 261 通過。`npm run build:site` 通過。
+
+瀏覽器 `http://127.0.0.1:8116/?qa=1&q=high`。1280×720 看得到淺灰綠牆、玻璃門廳、平頂橫樑和名牌。390×780 是同一棟的近景。兩次 `pageErrors` 空。同一站跨系統路線再次通過：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列 `cloudXp` 23、登出 401。`pageErrors` 空。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
