@@ -5,6 +5,8 @@ import {
   SECONDARY_STRUCTURES,
   contextDetailLimit,
   contextShowsDetail,
+  glazingBand,
+  linkedHallProfile,
 } from "../src/game/world-data/zones/secondary.ts";
 
 test("context detail drops off with distance and the low tier is shorter", () => {
@@ -37,6 +39,17 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-building")?.accuracy, "estimated");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "integrated")?.kind, "linked-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "integrated")?.accuracy, "estimated");
+  const hall = SECONDARY_STRUCTURES.find((item) => item.id === "integrated");
+  const profile = linkedHallProfile(hall.size);
+  const floors = hall.floors;
+  for (let floor = 0; floor < floors; floor++) {
+    const y = ((floor + 0.55) * hall.size[1]) / floors;
+    const south = glazingBand("linked-hall", hall.size, floors, floor, 1);
+    if (y < profile.baseH) continue;
+    const face = profile.upperZ + profile.upperDepth / 2;
+    assert.ok(Math.abs(south.lz - (face + 0.05)) < 1e-6, `upper band floats at ${south.lz}`);
+    assert.ok(south.width <= profile.upperWidth - 1, "upper band is wider than the recessed wall");
+  }
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.accuracy, "estimated");
   for (const id of ["sungtao", "chemistry", "swimming"]) {

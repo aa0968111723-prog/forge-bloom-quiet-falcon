@@ -7,6 +7,8 @@ import {
   GATE_PIER_WIDTH,
   SECONDARY_STRUCTURES,
   contextShowsDetail,
+  glazingBand,
+  linkedHallProfile,
   structureGroundY,
 } from "../world-data/zones/secondary.ts";
 import { type PlaneItem } from "./InstancedPlanes";
@@ -152,13 +154,13 @@ export function ContextStructures({
       for (let f = 0; f < floors; f++) {
         const fy = y + ((f + 0.55) * s.size[1]) / floors;
         for (const side of [1, -1] as const) {
-          const lz = side * (s.size[2] / 2 + 0.05);
-          const wx = s.position[0] + Math.sin(s.rotationY) * lz;
-          const wz = s.position[1] + Math.cos(s.rotationY) * lz;
+          const band = glazingBand(s.kind, s.size, floors, f, side);
+          const wx = s.position[0] + Math.sin(s.rotationY) * band.lz;
+          const wz = s.position[1] + Math.cos(s.rotationY) * band.lz;
           out.push({
             position: [wx, fy, wz],
             rotationY: s.rotationY + (side > 0 ? 0 : Math.PI),
-            width: s.size[0] - 3,
+            width: band.width,
             height: (s.size[1] / floors) * 0.34,
             anchorX: s.position[0],
             anchorZ: s.position[1],
@@ -302,7 +304,8 @@ export function ContextStructures({
           );
         }
         if (s.kind === "linked-hall") {
-          const baseH = Math.max(3.2, s.size[1] * 0.42);
+          const profile = linkedHallProfile(s.size);
+          const baseH = profile.baseH;
           const upperH = Math.max(1, s.size[1] - baseH);
           return (
             <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
@@ -310,8 +313,8 @@ export function ContextStructures({
                 <boxGeometry args={[s.size[0], baseH, s.size[2]]} />
                 <meshStandardMaterial color="#7f96a0" roughness={0.35} metalness={0.08} />
               </mesh>
-              <mesh position={[0, baseH + upperH / 2, -0.6]} castShadow receiveShadow>
-                <boxGeometry args={[s.size[0] - 2.4, upperH, s.size[2] - 2.2]} />
+              <mesh position={[0, baseH + upperH / 2, profile.upperZ]} castShadow receiveShadow>
+                <boxGeometry args={[profile.upperWidth, upperH, profile.upperDepth]} />
                 <meshStandardMaterial color="#f3f0e8" roughness={0.84} />
               </mesh>
               {nameplates[s.id] && (

@@ -307,6 +307,39 @@ export function contextShowsDetail(
   return Math.hypot(cameraX - x, cameraZ - z) <= contextDetailLimit(tier);
 }
 
+/** Glass base plus the set-back upper volume used by 覺生綜合大樓. */
+export function linkedHallProfile(size: readonly [number, number, number]) {
+  const baseH = Math.max(3.2, size[1] * 0.42);
+  return {
+    baseH,
+    upperWidth: size[0] - 2.4,
+    upperDepth: size[2] - 2.2,
+    upperZ: -0.6,
+  };
+}
+
+/**
+ * Local Z and width of one window band. The linked hall's upper floors sit
+ * on the recessed volume, so those bands cannot use the full footprint.
+ */
+export function glazingBand(
+  kind: SecondaryStructure["kind"],
+  size: readonly [number, number, number],
+  floors: number,
+  floor: number,
+  side: 1 | -1,
+) {
+  const full = { lz: side * (size[2] / 2 + 0.05), width: size[0] - 3 };
+  if (kind !== "linked-hall") return full;
+  const profile = linkedHallProfile(size);
+  const y = ((floor + 0.55) * size[1]) / floors;
+  if (y < profile.baseH) return full;
+  return {
+    lz: profile.upperZ + side * (profile.upperDepth / 2 + 0.05),
+    width: Math.max(2, profile.upperWidth - 1.2),
+  };
+}
+
 function campusKind(site: {
   id: string;
   form?: "court" | "gate";
