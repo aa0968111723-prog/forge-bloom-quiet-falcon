@@ -50,7 +50,8 @@ export type SecondaryStructure = {
     | "arena"
     | "science-hall"
     | "workshop"
-    | "pool-hall";
+    | "pool-hall"
+    | "office-block";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -426,6 +427,21 @@ export function engTowerProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * Formal office block for 行政大樓. The entrance bay is an estimated
+ * silhouette, not a measured elevation. Classroom halls stay study blocks.
+ */
+export function officeProfile(size: readonly [number, number, number]) {
+  const bayH = Math.min(4.2, Math.max(3.2, size[1] * 0.22));
+  return {
+    bayW: Math.min(6.2, size[0] * 0.2),
+    bayH,
+    bayZ: size[2] / 2 + 0.08,
+    bandW: size[0] * 0.72,
+    bandH: 0.5,
+  };
+}
+
+/**
  * Stone shaft for 驚聲大樓. The base and parapet are an estimated silhouette,
  * not a measured elevation. There is no tiled roof.
  */
@@ -519,6 +535,7 @@ function campusKind(site: {
   if (site.id === "science") return "science-hall";
   if (site.id === "old-engineering") return "workshop";
   if (site.id === "swimming") return "pool-hall";
+  if (site.id === "administration") return "office-block";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

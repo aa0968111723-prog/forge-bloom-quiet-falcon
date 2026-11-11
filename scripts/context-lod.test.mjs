@@ -12,6 +12,7 @@ import {
   poolHallProfile,
   linkedHallProfile,
   memorialProfile,
+  officeProfile,
   scienceHallProfile,
   studioProfile,
   watchPostProfile,
@@ -147,7 +148,17 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(studioFace.glassH < studio.size[1], "studio glass stays on the wall");
   assert.ok(studioFace.monitorZ > 0, "roof monitor faces the south approach");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "administration")?.kind, "study-block");
+  const office = SECONDARY_STRUCTURES.find((item) => item.id === "administration");
+  assert.equal(office?.kind, "office-block");
+  assert.equal(office?.accuracy, "estimated");
+  assert.notEqual(office?.kind, "study-block");
+  const door = officeProfile(office.size);
+  assert.ok(door.bayZ > office.size[2] / 2, "office entrance sits on the south face");
+  assert.ok(door.bayW < office.size[0] * 0.35, "the entrance bay stays narrow");
+  assert.ok(door.bayH < office.size[1] * 0.3, "the entrance bay stays on the ground");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "study-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "foreign")?.kind, "study-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.accuracy, "estimated");
   for (const id of ["sungtao", "chemistry", "swimming"]) {

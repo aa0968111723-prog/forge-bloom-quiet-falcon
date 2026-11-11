@@ -833,6 +833,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "swimming pool hall");
+  } else if (scenario === "office") {
+    await hideHud(page);
+    await setPose(page, 112, -8, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(88, -44);
+      window.__controlsTest.setPhoto({
+        yaw: -0.65,
+        distance: 38,
+        height: 12,
+        lookY: 0,
+        target: { x: 88, y: y + 8, z: -44 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "administration office block");
   } else if (scenario === "roads") {
     await hideHud(page);
     await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));

@@ -241,8 +241,6 @@
 
 畫面：`docs/art/evidence/memorial/tower.jpg`。測試：`scripts/context-lod.test.mjs`。
 
-## 下一步
-
 ## 階段：紹謨紀念體育館（ART-067 的一部分）
 
 運動區這棟不再用圖書館的外牆材質。現在是淺色館身、深色台基、南向高側窗和出挑平頂。司令臺仍是低平台。外形仍是 estimated。驚聲大樓留著。
@@ -273,8 +271,6 @@
 
 畫面：`docs/art/evidence/map/lesson.jpg`。測試：`scripts/lesson-marker.test.mjs`。
 
-## 下一步
-
 ## 階段：紹謨紀念游泳館（ART-067 的一部分）
 
 運動區這棟現在是深色基座、淺色長廳、南向高窗和屋頂長脊。體育館仍是淺色館身。司令臺仍是低平台。水道長度仍待測。外形仍是 estimated。課程標記留著。
@@ -283,4 +279,12 @@
 
 ## 下一步
 
-見 `CHECKPOINT.json`。游泳館已從運動方塊分開。體育館、司令臺與課程標記留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+## 階段：行政大樓（ART-066 的一部分）
+
+文藝區這棟現在是石色樓身、深色基座、南向入口玻璃和兩條窗帶。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。入口位置仍待測。外形仍是 estimated。游泳館留著。
+
+畫面：`docs/art/evidence/office/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。行政大樓已從教學樓分開。教育館、會文館與游泳館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

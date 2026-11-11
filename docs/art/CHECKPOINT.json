@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T00:30:00Z",
+  "updated": "2026-11-12T00:40:00Z",
   "task_ids": [
-    "ART-067"
+    "ART-066"
   ],
-  "branch": "cursor/pool-hall-1a71",
-  "base": "main@5e9dc4004366",
+  "branch": "cursor/office-block-1a71",
+  "base": "main@61ed00f0bfd4",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The swimming hall is a pale long hall with a south clerestory and a roof spine. The lane length is still unmeasured. The gym stays a pale arena. The reviewing stand stays a low deck. The open campus map still writes a two-character lesson label. The minimap stays a ring. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The administration building is a stone office block with a south entrance bay and two window bands. Education, foreign languages, and Hweiwen stay classroom blocks. The older admin-hall record stays separate. The entrance position is still unmeasured. The swimming hall stays a pale long hall with a roof spine. The open campus map still writes a two-character lesson label. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

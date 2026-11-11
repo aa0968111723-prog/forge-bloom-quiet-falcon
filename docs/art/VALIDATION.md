@@ -295,3 +295,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 42 輪（紹謨紀念游泳館）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。紹謨紀念游泳館是深色基座、淺色長廳、南向高窗和屋頂長脊，名牌寫著紹謨紀念游泳館。沒有共用窗帶。高窗貼著南牆，長脊留在屋頂範圍內。水道長度仍待測。體育館仍是淺色館身。司令臺仍是低平台。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/pool/hall.jpg`。課程標記留在第 41 輪。沒有新增音效。
+
+## 第 43 輪（行政大樓）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。行政大樓是石色樓身、深色基座、南向入口玻璃和兩條窗帶，名牌寫著行政大樓。沒有共用窗帶。入口玻璃貼著南牆，入口寬度小於樓寬。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。精度仍是 estimated，入口位置仍待測。定步白天近景，頁面無錯誤：`docs/art/evidence/office/hall.jpg`。游泳館留在第 42 輪。沒有新增音效。
