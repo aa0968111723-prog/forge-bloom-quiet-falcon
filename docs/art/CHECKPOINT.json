@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-11T17:15:00Z",
+  "updated": "2026-11-11T17:40:00Z",
   "task_ids": [
     "ART-090"
   ],
-  "branch": "cursor/hud-status-1a71",
+  "branch": "cursor/hud-cue-wrap-1a71",
   "base": "main@b567b60ffc7b",
   "commits": [
     {
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-090 status bars are in: short labels on contrast-safe tracks, and the narrow target sits below the card. The basic swing and the campus registry are already on main. Remaining on ART-090: skill icons, map markers, and hit feedback. Do not add unlicensed audio."
+  "next_action": "ART-090 status cues now wrap outside the bar, so narrow cards no longer clip 恢復 / 受傷 / 低生命. Remaining on ART-090: skill icons, map markers, and hit feedback. Door-link work is on PR 27. Do not add unlicensed audio."
 }

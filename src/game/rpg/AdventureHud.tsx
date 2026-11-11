@@ -986,16 +986,18 @@ function LifeMeter() {
   const read = useRef(holdLife()).current;
   const bar = read(snap);
   return (
-    <div
-      className="ad-meter hp"
-      role="meter"
-      aria-valuemin={0}
-      aria-valuenow={bar.current}
-      aria-valuemax={bar.max}
-      aria-label={bar.line}
-    >
-      <i style={{ width: bar.fraction * 100 + "%" }} />
-      <span>{bar.short}</span>
+    <div className="ad-readout">
+      <div
+        className="ad-meter hp"
+        role="meter"
+        aria-valuemin={0}
+        aria-valuenow={bar.current}
+        aria-valuemax={bar.max}
+        aria-label={bar.line}
+      >
+        <i style={{ width: bar.fraction * 100 + "%" }} />
+        <span>{bar.short}</span>
+      </div>
       {bar.cues.map((cue) => (
         <StatusCueMark key={cue.id} id={cue.id} />
       ))}
@@ -1007,16 +1009,18 @@ function FocusMeter() {
   const read = useRef(holdFocus()).current;
   const bar = read({ focus });
   return (
-    <div
-      className="ad-meter focus"
-      role="meter"
-      aria-valuemin={0}
-      aria-valuenow={bar.current}
-      aria-valuemax={bar.max}
-      aria-label={bar.line}
-    >
-      <i style={{ width: bar.fraction * 100 + "%" }} />
-      <span>{bar.short}</span>
+    <div className="ad-readout">
+      <div
+        className="ad-meter focus"
+        role="meter"
+        aria-valuemin={0}
+        aria-valuenow={bar.current}
+        aria-valuemax={bar.max}
+        aria-label={bar.line}
+      >
+        <i style={{ width: bar.fraction * 100 + "%" }} />
+        <span>{bar.short}</span>
+      </div>
       {bar.cues.map((cue) => (
         <StatusCueMark key={cue.id} id={cue.id} />
       ))}
@@ -1030,16 +1034,18 @@ function ProgressMeter() {
   return (
     <>
       <span className="ad-level">{bar.level}</span>
-      <div
-        className="ad-xp"
-        role="meter"
-        aria-valuemin={0}
-        aria-valuenow={bar.current}
-        aria-valuemax={bar.max}
-        aria-label={bar.line}
-      >
-        <i style={{ width: bar.fraction * 100 + "%" }} />
-        <span>{bar.short}</span>
+      <div className="ad-readout">
+        <div
+          className="ad-xp"
+          role="meter"
+          aria-valuemin={0}
+          aria-valuenow={bar.current}
+          aria-valuemax={bar.max}
+          aria-label={bar.line}
+        >
+          <i style={{ width: bar.fraction * 100 + "%" }} />
+          <span>{bar.short}</span>
+        </div>
         {bar.cues.map((cue) => (
           <StatusCueMark key={cue.id} id={cue.id} />
         ))}
