@@ -551,6 +551,21 @@ try {
       await settle(page, { stableFrames: 3 });
       await shot(page, id, `${id} open passage`);
     }
+  } else if (scenario === "themes") {
+    await hideHud(page);
+    const stands = [
+      ["sungtao", 292, -347.5],
+      ["chemistry", 288, -243.5],
+      ["swimming", 236, -408.5],
+    ];
+    for (const [id, x, z] of stands) {
+      await setPose(page, x, z, Math.PI);
+      await page.evaluate(() =>
+        window.__controlsTest.setPhoto({ yaw: 0.35, distance: 36, height: 14, lookY: 6 }),
+      );
+      await settle(page, { stableFrames: 3 });
+      await shot(page, id, `${id} theme mass`);
+    }
   } else if (scenario === "halls") {
     await hideHud(page);
     const stands = [

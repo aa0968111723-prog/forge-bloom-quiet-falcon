@@ -301,6 +301,48 @@ export function ContextStructures({
             </group>
           );
         }
+        if (s.kind === "dorm-block" || s.kind === "lab-block" || s.kind === "sport-hall") {
+          const wall = s.kind === "dorm-block" ? "#d2b48c" : s.kind === "lab-block" ? "#a9b7be" : "#7d9a84";
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh geometry={geo!} position={[0, s.size[1] / 2, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color={wall} roughness={0.86} />
+              </mesh>
+              {s.kind === "dorm-block" && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, s.size[1] + 1.1, 0]}
+                  castShadow
+                >
+                  <boxGeometry args={[s.size[0] * 0.72, 2.2, s.size[2] * 0.72]} />
+                  <meshStandardMaterial color="#b08968" roughness={0.84} />
+                </mesh>
+              )}
+              {s.kind === "lab-block" && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[s.size[0] * 0.22, s.size[1] + 1.3, 0]}
+                  castShadow
+                >
+                  <boxGeometry args={[s.size[0] * 0.28, 2.6, s.size[2] * 0.34]} />
+                  <meshStandardMaterial color="#6d7c84" roughness={0.7} />
+                </mesh>
+              )}
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, 3.2, s.size[2] / 2 + 0.12]}
+                >
+                  <planeGeometry args={[Math.min(8.5, s.size[0] * 0.7), 1.4]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
         if (s.kind === "white-block") {
           return (
             <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>

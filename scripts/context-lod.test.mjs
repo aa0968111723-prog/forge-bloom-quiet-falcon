@@ -22,7 +22,17 @@ test("white-hall and chuehhsuan are not the generic slab", () => {
   const humanities = SECONDARY_STRUCTURES.find((item) => item.id === "humanities");
   assert.equal(white?.kind, "white-block");
   assert.equal(hall?.kind, "hip-roof-block");
-  assert.equal(humanities?.kind, "slab-block");
+  assert.equal(humanities?.kind, "hip-roof-block");
   assert.equal(white?.accuracy, "estimated");
   assert.equal(hall?.accuracy, "estimated");
+});
+
+test("dorm, lab, and sport masses stay distinct and estimated", () => {
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "sungtao")?.kind, "dorm-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "swimming")?.kind, "sport-hall");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "slab-block");
+  for (const id of ["sungtao", "chemistry", "swimming"]) {
+    assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === id)?.accuracy, "estimated");
+  }
 });

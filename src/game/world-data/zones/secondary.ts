@@ -22,7 +22,18 @@ export type SecondaryStructure = {
   size: [number, number, number];
   rotationY: number;
   floors?: number;
-  kind: "hip-roof-block" | "slab-block" | "hall" | "pavilion" | "court" | "ship" | "gate" | "white-block";
+  kind:
+    | "hip-roof-block"
+    | "slab-block"
+    | "hall"
+    | "pavilion"
+    | "court"
+    | "ship"
+    | "gate"
+    | "white-block"
+    | "dorm-block"
+    | "lab-block"
+    | "sport-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -294,11 +305,18 @@ export function contextShowsDetail(
   return Math.hypot(cameraX - x, cameraZ - z) <= contextDetailLimit(tier);
 }
 
-function campusKind(site: { id: string; form?: "court" | "gate" }): SecondaryStructure["kind"] {
+function campusKind(site: {
+  id: string;
+  form?: "court" | "gate";
+  theme?: "study" | "lab" | "arts" | "sport" | "dorm";
+}): SecondaryStructure["kind"] {
   if (site.form === "court") return "court";
   if (site.form === "gate") return "gate";
   if (site.id === "white-hall") return "white-block";
-  if (site.id === "chuehhsuan") return "hip-roof-block";
+  if (site.theme === "arts") return "hip-roof-block";
+  if (site.theme === "dorm") return "dorm-block";
+  if (site.theme === "lab") return "lab-block";
+  if (site.theme === "sport") return "sport-hall";
   return "slab-block";
 }
 
