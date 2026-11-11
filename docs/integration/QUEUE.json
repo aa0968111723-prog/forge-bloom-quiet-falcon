@@ -1033,6 +1033,32 @@
       "integrationPr": 71,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/71",
       "nextAction": "None. The forum-hall patch from a8558b5 is already in this integration. Do not merge PR #65 by itself. Next is PR #67, then PR #68. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-reviewing-stand",
+      "line": "art",
+      "scope": "The reviewing stand is a low deck with a rear booth and a canopy. It no longer uses the lab-block windows or rooftop plant. The conference hall stays.",
+      "status": "verified",
+      "pr": 67,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/67",
+      "integrationBranch": "cursor/integration-reviewing-stand-3395",
+      "sourceBranch": "cursor/reviewing-stand-1a71",
+      "baseSha": "1ee26e649c68",
+      "headSha": "1e077d1d3a9d49b2d59bef4600667080dda44a43",
+      "dependencies": ["art-forum-hall"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, the mass renderer, the capture script, and the art docs. Kept linked-hall and forum-hall and added stand. Capture keeps integrated and forum, and adds stand.",
+        "typecheck": "pass",
+        "npmTest": "261 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8114 high. 1280x720 and 390x780 show the low deck, rear booth, and canopy. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": "60c07ff4b7708de2b9323bd800b595e3729a2895",
+      "nextAction": "None. The stand patch from 1e077d1 is already in this integration. Do not merge PR #67 by itself. Next is PR #68, then PR #70, then PR #72, then PR #73. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
