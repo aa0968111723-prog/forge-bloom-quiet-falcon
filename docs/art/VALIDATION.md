@@ -161,3 +161,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。白樓是白牆平頂，覺軒是灰牆加綠瓦坡頂。窗帶、名牌和坡頂在高畫質 90 m 內才畫，省電是 48 m；量體一直留著。定步畫面：`docs/art/evidence/halls/white-hall.jpg`、`chuehhsuan.jpg`。精度仍是 estimated。
 
 宿舍是暖色量體，實驗樓是冷灰量體加屋頂設備，游泳館是偏低的綠灰量體。教學樓是深色基座加淺色上層，橫樑在近處才畫。定步畫面：`docs/art/evidence/themes/sungtao.jpg`、`chemistry.jpg`、`swimming.jpg`、`docs/art/evidence/study/education.jpg`。都是 estimated，不是實測立面。大門與大忠警衛站仍是開口門柱。
+
+## 第 12 輪（高畫質戶外三角形）— 2026-11-11
+
+同一宮燈大道站點 `(0, -80)`、高畫質 1280×720、定步。詳細樹冠半徑 110 m 時 2,771,219 三角形、452 draw calls。改成 48 m 後 1,560,511 三角形、458 draw calls，低於 1.6 M。近處行道樹仍是細模。畫面：`docs/art/evidence/budget/avenue-high.jpg`。頁面無錯誤。戰鬥、室內、返回沒有重測。手機與 RTX 3060 仍是 `pending-device`。
