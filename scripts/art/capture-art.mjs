@@ -498,6 +498,26 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "icons") {
+    await setPose(page, 0, -80, 0);
+    await settle(page, { stableFrames: 3 });
+    await page.evaluate(() => {
+      window.__rpgQA.rpg.setState({ departmentId: "engineering-工學院-1" });
+    });
+    await frames(page, 2);
+    const label = await page.evaluate(() => {
+      const button = [...document.querySelectorAll(".ad-quickbar button")].find((el) =>
+        (el.getAttribute("aria-label") || el.textContent || "").includes("技能"),
+      );
+      return button ? button.textContent.replace(/\s+/g, " ").trim() : "missing";
+    });
+    await shot(page, "engineering", `skill slot ${label}`);
+    await page.evaluate(() => {
+      const s = window.__rpgQA.rpg.getState();
+      window.__rpgQA.rpg.setState({ hp: 40, hurtUntil: s.clock + 40 });
+    });
+    await frames(page, 2);
+    await shot(page, "hurt", "hurt vignette");
   } else if (scenario === "hud") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

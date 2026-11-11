@@ -23,6 +23,14 @@ import {
   HeartPulse,
   ArrowUp,
   CircleAlert,
+  DraftingCompass,
+  FlaskConical,
+  ScrollText,
+  Coins,
+  Languages,
+  Globe,
+  Cpu,
+  type LucideIcon,
 } from "lucide-react";
 import { useGame } from "../store";
 import { quality } from "../quality";
@@ -50,7 +58,9 @@ import {
   MISSIONS,
   RECIPES,
   ENEMY_TYPES,
+  type Discipline,
 } from "./data";
+import { SKILL_GLYPH } from "./skill-glyph";
 import {
   CAMPUS_ROADS,
   CAMPUS_SITES,
@@ -1195,6 +1205,24 @@ function placedSlot(bar: CssRect, slot: CssRect): CSSProperties {
     bottom: "auto",
   };
 }
+const SKILL_ICONS: Record<(typeof SKILL_GLYPH)[Discipline], LucideIcon> = {
+  DraftingCompass,
+  FlaskConical,
+  ScrollText,
+  Coins,
+  Languages,
+  GraduationCap,
+  Globe,
+  Cpu,
+  HeartPulse,
+};
+
+function SkillGlyph({ discipline }: { discipline: Discipline | null }) {
+  const name = discipline ? SKILL_GLYPH[discipline] : null;
+  const Icon = name ? SKILL_ICONS[name] : Sparkles;
+  return <Icon size={21} aria-hidden="true" />;
+}
+
 function Quickbar({ coarse }: { coarse: boolean }) {
   const viewBox = useViewportBox();
   const placed: QuickbarPlacement | null = coarse
@@ -1273,7 +1301,7 @@ function Quickbar({ coarse }: { coarse: boolean }) {
         label="技能"
         keyMark="Q"
         slot={view.skill}
-        icon={<Sparkles size={21} />}
+        icon={<SkillGlyph discipline={dept?.discipline ?? null} />}
         press={pressAttrs("button", s.cooldown > 0 ? "waiting" : "ready")}
         keyPress={pressMark("key", s.cooldown > 0 ? "waiting" : "ready")}
         disabled={s.cooldown > 0}

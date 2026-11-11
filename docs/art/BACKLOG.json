@@ -781,9 +781,11 @@
       "acceptance": "沿用既有流程；修正狀態卡純文字讀數",
       "evidence": [
         "docs/art/evidence/hud/status-desktop.jpg",
-        "docs/art/evidence/hud/status-narrow.jpg"
+        "docs/art/evidence/hud/status-narrow.jpg",
+        "docs/art/evidence/icons/engineering.jpg",
+        "docs/art/evidence/icons/hurt.jpg"
       ],
-      "notes": "狀態卡可見讀數已改成短標籤長條，長句留在 aria-label。技能圖示、地圖標記、受擊回饋仍未做。"
+      "notes": "狀態卡是短標籤長條。九學院技能各有一個圖示，工程是製圖圓規。受擊時畫面邊緣變紅，狀態卡顯示受傷。地圖仍用既有課程標記。"
     },
     {
       "id": "ART-091",
