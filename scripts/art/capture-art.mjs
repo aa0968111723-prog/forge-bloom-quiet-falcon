@@ -551,6 +551,14 @@ try {
       await settle(page, { stableFrames: 3 });
       await shot(page, id, `${id} open passage`);
     }
+  } else if (scenario === "study") {
+    await hideHud(page);
+    await setPose(page, 224, -69.5, Math.PI);
+    await page.evaluate(() =>
+      window.__controlsTest.setPhoto({ yaw: 0.4, distance: 34, height: 12, lookY: 5 }),
+    );
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "education", "education study mass");
   } else if (scenario === "themes") {
     await hideHud(page);
     const stands = [

@@ -33,7 +33,8 @@ export type SecondaryStructure = {
     | "white-block"
     | "dorm-block"
     | "lab-block"
-    | "sport-hall";
+    | "sport-hall"
+    | "study-block";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -317,6 +318,7 @@ function campusKind(site: {
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";
   if (site.theme === "sport") return "sport-hall";
+  if (site.theme === "study") return "study-block";
   return "slab-block";
 }
 

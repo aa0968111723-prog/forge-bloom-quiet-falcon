@@ -31,7 +31,10 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "sungtao")?.kind, "dorm-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "swimming")?.kind, "sport-hall");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "slab-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "study-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "study-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.accuracy, "estimated");
   for (const id of ["sungtao", "chemistry", "swimming"]) {
     assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === id)?.accuracy, "estimated");
   }
