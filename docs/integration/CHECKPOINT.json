@@ -1,16 +1,17 @@
 {
-  "updated": "2026-11-11T20:58:00Z",
-  "branch": "main",
-  "mainSha": "61ee069559f7",
-  "gameSha": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
-  "activeItem": "art-route-measure",
-  "sourceHead": "c635b97fe7fb25c513b1face74efe434cdfb6d14",
-  "integrationHead": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
+  "updated": "2026-11-11T21:12:00Z",
+  "branch": "cursor/integration-touch-icons-3395",
+  "mainSha": "ea5aef46bc03",
+  "gameSha": "d8f6df92c2e33898b9d08c8e016506823ca012e2",
+  "activeItem": "art-touch-icons",
+  "sourceHead": "2b8f9fb59c73f9cce51f4f5cb2dbc950eb6515e3",
+  "integrationHead": "d8f6df92c2e33898b9d08c8e016506823ca012e2",
   "verified": {
-    "routeMeasure": "Static high 1280x720 on 8108, game 7507c59. title 1204683, outdoor 1562527, combat 1495745, indoor 46548, return 1437689. pageErrors empty. Frame times are SwiftShader. The cross-system route was not rerun because the game SHA did not change."
+    "phone": "Static high on 8109, game d8f6df9. 390x780 tool 44x44 and quickbar svg 24x24. 1280x720 tool 42x42 and skill glyph 21x21. pageErrors empty. SwiftShader.",
+    "route": "Same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The five-segment high route was remeasured on this static build and is on main. Outdoor segments stay under 1.6 M triangles. Game code is still 7507c59b7ddbb7a02ada9d0eba717d8721474e2a. Frame times are SwiftShader. Do not copy PR #56's older counts. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #60. Do not merge PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "Phone icons are large enough to tap on the narrow HUD. Game code is d8f6df92c2e33898b9d08c8e016506823ca012e2, branched from origin/main ea5aef46bc03. The patch from 2b8f9fb is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #59 by itself. Do not merge PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Re-fetch origin/main after this lands. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

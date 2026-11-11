@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11T20:58:00Z",
+      "updated": "2026-11-11T21:12:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -893,6 +893,32 @@
       "integrationPr": 60,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/60",
       "nextAction": "None. The counts on main were remeasured here. Do not merge PR #56 by itself. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-touch-icons",
+      "line": "art",
+      "scope": "Narrow HUD tools are 44px and quickbar glyphs are 24px. Desktop tools stay 42px. Combat, rewards, and the shore stay.",
+      "status": "verified",
+      "pr": 59,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/59",
+      "integrationBranch": "cursor/integration-touch-icons-3395",
+      "sourceBranch": "cursor/touch-targets-1a71",
+      "baseSha": "ea5aef46bc03",
+      "headSha": "2b8f9fb59c73f9cce51f4f5cb2dbc950eb6515e3",
+      "dependencies": ["art-route-measure"],
+      "sharedFiles": ["src/game/rpg/adventure.css"],
+      "checks": {
+        "conflicts": "Art checkpoint, handoff, status, and validation. Kept the route remeasure as round 20 and added phone icons as round 21. Capture keeps vista and adds phone.",
+        "typecheck": "pass",
+        "npmTest": "259 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8109 high. 390x780 tool 44x44, quickbar svg 24x24. 1280x720 tool 42x42, skill glyph 21x21. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "d8f6df92c2e33898b9d08c8e016506823ca012e2",
+      "nextAction": "Open the integration PR and merge it. Source 2b8f9fb is not an ancestor. Do not merge PR #59 by itself."
     }
   ]
 }
