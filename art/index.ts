@@ -7,6 +7,7 @@
 import type * as THREE from "three";
 import { buildStudentKit } from "./characters/student-kit/kit.ts";
 import { buildQuiz } from "./creatures/quiz/quiz.ts";
+import { buildNpcKit } from "./characters/npc-kit/kit.ts";
 
 export type BuiltAsset = {
   scene: THREE.Object3D;
@@ -33,6 +34,23 @@ export const ART_BUILDERS: Record<string, () => BuiltAsset> = {
       clips: kit.clips,
       textures: [{ material: "student-atlas", png: kit.atlasPng }],
       meta: { ...kit.meta, bones: kit.bones, parts: summariseParts(kit.parts) },
+    };
+  },
+  "char.npc-kit": () => {
+    const kit = buildNpcKit();
+    return {
+      scene: kit.scene,
+      clips: kit.clips,
+      textures: [{ material: "npc-atlas", png: kit.atlasPng }],
+      meta: {
+        units: "m",
+        forward: "+Z",
+        up: "+Y",
+        pivot: "ground between the feet",
+        bones: kit.bones,
+        parts: Object.fromEntries(kit.parts.map((p) => [p.id, p.triangles])),
+        presetTriangles: kit.presetTriangles,
+      },
     };
   },
   "creature.quiz": () => {

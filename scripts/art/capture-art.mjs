@@ -237,6 +237,30 @@ try {
       window.__controlsTest.setPhoto(null);
       window.__rpgQA.resume();
     });
+  } else if (scenario === "npcs") {
+    // Each roster walker on its real route, three-quarter front, then side.
+    await page.waitForFunction(() => (window.__npcQA?.walkers?.filter(Boolean).length ?? 0) >= 5);
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.freeze());
+    const step = (n) => page.evaluate((c) => window.__rpgQA.step(1 / 30, c), n);
+    const walkers = await page.evaluate(() => window.__npcQA.walkers.map((w) => ({ ...w })));
+    for (const [i, w] of walkers.entries()) {
+      // Park the player out of frame near the walker so its LOD and lighting are local.
+      await page.evaluate(([x, z]) => window.__controlsTest.setPose(x + 6, z + 6, 0), [w.x, w.z]);
+      await step(4);
+      const live = await page.evaluate((k) => ({ ...window.__npcQA.walkers[k] }), i);
+      const target = { x: live.x, y: live.y, z: live.z };
+      await page.evaluate((p) => window.__controlsTest.setPhoto(p), { target, yaw: live.yaw + 0.55, distance: 2.6, height: 1.05, lookY: 0.88 });
+      await step(1);
+      await shot(page, `${i + 1}-${live.id}`, `${live.id} at (${live.x.toFixed(1)}, ${live.z.toFixed(1)}), three-quarter front`);
+      await page.evaluate((p) => window.__controlsTest.setPhoto(p), { target, yaw: live.yaw + Math.PI / 2, distance: 2.6, height: 1.05, lookY: 0.88 });
+      await step(1);
+      await shot(page, `${i + 1}-${live.id}-side`, `${live.id} side`);
+    }
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto(null);
+      window.__rpgQA.resume();
+    });
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });

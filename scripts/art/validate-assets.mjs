@@ -116,6 +116,22 @@ export function checkGlb(info, record) {
     });
   }
   for (const name of record.animations ?? []) if (!clipNames.has(name)) errors.push(`declared clip "${name}" missing from GLB`);
+  // Presets stored in extras must reference part nodes that exist after loading.
+  const names = new Set((json.nodes ?? []).map((n) => n.name));
+  for (const node of json.nodes ?? []) {
+    const presets = node.extras?.presets;
+    if (!presets) continue;
+    for (const [id, preset] of Object.entries(presets)) {
+      for (const part of preset.parts ?? []) {
+        const nodeName = `part_${part.replace(/[^A-Za-z0-9-]/g, "_")}`;
+        if (!names.has(nodeName)) errors.push(`preset ${id} uses part ${part}, but node ${nodeName} is not in the GLB`);
+      }
+    }
+  }
+  // Names glTF loaders rewrite would silently break lookups by name.
+  for (const n of json.nodes ?? []) {
+    if (n.name && /[\[\]\.:\/]/.test(n.name)) errors.push(`node name "${n.name}" contains characters glTF loaders strip`);
+  }
   return errors;
 }
 

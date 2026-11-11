@@ -34,18 +34,26 @@ export type PartOptions = {
   param?: ArrayLike<number>;
   /** Keep the geometry's own UVs inside the tile (default) or tile them `repeat` times. */
   uvRepeat?: [number, number];
+  /**
+   * Runtime tint slot (1–15) stored in the vertex colour's alpha; 255 (the
+   * default) means "keep as authored". Kits with presets recolour by slot.
+   */
+  slot?: number;
 };
 
 const ATLAS_PAD = 3;
 
 export class PartBuilder {
   readonly atlasSize: number;
+  /** Tint slot used when a part does not name one (255 = keep as authored). */
+  slot = 255;
   private positions: number[] = [];
   private normals: number[] = [];
   private uvs: number[] = [];
   private colors: number[] = [];
   private skinIndex: number[] = [];
   private skinWeight: number[] = [];
+  private slots: number[] = [];
   readonly parts: { name: string; triangles: number }[] = [];
 
   constructor(atlasSize: number) {
@@ -87,6 +95,7 @@ export class PartBuilder {
       this.uvs.push(u0 + clamp01(u) * uw, v0 + (1 - clamp01(v)) * vh);
       const c = fixed ?? (opts.color as ColorFn)(p, t, u, s);
       this.colors.push(c.r, c.g, c.b);
+      this.slots.push(opts.slot ?? this.slot);
       const weights = typeof opts.skin === "number" ? [[opts.skin, 1] as [number, number]] : opts.skin(p, t);
       writeSkin(weights, this.skinIndex, this.skinWeight);
     }
@@ -113,6 +122,7 @@ export class PartBuilder {
     raw.setAttribute("color", new THREE.Float32BufferAttribute(this.colors, 3));
     raw.setAttribute("skinIndex", new THREE.Float32BufferAttribute(this.skinIndex, 4));
     raw.setAttribute("skinWeight", new THREE.Float32BufferAttribute(this.skinWeight, 4));
+    raw.setAttribute("slot", new THREE.Float32BufferAttribute(this.slots, 1));
     const g = mergeVertices(raw, 1e-6);
     raw.dispose();
     const n = g.attributes.position.count;
@@ -125,12 +135,13 @@ export class PartBuilder {
     const t = g.attributes.uv;
     const si = g.attributes.skinIndex;
     const sw = g.attributes.skinWeight;
+    const slot = g.attributes.slot;
     for (let i = 0; i < n; i++) {
       // Vertex colours are linear; 8 bits is ample for the soft occlusion they carry.
       color[i * 4] = Math.round(clamp01(c.getX(i)) * 255);
       color[i * 4 + 1] = Math.round(clamp01(c.getY(i)) * 255);
       color[i * 4 + 2] = Math.round(clamp01(c.getZ(i)) * 255);
-      color[i * 4 + 3] = 255;
+      color[i * 4 + 3] = Math.round(slot.getX(i));
       uv[i * 2] = Math.round(clamp01(t.getX(i)) * 65535);
       uv[i * 2 + 1] = Math.round(clamp01(t.getY(i)) * 65535);
       const w = [sw.getX(i), sw.getY(i), sw.getZ(i), sw.getW(i)].map((x) => Math.round(x * 255));
@@ -149,6 +160,7 @@ export class PartBuilder {
     g.setAttribute("uv", new THREE.BufferAttribute(uv, 2, true));
     g.setAttribute("skinIndex", new THREE.BufferAttribute(joints, 4));
     g.setAttribute("skinWeight", new THREE.BufferAttribute(weights, 4, true));
+    g.deleteAttribute("slot");
     g.computeBoundingBox();
     g.computeBoundingSphere();
     return g;

@@ -39,6 +39,8 @@ export type AnimatorOptions = {
   upperBody: string[];
   layers: Record<string, ActionLayer>;
   stride: { walk: number; run: number };
+  /** Lowest gait playback rate; slow strollers need less than the player's floor. */
+  minRate?: number;
 };
 
 export class CharacterAnimator {
@@ -49,6 +51,7 @@ export class CharacterAnimator {
   private readonly shots = new Map<string, OneShot>();
   private readonly upper: Set<string>;
   private readonly stride: { walk: number; run: number };
+  private readonly minRate: number;
   private active: Active[] = [];
   private readonly q = new THREE.Quaternion();
   private readonly v = new THREE.Vector3();
@@ -71,6 +74,7 @@ export class CharacterAnimator {
     this.idle.setEffectiveWeight(1);
     this.upper = new Set(options.upperBody);
     this.stride = options.stride;
+    this.minRate = options.minRate ?? 0.55;
 
     for (const [name, layer] of Object.entries(options.layers)) {
       const c = clips.find((x) => x.name === name);
@@ -115,7 +119,7 @@ export class CharacterAnimator {
     this.idle.setEffectiveWeight(idleW);
     this.walk.setEffectiveWeight(walkW);
     this.run.setEffectiveWeight(runW);
-    const clamp = (x: number) => THREE.MathUtils.clamp(x, 0.55, 2.4);
+    const clamp = (x: number) => THREE.MathUtils.clamp(x, this.minRate, 2.4);
     this.walk.timeScale = clamp(speed / this.stride.walk);
     this.run.timeScale = clamp(speed / this.stride.run);
     if (walkW > 0.001 && runW > 0.001) {

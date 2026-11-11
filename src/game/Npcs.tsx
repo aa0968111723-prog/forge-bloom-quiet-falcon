@@ -1,8 +1,10 @@
-import { useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Student } from "./Student";
 import { terrainHeight } from "./world";
+import { ArtBoundary } from "./art/ArtBoundary";
+import { NpcCharacter } from "./art/character/NpcCharacter";
 
 /**
  * NPC walking loops on the real-scale campus. Students walk the avenue paving,
@@ -51,6 +53,17 @@ const PATHS: [number, number][][] = [
 
 const ACCENTS = ["#1a3f6d", "#3d4f63", "#5b3d32", "#1a3f6d", "#2c4a3a"];
 
+/**
+ * Roster presets in char.npc-kit, one person per path above (same order).
+ * See art/characters/npc-kit/roster.ts for who they are.
+ */
+const ROSTER = ["avenue-freshman", "colonnade-architect", "plaza-linguist", "library-researcher", "kenan-athlete"];
+
+/** Beyond this the walker is not drawn; the campus is ~1 km across. */
+const DRAW_RANGE = 140;
+
+const QA = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("qa") === "1";
+
 function Walker({ path, accent, phase }: { path: [number, number][]; accent: string; phase: number }) {
   const ref = useRef<THREE.Group>(null);
   const speed = 1.35 + (phase % 5) * 0.12;
@@ -68,7 +81,7 @@ function Walker({ path, accent, phase }: { path: [number, number][]; accent: str
     return { lengths, total };
   }, [path]);
 
-  useFrame((_, raw) => {
+  useFrame(({ camera }, raw) => {
     const dt = Math.min(raw, 0.08);
     distRef.current = (distRef.current + speed * dt) % segs.total;
     let remain = distRef.current;
@@ -86,12 +99,24 @@ function Walker({ path, accent, phase }: { path: [number, number][]; accent: str
     if (ref.current) {
       ref.current.position.set(x, terrainHeight(x, z), z);
       ref.current.rotation.y = yaw + Math.PI;
+      ref.current.visible = Math.hypot(camera.position.x - x, camera.position.z - z) < DRAW_RANGE;
+      if (QA) {
+        const qa = (window.__npcQA ??= { walkers: [] });
+        qa.walkers[phase] = { id: ROSTER[phase % ROSTER.length], x, y: ref.current.position.y, z, yaw: yaw + Math.PI };
+      }
     }
   });
 
+  // The previous procedural student remains the stand-in while the kit loads
+  // and if it ever fails.
+  const standIn = <Student speed={0.7} accent={accent} castShadow={false} />;
   return (
     <group ref={ref}>
-      <Student speed={0.7} accent={accent} castShadow={false} />
+      <ArtBoundary id="char.npc-kit" fallback={standIn}>
+        <Suspense fallback={standIn}>
+          <NpcCharacter presetId={ROSTER[phase % ROSTER.length]} speed={speed} />
+        </Suspense>
+      </ArtBoundary>
     </group>
   );
 }

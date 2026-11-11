@@ -137,6 +137,62 @@
       "notes": "Same skeleton, clips and atlas as char.student-kit; keeps every silhouette part, drops sub-centimetre details and tessellation. Loaded only on the low quality tier."
     },
     {
+      "id": "char.npc-kit",
+      "name": "NPC 角色組（體型、髮型、服裝、配件與角色清冊預設）",
+      "category": "character",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/characters/npc-kit/kit.ts",
+        "files": [
+          "art/characters/npc-kit/kit.ts",
+          "art/characters/npc-kit/parts.ts",
+          "art/characters/npc-kit/roster.ts",
+          "art/characters/npc-kit/atlas.ts",
+          "art/characters/student-kit/body.ts",
+          "art/characters/student-kit/hair.ts",
+          "art/characters/student-kit/skeleton.ts",
+          "art/characters/student-kit/clips.ts",
+          "art/shared/face.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, texture and animation; no third-party content.",
+      "output": "public/game-art/characters/npc-kit.glb",
+      "units": "m",
+      "pivot": "ground between the feet",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "attack",
+        "skill",
+        "dodge",
+        "hurt",
+        "interact"
+      ],
+      "budget": {
+        "triangles": 36000,
+        "bytes": 2600000,
+        "textureSize": 512,
+        "textures": 1,
+        "presetTriangles": 10000
+      },
+      "runtime": [
+        "src/game/art/character/NpcCharacter.tsx",
+        "src/game/Npcs.tsx"
+      ],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "25 parts on the student kit skeleton: 2 faces, 4 hairstyles, 4 tops, 4 bottoms, knee socks, 2 shoes, 6 accessories, bare arms/legs. Five roster presets match the five walkers in src/game/Npcs.tsx. Runtime keeps a preset's parts, tints by slot, merges to one draw call and scales the chest for the body build."
+    },
+    {
       "id": "creature.quiz",
       "name": "突擊小考（考卷怪）",
       "category": "creature",
