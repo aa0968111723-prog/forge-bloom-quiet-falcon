@@ -1,0 +1,20 @@
+# 狀態
+
+第一條可玩的同步路徑已經接上真實 API 與資料庫，不是 mock。
+
+訪客可以不登入，只寫瀏覽器的 `tamkang-rpg-v2`。登入後若雲端還沒有存檔，必須明示 `confirmFirstSync` 才會上傳。第二個登入的客戶端要再選下載，才會寫入自己的本機。兩邊用同一個 revision 寫入時，一個成功、一個收到 `revision_conflict` 與伺服器上的存檔。選擇保留本機會用伺服器回傳的 revision 再寫一次；選擇保留雲端只改本機。登出後本機存檔還在，未帶 session 的寫入是 401。
+
+已驗證：
+
+- 未登入、偽造 `userId`、另一個帳號都讀不到別人的存檔。
+- 相同 `requestId` 重送不會增加 revision，也不會多插一筆獎勵回執。
+- 舊巡禮 JSON 被拒，`pilgrimage` 表維持 0 列。
+- 離線佇列只在原帳號登入後送出。
+- 刪除後依備份列還原，重開程序後同一筆存檔還在。
+- `GET /api/health` 在資料庫連不上時仍是 200，`GET /api/ready` 是 503，`SIGTERM` 結束碼 0。
+- `npm test`：207 通過、0 失敗。`tsc --noEmit` 通過。
+- `npm run build:site` 成功，`dist` 不含 `cloud-save` 或 `DATABASE_URL`。
+
+沒有合併 `main`，沒有部署。
+
+下一步：內容代理若交出新的 manifest 版本，沿用 `GET /api/cloud/content/manifest` 的欄位，不要在存檔同步裡執行內容檔。美術資產仍用他們的 manifest 與穩定 id。

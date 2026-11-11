@@ -1,0 +1,23 @@
+{
+  "updated_at": "2026-11-11T15:55:00Z",
+  "branch": "feature/backend-game-services",
+  "base": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+  "milestone": "rpg-cloud-save-v1",
+  "completed": [
+    "inventory of main, open PR #6, local RPG save versus pilgrimage table",
+    "offline local save, explicit first sync, second client read, revision conflict, logout",
+    "authz rejection, idempotency, legacy save, offline queue, reward receipt, backup restore, process restart, database-down ready check"
+  ],
+  "verification": {
+    "flow": "node --experimental-transform-types scripts/cloud-save-flow.mjs",
+    "npm_test": "207 pass, 0 fail",
+    "typecheck": "tsc --noEmit passed",
+    "build_site": "npm run build:site passed; dist has no cloud-save or DATABASE_URL"
+  },
+  "next_action": "Keep the static build independent. When the content agent publishes a manifest, extend GET /api/cloud/content/manifest without executing content files. Do not merge or deploy.",
+  "out_of_scope": [
+    "art PR #6",
+    "competitive leaderboard",
+    "production deploy"
+  ]
+}
