@@ -648,6 +648,21 @@ try {
       await settle(page, { stableFrames: 3 });
       await shot(page, id, `${id} official sign`);
     }
+  } else if (scenario === "integrated") {
+    await hideHud(page);
+    await setPose(page, -48, -328, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(-65, -360);
+      window.__controlsTest.setPhoto({
+        yaw: 0.35,
+        distance: 28,
+        height: 6,
+        lookY: 0,
+        target: { x: -65, y: y + 8, z: -360 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "integrated linked hall");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

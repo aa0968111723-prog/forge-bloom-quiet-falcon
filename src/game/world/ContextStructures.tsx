@@ -301,6 +301,32 @@ export function ContextStructures({
             </group>
           );
         }
+        if (s.kind === "linked-hall") {
+          const baseH = Math.max(3.2, s.size[1] * 0.42);
+          const upperH = Math.max(1, s.size[1] - baseH);
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh position={[0, baseH / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], baseH, s.size[2]]} />
+                <meshStandardMaterial color="#7f96a0" roughness={0.35} metalness={0.08} />
+              </mesh>
+              <mesh position={[0, baseH + upperH / 2, -0.6]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0] - 2.4, upperH, s.size[2] - 2.2]} />
+                <meshStandardMaterial color="#f3f0e8" roughness={0.84} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, baseH * 0.55, s.size[2] / 2 + 0.12]}
+                >
+                  <planeGeometry args={[Math.min(8.5, s.size[0] * 0.7), 1.4]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
         if (s.kind === "study-block") {
           const baseH = Math.max(2.4, s.size[1] * 0.18);
           const upperH = Math.max(1, s.size[1] - baseH);
