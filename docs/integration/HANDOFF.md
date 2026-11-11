@@ -15,9 +15,9 @@
 
 ## 下一步
 
-校園清冊在 `cursor/integration-campus-registry-3395`，尚未進 `main`。合併前確認 `origin/main` 仍是 `c17d276`、清冊 head 仍是 `bb219f5`。
+`main` 是 `4de812c`。校園清冊來源 `bb219f5` 已是它的祖先。PR #20 與來源 PR #17 隨快轉合併。遊戲程式仍是 `222804b`。
 
-再下一項是 `cursor/college-poses-campus-1a71` 的 `879ffdf`（基本攻擊揮擊）。
+下一項是 `cursor/college-poses-campus-1a71` 的 `879ffdf`（基本攻擊揮擊）。開始前先 `git fetch` 確認 head 沒有再動。
 
 ## 不要做
 

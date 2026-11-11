@@ -324,7 +324,7 @@
       "id": "art-campus-registry",
       "line": "art",
       "scope": "Committed campus registry snapshot plus avenue lighting evidence. No gameplay change. Accuracy stays estimated.",
-      "status": "ready_to_merge",
+      "status": "merged",
       "pr": 17,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/17",
       "integrationBranch": "cursor/integration-campus-registry-3395",
@@ -341,9 +341,11 @@
         "registry": "11 pass; counts match the baseline; nothing is surveyed"
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm main c17d276 and registry head bb219f5, then merge."
+      "merged": true,
+      "mergeSha": "4de812c11652fec3c318e457b0fa5e0217324758",
+      "integrationPr": 20,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/20",
+      "nextAction": "None. Source head bb219f5 is an ancestor of main. Next is the basic swing."
     }
   ]
 }
