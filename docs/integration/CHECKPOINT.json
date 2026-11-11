@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T23:26:00Z",
-  "branch": "main",
-  "mainSha": "592b6a1488b7",
-  "gameSha": "924f9a5be5bf63e857d4ca520276bfebe055d2b0",
-  "activeItem": "art-eng-tower",
-  "sourceHead": "e0c5feef2fe3002d7f4d885f8b3ab3ec10efc08c",
-  "integrationHead": "924f9a5be5bf63e857d4ca520276bfebe055d2b0",
+  "updated": "2026-11-11T23:35:00Z",
+  "branch": "cursor/integration-road-clearance-3395",
+  "mainSha": "26c82cfb9688",
+  "gameSha": "bf5f7c6c00fae2593e3988c3c0ab3714e6db1050",
+  "activeItem": "art-road-clearance",
+  "sourceHead": "15c555cf1aab9710e6d26ea2bf82b78fd51ea7c6",
+  "integrationHead": "bf5f7c6c00fae2593e3988c3c0ab3714e6db1050",
   "verified": {
-    "engineering": "Static 8123, game 924f9a5. High 1280x720 shows the dark podium, set-back pale tower, two glass strips, cornice, and the 工學大樓 plate. 390x780 is a closer crop of the set-back face; both strips, the podium, and the plate stay in frame, and the cornice sits at the top edge. pageErrors empty. SwiftShader. The shape is estimated. The old engineering hall stays a lab block.",
-    "route": "8123: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
+    "roads": "Static 8124, game bf5f7c6. High 1280x720 shows the beige path along the audiovisual hall and the path through the Dazhong gate piers. 390x780 hall is a close crop of the dark wall and a tree, with the path only at the bottom edge. 390x780 gate still shows both piers and the path through the opening. pageErrors empty. SwiftShader. The positions are estimated.",
+    "route": "8124: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The engineering building is on main: a dark podium with a set-back pale tower. The glass bands sit on the recessed face. The old engineering hall and chemistry stay lab blocks. Game code is 924f9a5be5bf63e857d4ca520276bfebe055d2b0. The patch from e0c5fee is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #85 (road centerlines, head 15c555c), then PR #86 (Ching-sheng shaft, head 27a50b0), then PR #88 (gym arena, head 6530243), then PR #90 (Liuxian glass bay, head 42980bb), then PR #91 (backpack clearance, head dbf0bbe), then PR #93 (older engineering hall workshop, head 37cc7aa). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #94. Do not merge PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Two estimated road centerlines are clear of solid walls on this integration branch. The audiovisual stretch steps to z=-25.6 between x 202 and 242. The Dazhong stretch passes between the piers at x=486. A 0.42 m body can walk every centerline. Positions stay estimated. Game code is bf5f7c6c00fae2593e3988c3c0ab3714e6db1050. The patch from 15c555c is in this integration; that source SHA is not an ancestor. Do not merge PR #85 by itself. Re-fetch origin/main before the fast-forward. Next in-scope art is PR #86 (Ching-sheng shaft, head 27a50b0), then PR #88 (gym arena, head 6530243), then PR #90 (Liuxian glass bay, head 42980bb), then PR #91 (backpack clearance, head 94e090f), then PR #93 (older engineering hall workshop, head 37cc7aa). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
