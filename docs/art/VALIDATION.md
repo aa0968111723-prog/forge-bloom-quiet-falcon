@@ -303,3 +303,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 44 輪（實棟學人宿舍）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。實棟學人宿舍是淺色樓身、南向門廊和兩條窗帶，名牌寫著實棟學人宿舍。沒有松濤那種屋頂量體，也沒有共用窗帶。門廊貼著南牆，寬度小於樓寬。松濤一館到五館仍是宿舍，麗澤仍是國際學舍。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/faculty/house.jpg`。行政大樓留在第 43 輪。沒有新增音效。
+
+## 第 45 輪（濯纓苑／校史館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。濯纓苑／校史館是白牆、木色基座、綠瓦坡頂和南向迴廊，名牌寫著濯纓苑／校史館。沒有圖書館外牆，坡頂也比學術樓的錐頂收得更緊。迴廊貼著南牆。文學館與覺軒仍是坡頂。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/garden/house.jpg`。實棟學人宿舍留在第 44 輪。沒有新增音效。

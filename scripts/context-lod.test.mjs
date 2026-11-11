@@ -8,6 +8,7 @@ import {
   arenaProfile,
   contextShowsDetail,
   engTowerProfile,
+  gardenHouseProfile,
   glazingBand,
   poolHallProfile,
   linkedHallProfile,
@@ -147,6 +148,16 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(lobby.lobbyH < activity.size[1] * 0.4, "the lobby stays the ground storey");
   assert.ok(lobby.upperW < activity.size[0], "upper floors step back");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chuehhsuan")?.kind, "hip-roof-block");
+  const garden = SECONDARY_STRUCTURES.find((item) => item.id === "yingyuan");
+  assert.equal(garden?.kind, "garden-house");
+  assert.equal(garden?.accuracy, "estimated");
+  assert.notEqual(garden?.kind, "hip-roof-block");
+  const veranda = gardenHouseProfile(garden.size);
+  assert.ok(veranda.glassZ > garden.size[2] / 2, "garden door sits on the south face");
+  assert.ok(veranda.porchZ - veranda.porchD / 2 >= garden.size[2] / 2 - 0.02, "the veranda meets the south wall");
+  assert.ok(veranda.roofH < garden.size[1], "the hip roof stays a cap");
+  assert.ok(veranda.roofR < Math.hypot(garden.size[0], garden.size[2]) * 0.5, "the roof does not use the academic cone");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "hip-roof-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "conference")?.kind, "forum-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "conference")?.accuracy, "estimated");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "audiovisual")?.kind, "auditorium");

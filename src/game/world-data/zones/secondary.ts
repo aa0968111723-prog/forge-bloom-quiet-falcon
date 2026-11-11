@@ -52,7 +52,8 @@ export type SecondaryStructure = {
     | "workshop"
     | "pool-hall"
     | "office-block"
-    | "faculty-house";
+    | "faculty-house"
+    | "garden-house";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -474,6 +475,26 @@ export function memorialProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * Garden house for 濯纓苑／校史館. The veranda and hip roof are an estimated
+ * silhouette, not a measured elevation. 文學館 and 覺軒 stay academic hip roofs.
+ */
+export function gardenHouseProfile(size: readonly [number, number, number]) {
+  const porchD = 1.6;
+  const porchH = Math.min(2.6, Math.max(2.2, size[1] * 0.34));
+  return {
+    roofH: Math.min(2.2, Math.max(1.5, size[1] * 0.28)),
+    roofR: Math.min(size[0], size[2]) * 0.62,
+    porchW: Math.min(12, size[0] * 0.42),
+    porchD,
+    porchH,
+    porchZ: size[2] / 2 + porchD / 2,
+    glassZ: size[2] / 2 + 0.08,
+    glassW: Math.min(4.4, size[0] * 0.18),
+    glassH: Math.min(2.2, porchH - 0.5),
+  };
+}
+
+/**
  * Sports hall for 紹謨紀念體育館. The plinth and clerestory are an estimated
  * silhouette, not a measured elevation. The pool stays a separate sport block.
  */
@@ -556,6 +577,7 @@ function campusKind(site: {
   if (site.id === "swimming") return "pool-hall";
   if (site.id === "administration") return "office-block";
   if (site.id === "faculty") return "faculty-house";
+  if (site.id === "yingyuan") return "garden-house";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

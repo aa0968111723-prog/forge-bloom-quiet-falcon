@@ -289,6 +289,12 @@
 
 畫面：`docs/art/evidence/faculty/house.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：濯纓苑／校史館（ART-066 的一部分）
+
+文藝區這棟不再用圖書館的外牆。現在是白牆、木色基座、收緊的綠瓦坡頂和南向迴廊。文學館與覺軒仍是坡頂。外形仍是 estimated。實棟學人宿舍留著。
+
+畫面：`docs/art/evidence/garden/house.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。實棟學人宿舍已從學生宿舍分開。松濤、麗澤與行政大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。濯纓苑已從學術坡頂分開。文學館、覺軒與實棟學人宿舍留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
