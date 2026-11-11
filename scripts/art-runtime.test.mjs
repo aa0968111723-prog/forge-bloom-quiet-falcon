@@ -9,6 +9,7 @@ import * as THREE from "three";
 import { applyHeadLook, captureLookBase, createLookPose, restoreLookBase } from "../src/game/art/character/look.ts";
 import { nextWindupProgress } from "../src/game/art/creatures/windup.ts";
 import { disposeOwnedArt, skeletonsIn } from "../src/game/art/instance.ts";
+import { basicSwingPose } from "../src/game/art/vfx/basic-swing.ts";
 
 test("head glance stays on the clip pose while gait clips leave the head alone", () => {
   const neck = new THREE.Bone();
@@ -44,6 +45,19 @@ test("quiz windup graphic holds while the simulation is paused", () => {
   assert.ok(resumed < 0.7, `paused windup ran ahead to ${resumed}`);
   const caught = nextWindupProgress(0.2, 0.09, duration, 0.016, false);
   assert.ok(caught >= 1 - 0.09 / duration);
+});
+
+test("the basic slash travels from the right to the left with the attack clip", () => {
+  const chamber = basicSwingPose(0.07, false);
+  const contact = basicSwingPose(0.15, false);
+  const follow = basicSwingPose(0.25, false);
+  const gone = basicSwingPose(0.46, false);
+  assert.ok(chamber.visible && chamber.x < -0.2, `chamber should be on the character's right, x ${chamber.x}`);
+  assert.ok(follow.visible && follow.x > 0.3, `follow-through should be on the character's left, x ${follow.x}`);
+  assert.ok(contact.x > chamber.x && contact.x < follow.x, "the blade is between the two ends at the hit frame");
+  assert.equal(gone.visible, false);
+  const held = basicSwingPose(0.07, true);
+  assert.ok(held.x > 0.3, "reduced motion shows the finished slash, not a travelling one");
 });
 
 test("disposing an art instance frees bone textures and keeps shared geometry", () => {

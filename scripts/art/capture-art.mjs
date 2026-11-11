@@ -13,6 +13,7 @@
  *   npcs         each roster walker on its route, three-quarter front and side
  *   creature     --enemy <id>: idle turnaround at its spawn, then chase, windup
  *                (telegraph), strike, hurt and defeat against the real AI
+ *   swing        basic attack on 宮燈大道: chamber, contact, follow-through
  *   skills       each non-engineering college cast on 宮燈大道: release, travel,
  *                impact, fade, against quiz-2 and the real attack()
  *
@@ -252,6 +253,32 @@ try {
       await step(frames);
       elapsed += frames / 30;
       await shot(page, `8-defeat-${elapsed.toFixed(2)}`, `defeat t=${elapsed.toFixed(2)} s ${JSON.stringify(await enemy())}`);
+    }
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto(null);
+      window.__rpgQA.resume();
+    });
+  } else if (scenario === "swing") {
+    const step = (n = 1) => page.evaluate((c) => window.__rpgQA.step(1 / 30, c), n);
+    await setPose(page, 0.4, -97.2, 0);
+    await settle(page, { stableFrames: 3 });
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.freeze());
+    // Camera on the character's right, so the chambered hand is not hidden by the body.
+    await page.evaluate((p) => window.__controlsTest.setPhoto(p), { yaw: -Math.PI * 0.72, distance: 3.2, height: 1.4, lookY: 1.1 });
+    await page.evaluate(() => {
+      window.__rpgQA.rpg.setState({ attackUntil: 0, skillUntil: 0, focus: 100, hp: 100 });
+      window.__rpgQA.rpg.getState().attack(false);
+    });
+    let elapsed = 0;
+    for (const [label, frames] of [["chamber", 2], ["contact", 3], ["follow", 3], ["fade", 6]]) {
+      await step(frames);
+      elapsed += frames / 30;
+      const fx = await page.evaluate(() => {
+        const s = window.__rpgQA.rpg.getState();
+        return { skill: s.attackFx?.skill ?? null, range: s.attackFx?.range ?? null, age: Number((s.clock - (s.attackFx?.at ?? s.clock)).toFixed(3)) };
+      });
+      await shot(page, label, `basic t=${elapsed.toFixed(2)} s ${JSON.stringify(fx)}`);
     }
     await page.evaluate(() => {
       window.__controlsTest.setPhoto(null);

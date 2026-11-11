@@ -510,9 +510,13 @@
       "depends": [
         "ART-020"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "弧線跟隨右手由右至左",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/basic-swing.ts",
+        "docs/art/evidence/m2/basic-swing.jpg"
+      ],
+      "notes": "0.06–0.25 秒從角色右側移到左側，長度約前臂，不跟著 3.7 m 判定半徑放大。命中幀在手臂上，隨揮擊繼續到另一側。"
     },
     {
       "id": "ART-060",

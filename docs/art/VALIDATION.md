@@ -108,3 +108,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 4 輪（學院施放姿勢）— 2026-11-11
 
 `npm test` 226 通過。九段施放在宮燈教室定步到 0.20 秒，姿勢互不相同：工程下砸用到腿，其餘八段只動上半身。工程沒有 `skill-engineering` 片段，所以仍播原本的 `skill`。畫面：`docs/art/evidence/m2/cast-poses.jpg`。
+
+## 第 5 輪（普攻光刃）— 2026-11-11
+
+普攻不再把圓環放大到 3.7 m。刃長約前臂，0.06 秒在角色右側，0.15 秒經過伸出的手，0.25 秒到左側。`scripts/art-runtime.test.mjs` 檢查這段位移；宮燈大道定步畫面是 `docs/art/evidence/m2/basic-swing.jpg`。蓄力幀從正面看會被身體擋住。

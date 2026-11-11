@@ -107,4 +107,4 @@
 
 ## 下一步
 
-見 `CHECKPOINT.json`：普攻弧線跟著右手掃，然後是七區清冊。
+見 `CHECKPOINT.json`：重新產生 64 筆清冊並逐筆寫處置，精度維持 estimated。

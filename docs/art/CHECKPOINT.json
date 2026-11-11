@@ -1,7 +1,7 @@
 {
-  "updated": "2026-11-11T16:10:00Z",
+  "updated": "2026-11-11T16:25:00Z",
   "task_ids": [
-    "ART-032"
+    "ART-059"
   ],
   "branch": "cursor/college-poses-campus-1a71",
   "base": "main@71f4d3c4742fab66b0d82edff38c7e6c39497f67",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-059: basic-attack arc that sweeps with the right-hand swipe instead of scaling a ring to attack range. Then ART-060: regenerate the 64-record registry, keep permanentId/saveKey/aliasOf, and separate estimated/mapped from build status."
+  "next_action": "ART-060: dump CAMPUS_REGISTRY (64 rows) to a diff against the baseline counts, keep permanentId/saveKey/aliasOf, and write a per-zone disposition that does not claim surveyed accuracy."
 }

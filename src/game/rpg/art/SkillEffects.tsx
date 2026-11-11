@@ -8,6 +8,7 @@ import { disposeSculpt } from "../../art/sculpt";
 import { useReducedArtMotion } from "../../art/motion";
 import { quality } from "../../quality";
 import { DEDICATED_SKILL_VFX } from "../../art/vfx/StructuralPulse";
+import { BASIC_SWING_DURATION, basicSwingGeometry, basicSwingPose } from "../../art/vfx/basic-swing";
 export type SkillFamily = "lattice" | "script" | "leaves" | "orbits" | "coins";
 export function skillFamily(discipline: string): SkillFamily {
   if (["engineering","computing"].includes(discipline)) return "lattice";
@@ -24,7 +25,8 @@ function buildEffects(detailed:boolean) {
   for (const name of ["lattice","script","leaves","orbits","coins","basic"]) {
     const g=new THREE.Group();g.name=name;root.add(g);
     if(name==="basic") {
-      add(g,new THREE.TorusGeometry(.78,.018,4,28,2.1),[0,.14,0],[-Math.PI/2,0,.55]);
+      // Arm-length vertical slash. The frame loop sweeps it; it is not scaled to range.
+      add(g, basicSwingGeometry(detailed), [0, 1.28, -0.62]);
       continue;
     }
     add(g,new THREE.RingGeometry(.87,.89,48),[0,.018,0],[-Math.PI/2,0,0]);
@@ -73,28 +75,31 @@ export function SkillEffects() {
   useEffect(()=>()=>disposeSculpt(effects),[effects]);
   useFrame(()=>{
     const state=useRpg.getState(), fx=state.attackFx;
-    const age=fx?state.clock-fx.at:Infinity, duration=fx?.skill ? .65 : .30;
+    const age=fx?state.clock-fx.at:Infinity, duration=fx?.skill ? .65 : BASIC_SWING_DURATION;
     if(!root.current)return;
     root.current.visible=Boolean(fx && age>=0 && age<duration && !state.interiorId);
     if(!fx || !root.current.visible)return;
     const t=age/duration;
-    root.current.position.set(fx.x,terrainHeight(fx.x,fx.z)+.10,fx.z);
+    const groundY=terrainHeight(fx.x,fx.z);
+    root.current.position.set(fx.x, groundY, fx.z);
     root.current.rotation.y=fx.yaw;
-    const scale=fx.range*(reduced ? .80 : .25+.75*t);
-    root.current.scale.setScalar(scale);
     const discipline=DEPARTMENTS.find(d=>d.id===state.departmentId)?.discipline??"science";
     // Disciplines with a dedicated effect draw their own skill; the basic swing stays here.
     if(fx.skill && DEDICATED_SKILL_VFX[discipline]){root.current.visible=false;return;}
     const name=fx.skill ? skillFamily(discipline) : "basic";
+    // Skills that still fall through here expand to the real range. The slash does not.
+    root.current.scale.setScalar(name==="basic" ? 1 : fx.range*(reduced ? .80 : .25+.75*t));
+    const swing=basicSwingPose(age, reduced);
     for(const group of effects.children) {
       group.visible=group.name===name;
       if(!group.visible)continue;
-      group.rotation.y=reduced?0:fx.skill?t*.65:0;
+      if(name==="basic"){group.position.x=swing.x;group.rotation.z=swing.roll;group.rotation.y=0;}
+      else group.rotation.y=reduced?0:fx.skill?t*.65:0;
       group.traverse(o=>{
         const mesh=o as THREE.Mesh;
         if(!mesh.material)return;
         const m=mesh.material as THREE.MeshBasicMaterial;
-        m.color.set(fx.color);m.opacity=(1-t)*(reduced ? .40 : .80);
+        m.color.set(fx.color);m.opacity=name==="basic" ? swing.opacity : (1-t)*(reduced ? .40 : .80);
       });
     }
   });

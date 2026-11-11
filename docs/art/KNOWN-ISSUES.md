@@ -9,7 +9,7 @@
 | KI-03 | 主角外觀 | needs_review | 鞋楦已加高並加圓頭與橡膠鞋頭，手指已分開；四肢仍偏細，待審閱。 | 審閱 `evidence/m2/protagonist-shoes-hands.jpg` |
 | KI-04 | 樣板場景 | needs_review | 宮燈大道沿用既有建物與宮燈；未依新方向精修碧瓦、窗格與宮燈燈頭。 | 併入 axis-54（ART-062） |
 | KI-05 | 怪物 | needs_review | quiz／report／exam／final 都改由管線模型繪製，數值與 AI 未改。final 空地正面與背面見 `creature-final-open.jpg`；側面仍會被近處樹冠擋住。 | 審閱 `evidence/m2/creature-*` |
-| KI-06 | 技能 | needs_review | 九學院都有專屬特效，也各有施放姿勢（`evidence/m2/cast-poses.jpg`）。商管金幣在單一目標上會疊成一串。普攻仍是縮放圓環，還沒跟著右手掃。 | 金幣散開；ART-059 普攻弧線 |
+| KI-06 | 技能 | needs_review | 九學院都有專屬特效，也各有施放姿勢（`evidence/m2/cast-poses.jpg`）。商管金幣在單一目標上會疊成一串。普攻光刃在 0.06–0.25 秒從右側移到左側，不再放大到判定半徑（`evidence/m2/basic-swing.jpg`）。蓄力那一幀刃還容易藏在身體後面。 | 金幣散開；蓄力幀把刃再往外移一點 |
 | KI-07 | 判定時序 | 設計限制 | `attack()` 同一幀完成扣血，技能沒有可延後的「預備」；預備以冷卻結束的就緒提示呈現，命中特效從 t = 0 開始。 | 若要真正的前搖需改戰鬥規則，超出美術範圍 |
 | KI-08 | 預警形狀 | 設計限制 | 敵人攻擊判定是圓形（`radius + 2.5`），因此預警只能是圓；不畫錐形或直線以免誤導。 | 若改判定再改圖 |
 | KI-09 | UI | planned | HUD 狀態卡顯示「生命 目前值 100 最大值 100 變化 目前 0 最大 0」純文字讀數。 | ART-090 |
