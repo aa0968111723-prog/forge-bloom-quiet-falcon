@@ -225,7 +225,7 @@
 
 ## 階段：工學大樓（ART-064 的一部分）
 
-理工區這棟不再跟化學館共用實驗樓。現在是深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。工學館與化學館仍是實驗樓。外形仍是 estimated。勤務監控留著。
+理工區這棟現在是深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。化學館仍是實驗樓。外形仍是 estimated。勤務監控留著。
 
 畫面：`docs/art/evidence/engineering/tower.jpg`。測試：`scripts/context-lod.test.mjs`。
 
@@ -265,4 +265,12 @@
 
 ## 下一步
 
-見 `CHECKPOINT.json`。背包正面在每個片段都留在外套後面。科學館、學生活動中心與建築系館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+## 階段：工學館（ART-064 的一部分）
+
+理工區這棟現在是磚紅基座、淺色上層、南向玻璃和屋頂小間。化學館仍是實驗樓。工學大樓仍是退縮塔樓。外形仍是 estimated。背包淨空留著。
+
+畫面：`docs/art/evidence/workshop/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。工學館已從實驗樓分開。化學館、工學大樓與科學館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

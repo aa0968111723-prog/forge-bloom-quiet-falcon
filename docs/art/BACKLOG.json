@@ -607,9 +607,10 @@
         "docs/art/evidence/shed/duct.jpg",
         "docs/art/evidence/studio/hall.jpg",
         "docs/art/evidence/engineering/tower.jpg",
-        "docs/art/evidence/science/hall.jpg"
+        "docs/art/evidence/science/hall.jpg",
+        "docs/art/evidence/workshop/hall.jpg"
       ],
-      "notes": "風洞實驗室從實驗樓改成低長廠房，屋頂有一條風管和一端的進氣箱，沒有共用窗帶。化學館等仍是實驗樓。風管尺寸仍是 estimated。建築系館從綠瓦坡頂改成混凝土量體、南向玻璃、遮陽板和屋頂採光，沒有共用窗帶。工作室外形仍是 estimated，不是實測立面。工學大樓從實驗樓改成深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。工學館仍是實驗樓。塔樓外形仍是 estimated。騮先紀念科學館從實驗樓改成淺色館身、東側直玻璃和壓簷，沒有屋頂設備。未匯出的 science-hall 舊剪影沒有合併。精度仍是 estimated。"
+      "notes": "風洞實驗室從實驗樓改成低長廠房，屋頂有一條風管和一端的進氣箱，沒有共用窗帶。化學館等仍是實驗樓。風管尺寸仍是 estimated。建築系館從綠瓦坡頂改成混凝土量體、南向玻璃、遮陽板和屋頂採光，沒有共用窗帶。工作室外形仍是 estimated，不是實測立面。工學大樓從實驗樓改成深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。塔樓外形仍是 estimated。工學館從實驗樓改成磚紅基座、淺色上層和屋頂小間，沒有屋頂設備。騮先紀念科學館從實驗樓改成淺色館身、東側直玻璃和壓簷，沒有屋頂設備。未匯出的 science-hall 舊剪影沒有合併。精度仍是 estimated。"
     },
     {
       "id": "ART-065",
