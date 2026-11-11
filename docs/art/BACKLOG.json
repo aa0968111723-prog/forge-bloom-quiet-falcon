@@ -581,9 +581,13 @@
         "ART-060",
         "ART-084"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "scripts/context-lod.test.mjs",
+        "docs/art/evidence/integrated/hall.jpg"
+      ],
+      "notes": "覺生綜合大樓從教學樓基座改成玻璃基座加退縮的淺色上層。圖書館與驚聲大樓仍用既有量體。精度仍是 estimated，不是實測立面。"
     },
     {
       "id": "ART-064",
