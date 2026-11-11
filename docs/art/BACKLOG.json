@@ -636,9 +636,14 @@
       "depends": [
         "ART-062"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "每個非別名入口可達；不漂浮、不穿牆、不被裝飾物卡住",
-      "evidence": []
+      "evidence": [
+        "scripts/campus-links.test.mjs",
+        "docs/art/evidence/links/audiovisual-door.jpg",
+        "docs/art/evidence/links/main-gate-door.jpg"
+      ],
+      "notes": "41 個校園門口都有一條不穿碰撞體、終點落在估計路網上的步道。視聽教育館與正門先前的直線會穿進量體或停在路外。精度仍是 estimated，階數未測，不宣稱不被裝飾物卡住。"
     },
     {
       "id": "ART-070",

@@ -143,3 +143,9 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 | 390×780 | 同上；目標卡在狀態卡下方，經驗條未被蓋住 | `docs/art/evidence/hud/status-narrow.jpg` |
 
 填色與墨色 `#102e32` 的對比：生命 `#e09a8c` 6.29、專注 `#8eb8b4` 6.63、經驗 `#ddc691` 8.61、空軌 `#cfc6b0` 8.47，皆高於 4.5。窄視窗與 reduced-motion 仍使用 `var(--ad-ink)` 與 `var(--ad-type)`。
+
+## 第 9 輪（門口接到估計路網）— 2026-11-11
+
+`node --test scripts/campus-links.test.mjs` 2 通過。`tsc --noEmit` 通過。41 個 `CAMPUS_SITES` 門口各有一條步道，起點是門口，終點距路網小於 1.6 m，路網本身是一個相連分量。視聽教育館與正門不再把步道目標放進建築碰撞裡。
+
+定步畫面（高畫質，頁面無錯誤）：`docs/art/evidence/links/audiovisual-door.jpg`、`main-gate-door.jpg`。步道沿量體外側接到路，不是穿牆直線。座標仍是 estimated，沒有階數，不宣稱 1:1。

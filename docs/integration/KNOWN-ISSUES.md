@@ -3,7 +3,7 @@
 | ID | 狀態 | 說明 | 下一步 |
 | --- | --- | --- | --- |
 | INT-01 | blocked | 科系有兩份清冊：`src/game/departments.ts` 與 `src/game/rpg/data.ts`。id 形狀不同，只在匯入時依名稱對應。 | 等內容線指定唯一 id。在那之前不刪任何一邊 |
-| INT-02 | 已處理 | 雲端存檔與第二客戶端已在 `main`。遊戲程式 `803fe62` 再走一次：上傳、下載、衝突、斷線、登出都通過 | 遊戲程式沒再變就不要重跑 |
+| INT-02 | 已處理 | 雲端存檔與第二客戶端已在 `main`。門口步道這版又走一次：上傳、下載、衝突、斷線、登出都通過 | 遊戲程式沒再變就不要重跑 |
 | INT-03 | 已處理 | 走路／跑步時 idle 權重為 0，walk／run 沒有 `head` 軌，glance 用 `+=` 會把頭越轉越偏。Codex 在 PR #6 的意見 | `look.ts` 先還原上一幀剪輯姿勢再加一次 glance。測試：`scripts/art-runtime.test.mjs` |
 | INT-04 | 已處理 | 複製骨架在卸載時要釋放 bone texture。M2 美術線改成 `releaseArtInstance`，與整合線的 `disposeOwnedArt` 衝突 | 只留 `releaseArtInstance`。刪 `src/game/art/instance.ts`。測試改呼叫它，共享幾何仍不釋放 |
 | INT-05 | needs_review | 美術線 KI-03、KI-17：鞋頭偏扁、手為連指；頂着高台時速度被歸零所以播 idle | 留在美術線下一項。本輪不改移動規則 |

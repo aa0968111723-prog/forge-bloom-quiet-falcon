@@ -46,7 +46,9 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 ## 地點
 
-`permanentId` 與 `aliasOf` 在 `src/game/world-data/registry/index.ts` 的 `RegistryEntry`。本輪沒有改清冊。美術線記錄 64 筆仍全部 `estimated`。
+`permanentId` 與 `aliasOf` 在 `src/game/world-data/registry/index.ts` 的 `RegistryEntry`。清冊筆數沒有增刪，精度仍全部 `estimated`。
+
+校園門口的可見步道由 `entranceRoadPath` 從門口走到估計路網上能站的點。不再對準最近的一條垂直線。這不是實測路線，也沒有新的階數。
 
 室內路線用既有 `enter("palace")`／`exit()`。宮燈教室 id 是 `palace`。
 

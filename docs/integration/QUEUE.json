@@ -452,7 +452,38 @@
       "conflicts": [],
       "merged": true,
       "mergeSha": "cbaf71f1ea1120fcd01c71e885700377a8133f6a",
-      "nextAction": "None. The route on game code 803fe62 is recorded. Do not rerun unless the game SHA changes."
+      "nextAction": "None. The route on game code 803fe62 is recorded. The door-link change after it is a new game SHA."
+    },
+    {
+      "id": "art-district-links",
+      "line": "art",
+      "scope": "Each campus door ribbon walks to a standable point on the estimated road grid. Audiovisual and main-gate no longer aim into a building collider.",
+      "status": "verified",
+      "pr": 27,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/27",
+      "integrationBranch": "cursor/integration-district-links-3395",
+      "sourceBranch": "cursor/district-links-1a71",
+      "baseSha": "c59aaacbb4628363e8771f5a27b009f94b212092",
+      "headSha": "f48a2c50e7ad2b4fed139f1f54c0db5fa34e8c77",
+      "dependencies": ["art-hud-status"],
+      "sharedFiles": ["src/game/rpg/rules.ts", "src/game/rpg/AdventureWorld.tsx"],
+      "checks": {
+        "conflicts": "art checkpoint, handoff, status, validation, capture-art. Kept the HUD capture and added the links scenario.",
+        "typecheck": "pass",
+        "npmTest": "248 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8094 aerial stands at audiovisual and main-gate, paths follow the building edge, pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
+      "merged": false,
+      "nextAction": "Fast-forward only while origin/main is still c59aaac and the source head is still f48a2c5."
     }
   ]
 }
