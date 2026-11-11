@@ -7,6 +7,7 @@ import {
   contextShowsDetail,
   glazingBand,
   linkedHallProfile,
+  memorialProfile,
 } from "../src/game/world-data/zones/secondary.ts";
 
 test("context detail drops off with distance and the low tier is shorter", () => {
@@ -24,6 +25,13 @@ test("white-hall and chuehhsuan are not the generic slab", () => {
   const humanities = SECONDARY_STRUCTURES.find((item) => item.id === "humanities");
   assert.equal(white?.kind, "white-block");
   assert.equal(hall?.kind, "hip-roof-block");
+  const memorial = SECONDARY_STRUCTURES.find((item) => item.id === "chingsheng-building");
+  assert.equal(memorial?.kind, "memorial-tower");
+  assert.equal(memorial?.accuracy, "estimated");
+  assert.notEqual(memorial?.kind, "hip-roof-block");
+  const shaft = memorialProfile(memorial.size);
+  assert.ok(shaft.glassZ > memorial.size[2] / 2, "memorial glass sits on the south face");
+  assert.ok(shaft.baseH < memorial.size[1] * 0.25, "the base stays the ground storey");
   assert.equal(humanities?.kind, "hip-roof-block");
   assert.equal(white?.accuracy, "estimated");
   assert.equal(hall?.accuracy, "estimated");

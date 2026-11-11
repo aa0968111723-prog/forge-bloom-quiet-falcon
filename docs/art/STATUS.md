@@ -207,6 +207,12 @@
 
 測試：`scripts/route-walk.test.mjs`。
 
+## 階段：驚聲大樓（ART-063 的一部分）
+
+書圖區這棟不再是八層樓上的綠瓦錐頂。現在是石色樓身、深色基座、底層玻璃和平頂壓簷。文學館仍是坡頂。覺生綜合大樓仍是玻璃基座加退縮上層。外形仍是 estimated。巡禮折線留著。
+
+畫面：`docs/art/evidence/memorial/tower.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。三條折線已能走到門口。視聽教育館、傳播館與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。驚聲大樓已從綠瓦分開。文學館、覺生綜合大樓與視聽教育館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

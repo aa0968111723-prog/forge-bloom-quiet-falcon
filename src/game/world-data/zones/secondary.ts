@@ -41,7 +41,8 @@ export type SecondaryStructure = {
     | "shed"
     | "intl-dorm"
     | "media-hall"
-    | "auditorium";
+    | "auditorium"
+    | "memorial-tower";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -60,7 +61,7 @@ const LEGACY_SECONDARY_STRUCTURES: SecondaryStructure[] = [
     size: [30, 30, 24],
     rotationY: 0,
     floors: 8,
-    kind: "hip-roof-block",
+    kind: "memorial-tower",
     cluster: "west-academic",
     walkable: true,
     accuracy: "estimated",
@@ -311,6 +312,19 @@ export function contextShowsDetail(
   tier: "high" | "low",
 ) {
   return Math.hypot(cameraX - x, cameraZ - z) <= contextDetailLimit(tier);
+}
+
+/**
+ * Stone shaft for 驚聲大樓. The base and parapet are an estimated silhouette,
+ * not a measured elevation. There is no tiled roof.
+ */
+export function memorialProfile(size: readonly [number, number, number]) {
+  const baseH = Math.min(4.2, Math.max(3.2, size[1] * 0.14));
+  return {
+    baseH,
+    glassZ: size[2] / 2 + 0.08,
+    glassW: size[0] * 0.46,
+  };
 }
 
 /** Glass base plus the set-back upper volume used by 覺生綜合大樓. */
