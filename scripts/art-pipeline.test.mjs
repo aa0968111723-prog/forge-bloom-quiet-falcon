@@ -288,6 +288,15 @@ test("each college skill is a different shape that reaches the cast range", () =
       const ringMesh = travel.getObjectByName("outer").children[0];
       assert.ok(Math.abs(ringMesh.rotation.x + Math.PI / 2) < 1e-6 && Math.abs(ringMesh.rotation.y) < 1e-6 && Math.abs(ringMesh.rotation.z) < 1e-6, "resonance rings stay flat");
     }
+    if (group.name === "business") {
+      let spread = 0;
+      for (let i = 0; i < travel.children.length; i++) {
+        for (let j = i + 1; j < travel.children.length; j++) {
+          spread = Math.max(spread, travel.children[i].position.distanceTo(travel.children[j].position));
+        }
+      }
+      assert.ok(spread > 0.8, `one target should not stack the coins, spread ${spread}`);
+    }
     if (group.name === "computing") {
       const bracket = group.getObjectByName("impact0").geometry;
       // Eight indexed boxes, expanded: 12 triangles × 3 vertices each.

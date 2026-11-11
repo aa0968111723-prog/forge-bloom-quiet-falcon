@@ -329,7 +329,25 @@ try {
       for (const [label, frames] of [["release", 2], ["travel", 5], ["impact", 6], ["fade", 10]]) {
         await step(frames);
         elapsed += frames / 30;
+        if (name === "business" && (label === "travel" || label === "impact")) {
+          await page.evaluate(() => {
+            const y = window.__rpgQA.ground(4.2, -103);
+            window.__controlsTest.setPhoto({
+              yaw: 0.7,
+              distance: 3.4,
+              height: 1.1,
+              lookY: 0,
+              target: { x: 4.2, y: y + 1.15, z: -103 },
+            });
+            window.__rpgQA.step(0, 1);
+          });
+        }
         await shot(page, `${name}-${label}`, `${name} t=${elapsed.toFixed(2)} s ${JSON.stringify(cast)}`);
+        if (name === "business" && (label === "travel" || label === "impact")) {
+          await page.evaluate(() =>
+            window.__controlsTest.setPhoto({ yaw: -0.35, distance: 9.5, height: 5.2, lookY: 0.2 }),
+          );
+        }
       }
     }
     await page.evaluate(() => {

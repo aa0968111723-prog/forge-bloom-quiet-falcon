@@ -181,3 +181,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 16 輪（商管大樓量體）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。沿用的商管大樓剪影從通用灰塊改成教學樓的深色基座加淺色上層。精度仍是 estimated，不是實測立面。定步近景，頁面無錯誤：`docs/art/evidence/business/mass.jpg`。
+
+## 第 17 輪（商管金幣與普攻蓄力）— 2026-11-11
+
+`node --test scripts/art-pipeline.test.mjs scripts/art-runtime.test.mjs` 通過。`tsc --noEmit` 通過。只有一個命中點時，金幣彼此距離超過 0.8 m。蓄力幀刃的 local z 在 -0.5 之前，也就是身前。定步飛行幀，頁面無錯誤：`docs/art/evidence/coins/travel.jpg`。蓄力刃這輪沒有重拍。

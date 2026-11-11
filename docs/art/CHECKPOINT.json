@@ -3,7 +3,7 @@
   "task_ids": [
     "ART-062"
   ],
-  "branch": "cursor/business-mass-1a71",
+  "branch": "cursor/coin-spread-1a71",
   "base": "main@3950e2aa15dd",
   "commits": [
     {
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The legacy business tower now uses the study podium instead of the generic slab. Accuracy stays estimated. The title camera stays clear, and high-quality detailed canopies still switch past 48 m. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "Business coins spread around one target, and the basic slash chambers in front of the torso. The chamber frame was not rephotographed. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

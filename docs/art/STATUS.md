@@ -123,6 +123,10 @@
 
 畫面：`docs/art/evidence/business/mass.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：商管金幣散開（KI-06）
+
+打到同一個目標時，金幣沿圓周散開，不再疊在同一個點。普攻蓄力幀的刃改到身前。定步飛行畫面：`docs/art/evidence/coins/travel.jpg`。蓄力那一幀這輪沒有重拍，位置由 `scripts/art-runtime.test.mjs` 檢查。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。商管大樓不再是通用灰塊。高畫質大道三角形已低於 1.6 M。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。金幣會散開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

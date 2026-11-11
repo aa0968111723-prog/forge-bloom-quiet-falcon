@@ -282,14 +282,22 @@ export function layoutCollegeCast(group: THREE.Object3D, frame: CastFrame) {
       cell.visible = frame.reduced || frame.age / WAVE >= slot * 0.85;
     });
   } else if (shape === "coins") {
+    const count = travel.children.length;
     travel.children.forEach((coin, i) => {
       const hit = frame.hits[i % Math.max(1, frame.hits.length)];
       const u = frame.reduced ? 1 : Math.min(1, frame.age / 0.35);
-      _a.set(0, 0.8, 0);
-      if (hit) group.worldToLocal(_b.set(hit.x, hit.y + 0.8, hit.z));
-      else _b.set(Math.sin(i) * reach, 0.6, Math.cos(i) * reach);
+      const angle = (i / count) * Math.PI * 2;
+      // Leave the hand as a small fan, and arrive around the target instead of
+      // stacking every coin on the same point when there is only one hit.
+      _a.set(Math.cos(angle) * 0.28, 0.8, Math.sin(angle) * 0.28);
+      if (hit) {
+        group.worldToLocal(_b.set(hit.x, hit.y + 0.9, hit.z));
+        _b.x += Math.cos(angle) * 0.62;
+        _b.z += Math.sin(angle) * 0.62;
+      } else _b.set(Math.cos(angle) * reach, 0.6, Math.sin(angle) * reach);
       coin.position.lerpVectors(_a, _b, u);
-      coin.position.y += Math.sin(u * Math.PI) * 1.6;
+      coin.position.y += Math.sin(u * Math.PI) * (0.7 + (i % 3) * 0.28);
+      coin.rotation.y = frame.reduced ? 0 : frame.age * 8 + angle;
     });
   }
   const showImpact = frame.age > (frame.reduced ? 0 : 0.05);
