@@ -1257,6 +1257,32 @@
       "integrationPr": 89,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/89",
       "nextAction": "None. The activity-hall patch from 4bf084a is already in this integration. Do not merge PR #79 by itself. Next is PR #80, then PR #82, then PR #85, then PR #86, then PR #88. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-watch-post",
+      "line": "art",
+      "scope": "The security post is a low booth with a south window and a roof mast. Chemistry stays a lab block. The main gate stays an open pair of piers. Shared window bands and the lab rooftop plant are skipped. The shape stays estimated.",
+      "status": "verified",
+      "pr": 80,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/80",
+      "integrationBranch": "cursor/integration-watch-post-3395",
+      "sourceBranch": "cursor/watch-post-1a71",
+      "baseSha": "33bc10634f09",
+      "headSha": "8e6f1e6c752e59c999a388413b05d1549c502898",
+      "dependencies": ["art-activity-hall"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, the profile functions, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added watch-post. Capture keeps the earlier scenarios and adds watch.",
+        "typecheck": "pass",
+        "npmTest": "263 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8122 high. 1280x720 shows the low booth, south window, roof mast, and the nameplate. 390x780 is a closer crop of the same face. pageErrors empty",
+        "route": "8122: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": "770bcdad32277494215bbfb3a206a117aa300a15",
+      "nextAction": "Do not merge PR #80 by itself. Next is PR #82, then PR #85, then PR #86, then PR #88."
     }
   ]
 }
