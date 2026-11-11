@@ -146,7 +146,13 @@ export function ContextStructures({
   const glazing = useMemo(() => {
     const out: GlazingItem[] = [];
     for (const { s, y } of items) {
-      if (s.kind === "court" || s.kind === "ship" || s.kind === "pavilion" || s.kind === "gate")
+      if (
+        s.kind === "court" ||
+        s.kind === "ship" ||
+        s.kind === "pavilion" ||
+        s.kind === "gate" ||
+        s.kind === "shed"
+      )
         continue;
       const floors = s.floors ?? 6;
       for (let f = 0; f < floors; f++) {
@@ -295,6 +301,35 @@ export function ContextStructures({
                   position={[0, height + 0.28, s.size[2] / 2 + 0.36]}
                 >
                   <planeGeometry args={[Math.min(4.2, s.size[0] * 0.55), 0.7]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
+        if (s.kind === "shed") {
+          const bodyH = Math.max(3.4, s.size[1] * 0.72);
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh position={[0, bodyH / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], bodyH, s.size[2]]} />
+                <meshStandardMaterial color="#9aa3a8" roughness={0.78} />
+              </mesh>
+              <mesh position={[0, bodyH + 0.7, 0]} castShadow>
+                <boxGeometry args={[s.size[0] * 0.84, 1.35, 3.4]} />
+                <meshStandardMaterial color="#6d767c" roughness={0.62} />
+              </mesh>
+              <mesh position={[s.size[0] * 0.36, bodyH + 0.85, 0]} castShadow>
+                <boxGeometry args={[4.2, 2.4, 4.2]} />
+                <meshStandardMaterial color="#5e676d" roughness={0.7} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, bodyH * 0.55, s.size[2] / 2 + 0.08]}
+                >
+                  <planeGeometry args={[Math.min(9, s.size[0] * 0.45), 1.2]} />
                   <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
                 </mesh>
               )}
