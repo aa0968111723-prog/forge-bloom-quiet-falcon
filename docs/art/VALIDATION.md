@@ -223,3 +223,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 24 輪（守謙國際會議中心）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。會議中心是低寬淺色量體、南向玻璃帶和出挑屋簷，名牌寫著守謙國際會議中心。沒有共用窗帶。精度仍是 estimated。定步近景，頁面無錯誤：`docs/art/evidence/forum/hall.jpg`。覺生綜合大樓留在第 23 輪。
+
+## 第 25 輪（視聽教育館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。視聽教育館從綠瓦坡頂改成深色廳堂加舞台塔，名牌寫著視聽教育館。文學館仍是坡頂。舞台塔不是實測。定步畫面，頁面無錯誤：`docs/art/evidence/auditorium/hall.jpg`。

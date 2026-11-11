@@ -678,6 +678,21 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "conference forum hall");
+  } else if (scenario === "auditorium") {
+    await hideHud(page);
+    await setPose(page, 240, 8, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(222, -12);
+      window.__controlsTest.setPhoto({
+        yaw: 0.6,
+        distance: 40,
+        height: 12,
+        lookY: 0,
+        target: { x: 222, y: y + 10, z: -12 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "audiovisual auditorium");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
