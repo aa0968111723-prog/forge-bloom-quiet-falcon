@@ -372,6 +372,28 @@
       "integrationPr": 21,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/21",
       "nextAction": "None. Source 879ffdf is an ancestor of main. Next integrator work is the cross-system route."
+    },
+    {
+      "id": "cross-system-route",
+      "line": "integration",
+      "scope": "One playthrough from the offline static site through campus narrative, existing combat, one reward, reload, then cloud login, a second client, conflict, disconnect, and logout. The cloud document is the save the browser wrote.",
+      "status": "ready_to_merge",
+      "pr": null,
+      "integrationBranch": "cursor/integration-cross-route-3395",
+      "sourceBranch": null,
+      "baseSha": "37ee4d5a8177dfdfe4d9a0c11899fb8d1d148ee6",
+      "headSha": null,
+      "dependencies": ["art-basic-swing", "content-narrative-campus", "backend-cloud-save"],
+      "sharedFiles": ["scripts/integration-route.mjs"],
+      "checks": {
+        "conflicts": "none",
+        "browser": "chemistry major, xp 20, notes 19, quest once, quiz-2 65 to 45, reload kept the save, pageErrors empty, no /api requests",
+        "cloud": "local_only, first sync revision 1, second client downloaded the played save, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Reconfirm main is 37ee4d5, then fast-forward."
     }
   ]
 }

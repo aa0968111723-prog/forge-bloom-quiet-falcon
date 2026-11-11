@@ -1,16 +1,16 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "69295089e3a8861e51c949a80620199bb40ac951",
+  "mainSha": "37ee4d5a8177dfdfe4d9a0c11899fb8d1d148ee6",
   "gameSha": "27e180cefd4648995db484e875660f9b821df64b",
-  "activeItem": null,
+  "activeItem": "cross-system-route",
   "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
     "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": [],
+  "notMerged": ["cross-system-route"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Basic swing is on main. Game code is 27e180cefd4648995db484e875660f9b821df64b. Tip 6929508 includes the validation record; re-fetch before trusting a later docs tip. Source 879ffdf is an ancestor. No other remote head is ahead of main. Next integrator work is the cross-system route: offline start, character, campus, NPC event, combat with the existing rules, one reward, save/reload, login sync, second client, conflict, logout. Do not invent a semester picker or a second reward store."
+  "next_action": "The cross-system route passed on game 27e180c against static :8086 and a temporary PGLite cloud server. Record is on cursor/integration-cross-route-3395 and is not on main yet. Reconfirm origin/main is 37ee4d5, then fast-forward. Do not redo the route unless the game SHA changes. Do not invent a semester picker or a second reward store. INT-01 and INT-12 stay blocked. No remote head is ahead of main."
 }

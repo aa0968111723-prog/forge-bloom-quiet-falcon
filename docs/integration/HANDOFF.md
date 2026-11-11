@@ -15,9 +15,17 @@
 
 ## 下一步
 
-`main` 是 `6929508`。普攻程式是 `27e180c`。來源 `879ffdf` 已是它的祖先。PR #21 隨快轉合併。合併後 typecheck 通過。
+跨系統路線在 `cursor/integration-cross-route-3395`，尚未進 `main`。遊戲程式仍是 `27e180c`。合併前確認 `origin/main` 仍是 `37ee4d5`。
 
-遠端其他分支都沒有超前 `main` 的提交。下一件整合工作是把離線啟動、角色、校園、NPC 事件、既有規則的戰鬥、獎勵一次、存檔重載、登入同步、第二客戶端、衝突、登出斷線走成同一條驗收。不要新增學期選擇，也不要做第二套獎勵帳。
+路線命令：
+
+```sh
+node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8086/ /tmp/integration-route
+```
+
+靜態站要先開著。這次結果：經驗 20、筆記 19、突襲小考 65→45、第二客戶端下載到化學學系、衝突是 `revision_conflict`、登出後 401。
+
+遠端沒有超前 `main` 的分支。INT-01 與 INT-12 維持不動。不要新增學期選擇，也不要做第二套獎勵帳。
 
 ## 不要做
 
