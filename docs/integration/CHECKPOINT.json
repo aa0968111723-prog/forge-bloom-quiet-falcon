@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T21:20:00Z",
-  "branch": "main",
-  "mainSha": "a81566621292",
-  "gameSha": "5f2ce19d1da511d1e7507e4266321dc71a3195eb",
-  "activeItem": "art-rain-tier",
-  "sourceHead": "7f9fbe4e6b1171c43cdd953bb18f0f9acd532df4",
-  "integrationHead": "5f2ce19d1da511d1e7507e4266321dc71a3195eb",
+  "updated": "2026-11-11T21:32:00Z",
+  "branch": "cursor/integration-rain-motion-3395",
+  "mainSha": "5e994732fdfc",
+  "gameSha": "331da1e16f672b82065619325e50e12af6d111a6",
+  "activeItem": "art-rain-motion",
+  "sourceHead": "70fc091ffa922719e4fab4473a296733affe4388",
+  "integrationHead": "331da1e16f672b82065619325e50e12af6d111a6",
   "verified": {
-    "rain": "Static on 8110, game 5f2ce19. Wet avenue at high 1280x720, low 1280x720, and high 390x780. pageErrors empty. SwiftShader. High is 320 streaks and low is 64.",
+    "rainMotion": "Static 8111, game 331da1e. 1280x720 wet avenue: streaks move, then prefers-reduced-motion stops the streaks. Bushes and idle still move. pageErrors empty. SwiftShader.",
     "route": "Same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Outdoor rain is on main. High draws 320 streaks and low draws 64. Game code is 5f2ce19d1da511d1e7507e4266321dc71a3195eb. The patch from 7f9fbe4 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #64. Do not merge PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Rain follows a reduced-motion change while the scene is open. Game code is 331da1e16f672b82065619325e50e12af6d111a6, branched from origin/main 5e994732fdfc. The patch from 70fc091 is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #61 by itself. Do not merge PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Re-fetch origin/main after this lands. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

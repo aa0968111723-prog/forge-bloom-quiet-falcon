@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-11T21:20:00Z",
+      "updated": "2026-11-11T21:32:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -949,6 +949,32 @@
       "integrationPr": 64,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/64",
       "nextAction": "None. The rain-tier patch from 7f9fbe4 is already in this integration. Do not merge PR #61 by itself. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-rain-motion",
+      "line": "art",
+      "scope": "Rain follows a reduced-motion change while the scene is open. Streak counts stay 320 and 64.",
+      "status": "verified",
+      "pr": 61,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/61",
+      "integrationBranch": "cursor/integration-rain-motion-3395",
+      "sourceBranch": "cursor/weather-tier-1a71",
+      "baseSha": "5e994732fdfc",
+      "headSha": "70fc091ffa922719e4fab4473a296733affe4388",
+      "dependencies": ["art-rain-tier"],
+      "sharedFiles": ["src/game/world/Rain.tsx"],
+      "checks": {
+        "conflicts": "none",
+        "typecheck": "pass",
+        "npmTest": "261 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8111 high 1280x720. Streaks move, then stop after prefers-reduced-motion. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "331da1e16f672b82065619325e50e12af6d111a6",
+      "nextAction": "Open the integration PR and merge it. Source 70fc091 is not an ancestor. Do not merge PR #61 by itself."
     }
   ]
 }
