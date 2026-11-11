@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 麗澤國際學舍是淺灰綠牆、底層玻璃門廳和平頂橫樑。松濤仍是暖色宿舍。風洞仍是低長廠房。 | 來源 PR #70 `add55fe`。整合分支 `cursor/integration-reitaku-mass-3395` | `verified` |
+| 美術與場景 | 麗澤國際學舍是淺灰綠牆、底層玻璃門廳和平頂橫樑。松濤仍是暖色宿舍。風洞仍是低長廠房。 | 來源 PR #70 `add55fe`。整合 PR #78 | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | 只改麗澤的量體。松濤、風洞、司令臺、會議中心、覺生綜合大樓、雨與手機圖示留著 |
 | 已驗證 | 靜態頁 `http://127.0.0.1:8116/`。1280×720 看得到淺灰綠牆、玻璃門廳、平頂橫樑和「麗澤國際學舍」。390×780 是同一棟的近景。兩次 `pageErrors` 空。跨系統路線再次通過 |
-| 已合併 | 尚未。遊戲程式 `7a07836`。接到 `origin/main` `24ffb9d`。`main` 未受保護、沒有必須的 check |
+| 已合併 | 是。遊戲程式 `7a07836`。整合 PR #78。`main` 未受保護、沒有必須的 check |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍

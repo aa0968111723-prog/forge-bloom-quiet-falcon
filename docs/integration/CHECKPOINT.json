@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T22:22:00Z",
-  "branch": "cursor/integration-reitaku-mass-3395",
+  "branch": "main",
   "mainSha": "24ffb9da4c9e",
   "gameSha": "7a07836c575366aa280313b9ab9ee02381c794c5",
   "activeItem": "art-reitaku-mass",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Reitaku is a cool gray-green house with a glass lobby and a flat cornice. Sungtao stays the warm dorm. Game code is 7a07836c575366aa280313b9ab9ee02381c794c5. The patch from add55fe is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #72 (media halls), then PR #73 (auditorium), then PR #75 (pilgrimage walk, head 3c9cf1d), then PR #77 (architecture studio, head 55a42fb). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Reitaku is on main: a cool gray-green house with a glass lobby and a flat cornice. Sungtao stays the warm dorm. Game code is 7a07836c575366aa280313b9ab9ee02381c794c5. The patch from add55fe is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #72 (media halls), then PR #73 (auditorium), then PR #75 (pilgrimage walk, head 3c9cf1d), then PR #77 (architecture studio, head 55a42fb). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #78. Do not merge PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
