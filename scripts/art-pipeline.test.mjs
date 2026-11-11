@@ -16,6 +16,7 @@ import { buildStudentKit } from "../art/characters/student-kit/kit.ts";
 import { STRIDE, allClips } from "../art/characters/student-kit/clips.ts";
 import { CharacterAnimator } from "../src/game/art/character/animator.ts";
 import { releaseArtInstance } from "../src/game/art/release.ts";
+import { COLLEGE_CASTS, COLLEGE_CAST_LIFE, buildCollegeCasts, layoutCollegeCast } from "../src/game/art/vfx/college-casts.ts";
 import { JACKET_RINGS } from "../art/characters/student-kit/body.ts";
 import { BONE_NAMES } from "../art/characters/student-kit/skeleton.ts";
 import { WALK, SPRINT } from "../src/game/rpg/move.ts";
@@ -223,6 +224,41 @@ test("a glance while sprinting stays a bounded offset, because gait clips omit t
   }
   assert.ok(Math.abs(head.rotation.y - glance) < 0.02, `head yaw drifted to ${head.rotation.y}; stacking would reach ${bare.toFixed(1)}`);
   anim.dispose();
+});
+
+test("each college skill is a different shape that reaches the cast range", () => {
+  const root = buildCollegeCasts(true);
+  assert.deepEqual(
+    root.children.map((c) => c.name).sort(),
+    [...COLLEGE_CASTS].sort(),
+  );
+  const shapes = new Set(root.children.map((c) => c.userData.shape));
+  assert.equal(shapes.size, COLLEGE_CASTS.length);
+  const frame = {
+    age: 0.22,
+    range: 14,
+    yaw: 0.4,
+    reduced: false,
+    center: { x: 1, y: 0, z: -3 },
+    hits: [{ x: 4, y: 0, z: -6 }],
+    player: { x: 1, y: 0, z: 1 },
+  };
+  for (const group of root.children) {
+    assert.equal(layoutCollegeCast(group, frame), true, group.name);
+    const travel = group.getObjectByName("travel");
+    if (["counter-rings", "board", "meeting-arcs", "dome"].includes(group.userData.shape)) {
+      assert.ok(Math.abs(travel.scale.x - 14) < 0.05, `${group.name} reach ${travel.scale.x}`);
+    }
+    assert.equal(group.getObjectByName("impact0").visible, true, group.name);
+    assert.equal(group.getObjectByName("impact1").visible, false, `${group.name} has no second hit`);
+  }
+  frame.age = COLLEGE_CAST_LIFE + 0.05;
+  assert.equal(layoutCollegeCast(root.children[0], frame), false);
+  frame.age = 0;
+  frame.reduced = true;
+  const science = root.getObjectByName("science");
+  layoutCollegeCast(science, frame);
+  assert.ok(Math.abs(science.getObjectByName("travel").scale.x - 14) < 0.05, "reduced motion shows full range at once");
 });
 
 test("releasing an art instance disposes shared skeletons once and frees the bone texture", () => {

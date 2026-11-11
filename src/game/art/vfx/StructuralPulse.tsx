@@ -315,4 +315,14 @@ export function StructuralPulse() {
 }
 
 /** Disciplines whose skill is drawn by a dedicated effect instead of the shared families. */
-export const DEDICATED_SKILL_VFX: Partial<Record<keyof typeof DISCIPLINES, true>> = { engineering: true };
+export const DEDICATED_SKILL_VFX: Partial<Record<keyof typeof DISCIPLINES, true>> = {
+  engineering: true,
+  science: true,
+  humanities: true,
+  business: true,
+  language: true,
+  education: true,
+  international: true,
+  computing: true,
+  health: true,
+};

@@ -35,6 +35,7 @@ import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
 import { Monster } from "./art/Monster";
 import { SkillEffects } from "./art/SkillEffects";
 import { StructuralPulse } from "../art/vfx/StructuralPulse";
+import { CollegeCasts } from "../art/vfx/CollegeCasts";
 
 /** Scene marker. Sentences the player must read stay on the DOM plaque. */
 export function Sign({
@@ -749,6 +750,7 @@ export function AdventureSystems() {
       <BuildGhost />
       <SkillEffects />
       <StructuralPulse />
+      <CollegeCasts />
       <BaseLights />
     </group>
   );

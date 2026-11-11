@@ -13,6 +13,8 @@
  *   npcs         each roster walker on its route, three-quarter front and side
  *   creature     --enemy <id>: idle turnaround at its spawn, then chase, windup
  *                (telegraph), strike, hurt and defeat against the real AI
+ *   skills       each non-engineering college cast on 宮燈大道: release, travel,
+ *                impact, fade, against quiz-2 and the real attack()
  *
  * Writes PNGs plus `<scenario>.json` with what was captured and any page errors.
  */
@@ -237,6 +239,46 @@ try {
       await step(frames);
       elapsed += frames / 30;
       await shot(page, `8-defeat-${elapsed.toFixed(2)}`, `defeat t=${elapsed.toFixed(2)} s ${JSON.stringify(await enemy())}`);
+    }
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto(null);
+      window.__rpgQA.resume();
+    });
+  } else if (scenario === "skills") {
+    const majors = [
+      ["science", "science-理學院-0"],
+      ["humanities", "humanities-文學院-0"],
+      ["business", "business-商管學院-0"],
+      ["language", "language-外國語文學院-0"],
+      ["education", "education-教育學院-0"],
+      ["international", "international-國際事務學院-0"],
+      ["computing", "computing-AI創智學院-0"],
+      ["health", "health-精準健康學院-0"],
+    ];
+    const step = (n = 1) => page.evaluate((c) => window.__rpgQA.step(1 / 30, c), n);
+    await page.evaluate(() => {
+      const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === "quiz-2");
+      Object.assign(e, { x: 4.2, z: -103, hp: 200, state: "idle", timer: 0, hurt: 0 });
+    });
+    await setPose(page, 0.4, -97.2, 0);
+    await settle(page, { stableFrames: 3 });
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.freeze());
+    await page.evaluate((p) => window.__controlsTest.setPhoto(p), { yaw: -0.35, distance: 9.5, height: 5.2, lookY: 0.2 });
+    for (const [name, id] of majors) {
+      const cast = await page.evaluate((major) => {
+        const rpg = window.__rpgQA.rpg;
+        rpg.setState({ departmentId: major, skillUntil: 0, attackUntil: 0, focus: 100, hp: 100 });
+        rpg.getState().attack(true);
+        const fx = rpg.getState().attackFx;
+        return { skill: fx?.skill, range: fx?.range, hits: fx?.hits?.length ?? 0, color: fx?.color };
+      }, id);
+      let elapsed = 0;
+      for (const [label, frames] of [["release", 2], ["travel", 5], ["impact", 6], ["fade", 10]]) {
+        await step(frames);
+        elapsed += frames / 30;
+        await shot(page, `${name}-${label}`, `${name} t=${elapsed.toFixed(2)} s ${JSON.stringify(cast)}`);
+      }
     }
     await page.evaluate(() => {
       window.__controlsTest.setPhoto(null);
