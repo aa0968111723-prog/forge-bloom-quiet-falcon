@@ -24,7 +24,7 @@ import {
   type PromptLabel,
 } from "./prompts";
 import {
-  findWalkablePath,
+  entranceRoadPath,
   clearSight,
   type Building,
 } from "./rules";
@@ -454,13 +454,7 @@ export function CampusExtension() {
     () =>
       [
         ...CAMPUS_ROADS,
-        ...CAMPUS_SITES.map((s) => {
-          const door = siteEntrance(s);
-          const routeX = [61, 195, 331, 390, 490, -95].sort(
-            (a, b) => Math.abs(a - door.x) - Math.abs(b - door.x),
-          )[0];
-          return findWalkablePath(door, { x: routeX, z: door.z }, 1.1);
-        }),
+        ...CAMPUS_SITES.map((s) => entranceRoadPath(s)),
       ]
         .filter((points) => points.length >= 2)
         .map((points) => ribbonGeometry(points, 2, terrainHeight, 0.08, 3)),

@@ -105,6 +105,12 @@
 
 八種技能各有形狀，讀取真正的 `attackFx.range` 與 `hits`，打到範圍後淡出。回復類另有一道回到玩家的脈衝。低畫質少畫標記；reduced-motion 一開始就是全範圍。敵人的紅色預警仍畫在上面。畫面：`docs/art/evidence/m2/college-skills.jpg`。`npm test` 222 通過。
 
+## 階段：門口接到估計路網（ART-069 的一部分）
+
+每個校園門口改成走到路網上實際能站的點，不再對準同一條垂直線。視聽教育館與正門原先的目標點落在建築碰撞裡，步道會穿牆或停在路外。現在這兩處都沿量體外側接到路。路網仍是一個相連的估計格網，精度不是 surveyed，階數沒有量。
+
+畫面：`docs/art/evidence/links/`。測試：`scripts/campus-links.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`：普攻光刃已從右側掃到左側。下一步是 ART-090，把狀態卡的生命純文字改成可讀的條。
+見 `CHECKPOINT.json`。狀態卡短標籤在另一支 PR，不在這條分支。七區剪影與其餘入口仍待做。不新增未授權音效。

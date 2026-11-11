@@ -2,7 +2,7 @@ import { COLLIDERS, resolveCollision } from "../world-data/colliders.ts";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { WORLD_BOUNDS } from "../world-data/origin.ts";
 import { terrainHeight } from "../world.ts";
-import { CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
+import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
 import { RECIPES, type BuildKind } from "./data.ts";
 import { ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
 export type Building = {
@@ -468,4 +468,45 @@ export function findWalkablePath(
     }
   }
   return [];
+}
+
+/**
+ * Walk from a site door to a clear point on the estimated road grid.
+ * The nearest geometric point can sit inside the building, so the link
+ * tries the closest standable samples instead. These links are not a survey.
+ */
+export function entranceRoadPath(site: CampusSite): [number, number][] {
+  const door = siteEntrance(site);
+  const ranked = roadStandPoints()
+    .map((p) => ({ p, d: (p[0] - door.x) ** 2 + (p[1] - door.z) ** 2 }))
+    .sort((a, b) => a.d - b.d);
+  for (const cand of ranked.slice(0, 8)) {
+    const path = findWalkablePath(door, { x: cand.p[0], z: cand.p[1] }, 1.1);
+    if (path.length >= 2) return path;
+  }
+  return [];
+}
+
+let standPoints: [number, number][] | null = null;
+
+function roadStandPoints(): [number, number][] {
+  if (standPoints) return standPoints;
+  const out: [number, number][] = [];
+  for (const poly of CAMPUS_ROADS) {
+    for (let i = 1; i < poly.length; i++) {
+      const [ax, az] = poly[i - 1];
+      const [bx, bz] = poly[i];
+      const len = Math.hypot(bx - ax, bz - az);
+      const n = Math.max(1, Math.ceil(len / 4));
+      for (let k = 0; k <= n; k++) {
+        const t = k / n;
+        const x = ax + (bx - ax) * t;
+        const z = az + (bz - az) * t;
+        const p = resolveCollision(x, z, 1.1);
+        if (Math.hypot(p.x - x, p.z - z) < 0.05) out.push([x, z]);
+      }
+    }
+  }
+  standPoints = out;
+  return out;
 }

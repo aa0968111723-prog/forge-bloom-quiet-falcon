@@ -497,6 +497,25 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "links") {
+    // Estimated door walks that used to aim through the building or stop off the road.
+    await hideHud(page);
+    const stands = [
+      ["audiovisual", 222, 2.5],
+      ["main-gate", 60, 70.5],
+    ];
+    for (const [id, x, z] of stands) {
+      await setPose(page, x, z, 0);
+      await page.evaluate(() =>
+        window.__controlsTest.setPhoto({ yaw: 0.6, distance: 34, height: 22, lookY: 0 }),
+      );
+      await settle(page, { stableFrames: 3 });
+      const at = await page.evaluate(() => {
+        const g = window.__rpgQA.game.getState();
+        return { x: Number(g.playerX.toFixed(1)), z: Number(g.playerZ.toFixed(1)) };
+      });
+      await shot(page, id, `${id} door stand ${JSON.stringify(at)}`);
+    }
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });

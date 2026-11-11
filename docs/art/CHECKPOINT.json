@@ -1,11 +1,9 @@
 {
-  "updated": "2026-11-11T16:45:00Z",
+  "updated": "2026-11-11T17:30:00Z",
   "task_ids": [
-    "ART-084",
-    "ART-086",
-    "ART-087"
+    "ART-069"
   ],
-  "branch": "cursor/campus-registry-1a71",
+  "branch": "cursor/district-links-1a71",
   "base": "main@71f4d3c4742fab66b0d82edff38c7e6c39497f67",
   "commits": [
     {
@@ -88,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-090: replace the raw HP readout on the status card with a readable bar, and check the icon still reads on a narrow viewport. Do not add audio files without a license."
+  "next_action": "ART-062: axis-54 silhouettes, entrances, collision and a walkable route in the scene. ART-069 door links now reach a standable point on the estimated road grid, including audiovisual and main-gate; accuracy stays estimated and stair counts are not surveyed. ART-090 status bars are on PR 24, not this branch. Do not add unlicensed audio."
 }
