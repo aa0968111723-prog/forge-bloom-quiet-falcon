@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 狀態卡寫「生命 62/108」這種短標籤，長句留在 `aria-label`。普攻仍是從右掃到左的短光刃。 | [#24](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/24)，來源 `aeda26c` | `integrating` |
+| 美術與場景 | 狀態卡寫「生命 62/108」這種短標籤，長句留在 `aria-label`。普攻仍是從右掃到左的短光刃。 | [#24](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/24) 與 [#26](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/26)，來源 `aeda26c` | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | `BarReadout.short`，狀態卡長條改畫短標籤，窄視窗目標卡 `top: 208px` |
 | 已驗證 | `npm run typecheck` 通過，`npm test` 246 通過，`npm run build:site` 通過。瀏覽器 1280×720 與 390×780：可見文字是「生命 62/108」「專注 40/100」「經驗 20/180」，不含「目前值」；`aria-label` 仍有目前值與最大值。生命改成 20 後標籤變成「生命 20/108」，填色寬度跟著變。390px 時目標卡上緣 208、狀態卡下緣 188，沒有蓋住。`pageErrors` 空 |
-| 已合併 | 進行中。來源 PR #24 `aeda26c`。衝突用手解，留下清冊、光照與普攻的美術記錄，並加入狀態卡這一段 |
+| 已合併 | 是。遊戲程式在 `803fe62`。來源 `aeda26c`。合併 API 仍 403，`main` 未受保護、沒有必須的 check，使用快轉 |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍

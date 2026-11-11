@@ -426,8 +426,11 @@
         "docs/art/VALIDATION.md",
         "scripts/art/capture-art.mjs"
       ],
-      "merged": false,
-      "nextAction": "Fast-forward main only while origin/main is still b567b60 and the source head is still aeda26c."
+      "merged": true,
+      "mergeSha": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
+      "integrationPr": 26,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/26",
+      "nextAction": "None. Source aeda26c is an ancestor of main. Do not rerun the cross-system route for this readout."
     }
   ]
 }

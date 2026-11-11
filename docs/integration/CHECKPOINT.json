@@ -1,16 +1,16 @@
 {
   "updated": "2026-11-11T17:30:00Z",
-  "branch": "cursor/integration-hud-status-3395",
-  "mainSha": "b567b60ffc7bf0a0091f1e79a87dbaa2a8c9012e",
+  "branch": "main",
+  "mainSha": "65e007f88cd203e510faea6de6a0abe7eccb4948",
   "gameSha": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
-  "activeItem": "art-hud-status",
+  "activeItem": null,
   "sourceHead": "aeda26c3622de77ffbd66c8e86d73627f3d40150",
   "integrationHead": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
   "verified": {
     "hud": "typecheck, 246 tests, build:site, browser 1280 and 390. Short labels on the bars, long sentence in aria-label, narrow target below the status card, pageErrors empty."
   },
-  "notMerged": ["cursor/hud-status-1a71@aeda26c"],
+  "notMerged": [],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "HUD short labels are verified on this integration branch and not yet on origin/main. Parent main is b567b60. Source is aeda26c and must still be that commit before the fast-forward. Visible text is 生命 62/108, 專注 40/100, 經驗 20/180. The aria-label still contains 目前值 and 最大值. At 390px the target card top is 208 and the status card ends at 188. Do not rerun the cross-system route for this readout. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
+  "next_action": "HUD short labels are on main. Game code is 803fe62f053ddb9bf4513af0493b2df7d01fc741. Visible text is 生命 62/108, 專注 40/100, 經驗 20/180. The aria-label still contains 目前值 and 最大值. At 390px the target card top is 208 and the status card ends at 188. Source aeda26c is an ancestor. Re-fetch origin/main. Do not write a commit only to copy the tip SHA into mainSha. Do not rerun the cross-system route for this readout. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
 }
