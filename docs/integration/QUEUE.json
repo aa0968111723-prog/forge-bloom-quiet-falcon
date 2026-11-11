@@ -1117,6 +1117,32 @@
       "integrationPr": 78,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/78",
       "nextAction": "None. The Reitaku patch from add55fe is already in this integration. Do not merge PR #70 by itself. Next is PR #72, then PR #73, then PR #75, then PR #77. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-media-halls",
+      "line": "art",
+      "scope": "Communication halls O and Q are a dark studio base, a pale upper volume, and a roof mast. Humanities stays a hip roof. Shared window bands still draw.",
+      "status": "verified",
+      "pr": 72,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/72",
+      "integrationBranch": "cursor/integration-media-halls-3395",
+      "sourceBranch": "cursor/media-halls-1a71",
+      "baseSha": "f82692dd2ae1",
+      "headSha": "ede67057db9469f881ad8d01fb3559ebe9ef4398",
+      "dependencies": ["art-reitaku-mass"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, the mass renderer, the capture script, and the art docs. Kept linked-hall, forum-hall, stand, shed, and intl-dorm, and added media-hall. Capture keeps the earlier scenarios and adds media.",
+        "typecheck": "pass",
+        "npmTest": "261 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8117 high. 1280x720 and 390x780 show the dark base, pale upper volume, roof mast, and the nameplate. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": "95e9f682bb44281a1061580b58329335b9645eb7",
+      "nextAction": "None. The media-hall patch from ede6705 is already in this integration. Do not merge PR #72 by itself. Next is PR #73, then PR #75, then PR #77, then PR #79, then PR #80. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
