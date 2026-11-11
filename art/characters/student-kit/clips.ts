@@ -449,8 +449,90 @@ export const interactClip = () =>
     { t: 0.6, pose: {} },
   ]);
 
+/**
+ * One upper-body cast per college. Engineering keeps `skill` (the full-body
+ * slam). The others stay on the upper body so the run keeps going.
+ * Names match `skill-<discipline>` from DISCIPLINES.
+ */
+function castClip(name: string, windup: Pose, strike: Pose) {
+  return poseClip(name, 0.6, [
+    { t: 0, pose: {} },
+    { t: 0.08, pose: windup },
+    { t: 0.18, pose: strike },
+    { t: 0.36, pose: strike },
+    { t: 0.6, pose: {} },
+  ]);
+}
+
+export const scienceCast = () =>
+  castClip(
+    "skill-science",
+    { chest: [-0.2, 0, 0], upperArmL: [-2.6, 0.2, 0.4], upperArmR: [-2.6, -0.2, -0.4], lowerArmL: [-0.4, 0, 0], lowerArmR: [-0.4, 0, 0] },
+    { chest: [-0.35, 0, 0], head: [-0.25, 0, 0], upperArmL: [-2.9, 0.35, 0.2], upperArmR: [-2.9, -0.35, -0.2], lowerArmL: [-0.15, 0, 0], lowerArmR: [-0.15, 0, 0], handL: [0.4, 0, 0.3], handR: [0.4, 0, -0.3] },
+  );
+
+export const humanitiesCast = () =>
+  castClip(
+    "skill-humanities",
+    { chest: [0.08, -0.35, 0], upperArmR: [-1.1, 0, -0.9], lowerArmR: [-1.4, 0, 0], handR: [0.2, 0.4, -0.2], upperArmL: [-0.4, 0, 0.3] },
+    { chest: [0.12, 0.45, 0], head: [0.05, -0.2, 0], upperArmR: [-1.35, 0.2, 0.35], lowerArmR: [-0.25, 0, 0], handR: [-0.2, 0.5, 0.4], upperArmL: [-0.3, 0, 0.5] },
+  );
+
+export const businessCast = () =>
+  castClip(
+    "skill-business",
+    { chest: [0.04, 0.2, 0], upperArmR: [-0.7, 0.4, -0.8], lowerArmR: [-1.2, 0, 0], handR: [0.3, 0, -0.6] },
+    { chest: [0.06, -0.15, 0], upperArmR: [-1.15, -0.2, -0.15], lowerArmR: [-0.35, 0, 0], handR: [-0.8, 0, 0.15], upperArmL: [-0.45, 0, 0.55] },
+  );
+
+export const languageCast = () =>
+  castClip(
+    "skill-language",
+    { upperArmL: [-1.3, 0.3, 0.9], upperArmR: [-1.3, -0.3, -0.9], lowerArmL: [-1.5, 0, 0], lowerArmR: [-1.5, 0, 0] },
+    { chest: [-0.08, 0, 0], head: [-0.1, 0, 0], upperArmL: [-1.5, 0.55, 0.55], upperArmR: [-1.5, -0.55, -0.55], lowerArmL: [-1.7, 0, 0.2], lowerArmR: [-1.7, 0, -0.2], handL: [0.5, 0.4, 0], handR: [0.5, -0.4, 0] },
+  );
+
+export const educationCast = () =>
+  castClip(
+    "skill-education",
+    { chest: [0.05, -0.2, 0], upperArmR: [-0.9, 0, -0.7], lowerArmR: [-1.3, 0, 0] },
+    { chest: [0.04, 0.15, 0], head: [0.08, 0.1, 0], upperArmR: [-1.7, -0.15, 0.15], lowerArmR: [-0.15, 0, 0], handR: [-0.4, 0, 0.2], upperArmL: [-0.35, 0, 0.4] },
+  );
+
+export const internationalCast = () =>
+  castClip(
+    "skill-international",
+    { upperArmL: [-0.6, 0, 0.8], upperArmR: [-0.6, 0, -0.8], lowerArmL: [-0.4, 0, 0], lowerArmR: [-0.4, 0, 0] },
+    { chest: [-0.06, 0, 0], head: [-0.08, 0, 0], upperArmL: [-1.35, 0.15, 1.35], upperArmR: [-1.35, -0.15, -1.35], lowerArmL: [-0.2, 0, 0.15], lowerArmR: [-0.2, 0, -0.15], handL: [0.2, 0.3, 0], handR: [0.2, -0.3, 0] },
+  );
+
+export const computingCast = () =>
+  castClip(
+    "skill-computing",
+    { upperArmL: [-1.2, 0.2, 0.7], upperArmR: [-1.2, -0.2, -0.7], lowerArmL: [-1.3, 0, 0], lowerArmR: [-1.3, 0, 0] },
+    { head: [0.06, 0, 0], upperArmL: [-1.45, 0.65, 0.35], upperArmR: [-1.45, -0.65, -0.35], lowerArmL: [-1.55, 0, 0.35], lowerArmR: [-1.55, 0, -0.35], handL: [0.3, 0.8, 0.2], handR: [0.3, -0.8, -0.2] },
+  );
+
+export const healthCast = () =>
+  castClip(
+    "skill-health",
+    { chest: [0.08, 0, 0], upperArmL: [-0.8, 0.2, 0.55], upperArmR: [-0.8, -0.2, -0.55], lowerArmL: [-1.2, 0, 0], lowerArmR: [-1.2, 0, 0] },
+    { chest: [0.16, 0, 0], head: [0.18, 0, 0], upperArmL: [-1.05, 0.35, 0.35], upperArmR: [-1.05, -0.35, -0.35], lowerArmL: [-1.45, 0, 0.15], lowerArmR: [-1.45, 0, -0.15], handL: [0.6, 0.25, 0.2], handR: [0.6, -0.25, -0.2] },
+  );
+
+export const CAST_CLIPS = [
+  scienceCast,
+  humanitiesCast,
+  businessCast,
+  languageCast,
+  educationCast,
+  internationalCast,
+  computingCast,
+  healthCast,
+] as const;
+
 export function allClips() {
-  return [idleClip(), walkClip(), runClip(), attackClip(), skillClip(), dodgeClip(), hurtClip(), interactClip()];
+  return [idleClip(), walkClip(), runClip(), attackClip(), skillClip(), ...CAST_CLIPS.map((make) => make()), dodgeClip(), hurtClip(), interactClip()];
 }
 
 /** Bones each one-shot may override; the rest keep locomotion. */
@@ -459,6 +541,14 @@ export const ACTION_LAYERS: Record<string, "upper" | "full"> = {
   interact: "upper",
   hurt: "upper",
   skill: "full",
+  "skill-science": "upper",
+  "skill-humanities": "upper",
+  "skill-business": "upper",
+  "skill-language": "upper",
+  "skill-education": "upper",
+  "skill-international": "upper",
+  "skill-computing": "upper",
+  "skill-health": "upper",
   dodge: "full",
 };
 
