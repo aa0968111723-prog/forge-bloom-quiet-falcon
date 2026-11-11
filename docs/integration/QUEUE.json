@@ -589,6 +589,32 @@
       "merged": true,
       "mergeSha": "c8a12829637649e07675d5d10accc3b9c70c82c3",
       "nextAction": "None. Source 748608a is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-study-masses",
+      "line": "art",
+      "scope": "Teaching buildings use a dark base and a light upper volume. The cornice drops off with distance. Guard gates stay open piers.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-study-masses-3395",
+      "sourceBranch": "cursor/study-masses-1a71",
+      "baseSha": "3204c78b6b84",
+      "headSha": "d0d1cfa6b43c84d5966e72ed6028847c8a635ec1",
+      "dependencies": ["art-theme-masses"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "checks": {
+        "conflicts": "The source returned slab-block for gates. Kept gate in campusKind and the gate renderer. Capture keeps gates and adds study.",
+        "typecheck": "pass",
+        "npmTest": "252 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8099 low tier at 1280x720 and 390x780: education shows a dark base, light upper volume, and cornice. Gates still show two red posts and a green beam with the character in the opening. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "merged": true,
+      "mergeSha": "7799f6b8cc2ff1413fb42022284465d027f9469f",
+      "nextAction": "None. Source d0d1cfa is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }
