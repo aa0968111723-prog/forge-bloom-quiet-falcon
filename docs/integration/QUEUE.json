@@ -377,12 +377,12 @@
       "id": "cross-system-route",
       "line": "integration",
       "scope": "One playthrough from the offline static site through campus narrative, existing combat, one reward, reload, then cloud login, a second client, conflict, disconnect, and logout. The cloud document is the save the browser wrote.",
-      "status": "ready_to_merge",
+      "status": "merged",
       "pr": null,
       "integrationBranch": "cursor/integration-cross-route-3395",
       "sourceBranch": null,
       "baseSha": "37ee4d5a8177dfdfe4d9a0c11899fb8d1d148ee6",
-      "headSha": null,
+      "headSha": "5f7b6aa157917a8bd7e3d7cb6c32032ac1b8fc17",
       "dependencies": ["art-basic-swing", "content-narrative-campus", "backend-cloud-save"],
       "sharedFiles": ["scripts/integration-route.mjs"],
       "checks": {
@@ -391,9 +391,9 @@
         "cloud": "local_only, first sync revision 1, second client downloaded the played save, revision_conflict, offline queue, logout 401"
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm main is 37ee4d5, then fast-forward."
+      "merged": true,
+      "mergeSha": "5f7b6aa157917a8bd7e3d7cb6c32032ac1b8fc17",
+      "nextAction": "None. The route is on main. Do not redo it unless the game SHA changes."
     }
   ]
 }

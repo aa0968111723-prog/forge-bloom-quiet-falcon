@@ -15,7 +15,7 @@
 
 ## 下一步
 
-跨系統路線在 `cursor/integration-cross-route-3395`，尚未進 `main`。遊戲程式仍是 `27e180c`。合併前確認 `origin/main` 仍是 `37ee4d5`。
+`main` 含 `5f7b6aa`。跨系統路線已經在上面。遊戲程式仍是 `27e180c`。
 
 路線命令：
 

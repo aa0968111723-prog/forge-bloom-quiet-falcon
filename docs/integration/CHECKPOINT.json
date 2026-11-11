@@ -1,16 +1,16 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "37ee4d5a8177dfdfe4d9a0c11899fb8d1d148ee6",
+  "mainSha": "5f7b6aa157917a8bd7e3d7cb6c32032ac1b8fc17",
   "gameSha": "27e180cefd4648995db484e875660f9b821df64b",
-  "activeItem": "cross-system-route",
+  "activeItem": null,
   "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
     "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": ["cross-system-route"],
+  "notMerged": [],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The cross-system route passed on game 27e180c against static :8086 and a temporary PGLite cloud server. Record is on cursor/integration-cross-route-3395 and is not on main yet. Reconfirm origin/main is 37ee4d5, then fast-forward. Do not redo the route unless the game SHA changes. Do not invent a semester picker or a second reward store. INT-01 and INT-12 stay blocked. No remote head is ahead of main."
+  "next_action": "Cross-system route is on main at 5f7b6aa. Game code is still 27e180cefd4648995db484e875660f9b821df64b. Re-fetch origin/main before acting; a later docs tip only records this. Do not redo the route unless the game SHA changes. No remote head is ahead of main. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }
