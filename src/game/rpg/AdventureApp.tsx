@@ -131,6 +131,13 @@ export default function AdventureApp() {
   useEffect(() => {
     document.title = "淡江世界 · 五虎崗異象";
   }, []);
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("qa") !== "1") return;
+    window.__rpgQA = { rpg: useRpg, game: useGame };
+    return () => {
+      delete window.__rpgQA;
+    };
+  }, []);
   return (
     <main className="ad-app">
       {mounted && (

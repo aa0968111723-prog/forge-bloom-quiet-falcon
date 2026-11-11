@@ -14,6 +14,14 @@ declare global {
         memory: { geometries: number; textures: number };
       };
     };
+    /**
+     * Store access for scripted art/QA captures. Only installed when the page
+     * is opened with `?qa=1`; the game never reads it.
+     */
+    __rpgQA?: {
+      rpg: typeof import("./rpg/store").useRpg;
+      game: typeof import("./store").useGame;
+    };
     __controlsTest?: {
       getYaw: () => number;
       getSpeed: () => number;
