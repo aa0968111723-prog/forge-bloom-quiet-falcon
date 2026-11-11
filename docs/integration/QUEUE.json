@@ -94,9 +94,9 @@
       "id": "art-m2",
       "line": "art",
       "scope": "NPC kit, report/exam/final creatures, college skill shapes. One disposer and the paused windup hold stay.",
-      "status": "ready_to_merge",
-      "pr": null,
-      "prUrl": null,
+      "status": "merged",
+      "pr": 10,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/10",
       "integrationBranch": "cursor/integration-art-m2-3395",
       "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
       "sourceBranch": "cursor/tamkang-art-pipeline-1a71",
@@ -138,9 +138,9 @@
           "resolution": "Keep restoreLookBase before the mixer. Do not reset the skeleton to identity."
         }
       ],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm SHAs, then merge this branch. Do not merge backend #9 in the same push."
+      "merged": true,
+      "mergeSha": "df63d01261ad7d7a0e301b8bf91b1d6c473cbae3",
+      "nextAction": "None for this item. Post-merge typecheck passed on this SHA. Docs-only record follows."
     },
     {
       "id": "backend-sync",

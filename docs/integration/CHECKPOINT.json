@@ -1,15 +1,15 @@
 {
   "updated": "2026-11-11T16:05:00Z",
-  "branch": "cursor/integration-art-m2-3395",
-  "mainSha": "df3611adaf2640673e8a07d8179bfa696517313b",
-  "activeItem": "art-m2",
+  "branch": "main",
+  "mainSha": "df63d01261ad7d7a0e301b8bf91b1d6c473cbae3",
+  "activeItem": "backend-sync",
   "sourceHead": "8d5ffd08dad9f1727a2028bdf683f7355844d9c7",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
     "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": ["art-m2"],
+  "notMerged": ["backend-sync", "content-pack"],
   "blocked": ["INT-01"],
   "waiting": ["backend-sync", "content-pack"],
-  "next_action": "Reconfirm origin/main is df3611a and art head is 8d5ffd0, then merge cursor/integration-art-m2-3395. After that, smoke the merge SHA. Do not merge draft PR #9 in the same push. Next item is backend PR #9 in a new worktree, only after it is rechecked on the new main."
+  "next_action": "Art M2 is on main at df63d01. Post-merge typecheck passed. Open a new worktree from that SHA and integrate draft PR #9 (feature/backend-game-services @ a38ef8e). Reconfirm its head before starting. Do not merge it until typecheck, tests, and the cloud-save flow pass on that tree. Content still has no new head."
 }

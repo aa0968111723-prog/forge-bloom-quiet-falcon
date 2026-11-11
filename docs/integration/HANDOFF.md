@@ -4,9 +4,9 @@
 
 ## 現在
 
-- `origin/main` 是 `df3611adaf2640673e8a07d8179bfa696517313b`。遊戲行為在其父提交 `d180616`。
-- 美術 M2 整合分支 `cursor/integration-art-m2-3395`，合併提交 `be6fdd608504ba6fb531b69156d96d155cfe369e`。來源 head `8d5ffd08dad9f1727a2028bdf683f7355844d9c7`。狀態 `ready_to_merge`。
-- 後端草稿 PR #9，分支 `feature/backend-game-services`，head `a38ef8e41cfddc9520e60b62a992bae16a4648d5`，基底 `71f4d3c`。不要跟 M2 同時推進 `main`。
+- `origin/main` 是 `df63d01261ad7d7a0e301b8bf91b1d6c473cbae3`。PR #10 已合併。遊戲合併提交是 `be6fdd6`，其後這份記錄只改文件。
+- 來源美術 head 仍是 `8d5ffd08dad9f1727a2028bdf683f7355844d9c7`。
+- 後端草稿 PR #9，分支 `feature/backend-game-services`，head `a38ef8e41cfddc9520e60b62a992bae16a4648d5`，基底 `71f4d3c`。下一項用新 worktree。
 - 內容沒有新提交。不要改其他代理的工作區。
 
 ## 本輪已驗證（M2，尚未進 main）
@@ -15,7 +15,7 @@
 
 ## 下一步
 
-確認 `origin/main` 仍是 `df3611a`、美術 head 仍是 `8d5ffd0` 之後，合併 M2。合併後再對合併結果做 smoke。然後在新 worktree 讀 PR #9，不要在它仍是草稿、且還沒在目前 `main` 上重跑之前把它推進 `main`。
+在新 worktree 把 PR #9 接到 `df63d01`。開始前再確認 head 仍是 `a38ef8e`。通過型別、測試與雲端存檔流程之後才合併。它現在是草稿。內容線沒有新 head 時不要空跑。
 
 ## 不要做
 
