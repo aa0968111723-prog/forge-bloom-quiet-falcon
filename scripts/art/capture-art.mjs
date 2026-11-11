@@ -846,6 +846,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "gate", "road through the Dazhong gate");
+  } else if (scenario === "memorial") {
+    await hideHud(page);
+    await setPose(page, -30, -248, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(-52, -276);
+      window.__controlsTest.setPhoto({
+        yaw: 0.45,
+        distance: 48,
+        height: 18,
+        lookY: 0,
+        target: { x: -52, y: y + 14, z: -276 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "tower", "chingsheng memorial tower");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

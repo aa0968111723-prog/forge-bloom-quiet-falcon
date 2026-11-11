@@ -586,9 +586,10 @@
       "acceptance": "同上",
       "evidence": [
         "scripts/context-lod.test.mjs",
-        "docs/art/evidence/integrated/hall.jpg"
+        "docs/art/evidence/integrated/hall.jpg",
+        "docs/art/evidence/memorial/tower.jpg"
       ],
-      "notes": "覺生綜合大樓從教學樓基座改成玻璃基座加退縮的淺色上層。圖書館與驚聲大樓仍用既有量體。精度仍是 estimated，不是實測立面。"
+      "notes": "覺生綜合大樓從教學樓基座改成玻璃基座加退縮的淺色上層。驚聲大樓從綠瓦坡頂改成石色樓身、深色基座和平頂壓簷，沒有瓦頂。文學館仍是坡頂。圖書館仍用既有量體。精度仍是 estimated，不是實測立面。"
     },
     {
       "id": "ART-064",

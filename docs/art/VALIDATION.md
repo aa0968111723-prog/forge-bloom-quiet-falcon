@@ -267,3 +267,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 35 輪（路網避開牆與門柱）— 2026-11-11
 
 `node --test scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 可以走完估計路網的每一段中線。視聽教育館北牆外的路偏 1.6 m。大忠警衛站的路從兩根門柱中間穿，不再貼著東側門柱。門口仍能走到路網上。精度仍是 estimated。定步白天，頁面無錯誤：`docs/art/evidence/roads/hall.jpg`、`gate.jpg`。工學大樓留在第 34 輪。
+
+## 第 36 輪（驚聲大樓）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。驚聲大樓是石色樓身、深色基座、底層玻璃和平頂壓簷，名牌寫著驚聲大樓。沒有綠瓦。文學館仍是坡頂。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/memorial/tower.jpg`。路網中線留在第 35 輪。
