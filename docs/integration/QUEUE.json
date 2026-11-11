@@ -1280,9 +1280,11 @@
         "route": "8122: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "770bcdad32277494215bbfb3a206a117aa300a15",
-      "nextAction": "Do not merge PR #80 by itself. Next is PR #82, then PR #85, then PR #86, then PR #88."
+      "integrationPr": 92,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/92",
+      "nextAction": "None. The watch-post patch from 8e6f1e6 is already in this integration. Do not merge PR #80 by itself. Next is PR #82, then PR #85, then PR #86, then PR #88, then PR #90, then PR #91. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
