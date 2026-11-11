@@ -177,3 +177,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 15 輪（標題鏡頭）— 2026-11-11
 
 `node --test scripts/title-camera.test.mjs` 通過。驚聲廣場環上最靠近標題鏡頭的榕樹已留出 16 m。定步標題畫面，頁面無錯誤：`docs/art/evidence/title/card.jpg`、`world.jpg`。廣場、銅像和宮燈教室不再被前景樹冠擋住。
+
+## 第 16 輪（商管大樓量體）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。沿用的商管大樓剪影從通用灰塊改成教學樓的深色基座加淺色上層。精度仍是 estimated，不是實測立面。定步近景，頁面無錯誤：`docs/art/evidence/business/mass.jpg`。

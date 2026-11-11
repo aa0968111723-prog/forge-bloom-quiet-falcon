@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T19:25:00Z",
+  "updated": "2026-11-11T19:42:00Z",
   "branch": "main",
-  "mainSha": "1e980af13e81",
-  "gameSha": "adfd28af237a6a5759940d63080b186caad1deb0",
+  "mainSha": "3950e2aa15dd",
+  "gameSha": "79515b67f3e6d355b21db3aedce83f329d32e2e8",
   "activeItem": null,
-  "sourceHead": "eab68c7aaf892cace9d34f3a5c0ef5a989221f09",
-  "integrationHead": "adfd28af237a6a5759940d63080b186caad1deb0",
+  "sourceHead": "70dd633a0748bafaf11c79b9f3b44c35b6497653",
+  "integrationHead": "79515b67f3e6d355b21db3aedce83f329d32e2e8",
   "verified": {
-    "titleCamera": "typecheck, 255 tests, build:site. Plaza ring trees stay 16 m from TITLE_ORBIT (-13, 13). High title shots at 1280x720 and 390x780 show the statue plaza and palace without a foreground canopy filling the frame. pageErrors empty. Route on 8103: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
+    "businessMass": "typecheck, 255 tests, build:site. business-building kind is study-block and accuracy is estimated. High shots at 1280x720 and 390x780 show the dark base and light upper storey. pageErrors empty. Route on 8104: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The title camera is on main. Game code is adfd28af237a6a5759940d63080b186caad1deb0. Plaza ring trees leave 16 m around TITLE_ORBIT. The 48 m canopy switch, district map, skill glyphs, hurt edge, study masses, and open gates stay. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source eab68c7aaf892cace9d34f3a5c0ef5a989221f09 is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #48. Do not merge PR #46 by itself; its game code is already in this integration. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "The business tower podium is on main. Game code is 79515b67f3e6d355b21db3aedce83f329d32e2e8. business-building is a study-block and stays estimated. The title camera, 48 m canopy switch, district map, skill glyphs, hurt edge, and open gates stay. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 70dd633a0748bafaf11c79b9f3b44c35b6497653 is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #50. Do not merge PR #49 by itself; its game code is already in this integration. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }
