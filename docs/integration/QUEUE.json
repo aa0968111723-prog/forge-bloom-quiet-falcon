@@ -1392,9 +1392,11 @@
         "route": "8126: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "56b33416657bd216894afce6dc8d61545685a7db",
-      "nextAction": "Do not merge PR #88 by itself. Next is PR #90, then PR #91 at head 94e090f, then PR #93, then PR #96, then PR #97 at head 615c426, then PR #99 at head 15aff8c."
+      "integrationPr": 100,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/100",
+      "nextAction": "None. The arena patch from 6530243 is already in this integration. Do not merge PR #88 by itself. Next is PR #90, then PR #91 at head 94e090f, then PR #93, then PR #96, then PR #97 at head 615c426, then PR #99 at head 15aff8c. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
