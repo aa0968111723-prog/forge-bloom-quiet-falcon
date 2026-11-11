@@ -725,8 +725,8 @@
       "line": "art",
       "scope": "The legacy business tower uses the study-building podium: dark base, light upper storey, near cornice. Accuracy stays estimated. The title camera and 48 m canopy switch stay.",
       "status": "verified",
-      "pr": null,
-      "prUrl": null,
+      "pr": 50,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/50",
       "integrationBranch": "cursor/integration-business-mass-3395",
       "sourceBranch": "cursor/business-mass-1a71",
       "baseSha": "3950e2aa15dd",
@@ -742,9 +742,9 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "79515b67f3e6d355b21db3aedce83f329d32e2e8",
-      "nextAction": "Record the integration PR, then merge. Do not merge PR #49 by itself. Do not merge PR #32 head 1fc5887."
+      "nextAction": "None. Source 70dd633 is an ancestor of main. Do not merge PR #49 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }
