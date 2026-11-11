@@ -657,9 +657,13 @@
         "ART-060",
         "ART-084"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "scripts/context-lod.test.mjs",
+        "docs/art/evidence/reitaku/house.jpg"
+      ],
+      "notes": "麗澤國際學舍從暖色宿舍改成淺灰綠牆、底層玻璃門廳和平頂橫樑。松濤仍是暖色宿舍加屋頂量體。精度仍是 estimated。"
     },
     {
       "id": "ART-069",

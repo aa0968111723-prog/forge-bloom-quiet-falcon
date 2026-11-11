@@ -1,10 +1,10 @@
 {
   "updated": "2026-11-11T21:02:00Z",
   "task_ids": [
-    "ART-064"
+    "ART-068"
   ],
-  "branch": "cursor/wind-shed-1a71",
-  "base": "main@a07defcb432c",
+  "branch": "cursor/reitaku-mass-1a71",
+  "base": "main@24ffb9da4c9e",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The wind tunnel is a low shed with a roof duct, not a lab block. The duct size is estimated. Chemistry stays a lab. The reviewing stand stays a low deck. The conference center stays a low hall. 覺生綜合大樓 stays a glass base with a set-back upper volume. Phone and RTX 3060 frame times stay pending-device. Do not add unlicensed audio."
+  "next_action": "Reitaku is a cool gray-green house with a glass lobby. Sungtao stays the warm dorm. The shape is estimated. The wind tunnel stays a low shed. The reviewing stand stays a low deck. Phone and RTX 3060 frame times stay pending-device. Do not add unlicensed audio."
 }

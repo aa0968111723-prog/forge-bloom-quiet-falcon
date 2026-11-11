@@ -231,3 +231,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 26 輪（風洞廠房）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。風洞實驗室從實驗樓改成低長廠房，屋頂有風管和進氣箱，不再畫窗帶。化學館仍是實驗樓。風管尺寸仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/shed/duct.jpg`。司令臺留在第 25 輪。
+
+## 第 27 輪（麗澤國際學舍）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。麗澤是淺灰綠牆、底層玻璃門廳和平頂橫樑，名牌寫著麗澤國際學舍。松濤仍是暖色宿舍。精度仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/reitaku/house.jpg`。風洞留在第 26 輪。

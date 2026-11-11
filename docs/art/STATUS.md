@@ -181,6 +181,12 @@
 
 畫面：`docs/art/evidence/shed/duct.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：麗澤國際學舍（ART-068 的一部分）
+
+生活區的麗澤從暖色宿舍改成淺灰綠牆、底層玻璃門廳和平頂橫樑。松濤仍是暖色宿舍。外形仍是 estimated。風洞留著。
+
+畫面：`docs/art/evidence/reitaku/house.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。風洞已從實驗樓分開。司令臺、會議中心與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。麗澤已從松濤分開。風洞、司令臺、會議中心與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
