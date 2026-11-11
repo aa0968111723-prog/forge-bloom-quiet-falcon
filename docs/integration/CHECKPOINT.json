@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T20:46:00Z",
-  "branch": "main",
-  "mainSha": "abef230dcbbc",
-  "gameSha": "87aa4c80b77e5f52c88c18e323e818cc44ddf167",
-  "activeItem": "art-river-vista",
-  "sourceHead": "4bd41a494244e4c20c5e24058b03e998f775e5f6",
-  "integrationHead": "87aa4c80b77e5f52c88c18e323e818cc44ddf167",
+  "updated": "2026-11-11T20:51:00Z",
+  "branch": "cursor/integration-shore-save-3395",
+  "mainSha": "8d9b97911d3a",
+  "gameSha": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
+  "activeItem": "art-shore-save",
+  "sourceHead": "f7584b3e8fa702c334b173698cf179af9e8409c4",
+  "integrationHead": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
   "verified": {
-    "riverVista": "typecheck, 257 tests, build:site. The player stops at x=-112. Far town and ridges stay west of that shore. Coins and sign names stay. High shots at 1280x720 and 390x780, pageErrors empty. Route on 8107: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
+    "shoreSave": "typecheck, 258 tests, build:site. A saved position west of the bank, including the north and south corners, returns to the walkable shore and stays there. Route on 8108: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The west vista stops the player at the near bank. It is on main. Game code is 87aa4c80b77e5f52c88c18e323e818cc44ddf167. The far town and ridges stay west of x=-112 and are not a survey. Business coins still spread, and the slash still chambers in front. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 4bd41a4 is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #57. Do not merge PR #54 by itself. Do not merge PR #53 or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "A saved position in the river, including the north and south corners, returns to the walkable shore. Game code is 7507c59b7ddbb7a02ada9d0eba717d8721474e2a. The vista, coins, and sign names stay. The route on this tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source f7584b3 is the new head of PR #54. After this integration is on main, do not merge PR #54 by itself. PR #56 is a route remeasure on an older base. Read that evidence before integrating it, and do not treat those triangle counts as measured on this tree. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #53 or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11T20:46:00Z",
+  "updated": "2026-11-11T20:51:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -837,6 +837,31 @@
       "integrationPr": 57,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/57",
       "nextAction": "None. Source 4bd41a4 is an ancestor of main. Do not merge PR #54 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-shore-save",
+      "line": "art",
+      "scope": "A saved position west of the river bank returns to the walkable shore, including the north and south corners. The vista, coins, and combat rules stay.",
+      "status": "verified",
+      "pr": 54,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/54",
+      "integrationBranch": "cursor/integration-shore-save-3395",
+      "sourceBranch": "cursor/river-vista-1a71",
+      "baseSha": "8d9b97911d3a",
+      "headSha": "f7584b3e8fa702c334b173698cf179af9e8409c4",
+      "dependencies": ["art-river-vista"],
+      "sharedFiles": ["src/game/world-data/colliders.ts"],
+      "checks": {
+        "conflicts": "none",
+        "typecheck": "pass",
+        "npmTest": "258 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "no new shot; the mesh did not change",
+        "route": "8108: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": [],
+      "merged": false,
+      "nextAction": "Open the integration PR and merge it. Do not merge PR #54 by itself. Do not merge PR #32 head 1fc5887."
     }
   ]
 }
