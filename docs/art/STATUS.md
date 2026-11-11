@@ -169,6 +169,12 @@
 
 畫面：`docs/art/evidence/forum/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：視聽教育館（ART-066 的一部分）
+
+文藝區這棟從綠瓦坡頂改成深色廳堂，屋頂一端有舞台塔。文學館仍是坡頂。舞台塔不是實測。
+
+畫面：`docs/art/evidence/auditorium/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。會議中心已分開。覺生綜合大樓與雨留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。視聽教育館已從坡頂分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

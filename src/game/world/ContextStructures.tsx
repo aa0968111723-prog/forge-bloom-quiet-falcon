@@ -365,6 +365,29 @@ export function ContextStructures({
             </group>
           );
         }
+        if (s.kind === "auditorium") {
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh geometry={geo!} position={[0, s.size[1] / 2, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color="#5c534c" roughness={0.84} />
+              </mesh>
+              <mesh position={[s.size[0] * 0.28, s.size[1] + 2.2, -s.size[2] * 0.12]} castShadow>
+                <boxGeometry args={[8.5, 4.4, s.size[2] * 0.42]} />
+                <meshStandardMaterial color="#d9d2c6" roughness={0.8} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, 3.4, s.size[2] / 2 + 0.08]}
+                >
+                  <planeGeometry args={[Math.min(9, s.size[0] * 0.55), 1.2]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
         if (s.kind === "study-block") {
           const baseH = Math.max(2.4, s.size[1] * 0.18);
           const upperH = Math.max(1, s.size[1] - baseH);
