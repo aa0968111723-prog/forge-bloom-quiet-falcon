@@ -292,6 +292,31 @@
       "integrationPr": 18,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18",
       "nextAction": "None. Post-merge typecheck passed. Semester stays week-1."
+    },
+    {
+      "id": "art-cast-ground",
+      "line": "art",
+      "scope": "Lift ground college casts above the avenue paving and keep computing brackets closed.",
+      "status": "ready_to_merge",
+      "pr": 16,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/16",
+      "integrationBranch": "cursor/integration-cast-ground-3395",
+      "sourceBranch": "cursor/college-cast-ground-1a71",
+      "baseSha": "d8cb6dc22ec438878c747a21a973d4d7af6f3cbe",
+      "headSha": "1b0e78e674001f045092ec839d64df00518c8bd0",
+      "dependencies": ["art-college-poses"],
+      "sharedFiles": ["src/game/art/vfx/college-casts.ts", "scripts/art-pipeline.test.mjs"],
+      "checks": {
+        "conflicts": "none",
+        "typecheck": "pass",
+        "npmTest": "244 pass / 0 fail",
+        "artPipeline": "17 pass, includes ground clearance and bracket vertex count",
+        "browser": "chemistry skill cast, purple ground arcs visible, focus spent, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Reconfirm main d8cb6dc and merge."
     }
   ]
 }

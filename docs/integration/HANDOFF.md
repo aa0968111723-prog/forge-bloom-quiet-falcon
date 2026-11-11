@@ -15,9 +15,9 @@
 
 ## 下一步
 
-`main` 是 `c279651248e0da2c006fa36a00f8ccb805febb9c`。PR #18 已合併。合併後 typecheck 通過。
+地面施法修正在 `cursor/integration-cast-ground-3395`，尚未進 `main`。合併前確認 `origin/main` 仍是 `d8cb6dc`。
 
-獎勵走既有經驗、背包與 `claimed`。事件記憶在同一份存檔的 `narrative`。預覽路由還在。學期仍是 `week-1`。沒有新分支時不要重跑全量測試，也不要做空提交。
+其後還有 PR #17 校園清冊，以及 `cursor/college-poses-campus-1a71` 上的基本攻擊揮擊 `879ffdf`。這兩個本輪還沒合併。
 
 ## 不要做
 

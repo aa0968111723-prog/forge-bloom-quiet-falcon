@@ -1,16 +1,16 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "c279651248e0da2c006fa36a00f8ccb805febb9c",
+  "mainSha": "d8cb6dc22ec438878c747a21a973d4d7af6f3cbe",
   "gameSha": "c279651248e0da2c006fa36a00f8ccb805febb9c",
-  "activeItem": null,
+  "activeItem": "art-cast-ground",
   "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
     "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": [],
+  "notMerged": ["art-cast-ground"],
   "blocked": ["INT-01", "INT-12"],
-  "waiting": [],
-  "next_action": "Campus narrative hook is on main at c279651. PR #18 is merged. Post-merge typecheck passed. Semester stays week-1. If no new branch exists, do not retest or empty-commit. INT-01 still has two department catalogs."
+  "waiting": ["art-campus-registry", "art-basic-swing"],
+  "next_action": "Cast-ground fix is validated on cursor/integration-cast-ground-3395. Reconfirm origin/main is d8cb6dc, then merge. After that, PR #17 campus registry and the basic-swing commit on cursor/college-poses-campus-1a71 are still ahead of main."
 }
