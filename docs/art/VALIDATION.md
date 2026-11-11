@@ -1,0 +1,63 @@
+# 驗收紀錄
+
+每輪只記錄本次實際執行的結果。主機與限制見 `BASELINE.md`；frame time 皆為本主機 SwiftShader 數值。
+
+## 第 1 輪（M1 可玩樣板）— 2026-11-11
+
+分支 `cursor/tamkang-art-pipeline-1a71`；提交 `cbec4f6`（管線＋主角）、`93ed99b`（考卷怪＋工程技能）、`bad40fa`（主角 LOD1）。
+
+### 自動檢查
+
+| 命令 | 結果 |
+| --- | --- |
+| `npm run typecheck` | 通過 |
+| `npm test` | 215 通過 / 0 失敗（基準 206；新增 9 項美術管線測試，含 LOD1） |
+| `npm run art:validate -- --rebuild` | 0 錯誤、0 警告；重新匯出與已提交 GLB 位元組相同 |
+| `npm run build:site` | 通過；`dist/game-art/` 含兩個 GLB；`AdventureApp` chunk 555 → 577 kB（既有 >500 kB 提示仍在） |
+| `npx eslint art scripts/art src/game/art` | 0 錯誤 |
+
+`scripts/art-pipeline.test.mjs` 涵蓋：
+- 驗證器對已提交輸出 0 錯誤；重建一致。
+- 壞檔偵測：不存在的節點、動畫驅動非 joint 節點、宣告卻不存在的動畫、非單位四元數，都會被抓到。
+- 主角：每頂點權重和 = 1、joint 索引有效、三角形 ≤ 22,000。
+- 動畫：只驅動角色骨頭、四元數單位長度、idle/walk/run 首尾相接、walk/run 同腳起步（交叉淡入不剪刀腳）。
+- 臉部方向：臉部貼圖的頂點 >98% 在 +Z 前方。
+- 背包：背包前緣在外套背面之後至少 5 mm（靜止姿勢，涵蓋背包整個高度）。
+- 腳底滑動（以骨架 FK 量測支撐腳相對髖部速度 × runtime 步頻）：walk 4.60 vs 4.6 m/s（0.0 %），run 7.82 vs 7.8 m/s（0.2 %）。
+  修正前同一量測為 41 % 與 77.5 %，已依量測值設定步幅（walk 2.96、run 5.8 m／週期）。
+
+### 畫面驗收（真實遊戲畫面）
+
+重現方式：`npm run dev:site` 後執行
+`node scripts/art/capture-art.mjs http://127.0.0.1:8088/ <dir> <turnaround|poses|combat>`。
+`combat` 使用 `?qa=1` 定步時鐘（每步 1/30 s），遊戲規則與 AI 照常執行。
+
+| 項目 | 證據（`docs/art/evidence/m1/`） | 判讀 |
+| --- | --- | --- |
+| 主角前／三分之四／側／背（宮燈教室室內固定光） | `protagonist-front/three-quarter/side/back.jpg` | 輪廓、配色符合規格；鞋頭偏扁、四肢偏細 → needs_review |
+| 臉、手、鞋、背包特寫 | `protagonist-face*.jpg`、`-hands`、`-shoes`、`-backpack` | 大眼、高光、眉、腮紅、分束瀏海、小束髮、外套領口、袖口、吊飾可辨識 |
+| 動作關鍵影格 | `protagonist-poses.jpg`（idle、attack t=0.13、skill t=0.17、dodge t=0.13、hurt t=0.07、interact t=0.30） | 動作方向正確，肩肘膝無明顯撕裂；背包隨胸部 |
+| 考卷怪追擊、預警 30 %／80 %、出手 | `combat-1-chase`、`-2-telegraph-early`、`-3-telegraph-late`、`-4-strike` | 紅筆圈半徑＝判定半徑 3.25 m，填色隨 windup 進度；出手後玩家生命 100 → 91（quiz 傷害 9） |
+| 玩家受擊、普攻 | `combat-5-player-hurt`、`-6-basic-attack` | 普攻使 quiz 65 → 45 |
+| 工程技能時序 t = 0.03／0.10／0.20／0.30／0.50／0.73 s | `combat-7-skill-*` | 藍圖格 → 桁架波前到 12 m → 命中鋼梁（hits = ["quiz-2"]）→ 消散；quiz 45 → 5 並被推開約 1.9 m |
+| 擊倒 t = 0.07／0.27／0.60／1.07 s | `combat-8-defeat-*` | 揉皺、縮小、紙片紛飛後隱藏 |
+| 原始紀錄 | `combat.json`、`poses.json`、`turnaround.json` | 每張的狀態值；無 page error |
+
+### 實際遊玩（一般桌面 Chrome，人工操作）
+
+由操作代理以鍵盤遊玩 `http://127.0.0.1:8088/?q=low`：選土木工程學系 → 地圖「前往宮燈教室」→ 沿宮燈大道步行 → 遇考卷怪 →
+J 普攻、Space 閃避、Q 結構脈衝。錄影 80 秒（`m1-lantern-avenue-gameplay.mp4`，產物附件），截圖於 `docs/art/evidence/m1/realplay/`。
+影片審閱確認：0:34 地圖傳送、0:46 起沿大道步行、0:50 與 1:15 兩次結構脈衝（藍圖格與桁架環清楚）、0:51 命中、0:52 考卷怪消失並掉落。
+審閱指出 1:02–1:17 角色未播步行；逐格檢查為按住 W 撞上迴廊台基（見 KNOWN-ISSUES KI-17），定步探針確認正常移動時動畫正確。
+第一次較長的嘗試中角色被擊倒並成功復活（復活流程正常）。
+
+### 效能（同主機、同解析度、同路線）
+
+`node scripts/art/capture-route.mjs http://127.0.0.1:8089/ <dir> --tier low|high`，對 `vite preview` 產物。
+結果與判讀見 `STATUS.md`；手機與 RTX 3060 目標一律 `pending-device`。
+
+### 未驗收
+
+- 真機 FPS、溫度、觸控：pending-device。
+- reduced-motion 與低畫質的技能／怪物畫面：程式路徑已實作（無擴張、無粒子、固定預警），本輪尚未留截圖。
+- 背包在各動作中的數值穿模檢查：只做靜止姿勢與目視。

@@ -1,0 +1,41 @@
+# 來源與授權
+
+精度分級沿用程式清冊：`estimated`（尚未確認的估計）、`mapped`（依來源資料判讀）、`surveyed`（有實際測量證據）。
+製作狀態與資料精度分開記錄；目前清冊 64 筆全部是 `estimated`，沒有任何一筆可宣稱 1:1 還原。
+
+## 官方資料（淡江大學）
+
+查閱日期：2026-11-11（UTC）。本次只確認可連線（HTTP 200）與檔案類型；尚未逐筆判讀內容（見 BACKLOG ART-060／ART-061）。
+未見明確開放授權，視為「僅供參考、不重新散布」；儲存庫不收錄這些檔案或截圖。
+
+| 用途 | URL | 本次結果 | 授權狀態 |
+| --- | --- | --- | --- |
+| 官方校園圖（2021-03） | https://classic.tku.edu.tw/doc/CampusMap202103.pdf | 200，application/pdf，3,743,559 bytes | 未標示授權；僅參考 |
+| 學術單位與科系名單 | https://classic.tku.edu.tw/acad.asp | 200，text/html | 未標示授權；僅參考 |
+| 新生校園介紹 | https://freshman.web.tku.edu.tw/tw/g/school.html | 200，text/html | 未標示授權；僅參考 |
+| 總務處 | https://www.general.tku.edu.tw/ | 200，text/html | 未標示授權；僅參考 |
+| 場地租借清單 | https://spacerental.tku.edu.tw/spacelisting.aspx | 200，text/html | 未標示授權；僅參考 |
+| 校園照片庫 | https://photo.az.tku.edu.tw/ | 200，text/html | 照片著作權屬原作者；可作參考，不可重新散布 |
+| 覺生紀念圖書館館舍 | https://www.lib.tku.edu.tw/Front/AboutUs/Openinghoursandpremises/MainBuilding/Page.aspx?id=%2BCcwjg98bKg%3D | 200，text/html | 未標示授權；僅參考 |
+
+程式中的對應：`src/game/world-data/registry/index.ts`（`OFFICIAL_SOURCES`，`fieldChecked: false`）、`src/game/rpg/campus.ts`（`CAMPUS_SOURCE`）、`src/game/rpg/data.ts`（科系名單註記）。
+
+## 美術方向
+
+- 方向：「玉綠校園奇幻」——日系動畫感、柔和手繪材質、溫暖日光、玉綠與米白、碧瓦紅牆、樹蔭與石板路（任務指示；`docs/ART-DIRECTION.md` 第一輪紀錄）。
+- 核准概念圖：任務包 `cursor-art-task/references/approved-art-direction.png` 不存在於儲存庫，本次無法比對；只依文字規格製作，相關項目標 `needs_review`。
+- 概念圖不作測繪來源、不鋪成背景。
+
+## 本次新增資產
+
+| 資產 | 來源 | 授權 |
+| --- | --- | --- |
+| `char.student-kit`（主角） | `art/characters/student-kit/*.ts` 程式建模、程序繪製 atlas、程式撰寫動畫 | 本專案原創，無第三方內容 |
+| `creature.quiz`（考卷怪） | `art/creatures/quiz/quiz.ts` | 本專案原創，無第三方內容 |
+| 結構脈衝、預警圈、紙片特效 | `src/game/art/vfx/*` | 本專案原創 |
+
+既有第三方素材（未改動）：Quaternius 樹木、KayKit 街道小物，CC0，見 `public/models/vendor/ATTRIBUTION.md`。
+
+## 音效
+
+本次沒有取得任何音檔；遊戲音效仍是 `src/game/audio.ts` 的 WebAudio 合成音，沒有新增任何音檔引用（BACKLOG ART-092 blocked）。

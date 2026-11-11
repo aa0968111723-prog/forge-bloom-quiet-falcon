@@ -1,0 +1,47 @@
+# 交接
+
+最後更新：2026-11-11，M1（可玩樣板）完成並留下證據；整體目標尚未完成。
+恢復工作時先讀 `CHECKPOINT.json` 的 `next_action`，再看 `BACKLOG.json` 的依賴。
+
+## 現在的狀態
+
+- 分支：`cursor/tamkang-art-pipeline-1a71`（自 `main` @ `71f4d3c`）。沒有合併 main，沒有更新公開網站。
+- 管線可用：`art/` 來源 → `npm run art:export` → `public/game-art/*.glb` + manifest → `src/game/art/` 載入。
+- 主遊戲已使用：主角（`char.student-kit`，玩家角色；省電畫質用同骨架的 `char.student-kit-lod1`）、考卷怪（`creature.quiz`，所有 quiz 敵人）、工程技能特效（`StructuralPulse`）。
+- 其他 NPC 仍用舊程序化學生（`src/game/Student.tsx`）；report／exam／final 仍用舊外形；八個學院仍用舊技能特效。
+
+## 開發與驗證
+
+```sh
+npm ci
+npm run dev:site                      # :8088
+npm run typecheck && npm test
+npm run art:validate -- --rebuild
+npm run build:site
+```
+
+截圖（需 dev 或 preview 伺服器）：
+
+```sh
+node scripts/art/capture-art.mjs http://127.0.0.1:8088/ /tmp/out combat --tier low
+node scripts/art/capture-art.mjs http://127.0.0.1:8088/ /tmp/out turnaround --tier high --width 800 --height 800
+node scripts/art/capture-route.mjs http://127.0.0.1:8089/ /tmp/route --tier low --label after-low
+```
+
+`?qa=1` 提供：`window.__rpgQA`（store、`freeze`／`step`／`resume` 定步時鐘）、
+`window.__controlsTest.setPhoto`（環繞玩家的攝影機）、`window.__characterTest.play`（播放動作片段）。只用於截圖與驗收。
+
+## 設計決策（要延續的）
+
+1. 來源是程式（TypeScript + spec），輸出是 GLB；遊戲只載入輸出，載入失敗會顯示訊息並改用舊外形。
+2. 一件角色／怪物 = 一個蒙皮網格 + 一個材質 + 一張 512² atlas（臉、布料、細節都在 atlas）。
+3. 動畫與特效只讀真實狀態（`attackFx`、`hurtUntil`、敵人 `state/timer/hurt/hp`），不寫回戰鬥。
+4. 預警圖形 = 真實判定形狀與半徑（目前敵人判定是圓）。
+5. 步幅以 FK 量測支撐腳速度決定，不靠目測。
+
+## 風險與注意
+
+- 本主機無 GPU，效能數字只能同主機比較；所有裝置目標 `pending-device`。
+- 主角 LOD0 曾讓省電畫質 frame time 上升；LOD1 已讓省電畫質回到基準（STATUS.md）。NPC 套用角色組時人群一律用 LOD1 等級。
+- 高畫質戶外三角形本來就超過 1.6 M 預算（ART-102）。
+- 匯出結果依 Node 22 + three r185 重現；升級 three 後需重新匯出並跑 `--rebuild`。
