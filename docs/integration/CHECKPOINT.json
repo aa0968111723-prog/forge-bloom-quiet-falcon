@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T22:40:00Z",
-  "branch": "cursor/integration-auditorium-3395",
+  "branch": "main",
   "mainSha": "3b4498ad24ba",
   "gameSha": "b805fae8286418332bae03ea2943c03228e377cd",
   "activeItem": "art-auditorium",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The audiovisual hall is a dark auditorium with a stage tower. Humanities stays a hip roof. Game code is b805fae8286418332bae03ea2943c03228e377cd. The patch from 8517cae is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #75 (pilgrimage walk, head 3c9cf1d), then PR #77 (architecture studio, head 55a42fb), then PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The audiovisual hall is on main: a dark auditorium with a stage tower. Humanities stays a hip roof. Game code is b805fae8286418332bae03ea2943c03228e377cd. The patch from 8517cae is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #75 (pilgrimage walk, head 3c9cf1d), then PR #77 (architecture studio, head 55a42fb), then PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #83. Do not merge PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

@@ -1168,8 +1168,10 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "b805fae8286418332bae03ea2943c03228e377cd",
+      "integrationPr": 83,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/83",
       "nextAction": "None. The auditorium patch from 8517cae is already in this integration. Do not merge PR #73 by itself. Next is PR #75, then PR #77, then PR #79, then PR #80, then PR #82. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
