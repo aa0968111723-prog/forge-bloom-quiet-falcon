@@ -482,8 +482,9 @@
         "docs/art/VALIDATION.md",
         "scripts/art/capture-art.mjs"
       ],
-      "merged": false,
-      "nextAction": "Fast-forward only while origin/main is still c59aaac and the source head is still f48a2c5."
+      "merged": true,
+      "mergeSha": "1dc51dfc6dfd33cc1583950397088d5d9425107d",
+      "nextAction": "None. Source f48a2c5 is an ancestor of main. Do not rerun the route unless the game SHA changes."
     }
   ]
 }

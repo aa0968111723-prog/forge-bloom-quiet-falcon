@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 每個校園門口的步道走到估計路網上能站的點。視聽教育館與正門不再穿進量體。狀態卡仍是短標籤。精度仍是 estimated。 | [#27](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/27)，來源 `f48a2c5` | `integrating` |
+| 美術與場景 | 每個校園門口的步道走到估計路網上能站的點。視聽教育館與正門不再穿進量體。狀態卡仍是短標籤。精度仍是 estimated。 | [#27](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/27)，來源 `f48a2c5` | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | `entranceRoadPath` 取代對準最近垂直線的步道 |
 | 已驗證 | `npm run typecheck` 通過。`npm test` 248 通過，其中門口步道 2 通過。`npm run build:site` 通過。瀏覽器定步：視聽教育館與正門的步道沿牆外側接到路，`pageErrors` 空。同一版跨系統路線：化學學系、經驗 20、筆記 19、任務一次、突襲小考 65→45、重載、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401 |
-| 已合併 | 進行中。來源 PR #27 `f48a2c5`。衝突用手解，狀態卡與門口步道的記錄都留下 |
+| 已合併 | 是。遊戲程式在 `1dc51df`。來源 `f48a2c5`。`main` 未受保護、沒有必須的 check，使用快轉 |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍
