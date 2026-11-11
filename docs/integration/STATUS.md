@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 河角存檔回到近岸。淡水遠景不能走。金幣會散開。標示用字、商管大樓基座、標題鏡頭與 48 m 樹冠切換仍在。 | 來源 `f7584b3` | `verified` |
+| 美術與場景 | 河角存檔回到近岸。淡水遠景不能走。金幣會散開。標示用字、商管大樓基座、標題鏡頭與 48 m 樹冠切換仍在。 | 來源 `f7584b3`，整合 PR #58 | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | 世界邊界夾完之後，x 仍在近岸以西就拉回 `SHORE_X` 加上角色半徑。沒有新的獎勵帳，也沒有改戰鬥扣血 |
 | 已驗證 | `npm run typecheck` 通過。`npm test` 258 通過。`npm run build:site` 通過。同一站跨系統路線：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401。`pageErrors` 空 |
-| 已合併 | 否。遊戲程式在 `7507c59`。來源 `f7584b3`。`main` 未受保護、沒有必須的 check |
+| 已合併 | 是。遊戲程式在 `7507c59`。來源 `f7584b3`。整合 PR #58。`main` 未受保護、沒有必須的 check |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍

@@ -860,8 +860,11 @@
         "route": "8108: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
       "conflicts": [],
-      "merged": false,
-      "nextAction": "Open the integration PR and merge it. Do not merge PR #54 by itself. Do not merge PR #32 head 1fc5887."
+      "merged": true,
+      "mergeSha": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
+      "integrationPr": 58,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/58",
+      "nextAction": "None. The shore-save patch from f7584b3 is already in this integration. Do not merge PR #54 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }
