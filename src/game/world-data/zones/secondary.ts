@@ -44,7 +44,8 @@ export type SecondaryStructure = {
     | "auditorium"
     | "studio-block"
     | "activity-hall"
-    | "watch-post";
+    | "watch-post"
+    | "eng-tower";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -364,6 +365,23 @@ export function watchPostProfile(size: readonly [number, number, number]) {
   };
 }
 
+/**
+ * Podium and set-back tower for 工學大樓. The step-back is an estimated
+ * silhouette, not a measured elevation.
+ */
+export function engTowerProfile(size: readonly [number, number, number]) {
+  const podiumH = Math.max(3.4, size[1] * 0.22);
+  const towerD = size[2] - 4;
+  const towerZ = -0.8;
+  return {
+    podiumH,
+    towerW: size[0] - 6,
+    towerD,
+    towerZ,
+    glassZ: towerZ + towerD / 2 + 0.08,
+  };
+}
+
 /** Glass base plus the set-back upper volume used by 覺生綜合大樓. */
 export function linkedHallProfile(size: readonly [number, number, number]) {
   const baseH = Math.max(3.2, size[1] * 0.42);
@@ -415,6 +433,7 @@ function campusKind(site: {
   if (site.id === "architecture") return "studio-block";
   if (site.id === "commons") return "activity-hall";
   if (site.id === "security") return "watch-post";
+  if (site.id === "engineering") return "eng-tower";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

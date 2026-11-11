@@ -225,4 +225,12 @@
 
 ## 下一步
 
-見 `CHECKPOINT.json`。管制中心已從實驗樓分開。學生活動中心、化學館與大門留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+## 階段：工學大樓（ART-064 的一部分）
+
+理工區這棟不再跟化學館共用實驗樓。現在是深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。工學館與化學館仍是實驗樓。外形仍是 estimated。勤務監控留著。
+
+畫面：`docs/art/evidence/engineering/tower.jpg`。測試：`scripts/context-lod.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。工學大樓已從實驗樓分開。工學館、化學館、風洞與勤務監控留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

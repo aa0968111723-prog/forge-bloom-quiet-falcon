@@ -4,8 +4,9 @@ import test from "node:test";
 import {
   SECONDARY_STRUCTURES,
   contextDetailLimit,
-  contextShowsDetail,
   activityProfile,
+  contextShowsDetail,
+  engTowerProfile,
   glazingBand,
   linkedHallProfile,
   studioProfile,
@@ -44,6 +45,16 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   const watch = watchPostProfile(post.size);
   assert.ok(watch.glassZ > post.size[2] / 2, "watch window sits on the south face");
   assert.ok(watch.glassH < post.size[1], "watch window stays on the wall");
+  const tower = SECONDARY_STRUCTURES.find((item) => item.id === "engineering");
+  assert.equal(tower?.kind, "eng-tower");
+  assert.equal(tower?.accuracy, "estimated");
+  assert.notEqual(tower?.kind, "lab-block");
+  const eng = engTowerProfile(tower.size);
+  const towerSouth = eng.towerZ + eng.towerD / 2;
+  assert.ok(Math.abs(eng.glassZ - (towerSouth + 0.08)) < 1e-6, "tower glass sits on the set-back face");
+  assert.ok(eng.towerW < tower.size[0], "the tower is narrower than the podium");
+  assert.ok(eng.podiumH < tower.size[1] * 0.35, "the podium stays the base");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "old-engineering")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "shed");

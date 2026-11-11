@@ -259,3 +259,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 33 輪（勤務監控管制中心）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。勤務監控管制中心是低崗亭、南向窗和屋頂天線，名牌寫著勤務監控管制中心。沒有實驗樓的屋頂設備。化學館仍是實驗樓，大門仍是門柱。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/watch/post.jpg`。學生活動中心留在第 32 輪。
+
+## 第 34 輪（工學大樓）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。工學大樓是深色基座加退縮的淺色塔樓，兩條窗帶貼著退縮的南牆，名牌寫著工學大樓。沒有實驗樓的屋頂設備。工學館與化學館仍是實驗樓。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/engineering/tower.jpg`。勤務監控留在第 33 輪。

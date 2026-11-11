@@ -801,6 +801,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "post", "security watch post");
+  } else if (scenario === "engineering") {
+    await hideHud(page);
+    await setPose(page, 260, -140, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(287, -175);
+      window.__controlsTest.setPhoto({
+        yaw: -0.55,
+        distance: 52,
+        height: 16,
+        lookY: 0,
+        target: { x: 287, y: y + 10, z: -175 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "tower", "engineering tower");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

@@ -1,7 +1,12 @@
 # 交接
 
-最後更新：2026-11-11。勤務監控管制中心改成低崗亭、南向窗和屋頂天線。大門仍是開口門柱。化學館仍是實驗樓。學生活動中心留著。精度仍是 estimated。整體目標尚未完成。
+最後更新：2026-11-11。工學大樓改成深色基座加退縮塔樓。工學館與化學館仍是實驗樓。勤務監控留著。精度仍是 estimated。整體目標尚未完成。
 恢復工作時先讀 `CHECKPOINT.json` 的 `next_action`，再看 `BACKLOG.json` 的依賴。
+
+## 本輪（理工區）
+
+- `engineering` 的量體是 `eng-tower`。窗帶貼著退縮的牆。精度仍是 estimated。
+- `architecture` 仍是 `studio-block`，`wind-lab` 仍是 `shed`。沒有新增音效。勤務監控、司令臺與覺生綜合大樓留著。
 
 ## 本輪（軸線）
 
@@ -12,11 +17,6 @@
 
 - `commons` 的量體是 `activity-hall`。分區仍是 culture-58。精度仍是 estimated。
 - 沒有新增音效。風洞與司令臺留著。
-
-## 本輪（理工區）
-
-- `architecture` 的量體是 `studio-block`。南向玻璃貼著牆面，屋頂採光朝南。精度仍是 estimated。
-- `wind-lab` 的量體仍是 `shed`。沒有新增音效。司令臺、會議中心與覺生綜合大樓留著。
 
 ## 本輪（巡禮折線）
 
