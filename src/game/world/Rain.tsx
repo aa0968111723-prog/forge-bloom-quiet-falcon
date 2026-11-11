@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useReducedArtMotion } from "../art/motion";
 import { quality } from "../quality";
 import { useRpg } from "../rpg/store";
 import type { TimeOfDay } from "../world-data/lighting.ts";
@@ -11,13 +12,14 @@ const HEIGHT = 16;
 
 /**
  * Rain only while the wet preset is on, and only outdoors.
- * Streaks follow the camera. Reduced motion holds them still.
+ * Streaks follow the camera. Reduced motion holds them still, including
+ * a preference change while the scene is already open.
  */
 export function Rain({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   const interior = useRpg((s) => s.interiorId);
   const camera = useThree((s) => s.camera);
   const mesh = useRef<THREE.InstancedMesh>(null);
-  const reduced = useRef(false);
+  const reduced = useReducedArtMotion();
   const tier = quality().tier;
   const count = rainStreaks(tier);
   const seeds = useMemo(() => {
@@ -31,15 +33,11 @@ export function Rain({ timeOfDay }: { timeOfDay: TimeOfDay }) {
     }
     return { xs, ys, zs };
   }, [count]);
-  useEffect(() => {
-    reduced.current =
-      typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
   const dummy = useMemo(() => new THREE.Object3D(), []);
   useFrame((_, dt) => {
     const inst = mesh.current;
     if (!inst) return;
-    const fall = reduced.current ? 0 : Math.min(dt, 0.05) * 14;
+    const fall = reduced ? 0 : Math.min(dt, 0.05) * 14;
     const { xs, ys, zs } = seeds;
     for (let i = 0; i < count; i++) {
       let y = ys[i] - fall;
