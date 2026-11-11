@@ -862,6 +862,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "tower", "chingsheng memorial tower");
+  } else if (scenario === "gym") {
+    await hideHud(page);
+    await setPose(page, 140, -78, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(166, -122);
+      window.__controlsTest.setPhoto({
+        yaw: -0.4,
+        distance: 52,
+        height: 16,
+        lookY: 0,
+        target: { x: 166, y: y + 8, z: -122 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "arena", "shaomo gymnasium");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

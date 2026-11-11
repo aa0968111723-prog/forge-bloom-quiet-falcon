@@ -5,6 +5,7 @@ import {
   SECONDARY_STRUCTURES,
   contextDetailLimit,
   activityProfile,
+  arenaProfile,
   contextShowsDetail,
   engTowerProfile,
   glazingBand,
@@ -68,6 +69,13 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "shed");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "lab-block");
+  const arena = SECONDARY_STRUCTURES.find((item) => item.id === "gymnasium");
+  assert.equal(arena?.kind, "arena");
+  assert.equal(arena?.accuracy, "estimated");
+  assert.notEqual(arena?.kind, "hall");
+  const court = arenaProfile(arena.size);
+  assert.ok(court.glassZ > arena.size[2] / 2, "gym clerestory sits on the south face");
+  assert.ok(court.clerestoryY > court.baseH, "the glass band stays above the plinth");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "swimming")?.kind, "sport-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.kind, "stand");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.accuracy, "estimated");

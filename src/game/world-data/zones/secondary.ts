@@ -46,7 +46,8 @@ export type SecondaryStructure = {
     | "activity-hall"
     | "watch-post"
     | "eng-tower"
-    | "memorial-tower";
+    | "memorial-tower"
+    | "arena";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -92,7 +93,7 @@ const LEGACY_SECONDARY_STRUCTURES: SecondaryStructure[] = [
     position: [166, -122],
     size: [44, 16, 30],
     rotationY: 0,
-    kind: "hall",
+    kind: "arena",
     cluster: "east",
     walkable: true,
     accuracy: "estimated",
@@ -393,6 +394,19 @@ export function memorialProfile(size: readonly [number, number, number]) {
     baseH,
     glassZ: size[2] / 2 + 0.08,
     glassW: size[0] * 0.46,
+  };
+}
+
+/**
+ * Sports hall for 紹謨紀念體育館. The plinth and clerestory are an estimated
+ * silhouette, not a measured elevation. The pool stays a separate sport block.
+ */
+export function arenaProfile(size: readonly [number, number, number]) {
+  return {
+    baseH: Math.min(2.2, Math.max(1.4, size[1] * 0.14)),
+    clerestoryY: size[1] - Math.max(2.2, size[1] * 0.18),
+    glassZ: size[2] / 2 + 0.08,
+    glassH: Math.max(1.4, size[1] * 0.12),
   };
 }
 

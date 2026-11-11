@@ -245,4 +245,12 @@
 
 ## 下一步
 
-見 `CHECKPOINT.json`。驚聲大樓已從綠瓦分開。文學館、覺生綜合大樓與路網中線留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+## 階段：紹謨紀念體育館（ART-067 的一部分）
+
+運動區這棟不再用圖書館的外牆材質。現在是淺色館身、深色台基、南向高側窗和出挑平頂。泳館仍是綠灰運動館。司令臺仍是低平台。外形仍是 estimated。驚聲大樓留著。
+
+畫面：`docs/art/evidence/gym/arena.jpg`。測試：`scripts/context-lod.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。體育館已從通用廳分開。泳館、司令臺與驚聲大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

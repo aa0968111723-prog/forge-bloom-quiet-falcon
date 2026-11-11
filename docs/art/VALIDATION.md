@@ -271,3 +271,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 36 輪（驚聲大樓）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。驚聲大樓是石色樓身、深色基座、底層玻璃和平頂壓簷，名牌寫著驚聲大樓。沒有綠瓦。文學館仍是坡頂。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/memorial/tower.jpg`。路網中線留在第 35 輪。
+
+## 第 37 輪（紹謨紀念體育館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。體育館是淺色館身、深色台基、高側窗和出挑平頂，名牌寫著紹謨紀念體育館。沒有圖書館外牆材質。泳館仍是綠灰運動館。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/gym/arena.jpg`。驚聲大樓留在第 36 輪。
