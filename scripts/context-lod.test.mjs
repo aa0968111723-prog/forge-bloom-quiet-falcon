@@ -11,6 +11,7 @@ import {
   glazingBand,
   linkedHallProfile,
   memorialProfile,
+  scienceHallProfile,
   studioProfile,
   watchPostProfile,
 } from "../src/game/world-data/zones/secondary.ts";
@@ -64,6 +65,14 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(eng.towerW < tower.size[0], "the tower is narrower than the podium");
   assert.ok(eng.podiumH < tower.size[1] * 0.35, "the podium stays the base");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "old-engineering")?.kind, "lab-block");
+  const science = SECONDARY_STRUCTURES.find((item) => item.id === "science");
+  assert.equal(science?.kind, "science-hall");
+  assert.equal(science?.accuracy, "estimated");
+  assert.notEqual(science?.kind, "lab-block");
+  const bay = scienceHallProfile(science.size);
+  assert.ok(bay.glassZ > science.size[2] / 2, "science bay sits on the south face");
+  assert.ok(bay.bayX > 0, "the glass bay stays on the east end");
+  assert.equal(SECONDARY_STRUCTURES.some((item) => item.id === "science-hall"), false);
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "shed");

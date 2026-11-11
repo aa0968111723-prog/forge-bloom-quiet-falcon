@@ -251,6 +251,12 @@
 
 畫面：`docs/art/evidence/gym/arena.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：騮先紀念科學館（ART-064 的一部分）
+
+理工區這棟現在是淺色館身、東側直玻璃和壓簷，沒有屋頂設備。化學館仍是實驗樓。未匯出的舊剪影沒有合併。外形仍是 estimated。工學大樓、建築系館與體育館留著。
+
+畫面：`docs/art/evidence/science/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。體育館已從通用廳分開。泳館、司令臺與驚聲大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。科學館已從實驗樓分開。化學館、工學大樓、建築系館與體育館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

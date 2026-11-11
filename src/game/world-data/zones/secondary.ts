@@ -47,7 +47,8 @@ export type SecondaryStructure = {
     | "watch-post"
     | "eng-tower"
     | "memorial-tower"
-    | "arena";
+    | "arena"
+    | "science-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -410,6 +411,19 @@ export function arenaProfile(size: readonly [number, number, number]) {
   };
 }
 
+/**
+ * Named science hall for 騮先紀念科學館. The south glass bay is an estimated
+ * silhouette. Chemistry keeps the lab block and its roof plant.
+ */
+export function scienceHallProfile(size: readonly [number, number, number]) {
+  const bayW = Math.min(4.4, size[0] * 0.16);
+  return {
+    bayW,
+    bayX: size[0] / 2 - bayW / 2 - 1.4,
+    glassZ: size[2] / 2 + 0.08,
+  };
+}
+
 /** Glass base plus the set-back upper volume used by 覺生綜合大樓. */
 export function linkedHallProfile(size: readonly [number, number, number]) {
   const baseH = Math.max(3.2, size[1] * 0.42);
@@ -462,6 +476,7 @@ function campusKind(site: {
   if (site.id === "commons") return "activity-hall";
   if (site.id === "security") return "watch-post";
   if (site.id === "engineering") return "eng-tower";
+  if (site.id === "science") return "science-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

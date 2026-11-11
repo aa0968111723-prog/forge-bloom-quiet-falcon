@@ -275,3 +275,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 37 輪（紹謨紀念體育館）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。體育館是淺色館身、深色台基、高側窗和出挑平頂，名牌寫著紹謨紀念體育館。沒有圖書館外牆材質。泳館仍是綠灰運動館。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/gym/arena.jpg`。驚聲大樓留在第 36 輪。
+
+## 第 38 輪（騮先紀念科學館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。科學館是淺色館身、東側直玻璃和壓簷，名牌寫著騮先紀念科學館。沒有實驗樓的屋頂設備。化學館仍是實驗樓。未匯出的舊剪影沒有合併。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/science/hall.jpg`。體育館留在第 37 輪。
