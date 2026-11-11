@@ -1057,14 +1057,38 @@ const gymEntrance = siteEntrance(siteById.get("gym")!);
 const routeStart: XZ = [kenan.worldPosition[0], kenan.worldPosition[2]];
 
 const STEP_NOTE =
-  "幾何尚未依現勘重算。克難坡 132 階只是待核對的公開說法；現行 66/66 分段是待測。折線沒有展開階數。";
+  "幾何尚未依現勘重算。克難坡 132 階只是待核對的公開說法；現行 66/66 分段是待測。折線沒有展開階數。銅像與海豚基座從東側繞，體育館從宮燈教室南緣與活動中心、教育館之間的空檔走。";
+
+/** East of the 驚聲銅像 plinth, the same side the avenue route uses. */
+const STATUE_PASS_X = 5.6;
+/** East of the dolphin plinth, the same side the avenue route uses. */
+const DOLPHIN_PASS_X = 6.6;
+
+function structureSpanX(id: string): { min: number; max: number } {
+  const row = SECONDARY_STRUCTURES.find((structure) => structure.id === id);
+  if (!row) throw new Error(`missing structure ${id}`);
+  return { min: row.position[0] - row.size[0] / 2, max: row.position[0] + row.size[0] / 2 };
+}
+
+/** South of the southern 宮燈教室 hall. The estimated road at z=-24 sits on that wall. */
+const SOUTH_OF_PALACE_Z = PALACE.firstZ + PALACE.hallWidth / 2 + 1.2;
+const commonsSpan = structureSpanX("commons");
+const educationSpan = structureSpanX("education");
+/** Between 學生活動中心 and 教育館, both estimated masses. */
+const GYM_LANE_X = (commonsSpan.max + educationSpan.min) / 2;
 
 export const ROUTE_SPECS = [
   {
     id: "kenan-to-palace" as const,
     fromId: "kenan",
     toId: "palace",
-    polyline: [routeStart, [0, 0], [0, palaceEntrance.z], [palaceEntrance.x, palaceEntrance.z]] as XZ[],
+    polyline: [
+      routeStart,
+      [0, AXIS.slopeTopZ],
+      [STATUE_PASS_X, 0],
+      [0, palaceEntrance.z],
+      [palaceEntrance.x, palaceEntrance.z],
+    ] as XZ[],
     status: "幾何尚未依現勘重算" as const,
     accuracy: "estimated" as const,
     stepNote: STEP_NOTE,
@@ -1075,8 +1099,10 @@ export const ROUTE_SPECS = [
     toId: "library",
     polyline: [
       routeStart,
-      [0, 0],
-      [0, AXIS.dolphinZ],
+      [0, AXIS.slopeTopZ],
+      [STATUE_PASS_X, 0],
+      [0, AXIS.avenueSouthZ],
+      [DOLPHIN_PASS_X, AXIS.dolphinZ],
       [0, AXIS.scrollPlazaZ],
       [libraryEntrance.x, libraryEntrance.z],
     ] as XZ[],
@@ -1090,10 +1116,11 @@ export const ROUTE_SPECS = [
     toId: "gym",
     polyline: [
       routeStart,
-      [0, 0],
-      [0, -24],
-      [61, -24],
-      [195, -138],
+      [0, AXIS.slopeTopZ],
+      [STATUE_PASS_X, 0],
+      [0, SOUTH_OF_PALACE_Z],
+      [GYM_LANE_X, SOUTH_OF_PALACE_Z],
+      [GYM_LANE_X, gymEntrance.z],
       [gymEntrance.x, gymEntrance.z],
     ] as XZ[],
     status: "幾何尚未依現勘重算" as const,
