@@ -633,9 +633,10 @@
       "acceptance": "同上",
       "evidence": [
         "scripts/context-lod.test.mjs",
-        "docs/art/evidence/forum/hall.jpg"
+        "docs/art/evidence/forum/hall.jpg",
+        "docs/art/evidence/auditorium/hall.jpg"
       ],
-      "notes": "守謙國際會議中心從教學樓基座改成低寬量體、南向玻璃帶和出挑屋簷，不再畫共用窗帶。海事博物館仍是船型。精度仍是 estimated。"
+      "notes": "守謙國際會議中心是低寬量體。視聽教育館從坡頂改成深色廳堂加舞台塔。文學館仍是坡頂。海事博物館仍是船型。精度仍是 estimated。"
     },
     {
       "id": "ART-067",

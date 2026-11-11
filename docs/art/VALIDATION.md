@@ -239,3 +239,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 28 輪（傳播館）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。傳播館 O、Q 是深色基座、淺色上層和屋頂天線，不再是綠瓦坡頂。文學館仍是坡頂。名牌寫著傳播館 O 館。精度仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/media/o.jpg`。麗澤留在第 27 輪。
+
+## 第 29 輪（視聽教育館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。視聽教育館從綠瓦坡頂改成深色廳堂加舞台塔，名牌寫著視聽教育館。文學館仍是坡頂。舞台塔不是實測。定步畫面，頁面無錯誤：`docs/art/evidence/auditorium/hall.jpg`。傳播館留在第 28 輪。

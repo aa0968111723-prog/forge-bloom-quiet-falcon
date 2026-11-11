@@ -40,7 +40,8 @@ export type SecondaryStructure = {
     | "stand"
     | "shed"
     | "intl-dorm"
-    | "media-hall";
+    | "media-hall"
+    | "auditorium";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -359,6 +360,7 @@ function campusKind(site: {
   if (site.id === "wind-lab") return "shed";
   if (site.id === "reitaku") return "intl-dorm";
   if (site.id === "business-o" || site.id === "business-q") return "media-hall";
+  if (site.id === "audiovisual") return "auditorium";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

@@ -193,6 +193,12 @@
 
 畫面：`docs/art/evidence/media/o.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：視聽教育館（ART-066 的視聽部分）
+
+文藝區這棟從綠瓦坡頂改成深色廳堂，屋頂一端有舞台塔。文學館仍是坡頂。舞台塔不是實測。傳播館留著。
+
+畫面：`docs/art/evidence/auditorium/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。傳播館已從坡頂分開。麗澤、風洞、司令臺與文學館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。視聽教育館已從坡頂分開。傳播館、麗澤與文學館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
