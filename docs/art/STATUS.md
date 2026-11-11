@@ -223,8 +223,6 @@
 
 畫面：`docs/art/evidence/watch/post.jpg`。測試：`scripts/context-lod.test.mjs`。
 
-## 下一步
-
 ## 階段：工學大樓（ART-064 的一部分）
 
 理工區這棟不再跟化學館共用實驗樓。現在是深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。工學館與化學館仍是實驗樓。外形仍是 estimated。勤務監控留著。
@@ -233,4 +231,12 @@
 
 ## 下一步
 
-見 `CHECKPOINT.json`。工學大樓已從實驗樓分開。工學館、化學館、風洞與勤務監控留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+## 階段：路網避開牆與門柱（ART-069 的一部分）
+
+估計路網有兩段中線貼著實體。視聽教育館北牆那一段改從牆外 1.6 m 走。大忠警衛站那一段改從門洞中間走。半徑 0.42 m 可以走完。座標仍是 estimated。工學大樓與巡禮折線留著。
+
+畫面：`docs/art/evidence/roads/hall.jpg`、`gate.jpg`。測試：`scripts/campus-links.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。這兩段路已離開牆和門柱。工學大樓、傳播館與巡禮折線留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

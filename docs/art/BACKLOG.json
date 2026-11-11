@@ -687,9 +687,11 @@
         "scripts/campus-links.test.mjs",
         "scripts/route-walk.test.mjs",
         "docs/art/evidence/links/audiovisual-door.jpg",
-        "docs/art/evidence/links/main-gate-door.jpg"
+        "docs/art/evidence/links/main-gate-door.jpg",
+        "docs/art/evidence/roads/hall.jpg",
+        "docs/art/evidence/roads/gate.jpg"
       ],
-      "notes": "41 個校園門口都有一條不穿碰撞體、終點落在估計路網上的步道。三條巡禮折線以半徑 0.42 m 走到宮燈教室、圖書館、體育館，並從銅像東側與活動中心外側繞過。克難坡中線可從坡底走到坡頂。精度仍是 estimated，階數未測，不宣稱不被裝飾物卡住。"
+      "notes": "41 個校園門口都有一條不穿碰撞體、終點落在估計路網上的步道。三條巡禮折線以半徑 0.42 m 走到宮燈教室、圖書館、體育館，並從銅像東側與活動中心外側繞過。克難坡中線可從坡底走到坡頂。視聽教育館北牆原本壓在 z=-24 的路中線，這段改從牆外 1.6 m 繞。大忠警衛站東側門柱原本壓在 x=490，這段改從兩根門柱中間穿。半徑 0.42 m 可以走完整條估計路網的中線。精度仍是 estimated，階數未測，不宣稱不被裝飾物卡住。"
     },
     {
       "id": "ART-070",

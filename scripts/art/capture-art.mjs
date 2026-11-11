@@ -817,6 +817,35 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "tower", "engineering tower");
+  } else if (scenario === "roads") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 250, -55, 0);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(222, -25.6);
+      window.__controlsTest.setPhoto({
+        yaw: 2.6,
+        distance: 34,
+        height: 16,
+        lookY: 0,
+        target: { x: 222, y: y + 2, z: -20 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "road north of the audiovisual hall");
+    await setPose(page, 486, -28, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(486, -52);
+      window.__controlsTest.setPhoto({
+        yaw: 0.15,
+        distance: 20,
+        height: 7,
+        lookY: 0,
+        target: { x: 486, y: y + 1.6, z: -52 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "gate", "road through the Dazhong gate");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
