@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T21:50:00Z",
-  "branch": "cursor/integration-culture-mass-3395",
+  "branch": "main",
   "mainSha": "4bd138fa234b",
   "gameSha": "e3a3059a2a1a783830266293064bf6476f1a0ba7",
   "activeItem": "art-forum-hall",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The conference center is a low wide hall with a south glass band and a roof overhang. Game code is e3a3059a2a1a783830266293064bf6476f1a0ba7, branched from origin/main 4bd138fa234b. The patch from a8558b5 is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #65 by itself. Do not merge PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Next after this lands is PR #67, then PR #68, each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The conference center is on main: a low wide hall, a south glass band, and a roof overhang. Game code is e3a3059a2a1a783830266293064bf6476f1a0ba7. The patch from a8558b5 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #67 (reviewing stand) and then PR #68 (wind shed). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #71. Do not merge PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

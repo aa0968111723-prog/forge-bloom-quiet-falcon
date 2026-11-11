@@ -1028,9 +1028,11 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "e3a3059a2a1a783830266293064bf6476f1a0ba7",
-      "nextAction": "Open the integration PR and merge it. Source a8558b5 is not an ancestor. Do not merge PR #65 by itself."
+      "integrationPr": 71,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/71",
+      "nextAction": "None. The forum-hall patch from a8558b5 is already in this integration. Do not merge PR #65 by itself. Next is PR #67, then PR #68. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
