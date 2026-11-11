@@ -15,9 +15,9 @@
 
 ## 下一步
 
-地面施法修正在 `cursor/integration-cast-ground-3395`，尚未進 `main`。合併前確認 `origin/main` 仍是 `d8cb6dc`。
+`main` tip 是 `348788d`。地面施法的程式提交是 `222804b`。PR #19 與來源 PR #16 已合併。合併後 typecheck 通過。
 
-其後還有 PR #17 校園清冊，以及 `cursor/college-poses-campus-1a71` 上的基本攻擊揮擊 `879ffdf`。這兩個本輪還沒合併。
+下一項是 PR #17，`cursor/campus-registry-1a71` @ `3c85358`。再下一項是 `cursor/college-poses-campus-1a71` 的 `879ffdf`（基本攻擊揮擊）。開始前先 `git fetch` 確認 head 沒有再動。
 
 ## 不要做
 

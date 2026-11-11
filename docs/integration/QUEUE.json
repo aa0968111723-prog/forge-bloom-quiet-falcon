@@ -297,7 +297,7 @@
       "id": "art-cast-ground",
       "line": "art",
       "scope": "Lift ground college casts above the avenue paving and keep computing brackets closed.",
-      "status": "ready_to_merge",
+      "status": "merged",
       "pr": 16,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/16",
       "integrationBranch": "cursor/integration-cast-ground-3395",
@@ -314,9 +314,11 @@
         "browser": "chemistry skill cast, purple ground arcs visible, focus spent, pageErrors empty"
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm main d8cb6dc and merge."
+      "merged": true,
+      "mergeSha": "222804b",
+      "integrationPr": 19,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/19",
+      "nextAction": "None. Post-merge typecheck passed. Source PR #16 closed with it."
     }
   ]
 }
