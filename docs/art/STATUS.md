@@ -133,6 +133,12 @@
 
 打到同一個目標時，金幣沿圓周散開，不再疊在同一個點。普攻蓄力幀的刃改到身前。定步飛行畫面：`docs/art/evidence/coins/travel.jpg`。標示用字與商管大樓基座留著。
 
+## 階段：淡水遠景不可走（ART-070）
+
+牧羊草坪往西看得到河面和山脊。近岸在估計的 x=-112 停住，對岸街廓和山都在這條線以西。河寬和山形都不是實測。金幣仍會散開。
+
+畫面：`docs/art/evidence/vista/west.jpg`。測試：`scripts/river-vista.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。金幣會散開。標示用字改了兩處，座標沒有升成 mapped。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。遠景不能走上去。標示用字沒有升成 mapped。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
