@@ -56,6 +56,8 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 高畫質的詳細樹冠半徑是 `vegetationRange` 48。再遠換成便宜樹冠。省電畫質本來就用 `simpleTrees`，70 m 是便宜樹冠的距離，不是第二個細模半徑。
 
+驚聲廣場的環形樹避開標題鏡頭 `TITLE_ORBIT`（-13, 13）16 m。杜鵑花環沒有跟著退。這是為了標題畫面，不是實測植栽位置。
+
 室內路線用既有 `enter("palace")`／`exit()`。宮燈教室 id 是 `palace`。
 
 ## 存檔
