@@ -215,3 +215,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 22 輪（雨的畫質分級）— 2026-11-11
 
 `node --test scripts/rain-tier.test.mjs` 通過。`tsc --noEmit` 通過。雨後預設會在鏡頭周圍下雨。高畫質 320 條，低畫質 64 條。室內不畫。減少動態時雨絲停住。同一宮燈大道站點、頁面無錯誤：`docs/art/evidence/rain/high.jpg`、`low.jpg`。手機圖示留在第 21 輪。真機幀時間仍是 pending-device。
+
+## 第 23 輪（司令臺）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。司令臺從實驗樓改成低平台、後方小間和棚頂，不再畫窗帶。台面還不能走上去。精度仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/stand/deck.jpg`。

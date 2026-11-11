@@ -146,7 +146,13 @@ export function ContextStructures({
   const glazing = useMemo(() => {
     const out: GlazingItem[] = [];
     for (const { s, y } of items) {
-      if (s.kind === "court" || s.kind === "ship" || s.kind === "pavilion" || s.kind === "gate")
+      if (
+        s.kind === "court" ||
+        s.kind === "ship" ||
+        s.kind === "pavilion" ||
+        s.kind === "gate" ||
+        s.kind === "stand"
+      )
         continue;
       const floors = s.floors ?? 6;
       for (let f = 0; f < floors; f++) {
@@ -295,6 +301,42 @@ export function ContextStructures({
                   position={[0, height + 0.28, s.size[2] / 2 + 0.36]}
                 >
                   <planeGeometry args={[Math.min(4.2, s.size[0] * 0.55), 0.7]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
+        if (s.kind === "stand") {
+          const deckH = 1.25;
+          const roofY = 3.15;
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh position={[0, deckH / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], deckH, s.size[2]]} />
+                <meshStandardMaterial color="#c4b49a" roughness={0.9} />
+              </mesh>
+              <mesh position={[0, deckH + 1.15, -s.size[2] * 0.28]} castShadow receiveShadow>
+                <boxGeometry args={[7.2, 2.3, 3.2]} />
+                <meshStandardMaterial color="#f3eee4" roughness={0.84} />
+              </mesh>
+              <mesh position={[0, roofY, s.size[2] * 0.08]} castShadow>
+                <boxGeometry args={[s.size[0] * 0.86, 0.22, s.size[2] * 0.7]} />
+                <meshStandardMaterial color="#8d734c" roughness={0.8} />
+              </mesh>
+              {[-1, 1].map((side) => (
+                <mesh key={side} position={[side * (s.size[0] * 0.34), roofY / 2, s.size[2] * 0.28]} castShadow>
+                  <boxGeometry args={[0.28, roofY, 0.28]} />
+                  <meshStandardMaterial color="#6d5a46" roughness={0.86} />
+                </mesh>
+              ))}
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, deckH + 0.7, s.size[2] / 2 + 0.08]}
+                >
+                  <planeGeometry args={[Math.min(8, s.size[0] * 0.7), 0.9]} />
                   <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
                 </mesh>
               )}

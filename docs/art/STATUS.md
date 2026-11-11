@@ -157,6 +157,12 @@
 
 畫面：`docs/art/evidence/rain/high.jpg`、`low.jpg`。測試：`scripts/rain-tier.test.mjs`。
 
+## 階段：司令臺（ART-067 的一部分）
+
+運動區的司令臺不再是實驗樓。現在是低平台、後方小間和棚頂。台面還不能走上去。外形仍是 estimated。
+
+畫面：`docs/art/evidence/stand/deck.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。雨會跟著畫質減少。手機圖示仍是 44px。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。司令臺已從實驗樓分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

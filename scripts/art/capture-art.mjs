@@ -648,6 +648,21 @@ try {
       await settle(page, { stableFrames: 3 });
       await shot(page, id, `${id} official sign`);
     }
+  } else if (scenario === "stand") {
+    await hideHud(page);
+    await setPose(page, -60, -398, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(-75, -420);
+      window.__controlsTest.setPhoto({
+        yaw: 0.95,
+        distance: 46,
+        height: 18,
+        lookY: -4,
+        target: { x: -75, y: y + 3, z: -420 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "deck", "reviewing stand");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
