@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T22:05:00Z",
-  "branch": "cursor/integration-reviewing-stand-3395",
+  "branch": "main",
   "mainSha": "1ee26e649c68",
   "gameSha": "60c07ff4b7708de2b9323bd800b595e3729a2895",
   "activeItem": "art-reviewing-stand",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The reviewing stand is a low deck, a rear booth, and a canopy. Game code is 60c07ff4b7708de2b9323bd800b595e3729a2895. The patch from 1e077d1 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #68 (wind shed), then PR #70 (Reitaku), then PR #72 (media halls), then PR #73 (auditorium). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The reviewing stand is on main: a low deck, a rear booth, and a canopy. Game code is 60c07ff4b7708de2b9323bd800b595e3729a2895. The patch from 1e077d1 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #68 (wind shed), then PR #70 (Reitaku), then PR #72 (media halls), then PR #73 (auditorium). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #74. Do not merge PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

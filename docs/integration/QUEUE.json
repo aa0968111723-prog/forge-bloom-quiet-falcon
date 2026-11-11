@@ -1056,8 +1056,10 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "60c07ff4b7708de2b9323bd800b595e3729a2895",
+      "integrationPr": 74,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/74",
       "nextAction": "None. The stand patch from 1e077d1 is already in this integration. Do not merge PR #67 by itself. Next is PR #68, then PR #70, then PR #72, then PR #73. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
