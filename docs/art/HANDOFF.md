@@ -7,8 +7,8 @@
 
 - 分支：`cursor/tamkang-art-pipeline-1a71`（自 `main` @ `71f4d3c`）。沒有合併 main，沒有更新公開網站。
 - 管線可用：`art/` 來源 → `npm run art:export` → `public/game-art/*.glb` + manifest → `src/game/art/` 載入。
-- 主遊戲已使用：主角（`char.student-kit`，玩家角色；省電畫質用同骨架的 `char.student-kit-lod1`）、考卷怪（`creature.quiz`，所有 quiz 敵人）、工程技能特效（`StructuralPulse`）。
-- 其他 NPC 仍用舊程序化學生（`src/game/Student.tsx`）；report／exam／final 仍用舊外形；八個學院仍用舊技能特效。
+- 主遊戲已使用：主角（高畫質 `char.student-kit`、省電 `char.student-kit-lod1`）、五名清冊 NPC（`char.npc-kit`，失敗時退回 `Student`）、四種怪物（`creature.quiz/report/exam/final`，失敗時退回舊外形）、工程技能（`StructuralPulse`）。
+- 八個學院仍用舊技能特效；七區、公共室內、UI、音效未開始。地理精度仍全部 `estimated`。
 
 ## 開發與驗證
 
@@ -23,7 +23,8 @@ npm run build:site
 截圖（需 dev 或 preview 伺服器）：
 
 ```sh
-node scripts/art/capture-art.mjs http://127.0.0.1:8088/ /tmp/out combat --tier low
+node scripts/art/capture-art.mjs http://127.0.0.1:8088/ /tmp/out creature --enemy report-1 --tier high
+node scripts/art/capture-art.mjs http://127.0.0.1:8088/ /tmp/out npcs --tier high
 node scripts/art/capture-art.mjs http://127.0.0.1:8088/ /tmp/out turnaround --tier high --width 800 --height 800
 node scripts/art/capture-route.mjs http://127.0.0.1:8089/ /tmp/route --tier low --label after-low
 ```
