@@ -536,7 +536,32 @@
       "conflicts": ["docs/art/CHECKPOINT.json"],
       "merged": true,
       "mergeSha": "df1731751b389d02e16025b47e0c0d54e57a25cc",
-      "nextAction": "Game commit d930724 is on main. PR #32 head 1fc5887 only renames an older art checkpoint branch field and still says ART-069. Do not merge that commit. Do not rerun the route unless the game SHA changes."
+      "nextAction": "Game commit d930724 is on main. PR #32 head 1fc5887 only renames an older art checkpoint branch field and still says ART-069. Do not merge that commit. The context-LOD change after it is a new game SHA."
+    },
+    {
+      "id": "art-context-lod",
+      "line": "art",
+      "scope": "White hall and Chuehhsuan have their own estimated masses. Window bands, names, and roof caps drop off at 90 m, or 48 m on the low tier. The building mass stays. Open gates stay open.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-context-lod-3395",
+      "sourceBranch": "cursor/context-lod-1a71",
+      "baseSha": "528a56f855ec",
+      "headSha": "18dee4cc998cd9f5cbe0e62281607dd292e441c9",
+      "dependencies": ["art-axis-gates"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "checks": {
+        "conflicts": "Kept gate piers and added white-block, hip-roof chuehhsuan, and distance LOD. Capture keeps gates and halls.",
+        "typecheck": "pass",
+        "npmTest": "251 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8097 low tier at 1280x720: near white hall shows the flat cap and window bands; at about 160 m those details are gone and the mass remains. Chuehhsuan shows a green hip roof up close. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "merged": false,
+      "nextAction": "Fast-forward only while origin/main is still 528a56f and the source head is still 18dee4c. Do not merge PR #32 head 1fc5887."
     }
   ]
 }

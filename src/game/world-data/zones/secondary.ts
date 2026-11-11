@@ -22,7 +22,7 @@ export type SecondaryStructure = {
   size: [number, number, number];
   rotationY: number;
   floors?: number;
-  kind: "hip-roof-block" | "slab-block" | "hall" | "pavilion" | "court" | "ship" | "gate";
+  kind: "hip-roof-block" | "slab-block" | "hall" | "pavilion" | "court" | "ship" | "gate" | "white-block";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -279,11 +279,34 @@ export function gatePiers(s: Pick<SecondaryStructure, "position" | "size">) {
   }));
 }
 
+/** Window bands, names, and roof caps drop off past this distance. The mass stays. */
+export function contextDetailLimit(tier: "high" | "low") {
+  return tier === "low" ? 48 : 90;
+}
+
+export function contextShowsDetail(
+  cameraX: number,
+  cameraZ: number,
+  x: number,
+  z: number,
+  tier: "high" | "low",
+) {
+  return Math.hypot(cameraX - x, cameraZ - z) <= contextDetailLimit(tier);
+}
+
+function campusKind(site: { id: string; form?: "court" | "gate" }): SecondaryStructure["kind"] {
+  if (site.form === "court") return "court";
+  if (site.form === "gate") return "gate";
+  if (site.id === "white-hall") return "white-block";
+  if (site.id === "chuehhsuan") return "hip-roof-block";
+  return "slab-block";
+}
+
 export const SECONDARY_STRUCTURES: SecondaryStructure[] = [
   ...LEGACY_SECONDARY_STRUCTURES.slice(0, 6),
   ...CAMPUS_SITES.filter((s) => !s.existing).map((s): SecondaryStructure => ({
     id: s.id, name: s.name, nameEn: s.code, cluster: s.x < 0 ? "west-academic" : "east", walkable: true, position: [s.x, s.z], size: [s.w, s.floors * 3.8, s.d],
-    rotationY: 0, floors: s.floors, kind: s.form === "court" ? "court" : s.form === "gate" ? "gate" : "slab-block", accuracy: "estimated",
+    rotationY: 0, floors: s.floors, kind: campusKind(s), accuracy: "estimated",
     referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
   })),
 ];

@@ -558,9 +558,12 @@
       "evidence": [
         "scripts/axis-gates.test.mjs",
         "docs/art/evidence/gates/main-gate.jpg",
-        "docs/art/evidence/gates/dazhong-gate.jpg"
+        "docs/art/evidence/gates/dazhong-gate.jpg",
+        "scripts/context-lod.test.mjs",
+        "docs/art/evidence/halls/white-hall.jpg",
+        "docs/art/evidence/halls/chuehhsuan.jpg"
       ],
-      "notes": "大門與大忠警衛站改成兩根門柱加橫樑，中間可走，碰撞只在門柱。精度仍是 estimated。克難坡、宮燈教室、大道、驚聲廣場沿用既有地標。白樓、覺軒與其餘分區的距離 LOD 還沒做。"
+      "notes": "大門與大忠警衛站是開口門柱，碰撞只在門柱。白樓是白牆平頂，覺軒是灰牆加綠瓦坡頂。窗帶、名牌、坡頂在高畫質 90 m、省電 48 m 外關掉，量體留著。其餘分區的逐筆輪廓還沒分開。精度仍是 estimated。"
     },
     {
       "id": "ART-063",

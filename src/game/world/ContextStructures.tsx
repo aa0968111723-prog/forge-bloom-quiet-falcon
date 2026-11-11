@@ -1,11 +1,15 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
+import { quality } from "../quality";
 import {
   GATE_PIER_WIDTH,
   SECONDARY_STRUCTURES,
+  contextShowsDetail,
   structureGroundY,
 } from "../world-data/zones/secondary.ts";
-import { InstancedPlanes, type PlaneItem } from "./InstancedPlanes";
+import { type PlaneItem } from "./InstancedPlanes";
 import { makeSignTexture, useCampusSigns, useFontTick } from "./labels";
 import { worldUvBox } from "./geometry";
 
@@ -18,6 +22,54 @@ import { worldUvBox } from "./geometry";
  * Deliberately simple massing — calibrating them is future work, and pretending
  * otherwise would dilute what "reality zone" means.
  */
+type GlazingItem = PlaneItem & { anchorX: number; anchorZ: number };
+
+const glazingDummy = new THREE.Object3D();
+
+function LodGlazing({
+  items,
+  children,
+}: {
+  items: GlazingItem[];
+  children: ReactNode;
+}) {
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const geometry = useMemo(() => new THREE.PlaneGeometry(1, 1), []);
+  useLayoutEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    items.forEach((it, i) => {
+      glazingDummy.position.set(...it.position);
+      glazingDummy.rotation.set(0, it.rotationY, 0);
+      glazingDummy.scale.set(it.width, it.height, 1);
+      glazingDummy.updateMatrix();
+      mesh.setMatrixAt(i, glazingDummy.matrix);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.computeBoundingSphere();
+  }, [items]);
+  useFrame(({ camera }) => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    const tier = quality().tier === "low" ? "low" : "high";
+    items.forEach((it, i) => {
+      const show = contextShowsDetail(camera.position.x, camera.position.z, it.anchorX, it.anchorZ, tier);
+      glazingDummy.position.set(...it.position);
+      glazingDummy.rotation.set(0, it.rotationY, 0);
+      glazingDummy.scale.set(show ? it.width : 0, show ? it.height : 0, 1);
+      glazingDummy.updateMatrix();
+      mesh.setMatrixAt(i, glazingDummy.matrix);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+  });
+  if (items.length === 0) return null;
+  return (
+    <instancedMesh ref={ref} args={[geometry, undefined, items.length]}>
+      {children}
+    </instancedMesh>
+  );
+}
+
 export function ContextStructures({
   wetness,
   lampsOn,
@@ -26,6 +78,16 @@ export function ContextStructures({
   lampsOn: boolean;
 }) {
   const mats = useTamkangMaterials();
+  const root = useRef<THREE.Group>(null);
+  useFrame(({ camera }) => {
+    const tier = quality().tier === "low" ? "low" : "high";
+    root.current?.traverse((obj) => {
+      if (obj.name !== "context-detail") return;
+      const x = obj.userData.x as number;
+      const z = obj.userData.z as number;
+      obj.visible = contextShowsDetail(camera.position.x, camera.position.z, x, z, tier);
+    });
+  });
   const signs = useCampusSigns();
   const fontTick = useFontTick();
   const nameplates = useMemo(() => {
@@ -82,7 +144,7 @@ export function ContextStructures({
   // Every tower's glazing bands in one instanced draw. Rotated buildings get
   // their band positions computed in world space here.
   const glazing = useMemo(() => {
-    const out: PlaneItem[] = [];
+    const out: GlazingItem[] = [];
     for (const { s, y } of items) {
       if (s.kind === "court" || s.kind === "ship" || s.kind === "pavilion" || s.kind === "gate")
         continue;
@@ -98,6 +160,8 @@ export function ContextStructures({
             rotationY: s.rotationY + (side > 0 ? 0 : Math.PI),
             width: s.size[0] - 3,
             height: (s.size[1] / floors) * 0.34,
+            anchorX: s.position[0],
+            anchorZ: s.position[1],
           });
         }
       }
@@ -106,10 +170,10 @@ export function ContextStructures({
   }, [items]);
 
   return (
-    <group>
-      <InstancedPlanes items={glazing}>
+    <group ref={root}>
+      <LodGlazing items={glazing}>
         <meshStandardMaterial {...glass} />
-      </InstancedPlanes>
+      </LodGlazing>
       {items.map(({ s, y, geo }) => {
         if (s.kind === "court") {
           return (
@@ -225,8 +289,40 @@ export function ContextStructures({
                 <meshStandardMaterial {...surface(mats["palace/green-roof-tile"], { wetness })} />
               </mesh>
               {nameplates[s.id] && (
-                <mesh position={[0, height + 0.28, s.size[2] / 2 + 0.36]}>
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, height + 0.28, s.size[2] / 2 + 0.36]}
+                >
                   <planeGeometry args={[Math.min(4.2, s.size[0] * 0.55), 0.7]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
+        if (s.kind === "white-block") {
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh geometry={geo!} position={[0, s.size[1] / 2, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color="#f3f0e8" roughness={0.88} />
+              </mesh>
+              <mesh
+                name="context-detail"
+                userData={{ x: s.position[0], z: s.position[1] }}
+                position={[0, s.size[1] + 0.45, 0]}
+                castShadow
+              >
+                <boxGeometry args={[s.size[0] + 0.6, 0.7, s.size[2] + 0.6]} />
+                <meshStandardMaterial color="#8e8882" roughness={0.9} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, 2.4, s.size[2] / 2 + 0.12]}
+                >
+                  <planeGeometry args={[Math.min(6, s.size[0] * 0.7), 1.1]} />
                   <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
                 </mesh>
               )}
@@ -267,7 +363,12 @@ export function ContextStructures({
               <meshStandardMaterial {...facade} />
             </mesh>
             {s.kind === "hip-roof-block" && (
-              <mesh position={[0, s.size[1] + 1.1, 0]} castShadow>
+              <mesh
+                name="context-detail"
+                userData={{ x: s.position[0], z: s.position[1] }}
+                position={[0, s.size[1] + 1.1, 0]}
+                castShadow
+              >
                 <coneGeometry
                   args={[Math.hypot(s.size[0], s.size[2]) * 0.42, 2.6, 4]}
                 />
@@ -277,7 +378,11 @@ export function ContextStructures({
               </mesh>
             )}
             {nameplates[s.id] && (
-              <mesh position={[0, 3.2, s.size[2] / 2 + 0.12]}>
+              <mesh
+                name="context-detail"
+                userData={{ x: s.position[0], z: s.position[1] }}
+                position={[0, 3.2, s.size[2] / 2 + 0.12]}
+              >
                 <planeGeometry args={[Math.min(8.5, s.size[0] * 0.7), 1.4]} />
                 <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
               </mesh>

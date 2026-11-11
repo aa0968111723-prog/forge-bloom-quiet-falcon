@@ -154,4 +154,8 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 10 輪（軸線兩座警衛站）— 2026-11-11
 
-`node --test scripts/axis-gates.test.mjs` 通過。`tsc --noEmit` 通過。大門與大忠警衛站的中心點半徑 0.6 m 不被碰撞推開，門柱中心會被推開。定步畫面：`docs/art/evidence/gates/main-gate.jpg`、`dazhong-gate.jpg`。紅柱、綠瓦橫樑，人站在開口裡。這是估計外形，不是實測門寬，也還沒有遠距 LOD。
+`node --test scripts/axis-gates.test.mjs` 通過。`tsc --noEmit` 通過。大門與大忠警衛站的中心點半徑 0.6 m 不被碰撞推開，門柱中心會被推開。定步畫面：`docs/art/evidence/gates/main-gate.jpg`、`dazhong-gate.jpg`。紅柱、綠瓦橫樑，人站在開口裡。這是估計外形，不是實測門寬。
+
+## 第 11 輪（白樓、覺軒與遠距細節）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 2 通過。`tsc --noEmit` 通過。白樓是白牆平頂，覺軒是灰牆加綠瓦坡頂。窗帶、名牌和坡頂在高畫質 90 m 內才畫，省電是 48 m；量體一直留著。定步畫面：`docs/art/evidence/halls/white-hall.jpg`、`chuehhsuan.jpg`。精度仍是 estimated。
