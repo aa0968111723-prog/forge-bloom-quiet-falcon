@@ -10,7 +10,7 @@ import {
   SUPPLY_NODES,
   siteEntrance,
 } from "./campus";
-import { ENEMY_TYPES, RECIPES, type BuildKind } from "./data";
+import { RECIPES, type BuildKind } from "./data";
 import { inventory, promptSnap, tickRpg, useRpg } from "./store";
 import {
   buildSpot,
@@ -32,6 +32,8 @@ import { quality } from "../quality";
 import { signHost } from "./chrome";
 import { detailedRoom, InteriorDetails, roomFinish } from "./InteriorDetails";
 import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
+import { Monster } from "./art/Monster";
+import { SkillEffects } from "./art/SkillEffects";
 
 /** Scene marker. Sentences the player must read stay on the DOM plaque. */
 export function Sign({
@@ -70,115 +72,6 @@ export function Sign({
     <sprite position={position} scale={[8 * scale, 1.5 * scale, 1]}>
       <spriteMaterial map={texture} color="#a8bfb1" transparent depthWrite={false} />
     </sprite>
-  );
-}
-function Mob({
-  enemy,
-}: {
-  enemy: ReturnType<typeof useRpg.getState>["enemies"][number];
-}) {
-  const ref = useRef<THREE.Group>(null),
-    core = useRef<THREE.Mesh>(null),
-    warning = useRef<THREE.Mesh>(null),
-    bar = useRef<THREE.Mesh>(null);
-  const barGroup = useRef<THREE.Group>(null);
-  const type = ENEMY_TYPES[enemy.kind],
-    size = type.radius,
-    boss = enemy.kind === "final";
-  useFrame(({ clock, camera }) => {
-    if (!ref.current) return;
-    const near =
-      Math.hypot(camera.position.x - enemy.x, camera.position.z - enemy.z) < 90;
-    ref.current.visible = enemy.hp > 0 && near && !useRpg.getState().interiorId;
-    if (!ref.current.visible) return;
-    const y = terrainHeight(enemy.x, enemy.z),
-      t = clock.elapsedTime;
-    ref.current.position.set(enemy.x, y, enemy.z);
-    if (core.current) {
-      core.current.position.y =
-        size * 1.6 + Math.sin(t * 2 + enemy.anchorX) * 0.14;
-      core.current.rotation.y = t * 0.6;
-      const m = core.current.material as THREE.MeshStandardMaterial;
-      m.emissiveIntensity = enemy.hurt > 0 ? 2 : 0.25;
-    }
-    if (warning.current) {
-      warning.current.visible = enemy.state === "windup";
-      const s = enemy.state === "windup" ? 1 - enemy.timer / type.windup : 0;
-      warning.current.scale.setScalar(0.4 + s * 0.6);
-    }
-    if (bar.current) bar.current.scale.x = Math.max(0.001, enemy.hp / type.hp);
-    if (barGroup.current) barGroup.current.quaternion.copy(camera.quaternion);
-  });
-  return (
-    <group
-      ref={ref}
-      position={[enemy.x, terrainHeight(enemy.x, enemy.z), enemy.z]}
-    >
-      <mesh
-        ref={warning}
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, 0.1, 0]}
-        visible={false}
-      >
-        <ringGeometry args={[1.3, size + 2.5, 40]} />
-        <meshBasicMaterial
-          color="#f36b5d"
-          transparent
-          opacity={0.55}
-          depthWrite={false}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-      <mesh ref={core} castShadow>
-        {boss ? (
-          <octahedronGeometry args={[size, 0]} />
-        ) : enemy.kind === "quiz" ? (
-          <boxGeometry args={[size * 1.4, size * 1.9, size * 0.35]} />
-        ) : (
-          <dodecahedronGeometry args={[size, 0]} />
-        )}
-        <meshStandardMaterial
-          color={type.color}
-          emissive={type.color}
-          emissiveIntensity={0.25}
-          roughness={0.4}
-          metalness={0.25}
-        />
-        <mesh position={[0, 0, size * 0.75]}>
-          <boxGeometry args={[size * 0.7, 0.08, 0.08]} />
-          <meshBasicMaterial color="#ffe9c7" />
-        </mesh>
-      </mesh>
-      {[0, 1, 2].map((i) => (
-        <mesh
-          key={i}
-          position={[
-            Math.cos(i * 2.1) * size,
-            size * (0.8 + i * 0.45),
-            Math.sin(i * 2.1) * size,
-          ]}
-          rotation={[i * 0.4, i, 0.4]}
-        >
-          <boxGeometry args={[size * 0.75, 0.05, size * 0.9]} />
-          <meshStandardMaterial color="#e5dec9" roughness={0.8} />
-        </mesh>
-      ))}
-      <Sign
-        text={type.name}
-        position={[0, size * 3.2 + 1, 0]}
-        scale={boss ? 0.8 : 0.55}
-      />
-      <group ref={barGroup} position={[0, size * 3.2 + 0.1, 0]}>
-        <mesh>
-          <planeGeometry args={[2.4, 0.12]} />
-          <meshBasicMaterial color="#203638" />
-        </mesh>
-        <mesh ref={bar} position={[0, 0, 0.02]}>
-          <planeGeometry args={[2.4, 0.12]} />
-          <meshBasicMaterial color={type.color} />
-        </mesh>
-      </group>
-    </group>
   );
 }
 export function BuildingModel({
@@ -394,31 +287,6 @@ function BuildGhost() {
         />
       ) : null}
     </group>
-  );
-}
-function Pulse() {
-  const ref = useRef<THREE.Mesh>(null);
-  useFrame(() => {
-    const fx = useRpg.getState().attackFx,
-      s = useRpg.getState();
-    if (!ref.current) return;
-    ref.current.visible = Boolean(fx && s.clock - fx.at < 0.3);
-    if (!fx || !ref.current.visible) return;
-    ref.current.position.set(fx.x, terrainHeight(fx.x, fx.z) + 0.3, fx.z);
-    ref.current.scale.setScalar(((s.clock - fx.at) / 0.3) * fx.range);
-    const m = ref.current.material as THREE.MeshBasicMaterial;
-    m.color.set(fx.color);
-    m.opacity = (1 - (s.clock - fx.at) / 0.3) * 0.7;
-  });
-  return (
-    <mesh ref={ref} rotation={[-Math.PI / 2, 0, 0]} visible={false}>
-      <ringGeometry args={[0.8, 1, 48]} />
-      <meshBasicMaterial
-        transparent
-        depthWrite={false}
-        side={THREE.DoubleSide}
-      />
-    </mesh>
   );
 }
 const supplyBox = new THREE.BoxGeometry(0.85, 0.8, 0.65);
@@ -871,14 +739,14 @@ export function AdventureSystems() {
   return (
     <group>
       {enemies.map((enemy) => (
-        <Mob key={enemy.id} enemy={enemy} />
+        <Monster key={enemy.id} enemy={enemy} />
       ))}
       {buildings.map((building) => (
         <Placed key={building.id} building={building} />
       ))}
       <Supplies />
       <BuildGhost />
-      <Pulse />
+      <SkillEffects />
       <BaseLights />
     </group>
   );

@@ -120,7 +120,7 @@ const BLOOMS = ["#d46a8a", "#c45c6a", "#e8a0b4", "#f3dce4"];
  * herbaceous stay procedural. Colours are retinted from Quaternius' bright
  * stylised palette towards a wetter, sub-tropical green.
  */
-const TREE_TINT: VendorTint = { Wood: "#6b5540", Green: "#4f7244", DarkGreen: "#3d5f3a" };
+const TREE_TINT: VendorTint = { Wood: "#735941", Green: "#71935e", DarkGreen: "#3e6c50" };
 
 /**
  * Canopy sway (trunk "Wood" stays rigid). Heights are in the file's local

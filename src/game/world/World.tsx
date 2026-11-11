@@ -27,6 +27,7 @@ import { Signage } from "./Signage";
 import { StampRings } from "./StampRings";
 import { Terrain } from "./Terrain";
 import { Vegetation } from "./Vegetation";
+import { CampusCraft } from "./CampusCraft";
 
 /**
  * The assembled campus.
@@ -68,6 +69,7 @@ export function World({ timeOfDay, onReady }: { timeOfDay: TimeOfDay; onReady?: 
           <ChingshengPlaza wetness={preset.wetness} />
           <PalaceClassrooms wetness={preset.wetness} lampsOn={preset.lampsOn} />
           <LanternAvenue wetness={preset.wetness} lampsOn={preset.lampsOn} />
+          <CampusCraft />
           <DolphinMilestone wetness={preset.wetness} />
           <ScrollPlaza wetness={preset.wetness} />
           <Library wetness={preset.wetness} lampsOn={preset.lampsOn} />

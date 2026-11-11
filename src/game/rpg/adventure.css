@@ -2060,3 +2060,18 @@ button.ad-slot.ad-raise[data-press] {
     height: 15px;
   }
 }
+
+/* Jade / parchment art direction. Leave the campus visible beside the title. */
+@media (min-width: 1000px) {
+  .ad-title {
+    background: linear-gradient(90deg, #f4efe2 0%, rgba(244,239,226,.98) 35%, rgba(244,239,226,.87) 49%, rgba(244,239,226,.12) 77%);
+  }
+  .ad-title-content { max-width: 535px; }
+  .ad-title-edition { padding: 10px 14px; background: var(--ad-plate); border: 1px solid var(--ad-line); border-radius: 4px; }
+}
+.ad-brand-mark {
+  color: #355c50;
+  border-color: #8fa58d;
+  background: radial-gradient(circle at 30% 20%, #fcf8ec, #dfdfc6);
+  box-shadow: inset 0 0 0 4px #f5edda;
+}

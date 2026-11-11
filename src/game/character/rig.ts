@@ -93,8 +93,8 @@ function restPosition(bones: Record<BoneName, THREE.Bone>, name: BoneName): THRE
 
 const SKIN = new THREE.Color("#e9c9a8");
 const HAIR = new THREE.Color("#2b2320");
-const SHORTS = new THREE.Color("#8d8168");
-const SHOE = new THREE.Color("#f2efe8");
+const SHORTS = new THREE.Color("#b69e7f");
+const SHOE = new THREE.Color("#f5efdf");
 
 /**
  * A capsule spanning two rest points, skinned to `bone` and blending to
@@ -113,7 +113,7 @@ function limb(
 ): THREE.BufferGeometry {
   const dir = new THREE.Vector3().subVectors(to, from);
   const length = dir.length();
-  const geo = new THREE.CapsuleGeometry(radius, Math.max(0.01, length - radius * 2), 4, 10);
+  const geo = new THREE.CapsuleGeometry(radius, Math.max(0.01, length - radius * (boneIndex >= 5 ? 1.15 : 2)), 4, 10);
   // CapsuleGeometry runs along +Y centred on the origin; stand it between the
   // two points.
   const quat = new THREE.Quaternion().setFromUnitVectors(
@@ -207,8 +207,20 @@ export function buildBodyGeometry(rig: Rig, accent: string): THREE.BufferGeometr
     parts.push(limb(p(upperArm), p(lowerArm), 0.063, idx(upperArm), idx("chest"), shirt));
     const wrist = p(lowerArm).clone().add(new THREE.Vector3(0, -0.2, 0));
     parts.push(limb(p(lowerArm), wrist, 0.052, idx(lowerArm), idx(upperArm), SKIN));
+    const hand = new THREE.SphereGeometry(1, 10, 8);
+    hand.scale(0.043, 0.060, 0.038);
+    hand.translate(wrist.x, wrist.y - 0.015, wrist.z + 0.012);
+    parts.push(rigid(hand, idx(lowerArm), SKIN));
+    const cuff = new THREE.CylinderGeometry(0.069, 0.069, 0.040, 10);
+    const elbow = p(lowerArm);
+    cuff.translate(elbow.x, elbow.y + 0.022, elbow.z);
+    parts.push(rigid(cuff, idx(upperArm), new THREE.Color("#8fa99a")));
 
-    parts.push(limb(p(upperLeg), p(lowerLeg), 0.086, idx(upperLeg), idx("hips"), SHORTS));
+    parts.push(limb(p(upperLeg), p(lowerLeg), 0.065, idx(upperLeg), idx("hips"), SKIN));
+    const shortLeg = new THREE.CylinderGeometry(0.105, 0.090, 0.235, 10);
+    const thigh = p(upperLeg);
+    shortLeg.translate(thigh.x, thigh.y - 0.082, thigh.z);
+    parts.push(rigid(shortLeg, idx(upperLeg), SHORTS));
     parts.push(limb(p(lowerLeg), p(foot), 0.058, idx(lowerLeg), idx(upperLeg), SKIN));
 
     // Sneaker: a box sitting at the ankle, extending forward.
@@ -216,6 +228,14 @@ export function buildBodyGeometry(rig: Rig, accent: string): THREE.BufferGeometr
     const ankle = p(foot);
     shoe.translate(ankle.x, ankle.y + 0.03, ankle.z + 0.045);
     parts.push(rigid(shoe, idx(foot), SHOE));
+    const sole = new THREE.BoxGeometry(0.115, 0.025, 0.25);
+    sole.translate(ankle.x, ankle.y - 0.012, ankle.z + 0.045);
+    parts.push(rigid(sole, idx(foot), new THREE.Color("#61766d")));
+    for (let lace = 0; lace < 3; lace++) {
+      const strip = new THREE.BoxGeometry(0.072, 0.008, 0.009);
+      strip.translate(ankle.x, ankle.y + 0.079, ankle.z + 0.02 + lace * 0.025);
+      parts.push(rigid(strip, idx(foot), new THREE.Color("#fff9eb")));
+    }
   }
 
   const merged = mergeGeometries(parts, false);
