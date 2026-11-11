@@ -659,9 +659,10 @@
       "evidence": [
         "scripts/context-lod.test.mjs",
         "docs/art/evidence/stand/deck.jpg",
-        "docs/art/evidence/gym/arena.jpg"
+        "docs/art/evidence/gym/arena.jpg",
+        "docs/art/evidence/pool/hall.jpg"
       ],
-      "notes": "司令臺不再是實驗樓。現在是低平台、後方小間和棚頂，沒有共用窗帶，也沒有屋頂設備。台面還不能走上去。紹謨紀念體育館從圖書館材質的通用廳改成淺色館身、深色台基和高側窗。泳館仍是綠灰運動館。精度仍是 estimated。"
+      "notes": "司令臺不再是實驗樓。現在是低平台、後方小間和棚頂，沒有共用窗帶，也沒有屋頂設備。台面還不能走上去。紹謨紀念體育館從圖書館材質的通用廳改成淺色館身、深色台基和高側窗。紹謨紀念游泳館從綠色運動方塊改成淺色長廳、南向高窗和屋頂長脊，沒有共用窗帶。水道長度仍待測。精度仍是 estimated。"
     },
     {
       "id": "ART-068",

@@ -9,6 +9,7 @@ import {
   contextShowsDetail,
   engTowerProfile,
   glazingBand,
+  poolHallProfile,
   linkedHallProfile,
   memorialProfile,
   scienceHallProfile,
@@ -92,7 +93,15 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   const court = arenaProfile(arena.size);
   assert.ok(court.glassZ > arena.size[2] / 2, "gym clerestory sits on the south face");
   assert.ok(court.clerestoryY > court.baseH, "the glass band stays above the plinth");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "swimming")?.kind, "sport-hall");
+  const pool = SECONDARY_STRUCTURES.find((item) => item.id === "swimming");
+  assert.equal(pool?.kind, "pool-hall");
+  assert.equal(pool?.accuracy, "estimated");
+  assert.notEqual(pool?.kind, "sport-hall");
+  const lane = poolHallProfile(pool.size);
+  assert.ok(lane.glassZ > pool.size[2] / 2, "pool clerestory sits on the south face");
+  assert.ok(lane.glassY + lane.glassH / 2 < pool.size[1], "pool clerestory stays on the wall");
+  assert.ok(lane.spineZ + lane.spineD / 2 < pool.size[2] / 2, "roof spine stays on the roof");
+  assert.ok(lane.spineW < pool.size[0], "roof spine is narrower than the hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.kind, "stand");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.kind, "lab-block");

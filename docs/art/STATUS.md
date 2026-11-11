@@ -235,8 +235,6 @@
 
 畫面：`docs/art/evidence/roads/hall.jpg`、`gate.jpg`。測試：`scripts/campus-links.test.mjs`。
 
-## 下一步
-
 ## 階段：驚聲大樓（ART-063 的一部分）
 
 書圖區這棟不再是八層樓上的綠瓦錐頂。現在是石色樓身、深色基座、底層玻璃和平頂壓簷。文學館仍是坡頂。覺生綜合大樓仍是玻璃基座加退縮上層。外形仍是 estimated。路網中線留著。
@@ -247,7 +245,7 @@
 
 ## 階段：紹謨紀念體育館（ART-067 的一部分）
 
-運動區這棟不再用圖書館的外牆材質。現在是淺色館身、深色台基、南向高側窗和出挑平頂。泳館仍是綠灰運動館。司令臺仍是低平台。外形仍是 estimated。驚聲大樓留著。
+運動區這棟不再用圖書館的外牆材質。現在是淺色館身、深色台基、南向高側窗和出挑平頂。司令臺仍是低平台。外形仍是 estimated。驚聲大樓留著。
 
 畫面：`docs/art/evidence/gym/arena.jpg`。測試：`scripts/context-lod.test.mjs`。
 
@@ -277,4 +275,12 @@
 
 ## 下一步
 
-見 `CHECKPOINT.json`。課程標記在展開地圖上可讀。工學館、化學館與工學大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+## 階段：紹謨紀念游泳館（ART-067 的一部分）
+
+運動區這棟現在是深色基座、淺色長廳、南向高窗和屋頂長脊。體育館仍是淺色館身。司令臺仍是低平台。水道長度仍待測。外形仍是 estimated。課程標記留著。
+
+畫面：`docs/art/evidence/pool/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。游泳館已從運動方塊分開。體育館、司令臺與課程標記留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
