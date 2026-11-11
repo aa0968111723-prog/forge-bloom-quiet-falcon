@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T23:50:00Z",
-  "branch": "main",
-  "mainSha": "357de45571c7",
-  "gameSha": "56b33416657bd216894afce6dc8d61545685a7db",
-  "activeItem": "art-gym-arena",
-  "sourceHead": "65302430ec6bef11c95491a9de2a38d13554cd2a",
-  "integrationHead": "56b33416657bd216894afce6dc8d61545685a7db",
+  "updated": "2026-11-12T00:00:00Z",
+  "branch": "cursor/integration-science-hall-3395",
+  "mainSha": "36b3112fd50c",
+  "gameSha": "aa682293a908ba7a15b3f82d42efb77111abdc2a",
+  "activeItem": "art-science-hall",
+  "sourceHead": "42980bb273987a091663201239fa40a2be848b0d",
+  "integrationHead": "aa682293a908ba7a15b3f82d42efb77111abdc2a",
   "verified": {
-    "gym": "Static 8126, game 56b3341. High 1280x720 shows the pale body, dark plinth, south clerestory, flat overhang, and the 紹謨紀念體育館 plate. 390x780 is a closer crop of the same face; the overhang, clerestory, and plate stay in frame, and the plinth is mostly behind the foreground trees. pageErrors empty. SwiftShader. The shape is estimated. The pool stays a green sport block. The reviewing stand stays a low deck. Ching-sheng stays a stone shaft.",
-    "route": "8126: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
+    "science": "Static 8127, game aa68229. High 1280x720 shows the pale body, east glass bay, parapet, and the 騮先紀念科學館 plate. 390x780 is a closer crop of the south face; the parapet and plate stay in frame, and the east bay sits outside the right edge. pageErrors empty. SwiftShader. The shape is estimated. Chemistry stays a lab block. The unexported science-hall silhouette stays out of the scene. The gym stays a pale arena.",
+    "route": "8127: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The Shao-mo gym is on main: a pale arena with a dark plinth, a south clerestory, and a flat overhang. The pool stays the green sport block. The reviewing stand stays a low deck. Ching-sheng stays a stone shaft. The shape is estimated. Game code is 56b33416657bd216894afce6dc8d61545685a7db. The patch from 6530243 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #90 (Liuxian glass bay, head 42980bb), then PR #91 (backpack clearance, head 94e090f), then PR #93 (older engineering hall workshop, head 37cc7aa), then PR #96 (lesson ring label, head 267b413), then PR #97 (swimming hall, head 615c426), then PR #99 (administration office block, head 15aff8c). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #100. Do not merge PR #88, PR #86, PR #85, PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The Liuxian science hall is a pale volume with an east glass bay and a parapet on this integration branch. Chemistry keeps the roof plant. The unexported science-hall silhouette stays separate. The gym stays a pale arena. The shape is estimated. Game code is aa682293a908ba7a15b3f82d42efb77111abdc2a. The patch from 42980bb is in this integration; that source SHA is not an ancestor. Do not merge PR #90 by itself. Re-fetch origin/main before the fast-forward. Next in-scope art is PR #91 (backpack clearance, head 94e090f), then PR #93 (older engineering hall workshop, head 37cc7aa), then PR #96 (lesson ring label, head 267b413), then PR #97 (swimming hall, head 615c426), then PR #99 (administration office block, head 15aff8c), then PR #101 (faculty house porch, head 5c92b44). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR is not open yet. Do not merge PR #88, PR #86, PR #85, PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
