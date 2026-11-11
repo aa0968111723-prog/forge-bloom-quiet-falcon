@@ -1,16 +1,16 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "8b5aa2cc9b11c1341a82af12f93ca268b855e1d5",
+  "mainSha": "c17d276bc8b6b00ad31e5fd9b9e8ca928f51d454",
   "gameSha": "222804bce4207d8281837d617700716d38f5311f",
-  "activeItem": null,
+  "activeItem": "art-campus-registry",
   "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
     "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": ["art-campus-registry", "art-basic-swing"],
+  "notMerged": ["art-campus-registry"],
   "blocked": ["INT-01", "INT-12"],
-  "waiting": ["art-campus-registry", "art-basic-swing"],
-  "next_action": "Cast ground is on main. Game code is 222804bce4207d8281837d617700716d38f5311f. Tip 8b5aa2c is the record. PR #19 and source PR #16 are merged. Post-merge typecheck passed. Next: PR #17 cursor/campus-registry-1a71 @ 3c85358, then the basic-swing commit 879ffdf on cursor/college-poses-campus-1a71. Reconfirm those heads before merging either."
+  "waiting": ["art-basic-swing"],
+  "next_action": "Registry head moved from 3c85358 to bb219f5 before merge. The new head is validated on cursor/integration-campus-registry-3395. Reconfirm origin/main is c17d276 and the registry head is still bb219f5, then merge. After that, basic swing 879ffdf."
 }

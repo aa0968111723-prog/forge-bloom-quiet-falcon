@@ -15,9 +15,9 @@
 
 ## 下一步
 
-`main` tip 是 `348788d`。地面施法的程式提交是 `222804b`。PR #19 與來源 PR #16 已合併。合併後 typecheck 通過。
+校園清冊在 `cursor/integration-campus-registry-3395`，尚未進 `main`。合併前確認 `origin/main` 仍是 `c17d276`、清冊 head 仍是 `bb219f5`。
 
-下一項是 PR #17，`cursor/campus-registry-1a71` @ `3c85358`。再下一項是 `cursor/college-poses-campus-1a71` 的 `879ffdf`（基本攻擊揮擊）。開始前先 `git fetch` 確認 head 沒有再動。
+再下一項是 `cursor/college-poses-campus-1a71` 的 `879ffdf`（基本攻擊揮擊）。
 
 ## 不要做
 

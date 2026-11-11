@@ -319,6 +319,31 @@
       "integrationPr": 19,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/19",
       "nextAction": "None. Post-merge typecheck passed. Source PR #16 closed with it."
+    },
+    {
+      "id": "art-campus-registry",
+      "line": "art",
+      "scope": "Committed campus registry snapshot plus avenue lighting evidence. No gameplay change. Accuracy stays estimated.",
+      "status": "ready_to_merge",
+      "pr": 17,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/17",
+      "integrationBranch": "cursor/integration-campus-registry-3395",
+      "sourceBranch": "cursor/campus-registry-1a71",
+      "baseSha": "c17d276bc8b6b00ad31e5fd9b9e8ca928f51d454",
+      "headSha": "bb219f562d4b7a5e164c7c36978d95e800c20918",
+      "note": "Head moved from 3c85358 to bb219f5 before this merge. The later commit only adds lighting evidence.",
+      "dependencies": ["art-cast-ground"],
+      "sharedFiles": ["docs/art/registry.json", "scripts/campus-registry.test.mjs"],
+      "checks": {
+        "conflicts": "none",
+        "typecheck": "pass",
+        "npmTest": "245 pass / 0 fail",
+        "registry": "11 pass; counts match the baseline; nothing is surveyed"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Reconfirm main c17d276 and registry head bb219f5, then merge."
     }
   ]
 }
