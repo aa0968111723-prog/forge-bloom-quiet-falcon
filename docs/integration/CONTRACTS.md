@@ -24,7 +24,7 @@
 
 URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`：釋放複製材質與骨架 bone texture，不釋放共享幾何。
 
-八學院技能外形在 `CollegeCasts`，讀既有 `attackFx`。工程「結構脈衝」仍是 `StructuralPulse`。
+九學院技能都有專屬外形，讀既有 `attackFx`。工程「結構脈衝」仍是 `StructuralPulse`。其餘八個學院在 `CollegeCasts`。施放時不畫普攻光刃。
 
 動畫與特效只讀 `attackFx`、`hurtUntil`、敵人 `state`／`timer`／`hurt`／`hp`。不寫回戰鬥。
 
@@ -32,11 +32,11 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 現場科系表是 `src/game/rpg/data.ts` 的 `DEPARTMENTS`。id 形如 `` `${discipline}-${college}-${index}` ``。土木工程學系是工學院第二筆，discipline 為 `engineering`。
 
-`engineering` 的技能名稱是「結構脈衝」（傷害 40、範圍 12、冷卻 6）。`StructuralPulse` 讀 `attackFx`：範圍用 `attackFx.range`，命中對象用 `attackFx.hits`。其他 discipline 仍用 `SkillEffects` 的舊幾何。基本攻擊不走專用特效。
+`engineering` 的技能名稱是「結構脈衝」（傷害 40、範圍 12、冷卻 6）。`StructuralPulse` 讀 `attackFx`：範圍用 `attackFx.range`，命中對象用 `attackFx.hits`。其他學院的施放也讀 `attackFx`，各自畫 `CollegeCasts`。普攻光刃在 `src/game/art/vfx/basic-swing.ts`，跟著 0.46 秒攻擊片段從角色右側移到左側，長度約前臂，不跟著 `attackFx.range` 放大。
 
 敵人 id 與種類（`src/game/rpg/data.ts`）：`quiz-1`…`quiz-4`、`report-1`、`report-2`、`exam-1`、`exam-2`、`final-1`。判定半徑仍是 `ENEMY_TYPES[kind].radius + 2.5`。預警圈用這個半徑。
 
-主遊戲獎勵仍走 `claim(id)`：`claimed` 已有該任務 id 就返回。
+委託面板的 `claim(id)` 只結 `MISSIONS`。同一個 `claimed` 陣列也收校園事件的 `quest-*` id。校園獎勵走 `grantQuestReward`，不另開背包。學期故事裡還有另一個同名函式，兩本帳沒有合併。
 
 敘事預覽的 `quest-reward` 呼叫既有 `grantQuestReward`。非法效果（`set-hp`、`add-item`、`eval`、`script`、`mutate-save`）整段取消。預覽把結果寫在 `tk-narrative-preview-fixture-v1`。
 
@@ -55,11 +55,11 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 | 鍵 | 版本欄 | 內容 |
 | --- | --- | --- |
 | `tamkang-world-v1` | `version: 2`（`SAVE_VERSION`） | 巡禮造訪、光影、音量、畫質、舊背包與科系 |
-| `tamkang-rpg-v2` | `snapshot().version === 2` | 生命、專注、任務 `claimed`、建築、背包槽、位置、室內 |
+| `tamkang-rpg-v2` | `snapshot().version === 2` | 生命、專注、任務 `claimed`、建築、背包槽、位置、室內，以及同一份存檔上的 `narrative` 事件記憶 |
 
 寫入是延遲 1.8 秒的本地 `localStorage`。另一個分頁寫入同一鍵時，`onForeignSave` 只把文字放進 `foreignText` 並把 `saveConflict` 設為 true，不直接覆蓋目前進度。玩家再選接受本機或接受外來。這是分頁衝突，不是雲端同步。
 
-靜態建置不要求伺服器。`?qa=1` 才掛上 `window.__rpgQA`，正式遊玩不讀它。
+靜態建置不要求伺服器，也不含雲端面板、`/api/cloud` 或敘事預覽頁。雲端信封的 `contentVersion: 2` 是這份 RPG 存檔的 `version`，不是敘事 manifest 的 `revision: 1`。`?qa=1` 才掛上 `window.__rpgQA`，正式遊玩不讀它。
 
 ## 尚未統一、本輪不刪的兩份科系表
 

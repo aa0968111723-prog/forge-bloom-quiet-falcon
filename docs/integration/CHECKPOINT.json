@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "5f7b6aa157917a8bd7e3d7cb6c32032ac1b8fc17",
+  "mainSha": "55eb7b91409a2d522b273a34b441e99dbc3106d1",
   "gameSha": "27e180cefd4648995db484e875660f9b821df64b",
   "activeItem": null,
   "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
@@ -12,5 +12,5 @@
   "notMerged": [],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Cross-system route is on main at 5f7b6aa. Game code is still 27e180cefd4648995db484e875660f9b821df64b. Re-fetch origin/main before acting; a later docs tip only records this. Do not redo the route unless the game SHA changes. No remote head is ahead of main. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "Static build of 55eb7b9 boots the offline title with no /api calls. Game code is still 27e180cefd4648995db484e875660f9b821df64b. Re-fetch origin/main; a later docs tip only records this smoke. No remote head is ahead of main. Do not redo the route unless the game SHA changes. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }

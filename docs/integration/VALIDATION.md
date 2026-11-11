@@ -172,6 +172,12 @@ Node 開發頁 `http://127.0.0.1:8081/narrative`。樣板進入大門警衛站�
 | 斷線 | 離線再寫只進佇列，雲端經驗不是那個未送出的值 |
 | 登出 | 讀取雲端存檔是 401，本機科系還在 |
 
+## 靜態建置（main `55eb7b9`）
+
+`npm run build:site` 通過。產物沒有 `cloud-save`、`CloudSaveDock`、`雲端同步`、`DATABASE_URL`、`/api/cloud`、`better-auth` 或 `tk-narrative-preview-fixture`。校園對話「校園裡的人」與 `quest-orient-gate` 在包裡。
+
+預覽 `http://127.0.0.1:8093/?qa=1&q=low`。標題是「淡江世界 · 五虎崗異象」，「開始學期」可按。沒有 `/api/` 請求，`pageErrors` 空。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
