@@ -1,16 +1,16 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "394b86ab6dcea74cdfe342326c5d3bfdf5fa9cbc",
+  "mainSha": "69295089e3a8861e51c949a80620199bb40ac951",
   "gameSha": "27e180cefd4648995db484e875660f9b821df64b",
-  "activeItem": "art-basic-swing",
+  "activeItem": null,
   "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
     "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": ["art-basic-swing"],
+  "notMerged": [],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Basic swing is verified on cursor/integration-basic-swing-3395 at 27e180c. Source 879ffdf is unchanged. Reconfirm origin/main is 394b86a, then fast-forward. No other remote head is ahead of main. After this lands, the remaining integrator work is the cross-system route, not a new line commit."
+  "next_action": "Basic swing is on main. Game code is 27e180cefd4648995db484e875660f9b821df64b. Tip 6929508 includes the validation record; re-fetch before trusting a later docs tip. Source 879ffdf is an ancestor. No other remote head is ahead of main. Next integrator work is the cross-system route: offline start, character, campus, NPC event, combat with the existing rules, one reward, save/reload, login sync, second client, conflict, logout. Do not invent a semester picker or a second reward store."
 }

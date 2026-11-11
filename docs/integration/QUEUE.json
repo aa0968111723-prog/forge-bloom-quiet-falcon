@@ -351,7 +351,7 @@
       "id": "art-basic-swing",
       "line": "art",
       "scope": "Basic attack slash follows the 0.46 s clip from the character's right to the left. It is not scaled to attackFx.range. Dedicated college skill effects stay in charge of skills.",
-      "status": "ready_to_merge",
+      "status": "merged",
       "pr": null,
       "prUrl": null,
       "integrationBranch": "cursor/integration-basic-swing-3395",
@@ -367,9 +367,11 @@
         "browser": "avenue basic attack, short slash moves left, chemistry skill still draws ground arcs and hits 1, pageErrors empty"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art-runtime.test.mjs"],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm main is 394b86a and source is 879ffdf, then fast-forward 27e180c."
+      "merged": true,
+      "mergeSha": "27e180cefd4648995db484e875660f9b821df64b",
+      "integrationPr": 21,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/21",
+      "nextAction": "None. Source 879ffdf is an ancestor of main. Next integrator work is the cross-system route."
     }
   ]
 }
