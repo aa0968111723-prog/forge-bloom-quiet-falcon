@@ -545,6 +545,24 @@ try {
     });
     await frames(page, 2);
     await shot(page, "hurt", "hurt vignette");
+  } else if (scenario === "phone") {
+    await setPose(page, 0, -80, 0);
+    await settle(page, { stableFrames: 3 });
+    await page.evaluate(() => {
+      window.__rpgQA.rpg.setState({ departmentId: "engineering-工學院-1", hp: 62, focus: 40, xp: 80 });
+    });
+    await frames(page, 3);
+    const icons = await page.evaluate(() => {
+      const bar = document.querySelector(".ad-quickbar svg");
+      const tool = document.querySelector(".ad-hud-right .ad-icon");
+      const box = (el) => (el ? el.getBoundingClientRect() : null);
+      return {
+        skill: box(bar),
+        tool: box(tool),
+        skillClass: bar?.getAttribute("class") ?? "missing",
+      };
+    });
+    await shot(page, "icons", `390 phone ${JSON.stringify(icons)}`);
   } else if (scenario === "hud") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

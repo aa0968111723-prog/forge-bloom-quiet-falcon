@@ -145,6 +145,12 @@
 
 畫面：`docs/art/evidence/route/outdoor.png`。數字：`docs/art/evidence/route/after-shore.json`。
 
+## 階段：手機寬度的圖示（ART-091）
+
+390×780 時右上工具鈕是 44px，快捷欄的技能圖示是 24px。觸控窄螢幕不再把快捷鈕縮到 38px。戶外路線仍低於 1.6 M。
+
+畫面：`docs/art/evidence/phone/icons.jpg`。測試：`scripts/touch-icons.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。戶外路線段已低於 1.6 M。遠景不能走上去。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。手機圖示已放大到能點、能辨認。幀時間仍是 pending-device。不要加入沒有授權的音效。

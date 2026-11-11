@@ -207,3 +207,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 | 返回戶外 | 1,437,689 | 326 |
 
 戶外四段都低於 1.6 M。畫面：`docs/art/evidence/route/outdoor.png`。原始數字：`docs/art/evidence/route/after-shore.json`。手機與 RTX 3060 仍是 `pending-device`。
+
+## 第 21 輪（手機圖示）— 2026-11-11
+
+`node --test scripts/touch-icons.test.mjs` 通過。窄於 700px 時工具鈕是 44×44，快捷欄圖示是 24px。觸控時快捷鈕不再縮到 38px。390×780 定步，頁面無錯誤，量到的工具鈕是 44px、快捷圖示是 24px：`docs/art/evidence/phone/icons.jpg`。路線重測留在第 20 輪。

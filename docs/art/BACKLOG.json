@@ -805,9 +805,13 @@
       "depends": [
         "ART-090"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "手機視窗截圖",
-      "evidence": []
+      "evidence": [
+        "scripts/touch-icons.test.mjs",
+        "docs/art/evidence/phone/icons.jpg"
+      ],
+      "notes": "390×780 時右上工具鈕是 44px，快捷欄圖示是 24px。觸控窄螢幕的快捷鈕寬度也是 44px，不再縮到 38px。室內樓層鈕最小 44px。"
     },
     {
       "id": "ART-092",

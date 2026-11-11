@@ -1278,13 +1278,13 @@ textarea:focus-visible,
   margin-right: 8px;
   font-weight: 500;
 }
-.ad-interior-bar button {
+  .ad-interior-bar button {
   border: 0;
   border-radius: 4px;
   background: #ffffff15;
   color: #ebdfc5;
-  min-width: 32px;
-  min-height: 32px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 7px;
   font-size: 10px;
 }
@@ -1460,8 +1460,12 @@ textarea:focus-visible,
     gap: 4px;
   }
   .ad-icon {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
+  }
+  .ad-icon svg {
+    width: 22px;
+    height: 22px;
   }
   .ad-minimap {
     width: 83px;
@@ -1512,7 +1516,8 @@ textarea:focus-visible,
     transition: height calc(var(--ad-motion) * 0.16s);
   }
   .ad-quickbar svg {
-    width: 18px;
+    width: 24px;
+    height: 24px;
   }
   .ad-quickbar .ad-key {
     font-size: 7px;
@@ -1677,7 +1682,8 @@ textarea:focus-visible,
     gap: 2px;
   }
   .ad-quickbar button {
-    width: 40px;
+    width: 44px;
+    min-width: 44px;
     min-height: 55px;
   }
   .ad-quickbar .ad-key {
@@ -1694,7 +1700,8 @@ textarea:focus-visible,
     transition: height calc(var(--ad-motion) * 0.16s);
   }
   .ad-quickbar button:nth-of-type(3) {
-    width: 38px;
+    width: 44px;
+    min-width: 44px;
   }
   .ad-interact {
     bottom: 100px;
