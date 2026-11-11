@@ -39,6 +39,31 @@
       "review": "needs_review",
       "evidence": [],
       "notes": "Protagonist preset: dark chestnut hair with a small tied tail, ivory tee, open jade overshirt, beige shorts, white sneakers, canvas backpack with turtle charm. NPC presets pending."
+    },
+    {
+      "id": "creature.quiz",
+      "name": "突擊小考（考卷怪）",
+      "category": "creature",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/creatures/quiz/quiz.ts",
+        "files": ["art/creatures/quiz/quiz.ts", "art/shared/builder.ts", "art/shared/loft.ts", "art/shared/raster.ts"]
+      },
+      "license": "Project-original: code-authored geometry, printed-exam texture and animation; no third-party content.",
+      "output": "public/game-art/creatures/quiz.glb",
+      "units": "m",
+      "pivot": "ground under the sheet",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": ["idle", "chase", "windup", "attack", "hurt", "defeat"],
+      "budget": { "triangles": 6000, "bytes": 600000, "textureSize": 512, "textures": 1 },
+      "runtime": ["src/game/art/creatures/QuizCreature.tsx"],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Keeps ENEMY_TYPES.quiz stats, AI, drops and rewards; visuals read enemy.state/timer/hurt/hp only."
     }
   ]
 }

@@ -408,6 +408,236 @@
           ]
         }
       }
+    },
+    {
+      "id": "creature.quiz",
+      "name": "突擊小考（考卷怪）",
+      "category": "creature",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/creatures/quiz/quiz.ts",
+        "files": [
+          "art/creatures/quiz/quiz.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, printed-exam texture and animation; no third-party content.",
+      "output": "public/game-art/creatures/quiz.glb",
+      "units": "m",
+      "pivot": "ground under the sheet",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": [
+        "idle",
+        "chase",
+        "windup",
+        "attack",
+        "hurt",
+        "defeat"
+      ],
+      "budget": {
+        "triangles": 6000,
+        "bytes": 600000,
+        "textureSize": 512,
+        "textures": 1
+      },
+      "runtime": [
+        "src/game/art/creatures/QuizCreature.tsx"
+      ],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Keeps ENEMY_TYPES.quiz stats, AI, drops and rewards; visuals read enemy.state/timer/hurt/hp only.",
+      "url": "/game-art/creatures/quiz.glb",
+      "meta": {
+        "units": "m",
+        "forward": "+Z",
+        "up": "+Y",
+        "pivot": "ground under the sheet",
+        "bones": [
+          "root",
+          "body",
+          "mid",
+          "top",
+          "dogEar",
+          "armL",
+          "armR",
+          "orbit"
+        ],
+        "parts": {
+          "sheet-front": 560,
+          "sheet-back": 560,
+          "sheet-edge": 216,
+          "dog-ear": 2,
+          "paper-arm": 432,
+          "paper-fist": 80,
+          "pencil": 24,
+          "ferrule": 32,
+          "eraser": 32,
+          "pencil-tip": 12,
+          "pencil-lead": 12,
+          "mini-quiz": 36,
+          "mini-quiz-back": 36
+        }
+      },
+      "metrics": {
+        "bytes": 175580,
+        "sha256": "4054f68150ba7d95e8726ea37157c27578579b25d74e6494427e16538f8f31bf",
+        "triangles": 2034,
+        "vertices": 1582,
+        "meshes": 1,
+        "primitives": 1,
+        "materials": [
+          "quiz-atlas"
+        ],
+        "attributes": [
+          "COLOR_0",
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "textures": [
+          {
+            "name": "quiz-atlas-atlas",
+            "mimeType": "image/png",
+            "bytes": 50048,
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "skins": [
+          {
+            "joints": [
+              "root",
+              "body",
+              "mid",
+              "top",
+              "dogEar",
+              "armL",
+              "armR",
+              "orbit"
+            ]
+          }
+        ],
+        "nodes": [
+          "creature-quiz",
+          "quiz",
+          "root",
+          "body",
+          "mid",
+          "top",
+          "dogEar",
+          "armL",
+          "armR",
+          "orbit"
+        ],
+        "animations": [
+          {
+            "name": "idle",
+            "duration": 2.4,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "mid.rotation",
+              "top.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "dogEar.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "chase",
+            "duration": 0.6,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "mid.rotation",
+              "top.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "dogEar.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "windup",
+            "duration": 1,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "mid.rotation",
+              "top.rotation",
+              "armR.rotation",
+              "armL.rotation",
+              "dogEar.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "attack",
+            "duration": 0.42,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "mid.rotation",
+              "top.rotation",
+              "armR.rotation",
+              "armL.rotation",
+              "dogEar.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "hurt",
+            "duration": 0.32,
+            "channels": 8,
+            "targets": [
+              "body.rotation",
+              "mid.rotation",
+              "top.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "dogEar.rotation",
+              "body.translation",
+              "body.scale"
+            ]
+          },
+          {
+            "name": "defeat",
+            "duration": 1.2,
+            "channels": 8,
+            "targets": [
+              "body.rotation",
+              "mid.rotation",
+              "top.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "dogEar.rotation",
+              "body.translation",
+              "body.scale"
+            ]
+          }
+        ],
+        "bounds": {
+          "min": [
+            -0.844,
+            0.34,
+            -0.5872
+          ],
+          "max": [
+            0.8742,
+            1.59,
+            0.5666
+          ]
+        }
+      }
     }
   ]
 }

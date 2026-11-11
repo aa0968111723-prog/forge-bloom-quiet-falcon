@@ -123,26 +123,120 @@ try {
       await shot(page, "backpack", "backpack, straps and turtle charm");
       await page.evaluate(() => window.__controlsTest.setPhoto(null));
     } else {
-      await photo(page, Math.PI * 0.78, { distance: 2.6, height: 1.1, lookY: 0.85 });
-      for (const [clip, at] of [
-        ["attack", 0.15],
-        ["skill", 0.15],
-        ["dodge", 0.13],
-        ["hurt", 0.06],
-        ["interact", 0.3],
+      await photo(page, Math.PI * 0.72, { distance: 2.7, height: 1.15, lookY: 0.8 });
+      await page.evaluate(() => window.__rpgQA.freeze());
+      const step = (n) => page.evaluate((c) => window.__rpgQA.step(1 / 30, c), n);
+      await step(10);
+      await shot(page, "idle", "idle, three-quarter front");
+      // Key frame of each clip, reached with exact 1/30 s steps.
+      for (const [clip, frameAt] of [
+        ["attack", 4],
+        ["skill", 5],
+        ["dodge", 4],
+        ["hurt", 2],
+        ["interact", 9],
       ]) {
         await page.evaluate((c) => window.__characterTest.play(c), clip);
-        // Advance to the key time in real frames, then capture.
-        const start = Date.now();
-        await page.waitForFunction(
-          ([c, t]) => window.__characterTest?.action === c && performance.now() > 0 && t >= 0,
-          [clip, at],
-        );
-        await page.waitForTimeout(Math.max(0, at * 1000 - (Date.now() - start)));
-        await shot(page, clip, `${clip} near t=${at}s`);
-        await frames(page, 30);
+        await step(frameAt);
+        await shot(page, clip, `${clip} at t=${(frameAt / 30).toFixed(2)} s`);
+        await step(30);
       }
+      await page.evaluate(() => window.__rpgQA.resume());
     }
+  } else if (scenario === "combat") {
+    // Engineering major vs quiz-2 on 宮燈大道. The real AI and combat rules run;
+    // the QA clock only makes every frame exactly 1/30 s so timelines are exact.
+    const enemy = () =>
+      page.evaluate(() => {
+        const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === "quiz-2");
+        return { state: e.state, timer: Number(e.timer.toFixed(3)), hp: e.hp, hurt: Number(e.hurt.toFixed(3)), x: Number(e.x.toFixed(2)), z: Number(e.z.toFixed(2)) };
+      });
+    const step = (n = 1) => page.evaluate((c) => window.__rpgQA.step(1 / 30, c), n);
+    const until = async (predicate, label, limit = 900) => {
+      for (let i = 0; i < limit; i++) {
+        if (await page.evaluate(predicate)) return i;
+        await step(1);
+      }
+      throw new Error(`timed out waiting for ${label}`);
+    };
+    await page.evaluate(() => {
+      const s = window.__rpgQA.rpg.getState();
+      const e = s.enemies.find((x) => x.id === "quiz-2");
+      Object.assign(e, { x: 4.2, z: -103, hp: 65, state: "idle", timer: 0, hurt: 0 });
+      window.__rpgQA.rpg.setState({ focus: 100, skillUntil: 0, attackUntil: 0, hp: 100 });
+    });
+    // On the open paving, facing the quiz to the north-east.
+    await setPose(page, 0.4, -97.2, -0.55);
+    await settle(page, { stableFrames: 3 });
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.freeze());
+    const close = { yaw: -0.85, distance: 4.4, height: 2.3, lookY: 0.75 };
+    const wide = { yaw: -0.25, distance: 7.4, height: 4.2, lookY: 0.4 };
+    await page.evaluate((p) => window.__controlsTest.setPhoto(p), close);
+    await step(3);
+    await until(() => window.__rpgQA.rpg.getState().enemies.find((x) => x.id === "quiz-2").state === "chase", "chase");
+    await step(6);
+    await shot(page, "1-chase", `chase ${JSON.stringify(await enemy())}`);
+    await until(() => {
+      const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === "quiz-2");
+      return e.state === "windup" && 1 - e.timer / 0.9 >= 0.3;
+    }, "windup 30%");
+    await shot(page, "2-telegraph-early", `windup ${JSON.stringify(await enemy())}`);
+    await until(() => {
+      const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === "quiz-2");
+      return e.state === "windup" && 1 - e.timer / 0.9 >= 0.8;
+    }, "windup 80%");
+    await shot(page, "3-telegraph-late", `windup ${JSON.stringify(await enemy())}`);
+    await until(() => window.__rpgQA.rpg.getState().enemies.find((x) => x.id === "quiz-2").state === "recover", "strike");
+    await step(2);
+    const struck = await page.evaluate(() => {
+      const s = window.__rpgQA.rpg.getState();
+      return { playerHp: s.hp, hurtUntil: Number(s.hurtUntil.toFixed(2)), clock: Number(s.clock.toFixed(2)) };
+    });
+    await shot(page, "4-strike", `strike resolved ${JSON.stringify(struck)}`);
+    await step(3);
+    await shot(page, "5-player-hurt", "0.17 s after the strike: player flinch if it landed");
+    await step(12);
+    await page.evaluate(() => window.__rpgQA.rpg.setState({ attackUntil: 0 }));
+    await page.evaluate(() => window.__rpgQA.rpg.getState().attack(false));
+    await step(4);
+    await shot(page, "6-basic-attack", `J at t≈0.13 s ${JSON.stringify(await enemy())}`);
+    await step(14);
+    // Engineering skill (Q): fixed timeline after the cast, wide enough for the 12 m range.
+    await page.evaluate((p) => window.__controlsTest.setPhoto(p), wide);
+    await page.evaluate(() => {
+      window.__rpgQA.rpg.setState({ skillUntil: 0, attackUntil: 0, focus: 100 });
+      window.__rpgQA.rpg.getState().attack(true);
+    });
+    const cast = await page.evaluate(() => {
+      const fx = window.__rpgQA.rpg.getState().attackFx;
+      return { range: fx.range, hits: fx.hits, skill: fx.skill };
+    });
+    let elapsed = 0;
+    for (const [label, frames] of [["release", 1], ["travel", 2], ["impact", 3], ["settle", 3], ["dissipate", 6], ["gone", 7]]) {
+      await step(frames);
+      elapsed += frames / 30;
+      await shot(page, `7-skill-${label}`, `skill t=${elapsed.toFixed(2)} s ${JSON.stringify(cast)} enemy ${JSON.stringify(await enemy())}`);
+    }
+    // Defeat: leave one hit point, then strike with a basic attack.
+    await page.evaluate((p) => window.__controlsTest.setPhoto(p), close);
+    await step(10);
+    await page.evaluate(() => {
+      const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === "quiz-2");
+      e.hp = 1;
+      window.__rpgQA.rpg.setState({ attackUntil: 0 });
+      window.__rpgQA.rpg.getState().attack(false);
+    });
+    elapsed = 0;
+    for (const frames of [2, 6, 10, 14]) {
+      await step(frames);
+      elapsed += frames / 30;
+      await shot(page, `8-defeat-${elapsed.toFixed(2)}`, `defeat t=${elapsed.toFixed(2)} s ${JSON.stringify(await enemy())}`);
+    }
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto(null);
+      window.__rpgQA.resume();
+    });
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });

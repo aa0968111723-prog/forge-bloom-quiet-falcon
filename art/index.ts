@@ -6,6 +6,7 @@
  */
 import type * as THREE from "three";
 import { buildStudentKit } from "./characters/student-kit/kit.ts";
+import { buildQuiz } from "./creatures/quiz/quiz.ts";
 
 export type BuiltAsset = {
   scene: THREE.Object3D;
@@ -23,6 +24,22 @@ export const ART_BUILDERS: Record<string, () => BuiltAsset> = {
       clips: kit.clips,
       textures: [{ material: "student-atlas", png: kit.atlasPng }],
       meta: { ...kit.meta, bones: kit.bones, parts: summariseParts(kit.parts) },
+    };
+  },
+  "creature.quiz": () => {
+    const quiz = buildQuiz();
+    return {
+      scene: quiz.scene,
+      clips: quiz.clips,
+      textures: [{ material: "quiz-atlas", png: quiz.atlasPng }],
+      meta: {
+        units: "m",
+        forward: "+Z",
+        up: "+Y",
+        pivot: "ground under the sheet",
+        bones: quiz.bones,
+        parts: summariseParts(quiz.parts),
+      },
     };
   },
 };

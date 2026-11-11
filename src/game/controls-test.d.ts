@@ -25,6 +25,11 @@ declare global {
     __rpgQA?: {
       rpg: typeof import("./rpg/store").useRpg;
       game: typeof import("./store").useGame;
+      /** Stop the render loop; frames then only advance through `step`. */
+      freeze?: () => void;
+      resume?: () => void;
+      /** Render `count` frames, each exactly `dt` seconds apart. */
+      step?: (dt?: number, count?: number) => void;
     };
     __controlsTest?: {
       getYaw: () => number;

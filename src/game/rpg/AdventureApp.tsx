@@ -1,5 +1,5 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, advance, useFrame, useThree } from "@react-three/fiber";
 import { useProgress } from "@react-three/drei";
 import { useGame } from "../store";
 import { quality, setQualityPreference } from "../quality";
@@ -34,6 +34,30 @@ function PerformanceBudget() {
       metrics.current = { frames: 0, total: 0 };
     }
   });
+  return null;
+}
+/**
+ * QA-only deterministic clock (`?qa=1`): freeze the frame loop and advance it
+ * by exact steps, so captures of fast effects do not depend on host speed.
+ */
+function QaClock() {
+  const setFrameloop = useThree((s) => s.setFrameloop);
+  const get = useThree((s) => s.get);
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("qa") !== "1") return;
+    const qa = (window.__rpgQA ??= { rpg: useRpg, game: useGame });
+    qa.freeze = () => setFrameloop("never");
+    qa.resume = () => setFrameloop("always");
+    qa.step = (dt = 1 / 30, count = 1) => {
+      const state = get();
+      for (let i = 0; i < count; i++) advance(state.clock.elapsedTime + dt, true, state);
+    };
+    return () => {
+      delete qa.freeze;
+      delete qa.resume;
+      delete qa.step;
+    };
+  }, [setFrameloop, get]);
   return null;
 }
 function Scene({ onReady }: { onReady: () => void }) {
@@ -162,6 +186,7 @@ export default function AdventureApp() {
         >
           <Scene onReady={onReady} />
           <ContextWatch onLost={onLost} onRestored={onRestored}/>
+          <QaClock />
         </Canvas>
       )}
       <AdventureHud />

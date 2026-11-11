@@ -7,6 +7,7 @@ import { terrainHeight } from "../../world";
 import { disposeSculpt } from "../../art/sculpt";
 import { useReducedArtMotion } from "../../art/motion";
 import { quality } from "../../quality";
+import { DEDICATED_SKILL_VFX } from "../../art/vfx/StructuralPulse";
 export type SkillFamily = "lattice" | "script" | "leaves" | "orbits" | "coins";
 export function skillFamily(discipline: string): SkillFamily {
   if (["engineering","computing"].includes(discipline)) return "lattice";
@@ -81,7 +82,10 @@ export function SkillEffects() {
     root.current.rotation.y=fx.yaw;
     const scale=fx.range*(reduced ? .80 : .25+.75*t);
     root.current.scale.setScalar(scale);
-    const name=fx.skill ? skillFamily(DEPARTMENTS.find(d=>d.id===state.departmentId)?.discipline??"science") : "basic";
+    const discipline=DEPARTMENTS.find(d=>d.id===state.departmentId)?.discipline??"science";
+    // Disciplines with a dedicated effect draw their own skill; the basic swing stays here.
+    if(fx.skill && DEDICATED_SKILL_VFX[discipline]){root.current.visible=false;return;}
+    const name=fx.skill ? skillFamily(discipline) : "basic";
     for(const group of effects.children) {
       group.visible=group.name===name;
       if(!group.visible)continue;
