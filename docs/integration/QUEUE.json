@@ -450,8 +450,9 @@
         "cloud": "local_only, first sync revision 1, second client downloaded the played save, revision_conflict, offline queue, logout 401"
       },
       "conflicts": [],
-      "merged": false,
-      "nextAction": "Fast-forward the record only while origin/main is still ebafa14."
+      "merged": true,
+      "mergeSha": "cbaf71f1ea1120fcd01c71e885700377a8133f6a",
+      "nextAction": "None. The route on game code 803fe62 is recorded. Do not rerun unless the game SHA changes."
     }
   ]
 }

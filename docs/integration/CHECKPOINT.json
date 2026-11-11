@@ -1,9 +1,9 @@
 {
   "updated": "2026-11-11T17:40:00Z",
-  "branch": "cursor/integration-hud-route-3395",
+  "branch": "main",
   "mainSha": "ebafa14e7ffa5a5735c673cf3017335cd613a2ad",
   "gameSha": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
-  "activeItem": "hud-route",
+  "activeItem": null,
   "sourceHead": "aeda26c3622de77ffbd66c8e86d73627f3d40150",
   "integrationHead": null,
   "verified": {
