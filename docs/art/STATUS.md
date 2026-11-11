@@ -151,6 +151,12 @@
 
 畫面：`docs/art/evidence/phone/icons.jpg`。測試：`scripts/touch-icons.test.mjs`。
 
+## 階段：守謙國際會議中心（ART-066 的一部分）
+
+文藝區這棟從教學樓基座改成低寬淺色量體、南向玻璃帶和出挑屋簷。海事博物館仍是船型。外形仍是 estimated。
+
+畫面：`docs/art/evidence/forum/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。手機圖示已放大到能點、能辨認。幀時間仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。會議中心已分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

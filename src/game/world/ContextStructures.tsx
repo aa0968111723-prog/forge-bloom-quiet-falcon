@@ -146,7 +146,13 @@ export function ContextStructures({
   const glazing = useMemo(() => {
     const out: GlazingItem[] = [];
     for (const { s, y } of items) {
-      if (s.kind === "court" || s.kind === "ship" || s.kind === "pavilion" || s.kind === "gate")
+      if (
+        s.kind === "court" ||
+        s.kind === "ship" ||
+        s.kind === "pavilion" ||
+        s.kind === "gate" ||
+        s.kind === "forum-hall"
+      )
         continue;
       const floors = s.floors ?? 6;
       for (let f = 0; f < floors; f++) {
@@ -295,6 +301,35 @@ export function ContextStructures({
                   position={[0, height + 0.28, s.size[2] / 2 + 0.36]}
                 >
                   <planeGeometry args={[Math.min(4.2, s.size[0] * 0.55), 0.7]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
+        if (s.kind === "forum-hall") {
+          const glassH = Math.max(2.6, s.size[1] * 0.46);
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh position={[0, s.size[1] / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], s.size[1], s.size[2]]} />
+                <meshStandardMaterial color="#efe8dc" roughness={0.84} />
+              </mesh>
+              <mesh position={[0, glassH / 2, s.size[2] / 2 + 0.08]} castShadow>
+                <boxGeometry args={[s.size[0] * 0.72, glassH, 0.28]} />
+                <meshStandardMaterial color="#8ea6ae" roughness={0.28} metalness={0.12} />
+              </mesh>
+              <mesh position={[0, s.size[1] + 0.28, 0]} castShadow>
+                <boxGeometry args={[s.size[0] + 2.4, 0.42, s.size[2] + 2.4]} />
+                <meshStandardMaterial color="#d7d0c2" roughness={0.8} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, glassH + 0.9, s.size[2] / 2 + 0.28]}
+                >
+                  <planeGeometry args={[Math.min(10, s.size[0] * 0.55), 1.3]} />
                   <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
                 </mesh>
               )}

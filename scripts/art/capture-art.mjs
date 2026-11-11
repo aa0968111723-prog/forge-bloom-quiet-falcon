@@ -640,6 +640,21 @@ try {
       await settle(page, { stableFrames: 3 });
       await shot(page, id, `${id} official sign`);
     }
+  } else if (scenario === "forum") {
+    await hideHud(page);
+    await setPose(page, 310, -410, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(292, -452);
+      window.__controlsTest.setPhoto({
+        yaw: 0.4,
+        distance: 36,
+        height: 8,
+        lookY: 0,
+        target: { x: 292, y: y + 6, z: -452 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "conference forum hall");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

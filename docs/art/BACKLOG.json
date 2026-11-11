@@ -617,9 +617,13 @@
         "ART-060",
         "ART-084"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "scripts/context-lod.test.mjs",
+        "docs/art/evidence/forum/hall.jpg"
+      ],
+      "notes": "守謙國際會議中心從教學樓基座改成低寬量體、南向玻璃帶和出挑屋簷，不再畫共用窗帶。海事博物館仍是船型。精度仍是 estimated。"
     },
     {
       "id": "ART-067",

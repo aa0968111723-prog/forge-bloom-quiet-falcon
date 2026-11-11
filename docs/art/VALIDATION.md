@@ -211,3 +211,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 21 輪（手機圖示）— 2026-11-11
 
 `node --test scripts/touch-icons.test.mjs` 通過。窄於 700px 時工具鈕是 44×44，快捷欄圖示是 24px。觸控時快捷鈕不再縮到 38px。390×780 定步，頁面無錯誤，量到的工具鈕是 44px、快捷圖示是 24px：`docs/art/evidence/phone/icons.jpg`。路線重測留在第 20 輪。
+
+## 第 22 輪（守謙國際會議中心）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。會議中心是低寬淺色量體、南向玻璃帶和出挑屋簷，名牌寫著守謙國際會議中心。沒有共用窗帶。精度仍是 estimated。定步近景，頁面無錯誤：`docs/art/evidence/forum/hall.jpg`。
