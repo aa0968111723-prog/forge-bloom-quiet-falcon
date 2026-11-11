@@ -1,15 +1,14 @@
 {
-  "updated": "2026-11-11T15:48:00Z",
+  "updated": "2026-11-11T15:50:00Z",
   "branch": "main",
-  "worktree": "/tmp/worktrees/main-merge",
-  "mainSha": "dff98e3b325f7fa458f73f86a92ba7e995cb0019",
-  "mainTree": "b80465a2c4a3138914d31349f3c831b76b4ffb72",
+  "mainSha": "d1806168666b50b5d842819ad9a239612feb2a49",
+  "mainTree": "f95ce87ccdf05aa95549d7fc4c6375f20aa6e232",
   "activeItem": null,
   "sourceHead": "017b755cf196585ea5bcf134efafdd697f40ceb8",
   "integrationHead": "a2308ad16764bb66670605c46904a5ee741b0a4e",
   "verified": {
     "preMerge": "typecheck, 217 tests, build:site, low-tier route on b3db57b; a2308ad was docs only",
-    "postMerge": "on dff98e3, tree matches integration head. typecheck pass, 217 pass, build:site pass. Route not re-run because the tree is identical."
+    "postMerge": "dff98e3 matched the M1 integration tree. d180616 is PR #8: quiz telegraph holds while paused. typecheck passed on that merge tree; 218 tests and build:site passed on its identical parent 1ad31aa."
   },
   "notMerged": [],
   "blocked": ["INT-01"],

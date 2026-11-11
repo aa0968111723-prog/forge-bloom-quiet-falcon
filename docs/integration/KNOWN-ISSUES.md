@@ -9,4 +9,5 @@
 | INT-05 | needs_review | 美術線 KI-03、KI-17：鞋頭偏扁、手為連指；頂着高台時速度被歸零所以播 idle | 留在美術線下一項。本輪不改移動規則 |
 | INT-06 | pending-device | 手機與 RTX 3060 沒有量測 | 有裝置再量。不填估計 FPS |
 | INT-07 | discovered | 儲存庫沒有會擋合併的 GitHub Actions。保護規則端點對此 token 是 403，branches API 顯示 main 未保護 | 若之後出現必須的 check，要等那個 check 真正通過才能合併 |
-| INT-08 | 已處理 | 合併 API 回 403。`main` 未受保護，已用非快轉合併提交推進 `main`，沒有強推。PR #6 與 #7 隨後都顯示已合併 | 之後若出現必須的 check 或保護規則，改等那個規則，不再改用直接推送 |
+| INT-08 | 已處理 | 合併 API 持續 403。`main` 仍未受保護、也沒有必須的 GitHub check，所以 PR #7 與 #8 都用非快轉合併推進，沒有強推 | 一旦出現保護規則或必須的 check，就停在 PR，不再直接推 main |
+| INT-09 | 已處理 | 考卷怪 windup 在面板或告示暫停時仍每幀前進，恢復後預警維持滿圈。Codex 在已合併的 PR #7 上提出 | `nextWindupProgress` 在模擬暫停時停住。PR #8，合併 `d180616` |

@@ -1,7 +1,7 @@
 {
-  "updated": "2026-11-11T15:48:00Z",
+  "updated": "2026-11-11T15:50:00Z",
   "base": "main",
-  "baseSha": "dff98e3b325f7fa458f73f86a92ba7e995cb0019",
+  "baseSha": "d1806168666b50b5d842819ad9a239612feb2a49",
   "items": [
     {
       "id": "art-m1",
@@ -59,6 +59,36 @@
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/7",
       "verifiedHead": "b3db57bdee87e87c89423c8ad747e4e5eab978f0",
       "nextAction": "Wait for a backend or content branch. Do not treat M1 as the finished game."
+    },
+    {
+      "id": "quiz-windup-pause",
+      "line": "art",
+      "scope": "Quiz telegraph holds while tickRpg is paused, so the warning stays aligned with the real strike timer.",
+      "status": "merged",
+      "pr": 8,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/8",
+      "integrationBranch": "cursor/fix-quiz-windup-pause-3395",
+      "sourceBranch": "cursor/fix-quiz-windup-pause-3395",
+      "baseSha": "1ece406816874671abf048092bd3a6ac6e85af48",
+      "headSha": "1ad31aabe5cd429f34763ca8feb1f562e50f7ad5",
+      "dependencies": ["art-m1"],
+      "sharedFiles": ["src/game/art/creatures/QuizCreature.tsx"],
+      "contractVersion": {
+        "artSchema": 1,
+        "savePilgrimage": 2,
+        "saveRpg": 2,
+        "contentSchema": null
+      },
+      "checks": {
+        "typecheck": "pass on 1ad31aa and again on merge tree",
+        "npmTest": "218 pass / 0 fail",
+        "buildSite": "pass",
+        "eslint": "0 errors"
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "d1806168666b50b5d842819ad9a239612feb2a49",
+      "nextAction": "None. Damage and AI are unchanged."
     },
     {
       "id": "backend-sync",
