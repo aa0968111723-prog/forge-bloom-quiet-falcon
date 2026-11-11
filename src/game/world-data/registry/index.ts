@@ -69,6 +69,11 @@ export const OFFICIAL_SOURCES = [
     fieldChecked: false,
     downloadedThisRound: false,
   },
+  {
+    url: "https://www.ac.tku.edu.tw/ac/?page_id=18273",
+    fieldChecked: false,
+    downloadedThisRound: false,
+  },
 ] as const;
 
 const LICENSE_UNCONFIRMED = "未確認（只記錄公開網址，未核對現場，未取得授權）";
@@ -254,7 +259,7 @@ function siteNotes(site: CampusSite): string | null {
     notes.push("程式 floors=3。場地清單所稱七樓多功能球場本輪未下載，不列入已知樓層。");
   }
   if (site.id === "swimming") {
-    notes.push("程式名稱為游泳館。是否即紹謨紀念游泳館，未核對場地清單。");
+    notes.push("標示名稱依秘書處建物雙語頁。水道長度與樓層仍未核對，座標仍是估計。");
   }
   if (site.id === "track") notes.push("不在 mapNumbers，舊圖號缺失。");
   if (site.id === "palace") {

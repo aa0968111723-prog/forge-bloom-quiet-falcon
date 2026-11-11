@@ -174,6 +174,10 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 同一宮燈大道站點 `(0, -80)`、高畫質 1280×720、定步。詳細樹冠半徑 110 m 時 2,771,219 三角形、452 draw calls。改成 48 m 後 1,560,511 三角形、458 draw calls，低於 1.6 M。近處行道樹仍是細模。畫面：`docs/art/evidence/budget/avenue-high.jpg`。頁面無錯誤。戰鬥、室內、返回沒有重測。手機與 RTX 3060 仍是 `pending-device`。
 
+## 第 15 輪（標示用字）— 2026-11-11
+
+`node --test scripts/official-signs.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。秘書處建物雙語頁只用來改兩個標示：科學館是「騮先紀念科學館」，泳館是「紹謨紀念游泳館」。沒有複製該表。座標與 `fieldChecked` 沒有改，精度仍是 estimated。定步名牌，頁面無錯誤：`docs/art/evidence/signs/science.jpg`、`swimming.jpg`。
+
 ## 第 15 輪（標題鏡頭）— 2026-11-11
 
 `node --test scripts/title-camera.test.mjs` 通過。驚聲廣場環上最靠近標題鏡頭的榕樹已留出 16 m。定步標題畫面，頁面無錯誤：`docs/art/evidence/title/card.jpg`、`world.jpg`。廣場、銅像和宮燈教室不再被前景樹冠擋住。

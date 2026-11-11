@@ -115,7 +115,7 @@ export const CAMPUS_SITES: CampusSite[] = [
   },
   {
     id: "science",
-    name: "麗先紀念科學館",
+    name: "騮先紀念科學館",
     code: "S",
     x: 230,
     z: -255,
@@ -247,7 +247,7 @@ export const CAMPUS_SITES: CampusSite[] = [
   },
   {
     id: "swimming",
-    name: "游泳館",
+    name: "紹謨紀念游泳館",
     code: "N",
     x: 236,
     z: -425,

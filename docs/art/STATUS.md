@@ -117,6 +117,12 @@
 
 畫面：`docs/art/evidence/links/`。測試：`scripts/campus-links.test.mjs`。
 
+## 階段：兩個標示對上秘書處用字（ART-061 的一部分）
+
+2026-11-11 讀了秘書處建物雙語頁。科學館標示改為「騮先紀念科學館」，泳館改為「紹謨紀念游泳館」。該頁沒有座標，清冊精度仍全部 estimated，也沒有把整張表複製進庫。校園圖 PDF 還沒逐棟判讀。
+
+畫面：`docs/art/evidence/signs/science.jpg`、`swimming.jpg`。測試：`scripts/official-signs.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`：門口步道已接到能站的路點。狀態卡、普攻光刃與清冊都在 `main`。ART-090 其餘是技能圖示、地圖標記、受擊回饋。下一項場景是 ART-062。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。標示用字改了兩處，座標沒有升成 mapped。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
