@@ -477,6 +477,14 @@ try {
       window.__controlsTest.setPhoto(null);
       window.__rpgQA.resume();
     });
+  } else if (scenario === "rain") {
+    await setPose(page, 0, -80, 0);
+    await settle(page, { stableFrames: 3 });
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("wet"));
+    await frames(page, 8);
+    const live = await page.evaluate(() => window.__rpgQA.game.getState().timeOfDay);
+    await shot(page, "wet", `timeOfDay=${live} tier ${tier}`);
   } else if (scenario === "lighting") {
     // Same stand on 宮燈大道 under the four presets the game actually runs.
     await setPose(page, 0, -80, 0);

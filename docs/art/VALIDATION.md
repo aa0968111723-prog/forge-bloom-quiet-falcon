@@ -211,3 +211,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 21 輪（手機圖示）— 2026-11-11
 
 `node --test scripts/touch-icons.test.mjs` 通過。窄於 700px 時工具鈕是 44×44，快捷欄圖示是 24px。觸控時快捷鈕不再縮到 38px。390×780 定步，頁面無錯誤，量到的工具鈕是 44px、快捷圖示是 24px：`docs/art/evidence/phone/icons.jpg`。路線重測留在第 20 輪。
+
+## 第 22 輪（雨的畫質分級）— 2026-11-11
+
+`node --test scripts/rain-tier.test.mjs` 通過。`tsc --noEmit` 通過。雨後預設會在鏡頭周圍下雨。高畫質 320 條，低畫質 64 條。室內不畫。減少動態時雨絲停住。同一宮燈大道站點、頁面無錯誤：`docs/art/evidence/rain/high.jpg`、`low.jpg`。手機圖示留在第 21 輪。真機幀時間仍是 pending-device。

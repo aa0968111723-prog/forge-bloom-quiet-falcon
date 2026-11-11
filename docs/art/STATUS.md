@@ -151,6 +151,12 @@
 
 畫面：`docs/art/evidence/phone/icons.jpg`。測試：`scripts/touch-icons.test.mjs`。
 
+## 階段：雨的畫質分級（ART-087）
+
+雨後預設會在戶外鏡頭周圍下雨。高畫質 320 條，低畫質 64 條。室內不畫。減少動態時雨絲停住。真機幀時間仍是 pending-device。手機圖示留著。
+
+畫面：`docs/art/evidence/rain/high.jpg`、`low.jpg`。測試：`scripts/rain-tier.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。手機圖示已放大到能點、能辨認。幀時間仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。雨會跟著畫質減少。手機圖示仍是 44px。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

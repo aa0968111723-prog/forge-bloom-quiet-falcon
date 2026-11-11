@@ -1,10 +1,10 @@
 {
   "updated": "2026-11-11T21:02:00Z",
   "task_ids": [
-    "ART-091"
+    "ART-087"
   ],
-  "branch": "cursor/touch-targets-1a71",
-  "base": "main@ea5aef46bc03",
+  "branch": "cursor/weather-tier-1a71",
+  "base": "main@a81566621292",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Phone-width toolbar buttons are 44px and quickbar glyphs are 24px. The five-segment outdoor route stays under 1.6 M triangles. The west vista, coin spread, and sign names stay. Phone and RTX 3060 frame times stay pending-device. Do not add unlicensed audio."
+  "next_action": "Wet weather draws 320 rain streaks on high and 64 on low, and none indoors. Phone-width toolbar buttons stay 44px and quickbar glyphs stay 24px. The five-segment outdoor route stays under 1.6 M triangles. The west vista, coin spread, and sign names stay. Phone and RTX 3060 frame times stay pending-device. Do not add unlicensed audio."
 }
