@@ -537,6 +537,20 @@ try {
       });
       await shot(page, id, `${id} door stand ${JSON.stringify(at)}`);
     }
+  } else if (scenario === "gates") {
+    await hideHud(page);
+    const stands = [
+      ["main-gate", 60, 70.5],
+      ["dazhong-gate", 486, -46],
+    ];
+    for (const [id, x, z] of stands) {
+      await setPose(page, x, z, Math.PI);
+      await page.evaluate(() =>
+        window.__controlsTest.setPhoto({ yaw: 0.15, distance: 16, height: 6.5, lookY: 1.2 }),
+      );
+      await settle(page, { stableFrames: 3 });
+      await shot(page, id, `${id} open passage`);
+    }
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });

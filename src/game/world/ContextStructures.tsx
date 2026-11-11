@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { surface, useTamkangMaterials } from "../materials/context";
 import {
+  GATE_PIER_WIDTH,
   SECONDARY_STRUCTURES,
   structureGroundY,
 } from "../world-data/zones/secondary.ts";
@@ -83,7 +84,7 @@ export function ContextStructures({
   const glazing = useMemo(() => {
     const out: PlaneItem[] = [];
     for (const { s, y } of items) {
-      if (s.kind === "court" || s.kind === "ship" || s.kind === "pavilion")
+      if (s.kind === "court" || s.kind === "ship" || s.kind === "pavilion" || s.kind === "gate")
         continue;
       const floors = s.floors ?? 6;
       for (let f = 0; f < floors; f++) {
@@ -204,6 +205,31 @@ export function ContextStructures({
                 <planeGeometry args={[9, 1.5]} />
                 <meshStandardMaterial map={signs.museum} roughness={0.55} />
               </mesh>
+            </group>
+          );
+        }
+        if (s.kind === "gate") {
+          const pier = GATE_PIER_WIDTH;
+          const offset = (s.size[0] - pier) / 2;
+          const height = 4.2;
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]}>
+              {[-1, 1].map((side) => (
+                <mesh key={side} position={[side * offset, height / 2, 0]} castShadow receiveShadow>
+                  <boxGeometry args={[pier, height, s.size[2]]} />
+                  <meshStandardMaterial {...surface(mats["palace/red-wall"], { wetness })} />
+                </mesh>
+              ))}
+              <mesh position={[0, height + 0.28, 0]} castShadow>
+                <boxGeometry args={[s.size[0] + 0.4, 0.55, s.size[2] + 0.6]} />
+                <meshStandardMaterial {...surface(mats["palace/green-roof-tile"], { wetness })} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh position={[0, height + 0.28, s.size[2] / 2 + 0.36]}>
+                  <planeGeometry args={[Math.min(4.2, s.size[0] * 0.55), 0.7]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
             </group>
           );
         }

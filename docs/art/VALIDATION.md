@@ -151,3 +151,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 `node --test scripts/campus-links.test.mjs` 2 通過。`tsc --noEmit` 通過。41 個 `CAMPUS_SITES` 門口各有一條步道，起點是門口，終點距路網小於 1.6 m，路網本身是一個相連分量。視聽教育館與正門不再把步道目標放進建築碰撞裡。
 
 定步畫面（高畫質，頁面無錯誤）：`docs/art/evidence/links/audiovisual-door.jpg`、`main-gate-door.jpg`。步道沿量體外側接到路，不是穿牆直線。座標仍是 estimated，沒有階數，不宣稱 1:1。
+
+## 第 10 輪（軸線兩座警衛站）— 2026-11-11
+
+`node --test scripts/axis-gates.test.mjs` 通過。`tsc --noEmit` 通過。大門與大忠警衛站的中心點半徑 0.6 m 不被碰撞推開，門柱中心會被推開。定步畫面：`docs/art/evidence/gates/main-gate.jpg`、`dazhong-gate.jpg`。紅柱、綠瓦橫樑，人站在開口裡。這是估計外形，不是實測門寬，也還沒有遠距 LOD。

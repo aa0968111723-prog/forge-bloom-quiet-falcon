@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-11T17:40:00Z",
+  "updated": "2026-11-11T17:55:00Z",
   "task_ids": [
-    "ART-090"
+    "ART-062"
   ],
-  "branch": "cursor/hud-cue-wrap-1a71",
-  "base": "main@7ffe826929a9",
+  "branch": "cursor/axis-silhouettes-1a71",
+  "base": "main@b55f31181a47",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-090 status cues wrap outside the bar, so a narrow card still shows 恢復, 受傷, and 低生命. Door links, status bars, the basic swing, and the campus registry are already on main. Remaining on ART-090: skill icons, map markers, and hit feedback. Next scene work is ART-062. Do not add unlicensed audio."
+  "next_action": "ART-062 main-gate and dazhong-gate are open piers, and collision is only on the posts. White-hall, chuehhsuan, and the other districts still need silhouettes and distance LOD. Status cues, door links, the basic swing, and the campus registry are already on main. Remaining on ART-090: skill icons, map markers, and hit feedback. Accuracy stays estimated. Do not add unlicensed audio."
 }

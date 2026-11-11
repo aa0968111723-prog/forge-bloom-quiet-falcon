@@ -510,7 +510,32 @@
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
       "merged": true,
       "mergeSha": "78379ae0d2b6f8cfed6335ce440a8bb44044101e",
-      "nextAction": "None. Source 1340a89 is an ancestor of main. Do not rerun the route unless the game SHA changes."
+      "nextAction": "None. Source 1340a89 is an ancestor of main. The open-gate change after it is a new game SHA."
+    },
+    {
+      "id": "art-axis-gates",
+      "line": "art",
+      "scope": "Main gate and Dazhong gate are open piers. The road passes between them, and only the posts collide.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-axis-gates-3395",
+      "sourceBranch": "cursor/axis-silhouettes-1a71",
+      "baseSha": "b55f31181a470695f62870e6801e9c5f1b8a7bfe",
+      "headSha": "d930724c98cf8190352ea3fa58ec16c15ac0f84b",
+      "dependencies": ["art-hud-cue-wrap"],
+      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "checks": {
+        "conflicts": "art checkpoint next_action only. Kept the cue-wrap note and recorded the open piers.",
+        "typecheck": "pass",
+        "npmTest": "249 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8096 at 1280x720: both gates show two red posts and a green beam, the character stands in the opening, pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json"],
+      "merged": false,
+      "nextAction": "Fast-forward only while origin/main is still b55f311 and the source head is still d930724."
     }
   ]
 }
