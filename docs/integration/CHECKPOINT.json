@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "55eb7b91409a2d522b273a34b441e99dbc3106d1",
+  "mainSha": "ac27ee71113b2b1da8bf4c5261c5613539cbb443",
   "gameSha": "27e180cefd4648995db484e875660f9b821df64b",
   "activeItem": null,
   "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
@@ -12,5 +12,5 @@
   "notMerged": [],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Static build of 55eb7b9 boots the offline title with no /api calls. Game code is still 27e180cefd4648995db484e875660f9b821df64b. Re-fetch origin/main; a later docs tip only records this smoke. No remote head is ahead of main. Do not redo the route unless the game SHA changes. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "The built static preview on 8093 passed the full route: xp 20, notes 19, quest once, quiz-2 65 to 45, reload, first sync revision 1, second client, revision_conflict, offline queue, logout 401. Game code is still 27e180cefd4648995db484e875660f9b821df64b. Re-fetch origin/main. No remote head is ahead. Do not redo the route unless the game SHA changes. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }
