@@ -541,9 +541,13 @@
       "depends": [
         "ART-060"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "SOURCES.md 每筆來源有查閱日期與授權狀態",
-      "evidence": []
+      "evidence": [
+        "docs/art/SOURCES.md",
+        "scripts/official-signs.test.mjs"
+      ],
+      "notes": "2026-11-11 讀了秘書處建物雙語頁，只核對標示用字，沒有把該表複製進庫。科學館改為騮先，泳館改為紹謨紀念游泳館。座標仍是 estimated，fieldChecked 仍是 false。校園圖 PDF 還沒逐棟判讀。"
     },
     {
       "id": "ART-062",

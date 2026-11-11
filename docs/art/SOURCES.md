@@ -17,6 +17,13 @@
 | 場地租借清單 | https://spacerental.tku.edu.tw/spacelisting.aspx | 200，text/html | 未標示授權；僅參考 |
 | 校園照片庫 | https://photo.az.tku.edu.tw/ | 200，text/html | 照片著作權屬原作者；可作參考，不可重新散布 |
 | 覺生紀念圖書館館舍 | https://www.lib.tku.edu.tw/Front/AboutUs/Openinghoursandpremises/MainBuilding/Page.aspx?id=%2BCcwjg98bKg%3D | 200，text/html | 未標示授權；僅參考 |
+| 秘書處建物雙語標示 | https://www.ac.tku.edu.tw/ac/?page_id=18273 | 2026-11-11 讀到標示表。頁面寫著作權屬秘書處，本庫不複製該表 | 未授權轉載；只用來核對兩處標示用字 |
+
+這頁只核對標示用字，沒有座標，所以清冊精度仍全部是 `estimated`，`fieldChecked` 仍是 false。
+
+已改的標示：科學館由「麗先」改為頁上的「騮先紀念科學館」；泳館由「游泳館」改為頁上的「紹謨紀念游泳館」。水道長度沒有寫在這頁，仍待測。
+
+仍沿用程式短名、不在這輪改掉的例子：驚聲大樓（頁上是驚聲紀念大樓）、大門／大忠警衛站（頁上是管制站）、田徑場（頁上是運動場）。這些不是實測差異，只是還沒改的標示用字。
 
 程式中的對應：`src/game/world-data/registry/index.ts`（`OFFICIAL_SOURCES`，`fieldChecked: false`）、`src/game/rpg/campus.ts`（`CAMPUS_SOURCE`）、`src/game/rpg/data.ts`（科系名單註記）。
 

@@ -745,6 +745,34 @@
       "merged": true,
       "mergeSha": "79515b67f3e6d355b21db3aedce83f329d32e2e8",
       "nextAction": "None. Source 70dd633 is an ancestor of main. Do not merge PR #49 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-sign-names",
+      "line": "art",
+      "scope": "Science hall and the pool use the secretariat sign names. Coordinates stay estimated. The business podium, title camera, and 48 m canopy switch stay.",
+      "status": "verified",
+      "pr": 51,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/51",
+      "integrationBranch": "cursor/integration-sign-names-3395",
+      "sourceBranch": "cursor/sign-names-1a71",
+      "baseSha": "95bd4d42035c",
+      "headSha": "9a7ae33a174286b2552aadf42a097b47b2ecd364",
+      "dependencies": ["art-business-mass"],
+      "sharedFiles": ["src/game/rpg/campus.ts", "src/game/world-data/registry/index.ts"],
+      "checks": {
+        "conflicts": "Art checkpoint, handoff, status, and the capture script. Kept the business round and added the sign-name round as round 17. Capture keeps business and title, and adds signs. Gate kind stays.",
+        "typecheck": "pass",
+        "npmTest": "256 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8105 high tier: 1280x720 and 390x780 show 騮先紀念科學館 and 紹謨紀念游泳館. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "scripts/art/capture-art.mjs"],
+      "merged": true,
+      "mergeSha": "267167bcf9b9eec17829578b85ca354dc8587073",
+      "integrationPr": 52,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/52",
+      "nextAction": "None. Source 9a7ae33 is an ancestor of main. Do not merge PR #51 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }

@@ -588,6 +588,22 @@ try {
     );
     await settle(page, { stableFrames: 3 });
     await shot(page, "mass", "business study podium");
+  } else if (scenario === "signs") {
+    await hideHud(page);
+    const stands = [
+      ["science", 230, -255, 26],
+      ["swimming", 236, -425, 28],
+    ];
+    for (const [id, x, z, depth] of stands) {
+      await setPose(page, x, z + depth / 2 + 8, 0);
+      await page.evaluate((spot) => {
+        const gy = window.__rpgQA.ground(spot.x, spot.z);
+        const target = { x: spot.x, y: gy + 3.25, z: spot.z + spot.depth / 2 + 0.2 };
+        window.__controlsTest.setPhoto({ yaw: 0.62, distance: 7.2, height: 0.35, lookY: 0, target });
+      }, { x, z, depth });
+      await settle(page, { stableFrames: 3 });
+      await shot(page, id, `${id} official sign`);
+    }
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

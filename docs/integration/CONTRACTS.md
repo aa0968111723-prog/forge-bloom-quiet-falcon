@@ -48,6 +48,8 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 `permanentId` 與 `aliasOf` 在 `src/game/world-data/registry/index.ts` 的 `RegistryEntry`。清冊筆數沒有增刪，精度仍全部 `estimated`。
 
+科學館的顯示名稱是「騮先紀念科學館」，泳館是「紹謨紀念游泳館」。兩筆的 `permanentId` 仍是 `science` 與 `swimming`，存檔 id 沒有改。座標仍是 estimated，`fieldChecked` 仍是 false。
+
 校園門口的可見步道由 `entranceRoadPath` 從門口走到估計路網上能站的點。不再對準最近的一條垂直線。這不是實測路線，也沒有新的階數。
 
 `form === "gate"` 的建築（大門警衛站、大忠警衛站）畫成兩根門柱加橫樑。`gatePiers` 的門柱寬是 1.5。碰撞只加在門柱上，開口中心可以站。這是估計外形，不是實測門寬。

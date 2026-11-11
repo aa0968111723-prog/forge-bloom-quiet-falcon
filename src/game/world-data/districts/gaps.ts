@@ -88,7 +88,7 @@ const FIXTURE_NOTES: Partial<Record<string, string>> = {
   yingyuan: "校史館與創辦人紀念館的樓層關係待測。",
   gym: "體育館樓層數不是已核實的七樓。看臺、地板與器材都沒有圖。",
   gymnasium: "gym 的場景別名，不另建完成的碰撞館。",
-  swimming: "泳館名稱是否即紹謨紀念游泳館，以及水道長度，都待測。",
+  swimming: "標示已對上秘書處的紹謨紀念游泳館。水道長度仍待測。",
   track: "田徑場跑道分道、彎道與入口待測。舊圖號仍缺。",
   "wuhu-courts": "綜合球場分區與網柱待測。",
   reviewing: "司令臺台高、台深與入口待測。",
