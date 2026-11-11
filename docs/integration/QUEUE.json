@@ -484,7 +484,32 @@
       ],
       "merged": true,
       "mergeSha": "1dc51dfc6dfd33cc1583950397088d5d9425107d",
-      "nextAction": "None. Source f48a2c5 is an ancestor of main. Do not rerun the route unless the game SHA changes."
+      "nextAction": "None. Source f48a2c5 is an ancestor of main. The cue-wrap change after it is a new game SHA."
+    },
+    {
+      "id": "art-hud-cue-wrap",
+      "line": "art",
+      "scope": "Status cues sit outside the clipped bar and wrap on a narrow card. The 390px target card moves to top 268px.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-hud-cue-3395",
+      "sourceBranch": "cursor/hud-cue-wrap-1a71",
+      "baseSha": "7ffe826929a97c37986233e0da165b058167e722",
+      "headSha": "1340a897c0ccdce1326d6fe697c09bb28e96ab2f",
+      "dependencies": ["art-district-links"],
+      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/adventure.css"],
+      "checks": {
+        "conflicts": "art checkpoint, art validation, capture-art. Kept the links scenario and added the warn shot inside hud.",
+        "typecheck": "pass",
+        "npmTest": "248 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8095 at 1280 and 390: 受傷, 低生命, 恢復 outside the bar; narrow target top 268 below status bottom 214; pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "merged": false,
+      "nextAction": "Fast-forward only while origin/main is still 7ffe826 and the source head is still 1340a89."
     }
   ]
 }

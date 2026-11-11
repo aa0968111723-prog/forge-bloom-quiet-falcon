@@ -3972,6 +3972,10 @@ test("statusbar shows current max and change with isolated cues", () => {
   assert.match(reduced, /transition:\s*none/);
   assert.match(css, /\.ad-meter span,\s*\.ad-cue,\s*\.ad-xp span \{[\s\S]*?color:\s*var\(--ad-ink\)/);
   assert.match(css, /\.ad-meter span,\s*\.ad-cue,\s*\.ad-xp span \{[\s\S]*?font-size:\s*var\(--ad-type\)/);
+  assert.match(css, /\.ad-readout\s*\{[^}]*flex-wrap:\s*wrap/);
+  assert.match(life, /className="ad-readout"[\s\S]*role="meter"[\s\S]*<\/div>\s*\{bar\.cues\.map/);
+  assert.match(focusMeter, /className="ad-readout"[\s\S]*role="meter"[\s\S]*<\/div>\s*\{bar\.cues\.map/);
+  assert.match(progress, /className="ad-readout"[\s\S]*role="meter"[\s\S]*<\/div>\s*\{bar\.cues\.map/);
   assert.match(css, /\.ad-meter i \{[\s\S]*?transition:\s*width calc\(var\(--ad-motion\) \* 0\.16s\)/);
   assert.match(css, /button:focus[\s\S]*outline:\s*3px solid #ddaf61/);
   assert.equal(r.chromeBudget("low", false).motion, 0);

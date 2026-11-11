@@ -508,6 +508,16 @@ try {
       return card ? card.innerText.replace(/\s+/g, " ").trim() : "missing";
     });
     await shot(page, "status", `viewport ${width}x${height} ${read}`);
+    await page.evaluate(() => {
+      const s = window.__rpgQA.rpg.getState();
+      window.__rpgQA.rpg.setState({ hp: 10, hurtUntil: s.clock + 30, focus: Math.min(100, s.focus + 8) });
+    });
+    await frames(page, 2);
+    const warn = await page.evaluate(() => {
+      const card = document.querySelector(".ad-status");
+      return card ? card.innerText.replace(/\s+/g, " ").trim() : "missing";
+    });
+    await shot(page, "warn", `viewport ${width}x${height} ${warn}`);
   } else if (scenario === "links") {
     // Estimated door walks that used to aim through the building or stop off the road.
     await hideHud(page);
