@@ -1173,6 +1173,32 @@
       "integrationPr": 83,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/83",
       "nextAction": "None. The auditorium patch from 8517cae is already in this integration. Do not merge PR #73 by itself. Next is PR #75, then PR #77, then PR #79, then PR #80, then PR #82. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-kenan-walk",
+      "line": "art",
+      "scope": "The three pilgrimage polylines pass east of the statue and reach the palace, library, and gym doors. The gym line stays south of the palace hall and between the activity center and the education building. Positions stay estimated.",
+      "status": "verified",
+      "pr": 75,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/75",
+      "integrationBranch": "cursor/integration-kenan-walk-3395",
+      "sourceBranch": "cursor/kenan-walk-1a71",
+      "baseSha": "9b74d14f0cfc",
+      "headSha": "3c9cf1da3529aa621718972b905d685f55c55ab1",
+      "dependencies": ["art-auditorium"],
+      "sharedFiles": ["src/game/world-data/registry/index.ts"],
+      "checks": {
+        "conflicts": "Art checkpoint, handoff, status, and validation only. The registry and the walk test applied cleanly. Kept the auditorium notes and numbered this round 30.",
+        "typecheck": "pass",
+        "npmTest": "263 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "The polylines are not drawn. The walk test moves a 0.42 m body to each door and up the Kenan centreline.",
+        "route": "8119: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "e5751d9952ddfa2630373cbd1bb23595f6c0861d",
+      "nextAction": "Do not merge PR #75 by itself. Next is PR #77, then PR #79, then PR #80, then PR #82."
     }
   ]
 }
