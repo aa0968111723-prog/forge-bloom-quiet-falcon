@@ -219,9 +219,13 @@
       "depends": [
         "ART-020"
       ],
-      "status": "planned",
+      "status": "done_needs_review",
       "acceptance": "鞋頭有高度與圓度；手指可辨；按住方向撞牆時不呈現停住／滑動",
-      "evidence": []
+      "evidence": [
+        "docs/art/evidence/m2/protagonist-shoes-hands.jpg",
+        "src/game/rpg/AdventurePlayer.tsx strideRef (walk in place while blocked)"
+      ],
+      "notes": "鞋楦加高、圓頭、橡膠鞋頭與鞋尖上翹；手指分開微彎；被阻擋時以 45 % 意圖速度原地步行（物理速度不變）。"
     },
     {
       "id": "ART-030",
@@ -230,9 +234,14 @@
       "depends": [
         "ART-020"
       ],
-      "status": "planned",
+      "status": "done_needs_review",
       "acceptance": "≥3 體型、≥4 髮型、≥4 服裝、≥4 配件；同一骨架與動畫",
-      "evidence": []
+      "evidence": [
+        "art/characters/npc-kit/",
+        "public/game-art/characters/npc-kit.glb",
+        "scripts/art-pipeline.test.mjs (NPC tests)"
+      ],
+      "notes": "25 部件同骨架：2 臉、4 髮型、4 上衣、4 下身、及膝襪、2 鞋、6 配件、裸臂／裸腿；體型由胸骨縮放（含頸與上臂補償）＋身高。執行期合併為單一 draw call。"
     },
     {
       "id": "ART-031",
@@ -241,9 +250,14 @@
       "depends": [
         "ART-030"
       ],
-      "status": "planned",
+      "status": "done_needs_review",
       "acceptance": "src/game/Npcs.tsx 與對話角色全部有對應預設",
-      "evidence": []
+      "evidence": [
+        "art/characters/npc-kit/roster.ts",
+        "docs/art/evidence/m2/npcs-front.jpg",
+        "docs/art/evidence/m2/npcs-side.jpg"
+      ],
+      "notes": "遊戲實際 NPC 清冊為 Npcs.tsx 五名步行者；每人一組預設（路線、角色、部件、色彩、體型），兩兩至少 4 個部件不同（測試）。對話與任務中沒有具名 NPC。"
     },
     {
       "id": "ART-032",
@@ -267,7 +281,8 @@
       "acceptance": "主角 LOD1 完成（9.1k，省電畫質使用，重測回到基準）；NPC 人群 LOD 待角色組完成",
       "evidence": [
         "docs/art/evidence/m1/route/after-lod-low.json"
-      ]
+      ],
+      "notes": "主角 LOD1 完成；NPC 組以 LOD1 細節建置（每人 7.7–9.7 k 三角形）並在 140 m 外不繪製。"
     },
     {
       "id": "ART-034",
@@ -290,9 +305,13 @@
       "depends": [
         "ART-022"
       ],
-      "status": "planned",
+      "status": "done_needs_review",
       "acceptance": "活頁夾／報告堆輪廓；六種狀態回饋；數值不變",
-      "evidence": []
+      "evidence": [
+        "art/creatures/report/report.ts",
+        "docs/art/evidence/m2/creature-report-turn.jpg",
+        "docs/art/evidence/m2/creature-report-fight.jpg"
+      ]
     },
     {
       "id": "ART-041",
@@ -301,9 +320,13 @@
       "depends": [
         "ART-022"
       ],
-      "status": "planned",
+      "status": "done_needs_review",
       "acceptance": "監考者輪廓與時鐘；六種狀態回饋",
-      "evidence": []
+      "evidence": [
+        "art/creatures/exam/exam.ts",
+        "docs/art/evidence/m2/creature-exam-turn.jpg",
+        "docs/art/evidence/m2/creature-exam-fight.jpg"
+      ]
     },
     {
       "id": "ART-042",
@@ -312,9 +335,13 @@
       "depends": [
         "ART-022"
       ],
-      "status": "planned",
+      "status": "done_needs_review",
       "acceptance": "截止日巨型時鐘；保留一次性獎勵與 boss 規則",
-      "evidence": []
+      "evidence": [
+        "art/creatures/final/final.ts",
+        "docs/art/evidence/m2/creature-final-turn.jpg",
+        "docs/art/evidence/m2/creature-final-fight.jpg"
+      ]
     },
     {
       "id": "ART-043",
@@ -324,9 +351,12 @@
         "ART-040",
         "ART-041"
       ],
-      "status": "planned",
+      "status": "done",
       "acceptance": "共用新模型或明示保留",
-      "evidence": []
+      "evidence": [
+        "src/routes/index.tsx renders AdventureApp only"
+      ],
+      "notes": "處置：舊巡禮模式 src/components/game/CampusGame.tsx（含 src/game/Enemies.tsx）沒有任何路由掛載，正式遊戲只渲染 AdventureApp；不升級、不刪除既有程式，記錄於 KNOWN-ISSUES KI-21。"
     },
     {
       "id": "ART-050",
@@ -348,9 +378,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "預備/出手/作用/命中/消散；低畫質；reduced-motion；不遮預警",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-052",
@@ -359,9 +394,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-053",
@@ -370,9 +410,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上，含回復 20 生命回饋",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-054",
@@ -381,9 +426,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-055",
@@ -392,9 +442,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上，含生命與專注回復",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-056",
@@ -403,9 +458,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上，含專注回復",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-057",
@@ -414,9 +474,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-058",
@@ -425,9 +490,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上，含回復 40 生命",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-059",

@@ -13,6 +13,7 @@ import {
   chainBlend,
   jointBlend,
   smoothstep,
+  type AtlasRect,
   type ColorFn,
   type PartBuilder,
   type SkinFn,
@@ -66,7 +67,7 @@ function endShade(lo: number, hi: number, k = 0.78): ColorFn {
 }
 
 /** Skin weights for torso garments by height: hips → spine → chest → neck. */
-function torsoSkin(rig: KitRig): SkinFn {
+export function torsoSkin(rig: KitRig): SkinFn {
   const hips = rig.index("hips");
   const spine = rig.index("spine");
   const chest = rig.index("chest");
@@ -86,7 +87,19 @@ function torsoSkin(rig: KitRig): SkinFn {
   };
 }
 
-export function addHead(b: PartBuilder, rig: KitRig) {
+/** Atlas cells the shared head/hand/shoe generators draw from (each kit has its own atlas). */
+export type HeadCells = { face: AtlasRect; skin: AtlasRect };
+export type ShoeCells = { shoe: AtlasRect; sole: AtlasRect; accent: AtlasRect; lace: AtlasRect; tongue: AtlasRect; accentSlot?: number };
+const STUDENT_HEAD: HeadCells = { face: CELLS.face, skin: CELLS.skin };
+const STUDENT_SHOE: ShoeCells = {
+  shoe: CELLS.shoe,
+  sole: CELLS.sole,
+  accent: swatch("accent"),
+  lace: swatch("lace"),
+  tongue: swatch("tongue"),
+};
+
+export function addHead(b: PartBuilder, rig: KitRig, cells: HeadCells = STUDENT_HEAD) {
   const head = rig.index("head");
   const neckBone = rig.index("neck");
   const { center, radius } = STUDENT_KIT.head;
@@ -150,8 +163,8 @@ export function addHead(b: PartBuilder, rig: KitRig) {
   back.setAttribute("position", new THREE.Float32BufferAttribute(bp, 3));
   back.setAttribute("normal", new THREE.Float32BufferAttribute(bn, 3));
   sphere.dispose();
-  b.add(front, { name: "face", color: "#ffffff", tile: CELLS.face, skin: head });
-  b.add(back, { name: "skull", color: "#ffffff", tile: CELLS.skin, skin: head });
+  b.add(front, { name: "face", color: "#ffffff", tile: cells.face, skin: head });
+  b.add(back, { name: "skull", color: "#ffffff", tile: cells.skin, skin: head });
 
   // Ears, half hidden by the side locks.
   for (const side of [-1, 1]) {
@@ -159,7 +172,7 @@ export function addHead(b: PartBuilder, rig: KitRig) {
     ear.scale(0.014, 0.027, 0.02);
     ear.rotateZ(-side * 0.18);
     ear.translate(c.x + side * rx * 0.98, c.y - 0.012, c.z - 0.008);
-    b.add(ear, { name: "ear", color: "#f6efea", tile: CELLS.skin, skin: head });
+    b.add(ear, { name: "ear", color: "#f6efea", tile: cells.skin, skin: head });
   }
 
   // Neck, blended from chest to head so turning the head creases nothing.
@@ -174,7 +187,7 @@ export function addHead(b: PartBuilder, rig: KitRig) {
   b.add(neck.geometry, {
     name: "neck",
     color: (p) => white.clone().multiplyScalar(0.86 + 0.14 * smoothstep(1.27, 1.33, p.y)),
-    tile: CELLS.skin,
+    tile: cells.skin,
     skin: chainBlend([rig.index("chest"), neckBone, head], [0.25, 0.75], 0.18),
     param: neck.param,
   });
@@ -294,7 +307,6 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
   const hand = rig.index(`hand${L}`);
   const sh = rig.at(`upperArm${L}`);
   const el = rig.at(`lowerArm${L}`);
-  const wr = rig.at(`hand${L}`);
   const fwd: V3 = [0, 0, 1];
   const X = (x: number) => x * side;
 
@@ -354,7 +366,16 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
     param: forearm.param,
   });
 
-  // Hand: palm, four curled fingers and a thumb, rigid on the hand bone.
+  addHand(b, rig, side);
+  void sh;
+}
+
+/** Palm, four curled fingers and a thumb, rigid on the hand bone. */
+export function addHand(b: PartBuilder, rig: KitRig, side: 1 | -1, skinCell: AtlasRect = CELLS.skin) {
+  const L = side > 0 ? "L" : "R";
+  const hand = rig.index(`hand${L}`);
+  const wr = rig.at(`hand${L}`);
+  const X = (x: number) => x * side;
   const w = wr.clone();
   const palmRing = (dy: number, rx: number, rz: number): Ring => ({
     center: [w.x + X(0.002), w.y + dy, w.z],
@@ -367,30 +388,40 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
     segments: lod(14, 8),
     capEnd: true,
   });
-  b.add(palm.geometry, { name: "palm", color: "#ffffff", tile: CELLS.skin, skin: hand, param: palm.param });
+  b.add(palm.geometry, { name: "palm", color: "#ffffff", tile: skinCell, skin: hand, param: palm.param });
   const fingers: [number, number][] = [
-    [0.027, 0.054],
-    [0.009, 0.06],
-    [-0.009, 0.056],
-    [-0.026, 0.046],
+    [0.0285, 0.054],
+    [0.0095, 0.061],
+    [-0.0095, 0.057],
+    [-0.0275, 0.046],
   ];
-  for (const [dz, len] of fingers) {
+  for (const [i, [dz, len]] of fingers.entries()) {
+    // Fingers fan out slightly and curl progressively more toward the little finger.
+    const fan = (i - 1.5) * 0.0035;
+    const curl = 0.011 + i * 0.002;
     const root: V3 = [w.x + X(0.001), w.y - 0.068, w.z + dz];
     const finger = sweep(
       [
         root,
-        [root[0] - X(0.004), root[1] - len * 0.5, root[2] + 0.002],
-        [root[0] - X(0.013), root[1] - len * 0.9, root[2] + 0.003],
+        [root[0] - X(0.004), root[1] - len * 0.5, root[2] + 0.002 + fan],
+        [root[0] - X(curl), root[1] - len * 0.88, root[2] + 0.003 + fan * 1.6],
       ],
       {
-        width: (t) => 0.0088 * roundTip(t),
-        thickness: (t) => 0.0078 * roundTip(t),
+        width: (t) => 0.0078 * roundTip(t) * (1 - t * 0.18),
+        thickness: (t) => 0.0072 * roundTip(t),
         outward: [X(1), 0, 0],
         segments: lod(6, 3),
         around: lod(8, 5),
       },
     );
-    b.add(finger.geometry, { name: "finger", color: "#ffffff", tile: CELLS.skin, skin: hand, param: finger.param });
+    // Knuckle-side shading separates neighbouring fingers at a distance.
+    b.add(finger.geometry, {
+      name: "finger",
+      color: (_p, t) => white.clone().multiplyScalar(0.9 + 0.1 * smoothstep(0, 0.35, t)),
+      tile: skinCell,
+      skin: hand,
+      param: finger.param,
+    });
   }
   const thumbRoot: V3 = [w.x - X(0.008), w.y - 0.03, w.z + 0.03];
   const thumb = sweep(
@@ -403,8 +434,7 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
       around: lod(8, 5),
     },
   );
-  b.add(thumb.geometry, { name: "thumb", color: "#ffffff", tile: CELLS.skin, skin: hand, param: thumb.param });
-  void sh;
+  b.add(thumb.geometry, { name: "thumb", color: "#ffffff", tile: skinCell, skin: hand, param: thumb.param });
 }
 
 /** Beige shorts, bare legs, socks and white sneakers. */
@@ -517,17 +547,21 @@ export function addLowerBody(b: PartBuilder, rig: KitRig) {
   }
 }
 
-function addShoe(b: PartBuilder, ankle: THREE.Vector3, side: 1 | -1, foot: number) {
+export function addShoe(b: PartBuilder, ankle: THREE.Vector3, side: 1 | -1, foot: number, cells: ShoeCells = STUDENT_SHOE) {
   const x0 = ankle.x;
+  // [z, centre y, half width, half height]: heel counter, instep, a raised
+  // and rounded toe box (sneakers read by their toe), then the toe tip.
   const rings: [number, number, number, number][] = [
-    [-0.076, 0.05, 0.039, 0.042],
-    [-0.058, 0.055, 0.046, 0.05],
+    [-0.078, 0.05, 0.038, 0.042],
+    [-0.06, 0.055, 0.046, 0.05],
     [-0.022, 0.058, 0.049, 0.054],
-    [0.018, 0.051, 0.051, 0.046],
-    [0.068, 0.043, 0.053, 0.037],
-    [0.118, 0.037, 0.05, 0.031],
-    [0.152, 0.033, 0.044, 0.026],
-    [0.176, 0.031, 0.031, 0.02],
+    [0.018, 0.052, 0.051, 0.047],
+    [0.066, 0.046, 0.053, 0.04],
+    [0.112, 0.043, 0.051, 0.036],
+    [0.146, 0.042, 0.047, 0.034],
+    [0.171, 0.041, 0.04, 0.03],
+    [0.187, 0.04, 0.028, 0.023],
+    [0.194, 0.039, 0.014, 0.012],
   ];
   const upper = loft(
     rings.map(([z, y, rx, ry]) => ({ center: [x0, y, z] as V3, ax: [1, 0, 0] as V3, ay: [0, 1, 0] as V3, rx, ry })),
@@ -536,7 +570,7 @@ function addShoe(b: PartBuilder, ankle: THREE.Vector3, side: 1 | -1, foot: numbe
   b.add(upper.geometry, {
     name: "shoe-upper",
     color: (p) => white.clone().multiplyScalar(p.y < 0.03 ? 0.93 : 1),
-    tile: CELLS.shoe,
+    tile: cells.shoe,
     skin: foot,
     param: upper.param,
   });
@@ -545,26 +579,41 @@ function addShoe(b: PartBuilder, ankle: THREE.Vector3, side: 1 | -1, foot: numbe
   collar.rotateX(Math.PI / 2);
   collar.scale(1, 1, 1.12);
   collar.translate(x0, 0.104, -0.026);
-  b.add(collar, { name: "shoe-collar", color: "#ffffff", tile: CELLS.shoe, skin: foot });
-  addShoeDetails(b, x0, foot);
+  b.add(collar, { name: "shoe-collar", color: "#ffffff", tile: cells.shoe, skin: foot });
+  // Rubber toe cap wrapping the front of the toe box.
+  const cap = loft(
+    rings
+      .filter(([z]) => z >= 0.11)
+      .map(([z, y, rx, ry]) => ({
+        center: [x0, y, z] as V3,
+        ax: [1, 0, 0] as V3,
+        ay: [0, 1, 0] as V3,
+        rx: rx + 0.0025,
+        ry: ry + 0.0025,
+        arc: [Math.PI * 1.02, Math.PI * 1.98] as [number, number],
+      })),
+    { segments: lod(12, 8) },
+  );
+  b.add(cap.geometry, { name: "toe-cap", color: "#ffffff", tile: cells.sole, skin: foot, param: cap.param });
+  addShoeDetails(b, x0, foot, cells);
   // Sole: extruded foot outline, softly bevelled.
-  soleAndStripe(b, x0, foot);
+  soleAndStripe(b, x0, foot, cells);
   void side;
 }
 
-function addShoeDetails(b: PartBuilder, x0: number, foot: number) {
+function addShoeDetails(b: PartBuilder, x0: number, foot: number, cells: ShoeCells) {
   if (lowDetail()) return;
   const tongue = new RoundedBoxGeometry(0.05, 0.05, 0.012, 1, 0.005);
   tongue.rotateX(-0.45);
   tongue.translate(x0, 0.1, 0.008);
-  b.add(tongue, { name: "shoe-tongue", color: "#ffffff", tile: swatch("tongue"), skin: foot });
+  b.add(tongue, { name: "shoe-tongue", color: "#ffffff", tile: cells.tongue, skin: foot });
   for (let i = 0; i < 4; i++) {
     const z = -0.008 + i * 0.022;
     const y = 0.083 - i * 0.0075;
     const lace = new THREE.BoxGeometry(0.056 - i * 0.003, 0.0045, 0.006);
     lace.rotateX(-0.3);
     lace.translate(x0, y + 0.006, z);
-    b.add(lace, { name: "lace", color: "#b9c4c0", tile: swatch("lace"), skin: foot });
+    b.add(lace, { name: "lace", color: "#b9c4c0", tile: cells.lace, skin: foot });
   }
   // Side stripe sweeping from heel to midfoot on both faces of the upper.
   for (const face of [-1, 1]) {
@@ -578,32 +627,45 @@ function addShoeDetails(b: PartBuilder, x0: number, foot: number) {
       ],
       { width: (t) => 0.007 * (1 - t * 0.6), thickness: () => 0.0018, outward: [face, 0, 0], segments: 8, around: 6 },
     );
-    b.add(stripe.geometry, { name: "shoe-stripe", color: "#ffffff", tile: swatch("accent"), skin: foot });
+    b.add(stripe.geometry, { name: "shoe-stripe", color: "#ffffff", tile: cells.accent, skin: foot, slot: cells.accentSlot });
   }
   const heelTab = new RoundedBoxGeometry(0.03, 0.035, 0.01, 1, 0.004);
   heelTab.translate(x0, 0.085, -0.088);
-  b.add(heelTab, { name: "heel-tab", color: "#ffffff", tile: swatch("accent"), skin: foot });
+  b.add(heelTab, { name: "heel-tab", color: "#ffffff", tile: cells.accent, skin: foot, slot: cells.accentSlot });
 }
 
-function soleAndStripe(b: PartBuilder, x0: number, foot: number) {
+function soleAndStripe(b: PartBuilder, x0: number, foot: number, cells: ShoeCells) {
   const outline = new THREE.Shape();
   const hw = 0.047;
   outline.moveTo(-0.04, -0.083);
   outline.quadraticCurveTo(0, -0.098, 0.04, -0.083);
   outline.quadraticCurveTo(hw + 0.006, 0.02, hw + 0.006, 0.09);
-  outline.quadraticCurveTo(hw, 0.188, 0, 0.193);
-  outline.quadraticCurveTo(-hw, 0.188, -hw - 0.004, 0.09);
+  outline.quadraticCurveTo(hw, 0.197, 0, 0.202);
+  outline.quadraticCurveTo(-hw, 0.197, -hw - 0.004, 0.09);
   outline.quadraticCurveTo(-hw - 0.002, 0.02, -0.04, -0.083);
   const sole = new ExtrudeGeometry(outline, { depth: 0.02, bevelEnabled: true, bevelThickness: 0.004, bevelSize: 0.004, bevelSegments: 1, curveSegments: lod(6, 4) });
   sole.rotateX(Math.PI / 2);
   sole.translate(x0, 0.024, 0);
-  b.add(sole, { name: "sole", color: "#ffffff", tile: CELLS.sole, skin: foot, uvRepeat: [1, 1] });
+  springToe(sole);
+  b.add(sole, { name: "sole", color: "#ffffff", tile: cells.sole, skin: foot, uvRepeat: [1, 1] });
   // Jade midsole stripe, the one accent that ties shoes to the jacket.
   const stripe = new ExtrudeGeometry(outline, { depth: 0.005, bevelEnabled: false, curveSegments: lod(6, 4) });
   stripe.scale(1.012, 1.012, 1);
   stripe.rotateX(Math.PI / 2);
   stripe.translate(x0, 0.03, 0);
-  b.add(stripe, { name: "midsole-stripe", color: "#ffffff", tile: swatch("accent"), skin: foot });
+  springToe(stripe);
+  b.add(stripe, { name: "midsole-stripe", color: "#ffffff", tile: cells.accent, skin: foot, slot: cells.accentSlot });
+}
+
+/** Toe spring: the sole curves up ahead of the ball of the foot, as real soles do. */
+function springToe(g: THREE.BufferGeometry) {
+  const pos = g.attributes.position;
+  for (let i = 0; i < pos.count; i++) {
+    const z = pos.getZ(i);
+    if (z > 0.12) pos.setY(i, pos.getY(i) + Math.pow((z - 0.12) / 0.075, 2) * 0.012);
+  }
+  pos.needsUpdate = true;
+  g.computeVertexNormals();
 }
 
 export function roundTip(t: number) {
@@ -611,7 +673,7 @@ export function roundTip(t: number) {
 }
 
 /** Normalised arc-length parameter of point `i` along a polyline of centres. */
-function paramAt(points: V3[], i: number) {
+export function paramAt(points: V3[], i: number) {
   let total = 0;
   let upto = 0;
   for (let k = 1; k < points.length; k++) {

@@ -20,7 +20,7 @@ const tmp = new THREE.Vector3();
 const PLAYER_R = 0.42;
 
 /** QA photo camera (art review captures only); null during normal play. */
-let photo: { distance: number; height: number; yaw: number; lookY: number } | null = null;
+let photo: { distance: number; height: number; yaw: number; lookY: number; target?: { x: number; y: number; z: number } } | null = null;
 const CAM_R = 0.7;
 const BASE_FOV = 58;
 const SPRINT_FOV = 63;
@@ -51,6 +51,8 @@ export function AdventurePlayer() {
    *  steps reads as a climb, not a 6 Hz stutter. */
   const visualY = useRef(pos.current.y);
   const speedRef = useRef(0);
+  /** Gait speed for animation: the intended pace while input pushes into a wall. */
+  const strideRef = useRef(0);
   const lookRef = useRef({ yaw: 0, pitch: 0 });
   const hudAcc = useRef(0);
   const dodgeTime = useRef(0);
@@ -266,6 +268,10 @@ export function AdventurePlayer() {
     if (frozen) vel.current.set(0, 0, 0);
     const sp = Math.hypot(vel.current.x, vel.current.z);
     speedRef.current = sp;
+    // Pushing against a wall or a too-high step zeroes velocity; keep a slow
+    // stride in place instead of an idle stand while the stick is held.
+    const intended = !frozen && mag > 0.001 ? moveTargetSpeed(actions.moveX, actions.moveY, actions.sprint) : 0;
+    strideRef.current = Math.max(sp, intended * 0.45);
     if (sp > 0.4) {
       const nx = pos.current.x + vel.current.x * delta;
       const nz = pos.current.z + vel.current.z * delta;
@@ -361,12 +367,9 @@ export function AdventurePlayer() {
     }
 
     if (photo) {
-      camera.position.set(
-        pos.current.x + Math.sin(photo.yaw) * photo.distance,
-        visualY.current + photo.height,
-        pos.current.z + Math.cos(photo.yaw) * photo.distance,
-      );
-      camera.lookAt(pos.current.x, visualY.current + photo.lookY, pos.current.z);
+      const c = photo.target ?? { x: pos.current.x, y: visualY.current, z: pos.current.z };
+      camera.position.set(c.x + Math.sin(photo.yaw) * photo.distance, c.y + photo.height, c.z + Math.cos(photo.yaw) * photo.distance);
+      camera.lookAt(c.x, c.y + photo.lookY, c.z);
       return;
     }
 
@@ -419,7 +422,7 @@ export function AdventurePlayer() {
     <group ref={group}>
       <ArtBoundary id="char.student-kit" fallback={standIn} onFail={(m) => useRpg.getState().notify(m)}>
         <Suspense fallback={standIn}>
-          <Protagonist speedRef={speedRef} lookRef={lookRef} actionRef={actionRef} />
+          <Protagonist speedRef={strideRef} lookRef={lookRef} actionRef={actionRef} />
         </Suspense>
       </ArtBoundary>
     </group>

@@ -61,3 +61,46 @@ J 普攻、Space 閃避、Q 結構脈衝。錄影 80 秒（`m1-lantern-avenue-ga
 - 真機 FPS、溫度、觸控：pending-device。
 - reduced-motion 與低畫質的技能／怪物畫面：程式路徑已實作（無擴張、無粒子、固定預警），本輪尚未留截圖。
 - 背包在各動作中的數值穿模檢查：只做靜止姿勢與目視。
+
+## 第 2 輪（NPC 與三種怪物）— 2026-11-11
+
+提交 `e3537e0`、`6fec50b`、`7ec1984`。
+
+### 自動檢查
+
+| 命令 | 結果 |
+| --- | --- |
+| `npm run typecheck` | 通過 |
+| `npm test` | 219 通過 / 0 失敗 |
+| `npm run art:validate -- --rebuild` | 0 錯誤、0 警告；七件 GLB 重建位元組相同 |
+
+新增測試：NPC 部件共骨架、權重和為 1、著色槽 1–11 或 255；五組預設齊全且兩兩至少差 4 個部件、可合併、三角形 ≤ 10,000，並與 `Npcs.tsx` 的 `ROSTER` 一致。四種怪物都有六段動畫，attack／hurt 回到靜止，defeat 縮小到 ≤ 0.5；正面剪影在身高正規化後 IoU：quiz/report 0.49、quiz/exam 0.45、quiz/final 0.65、report/exam 0.25、report/final 0.46、exam/final 0.42（重上色自己對自己是 1.00，會失敗）。衝刺 90 幀頭部注視仍等於單次偏移。兩個網格共用的骨架只釋放一次骨骼貼圖。
+
+### 畫面（`?qa=1` 定步，高畫質，真實規則）
+
+| 對象 | 證據 | 紀錄 |
+| --- | --- | --- |
+| 五名 NPC | `evidence/m2/npcs-front.jpg`、`npcs-side.jpg` | 各在自己的路線上行走，無頁面錯誤 |
+| 主角鞋與手 | `evidence/m2/protagonist-shoes-hands.jpg` | 圓頭鞋、分開的手指 |
+| report-1 | `creature-report-turn.jpg`、`creature-report-fight.jpg` | 追擊；前搖 1.20 s 的 40%／85%；出手後玩家 84 血；普攻 145→125；擊倒 hp 0 |
+| exam-1 | `creature-exam-turn.jpg`、`creature-exam-fight.jpg` | 前搖 1.40 s；出手後玩家 78 血；普攻 240→220；擊倒 |
+| final-1 | `creature-final-turn.jpg`、`creature-final-fight.jpg`、`creature-final-open.jpg` | 前搖 1.60 s；出手後玩家 72 血；普攻 520→500；擊倒。出生點在樹蔭下；空地（宮燈大道 0, -130）的正面與背面輪廓清楚 |
+
+exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。戰鬥時序是這輪的驗收依據。
+
+## 第 3 輪（八學院技能）— 2026-11-11
+
+`npm test` 222 通過 / 0 失敗。宮燈大道上對 quiz-2 呼叫真正的 `attack(true)`，定步拍下出手後約 0.43 秒。每次施放前把 quiz-2 血量設回 200，否則後面的學院打到已倒下的目標、`hits` 為 0。
+
+| 學院 | 範圍 | 命中 | 畫面 |
+| --- | --- | --- | --- |
+| science | 10 | 1 | 貼地的兩道反向環 |
+| humanities | 14 | 1 | 沿路展開的絲帶 |
+| business | 12 | 1 | 金幣飛向目標 |
+| language | 16 | 1 | 三個符文繞行，紅色預警仍可見 |
+| education | 13 | 1 | 半透明黑板圓，預警圈在上面 |
+| international | 14 | 1 | 兩道弧在路中央會合 |
+| computing | 14 | 1 | 環狀掃描格 |
+| health | 12 | 1 | 淡綠半球，目標與血條仍可讀 |
+
+總覽：`docs/art/evidence/m2/college-skills.jpg`。

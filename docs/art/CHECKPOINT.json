@@ -1,13 +1,46 @@
 {
-  "updated": "2026-11-11T13:40:00Z",
-  "task_ids": ["ART-001", "ART-002", "ART-010", "ART-011", "ART-012", "ART-013", "ART-014", "ART-020", "ART-021", "ART-022", "ART-023", "ART-024", "ART-033", "ART-100"],
+  "updated": "2026-11-11T15:50:00Z",
+  "task_ids": [
+    "ART-051",
+    "ART-052",
+    "ART-053",
+    "ART-054",
+    "ART-055",
+    "ART-056",
+    "ART-057",
+    "ART-058"
+  ],
   "branch": "cursor/tamkang-art-pipeline-1a71",
   "base": "main@71f4d3c4742fab66b0d82edff38c7e6c39497f67",
   "commits": [
-    { "sha": "cad192d", "summary": "baseline, QA store seam, route capture" },
-    { "sha": "cbec4f6", "summary": "art pipeline, student kit protagonist, layered animator, load fallback" },
-    { "sha": "93ed99b", "summary": "quiz creature, StructuralPulse, QA fixed-step clock" },
-    { "sha": "bad40fa", "summary": "protagonist LOD1 for the low tier" }
+    {
+      "sha": "cad192d",
+      "summary": "baseline, QA store seam, route capture"
+    },
+    {
+      "sha": "cbec4f6",
+      "summary": "art pipeline, student kit protagonist, layered animator, load fallback"
+    },
+    {
+      "sha": "93ed99b",
+      "summary": "quiz creature, StructuralPulse, QA fixed-step clock"
+    },
+    {
+      "sha": "bad40fa",
+      "summary": "protagonist LOD1 for the low tier"
+    },
+    {
+      "sha": "e3537e0",
+      "summary": "protagonist shoes and fingers, NPC kit, walk-in-place when blocked"
+    },
+    {
+      "sha": "6fec50b",
+      "summary": "report, exam, final creatures and shared CreatureActor"
+    },
+    {
+      "sha": "7ec1984",
+      "summary": "bounded head glance; dispose cloned skeleton bone textures"
+    }
   ],
   "modified": {
     "added": [
@@ -29,21 +62,36 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "215 pass / 0 fail",
+    "npm_test": "222 pass / 0 fail",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "pass (existing >500 kB chunk warning)",
+    "build_site": "not re-run this round",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
     "docs/art/evidence/baseline/",
     "docs/art/evidence/m1/ (protagonist-*, combat-*, realplay/, route/)",
-    "artifact: m1-lantern-avenue-gameplay.mp4"
+    "artifact: m1-lantern-avenue-gameplay.mp4",
+    "docs/art/evidence/m2/"
   ],
-  "known_issues": ["KI-02", "KI-03", "KI-04", "KI-05", "KI-06", "KI-09", "KI-10", "KI-11", "KI-12", "KI-13", "KI-14", "KI-17", "KI-18"],
+  "known_issues": [
+    "KI-02",
+    "KI-03",
+    "KI-04",
+    "KI-05",
+    "KI-06",
+    "KI-09",
+    "KI-10",
+    "KI-11",
+    "KI-12",
+    "KI-13",
+    "KI-14",
+    "KI-17",
+    "KI-18"
+  ],
   "blocked": {
     "ART-016": "no Blender on host",
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-025: refine the sneaker last (taller rounded toe box) and finger separation in art/characters/student-kit/body.ts, add a blocked-walk signal from AdventurePlayer so the protagonist walks in place against walls; re-export, art:validate --rebuild, turnaround + combat captures. Then ART-030: extend the student kit with NPC parts (3 builds, 4 hair, 4 outfits, 4 accessories) and map src/game/Npcs.tsx roles to presets, using LOD1 for crowds."
+  "next_action": "ART-032: a distinct cast pose per discipline on the shared rig, triggered with the skill. Then ART-059 the basic-attack arc. Then ART-060: regenerate the 64-record campus registry, keep permanentId/saveKey/aliasOf, and record estimated vs mapped per non-alias."
 }

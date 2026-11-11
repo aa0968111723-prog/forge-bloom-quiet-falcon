@@ -13,8 +13,12 @@ import * as THREE from "three";
 import { inspectGlb } from "./art/lib/glb.mjs";
 import { checkGlb, rebuildCheck, validate } from "./art/validate-assets.mjs";
 import { buildStudentKit } from "../art/characters/student-kit/kit.ts";
-import { STRIDE } from "../art/characters/student-kit/clips.ts";
+import { STRIDE, allClips } from "../art/characters/student-kit/clips.ts";
+import { CharacterAnimator } from "../src/game/art/character/animator.ts";
+import { releaseArtInstance } from "../src/game/art/release.ts";
+import { COLLEGE_CASTS, COLLEGE_CAST_LIFE, buildCollegeCasts, layoutCollegeCast } from "../src/game/art/vfx/college-casts.ts";
 import { JACKET_RINGS } from "../art/characters/student-kit/body.ts";
+import { BONE_NAMES } from "../art/characters/student-kit/skeleton.ts";
 import { WALK, SPRINT } from "../src/game/rpg/move.ts";
 
 const KIT_RECORD = JSON.parse(readFileSync(new URL("../art/assets.json", import.meta.url))).assets.find(
@@ -195,4 +199,257 @@ test("foot slip at walk and sprint speed stays under 15 %", () => {
   console.log(`foot slip: walk ${(walk.slip * 100).toFixed(1)} % (${walk.footSpeed.toFixed(2)} vs ${WALK} m/s), run ${(run.slip * 100).toFixed(1)} % (${run.footSpeed.toFixed(2)} vs ${SPRINT} m/s)`);
   assert.ok(walk.slip < 0.15, `walk slip ${walk.slip}`);
   assert.ok(run.slip < 0.15, `run slip ${run.slip}`);
+});
+
+test("a glance while sprinting stays a bounded offset, because gait clips omit the head", () => {
+  const root = new THREE.Group();
+  for (const name of BONE_NAMES) {
+    const bone = new THREE.Bone();
+    bone.name = name;
+    root.add(bone);
+  }
+  const head = root.getObjectByName("head");
+  const anim = new CharacterAnimator(root, allClips(), {
+    upperBody: ["head"],
+    layers: {},
+    stride: STRIDE,
+  });
+  const glance = 0.4 * 0.55;
+  let bare = 0;
+  for (let i = 0; i < 90; i++) {
+    bare += glance;
+    head.quaternion.identity();
+    anim.update(1 / 30, SPRINT);
+    head.rotation.y += glance;
+  }
+  assert.ok(Math.abs(head.rotation.y - glance) < 0.02, `head yaw drifted to ${head.rotation.y}; stacking would reach ${bare.toFixed(1)}`);
+  anim.dispose();
+});
+
+test("each college skill is a different shape that reaches the cast range", () => {
+  const root = buildCollegeCasts(true);
+  assert.deepEqual(
+    root.children.map((c) => c.name).sort(),
+    [...COLLEGE_CASTS].sort(),
+  );
+  const shapes = new Set(root.children.map((c) => c.userData.shape));
+  assert.equal(shapes.size, COLLEGE_CASTS.length);
+  const frame = {
+    age: 0.22,
+    range: 14,
+    yaw: 0.4,
+    reduced: false,
+    center: { x: 1, y: 0, z: -3 },
+    hits: [{ x: 4, y: 0, z: -6 }],
+    player: { x: 1, y: 0, z: 1 },
+  };
+  for (const group of root.children) {
+    assert.equal(layoutCollegeCast(group, frame), true, group.name);
+    const travel = group.getObjectByName("travel");
+    if (["counter-rings", "board", "meeting-arcs", "dome"].includes(group.userData.shape)) {
+      assert.ok(Math.abs(travel.scale.x - 14) < 0.05, `${group.name} reach ${travel.scale.x}`);
+    }
+    if (group.userData.shape === "ribbon") assert.ok(Math.abs(travel.scale.z - 14) < 0.05, "ribbon runs forward");
+    if (group.userData.shape === "counter-rings") {
+      const ringMesh = travel.getObjectByName("outer").children[0];
+      assert.ok(Math.abs(ringMesh.rotation.x + Math.PI / 2) < 1e-6 && Math.abs(ringMesh.rotation.y) < 1e-6 && Math.abs(ringMesh.rotation.z) < 1e-6, "resonance rings stay flat");
+    }
+    assert.equal(group.getObjectByName("impact0").visible, true, group.name);
+    assert.equal(group.getObjectByName("impact1").visible, false, `${group.name} has no second hit`);
+  }
+  frame.age = COLLEGE_CAST_LIFE + 0.05;
+  assert.equal(layoutCollegeCast(root.children[0], frame), false);
+  frame.age = 0;
+  frame.reduced = true;
+  const science = root.getObjectByName("science");
+  layoutCollegeCast(science, frame);
+  assert.ok(Math.abs(science.getObjectByName("travel").scale.x - 14) < 0.05, "reduced motion shows full range at once");
+});
+
+test("releasing an art instance disposes shared skeletons once and frees the bone texture", () => {
+  const bone = new THREE.Bone();
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute([0, 0, 0, 1, 0, 0, 0, 1, 0], 3));
+  const skeleton = new THREE.Skeleton([bone]);
+  skeleton.computeBoneTexture();
+  const texture = skeleton.boneTexture;
+  assert.ok(texture);
+  const material = new THREE.MeshStandardMaterial();
+  let materialsDisposed = 0;
+  material.dispose = () => {
+    materialsDisposed += 1;
+  };
+  const mesh = new THREE.SkinnedMesh(geometry, material);
+  const second = new THREE.SkinnedMesh(geometry, material);
+  mesh.add(bone);
+  mesh.bind(skeleton);
+  second.bind(skeleton);
+  const root = new THREE.Group();
+  root.add(mesh, second);
+  let texturesDisposed = 0;
+  texture.dispose = () => {
+    texturesDisposed += 1;
+  };
+  releaseArtInstance(root, [material]);
+  assert.equal(texturesDisposed, 1, "two meshes share one skeleton");
+  assert.equal(skeleton.boneTexture, null);
+  assert.equal(materialsDisposed, 1);
+  geometry.dispose();
+});
+
+// ---------------------------------------------------------------- NPC kit
+
+const { buildNpcKit } = await import("../art/characters/npc-kit/kit.ts");
+const { NPC_PARTS } = await import("../art/characters/npc-kit/parts.ts");
+const { NPC_ROSTER } = await import("../art/characters/npc-kit/roster.ts");
+const { mergeGeometries } = await import("three/examples/jsm/utils/BufferGeometryUtils.js");
+const npc = buildNpcKit();
+const npcMeshes = [];
+npc.scene.traverse((o) => o.isSkinnedMesh && npcMeshes.push(o));
+
+test("NPC parts share one skeleton, weights sum to one, tint slots are known", () => {
+  const skeleton = npcMeshes[0].skeleton;
+  assert.equal(npcMeshes.length, NPC_PARTS.length);
+  for (const mesh of npcMeshes) {
+    assert.equal(mesh.skeleton, skeleton, `${mesh.name} has its own skeleton`);
+    const g = mesh.geometry;
+    const w = g.attributes.skinWeight;
+    const j = g.attributes.skinIndex;
+    for (let i = 0; i < w.count; i++) {
+      assert.ok(Math.abs(w.getX(i) + w.getY(i) + w.getZ(i) + w.getW(i) - 1) < 0.01, `${mesh.name} vertex ${i} weights`);
+      for (const k of [j.getX(i), j.getY(i), j.getZ(i), j.getW(i)]) assert.ok(k < skeleton.bones.length);
+    }
+    const color = g.attributes.color.array;
+    for (let i = 3; i < color.length; i += 4) assert.ok(color[i] === 255 || (color[i] >= 1 && color[i] <= 11), `${mesh.name} slot ${color[i]}`);
+  }
+});
+
+test("every roster preset is a complete, distinct person under budget that merges into one mesh", () => {
+  const ids = new Set(NPC_PARTS.map((p) => p.id));
+  const npcsSource = readFileSync(new URL("../src/game/Npcs.tsx", import.meta.url), "utf8");
+  const roster = JSON.parse(npcsSource.match(/const ROSTER = (\[[^\]]*\])/)[1]);
+  assert.deepEqual(roster, NPC_ROSTER.map((p) => p.id), "Npcs.tsx walkers and roster presets differ");
+  const paths = (npcsSource.match(/const PATHS[\s\S]*?\n\];/)[0].match(/\/\/ /g) ?? []).length;
+  assert.equal(paths, NPC_ROSTER.length, "one preset per walking path");
+  for (const preset of NPC_ROSTER) {
+    for (const part of preset.parts) assert.ok(ids.has(part), `${preset.id}: unknown part ${part}`);
+    for (const slot of ["head", "hair", "top", "bottom", "shoes"]) {
+      assert.equal(preset.parts.filter((p) => p.startsWith(`${slot}:`)).length, 1, `${preset.id} needs exactly one ${slot}`);
+    }
+    assert.ok(npc.presetTriangles[preset.id] <= 10000, `${preset.id}: ${npc.presetTriangles[preset.id]} triangles`);
+    const merged = mergeGeometries(preset.parts.map((id) => npcMeshes.find((m) => m.name === `part_${id.replace(/[^A-Za-z0-9-]/g, "_")}`).geometry));
+    assert.ok(merged, `${preset.id} parts cannot be merged`);
+  }
+  for (let a = 0; a < NPC_ROSTER.length; a++) {
+    for (let b = a + 1; b < NPC_ROSTER.length; b++) {
+      const A = new Set(NPC_ROSTER[a].parts);
+      const differing = NPC_ROSTER[b].parts.filter((p) => !A.has(p)).length + NPC_ROSTER[a].parts.filter((p) => !NPC_ROSTER[b].parts.includes(p)).length;
+      assert.ok(differing >= 4, `${NPC_ROSTER[a].id} and ${NPC_ROSTER[b].id} differ in only ${differing} parts`);
+    }
+  }
+});
+
+// ---------------------------------------------------------------- creatures
+
+const creatures = {
+  quiz: (await import("../art/creatures/quiz/quiz.ts")).buildQuiz(),
+  report: (await import("../art/creatures/report/report.ts")).buildReport(),
+  exam: (await import("../art/creatures/exam/exam.ts")).buildExam(),
+  final: (await import("../art/creatures/final/final.ts")).buildFinal(),
+};
+
+test("every creature has the six state clips; strikes return to rest and defeats collapse", () => {
+  for (const [kind, c] of Object.entries(creatures)) {
+    const mesh = c.scene.getObjectByProperty("isSkinnedMesh", true);
+    const bones = new Set(mesh.skeleton.bones.map((b) => b.name));
+    const names = c.clips.map((x) => x.name).sort();
+    assert.deepEqual(names, ["attack", "chase", "defeat", "hurt", "idle", "windup"], kind);
+    for (const clip of c.clips) {
+      for (const track of clip.tracks) {
+        assert.ok(bones.has(track.name.split(".")[0]), `${kind}/${clip.name} drives unknown ${track.name}`);
+        if (track.name.endsWith(".quaternion")) {
+          for (let i = 0; i < track.values.length; i += 4) {
+            const v = track.values;
+            assert.ok(Math.abs(Math.hypot(v[i], v[i + 1], v[i + 2], v[i + 3]) - 1) < 1e-4, `${kind}/${clip.name} quaternion`);
+          }
+        }
+      }
+      const loop = clip.name === "idle" || clip.name === "chase";
+      const endsAtRest = clip.name === "attack" || clip.name === "hurt";
+      for (const track of clip.tracks.filter((t) => t.name.endsWith(".quaternion"))) {
+        const v = track.values;
+        const n = v.length;
+        if (loop) {
+          const d = Math.abs(v[0] * v[n - 4] + v[1] * v[n - 3] + v[2] * v[n - 2] + v[3] * v[n - 1]);
+          assert.ok(d > 0.9999, `${kind}/${clip.name} ${track.name} loop seam`);
+        }
+        if (endsAtRest) assert.ok(Math.abs(v[n - 1]) > 0.9999, `${kind}/${clip.name} ${track.name} does not return to rest`);
+      }
+    }
+    const defeat = c.clips.find((x) => x.name === "defeat");
+    const scale = defeat.tracks.find((t) => t.name.endsWith(".scale"));
+    assert.ok(scale && scale.values[scale.values.length - 1] <= 0.5, `${kind} defeat does not collapse`);
+  }
+});
+
+/** Front-view coverage mask, normalised to the creature's own height (shape, not size). */
+function frontSilhouette(mesh, n = 40) {
+  const g = mesh.geometry;
+  g.computeBoundingBox();
+  const b = g.boundingBox;
+  const h = b.max.y - b.min.y;
+  const cx = (b.max.x + b.min.x) / 2;
+  const pos = g.attributes.position;
+  const idx = g.index.array;
+  const grid = new Uint8Array(n * n);
+  const to = (i) => [((pos.getX(i) - cx) / h + 0.75) / 1.5 * n, ((pos.getY(i) - b.min.y) / h) * n];
+  for (let t = 0; t < idx.length; t += 3) {
+    const [a, c, d] = [to(idx[t]), to(idx[t + 1]), to(idx[t + 2])];
+    const area = (c[0] - a[0]) * (d[1] - a[1]) - (d[0] - a[0]) * (c[1] - a[1]);
+    if (Math.abs(area) < 1e-9) continue;
+    const x0 = Math.max(0, Math.floor(Math.min(a[0], c[0], d[0])));
+    const x1 = Math.min(n - 1, Math.ceil(Math.max(a[0], c[0], d[0])));
+    const y0 = Math.max(0, Math.floor(Math.min(a[1], c[1], d[1])));
+    const y1 = Math.min(n - 1, Math.ceil(Math.max(a[1], c[1], d[1])));
+    for (let y = y0; y <= y1; y++) {
+      for (let x = x0; x <= x1; x++) {
+        const px = x + 0.5;
+        const py = y + 0.5;
+        const w0 = ((c[0] - px) * (d[1] - py) - (d[0] - px) * (c[1] - py)) / area;
+        const w1 = ((d[0] - px) * (a[1] - py) - (a[0] - px) * (d[1] - py)) / area;
+        if (w0 >= 0 && w1 >= 0 && w0 + w1 <= 1) grid[y * n + x] = 1;
+      }
+    }
+  }
+  return grid;
+}
+
+test("each creature has its own silhouette, not a recolour", () => {
+  const size = {};
+  const mask = {};
+  for (const [kind, c] of Object.entries(creatures)) {
+    const mesh = c.scene.getObjectByProperty("isSkinnedMesh", true);
+    mesh.geometry.computeBoundingBox();
+    const b = mesh.geometry.boundingBox;
+    const s = b.getSize(new THREE.Vector3());
+    size[kind] = { w: s.x, h: s.y, minY: b.min.y };
+    mask[kind] = frontSilhouette(mesh);
+  }
+  assert.ok(size.quiz.minY > 0.25, `quiz should float clear of the ground ${JSON.stringify(size.quiz)}`);
+  assert.ok(size.report.w / size.report.h > 1.3, `report should be wide and squat ${JSON.stringify(size.report)}`);
+  assert.ok(size.exam.h > 2.2 && size.exam.h / size.exam.w > 1.5, `exam should be tall and narrow ${JSON.stringify(size.exam)}`);
+  assert.ok(size.final.w > 2.5 && size.final.h > 2.6, `final should be the biggest ${JSON.stringify(size.final)}`);
+  const kinds = Object.keys(mask);
+  for (let a = 0; a < kinds.length; a++) {
+    for (let b = a + 1; b < kinds.length; b++) {
+      let both = 0;
+      let either = 0;
+      for (let i = 0; i < mask[kinds[a]].length; i++) {
+        both += mask[kinds[a]][i] & mask[kinds[b]][i];
+        either += mask[kinds[a]][i] | mask[kinds[b]][i];
+      }
+      const iou = both / either;
+      assert.ok(iou < 0.7, `${kinds[a]} and ${kinds[b]} front silhouettes overlap ${iou.toFixed(2)} after height normalisation`);
+    }
+  }
 });

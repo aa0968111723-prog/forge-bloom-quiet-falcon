@@ -11,6 +11,7 @@
  * sleeve or a leg meet without a seam.
  */
 import { Raster, hex, mixColor, pfbm, shade, type RGBA } from "../../shared/raster.ts";
+import { paintAnimeFace, type FaceStyle } from "../../shared/face.ts";
 import type { AtlasRect } from "../../shared/builder.ts";
 import { STUDENT_KIT } from "./spec.ts";
 
@@ -172,85 +173,33 @@ export function paintAtlas(): Raster {
   return r;
 }
 
-/** Convert face-local (u right, v up) into atlas pixels, matching PartBuilder's padding. */
-function facePx(u: number, vUp: number): [number, number] {
-  const f = CELLS.face;
-  return [f.x + PAD + u * (f.w - PAD * 2), f.y + PAD + (1 - vUp) * (f.h - PAD * 2)];
-}
-
-/** Metres on the face plane (x right, y up, relative to skull centre) → pixels. */
-function faceMetres(x: number, y: number): [number, number] {
-  return facePx(0.5 + x / (FACE_EXTENT.halfWidth * 2), 0.5 + y / (FACE_EXTENT.halfHeight * 2));
-}
+/** The protagonist's face, drawn by the shared anime face painter. */
+export const STUDENT_FACE: FaceStyle = {
+  eyeLine: STUDENT_KIT.head.eyeLine,
+  eyeSpacing: STUDENT_KIT.head.eyeSpacing,
+  halfWidth: FACE_EXTENT.halfWidth,
+  halfHeight: FACE_EXTENT.halfHeight,
+  pad: PAD,
+  scale: 1.15,
+  eyeOpen: 1,
+  irisTop: P.eyeIrisTop,
+  irisBottom: P.eyeIrisBottom,
+  lash: P.lash,
+  brow: P.brow,
+  blush: P.blush,
+  lip: P.lip,
+  skinShade: P.skinShade,
+  lashWeight: 1,
+  flick: true,
+  browLift: 0.039,
+  browWeight: [2.8, 1.1],
+  browArch: 3.5,
+  browTilt: 0,
+  blushAlpha: 0.32,
+  blushHatch: true,
+  mouth: "smile",
+};
 
 function paintFace(r: Raster) {
-  const { eyeLine, eyeSpacing } = STUDENT_KIT.head;
-  const pxPerM = (CELLS.face.w - PAD * 2) / (FACE_EXTENT.halfWidth * 2);
-  // Pixels per millimetre; eye features are drawn 15 % over life size, as anime eyes are.
-  const k = (pxPerM / 1000) * 1.15;
-  const lash = hex(P.lash);
-  const brow = hex(P.brow);
-  const irisTop = hex(P.eyeIrisTop);
-  const irisBottom = hex(P.eyeIrisBottom);
-
-  // Blush first so the eyes sit on top of it.
-  for (const side of [-1, 1]) {
-    const [bx, by] = faceMetres(side * 0.052, eyeLine - 0.034);
-    r.ellipse(bx, by, 11 * k * 1.1, 5.5 * k * 1.1, hex(P.blush, 0.32), 0, 4);
-    for (let i = 0; i < 3; i++) {
-      const x0 = bx - 5 * k + i * 4 * k;
-      r.stroke([[x0, by + 2.5 * k], [x0 + 2.5 * k, by - 2.5 * k]], 1.1, 0.9, hex(P.blush, 0.55));
-    }
-  }
-
-  for (const side of [-1, 1]) {
-    // `side` is +1 for the character's left (+X), which reads on the viewer's right.
-    const [cx, cy] = faceMetres(side * eyeSpacing, eyeLine);
-    const out = side; // outer corner direction in pixels
-    const mm = (x: number, y: number): [number, number] => [cx + x * k * out, cy + y * k];
-
-    // Sclera under the lid line.
-    r.ellipse(cx, cy + 2 * k, 17.5 * k, 18.5 * k, hex("#fbf7f1"), 0, 1.2);
-    // Iris with a vertical gradient, a darker rim and lid shadow on top.
-    const irisR = [11.5 * k, 17.5 * k];
-    const [ix, iy] = [cx - out * 1.2 * k, cy + 1.5 * k];
-    for (let y = Math.floor(iy - irisR[1] - 2); y <= Math.ceil(iy + irisR[1] + 2); y++) {
-      for (let x = Math.floor(ix - irisR[0] - 2); x <= Math.ceil(ix + irisR[0] + 2); x++) {
-        const d = Math.hypot((x + 0.5 - ix) / irisR[0], (y + 0.5 - iy) / irisR[1]);
-        if (d > 1.06) continue;
-        const ty = (y + 0.5 - (iy - irisR[1])) / (irisR[1] * 2);
-        let c = mixColor(irisTop, irisBottom, Math.pow(Math.min(1, Math.max(0, ty - 0.15) / 0.85), 1.2));
-        if (d > 0.84) c = shade(c, 0.55);
-        if (ty < 0.38) c = shade(c, 0.6 + ty);
-        r.blend(x, y, c, d > 1 ? (1.06 - d) / 0.06 : 1);
-      }
-    }
-    r.ellipse(ix, iy + 1 * k, 5.5 * k, 8.5 * k, hex("#1d1210"), 0, 1);
-    // Catch-lights: a large one up and outward, a small one low and inward.
-    r.ellipse(ix + out * 3.8 * k, iy - 6.5 * k, 4.2 * k, 5.4 * k, hex("#ffffff"), out * 0.35, 1);
-    r.ellipse(ix - out * 4.5 * k, iy + 8.5 * k, 2.1 * k, 2.1 * k, hex("#fff8ec", 0.9), 0, 1);
-    // Upper lash line with an outer flick, tapered.
-    r.stroke([mm(-17, -5), mm(-9, -16.5), mm(3, -19.5), mm(14, -15.5), mm(20.5, -8)], 2.2, 4.4, lash);
-    r.stroke([mm(18.5, -10), mm(23.5, -13.5), mm(26.5, -15)], 3.2, 0.8, lash);
-    r.stroke([mm(20, -7), mm(24, -6.5)], 2.0, 0.6, lash);
-    // Lower lid: short, soft, outer half only.
-    r.stroke([mm(3, 20.5), mm(10, 18.5), mm(16, 14)], 1.0, 1.6, hex(P.lash, 0.65));
-    // Brow: arched, thin, tapering outward.
-    const [bx, by] = faceMetres(side * (eyeSpacing + 0.003), eyeLine + 0.039);
-    r.curve(
-      [bx - out * 13 * k, by + 3 * k],
-      [bx + out * 1 * k, by - 3.5 * k],
-      [bx + out * 15 * k, by + 1.5 * k],
-      2.8,
-      1.1,
-      brow,
-    );
-  }
-
-  // Nose: a small warm shadow, not an outline.
-  const [nx, ny] = faceMetres(0.002, eyeLine - 0.03);
-  r.stroke([[nx - 0.5 * k, ny - 2.5 * k], [nx + 1.8 * k, ny + 2 * k]], 1.6, 1.2, hex(P.skinShade, 0.9));
-  // Mouth: a gentle smile.
-  const [mx, my] = faceMetres(0, eyeLine - 0.058);
-  r.curve([mx - 6.5 * k, my - 0.5 * k], [mx, my + 3.5 * k], [mx + 6.5 * k, my - 0.5 * k], 1.4, 1.4, hex(P.lip));
+  paintAnimeFace(r, CELLS.face, STUDENT_FACE);
 }

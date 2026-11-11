@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { clone as cloneSkinned } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { applyToon } from "../world/stylize";
 import { ART_MANIFEST, type ArtId } from "./art-manifest.gen";
-import { disposeOwnedArt, skeletonsIn } from "./instance";
+import { releaseArtInstance } from "./release";
 
 /**
  * Runtime side of the art pipeline: stable asset id → exported GLB.
@@ -48,11 +48,13 @@ export function useArtModel(id: ArtId): ArtInstance {
       mesh.material = material;
       owned.push(material);
     });
-    return { root, clips: gltf.animations, owned, skeletons: skeletonsIn(root) };
+    return { root, clips: gltf.animations, owned };
   }, [gltf, gl]);
-  useEffect(() => () => disposeOwnedArt(instance.owned, instance.skeletons), [instance]);
+  useEffect(() => () => releaseArtInstance(instance.root, instance.owned), [instance]);
   return instance;
 }
+
+export { releaseArtInstance };
 
 /** Load failures, kept for the QA seam and for the one-time notice. */
 export const artFailures: { id: string; message: string }[] = [];

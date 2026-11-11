@@ -8,7 +8,7 @@ import test from "node:test";
 import * as THREE from "three";
 import { applyHeadLook, captureLookBase, createLookPose, restoreLookBase } from "../src/game/art/character/look.ts";
 import { nextWindupProgress } from "../src/game/art/creatures/windup.ts";
-import { disposeOwnedArt, skeletonsIn } from "../src/game/art/instance.ts";
+import { releaseArtInstance } from "../src/game/art/release.ts";
 
 test("head glance stays on the clip pose while gait clips leave the head alone", () => {
   const neck = new THREE.Bone();
@@ -63,11 +63,14 @@ test("disposing an art instance frees bone textures and keeps shared geometry", 
   mesh.add(bone);
   const root = new THREE.Group();
   root.add(mesh);
-  const found = skeletonsIn(root);
-  assert.deepEqual(found, [skeleton]);
-  disposeOwnedArt([mesh.material], found);
+  const found = new Set();
+  root.traverse((object) => {
+    if (object.isSkinnedMesh && object.skeleton) found.add(object.skeleton);
+  });
+  assert.equal(found.size, 1);
+  releaseArtInstance(root, [mesh.material]);
   assert.equal(skeleton.boneTexture, null);
   assert.equal(geometryDisposals, 0);
-  disposeOwnedArt([mesh.material], found);
+  releaseArtInstance(root, [mesh.material]);
   assert.equal(geometryDisposals, 0);
 });

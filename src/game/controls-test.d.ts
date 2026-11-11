@@ -22,9 +22,13 @@ declare global {
      * Store access for scripted art/QA captures. Only installed when the page
      * is opened with `?qa=1`; the game never reads it.
      */
+    /** QA: where each roster walker is (`?qa=1` only). */
+    __npcQA?: { walkers: { id: string; x: number; y: number; z: number; yaw: number }[] };
     __rpgQA?: {
       rpg: typeof import("./rpg/store").useRpg;
       game: typeof import("./store").useGame;
+      /** Terrain height at a point (for placing QA cameras). */
+      ground?: (x: number, z: number) => number;
       /** Stop the render loop; frames then only advance through `step`. */
       freeze?: () => void;
       resume?: () => void;
@@ -43,7 +47,7 @@ declare global {
       /** Adjust camera yaw without resetting velocity. */
       setYaw?: (yaw: number) => void;
       /** QA photo camera orbiting the player; null restores the follow camera. */
-      setPhoto?: (p: { distance: number; height: number; yaw: number; lookY: number } | null) => void;
+      setPhoto?: (p: { distance: number; height: number; yaw: number; lookY: number; target?: { x: number; y: number; z: number } } | null) => void;
     };
   }
 }

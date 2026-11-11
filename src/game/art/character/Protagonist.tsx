@@ -122,7 +122,8 @@ export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
     captureLookBase(bones.neck, bones.head, lookPose.current);
     lookReady.current = true;
 
-    // One glance on the pose the clips just wrote. Not cumulative.
+    // One glance on the pose the clips just wrote. Resetting to identity would
+    // drop a bind pose the gait clips do not overwrite.
     applyHeadLook(bones.neck, bones.head, lookRef.current);
 
     // Secondary motion from the body's own velocity, in the character frame.

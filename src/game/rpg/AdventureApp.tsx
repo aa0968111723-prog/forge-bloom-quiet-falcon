@@ -11,6 +11,7 @@ import { AdventurePlayer } from "./AdventurePlayer";
 import { AdventureHud } from "./AdventureHud";
 import { AdventureSystems, CampusExtension, Interior, PromptMarks } from "./AdventureWorld";
 import { useRpg } from "./store";
+import { terrainHeight } from "../world";
 import { usePerformance } from "./performance";
 function PerformanceBudget() {
   const setDpr = useThree((s) => s.setDpr),
@@ -157,7 +158,7 @@ export default function AdventureApp() {
   }, []);
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("qa") !== "1") return;
-    window.__rpgQA = { rpg: useRpg, game: useGame };
+    window.__rpgQA = { rpg: useRpg, game: useGame, ground: terrainHeight };
     return () => {
       delete window.__rpgQA;
     };
