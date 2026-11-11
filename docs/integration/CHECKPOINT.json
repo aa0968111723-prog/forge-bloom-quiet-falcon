@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T21:12:00Z",
-  "branch": "main",
-  "mainSha": "ea5aef46bc03",
-  "gameSha": "d8f6df92c2e33898b9d08c8e016506823ca012e2",
-  "activeItem": "art-touch-icons",
-  "sourceHead": "2b8f9fb59c73f9cce51f4f5cb2dbc950eb6515e3",
-  "integrationHead": "d8f6df92c2e33898b9d08c8e016506823ca012e2",
+  "updated": "2026-11-11T21:20:00Z",
+  "branch": "cursor/integration-rain-tier-3395",
+  "mainSha": "a81566621292",
+  "gameSha": "5f2ce19d1da511d1e7507e4266321dc71a3195eb",
+  "activeItem": "art-rain-tier",
+  "sourceHead": "7f9fbe4e6b1171c43cdd953bb18f0f9acd532df4",
+  "integrationHead": "5f2ce19d1da511d1e7507e4266321dc71a3195eb",
   "verified": {
-    "phone": "Static high on 8109, game d8f6df9. 390x780 tool 44x44 and quickbar svg 24x24. 1280x720 tool 42x42 and skill glyph 21x21. pageErrors empty. SwiftShader.",
+    "rain": "Static on 8110, game 5f2ce19. Wet avenue at high 1280x720, low 1280x720, and high 390x780. pageErrors empty. SwiftShader. High is 320 streaks and low is 64.",
     "route": "Same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Phone icons are on main. Narrow tools are 44px and quickbar glyphs are 24px. Game code is d8f6df92c2e33898b9d08c8e016506823ca012e2. The patch from 2b8f9fb is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #62. Do not merge PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Outdoor rain follows the quality tier. Game code is 5f2ce19d1da511d1e7507e4266321dc71a3195eb, branched from origin/main a81566621292. The patch from 7f9fbe4 is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #61 by itself. Do not merge PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Re-fetch origin/main after this lands. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

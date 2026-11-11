@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-11T21:12:00Z",
+      "updated": "2026-11-11T21:20:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -921,6 +921,32 @@
       "integrationPr": 62,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/62",
       "nextAction": "None. The phone-icon patch from 2b8f9fb is already in this integration. Do not merge PR #59 by itself. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-rain-tier",
+      "line": "art",
+      "scope": "Wet weather draws outdoor rain: 320 streaks on high and 64 on low. Indoors it stays off. Phone icons, the shore, and combat stay.",
+      "status": "verified",
+      "pr": 61,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/61",
+      "integrationBranch": "cursor/integration-rain-tier-3395",
+      "sourceBranch": "cursor/weather-tier-1a71",
+      "baseSha": "a81566621292",
+      "headSha": "7f9fbe4e6b1171c43cdd953bb18f0f9acd532df4",
+      "dependencies": ["art-touch-icons"],
+      "sharedFiles": ["src/game/world/World.tsx", "src/game/world/Rain.tsx", "src/game/world/rain-count.ts"],
+      "checks": {
+        "conflicts": "Art checkpoint, handoff, status, and validation. Kept phone icons as round 21 and added rain as round 22. Capture keeps phone and vista, and adds rain.",
+        "typecheck": "pass",
+        "npmTest": "260 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8110. high 1280x720, low 1280x720, high 390x780 on the wet avenue. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "5f2ce19d1da511d1e7507e4266321dc71a3195eb",
+      "nextAction": "Open the integration PR and merge it. Source 7f9fbe4 is not an ancestor. Do not merge PR #61 by itself."
     }
   ]
 }
