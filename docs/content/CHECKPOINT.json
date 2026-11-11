@@ -1,0 +1,18 @@
+{
+  "updated": "2026-11-11T16:10:00Z",
+  "branch": "feature/game-content-world",
+  "base": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+  "contentRevision": 1,
+  "events": 10,
+  "arcQuests": 1,
+  "placeRows": 188,
+  "surveyed": 0,
+  "mainIntegration": false,
+  "targets": {
+    "arcQuests": 24,
+    "events": 120,
+    "claimedComplete": false
+  },
+  "next_action": "繼續寫互不重複的事件與第二條任務鏈；主場景接線要等美術場景入口與後端存檔契約都穩定，而且只能把白名單效果交回 grantQuestReward。",
+  "verify": "node --experimental-strip-types --test scripts/content-narrative.test.mjs"
+}

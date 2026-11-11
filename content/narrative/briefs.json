@@ -1,0 +1,98 @@
+[
+  {
+    "id": "brief-ui-icons",
+    "subject": "ui",
+    "style": "扁平、海軍藍與紙色，沒有寫實光影",
+    "size": "64 viewBox，介面上約 32 到 40 px",
+    "use": "敘事預覽的圖示",
+    "format": "svg",
+    "transparent": true,
+    "acceptance": "沒有外連圖片，邊緣是向量，手機寬度下仍分得出燈、筆記與方向",
+    "status": "ready",
+    "assetIds": ["ui-lantern", "ui-notes", "ui-compass"]
+  },
+  {
+    "id": "brief-illustration",
+    "subject": "illustration",
+    "style": "手繪概念圖，宮燈與紅牆綠瓦只作為造型，不模仿特定照片",
+    "size": "橫式 16:9，長邊不超過 1600",
+    "use": "任務鏈傍晚段的插圖",
+    "format": "png 或 webp",
+    "transparent": false,
+    "acceptance": "畫面上要能讀到「概念插畫」；不能標成實景照片或可走的 3D 場景",
+    "status": "pending",
+    "assetIds": ["concept-lantern-deadline"]
+  },
+  {
+    "id": "brief-characters",
+    "subject": "character",
+    "style": "與既有程式角色同一套比例。不新增 GLB，不改骨骼",
+    "size": "沿用 character/rig.ts",
+    "use": "九位虛構 NPC 只靠對話與名字區分",
+    "format": "不產新模型",
+    "transparent": false,
+    "acceptance": "不把虛構學生畫成真實校友或教職員",
+    "status": "pending",
+    "assetIds": []
+  },
+  {
+    "id": "brief-buildings",
+    "subject": "building",
+    "style": "沿用既有校園材質，不在這條分支改場景入口",
+    "size": "1 單位 1 公尺，未實測的維持 estimated",
+    "use": "七區建物參考，不是新的場景檔",
+    "format": "不產新的場景包",
+    "transparent": false,
+    "acceptance": "研究照片只留網址，不進 public/",
+    "status": "pending",
+    "assetIds": ["ref-library-exterior"]
+  },
+  {
+    "id": "brief-plants",
+    "subject": "plant",
+    "style": "既有 Quaternius 樹木",
+    "size": "沿用 vendor 模型",
+    "use": "場景植栽，敘事不新增",
+    "format": "glb",
+    "transparent": false,
+    "acceptance": "署名留在 ATTRIBUTION.md，不把 CC0 模型說成校園實景",
+    "status": "ready",
+    "assetIds": ["vendor-quaternius-kaykit"]
+  },
+  {
+    "id": "brief-props",
+    "subject": "prop",
+    "style": "既有 KayKit 街道小物與程式道具",
+    "size": "沿用 vendor",
+    "use": "長椅、路燈。敘事不新增道具圖",
+    "format": "gltf",
+    "transparent": false,
+    "acceptance": "CC0 署名與模型分開保留",
+    "status": "ready",
+    "assetIds": ["vendor-quaternius-kaykit"]
+  },
+  {
+    "id": "brief-skills",
+    "subject": "skill",
+    "style": "沿用九學院既有技能色，不新畫技能圖",
+    "size": "college-ability 圖示未製作",
+    "use": "選項可以提到技能 id，不改傷害數字",
+    "format": "未定",
+    "transparent": true,
+    "acceptance": "技能在敘事裡不造成治療承諾，也不改戰鬥公式",
+    "status": "pending",
+    "assetIds": []
+  },
+  {
+    "id": "brief-audio",
+    "subject": "audio",
+    "style": "短、可循環、不突然爆音",
+    "size": "事件音效 1 秒內；環境音沿用程式合成",
+    "use": "宮燈閃爍音效尚未製作",
+    "format": "ogg 或程式合成",
+    "transparent": false,
+    "acceptance": "沒有檔案就維持 pending，預覽保持安靜",
+    "status": "pending",
+    "assetIds": ["sfx-lantern-flicker", "audio-procedural"]
+  }
+]

@@ -1,0 +1,73 @@
+{
+  "consulted": "2026-11-11",
+  "source": "https://classic.tku.edu.tw/acad.asp",
+  "mapped": [
+    { "officialName": "中國文學學系", "collegeId": "liberal-arts", "departmentId": "chi-lit" },
+    { "officialName": "大眾傳播學系", "collegeId": "liberal-arts", "departmentId": "mass-comm" },
+    { "officialName": "物理學系", "collegeId": "science", "departmentId": "physics" },
+    {
+      "officialName": "化學學系",
+      "collegeId": "science",
+      "departmentId": "chemistry",
+      "note": "departments.ts 寫化學系，官方頁寫化學學系。先沿用既有 id，名稱差一個字仍待核對。"
+    },
+    { "officialName": "建築學系", "collegeId": "engineering", "departmentId": "architecture" },
+    { "officialName": "土木工程學系", "collegeId": "engineering", "departmentId": "civil" },
+    { "officialName": "資訊工程學系", "collegeId": "engineering", "departmentId": "cs" },
+    { "officialName": "電機工程學系", "collegeId": "engineering", "departmentId": "ee" },
+    { "officialName": "企業管理學系", "collegeId": "business", "departmentId": "ba" },
+    { "officialName": "會計學系", "collegeId": "business", "departmentId": "accounting" },
+    { "officialName": "資訊管理學系", "collegeId": "business", "departmentId": "mis" },
+    { "officialName": "英文學系", "collegeId": "foreign-lang", "departmentId": "english" },
+    { "officialName": "日本語文學系", "collegeId": "foreign-lang", "departmentId": "japanese" },
+    {
+      "officialName": "外交與國際關係學系",
+      "collegeId": "international",
+      "departmentId": "diplomacy"
+    },
+    { "officialName": "國際觀光管理學系", "collegeId": "international", "departmentId": "tourism" },
+    { "officialName": "教育科技學系", "collegeId": "education", "departmentId": "ed-tech" },
+    { "officialName": "人工智慧學系", "collegeId": "ai", "departmentId": "ai" }
+  ],
+  "unmapped": [
+    {
+      "officialName": "歷史學系",
+      "collegeId": "liberal-arts",
+      "note": "官方頁有此系。departments.ts 沒有 id。"
+    },
+    { "officialName": "資訊與圖書館學系", "collegeId": "liberal-arts" },
+    { "officialName": "資訊傳播學系", "collegeId": "liberal-arts" },
+    {
+      "officialName": "應用數學與數據科學學系",
+      "collegeId": "science",
+      "note": "不對到數學系。遊戲裡的數學系是另一個名稱。"
+    },
+    { "officialName": "尖端材料科學學士學位學程", "collegeId": "science" },
+    { "officialName": "水資源及環境工程學系", "collegeId": "engineering" },
+    { "officialName": "機械與機電工程學系", "collegeId": "engineering" },
+    { "officialName": "化學工程與材料工程學系", "collegeId": "engineering" },
+    { "officialName": "航空太空工程學系", "collegeId": "engineering" },
+    { "officialName": "國際企業學系", "collegeId": "business" },
+    { "officialName": "財務金融學系", "collegeId": "business" },
+    { "officialName": "風險管理與保險學系", "collegeId": "business" },
+    { "officialName": "經濟學系", "collegeId": "business" },
+    { "officialName": "統計與資料科學學系", "collegeId": "business" },
+    { "officialName": "運輸管理學系", "collegeId": "business" },
+    {
+      "officialName": "公共行政暨法律學系",
+      "collegeId": "business",
+      "note": "頁面寫 115 學年度更名。不自建 id，也不採用 data.ts 產生的另一套 id。"
+    },
+    { "officialName": "管理科學學系", "collegeId": "business" },
+    { "officialName": "歐洲語文學系", "collegeId": "foreign-lang" },
+    { "officialName": "全球政治經濟學系", "collegeId": "international" },
+    { "officialName": "教育與未來設計學系", "collegeId": "education" },
+    { "officialName": "高齡健康管理學研究所", "collegeId": "precision-health" },
+    { "officialName": "智慧照護產業學研究所", "collegeId": "precision-health" }
+  ],
+  "conflicts": [
+    "departments.ts 的數學系與 acad.asp 的應用數學與數據科學學系名稱不同，內容不把它們收成同一個 id。",
+    "departments.ts 有醫學資訊與創新應用學士學位學程。2026-11-11 這份 acad.asp 的精準健康學院下列的是兩個研究所，沒有看到這個學程名稱。不刪除既有 id，也不在這份對照裡假裝已核對。",
+    "data.ts 另有一套由學院名稱產生的科系 id。敘事只使用 departments.ts 的 id。"
+  ]
+}

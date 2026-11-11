@@ -1,0 +1,100 @@
+[
+  {
+    "id": "quest-group-report",
+    "title": { "zh-Hant": "引用要並列" },
+    "evidence": "fictional",
+    "arc": true,
+    "nodes": [
+      { "id": "outline", "requires": null, "summary": { "zh-Hant": "和林可說好今晚大綱怎麼分。" } },
+      {
+        "id": "sources",
+        "requires": "outline",
+        "summary": { "zh-Hant": "兩份出處衝突，決定並列或先分開再對照。" }
+      },
+      {
+        "id": "done",
+        "requires": "sources",
+        "summary": { "zh-Hant": "交出去。燈的那一拍不寫進報告。" }
+      }
+    ],
+    "rewardIds": [
+      "quest-group-report-join",
+      "quest-group-report-sources",
+      "quest-group-report-done"
+    ]
+  },
+  {
+    "id": "quest-orient-gate",
+    "title": { "zh-Hant": "先認三個點" },
+    "evidence": "fictional",
+    "arc": false,
+    "nodes": [
+      { "id": "done", "requires": null, "summary": { "zh-Hant": "在大門決定怎麼進校園。" } }
+    ],
+    "rewardIds": ["quest-orient-gate"]
+  },
+  {
+    "id": "quest-lab-checkin",
+    "title": { "zh-Hant": "補上安全順序" },
+    "evidence": "fictional",
+    "arc": false,
+    "nodes": [
+      { "id": "done", "requires": null, "summary": { "zh-Hant": "遲到以後仍把實驗順序補完。" } }
+    ],
+    "rewardIds": ["quest-lab-checkin"]
+  },
+  {
+    "id": "quest-shift-table",
+    "title": { "zh-Hant": "同一張排班表" },
+    "evidence": "fictional",
+    "arc": false,
+    "nodes": [{ "id": "done", "requires": null, "summary": { "zh-Hant": "把撞期的兩格改清楚。" } }],
+    "rewardIds": ["quest-shift-table"]
+  },
+  {
+    "id": "quest-lang-check",
+    "title": { "zh-Hant": "原句留著" },
+    "evidence": "fictional",
+    "arc": false,
+    "nodes": [
+      { "id": "done", "requires": null, "summary": { "zh-Hant": "不把假設寫成對方的原話。" } }
+    ],
+    "rewardIds": ["quest-lang-check"]
+  },
+  {
+    "id": "quest-caption-note",
+    "title": { "zh-Hant": "說明牌那一拍" },
+    "evidence": "fictional",
+    "arc": false,
+    "nodes": [
+      {
+        "id": "done",
+        "requires": null,
+        "summary": { "zh-Hant": "把虛構的句子重複記下來，不寫成館方公告。" }
+      }
+    ],
+    "rewardIds": ["quest-caption-note"]
+  },
+  {
+    "id": "quest-rain-practice",
+    "title": { "zh-Hant": "雨天的速度課" },
+    "evidence": "fictional",
+    "arc": false,
+    "nodes": [{ "id": "done", "requires": null, "summary": { "zh-Hant": "室外課改室內或改期。" } }],
+    "rewardIds": ["quest-rain-practice"]
+  },
+  {
+    "id": "quest-meal-timing",
+    "title": { "zh-Hant": "隊伍與下一堂" },
+    "evidence": "fictional",
+    "arc": false,
+    "nodes": [
+      {
+        "id": "done",
+        "requires": null,
+        "summary": { "zh-Hant": "決定吃完或先走，並讓組員聽到同一句。" }
+      }
+    ],
+    "rewardIds": ["quest-meal-timing"]
+  }
+]

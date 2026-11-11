@@ -1,0 +1,904 @@
+[
+  {
+    "id": "evt-gate-orientation",
+    "version": 1,
+    "placeId": "main-gate",
+    "npcIds": ["npc-chen-yu"],
+    "priority": 10,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": false,
+    "evidence": "fictional",
+    "lines": [
+      {
+        "text": {
+          "zh-Hant": "陳予站在大門警衛站外，把學生證掛繩轉了一圈。「第一週不用把每棟都記完。你現在是英專路這一側。裡面先認克難坡，坡上是宮燈教室。其餘的等你走錯再問。」"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "gate-ask-map",
+        "text": { "zh-Hant": "可以只告訴我今天會用到的路嗎？" },
+        "effects": [
+          { "type": "set-flag", "flag": "gate-asked-map", "value": true },
+          { "type": "remember", "npcId": "npc-chen-yu", "key": "last", "value": "asked-map" },
+          { "type": "discover-place", "placeId": "main-gate" },
+          { "type": "set-quest-node", "questId": "quest-orient-gate", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-orient-gate", "xp": 8, "notes": 1 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "他指了三個點：大門、克難坡、宮燈教室。「走錯也算認識。你問過，我就記你問過。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "gate-follow-crowd",
+        "text": { "zh-Hant": "我跟著人流走，迷路再回頭。" },
+        "effects": [
+          { "type": "set-flag", "flag": "gate-follow-crowd", "value": true },
+          { "type": "remember", "npcId": "npc-chen-yu", "key": "last", "value": "follow-crowd" },
+          { "type": "discover-place", "placeId": "main-gate" },
+          { "type": "set-quest-node", "questId": "quest-orient-gate", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-orient-gate", "xp": 8, "notes": 1 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「可以。上課鐘前人流會往坡上。你若在宮燈大道中段左右看，書卷廣場還在更裡面。」他沒有要你現在背完整張地圖。"
+            }
+          }
+        ],
+        "nextEventId": null
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你先離開大門。陳予沒有把你算成已問過路，也沒有發東西。" },
+      "unavailable": { "zh-Hant": "大門這時沒有人找你。你可以繼續走。" }
+    }
+  },
+  {
+    "id": "evt-palace-group-ask",
+    "version": 1,
+    "placeId": "palace",
+    "npcIds": ["npc-lin-ke"],
+    "priority": 20,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": false,
+    "evidence": "fictional",
+    "lines": [
+      {
+        "when": { "op": "memory", "npcId": "npc-chen-yu", "key": "last", "equals": "asked-map" },
+        "text": {
+          "zh-Hant": "林可把筆電轉過來，大綱只到第二段。「你在大門問過路。宮燈教室就是那三個點裡面的一個。傳播館的小組今晚要對引用。你若現在走，我不當你拒絕，但我要知道你幾點回來。」"
+        }
+      },
+      {
+        "when": { "op": "memory", "npcId": "npc-chen-yu", "key": "last", "equals": "follow-crowd" },
+        "text": {
+          "zh-Hant": "林可把筆電轉過來。「你是跟著人流上來的。這裡是宮燈教室。大綱只到第二段。我需要知道你是留下，還是先去圖書館。」"
+        }
+      },
+      {
+        "text": {
+          "zh-Hant": "林可把筆電轉過來，大綱只到第二段。「傳播館的小組今晚要對引用格式。你若現在走，我不當你拒絕，但我要知道你是去找資料，還是只是消失。」"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "palace-stay",
+        "text": { "zh-Hant": "我留下，先把第二段對完。" },
+        "effects": [
+          { "type": "set-flag", "flag": "group-stay", "value": true },
+          { "type": "remember", "npcId": "npc-lin-ke", "key": "pact", "value": "stay" },
+          { "type": "discover-place", "placeId": "palace" },
+          { "type": "set-quest-node", "questId": "quest-group-report", "node": "outline" },
+          { "type": "quest-reward", "questId": "quest-group-report-join", "xp": 12, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「那你對第二段。我去列訪談題。九點前若大綱還空著，我們改明天圖書館見，不在群組裡各寫各的。」"
+            }
+          }
+        ],
+        "nextEventId": "evt-library-source-clash"
+      },
+      {
+        "id": "palace-library",
+        "text": { "zh-Hant": "我先去圖書館查得出處，再回來講。" },
+        "effects": [
+          { "type": "set-flag", "flag": "group-library", "value": true },
+          { "type": "remember", "npcId": "npc-lin-ke", "key": "pact", "value": "library" },
+          { "type": "discover-place", "placeId": "library" },
+          { "type": "set-quest-node", "questId": "quest-group-report", "node": "outline" },
+          { "type": "quest-reward", "questId": "quest-group-report-join", "xp": 12, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「去圖書館可以。回來時直接講你找到的出處，不要只丟連結。訪談題我先寫。」"
+            }
+          }
+        ],
+        "nextEventId": "evt-library-source-clash"
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你先走開。大綱還沒約定，林可也不把這次算成已答應。" },
+      "unavailable": { "zh-Hant": "宮燈教室現在沒有這段對話。你可以繼續走。" }
+    }
+  },
+  {
+    "id": "evt-library-source-clash",
+    "version": 1,
+    "placeId": "library",
+    "npcIds": ["npc-lin-ke", "npc-zhou-an"],
+    "priority": 30,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": false,
+    "evidence": "fictional",
+    "when": { "op": "flag-any", "ids": ["group-stay", "group-library"] },
+    "lines": [
+      {
+        "when": { "op": "flag", "id": "group-library", "equals": true },
+        "text": {
+          "zh-Hant": "林可已經在總館二樓的流通櫃臺側等你。「你沒有只丟連結，這件事我記著。」周安把兩頁並排。「我們報告裡的兩份敘述對不上。不該挑比較好看的那份。」"
+        }
+      },
+      {
+        "when": { "op": "flag", "id": "group-stay", "equals": true },
+        "text": {
+          "zh-Hant": "林可比昨晚更緊。「你留下對完大綱。可是周安早上帶來一份打架的出處。」周安說：「兩份都先留著。我們還沒有資格宣布哪一份錯。」"
+        }
+      },
+      {
+        "text": {
+          "zh-Hant": "林可和周安在流通櫃臺側。桌上兩份出處對不上。周安說先並列，不要挑好看的。"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "library-compare",
+        "text": { "zh-Hant": "兩份並列，註明各自是哪一年的說法。" },
+        "effects": [
+          { "type": "set-flag", "flag": "sources-compared", "value": true },
+          { "type": "remember", "npcId": "npc-zhou-an", "key": "method", "value": "compare" },
+          { "type": "set-quest-node", "questId": "quest-group-report", "node": "sources" },
+          { "type": "quest-reward", "questId": "quest-group-report-sources", "xp": 15, "notes": 3 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "周安把兩頁都留在夾裡。「衝突寫進註腳。結論只保留我們兩人都看過的句子。」林可沒有再問你昨晚人在哪。"
+            }
+          }
+        ],
+        "nextEventId": "evt-palace-deadline"
+      },
+      {
+        "id": "library-split",
+        "text": { "zh-Hant": "先分開寫，合併前做一欄對照。" },
+        "effects": [
+          { "type": "set-flag", "flag": "sources-split", "value": true },
+          { "type": "remember", "npcId": "npc-zhou-an", "key": "method", "value": "split" },
+          { "type": "set-quest-node", "questId": "quest-group-report", "node": "sources" },
+          { "type": "quest-reward", "questId": "quest-group-report-sources", "xp": 15, "notes": 3 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「分開寫可以。」林可把空白對照欄推過來。「你負責出處，我負責把結論收回我們真的看過的句子。沒有對照欄，我不合。」"
+            }
+          }
+        ],
+        "nextEventId": "evt-palace-deadline"
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你離開總館。出處還沒決定，這段可以再進來。" },
+      "unavailable": { "zh-Hant": "還沒和林可約好之前，圖書館沒有這段衝突。你還是可以在館裡走。" }
+    }
+  },
+  {
+    "id": "evt-palace-deadline",
+    "version": 1,
+    "placeId": "palace",
+    "npcIds": ["npc-lin-ke"],
+    "priority": 40,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": true,
+    "evidence": "fictional",
+    "when": {
+      "op": "all",
+      "of": [
+        { "op": "quest-node", "questId": "quest-group-report", "node": "sources" },
+        {
+          "op": "any",
+          "of": [
+            { "op": "time", "slot": "evening" },
+            { "op": "time", "slot": "night" }
+          ]
+        }
+      ]
+    },
+    "lines": [
+      {
+        "when": { "op": "memory", "npcId": "npc-zhou-an", "key": "method", "equals": "compare" },
+        "text": {
+          "zh-Hant": "宮燈亮著，其中一盞的光在筆記頁緣停了一拍。這不是校方公告，也不是真實校園事故。林可把註腳唸出來。「並列之後，結論只留我們都看過的句子。燈的事情不寫進去。」"
+        }
+      },
+      {
+        "when": { "op": "memory", "npcId": "npc-zhou-an", "key": "method", "equals": "split" },
+        "text": {
+          "zh-Hant": "宮燈亮著，其中一盞的光在筆記頁緣停了一拍。這不是校方公告，也不是真實校園事故。林可把對照欄推過來。「左欄是你寫的出處。我沒有把沒看過的句子補進去。」"
+        }
+      },
+      {
+        "text": {
+          "zh-Hant": "宮燈亮著，其中一盞的光在筆記頁緣停了一拍。這不是校方公告，也不是真實校園事故。林可等你決定怎麼交。"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "deadline-calm",
+        "text": { "zh-Hant": "我先把這段讀完，再按送出。" },
+        "effects": [
+          { "type": "set-flag", "flag": "calm-finish", "value": true },
+          { "type": "remember", "npcId": "npc-lin-ke", "key": "ending", "value": "calm" },
+          { "type": "set-quest-node", "questId": "quest-group-report", "node": "done" },
+          {
+            "type": "quest-reward",
+            "questId": "quest-group-report-done",
+            "xp": 24,
+            "notes": 4,
+            "credit": 1
+          }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "光回復成普通的燈。林可沒有問你有沒有處理好什麼。「讀完就交。明天老師若問衝突，我們講註腳，不講燈。」這件事沒有治療效果，也不是診斷。"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "deadline-split",
+        "text": { "zh-Hant": "你再對一次引用，我讀結論，然後一起按。" },
+        "effects": [
+          { "type": "set-flag", "flag": "split-finish", "value": true },
+          { "type": "remember", "npcId": "npc-lin-ke", "key": "ending", "value": "split" },
+          { "type": "set-quest-node", "questId": "quest-group-report", "node": "done" },
+          {
+            "type": "quest-reward",
+            "questId": "quest-group-report-done",
+            "xp": 24,
+            "notes": 4,
+            "credit": 1
+          }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "她把結論段轉給你。「異象那一拍不要寫進報告。報告裡只有出處。燈的事我們自己知道就好。」你還是可以離開宮燈，去別的地方。"
+            }
+          }
+        ],
+        "nextEventId": null
+      }
+    ],
+    "assets": {
+      "images": [{ "id": "concept-lantern-deadline", "required": false }],
+      "audio": [{ "id": "sfx-lantern-flicker", "required": false }],
+      "animation": ["existing:idle"]
+    },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你先離開。報告還沒送出，燈的那一拍也沒有結算成獎勵。" },
+      "unavailable": { "zh-Hant": "還沒到傍晚，或出處還沒對過，宮燈這裡沒有這段。你可以繼續走。" }
+    }
+  },
+  {
+    "id": "evt-stem-lab-late",
+    "version": 1,
+    "placeId": "engineering",
+    "npcIds": ["npc-he-qing"],
+    "priority": 15,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": false,
+    "evidence": "fictional",
+    "lines": [
+      {
+        "when": { "op": "semester", "phase": "midterm" },
+        "text": {
+          "zh-Hant": "何清站在工學大樓門口，手套還沒戴。「期中這週助教點名比較緊。分組實驗開始講安全順序了。你遲到的這幾分鐘，我們還沒有開儀器。」"
+        }
+      },
+      {
+        "text": {
+          "zh-Hant": "何清站在工學大樓門口，手套還沒戴。「分組實驗開始講安全順序了。你遲到的這幾分鐘，我們還沒有開儀器。」"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "lab-honest",
+        "text": { "zh-Hant": "我跟助教說我遲到，先進去補順序。" },
+        "effects": [
+          { "type": "set-flag", "flag": "lab-honest", "value": true },
+          { "type": "remember", "npcId": "npc-he-qing", "key": "approach", "value": "honest" },
+          { "type": "set-quest-node", "questId": "quest-lab-checkin", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-lab-checkin", "xp": 10, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「那你進門先補安全順序，不要直接碰儀器。我跟助教說你在補，不替你編理由。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "lab-quiet",
+        "text": { "zh-Hant": "我先安靜進來，站到你旁邊補順序。" },
+        "effects": [
+          { "type": "set-flag", "flag": "lab-quiet", "value": true },
+          { "type": "remember", "npcId": "npc-he-qing", "key": "approach", "value": "quiet" },
+          { "type": "set-quest-node", "questId": "quest-lab-checkin", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-lab-checkin", "xp": 10, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「你先進來可以。順序仍要補。安靜不等於跳過，也不等於你已經到了很久。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "lab-diagram",
+        "text": { "zh-Hant": "我把步驟畫成順序圖，對完再碰儀器。" },
+        "when": { "op": "college", "id": "engineering" },
+        "skillId": "college-ability:engineering",
+        "effects": [
+          { "type": "set-flag", "flag": "lab-diagram", "value": true },
+          { "type": "remember", "npcId": "npc-he-qing", "key": "approach", "value": "diagram" },
+          { "type": "set-quest-node", "questId": "quest-lab-checkin", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-lab-checkin", "xp": 10, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "何清看了順序圖。「圖可以。它不是免掉安全順序，是讓大家看見你補了哪一步。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "lab-measure",
+        "text": { "zh-Hant": "我先把量測欄位寫上，再問哪一步不能跳。" },
+        "when": { "op": "college", "id": "science" },
+        "skillId": "college-ability:science",
+        "effects": [
+          { "type": "set-flag", "flag": "lab-measure", "value": true },
+          { "type": "remember", "npcId": "npc-he-qing", "key": "approach", "value": "measure" },
+          { "type": "set-quest-node", "questId": "quest-lab-checkin", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-lab-checkin", "xp": 10, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「欄位先寫可以。寫了欄位也不等於儀器已經可以開。不能跳的那一步，我們還是要對一遍。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你離開門口。實驗還沒算你加入，也沒有獎勵。" },
+      "unavailable": { "zh-Hant": "工學大樓門口現在沒有人等你。你可以繼續走。" }
+    }
+  },
+  {
+    "id": "evt-business-shift",
+    "version": 1,
+    "placeId": "business",
+    "npcIds": ["npc-song-qi"],
+    "priority": 15,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": false,
+    "evidence": "fictional",
+    "lines": [
+      {
+        "text": {
+          "zh-Hant": "宋祈把排班表攤在商管大樓門口。「週三下午和週四中午都寫著同一個人。不是錢的問題，是這兩格撞了。」"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "shift-swap",
+        "text": { "zh-Hant": "我們兩格對調，改完你念一次給我聽。" },
+        "effects": [
+          { "type": "set-flag", "flag": "shift-swap", "value": true },
+          { "type": "remember", "npcId": "npc-song-qi", "key": "fix", "value": "swap" },
+          { "type": "set-quest-node", "questId": "quest-shift-table", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-shift-table", "xp": 10, "credit": 1 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "宋祈改完兩格，又把時間念了一遍。「這樣不是我以為你看到了。你若聽到不對，現在就說。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "shift-shared",
+        "text": { "zh-Hant": "改到同一張公開表，誰改的留下名字。" },
+        "effects": [
+          { "type": "set-flag", "flag": "shift-shared", "value": true },
+          { "type": "remember", "npcId": "npc-song-qi", "key": "fix", "value": "shared" },
+          { "type": "set-quest-node", "questId": "quest-shift-table", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-shift-table", "xp": 10, "credit": 1 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「公開表比在群組裡私訊清楚。」她在改過的格子簽了宋祈。「下一個人改，也要留名字。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "shift-fields",
+        "text": { "zh-Hant": "先把欄位定義清楚：時間、人、最後修改，再讓別人填。" },
+        "when": { "op": "college", "id": "ai" },
+        "skillId": "college-ability:ai",
+        "effects": [
+          { "type": "set-flag", "flag": "shift-fields", "value": true },
+          { "type": "remember", "npcId": "npc-song-qi", "key": "fix", "value": "fields" },
+          { "type": "set-quest-node", "questId": "quest-shift-table", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-shift-table", "xp": 10, "credit": 1 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "宋祈加了最後修改這一欄。「定義欄位不是叫程式替我們排班。人還是要自己填，只是不會兩個人同時改到看不見。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你離開商管大樓。表還沒改，這次不算完成。" },
+      "unavailable": { "zh-Hant": "商管大樓門口現在沒有排班的事。你可以繼續走。" }
+    }
+  },
+  {
+    "id": "evt-foreign-misread",
+    "version": 1,
+    "placeId": "foreign",
+    "npcIds": ["npc-ai-ling"],
+    "priority": 15,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": false,
+    "evidence": "fictional",
+    "lines": [
+      {
+        "text": {
+          "zh-Hant": "艾苓把群組畫面留在外國語文大樓門口。上面有一句很短的日文。她沒有笑。「我不確定那是答應，還是再問一次。你要我翻成肯定句之前，先看原句。」"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "lang-ask",
+        "text": { "zh-Hant": "先把原句留在畫面上，翻譯放在括號裡。" },
+        "effects": [
+          { "type": "set-flag", "flag": "lang-asked", "value": true },
+          { "type": "remember", "npcId": "npc-ai-ling", "key": "path", "value": "ask" },
+          { "type": "set-quest-node", "questId": "quest-lang-check", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-lang-check", "xp": 10, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "她沒有把原句刪掉。「之後若對方改口，我們改的是理解，不是紀錄。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "lang-assume",
+        "text": { "zh-Hant": "先按我們的理解交，旁邊標未確認。" },
+        "effects": [
+          { "type": "set-flag", "flag": "lang-assumed", "value": true },
+          { "type": "remember", "npcId": "npc-ai-ling", "key": "path", "value": "assume" },
+          { "type": "set-quest-node", "questId": "quest-lang-check", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-lang-check", "xp": 10, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「可以先交。」艾苓在句子旁寫了未確認。「不要把這句寫成對方的原話。原句還在上面。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你先離開。原句還在，這次沒有替群組做決定。" },
+      "unavailable": { "zh-Hant": "外國語文大樓這裡現在沒有這段對話。你可以繼續走。" }
+    }
+  },
+  {
+    "id": "evt-museum-caption",
+    "version": 1,
+    "placeId": "museum",
+    "npcIds": ["npc-jian-ning"],
+    "priority": 15,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": true,
+    "evidence": "fictional",
+    "lines": [
+      {
+        "text": {
+          "zh-Hant": "簡寧在海事博物館服務台整理導覽繩。一個說明牌的句子在你眨眼時重來了一次。這不是校方公告，也不是真實校園事故。她看著你，等你決定要不要登記。"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "caption-report",
+        "text": { "zh-Hant": "請幫我登記：說明牌的句子重複了一次。" },
+        "effects": [
+          { "type": "set-flag", "flag": "caption-reported", "value": true },
+          { "type": "remember", "npcId": "npc-jian-ning", "key": "path", "value": "report" },
+          { "type": "set-quest-node", "questId": "quest-caption-note", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-caption-note", "xp": 12, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "簡寧寫下「說明牌句子重複一次」，然後把筆蓋上。「不寫成館方說法，也不寫成有人受傷。你若要繼續看，從下一櫃走就好。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "caption-alone",
+        "text": { "zh-Hant": "我先自己再看一次，不碰櫃子。" },
+        "effects": [
+          { "type": "set-flag", "flag": "caption-alone", "value": true },
+          { "type": "remember", "npcId": "npc-jian-ning", "key": "path", "value": "alone" },
+          { "type": "set-quest-node", "questId": "quest-caption-note", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-caption-note", "xp": 12, "notes": 2 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「你自己看可以。若還是同一句，再回到服務台。不要為了確認去碰櫃內的東西。」她沒有跟過來。"
+            }
+          }
+        ],
+        "nextEventId": null
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你離開服務台。說明牌的事沒有登記，也沒有獎勵。" },
+      "unavailable": { "zh-Hant": "海事博物館這裡現在沒有事件。你可以繼續看展。" }
+    }
+  },
+  {
+    "id": "evt-track-rain",
+    "version": 1,
+    "placeId": "track",
+    "npcIds": ["npc-pei-ran"],
+    "priority": 15,
+    "weight": 1,
+    "cooldownMinutes": 180,
+    "mutexGroup": "weather-practice",
+    "mutexMinutes": 180,
+    "once": false,
+    "autoFire": false,
+    "anomaly": false,
+    "evidence": "fictional",
+    "when": { "op": "weather", "id": "rain" },
+    "lines": [
+      {
+        "text": {
+          "zh-Hant": "雨把田徑場的跑道打濕。裴然把分組表收進夾鏈袋。「今天的速度課不能在外面硬跑。這不是誰受傷，是場地濕了。」"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "rain-indoor",
+        "text": { "zh-Hant": "改去紹謨紀念體育館的邊線。到了再問場地。" },
+        "effects": [
+          { "type": "set-flag", "flag": "rain-indoor", "value": true },
+          { "type": "remember", "npcId": "npc-pei-ran", "key": "plan", "value": "indoor" },
+          { "type": "discover-place", "placeId": "gym" },
+          { "type": "set-quest-node", "questId": "quest-rain-practice", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-rain-practice", "xp": 8 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "「去體育館可以，我不保證邊線是空的。到了再問。你現在走得過去，我不會把你鎖在對話裡。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "rain-reschedule",
+        "text": { "zh-Hant": "改期寫在表上，不在群組裡只說再看看。" },
+        "effects": [
+          { "type": "set-flag", "flag": "rain-reschedule", "value": true },
+          { "type": "remember", "npcId": "npc-pei-ran", "key": "plan", "value": "reschedule" },
+          { "type": "set-quest-node", "questId": "quest-rain-practice", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-rain-practice", "xp": 8 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "裴然在表上寫了下一次的日期。「你若想去泳館或回教室，現在都走得了。停跑不是醫療判斷。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "rain-health-note",
+        "text": { "zh-Hant": "群組裡寫：今天停跑，因為跑道濕了，不是醫療判斷。" },
+        "when": { "op": "college", "id": "precision-health" },
+        "skillId": "college-ability:precision-health",
+        "effects": [
+          { "type": "set-flag", "flag": "rain-health-note", "value": true },
+          { "type": "remember", "npcId": "npc-pei-ran", "key": "plan", "value": "note" },
+          { "type": "set-quest-node", "questId": "quest-rain-practice", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-rain-practice", "xp": 8 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "裴然把你的句子唸了一遍，確認沒有寫任何人受傷。「這句只說明取消練習。它不診斷，也不治療。」"
+            }
+          }
+        ],
+        "nextEventId": null
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你離開田徑場。練習計畫還沒改。" },
+      "unavailable": { "zh-Hant": "現在不是雨天，速度課沒有被這段對話打斷。你可以繼續跑或離開。" }
+    }
+  },
+  {
+    "id": "evt-cafeteria-queue",
+    "version": 1,
+    "placeId": "sungtao-2",
+    "npcIds": ["npc-ma-shu"],
+    "priority": 15,
+    "weight": 1,
+    "cooldownMinutes": 0,
+    "mutexGroup": null,
+    "mutexMinutes": 0,
+    "once": true,
+    "autoFire": false,
+    "anomaly": false,
+    "evidence": "fictional",
+    "lines": [
+      {
+        "text": {
+          "zh-Hant": "松濤二館這側掛著美食廣場的名字，母建物還沒核對，所以馬書不說這就是官方平面圖。隊伍轉到樓梯口。下一堂在工學大樓。「你現在吃完整份會趕，喝茶走也能到。兩種我都不說教。」"
+        }
+      }
+    ],
+    "choices": [
+      {
+        "id": "meal-eat",
+        "text": { "zh-Hant": "我吃完，遲到就跟組員說我還在排隊。" },
+        "effects": [
+          { "type": "set-flag", "flag": "meal-full", "value": true },
+          { "type": "remember", "npcId": "npc-ma-shu", "key": "choice", "value": "eat" },
+          { "type": "set-quest-node", "questId": "quest-meal-timing", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-meal-timing", "xp": 6, "notes": 1 }
+        ],
+        "outcome": [
+          {
+            "when": { "op": "flag", "id": "lab-honest", "equals": true },
+            "text": {
+              "zh-Hant": "「那你吃。何清若問，用你在工學大樓說過的那種實話：你還在排隊，不是已經到了。」"
+            }
+          },
+          { "text": { "zh-Hant": "「那你吃。遲到就說你還在排隊，不要說你已經到了。」" } }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "meal-tea",
+        "text": { "zh-Hant": "我改喝茶，現在往工學大樓走。" },
+        "effects": [
+          { "type": "set-flag", "flag": "meal-tea", "value": true },
+          { "type": "remember", "npcId": "npc-ma-shu", "key": "choice", "value": "tea" },
+          { "type": "set-quest-node", "questId": "quest-meal-timing", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-meal-timing", "xp": 6, "notes": 1 }
+        ],
+        "outcome": [
+          {
+            "when": { "op": "flag", "id": "lab-honest", "equals": true },
+            "text": {
+              "zh-Hant": "「喝茶走。你在工學大樓跟何清說過實話，這句也說實話：你還沒到。」"
+            }
+          },
+          { "text": { "zh-Hant": "「喝茶走。隊伍不會因為你趕時間就變短，所以你換一條路。」" } }
+        ],
+        "nextEventId": null
+      },
+      {
+        "id": "meal-tell",
+        "text": { "zh-Hant": "我先傳到達區間給組員，再決定吃或走。" },
+        "when": { "op": "college", "id": "education" },
+        "skillId": "college-ability:education",
+        "effects": [
+          { "type": "set-flag", "flag": "meal-told", "value": true },
+          { "type": "remember", "npcId": "npc-ma-shu", "key": "choice", "value": "tell" },
+          { "type": "set-quest-node", "questId": "quest-meal-timing", "node": "done" },
+          { "type": "quest-reward", "questId": "quest-meal-timing", "xp": 6, "notes": 1 }
+        ],
+        "outcome": [
+          {
+            "text": {
+              "zh-Hant": "你傳了到達區間，不是一篇檢討。吃或走等你出了這段對話再決定。這不是諮商，也沒有把你留在隊伍裡。"
+            }
+          }
+        ],
+        "nextEventId": null
+      }
+    ],
+    "assets": { "images": [], "audio": [], "animation": ["existing:idle"] },
+    "status": {
+      "authored": true,
+      "validated": true,
+      "previewed": true,
+      "integrated": false,
+      "reviewed": false
+    },
+    "recovery": {
+      "leave": { "zh-Hant": "你離開隊伍。還沒決定吃或走，也沒有獎勵。" },
+      "unavailable": { "zh-Hant": "松濤二館這裡現在沒有人找你。你可以繼續走。" }
+    }
+  }
+]
