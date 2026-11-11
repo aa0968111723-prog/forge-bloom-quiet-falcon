@@ -1,9 +1,9 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "4de812c11652fec3c318e457b0fa5e0217324758",
-  "gameSha": "222804bce4207d8281837d617700716d38f5311f",
-  "activeItem": null,
+  "mainSha": "394b86ab6dcea74cdfe342326c5d3bfdf5fa9cbc",
+  "gameSha": "27e180cefd4648995db484e875660f9b821df64b",
+  "activeItem": "art-basic-swing",
   "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
@@ -11,6 +11,6 @@
   },
   "notMerged": ["art-basic-swing"],
   "blocked": ["INT-01", "INT-12"],
-  "waiting": ["art-basic-swing"],
-  "next_action": "Campus registry is on main at 4de812c (source bb219f5, integration PR #20). Game code is still 222804b. Next: basic swing 879ffdfafe65f0da55d411ab0150ef789ee59ca0 on cursor/college-poses-campus-1a71. Reconfirm that head before merging."
+  "waiting": [],
+  "next_action": "Basic swing is verified on cursor/integration-basic-swing-3395 at 27e180c. Source 879ffdf is unchanged. Reconfirm origin/main is 394b86a, then fast-forward. No other remote head is ahead of main. After this lands, the remaining integrator work is the cross-system route, not a new line commit."
 }

@@ -15,9 +15,9 @@
 
 ## 下一步
 
-`main` 是 `4de812c`。校園清冊來源 `bb219f5` 已是它的祖先。PR #20 與來源 PR #17 隨快轉合併。遊戲程式仍是 `222804b`。
+普攻揮擊在 `cursor/integration-basic-swing-3395` 的 `27e180c`，尚未進 `main`。來源 `879ffdf` 沒有再動。合併前確認 `origin/main` 仍是 `394b86a`。
 
-下一項是 `cursor/college-poses-campus-1a71` 的 `879ffdf`（基本攻擊揮擊）。開始前先 `git fetch` 確認 head 沒有再動。
+遠端其他分支都沒有超前 `main` 的提交。揮擊進 `main` 之後，下一件整合工作是把離線啟動到登出斷線走成同一條驗收，不是再等一條新分支。
 
 ## 不要做
 

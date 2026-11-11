@@ -346,6 +346,30 @@
       "integrationPr": 20,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/20",
       "nextAction": "None. Source head bb219f5 is an ancestor of main. Next is the basic swing."
+    },
+    {
+      "id": "art-basic-swing",
+      "line": "art",
+      "scope": "Basic attack slash follows the 0.46 s clip from the character's right to the left. It is not scaled to attackFx.range. Dedicated college skill effects stay in charge of skills.",
+      "status": "ready_to_merge",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-basic-swing-3395",
+      "sourceBranch": "cursor/college-poses-campus-1a71",
+      "baseSha": "394b86ab6dcea74cdfe342326c5d3bfdf5fa9cbc",
+      "headSha": "879ffdfafe65f0da55d411ab0150ef789ee59ca0",
+      "dependencies": ["art-college-poses"],
+      "sharedFiles": ["src/game/rpg/art/SkillEffects.tsx", "scripts/art-runtime.test.mjs"],
+      "checks": {
+        "conflicts": "art checkpoint, art validation, art-runtime test. Kept releaseArtInstance, the NPC assemble test, and the newer ART-090 checkpoint. Added the slash test and the swing validation section.",
+        "typecheck": "pass",
+        "npmTest": "246 pass / 0 fail",
+        "browser": "avenue basic attack, short slash moves left, chemistry skill still draws ground arcs and hits 1, pageErrors empty"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art-runtime.test.mjs"],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Reconfirm main is 394b86a and source is 879ffdf, then fast-forward 27e180c."
     }
   ]
 }
