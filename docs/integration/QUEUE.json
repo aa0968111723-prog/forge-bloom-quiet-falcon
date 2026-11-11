@@ -719,6 +719,32 @@
       "merged": true,
       "mergeSha": "adfd28af237a6a5759940d63080b186caad1deb0",
       "nextAction": "None. Source eab68c7 is an ancestor of main. Do not merge PR #46 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-business-mass",
+      "line": "art",
+      "scope": "The legacy business tower uses the study-building podium: dark base, light upper storey, near cornice. Accuracy stays estimated. The title camera and 48 m canopy switch stay.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-business-mass-3395",
+      "sourceBranch": "cursor/business-mass-1a71",
+      "baseSha": "3950e2aa15dd",
+      "headSha": "70dd633a0748bafaf11c79b9f3b44c35b6497653",
+      "dependencies": ["art-title-camera"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Art checkpoint and validation. Kept the title-camera round and added the business podium as the next round. Capture keeps title and budget, and adds business. Gate kind stays.",
+        "typecheck": "pass",
+        "npmTest": "255 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8104 high tier at (132,-158): 1280x720 and 390x780 show the dark base and light upper storey. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "79515b67f3e6d355b21db3aedce83f329d32e2e8",
+      "nextAction": "Record the integration PR, then merge. Do not merge PR #49 by itself. Do not merge PR #32 head 1fc5887."
     }
   ]
 }
