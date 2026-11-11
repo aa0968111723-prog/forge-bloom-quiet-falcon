@@ -567,7 +567,6 @@ function hairCrop(b: PartBuilder, rig: KitRig) {
 }
 
 function hairLong(b: PartBuilder, rig: KitRig) {
-  const head = rig.index("head");
   const chest = rig.index("chest");
   hairCap(b, rig, hairline(62, 99, 125));
   bangs(b, rig, 9, 0.9, 0.08, (i) => (80 + (i % 3) * 3) * DEG, 0.034);

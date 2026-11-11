@@ -307,7 +307,6 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
   const hand = rig.index(`hand${L}`);
   const sh = rig.at(`upperArm${L}`);
   const el = rig.at(`lowerArm${L}`);
-  const wr = rig.at(`hand${L}`);
   const fwd: V3 = [0, 0, 1];
   const X = (x: number) => x * side;
 

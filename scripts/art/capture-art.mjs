@@ -22,7 +22,6 @@ import {
   launchBrowser,
   setPose,
   settle,
-  sleep,
   startSemester,
   waitForTitle,
   webglInfo,

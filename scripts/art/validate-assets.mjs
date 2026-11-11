@@ -130,7 +130,7 @@ export function checkGlb(info, record) {
   }
   // Names glTF loaders rewrite would silently break lookups by name.
   for (const n of json.nodes ?? []) {
-    if (n.name && /[\[\]\.:\/]/.test(n.name)) errors.push(`node name "${n.name}" contains characters glTF loaders strip`);
+    if (n.name && /[[\].:/]/.test(n.name)) errors.push(`node name "${n.name}" contains characters glTF loaders strip`);
   }
   return errors;
 }
