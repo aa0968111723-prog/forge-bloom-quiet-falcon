@@ -39,6 +39,18 @@
 
 截圖：`docs/integration/evidence/integration-low-1-title.png` 到 `integration-low-5-outdoor-return.png`。原始數字：`integration-low.json`。
 
+## 合併後（`main` `dff98e3`）
+
+合併樹 `b80465a2` 與整合 head `a2308ad` 相同。在這個 checkout 上實際再跑：
+
+| 命令 | 結果 |
+| --- | --- |
+| `npm run typecheck` | 通過 |
+| `npm test` | 217 通過 / 0 失敗 |
+| `npm run build:site` | 通過。既有 >500 kB 提示仍在 |
+
+瀏覽器五段路線沒有重跑。合併沒有改遊戲程式。
+
 ## 本輪沒有驗的項目
 
 這些功能還沒有新的實作，不使用假資料填成完成：

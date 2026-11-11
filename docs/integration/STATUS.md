@@ -1,13 +1,13 @@
 # 整合狀態
 
-更新：2026-11-11。整合分支 `cursor/integration-art-m1-3395`。
+更新：2026-11-11。`main` 為 `dff98e3`。
 本文件只記實際程式、PR 與本輪驗收。不把 M1 樣板當成整款遊戲完成，也不以 PR 或文件數量估算完成率。
 
 ## 三條線
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 資產管線、主角 `char.student-kit`／LOD1、考卷怪 `creature.quiz`、工程技能「結構脈衝」。NPC、其餘怪物與八學院技能、七區仍是既有程式。 | [#6](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/6) `017b755` | 併入本整合分支，見佇列 `art-m1` |
+| 美術與場景 | 資產管線、主角 `char.student-kit`／LOD1、考卷怪 `creature.quiz`、工程技能「結構脈衝」。NPC、其餘怪物與八學院技能、七區仍是既有程式。 | [#6](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/6) 與 [#7](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/7) 已合併 | `merged` |
 | 後端 | 尚無新分支、新提交或 PR。雲端存檔與多裝置同步未出現在遠端。 | 無 | `discovered` |
 | 內容 | 尚無新分支、新提交或 PR。`docs/content/` 不存在。 | 無 | `discovered` |
 
@@ -22,10 +22,10 @@
 
 | 項目 | 狀態 |
 | --- | --- |
-| 已製作 | 美術 M1 與上述兩項修正，在整合分支 |
-| 已驗證 | 本機 typecheck、217 項測試、靜態建置、省電畫質五段路線（SwiftShader，見 `VALIDATION.md`） |
-| 已合併 | 否。PR #7 驗收已過、`mergeable_state` 為 clean，但合併 API 回 403，token 不能合併。沒有直接推 main |
-| 已部署 | 否。本輪不部署 |
+| 已製作 | 美術 M1，以及 glance 不累加、骨架 bone texture 會釋放 |
+| 已驗證 | 合併前：typecheck、217 項測試、靜態建置、省電五段路線。合併後在 `dff98e3` 再跑 typecheck、217 項測試、靜態建置。路線樹與合併樹相同，沒有重跑。SwiftShader，不是真機 |
+| 已合併 | 是。`main` `dff98e3b325f7fa458f73f86a92ba7e995cb0019`。PR #6 與 #7 都顯示已合併 |
+| 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍
 

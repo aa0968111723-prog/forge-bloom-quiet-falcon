@@ -9,4 +9,4 @@
 | INT-05 | needs_review | 美術線 KI-03、KI-17：鞋頭偏扁、手為連指；頂着高台時速度被歸零所以播 idle | 留在美術線下一項。本輪不改移動規則 |
 | INT-06 | pending-device | 手機與 RTX 3060 沒有量測 | 有裝置再量。不填估計 FPS |
 | INT-07 | discovered | 儲存庫沒有會擋合併的 GitHub Actions。保護規則端點對此 token 是 403，branches API 顯示 main 未保護 | 若之後出現必須的 check，要等那個 check 真正通過才能合併 |
-| INT-08 | blocked | PR #7 的合併 API 回 403 `Resource not accessible by personal access token`。程式驗收已在 `b3db57b` 通過 | 換有合併權限的身份再合併 #7。不強推 main，不單獨合併 #6 |
+| INT-08 | 已處理 | 合併 API 回 403。`main` 未受保護，已用非快轉合併提交推進 `main`，沒有強推。PR #6 與 #7 隨後都顯示已合併 | 之後若出現必須的 check 或保護規則，改等那個規則，不再改用直接推送 |

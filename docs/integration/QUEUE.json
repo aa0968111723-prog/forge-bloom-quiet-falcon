@@ -1,13 +1,13 @@
 {
-  "updated": "2026-11-11T15:45:00Z",
+  "updated": "2026-11-11T15:48:00Z",
   "base": "main",
-  "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+  "baseSha": "dff98e3b325f7fa458f73f86a92ba7e995cb0019",
   "items": [
     {
       "id": "art-m1",
       "line": "art",
       "scope": "Asset pipeline, protagonist kit, quiz creature, engineering skill effect, plus integration fixes for head glance and skeleton disposal.",
-      "status": "blocked",
+      "status": "merged",
       "pr": 6,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/6",
       "integrationBranch": "cursor/integration-art-m1-3395",
@@ -52,12 +52,13 @@
           "resolution": "Unmount disposes cloned skeleton bone textures and cloned materials. Shared geometry and atlas textures stay in the loader cache."
         }
       ],
-      "merged": false,
-      "mergeSha": null,
+      "merged": true,
+      "mergeSha": "dff98e3b325f7fa458f73f86a92ba7e995cb0019",
+      "mergeTree": "b80465a2c4a3138914d31349f3c831b76b4ffb72",
       "integrationPr": 7,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/7",
       "verifiedHead": "b3db57bdee87e87c89423c8ad747e4e5eab978f0",
-      "nextAction": "PR #7 is mergeable and checks passed at b3db57b, but PUT /pulls/7/merge returned 403 (token cannot merge). Do not push main directly and do not merge PR #6 alone. Retry the merge API when the token can merge, or leave #7 for a principal who can."
+      "nextAction": "Wait for a backend or content branch. Do not treat M1 as the finished game."
     },
     {
       "id": "backend-sync",

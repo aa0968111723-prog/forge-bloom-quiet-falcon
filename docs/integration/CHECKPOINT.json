@@ -1,24 +1,18 @@
 {
-  "updated": "2026-11-11T15:45:00Z",
-  "branch": "cursor/integration-art-m1-3395",
-  "worktree": "/tmp/worktrees/art-pr6",
-  "mainSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
-  "activeItem": "art-m1",
+  "updated": "2026-11-11T15:48:00Z",
+  "branch": "main",
+  "worktree": "/tmp/worktrees/main-merge",
+  "mainSha": "dff98e3b325f7fa458f73f86a92ba7e995cb0019",
+  "mainTree": "b80465a2c4a3138914d31349f3c831b76b4ffb72",
+  "activeItem": null,
   "sourceHead": "017b755cf196585ea5bcf134efafdd697f40ceb8",
+  "integrationHead": "a2308ad16764bb66670605c46904a5ee741b0a4e",
   "verified": {
-    "typecheck": "pass",
-    "npmTest": "217 pass / 0 fail",
-    "eslintTouched": "0 errors",
-    "buildSite": "pass",
-    "route": "ok, pageErrors empty, SwiftShader host only"
+    "preMerge": "typecheck, 217 tests, build:site, low-tier route on b3db57b; a2308ad was docs only",
+    "postMerge": "on dff98e3, tree matches integration head. typecheck pass, 217 pass, build:site pass. Route not re-run because the tree is identical."
   },
-  "notMerged": ["art-m1"],
-  "blocked": [
-    {
-      "id": "art-m1",
-      "reason": "GitHub merge API returned 403 Resource not accessible by personal access token for PR #7. mergeable_state was clean, base 71f4d3c, head b3db57b, no check runs."
-    }
-  ],
+  "notMerged": [],
+  "blocked": ["INT-01"],
   "waiting": ["backend-sync", "content-pack"],
-  "next_action": "Retry merging PR #7 when the token is allowed to merge. Do not force-push main. On wake, re-list remote heads: if backend or content has a new branch, start that item; if PR #7 is merged, record mergeSha and smoke the merge tree."
+  "next_action": "Re-list remote heads. If backend or content has a new branch or PR whose dependencies are on main, integrate that item in a new worktree. If nothing new, do not retest and do not make an empty commit."
 }
