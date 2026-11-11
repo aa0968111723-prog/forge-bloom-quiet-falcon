@@ -231,3 +231,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 26 輪（風洞廠房）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。風洞實驗室從實驗樓改成低長廠房，屋頂有風管和進氣箱，不再畫窗帶。化學館仍是實驗樓。風管尺寸仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/shed/duct.jpg`。司令臺留在第 25 輪。
+
+## 第 27 輪（學生活動中心）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。學生活動中心是一層門廳、南向玻璃、遮陽板和退縮的上層，名牌寫著學生活動中心。沒有綠瓦，也沒有共用窗帶。覺軒仍是坡頂，會議中心仍是低寬會堂。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/activity/hall.jpg`。風洞留在第 26 輪。

@@ -5,6 +5,7 @@ import {
   SECONDARY_STRUCTURES,
   contextDetailLimit,
   contextShowsDetail,
+  activityProfile,
   glazingBand,
   linkedHallProfile,
 } from "../src/game/world-data/zones/secondary.ts";
@@ -56,6 +57,14 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
     assert.ok(Math.abs(south.lz - (face + 0.05)) < 1e-6, `upper band floats at ${south.lz}`);
     assert.ok(south.width <= profile.upperWidth - 1, "upper band is wider than the recessed wall");
   }
+  const activity = SECONDARY_STRUCTURES.find((item) => item.id === "commons");
+  assert.equal(activity?.kind, "activity-hall");
+  assert.equal(activity?.accuracy, "estimated");
+  const lobby = activityProfile(activity.size);
+  assert.ok(lobby.glassZ > activity.size[2] / 2, "activity glass sits on the south face");
+  assert.ok(lobby.lobbyH < activity.size[1] * 0.4, "the lobby stays the ground storey");
+  assert.ok(lobby.upperW < activity.size[0], "upper floors step back");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chuehhsuan")?.kind, "hip-roof-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "conference")?.kind, "forum-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "conference")?.accuracy, "estimated");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "administration")?.kind, "study-block");

@@ -708,6 +708,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "duct", "wind tunnel shed");
+  } else if (scenario === "activity") {
+    await hideHud(page);
+    await setPose(page, 142, -8, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(160, -39);
+      window.__controlsTest.setPhoto({
+        yaw: -0.5,
+        distance: 40,
+        height: 14,
+        lookY: 0,
+        target: { x: 160, y: y + 7, z: -39 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "student activity hall");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
