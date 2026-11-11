@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T20:46:00Z",
-  "branch": "cursor/integration-river-vista-3395",
+  "branch": "main",
   "mainSha": "abef230dcbbc",
   "gameSha": "87aa4c80b77e5f52c88c18e323e818cc44ddf167",
   "activeItem": "art-river-vista",
@@ -12,5 +12,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The west vista stops the player at the near bank. Game code is 87aa4c80b77e5f52c88c18e323e818cc44ddf167. The far town and ridges stay west of x=-112 and are not a survey. Business coins still spread, and the slash still chambers in front. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館. The route on this tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 4bd41a4 is PR #54. After this integration is on main, do not merge that old baseline by itself. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #53 or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "The west vista stops the player at the near bank. It is on main. Game code is 87aa4c80b77e5f52c88c18e323e818cc44ddf167. The far town and ridges stay west of x=-112 and are not a survey. Business coins still spread, and the slash still chambers in front. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 4bd41a4 is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #57. Do not merge PR #54 by itself. Do not merge PR #53 or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }

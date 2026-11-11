@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 淡水遠景不能走。金幣會散開。科學館與泳館用秘書處標示。商管大樓基座、標題鏡頭、48 m 樹冠切換與開口門柱仍在。 | 來源 `4bd41a4` | `verified` |
+| 美術與場景 | 淡水遠景不能走。金幣會散開。科學館與泳館用秘書處標示。商管大樓基座、標題鏡頭、48 m 樹冠切換與開口門柱仍在。 | 來源 `4bd41a4`，整合 PR #57 | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | 人走到河上會被推回近岸。對岸街廓改成一個實例繪製。沒有新的獎勵帳，也沒有改戰鬥扣血 |
 | 已驗證 | `npm run typecheck` 通過。`npm test` 257 通過。`npm run build:site` 通過。高畫質 1280×720 與 390×780 從牧羊草坪往西看得到河面和山脊。`pageErrors` 空。同一站跨系統路線：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401 |
-| 已合併 | 否。遊戲程式在 `87aa4c8`。來源 `4bd41a4`。`main` 未受保護、沒有必須的 check |
+| 已合併 | 是。遊戲程式在 `87aa4c8`。來源 `4bd41a4`。整合 PR #57。`main` 未受保護、沒有必須的 check |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍
