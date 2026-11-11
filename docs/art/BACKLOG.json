@@ -601,9 +601,10 @@
       "acceptance": "同上",
       "evidence": [
         "scripts/context-lod.test.mjs",
-        "docs/art/evidence/shed/duct.jpg"
+        "docs/art/evidence/shed/duct.jpg",
+        "docs/art/evidence/studio/hall.jpg"
       ],
-      "notes": "風洞實驗室從實驗樓改成低長廠房，屋頂有一條風管和一端的進氣箱，沒有共用窗帶。化學館等仍是實驗樓。風管尺寸仍是 estimated。"
+      "notes": "風洞實驗室從實驗樓改成低長廠房，屋頂有一條風管和一端的進氣箱，沒有共用窗帶。化學館等仍是實驗樓。風管尺寸仍是 estimated。建築系館從綠瓦坡頂改成混凝土量體、南向玻璃、遮陽板和屋頂採光，沒有共用窗帶。工作室外形仍是 estimated，不是實測立面。"
     },
     {
       "id": "ART-065",

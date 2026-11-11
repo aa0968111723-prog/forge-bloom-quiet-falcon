@@ -7,6 +7,7 @@ import {
   contextShowsDetail,
   glazingBand,
   linkedHallProfile,
+  studioProfile,
 } from "../src/game/world-data/zones/secondary.ts";
 
 test("context detail drops off with distance and the low tier is shorter", () => {
@@ -68,6 +69,14 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "audiovisual")?.kind, "auditorium");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "audiovisual")?.accuracy, "estimated");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "hip-roof-block");
+  const studio = SECONDARY_STRUCTURES.find((item) => item.id === "architecture");
+  assert.equal(studio?.kind, "studio-block");
+  assert.equal(studio?.accuracy, "estimated");
+  const studioFace = studioProfile(studio.size);
+  assert.ok(studioFace.glassZ > studio.size[2] / 2, "studio glass sits on the south face");
+  assert.ok(studioFace.glassH < studio.size[1], "studio glass stays on the wall");
+  assert.ok(studioFace.monitorZ > 0, "roof monitor faces the south approach");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "administration")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.accuracy, "estimated");

@@ -41,7 +41,8 @@ export type SecondaryStructure = {
     | "shed"
     | "intl-dorm"
     | "media-hall"
-    | "auditorium";
+    | "auditorium"
+    | "studio-block";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -313,6 +314,24 @@ export function contextShowsDetail(
   return Math.hypot(cameraX - x, cameraZ - z) <= contextDetailLimit(tier);
 }
 
+/**
+ * Concrete studio used by 建築系館. The south glass, canopy, and roof monitor
+ * are an estimated silhouette, not a measured facade.
+ */
+export function studioProfile(size: readonly [number, number, number]) {
+  return {
+    glassH: Math.max(3.2, size[1] * 0.7),
+    glassZ: size[2] / 2 + 0.08,
+    glassW: size[0] * 0.78,
+    canopyY: Math.min(3.6, size[1] * 0.24),
+    canopyDepth: 2.4,
+    monitorW: size[0] * 0.42,
+    monitorH: 2.2,
+    monitorD: Math.max(3.2, size[2] * 0.34),
+    monitorZ: size[2] * 0.12,
+  };
+}
+
 /** Glass base plus the set-back upper volume used by 覺生綜合大樓. */
 export function linkedHallProfile(size: readonly [number, number, number]) {
   const baseH = Math.max(3.2, size[1] * 0.42);
@@ -361,6 +380,7 @@ function campusKind(site: {
   if (site.id === "reitaku") return "intl-dorm";
   if (site.id === "business-o" || site.id === "business-q") return "media-hall";
   if (site.id === "audiovisual") return "auditorium";
+  if (site.id === "architecture") return "studio-block";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

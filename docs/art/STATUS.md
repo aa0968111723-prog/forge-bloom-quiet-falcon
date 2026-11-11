@@ -199,14 +199,18 @@
 
 畫面：`docs/art/evidence/auditorium/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
-## 下一步
-
 ## 階段：克難坡到三個門口（ART-069 的一部分）
 
 三條巡禮折線不再穿過驚聲銅像基座。體育館那條改從宮燈教室南緣，再從學生活動中心與教育館之間走到門口。克難坡中線可以從坡底走到坡頂。座標與階數仍是 estimated。視聽教育館留著。
 
 測試：`scripts/route-walk.test.mjs`。
 
+## 階段：建築系館（ART-064 的一部分）
+
+理工區這棟不再跟著文藝主題戴綠瓦。現在是混凝土量體、南向玻璃、遮陽板和屋頂採光。化學館仍是實驗樓。外形仍是 estimated。風洞與巡禮折線留著。
+
+畫面：`docs/art/evidence/studio/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。三條折線已能走到門口。視聽教育館、傳播館與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。建築系館已從綠瓦分開。巡禮折線、視聽教育館與化學館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

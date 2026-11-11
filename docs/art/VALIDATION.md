@@ -247,3 +247,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 30 輪（克難坡到三個門口）— 2026-11-11
 
 `node --test scripts/route-walk.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。三條巡禮折線以半徑 0.42 m 走到宮燈教室、圖書館、體育館門口。中線從坡底走到坡頂，人留在護牆之間。折線從銅像與海豚基座東側過，體育館從宮燈教室南緣、活動中心與教育館之間過。精度仍是 estimated，階數沒有展開，也沒有實測。沒有新增音效。視聽教育館留在第 29 輪。
+
+## 第 31 輪（建築系館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。建築系館是混凝土量體、南向玻璃、遮陽板和屋頂採光，名牌寫著建築系館。沒有共用窗帶，也沒有綠瓦。化學館仍是實驗樓。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/studio/hall.jpg`。巡禮折線留在第 30 輪。
