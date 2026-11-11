@@ -4,17 +4,17 @@
 
 ## 現在
 
-- 這次整合是商管大樓改成教學樓基座。來源 `cursor/business-mass-1a71` @ `70dd633`。接到 `origin/main` `3950e2a`。
-- `business-building` 是 `study-block`，精度仍是 estimated。標題鏡頭與 48 m 樹冠切換留著。
-- 同一版 `http://127.0.0.1:8104/` 再走完跨系統路線：經驗 20、筆記 19、突襲小考 65→45、第二客戶端、`revision_conflict`、登出 401。
+- 這次整合是科學館與泳館的標示改成秘書處用字。來源 `cursor/sign-names-1a71` @ `9a7ae33`。接到 `origin/main` `95bd4d4`。
+- 科學館是「騮先紀念科學館」，泳館是「紹謨紀念游泳館」。精度仍是 estimated。商管大樓基座、標題鏡頭與 48 m 樹冠切換留著。
+- 同一版 `http://127.0.0.1:8105/` 再走完跨系統路線：經驗 20、筆記 19、突襲小考 65→45、第二客戶端、`revision_conflict`、登出 401。
 
-## 本輪已驗證（商管大樓）
+## 本輪已驗證（標示用字）
 
-`npm run typecheck` 通過。`npm test` 255 通過。`npm run build:site` 通過。高畫質 1280×720 與 390×780 的 `pageErrors` 都是空。
+`npm run typecheck` 通過。`npm test` 256 通過。`npm run build:site` 通過。高畫質 1280×720 與 390×780 的 `pageErrors` 都是空。
 
 ## 下一步
 
-先 `git fetch`。商管大樓已在 `main`，遊戲程式是 `79515b6`。遊戲程式沒再變就不要重跑路線，也不要為了對齊 SHA 再寫一筆。PR #32 的 `1fc5887` 仍不合併。整合 PR 是 #50。來源 PR #49 的程式已在這次整合裡，不要再單獨合併那支舊基線。
+先 `git fetch`。標示用字在整合分支 `cursor/integration-sign-names-3395`，遊戲程式是 `267167b`。合併之後，遊戲程式沒再變就不要重跑路線，也不要為了對齊 SHA 再寫一筆。PR #32 的 `1fc5887` 仍不合併。來源 PR #51 的程式已在這次整合裡，不要再單獨合併那支舊基線。
 
 INT-01 與 INT-12 維持不動。不要新增學期選擇，也不要做第二套獎勵帳。
 
