@@ -351,7 +351,7 @@
     },
     {
       "permanentId": "science",
-      "officialName": "麗先紀念科學館",
+      "officialName": "騮先紀念科學館",
       "zone": "stem-56",
       "kind": "campus-site",
       "aliasOf": null,
@@ -783,7 +783,7 @@
     },
     {
       "permanentId": "swimming",
-      "officialName": "游泳館",
+      "officialName": "紹謨紀念游泳館",
       "zone": "sports-59",
       "kind": "campus-site",
       "aliasOf": null,

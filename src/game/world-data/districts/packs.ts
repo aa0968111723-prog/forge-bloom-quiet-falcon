@@ -39,7 +39,7 @@ const ZONE_NOTES: Record<ZoneId, string[]> = {
     "圖書館網頁只登記為來源，本輪沒有拿來核對樓層。",
   ],
   "stem-56": [
-    "麗先科學館、鍾靈化學館、工學館、建築系館、風洞、工學大樓都沒有現勘。",
+    "騮先紀念科學館、鍾靈化學館、工學館、建築系館、風洞、工學大樓都沒有現勘。",
     "engineering 與 engineering-hall、science 與 science-hall 的前後棟待核，不合併。",
   ],
   "teaching-57": [

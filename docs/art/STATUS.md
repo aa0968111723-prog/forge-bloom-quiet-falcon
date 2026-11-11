@@ -123,6 +123,12 @@
 
 畫面：`docs/art/evidence/business/mass.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：兩個標示對上秘書處用字（ART-061 的一部分）
+
+2026-11-11 讀了秘書處建物雙語頁。科學館標示改為「騮先紀念科學館」，泳館改為「紹謨紀念游泳館」。該頁沒有座標，清冊精度仍全部 estimated，也沒有把整張表複製進庫。校園圖 PDF 還沒逐棟判讀。商管大樓仍是教學樓基座。
+
+畫面：`docs/art/evidence/signs/science.jpg`、`swimming.jpg`。測試：`scripts/official-signs.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。商管大樓不再是通用灰塊。高畫質大道三角形已低於 1.6 M。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。標示用字改了兩處，座標沒有升成 mapped。商管大樓不再是通用灰塊。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
