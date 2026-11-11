@@ -129,6 +129,12 @@
 
 畫面：`docs/art/evidence/signs/science.jpg`、`swimming.jpg`。測試：`scripts/official-signs.test.mjs`。
 
+## 階段：同一條路線的高畫質三角形
+
+樹冠改短之後，標題、戶外、戰鬥、返回都低於 1.6 M。室內是 46.5 k。幀時間仍是這台軟體算繪，不是手機或 RTX 3060。
+
+畫面：`docs/art/evidence/route/outdoor.jpg`。數字：`docs/art/evidence/route/after-tree.json`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。標示用字改了兩處，座標沒有升成 mapped。商管大樓不再是通用灰塊。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。戶外路線段已低於 1.6 M。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
