@@ -8,31 +8,89 @@ import { terrainHeight } from "../../world";
 import { ENEMY_TYPES } from "../../rpg/data";
 import { useRpg } from "../../rpg/store";
 import { useArtModel } from "../assets";
+import type { ArtId } from "../art-manifest.gen";
 import { paperBurst, penCircleGeometry } from "../vfx/combat-vfx";
 
 type Enemy = ReturnType<typeof useRpg.getState>["enemies"][number];
+export type CreatureKind = Enemy["kind"];
 
-const TYPE = ENEMY_TYPES.quiz;
-/** The strike lands on anything within this radius when the windup ends (store.ts tickRpg). */
-const REACH = TYPE.radius + 2.5;
-const ATTACK_TIME = 0.42;
-const HURT_TIME = 0.32;
-const DEFEAT_TIME = 1.2;
+/**
+ * Per-kind presentation. Combat numbers (radius, windup, hp) always come from
+ * ENEMY_TYPES; only the look lives here. Clip lengths come from the asset.
+ */
+export const CREATURE_ART: Record<
+  CreatureKind,
+  {
+    artId: ArtId;
+    /** Health bar height and width, the "!" height and the contact shadow radius (m). */
+    label: number;
+    barWidth: number;
+    mark: number;
+    shadow: number;
+    chips: string[];
+    confetti: string[];
+    /** A bone that spins on its own (quiz's orbiting mini-quizzes). */
+    spin?: { bone: string; idle: number; windup: number };
+  }
+> = {
+  quiz: {
+    artId: "creature.quiz",
+    label: 2.45,
+    barWidth: 1.4,
+    mark: 2.0,
+    shadow: 0.5,
+    chips: ["#f5ecd6", "#f5ecd6", "#c8414b", "#e6dcc3"],
+    confetti: ["#f5ecd6", "#e6dcc3", "#f2c14e", "#c8414b"],
+    spin: { bone: "orbit", idle: 1.3, windup: 4.5 },
+  },
+  report: {
+    artId: "creature.report",
+    label: 1.95,
+    barWidth: 1.6,
+    mark: 2.1,
+    shadow: 0.85,
+    chips: ["#f4ecd8", "#f4d35e", "#f2a0b4", "#9fd8a6", "#9cc4ef"],
+    confetti: ["#f4ecd8", "#f4ecd8", "#f4d35e", "#f2a0b4", "#9fd8a6", "#9cc4ef", "#4f4f8f"],
+  },
+  exam: {
+    artId: "creature.exam",
+    label: 2.95,
+    barWidth: 1.7,
+    mark: 2.95,
+    shadow: 0.7,
+    chips: ["#f5eedc", "#f5eedc", "#d4ad62", "#2f3b5c"],
+    confetti: ["#f5eedc", "#e8e1cf", "#d4ad62", "#c8414b", "#2f3b5c"],
+  },
+  final: {
+    artId: "creature.final",
+    label: 3.55,
+    barWidth: 2.6,
+    mark: 3.7,
+    shadow: 1.25,
+    chips: ["#f6f1e4", "#c8414b", "#d7b066", "#a83a44"],
+    confetti: ["#f6f1e4", "#f6f1e4", "#c8414b", "#d7b066", "#3b3c45"],
+  },
+};
+
 const AMBER = new THREE.Color("#f0a648");
 const RED = new THREE.Color("#d8343f");
 const FLASH = new THREE.Color("#fff3d6");
 
 /**
- * 突擊小考 on the field.
+ * A campus monster on the field (突擊小考, 分組報告聚合體, 期中考監視者, 期末 · 截止日).
  *
  * Reads only the live enemy record (state, timer, hurt, hp) that `tickRpg`
  * owns. Idle/chase loops follow `state`; the windup clip is scrubbed by real
  * windup progress; the strike plays on the windup → recover transition, the
- * flinch on each new `hurt`, the crumple on death. The telegraph is drawn at
+ * flinch on each new `hurt`, the collapse on death. The telegraph is drawn at
  * the exact reach the strike tests, so what the player sees is what hits.
  */
-export function QuizCreature({ enemy }: { enemy: Enemy }) {
-  const { root, clips } = useArtModel("creature.quiz");
+export function CreatureActor({ enemy }: { enemy: Enemy }) {
+  const look = CREATURE_ART[enemy.kind];
+  const TYPE = ENEMY_TYPES[enemy.kind];
+  /** The strike lands on anything within this radius when the windup ends (store.ts tickRpg). */
+  const REACH = TYPE.radius + 2.5;
+  const { root, clips } = useArtModel(look.artId);
   const reduced = useReducedArtMotion();
   const low = quality().tier === "low";
 
@@ -40,7 +98,7 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
     const mixer = new THREE.AnimationMixer(root);
     const make = (name: string) => {
       const clip = clips.find((c) => c.name === name);
-      if (!clip) throw new Error(`creature.quiz is missing clip ${name}`);
+      if (!clip) throw new Error(`${look.artId} is missing clip ${name}`);
       const action = mixer.clipAction(clip);
       action.play();
       action.timeScale = 0;
@@ -56,8 +114,14 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
       defeat: make("defeat"),
     };
     actions.idle.setEffectiveWeight(1);
-    return { mixer, actions };
-  }, [root, clips]);
+    const times = {
+      attack: actions.attack.getClip().duration,
+      hurt: actions.hurt.getClip().duration,
+      defeat: actions.defeat.getClip().duration,
+    };
+    return { mixer, actions, times };
+  }, [root, clips, look.artId]);
+  const { attack: ATTACK_TIME, hurt: HURT_TIME, defeat: DEFEAT_TIME } = anim.times;
   useEffect(
     () => () => {
       anim.mixer.stopAllAction();
@@ -74,7 +138,7 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
     });
     return found as THREE.MeshStandardMaterial | null;
   }, [root]);
-  const orbit = useMemo(() => root.getObjectByName("orbit"), [root]);
+  const spinner = useMemo(() => (look.spin ? root.getObjectByName(look.spin.bone) : undefined), [root, look.spin]);
 
   const fx = useMemo(() => {
     const ring = new THREE.Mesh(
@@ -109,10 +173,11 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
       mat.polygonOffsetFactor = -8;
       mat.polygonOffsetUnits = -8;
     }
-    const chips = paperBurst(low ? 6 : 12, ["#f5ecd6", "#f5ecd6", "#c8414b", "#e6dcc3"], 0.1, 0.65);
-    const confetti = paperBurst(low ? 8 : 20, ["#f5ecd6", "#e6dcc3", "#f2c14e", "#c8414b"], 0.16, 1.4);
-    return { ring, fill, shock, mark, markMat, chips, confetti };
-  }, [enemy.anchorX, low]);
+    const big = enemy.kind === "final" ? 1.6 : 1;
+    const chips = paperBurst(Math.round((low ? 6 : 12) * big), look.chips, 0.1 * big, 0.65 * big);
+    const confetti = paperBurst(Math.round((low ? 8 : 20) * big), look.confetti, 0.16 * big, 1.4 * big);
+    return { ring, fill, shock, mark, markMat, chips, confetti, big };
+  }, [enemy.anchorX, enemy.kind, low, REACH, look]);
   useEffect(
     () => () => {
       for (const m of [fx.ring, fx.fill, fx.shock]) {
@@ -156,11 +221,11 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
     if (s.state === "windup" && enemy.state === "recover") s.attackAge = 0;
     if (enemy.hurt > s.hurt + 0.05) {
       s.hurtAge = 0;
-      if (!reduced) fx.chips.fire(tmp.set(enemy.x, terrainHeight(enemy.x, enemy.z) + 1.0, enemy.z), low ? 6 : 12);
+      if (!reduced) fx.chips.fire(tmp.set(enemy.x, terrainHeight(enemy.x, enemy.z) + look.label * 0.45, enemy.z), Math.round((low ? 6 : 12) * fx.big));
     }
     if (s.hp > 0 && enemy.hp <= 0) {
       s.deathAge = 0;
-      if (!reduced) fx.confetti.fire(tmp.set(enemy.x, terrainHeight(enemy.x, enemy.z) + 0.9, enemy.z), low ? 8 : 20, { up: 3.2, spread: 1.6, spin: 6 });
+      if (!reduced) fx.confetti.fire(tmp.set(enemy.x, terrainHeight(enemy.x, enemy.z) + look.label * 0.4, enemy.z), Math.round((low ? 8 : 20) * fx.big), { up: 3.2, spread: 1.6 * fx.big, spin: 6 });
     }
     if (s.hp <= 0 && enemy.hp > 0) s.deathAge = Infinity;
     if (enemy.state === "windup" && s.state !== "windup") s.windup = 1 - enemy.timer / TYPE.windup;
@@ -219,9 +284,9 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
     a.hurt.time = Math.min(s.hurtAge, HURT_TIME - 1e-3);
     a.defeat.time = Math.min(s.deathAge, DEFEAT_TIME - 1e-3);
     anim.mixer.update(0);
-    if (orbit) {
-      orbit.visible = !low;
-      if (!reduced) orbit.rotation.y = s.clock * (enemy.state === "windup" ? 4.5 : 1.3);
+    if (spinner && look.spin) {
+      spinner.visible = !low;
+      if (!reduced) spinner.rotation.y = s.clock * (enemy.state === "windup" ? look.spin.windup : look.spin.idle);
     }
 
     // Hit flash and the red glow that builds during the windup.
@@ -246,7 +311,7 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
       (fx.fill.material as THREE.MeshBasicMaterial).color.copy(AMBER).lerp(RED, late);
       (fx.fill.material as THREE.MeshBasicMaterial).opacity = 0.18 + 0.22 * progress + pulse;
       (fx.ring.material as THREE.MeshBasicMaterial).opacity = 0.75 + 0.25 * late;
-      fx.mark.position.set(enemy.x, ground + 2.0 + (reduced ? 0 : Math.sin(s.clock * 9) * 0.05), enemy.z);
+      fx.mark.position.set(enemy.x, ground + look.mark + (reduced ? 0 : Math.sin(s.clock * 9) * 0.05), enemy.z);
       fx.mark.quaternion.copy(camera.quaternion);
       fx.markMat.opacity = 0.6 + 0.4 * late;
     }
@@ -263,7 +328,7 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
     if (bar.current) {
       const f = Math.max(0.001, enemy.hp / TYPE.hp);
       bar.current.scale.x = f;
-      bar.current.position.x = -(1 - f) * 0.7;
+      bar.current.position.x = -(1 - f) * look.barWidth * 0.5;
     }
     if (label.current) {
       label.current.visible = enemy.hp > 0;
@@ -276,16 +341,16 @@ export function QuizCreature({ enemy }: { enemy: Enemy }) {
       <group ref={group}>
         <primitive object={root} />
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
-          <circleGeometry args={[0.5, 20]} />
+          <circleGeometry args={[look.shadow, 20]} />
           <meshBasicMaterial color="#182a35" transparent opacity={0.2} depthWrite={false} />
         </mesh>
-        <group ref={label} position={[0, 2.45, 0]}>
+        <group ref={label} position={[0, look.label, 0]}>
           <mesh>
-            <planeGeometry args={[1.5, 0.08]} />
+            <planeGeometry args={[look.barWidth + 0.1, enemy.kind === "final" ? 0.12 : 0.08]} />
             <meshBasicMaterial color="#283f43" />
           </mesh>
           <mesh ref={bar} position={[0, 0, 0.01]}>
-            <planeGeometry args={[1.4, 0.05]} />
+            <planeGeometry args={[look.barWidth, enemy.kind === "final" ? 0.08 : 0.05]} />
             <meshBasicMaterial color={TYPE.color} />
           </mesh>
         </group>

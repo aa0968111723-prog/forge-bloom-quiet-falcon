@@ -27,6 +27,8 @@ declare global {
     __rpgQA?: {
       rpg: typeof import("./rpg/store").useRpg;
       game: typeof import("./store").useGame;
+      /** Terrain height at a point (for placing QA cameras). */
+      ground?: (x: number, z: number) => number;
       /** Stop the render loop; frames then only advance through `step`. */
       freeze?: () => void;
       resume?: () => void;

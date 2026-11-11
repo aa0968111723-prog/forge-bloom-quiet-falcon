@@ -8,6 +8,9 @@ import type * as THREE from "three";
 import { buildStudentKit } from "./characters/student-kit/kit.ts";
 import { buildQuiz } from "./creatures/quiz/quiz.ts";
 import { buildNpcKit } from "./characters/npc-kit/kit.ts";
+import { buildReport } from "./creatures/report/report.ts";
+import { buildExam } from "./creatures/exam/exam.ts";
+import { buildFinal } from "./creatures/final/final.ts";
 
 export type BuiltAsset = {
   scene: THREE.Object3D;
@@ -53,6 +56,9 @@ export const ART_BUILDERS: Record<string, () => BuiltAsset> = {
       },
     };
   },
+  "creature.report": () => creatureAsset(buildReport(), "report-atlas"),
+  "creature.exam": () => creatureAsset(buildExam(), "exam-atlas"),
+  "creature.final": () => creatureAsset(buildFinal(), "final-atlas"),
   "creature.quiz": () => {
     const quiz = buildQuiz();
     return {
@@ -75,4 +81,13 @@ function summariseParts(parts: { name: string; triangles: number }[]) {
   const out: Record<string, number> = {};
   for (const p of parts) out[p.name] = (out[p.name] ?? 0) + p.triangles;
   return out;
+}
+
+function creatureAsset(c: { scene: THREE.Object3D; clips: THREE.AnimationClip[]; atlasPng: Buffer; triangles: number; bones: string[]; parts: { name: string; triangles: number }[] }, material: string) {
+  return {
+    scene: c.scene,
+    clips: c.clips,
+    textures: [{ material, png: c.atlasPng }],
+    meta: { units: "m", forward: "+Z", up: "+Y", pivot: "ground centre", bones: c.bones, parts: c.parts.length },
+  };
 }

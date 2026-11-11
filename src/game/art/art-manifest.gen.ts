@@ -4,6 +4,9 @@ export const ART_MANIFEST = {
   "char.student-kit-lod1": {"url":"/game-art/characters/student-kit-lod1.glb?v=94a0fc12b9ac","version":1,"sha256":"94a0fc12b9ac0cdeaaa511a9868f21757666c02589614f58f5f3b2f344dbca19","bytes":644568,"triangles":9276,"animations":["idle","walk","run","attack","skill","dodge","hurt","interact"]},
   "char.npc-kit": {"url":"/game-art/characters/npc-kit.glb?v=b252de360913","version":1,"sha256":"b252de3609138ae44865e4dcf6ccdedc3f4bd8bb809af87e58451c9e4cab8d44","bytes":1540952,"triangles":31120,"animations":["idle","walk","run","attack","skill","dodge","hurt","interact"]},
   "creature.quiz": {"url":"/game-art/creatures/quiz.glb?v=4054f68150ba","version":1,"sha256":"4054f68150ba7d95e8726ea37157c27578579b25d74e6494427e16538f8f31bf","bytes":175580,"triangles":2034,"animations":["idle","chase","windup","attack","hurt","defeat"]},
+  "creature.report": {"url":"/game-art/creatures/report.glb?v=862feb83d905","version":1,"sha256":"862feb83d905e646ed6ff1ace97cea570db4dd3cdbf6f6823fe3dccebfa6257e","bytes":199488,"triangles":3070,"animations":["idle","chase","windup","attack","hurt","defeat"]},
+  "creature.exam": {"url":"/game-art/creatures/exam.glb?v=5d28a1a07e56","version":1,"sha256":"5d28a1a07e56241153d9f712e13081d29b05c685e93837af54071b91eea79738","bytes":203288,"triangles":2598,"animations":["idle","chase","windup","attack","hurt","defeat"]},
+  "creature.final": {"url":"/game-art/creatures/final.glb?v=e63f14fee2cc","version":1,"sha256":"e63f14fee2cc6f61f8eac56a419de2ff1f48ba02d813550ee0ffc9d88d2f0499","bytes":229492,"triangles":3538,"animations":["idle","chase","windup","attack","hurt","defeat"]},
 } as const;
 
 export type ArtId = keyof typeof ART_MANIFEST;

@@ -10,6 +10,9 @@
  *   poses        one frame at the key time of each action clip
  *   avenue       start on 宮燈大道 and walk north; three frames
  *   combat       fight quiz-2 on 宮燈大道: telegraph, strike, hit, skill timeline
+ *   npcs         each roster walker on its route, three-quarter front and side
+ *   creature     --enemy <id>: idle turnaround at its spawn, then chase, windup
+ *                (telegraph), strike, hurt and defeat against the real AI
  *
  * Writes PNGs plus `<scenario>.json` with what was captured and any page errors.
  */
@@ -37,13 +40,16 @@ const base = positional[0] ?? "http://127.0.0.1:8088/";
 const outDir = ensureDir(resolve(positional[1] ?? "/tmp/art-capture"));
 const scenario = positional[2] ?? "turnaround";
 const tier = flag("--tier", "low");
+const enemyId = flag("--enemy", "report-1");
+/** Optional "x,z": move the enemy (and its leash anchor) somewhere open for the photos. */
+const enemyAt = flag("--at", null)?.split(",").map(Number) ?? null;
 const width = Number(flag("--width", 960));
 const height = Number(flag("--height", 600));
 
 const log = [];
 const pageErrors = [];
 const shot = async (page, name, note) => {
-  const path = join(outDir, `${scenario}-${name}.png`);
+  const path = join(outDir, `${scenario === "creature" ? enemyId + (enemyAt ? "-open" : "") : scenario}-${name}.png`);
   await page.screenshot({ path });
   log.push({ name, path, note });
   process.stderr.write(`captured ${name}\n`);
@@ -231,6 +237,105 @@ try {
       await step(frames);
       elapsed += frames / 30;
       await shot(page, `8-defeat-${elapsed.toFixed(2)}`, `defeat t=${elapsed.toFixed(2)} s ${JSON.stringify(await enemy())}`);
+    }
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto(null);
+      window.__rpgQA.resume();
+    });
+  } else if (scenario === "creature") {
+    const step = (n = 1) => page.evaluate((c) => window.__rpgQA.step(1 / 30, c), n);
+    const enemy = () =>
+      page.evaluate((id) => {
+        const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === id);
+        return { kind: e.kind, state: e.state, timer: Number(e.timer.toFixed(3)), hp: e.hp, hurt: Number(e.hurt.toFixed(3)), x: Number(e.x.toFixed(2)), z: Number(e.z.toFixed(2)) };
+      }, enemyId);
+    const until = async (predicate, label, limit = 900) => {
+      for (let i = 0; i < limit; i++) {
+        if (await page.evaluate(predicate, enemyId)) return i;
+        await step(1);
+      }
+      throw new Error(`timed out waiting for ${label}`);
+    };
+    // Reset the enemy at its own spawn; park the player out of aggro range to the south.
+    const spawn = await page.evaluate(([id, at]) => {
+      const s = window.__rpgQA.rpg.getState();
+      const e = s.enemies.find((x) => x.id === id);
+      if (!e) throw new Error(`no enemy ${id}`);
+      if (at) Object.assign(e, { anchorX: at[0], anchorZ: at[1] });
+      Object.assign(e, { x: e.anchorX, z: e.anchorZ, state: "idle", timer: 0, hurt: 0 });
+      window.__rpgQA.rpg.setState({ focus: 100, skillUntil: 0, attackUntil: 0, hp: 100 });
+      return { x: e.anchorX, z: e.anchorZ, kind: e.kind };
+    }, [enemyId, enemyAt]);
+    const size = { quiz: 1, report: 1.15, exam: 1.35, final: 1.9 }[spawn.kind] ?? 1;
+    await setPose(page, spawn.x, spawn.z + 40, Math.PI);
+    await settle(page, { stableFrames: 3 });
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.freeze());
+    const target = { x: spawn.x, y: await page.evaluate(([x, z]) => window.__rpgQA.ground(x, z), [spawn.x, spawn.z]), z: spawn.z };
+    for (const [name, yaw] of [["front", 0], ["three-quarter", 0.75], ["side", Math.PI / 2], ["back", Math.PI]]) {
+      // Enemies face the player (south, +Z), so yaw 0 is their front.
+      await page.evaluate((p) => window.__controlsTest.setPhoto(p), { target: { ...target, y: target.y }, yaw, distance: 4.2 * size, height: 1.5 * size, lookY: 1.0 * size });
+      await step(2);
+      await shot(page, `turn-${name}`, `${enemyId} idle, ${name} ${JSON.stringify(await enemy())}`);
+    }
+    // Fight: player south of it facing north (yaw 0 looks toward -Z); camera three-quarter.
+    await page.evaluate(() => window.__rpgQA.resume());
+    await setPose(page, spawn.x + 0.6, spawn.z + 5.5 * size, 0);
+    await settle(page, { stableFrames: 2 });
+    await page.evaluate(() => window.__rpgQA.freeze());
+    const fight = { yaw: -0.9, distance: 6.5 * size, height: 3.0 * size, lookY: 0.9 * size };
+    await page.evaluate((p) => window.__controlsTest.setPhoto(p), fight);
+    await step(3);
+    await until((id) => ["chase", "windup"].includes(window.__rpgQA.rpg.getState().enemies.find((x) => x.id === id).state), "chase");
+    await step(4);
+    await shot(page, "1-chase", `chase ${JSON.stringify(await enemy())}`);
+    await until((id) => window.__rpgQA.rpg.getState().enemies.find((x) => x.id === id).state === "windup", "windup");
+    const windup = await page.evaluate((id) => window.__rpgQA.rpg.getState().enemies.find((x) => x.id === id).timer, enemyId);
+    for (const [label, at] of [["2-windup-40", 0.4], ["3-windup-85", 0.85]]) {
+      await page.evaluate(([w, a]) => {
+        window.__captureWindup = w;
+        window.__captureAt = a;
+      }, [windup, at]);
+      await until((id) => {
+        const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === id);
+        return e.state !== "windup" || e.timer <= window.__captureWindup * (1 - window.__captureAt);
+      }, label);
+      await shot(page, label, `windup ${Math.round(at * 100)}% of ${windup.toFixed(2)} s ${JSON.stringify(await enemy())}`);
+    }
+    await until((id) => window.__rpgQA.rpg.getState().enemies.find((x) => x.id === id).state === "recover", "strike");
+    await step(3);
+    const struck = await page.evaluate(() => {
+      const s = window.__rpgQA.rpg.getState();
+      return { playerHp: s.hp, hurtUntil: Number(s.hurtUntil.toFixed(2)) };
+    });
+    await shot(page, "4-strike", `strike resolved ${JSON.stringify(struck)}`);
+    await step(14);
+    // Basic attacks reach 3.7 m in front of the player: step in to 2.6 m, facing it.
+    const closeIn = () =>
+      page.evaluate((id) => {
+        const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === id);
+        window.__controlsTest.setPose(e.x, e.z + 2.6, 0);
+      }, enemyId);
+    await closeIn();
+    await page.evaluate(() => {
+      window.__rpgQA.rpg.setState({ attackUntil: 0, hp: 100 });
+      window.__rpgQA.rpg.getState().attack(false);
+    });
+    await step(3);
+    await shot(page, "5-hurt", `basic attack ${JSON.stringify(await enemy())}`);
+    await step(12);
+    await closeIn();
+    await page.evaluate((id) => {
+      const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === id);
+      e.hp = 1;
+      window.__rpgQA.rpg.setState({ attackUntil: 0, hp: 100 });
+      window.__rpgQA.rpg.getState().attack(false);
+    }, enemyId);
+    let elapsed = 0;
+    for (const frames of [3, 9, 18]) {
+      await step(frames);
+      elapsed += frames / 30;
+      await shot(page, `6-defeat-${elapsed.toFixed(2)}`, `defeat t=${elapsed.toFixed(2)} s ${JSON.stringify(await enemy())}`);
     }
     await page.evaluate(() => {
       window.__controlsTest.setPhoto(null);

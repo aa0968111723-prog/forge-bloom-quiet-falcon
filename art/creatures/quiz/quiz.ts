@@ -15,6 +15,7 @@ import * as THREE from "three";
 import { PartBuilder, smoothstep, type V3 } from "../../shared/builder.ts";
 import { sweep } from "../../shared/loft.ts";
 import { Raster, hex, mixColor, pfbm, shade } from "../../shared/raster.ts";
+import { creatureClip, creatureRig, type CreatureKey } from "../shared/creature.ts";
 
 export const QUIZ = {
   id: "creature.quiz",
@@ -65,18 +66,8 @@ export const QUIZ_CELLS = {
 } as const;
 
 function rig() {
-  const bones = {} as Record<BoneName, THREE.Bone>;
-  const ordered: THREE.Bone[] = [];
-  for (const def of QUIZ.bones) {
-    const bone = new THREE.Bone();
-    bone.name = def.name;
-    bone.position.set(...(def.offset as unknown as V3));
-    bones[def.name] = bone;
-    ordered.push(bone);
-    if (def.parent) bones[def.parent as BoneName].add(bone);
-  }
-  bones.root.updateMatrixWorld(true);
-  return { bones, skeleton: new THREE.Skeleton(ordered), at: (n: BoneName) => new THREE.Vector3().setFromMatrixPosition(bones[n].matrixWorld) };
+  const r = creatureRig(QUIZ.bones);
+  return { bones: r.bones as Record<BoneName, THREE.Bone>, skeleton: r.skeleton, at: (n: BoneName) => r.at(n) };
 }
 
 /** Curled sheet with thickness and a torn bottom fringe. */
@@ -264,66 +255,10 @@ function addPencil(b: PartBuilder, grip: THREE.Vector3, bone: number) {
 
 /** Pose-keyed node clips. Windup is scrubbed by real progress at runtime. */
 function quizClips() {
-  const FPS = 30;
-  const q = new THREE.Quaternion();
-  const e = new THREE.Euler();
   type Key = { t: number; pose: Partial<Record<BoneName, [number, number, number]>>; bodyY?: number; scale?: number };
-  const ease = (x: number) => x * x * (3 - 2 * x);
   const clip = (name: string, duration: number, keys: Key[], loop = false) => {
-    const n = Math.max(2, Math.round(duration * FPS));
-    const times = Array.from({ length: n + 1 }, (_, i) => (duration * i) / n);
-    const bones = new Set<BoneName>();
-    keys.forEach((k) => Object.keys(k.pose).forEach((b) => bones.add(b as BoneName)));
-    const at = (t: number) => {
-      let i = 0;
-      while (i < keys.length - 2 && keys[i + 1].t <= t) i++;
-      const a = keys[i];
-      const b2 = keys[i + 1];
-      return { a, b: b2, u: ease(Math.min(1, Math.max(0, (t - a.t) / (b2.t - a.t || 1)))) };
-    };
-    const tracks: THREE.KeyframeTrack[] = [];
-    for (const bone of bones) {
-      const values: number[] = [];
-      let prev: THREE.Quaternion | null = null;
-      for (const t of times) {
-        const { a, b: b2, u } = at(t);
-        const ea = a.pose[bone] ?? [0, 0, 0];
-        const eb = b2.pose[bone] ?? [0, 0, 0];
-        e.set(ea[0] + (eb[0] - ea[0]) * u, ea[1] + (eb[1] - ea[1]) * u, ea[2] + (eb[2] - ea[2]) * u);
-        q.setFromEuler(e);
-        if (prev && prev.dot(q) < 0) q.set(-q.x, -q.y, -q.z, -q.w);
-        values.push(q.x, q.y, q.z, q.w);
-        prev = q.clone();
-      }
-      tracks.push(new THREE.QuaternionKeyframeTrack(`${bone}.quaternion`, times, values));
-    }
-    const bodyY = (k: Key) => k.bodyY ?? 0;
-    const scale = (k: Key) => k.scale ?? 1;
-    tracks.push(
-      new THREE.VectorKeyframeTrack(
-        "body.position",
-        times,
-        times.flatMap((t) => {
-          const { a, b: b2, u } = at(t);
-          return [0, QUIZ.sheet.hover + bodyY(a) + (bodyY(b2) - bodyY(a)) * u, 0];
-        }),
-      ),
-    );
-    if (keys.some((k) => k.scale !== undefined)) {
-      tracks.push(
-        new THREE.VectorKeyframeTrack(
-          "body.scale",
-          times,
-          times.flatMap((t) => {
-            const { a, b: b2, u } = at(t);
-            const s = scale(a) + (scale(b2) - scale(a)) * u;
-            return [s, s, s];
-          }),
-        ),
-      );
-    }
     void loop;
-    return new THREE.AnimationClip(name, duration, tracks);
+    return creatureClip(name, duration, keys as CreatureKey[], { bone: "body", base: QUIZ.sheet.hover });
   };
 
   const sway = (t: number, amp: number): Key["pose"] => ({

@@ -10,16 +10,17 @@ import { terrainHeight } from "../../world";
 import { ENEMY_TYPES } from "../data";
 import { useRpg } from "../store";
 import { ArtBoundary } from "../../art/ArtBoundary";
-import { QuizCreature } from "../../art/creatures/QuizCreature";
+import { CREATURE_ART, CreatureActor } from "../../art/creatures/CreatureActor";
 import { preloadArt } from "../../art/assets";
 type Enemy = ReturnType<typeof useRpg.getState>["enemies"][number];
-preloadArt("creature.quiz");
-/** Upgraded kinds come from the art pipeline; the rest keep the procedural model until their pass. */
+// Asset ids, spelled out so the art validator can see each kind is wired here:
+// creature.quiz, creature.report, creature.exam, creature.final.
+for (const look of Object.values(CREATURE_ART)) preloadArt(look.artId);
+/** Every kind renders from the art pipeline; the procedural model is the loading and failure stand-in. */
 export function Monster({enemy}:{enemy:Enemy}) {
-  if (enemy.kind !== "quiz") return <LegacyMonster enemy={enemy}/>;
   const fallback = <LegacyMonster enemy={enemy}/>;
-  return <ArtBoundary id="creature.quiz" fallback={fallback} onFail={(m)=>useRpg.getState().notify(m)}>
-    <Suspense fallback={fallback}><QuizCreature enemy={enemy}/></Suspense>
+  return <ArtBoundary id={CREATURE_ART[enemy.kind].artId} fallback={fallback} onFail={(m)=>useRpg.getState().notify(m)}>
+    <Suspense fallback={fallback}><CreatureActor enemy={enemy}/></Suspense>
   </ArtBoundary>;
 }
 function LegacyMonster({enemy}:{enemy:Enemy}) {

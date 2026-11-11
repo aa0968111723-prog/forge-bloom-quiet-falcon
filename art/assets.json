@@ -229,7 +229,8 @@
         "textures": 1
       },
       "runtime": [
-        "src/game/art/creatures/QuizCreature.tsx"
+        "src/game/art/creatures/CreatureActor.tsx",
+        "src/game/rpg/art/Monster.tsx"
       ],
       "status": "integrated",
       "review": "needs_review",
@@ -242,6 +243,144 @@
         "docs/art/evidence/m1/combat.json"
       ],
       "notes": "Keeps ENEMY_TYPES.quiz stats, AI, drops and rewards; visuals read enemy.state/timer/hurt/hp only."
+    },
+    {
+      "id": "creature.report",
+      "name": "分組報告聚合體（活頁夾怪）",
+      "category": "creature",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/creatures/report/report.ts",
+        "files": [
+          "art/creatures/report/report.ts",
+          "art/creatures/shared/creature.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, printed-exam texture and animation; no third-party content.",
+      "output": "public/game-art/creatures/report.glb",
+      "units": "m",
+      "pivot": "ground centre",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": [
+        "idle",
+        "chase",
+        "windup",
+        "attack",
+        "hurt",
+        "defeat"
+      ],
+      "budget": {
+        "triangles": 6000,
+        "bytes": 600000,
+        "textureSize": 512,
+        "textures": 1
+      },
+      "runtime": [
+        "src/game/art/creatures/CreatureActor.tsx",
+        "src/game/rpg/art/Monster.tsx"
+      ],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Ring binder whose lid opens like a jaw over page 'teeth' and binder rings, one sticky-note tab per group member, rolled-report arms with paper-clip claws, paper-ream legs. Ground slam attack."
+    },
+    {
+      "id": "creature.exam",
+      "name": "期中考監視者（監考時鐘）",
+      "category": "creature",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/creatures/exam/exam.ts",
+        "files": [
+          "art/creatures/exam/exam.ts",
+          "art/creatures/shared/creature.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, printed-exam texture and animation; no third-party content.",
+      "output": "public/game-art/creatures/exam.glb",
+      "units": "m",
+      "pivot": "ground centre",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": [
+        "idle",
+        "chase",
+        "windup",
+        "attack",
+        "hurt",
+        "defeat"
+      ],
+      "budget": {
+        "triangles": 7000,
+        "bytes": 600000,
+        "textureSize": 512,
+        "textures": 1
+      },
+      "runtime": [
+        "src/game/art/creatures/CreatureActor.tsx",
+        "src/game/rpg/art/Monster.tsx"
+      ],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Floating invigilator robe with torn answer-sheet hem, white gloves, ruler staff and stopwatch; clock-face head with a single watching eye, clock hands for brows, mortarboard and hour-tick halo. Ruler strike attack."
+    },
+    {
+      "id": "creature.final",
+      "name": "期末 · 截止日（鬧鐘巨像）",
+      "category": "creature",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/creatures/final/final.ts",
+        "files": [
+          "art/creatures/final/final.ts",
+          "art/creatures/shared/creature.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, printed-exam texture and animation; no third-party content.",
+      "output": "public/game-art/creatures/final.glb",
+      "units": "m",
+      "pivot": "ground centre",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": [
+        "idle",
+        "chase",
+        "windup",
+        "attack",
+        "hurt",
+        "defeat"
+      ],
+      "budget": {
+        "triangles": 9000,
+        "bytes": 600000,
+        "textureSize": 512,
+        "textures": 1
+      },
+      "runtime": [
+        "src/game/art/creatures/CreatureActor.tsx",
+        "src/game/rpg/art/Monster.tsx"
+      ],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Crimson twin-bell alarm-clock titan on stout legs; angry clock face stuck at 11:59, tear-off calendar with the due date circled, clock-hand blades for arms, hammer rattling between the bells. Double blade slam."
     }
   ]
 }

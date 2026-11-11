@@ -2025,6 +2025,676 @@
           ]
         }
       }
+    },
+    {
+      "id": "creature.report",
+      "name": "分組報告聚合體（活頁夾怪）",
+      "category": "creature",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/creatures/report/report.ts",
+        "files": [
+          "art/creatures/report/report.ts",
+          "art/creatures/shared/creature.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, printed-exam texture and animation; no third-party content.",
+      "output": "public/game-art/creatures/report.glb",
+      "units": "m",
+      "pivot": "ground centre",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": [
+        "idle",
+        "chase",
+        "windup",
+        "attack",
+        "hurt",
+        "defeat"
+      ],
+      "budget": {
+        "triangles": 6000,
+        "bytes": 600000,
+        "textureSize": 512,
+        "textures": 1
+      },
+      "runtime": [
+        "src/game/art/creatures/CreatureActor.tsx",
+        "src/game/rpg/art/Monster.tsx"
+      ],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Ring binder whose lid opens like a jaw over page 'teeth' and binder rings, one sticky-note tab per group member, rolled-report arms with paper-clip claws, paper-ream legs. Ground slam attack.",
+      "url": "/game-art/creatures/report.glb",
+      "meta": {
+        "units": "m",
+        "forward": "+Z",
+        "up": "+Y",
+        "pivot": "ground centre",
+        "bones": [
+          "root",
+          "body",
+          "lid",
+          "tabs",
+          "armL",
+          "armR",
+          "legL",
+          "legR"
+        ],
+        "parts": 27
+      },
+      "metrics": {
+        "bytes": 199488,
+        "sha256": "862feb83d905e646ed6ff1ace97cea570db4dd3cdbf6f6823fe3dccebfa6257e",
+        "triangles": 3070,
+        "vertices": 2286,
+        "meshes": 1,
+        "primitives": 1,
+        "materials": [
+          "report-atlas"
+        ],
+        "attributes": [
+          "COLOR_0",
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "textures": [
+          {
+            "name": "report-atlas-atlas",
+            "mimeType": "image/png",
+            "bytes": 32729,
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "skins": [
+          {
+            "joints": [
+              "root",
+              "body",
+              "lid",
+              "tabs",
+              "armL",
+              "armR",
+              "legL",
+              "legR"
+            ]
+          }
+        ],
+        "nodes": [
+          "creature-report",
+          "report",
+          "root",
+          "body",
+          "lid",
+          "tabs",
+          "armL",
+          "armR",
+          "legL",
+          "legR"
+        ],
+        "animations": [
+          {
+            "name": "idle",
+            "duration": 2.6,
+            "channels": 8,
+            "targets": [
+              "body.rotation",
+              "lid.rotation",
+              "tabs.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "legL.rotation",
+              "legR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "chase",
+            "duration": 0.9,
+            "channels": 8,
+            "targets": [
+              "body.rotation",
+              "lid.rotation",
+              "tabs.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "legL.rotation",
+              "legR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "windup",
+            "duration": 1,
+            "channels": 6,
+            "targets": [
+              "body.rotation",
+              "lid.rotation",
+              "tabs.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "attack",
+            "duration": 0.5,
+            "channels": 8,
+            "targets": [
+              "body.rotation",
+              "lid.rotation",
+              "tabs.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "legL.rotation",
+              "legR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "hurt",
+            "duration": 0.36,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "lid.rotation",
+              "tabs.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "body.translation",
+              "body.scale"
+            ]
+          },
+          {
+            "name": "defeat",
+            "duration": 1.4,
+            "channels": 9,
+            "targets": [
+              "body.rotation",
+              "lid.rotation",
+              "tabs.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "legL.rotation",
+              "legR.rotation",
+              "body.translation",
+              "body.scale"
+            ]
+          }
+        ],
+        "bounds": {
+          "min": [
+            -0.9003,
+            0.005,
+            -0.49
+          ],
+          "max": [
+            0.9003,
+            1.2902,
+            0.45
+          ]
+        }
+      }
+    },
+    {
+      "id": "creature.exam",
+      "name": "期中考監視者（監考時鐘）",
+      "category": "creature",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/creatures/exam/exam.ts",
+        "files": [
+          "art/creatures/exam/exam.ts",
+          "art/creatures/shared/creature.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, printed-exam texture and animation; no third-party content.",
+      "output": "public/game-art/creatures/exam.glb",
+      "units": "m",
+      "pivot": "ground centre",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": [
+        "idle",
+        "chase",
+        "windup",
+        "attack",
+        "hurt",
+        "defeat"
+      ],
+      "budget": {
+        "triangles": 7000,
+        "bytes": 600000,
+        "textureSize": 512,
+        "textures": 1
+      },
+      "runtime": [
+        "src/game/art/creatures/CreatureActor.tsx",
+        "src/game/rpg/art/Monster.tsx"
+      ],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Floating invigilator robe with torn answer-sheet hem, white gloves, ruler staff and stopwatch; clock-face head with a single watching eye, clock hands for brows, mortarboard and hour-tick halo. Ruler strike attack.",
+      "url": "/game-art/creatures/exam.glb",
+      "meta": {
+        "units": "m",
+        "forward": "+Z",
+        "up": "+Y",
+        "pivot": "ground centre",
+        "bones": [
+          "root",
+          "body",
+          "chest",
+          "head",
+          "hands",
+          "armL",
+          "armR",
+          "hem"
+        ],
+        "parts": 55
+      },
+      "metrics": {
+        "bytes": 203288,
+        "sha256": "5d28a1a07e56241153d9f712e13081d29b05c685e93837af54071b91eea79738",
+        "triangles": 2598,
+        "vertices": 2282,
+        "meshes": 1,
+        "primitives": 1,
+        "materials": [
+          "exam-atlas"
+        ],
+        "attributes": [
+          "COLOR_0",
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "textures": [
+          {
+            "name": "exam-atlas-atlas",
+            "mimeType": "image/png",
+            "bytes": 39705,
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "skins": [
+          {
+            "joints": [
+              "root",
+              "body",
+              "chest",
+              "head",
+              "hands",
+              "armL",
+              "armR",
+              "hem"
+            ]
+          }
+        ],
+        "nodes": [
+          "creature-exam",
+          "exam",
+          "root",
+          "body",
+          "chest",
+          "head",
+          "hands",
+          "armL",
+          "armR",
+          "hem"
+        ],
+        "animations": [
+          {
+            "name": "idle",
+            "duration": 3.2,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "hem.rotation",
+              "head.rotation",
+              "hands.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "chase",
+            "duration": 1.2,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "hem.rotation",
+              "head.rotation",
+              "hands.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "windup",
+            "duration": 1,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "head.rotation",
+              "hands.rotation",
+              "armR.rotation",
+              "armL.rotation",
+              "hem.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "attack",
+            "duration": 0.5,
+            "channels": 6,
+            "targets": [
+              "body.rotation",
+              "head.rotation",
+              "armR.rotation",
+              "armL.rotation",
+              "hem.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "hurt",
+            "duration": 0.4,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "head.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "hem.rotation",
+              "body.translation",
+              "body.scale"
+            ]
+          },
+          {
+            "name": "defeat",
+            "duration": 1.5,
+            "channels": 8,
+            "targets": [
+              "body.rotation",
+              "head.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "hem.rotation",
+              "hands.rotation",
+              "body.translation",
+              "body.scale"
+            ]
+          }
+        ],
+        "bounds": {
+          "min": [
+            -0.72,
+            0,
+            -0.6075
+          ],
+          "max": [
+            0.72,
+            2.5,
+            0.6075
+          ]
+        }
+      }
+    },
+    {
+      "id": "creature.final",
+      "name": "期末 · 截止日（鬧鐘巨像）",
+      "category": "creature",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/creatures/final/final.ts",
+        "files": [
+          "art/creatures/final/final.ts",
+          "art/creatures/shared/creature.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, printed-exam texture and animation; no third-party content.",
+      "output": "public/game-art/creatures/final.glb",
+      "units": "m",
+      "pivot": "ground centre",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": [
+        "idle",
+        "chase",
+        "windup",
+        "attack",
+        "hurt",
+        "defeat"
+      ],
+      "budget": {
+        "triangles": 9000,
+        "bytes": 600000,
+        "textureSize": 512,
+        "textures": 1
+      },
+      "runtime": [
+        "src/game/art/creatures/CreatureActor.tsx",
+        "src/game/rpg/art/Monster.tsx"
+      ],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Crimson twin-bell alarm-clock titan on stout legs; angry clock face stuck at 11:59, tear-off calendar with the due date circled, clock-hand blades for arms, hammer rattling between the bells. Double blade slam.",
+      "url": "/game-art/creatures/final.glb",
+      "meta": {
+        "units": "m",
+        "forward": "+Z",
+        "up": "+Y",
+        "pivot": "ground centre",
+        "bones": [
+          "root",
+          "body",
+          "bellL",
+          "bellR",
+          "hammer",
+          "calendar",
+          "armL",
+          "armR",
+          "legL",
+          "legR"
+        ],
+        "parts": 23
+      },
+      "metrics": {
+        "bytes": 229492,
+        "sha256": "e63f14fee2cc6f61f8eac56a419de2ff1f48ba02d813550ee0ffc9d88d2f0499",
+        "triangles": 3538,
+        "vertices": 2564,
+        "meshes": 1,
+        "primitives": 1,
+        "materials": [
+          "final-atlas"
+        ],
+        "attributes": [
+          "COLOR_0",
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "textures": [
+          {
+            "name": "final-atlas-atlas",
+            "mimeType": "image/png",
+            "bytes": 31211,
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "skins": [
+          {
+            "joints": [
+              "root",
+              "body",
+              "bellL",
+              "bellR",
+              "hammer",
+              "calendar",
+              "armL",
+              "armR",
+              "legL",
+              "legR"
+            ]
+          }
+        ],
+        "nodes": [
+          "creature-final",
+          "final",
+          "root",
+          "body",
+          "bellL",
+          "bellR",
+          "hammer",
+          "calendar",
+          "armL",
+          "armR",
+          "legL",
+          "legR"
+        ],
+        "animations": [
+          {
+            "name": "idle",
+            "duration": 3,
+            "channels": 10,
+            "targets": [
+              "body.rotation",
+              "bellL.rotation",
+              "bellR.rotation",
+              "hammer.rotation",
+              "calendar.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "legL.rotation",
+              "legR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "chase",
+            "duration": 1.1,
+            "channels": 10,
+            "targets": [
+              "body.rotation",
+              "bellL.rotation",
+              "bellR.rotation",
+              "hammer.rotation",
+              "calendar.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "legL.rotation",
+              "legR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "windup",
+            "duration": 1,
+            "channels": 8,
+            "targets": [
+              "body.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "bellL.rotation",
+              "bellR.rotation",
+              "hammer.rotation",
+              "calendar.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "attack",
+            "duration": 0.6,
+            "channels": 7,
+            "targets": [
+              "body.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "calendar.rotation",
+              "legL.rotation",
+              "legR.rotation",
+              "body.translation"
+            ]
+          },
+          {
+            "name": "hurt",
+            "duration": 0.4,
+            "channels": 8,
+            "targets": [
+              "body.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "bellL.rotation",
+              "bellR.rotation",
+              "calendar.rotation",
+              "body.translation",
+              "body.scale"
+            ]
+          },
+          {
+            "name": "defeat",
+            "duration": 1.8,
+            "channels": 11,
+            "targets": [
+              "body.rotation",
+              "armL.rotation",
+              "armR.rotation",
+              "bellL.rotation",
+              "bellR.rotation",
+              "hammer.rotation",
+              "calendar.rotation",
+              "legL.rotation",
+              "legR.rotation",
+              "body.translation",
+              "body.scale"
+            ]
+          }
+        ],
+        "bounds": {
+          "min": [
+            -1.5177,
+            0,
+            -0.505
+          ],
+          "max": [
+            1.5177,
+            2.8,
+            0.562
+          ]
+        }
+      }
     }
   ]
 }
