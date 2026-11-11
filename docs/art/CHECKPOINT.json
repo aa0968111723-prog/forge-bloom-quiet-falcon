@@ -3,7 +3,7 @@
   "task_ids": [
     "ART-062"
   ],
-  "branch": "cursor/theme-masses-1a71",
+  "branch": "cursor/study-masses-1a71",
   "base": "main@7ffe826929a9",
   "commits": [
     {
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Dorms, labs, sport halls, and arts buildings now use separate estimated masses. Study buildings are still the generic slab. Guard gates are on a separate PR. Do not add unlicensed audio."
+  "next_action": "Study buildings now have a dark base and a light upper volume. Guard gates are still solid slabs on a separate PR. Remaining ART-090 work is skill icons, map markers, and hit feedback. Do not add unlicensed audio."
 }
