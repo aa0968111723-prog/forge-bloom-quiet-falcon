@@ -1140,8 +1140,10 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "95e9f682bb44281a1061580b58329335b9645eb7",
+      "integrationPr": 81,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/81",
       "nextAction": "None. The media-hall patch from ede6705 is already in this integration. Do not merge PR #72 by itself. Next is PR #73, then PR #75, then PR #77, then PR #79, then PR #80. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
