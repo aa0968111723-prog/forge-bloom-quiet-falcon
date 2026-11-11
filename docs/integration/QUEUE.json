@@ -699,8 +699,8 @@
       "line": "art",
       "scope": "Plaza ring trees stay 16 m from the title camera so a banyan no longer fills the hero shot. Azaleas stay. The 48 m canopy switch stays.",
       "status": "verified",
-      "pr": null,
-      "prUrl": null,
+      "pr": 48,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/48",
       "integrationBranch": "cursor/integration-title-camera-3395",
       "sourceBranch": "cursor/title-camera-1a71",
       "baseSha": "1e980af13e81",
@@ -716,9 +716,9 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/KNOWN-ISSUES.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "adfd28af237a6a5759940d63080b186caad1deb0",
-      "nextAction": "Record the integration PR, then merge. Do not merge PR #46 by itself. Do not merge PR #32 head 1fc5887."
+      "nextAction": "None. Source eab68c7 is an ancestor of main. Do not merge PR #46 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }
