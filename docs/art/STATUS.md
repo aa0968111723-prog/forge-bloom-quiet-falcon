@@ -251,6 +251,12 @@
 
 畫面：`docs/art/evidence/gym/arena.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：濯纓苑／校史館（ART-066 的一部分）
+
+文藝區這棟不再用圖書館的外牆。現在是白牆、木色基座、收緊的綠瓦坡頂和南向迴廊。文學館與覺軒仍是坡頂。外形仍是 estimated。體育館留著。
+
+畫面：`docs/art/evidence/garden/house.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。體育館已從通用廳分開。泳館、司令臺與驚聲大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。濯纓苑已從學術坡頂分開。文學館、覺軒與體育館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
