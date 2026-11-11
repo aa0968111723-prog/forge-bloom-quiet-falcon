@@ -1,8 +1,8 @@
 /**
  * Canvas backpack with shoulder straps and the small turtle charm.
  *
- * The bag rides the `bag` bone (child of chest) and stops 1 cm behind the
- * jacket, so it never clips the back at rest; straps follow the jacket's
+ * The bag rides the `bag` bone (child of chest). Its forward vertices stay
+ * behind the skinned jacket; straps follow the jacket's
  * outer surface over the shoulders and down the chest. The charm hangs from
  * the pocket zipper on its own `charm` bone so it can swing.
  */

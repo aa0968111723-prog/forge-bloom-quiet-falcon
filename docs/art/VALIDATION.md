@@ -258,4 +258,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 33 輪（背包穿模）— 2026-11-11
 
-`node --test --test-name-pattern "backpack stays" scripts/art-pipeline.test.mjs` 通過。每個動作片段取 17 個時間點，背包骨換到胸口局部座標。最靠近胸口的是 dodge，局部 z=-0.190，限制是 -0.15。背包本體再往前 6.5 cm，仍在關節後面。沒有新增音效。學生活動中心留在第 32 輪。
+`node --test --test-name-pattern "backpack stays behind the jacket" scripts/art-pipeline.test.mjs` 通過。每個動作片段取 17 個時間點，比較背包正面的蒙皮頂點和同一高度的外套背面。最靠近的是 run，間隙 22.0 mm。背包骨轉 90 度會穿進 117 mm。沒有新增音效。學生活動中心留在第 32 輪。
