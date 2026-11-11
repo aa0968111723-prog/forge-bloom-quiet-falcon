@@ -1,7 +1,7 @@
 {
-  "updated": "2026-11-11T15:50:00Z",
+  "updated": "2026-11-11T16:05:00Z",
   "base": "main",
-  "baseSha": "d1806168666b50b5d842819ad9a239612feb2a49",
+  "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
     {
       "id": "art-m1",
@@ -91,24 +91,85 @@
       "nextAction": "None. Damage and AI are unchanged."
     },
     {
-      "id": "backend-sync",
-      "line": "backend",
-      "scope": "Identity, database, cloud save, multi-device sync, content API.",
-      "status": "discovered",
+      "id": "art-m2",
+      "line": "art",
+      "scope": "NPC kit, report/exam/final creatures, college skill shapes. One disposer and the paused windup hold stay.",
+      "status": "ready_to_merge",
       "pr": null,
       "prUrl": null,
+      "integrationBranch": "cursor/integration-art-m2-3395",
+      "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
+      "sourceBranch": "cursor/tamkang-art-pipeline-1a71",
+      "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
+      "headSha": "8d5ffd08dad9f1727a2028bdf683f7355844d9c7",
+      "dependencies": ["art-m1", "quiz-windup-pause"],
+      "sharedFiles": [
+        "src/game/art/assets.ts",
+        "src/game/art/character/Protagonist.tsx",
+        "src/game/Npcs.tsx",
+        "src/game/rpg/art/Monster.tsx"
+      ],
+      "contractVersion": {
+        "artSchema": 1,
+        "savePilgrimage": 2,
+        "saveRpg": 2,
+        "contentSchema": null
+      },
+      "checks": {
+        "diffRead": true,
+        "conflicts": "assets.ts and Protagonist.tsx resolved; instance.ts removed",
+        "typecheck": "pass",
+        "npmTest": "225 pass / 0 fail",
+        "eslint": "0 on resolved files",
+        "buildSite": "pass",
+        "route": "docs/integration/evidence/m2/integration-low.json",
+        "creatures": "docs/integration/evidence/m2/spots.json",
+        "secrets": "none added",
+        "saveSchema": "unchanged",
+        "branchProtection": "main.protected=false; no required GitHub checks"
+      },
+      "conflicts": [
+        {
+          "id": "dispose-path",
+          "resolution": "Keep releaseArtInstance. Delete the integrator instance.ts so there is one disposer."
+        },
+        {
+          "id": "head-look",
+          "resolution": "Keep restoreLookBase before the mixer. Do not reset the skeleton to identity."
+        }
+      ],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Reconfirm SHAs, then merge this branch. Do not merge backend #9 in the same push."
+    },
+    {
+      "id": "backend-sync",
+      "line": "backend",
+      "scope": "Optional RPG cloud save, revision conflicts, additive migration 0003. Static game still runs without the server.",
+      "status": "discovered",
+      "pr": 9,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9",
+      "draft": true,
       "integrationBranch": null,
-      "sourceBranch": null,
-      "baseSha": null,
-      "headSha": null,
-      "dependencies": ["art-m1"],
-      "sharedFiles": [],
-      "contractVersion": null,
+      "sourceBranch": "feature/backend-game-services",
+      "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+      "headSha": "a38ef8e41cfddc9520e60b62a992bae16a4648d5",
+      "dependencies": ["art-m2"],
+      "sharedFiles": [
+        "src/lib/db.ts",
+        "src/routes/index.tsx",
+        "src/routeTree.gen.ts",
+        "scripts/migrate.mjs"
+      ],
+      "contractVersion": {
+        "cloudSchema": 1,
+        "contentVersionField": "RPG document.version 2, not a content pack"
+      },
       "checks": null,
       "conflicts": [],
       "merged": false,
       "mergeSha": null,
-      "nextAction": "Wait for a pushed branch or PR. Do not invent a second save store."
+      "nextAction": "After art-m2 is on main, integrate in a new worktree. Do not merge while the PR is still a draft and unverified on that main."
     },
     {
       "id": "content-pack",
@@ -128,7 +189,7 @@
       "conflicts": [],
       "merged": false,
       "mergeSha": null,
-      "nextAction": "Wait for a pushed branch or PR. Reconcile department catalogs only when the content line names a canonical id list."
+      "nextAction": "claude/tamkang-reality-campus-v1-2bxs0g is already an ancestor of main. Wait for a new content head. Do not invent a schema."
     }
   ]
 }

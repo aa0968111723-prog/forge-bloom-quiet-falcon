@@ -1,0 +1,59 @@
+{
+  "ok": true,
+  "host": "4vcpu Intel(R) Xeon(R) Processor / ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "pageErrors": [],
+  "shots": [
+    {
+      "name": "report",
+      "x": -4,
+      "z": -158,
+      "yaw": 0,
+      "enemy": {
+        "id": "report-1",
+        "kind": "report",
+        "hp": 145,
+        "state": "chase"
+      },
+      "notice": false,
+      "file": "report.png"
+    },
+    {
+      "name": "exam",
+      "x": -7,
+      "z": -234,
+      "yaw": 0,
+      "enemy": {
+        "id": "exam-1",
+        "kind": "exam",
+        "hp": 240,
+        "state": "chase"
+      },
+      "notice": false,
+      "file": "exam.png"
+    },
+    {
+      "name": "final",
+      "x": -55,
+      "z": -298,
+      "yaw": 0,
+      "enemy": {
+        "id": "final-1",
+        "kind": "final",
+        "hp": 520,
+        "state": "chase"
+      },
+      "notice": false,
+      "file": "final.png"
+    },
+    {
+      "name": "avenue-npc",
+      "x": 6,
+      "z": -70,
+      "yaw": 1.5707963267948966,
+      "enemy": null,
+      "notice": false,
+      "file": "avenue-npc.png"
+    }
+  ],
+  "note": "SwiftShader host only. Not a phone or desktop-GPU result."
+}

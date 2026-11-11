@@ -6,8 +6,8 @@
 
 | 契約 | 提供線 | 本輪版本 | 位置 |
 | --- | --- | --- | --- |
-| API | 後端 | 尚無新契約。既有 Node 只有 `/api/auth/*` | `src/routes/api/auth/$.ts` |
-| 內容 schema | 內容 | 尚無 `schemaVersion`／`contentVersion` | `docs/content/` 不存在 |
+| API | 後端 | 草稿。雲端信封 `schemaVersion` 1。尚未接到 `main` | PR #9 `docs/backend/API.md` |
+| 內容 schema | 內容 | 尚無。後端文件裡的 `contentVersion: 2` 目前指 RPG `document.version`，不是內容包 | `docs/content/` 不存在。見 INT-10 |
 | 資產 manifest | 美術 | `schemaVersion` 1 | `art/assets.json` → `public/game-art/manifest.json` |
 
 ## 資產
@@ -16,9 +16,15 @@
 | --- | --- | --- | --- |
 | `char.student-kit` | 高畫質主角 | `Protagonist` | `ArtBoundary` 改回 `Student`，並通知一次 |
 | `char.student-kit-lod1` | 省電主角。同骨架、同動畫 | 低畫質 | 同上 |
-| `creature.quiz` | 所有 `kind === "quiz"` | `QuizCreature` | 改回 `LegacyMonster` |
+| `creature.quiz` | `kind === "quiz"` | `CreatureActor` | 改回 `LegacyMonster` |
+| `creature.report` | `kind === "report"` | `CreatureActor` | 同上 |
+| `creature.exam` | `kind === "exam"` | `CreatureActor` | 同上 |
+| `creature.final` | `kind === "final"` | `CreatureActor` | 同上 |
+| `char.npc-kit` | 五條既有路徑上的 NPC | `NpcCharacter` | 改回程序 `Student` |
 
-`report`、`exam`、`final` 仍走舊外形。URL 帶內容雜湊。幾何與 atlas 共享；每個實例自己的材質與骨架在卸載時釋放。
+URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`：釋放複製材質與骨架 bone texture，不釋放共享幾何。
+
+八學院技能外形在 `CollegeCasts`，讀既有 `attackFx`。工程「結構脈衝」仍是 `StructuralPulse`。
 
 動畫與特效只讀 `attackFx`、`hurtUntil`、敵人 `state`／`timer`／`hurt`／`hp`。不寫回戰鬥。
 

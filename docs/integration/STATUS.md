@@ -1,32 +1,33 @@
 # 整合狀態
 
-更新：2026-11-11。`main` 為 `dff98e3`。
-本文件只記實際程式、PR 與本輪驗收。不把 M1 樣板當成整款遊戲完成，也不以 PR 或文件數量估算完成率。
+更新：2026-11-11。`main` 仍是 `df3611a`（遊戲程式在 `d180616`）。美術 M2 在整合分支，尚未合併。
+本文件只記實際程式、PR 與本輪驗收。不把 M1 或 M2 當成整款遊戲完成，也不以 PR 或文件數量估算完成率。
 
 ## 三條線
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 資產管線、主角 `char.student-kit`／LOD1、考卷怪 `creature.quiz`、工程技能「結構脈衝」。NPC、其餘怪物與八學院技能、七區仍是既有程式。 | [#6](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/6) 與 [#7](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/7) 已合併 | `merged` |
-| 後端 | 尚無新分支、新提交或 PR。雲端存檔與多裝置同步未出現在遠端。 | 無 | `discovered` |
-| 內容 | 尚無新分支、新提交或 PR。`docs/content/` 不存在。 | 無 | `discovered` |
+| 美術與場景 | M1 已在 `main`。M2（`8d5ffd0`）加上 NPC 套件、`creature.report`／`exam`／`final`、八學院技能外形。整合分支已接上 glance、暫停預警與單一骨架釋放。 | 來源沒有新 PR。整合分支 `cursor/integration-art-m2-3395` | `ready_to_merge` |
+| 後端 | 草稿 PR [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9)，head `a38ef8e`。可選 RPG 雲端存檔、revision 衝突、只新增表的遷移。基底是美術 M1 之前的 `71f4d3c`。 | #9 草稿 | `discovered` |
+| 內容 | `claude/tamkang-reality-campus-v1-2bxs0g` 已是 `main` 的祖先，沒有新提交。`docs/content/` 仍不存在。 | 無 | `discovered` |
 
 雲端代理「淡江世界遊戲內容」「後端存檔同步」在本輪盤點時為 RUNNING，尚未推送分支。不操作它們的工作區。
 
 ## 本輪範圍
 
-把美術 M1 接到現有遊戲：沿用 `useRpg`／`useGame`、既有傷害與存檔，不另建生命、任務、背包或獎勵 store。
-整合時修兩項會影響遊玩的缺陷：走路時頭部 Glance 累加，以及進出室內時骨架 bone texture 沒有釋放。
+把美術 M2 接到已含 M1 與暫停預警修正的 `main`。戰鬥仍讀 `useRpg`，存檔 schema 沒有改。衝突只在資產卸載與主角 glance：保留剪輯姿勢還原，卸載改用美術線的 `releaseArtInstance`，刪掉重複的 `instance.ts`。
+
+後端草稿 PR 本輪只登記，不與 M2 同一批合併。
 
 ## 標示
 
 | 項目 | 狀態 |
 | --- | --- |
-| 已製作 | 美術 M1，以及 glance 不累加、骨架 bone texture 會釋放 |
-| 已驗證 | 合併前：typecheck、217 項測試、靜態建置、省電五段路線。合併後在 `dff98e3` 再跑 typecheck、217 項測試、靜態建置。路線樹與合併樹相同，沒有重跑。SwiftShader，不是真機 |
-| 已合併 | 是。`main` `dff98e3b325f7fa458f73f86a92ba7e995cb0019`。PR #6 與 #7 都顯示已合併 |
+| 已製作 | 美術 M1 在 `main`。M2 在整合分支 `be6fdd6`：NPC 套件、三種怪物、學院技能外形 |
+| 已驗證 | M2 合併樹上：typecheck、225 項測試、eslint 0、`build:site`、省電五段路線、report／exam／final 實機畫面。SwiftShader，不是真機 |
+| 已合併 | M1 與 PR #8 已在 `main` `df3611a`。M2 尚未合併 |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍
 
-登入後的雲端同步、第二個測試客戶端、內容 schema、NPC 外觀、report／exam／final、其餘技能與場景精修，都還沒有可合併的實作。靜態版可以離線啟動；Node 登入與資料庫服務仍是既有程式，本輪沒有新的同步 API。
+雲端同步有草稿實作，還沒接到目前的 `main`，也還沒做第二客戶端驗收。內容 schema 仍沒有。七區建築仍是既有場景。手機與 RTX 3060 是 `pending-device`。

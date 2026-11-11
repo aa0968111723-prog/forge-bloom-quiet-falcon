@@ -4,17 +4,18 @@
 
 ## 現在
 
-- `main` 是 `d1806168666b50b5d842819ad9a239612feb2a49`。
-- `art-m1` 在 `dff98e3`。其後 PR #8 修正考卷怪暫停時預警繼續填滿，合併提交 `d180616`。傷害與 AI 沒有改。
-- 後端與內容仍沒有遠端分支。不要改它們的工作區。
+- `origin/main` 是 `df3611adaf2640673e8a07d8179bfa696517313b`。遊戲行為在其父提交 `d180616`。
+- 美術 M2 整合分支 `cursor/integration-art-m2-3395`，合併提交 `be6fdd608504ba6fb531b69156d96d155cfe369e`。來源 head `8d5ffd08dad9f1727a2028bdf683f7355844d9c7`。狀態 `ready_to_merge`。
+- 後端草稿 PR #9，分支 `feature/backend-game-services`，head `a38ef8e41cfddc9520e60b62a992bae16a4648d5`，基底 `71f4d3c`。不要跟 M2 同時推進 `main`。
+- 內容沒有新提交。不要改其他代理的工作區。
 
-## 合併後已驗證
+## 本輪已驗證（M2，尚未進 main）
 
-在 `dff98e3` 上：`npm run typecheck` 通過，`npm test` 217 通過，`npm run build:site` 通過。沒有重跑瀏覽器路線，因為樹與已驗的整合 head 相同。
+在 `/tmp/worktrees/art-m2` 的 `be6fdd6`：`npm run typecheck` 通過，`npm test` 225 通過，衝突檔 eslint 0，`npm run build:site` 通過。靜態預覽 `http://127.0.0.1:8090/` 的省電五段路線：`quiz-2` 65→25，室內宮燈教室可見主角，返回戶外，`pageErrors` 空。另拍到分組報告聚合體 145/145、期中考監視者 240/240、期末・截止日 520/520。主機是 SwiftShader。
 
 ## 下一步
 
-有後端或內容的新分支才開下一項，用新的 worktree。沒有新 head 就不要重跑全量測試，也不要做空提交。
+確認 `origin/main` 仍是 `df3611a`、美術 head 仍是 `8d5ffd0` 之後，合併 M2。合併後再對合併結果做 smoke。然後在新 worktree 讀 PR #9，不要在它仍是草稿、且還沒在目前 `main` 上重跑之前把它推進 `main`。
 
 ## 不要做
 

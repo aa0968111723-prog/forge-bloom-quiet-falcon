@@ -1,17 +1,15 @@
 {
-  "updated": "2026-11-11T15:50:00Z",
-  "branch": "main",
-  "mainSha": "d1806168666b50b5d842819ad9a239612feb2a49",
-  "mainTree": "f95ce87ccdf05aa95549d7fc4c6375f20aa6e232",
-  "activeItem": null,
-  "sourceHead": "017b755cf196585ea5bcf134efafdd697f40ceb8",
-  "integrationHead": "a2308ad16764bb66670605c46904a5ee741b0a4e",
+  "updated": "2026-11-11T16:05:00Z",
+  "branch": "cursor/integration-art-m2-3395",
+  "mainSha": "df3611adaf2640673e8a07d8179bfa696517313b",
+  "activeItem": "art-m2",
+  "sourceHead": "8d5ffd08dad9f1727a2028bdf683f7355844d9c7",
+  "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
-    "preMerge": "typecheck, 217 tests, build:site, low-tier route on b3db57b; a2308ad was docs only",
-    "postMerge": "dff98e3 matched the M1 integration tree. d180616 is PR #8: quiz telegraph holds while paused. typecheck passed on that merge tree; 218 tests and build:site passed on its identical parent 1ad31aa."
+    "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": [],
+  "notMerged": ["art-m2"],
   "blocked": ["INT-01"],
   "waiting": ["backend-sync", "content-pack"],
-  "next_action": "Re-list remote heads. If backend or content has a new branch or PR whose dependencies are on main, integrate that item in a new worktree. If nothing new, do not retest and do not make an empty commit."
+  "next_action": "Reconfirm origin/main is df3611a and art head is 8d5ffd0, then merge cursor/integration-art-m2-3395. After that, smoke the merge SHA. Do not merge draft PR #9 in the same push. Next item is backend PR #9 in a new worktree, only after it is rechecked on the new main."
 }
