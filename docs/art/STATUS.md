@@ -157,6 +157,12 @@
 
 畫面：`docs/art/evidence/rain/high.jpg`、`low.jpg`。測試：`scripts/rain-tier.test.mjs`。
 
+## 階段：風洞廠房（ART-064 的一部分）
+
+理工區的風洞實驗室不再是實驗樓。現在是低長廠房，屋頂有一條風管和一端的進氣箱。化學館仍是實驗樓。風管尺寸仍是 estimated。
+
+畫面：`docs/art/evidence/shed/duct.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。雨會跟著畫質減少。手機圖示仍是 44px。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。風洞已從實驗樓分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

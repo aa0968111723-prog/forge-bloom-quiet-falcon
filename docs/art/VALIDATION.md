@@ -215,3 +215,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 22 輪（雨的畫質分級）— 2026-11-11
 
 `node --test scripts/rain-tier.test.mjs` 通過。`tsc --noEmit` 通過。雨後預設會在鏡頭周圍下雨。高畫質 320 條，低畫質 64 條。室內不畫。減少動態時雨絲停住，場景已經開著再改系統設定也會停。同一宮燈大道站點、頁面無錯誤：`docs/art/evidence/rain/high.jpg`、`low.jpg`。手機圖示留在第 21 輪。真機幀時間仍是 pending-device。
+
+## 第 23 輪（風洞廠房）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。風洞實驗室從實驗樓改成低長廠房，屋頂有風管和進氣箱，不再畫窗帶。化學館仍是實驗樓。風管尺寸仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/shed/duct.jpg`。
