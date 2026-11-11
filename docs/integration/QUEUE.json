@@ -916,9 +916,11 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "d8f6df92c2e33898b9d08c8e016506823ca012e2",
-      "nextAction": "Open the integration PR and merge it. Source 2b8f9fb is not an ancestor. Do not merge PR #59 by itself."
+      "integrationPr": 62,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/62",
+      "nextAction": "None. The phone-icon patch from 2b8f9fb is already in this integration. Do not merge PR #59 by itself. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }

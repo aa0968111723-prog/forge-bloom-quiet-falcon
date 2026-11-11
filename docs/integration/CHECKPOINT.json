@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T21:12:00Z",
-  "branch": "cursor/integration-touch-icons-3395",
+  "branch": "main",
   "mainSha": "ea5aef46bc03",
   "gameSha": "d8f6df92c2e33898b9d08c8e016506823ca012e2",
   "activeItem": "art-touch-icons",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Phone icons are large enough to tap on the narrow HUD. Game code is d8f6df92c2e33898b9d08c8e016506823ca012e2, branched from origin/main ea5aef46bc03. The patch from 2b8f9fb is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #59 by itself. Do not merge PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Re-fetch origin/main after this lands. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Phone icons are on main. Narrow tools are 44px and quickbar glyphs are 24px. Game code is d8f6df92c2e33898b9d08c8e016506823ca012e2. The patch from 2b8f9fb is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #62. Do not merge PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
