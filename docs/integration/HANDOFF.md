@@ -15,11 +15,9 @@
 
 ## 下一步
 
-`main` 的 tip 是文件記錄。遊戲與雲端存檔的提交是 `b260c87fbdcb2e4b2e328c94f989c479124e75ba`。PR #13 已合併。開始下一項前先 `git fetch origin main`。
+程式提交是 `9256c858be3972272804c2689bb221bdf679bf28`。PR #14 與來源 PR #12 已合併。合併後 typecheck 通過。開始下一項前先 `git fetch origin main`。
 
-下一個是開放的 PR #12，`cursor/college-poses-campus-1a71` @ `c1a3bb3e12733eb5311d4cbdce6b738467167abf`。它和已合併的美術 M2 有多重 merge base，不要整支直接合。用新 worktree。
-
-其後是草稿 PR #11，`feature/game-content-world` @ `54a997edb483995486917a6a39b7b70a44189578`。它改 `routeTree.gen.ts`，要在後端這版 main 上重解。草稿在重驗前不合併。
+下一項是草稿 PR #11，`feature/game-content-world` @ `54a997edb483995486917a6a39b7b70a44189578`。用新 worktree。它改 `routeTree.gen.ts`。確認沒有第二套任務或獎勵 store，而且型別與測試通過之後才合併。
 
 ## 不要做
 

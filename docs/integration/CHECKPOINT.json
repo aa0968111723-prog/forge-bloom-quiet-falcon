@@ -1,17 +1,17 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "8a815e9920c42c5d7f893caad6ca86c67e1c2f64",
-  "gameSha": "b260c87fbdcb2e4b2e328c94f989c479124e75ba",
-  "activeItem": "art-college-poses",
-  "sourceHead": "c1a3bb3e12733eb5311d4cbdce6b738467167abf",
+  "mainSha": "9256c858be3972272804c2689bb221bdf679bf28",
+  "gameSha": "9256c858be3972272804c2689bb221bdf679bf28",
+  "activeItem": "content-narrative",
+  "sourceHead": "54a997edb483995486917a6a39b7b70a44189578",
   "sourceHead": "8d5ffd08dad9f1727a2028bdf683f7355844d9c7",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
     "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": ["art-college-poses", "content-narrative"],
+  "notMerged": ["content-narrative"],
   "blocked": ["INT-01"],
-  "waiting": ["art-college-poses", "content-narrative"],
-  "next_action": "College poses are validated on cursor/integration-art-poses-3395. Reconfirm origin/main is f842ede and cursor/college-poses-campus-1a71 is c1a3bb3, then merge. Draft PR #11 stays queued."
+  "waiting": ["content-narrative"],
+  "next_action": "College poses are on main at 9256c85. PR #14 and source PR #12 are merged. Post-merge typecheck passed. Next: draft PR #11 feature/game-content-world @ 54a997e in a new worktree. Reconfirm that head. Do not merge it until typecheck, tests, and a check that it does not add a second quest or reward store all pass on that tree."
 }

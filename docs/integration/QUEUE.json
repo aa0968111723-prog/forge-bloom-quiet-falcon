@@ -191,7 +191,7 @@
       "id": "art-college-poses",
       "line": "art",
       "scope": "College cast poses on top of the NPC kit and creatures. Overlaps files already integrated in art M2.",
-      "status": "ready_to_merge",
+      "status": "merged",
       "pr": 12,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/12",
       "draft": false,
@@ -225,9 +225,11 @@
           "resolution": "Keep the comment that identity() would drop the bind pose. The new skill-${discipline} playback stayed."
         }
       ],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm main f842ede and art head c1a3bb3, then merge."
+      "merged": true,
+      "mergeSha": "9256c858be3972272804c2689bb221bdf679bf28",
+      "integrationPr": 14,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/14",
+      "nextAction": "None. Post-merge typecheck passed on this SHA. Source PR #12 closed with it."
     },
     {
       "id": "content-narrative",
