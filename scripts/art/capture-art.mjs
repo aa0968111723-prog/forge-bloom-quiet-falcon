@@ -606,6 +606,12 @@ try {
       await settle(page, { stableFrames: 3 });
       await shot(page, id, `${id} near silhouette`);
     }
+  } else if (scenario === "zones") {
+    await setPose(page, 0, -80, 0);
+    await settle(page, { stableFrames: 3 });
+    await page.evaluate(() => window.__rpgQA.rpg.getState().setPanel("map"));
+    await frames(page, 3);
+    await shot(page, "map", "district legend");
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });

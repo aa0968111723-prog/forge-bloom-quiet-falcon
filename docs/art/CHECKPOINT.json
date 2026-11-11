@@ -3,8 +3,8 @@
   "task_ids": [
     "ART-062"
   ],
-  "branch": "cursor/skill-glyphs-1a71",
-  "base": "main@b1e6ba934cf9",
+  "branch": "cursor/map-zones-1a71",
+  "base": "main@b9c44773542b",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Each college skill now has its own quickbar glyph, and the hurt vignette is a readable red edge. Map markers still use the existing lesson mark. Study buildings, open gates, and distance detail stay as they are on main. Do not add unlicensed audio."
+  "next_action": "The campus map now colors each building by its registry district and shows a seven-zone legend. The colors are not surveyed boundaries. Skill glyphs and the hurt edge are already on main. The lesson marker stays. Do not add unlicensed audio."
 }

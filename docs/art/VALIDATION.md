@@ -164,4 +164,8 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 12 輪（技能圖示與受擊邊緣）— 2026-11-11
 
-`node --test scripts/skill-glyph.test.mjs` 通過。`tsc --noEmit` 通過。九個學院各有一個不重複的技能圖示。土木工程（工程）的快捷欄是製圖圓規，不再是同一顆星。受擊時 `.ad-hurt` 用較清楚的紅色內緣，狀態卡顯示「受傷」。定步畫面：`docs/art/evidence/icons/engineering.jpg`、`hurt.jpg`。頁面無錯誤。地圖仍用既有課程標記。沒有新增音效。
+`node --test scripts/skill-glyph.test.mjs` 通過。`tsc --noEmit` 通過。九個學院各有一個不重複的技能圖示。土木工程（工程）的快捷欄是製圖圓規，不再是同一顆星。受擊時 `.ad-hurt` 用較清楚的紅色內緣，狀態卡顯示「受傷」。定步畫面：`docs/art/evidence/icons/engineering.jpg`、`hurt.jpg`。頁面無錯誤。沒有新增音效。
+
+## 第 13 輪（地圖七區圖例）— 2026-11-11
+
+`node --test scripts/map-zones.test.mjs` 通過。`tsc --noEmit` 通過。校園地圖建物描邊跟清冊分區，圖例是軸線、書圖、理工、教學、文藝、運動、生活。分區框會重疊，所以玩家所在區用最近的建物，不把框線畫成實測界。課程標記仍在。定步打開地圖，頁面無錯誤：`docs/art/evidence/map/zones.jpg`。

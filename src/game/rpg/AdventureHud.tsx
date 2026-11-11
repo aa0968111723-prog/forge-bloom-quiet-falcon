@@ -68,6 +68,7 @@ import {
 import { canPay, levelForXp } from "./rules";
 import { buildCards } from "./buildcard";
 import { holdLife, holdFocus, holdProgress, type StatusCueId } from "./status";
+import { ZONE_MARK, ZONE_MARK_ORDER, zoneMark, zoneNear } from "./map-zones";
 import { quickbarReadout, type QuickSlotView } from "./quickbar";
 import { promptDecision } from "./prompts";
 import { input, type PointerEndKind, type TouchZone } from "./input";
@@ -659,6 +660,7 @@ function MapGraphic({ compact = false }: { compact?: boolean }) {
   const lesson = useRpg((s) => s.lesson);
   const lessonAnchor = useRpg((s) => s.lessonAnchor);
   const marker = lessonReadout().marker;
+  const here = zoneNear(x, z);
   const scaleX = 480 / (WORLD_BOUNDS.maxX - WORLD_BOUNDS.minX),
     scaleZ = 650 / (WORLD_BOUNDS.maxZ - WORLD_BOUNDS.minZ);
   const px = (v: number) => (v - WORLD_BOUNDS.minX) * scaleX,
@@ -720,6 +722,8 @@ function MapGraphic({ compact = false }: { compact?: boolean }) {
             height={s.d * scaleZ}
             rx="2"
             fill={discoveries.includes(s.id) ? "#e8cc92" : "#8baba0"}
+            stroke={zoneMark(s.id)?.color ?? "#d5e2dc"}
+            strokeWidth={compact ? 4 : 3}
           />
           {!compact && (
             <text
@@ -772,6 +776,20 @@ function MapGraphic({ compact = false }: { compact?: boolean }) {
       {!compact && (
         <text x="450" y="28" fill="#e1e6d5" fontSize="13">
           N ↑
+        </text>
+      )}
+      {!compact &&
+        ZONE_MARK_ORDER.map((id, index) => (
+          <g key={id} transform={"translate(18," + (48 + index * 22) + ")"}>
+            <rect width="14" height="14" rx="2" fill={ZONE_MARK[id].color} />
+            <text x="20" y="12" fill="#e1e6d5" fontSize="13">
+              {ZONE_MARK[id].label}
+            </text>
+          </g>
+        ))}
+      {compact && here && (
+        <text x="12" y="28" fill="#fff1cf" fontSize="28" fontWeight="700">
+          {ZONE_MARK[here].label}
         </text>
       )}
     </svg>

@@ -784,9 +784,10 @@
         "docs/art/evidence/hud/status-desktop.jpg",
         "docs/art/evidence/hud/status-narrow.jpg",
         "docs/art/evidence/icons/engineering.jpg",
-        "docs/art/evidence/icons/hurt.jpg"
+        "docs/art/evidence/icons/hurt.jpg",
+        "docs/art/evidence/map/zones.jpg"
       ],
-      "notes": "狀態卡是短標籤長條。九學院技能各有一個圖示，工程是製圖圓規。受擊時畫面邊緣變紅，狀態卡顯示受傷。地圖仍用既有課程標記。"
+      "notes": "狀態卡是短標籤長條。九學院技能各有一個圖示，工程是製圖圓規。受擊時畫面邊緣變紅，狀態卡顯示受傷。地圖上七區各有顏色與圖例，建物描邊跟清冊分區走，不把重疊的估計範圍畫成界線。課程標記仍在。"
     },
     {
       "id": "ART-091",
