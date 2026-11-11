@@ -944,9 +944,11 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "5f2ce19d1da511d1e7507e4266321dc71a3195eb",
-      "nextAction": "Open the integration PR and merge it. Source 7f9fbe4 is not an ancestor. Do not merge PR #61 by itself."
+      "integrationPr": 64,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/64",
+      "nextAction": "None. The rain-tier patch from 7f9fbe4 is already in this integration. Do not merge PR #61 by itself. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
