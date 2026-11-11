@@ -888,8 +888,11 @@
         "route": "not rerun; game SHA unchanged"
       },
       "conflicts": [],
-      "merged": false,
-      "nextAction": "Open the integration PR and merge it. Do not merge PR #56 by itself."
+      "merged": true,
+      "mergeSha": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
+      "integrationPr": 60,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/60",
+      "nextAction": "None. The counts on main were remeasured here. Do not merge PR #56 by itself. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }

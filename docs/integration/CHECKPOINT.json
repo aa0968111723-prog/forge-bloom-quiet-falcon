@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T20:58:00Z",
-  "branch": "cursor/integration-route-measure-3395",
+  "branch": "main",
   "mainSha": "61ee069559f7",
   "gameSha": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
   "activeItem": "art-route-measure",
@@ -12,5 +12,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The five-segment high route was remeasured on this static build. Outdoor segments stay under 1.6 M triangles. Game code is still 7507c59b7ddbb7a02ada9d0eba717d8721474e2a. Frame times are SwiftShader. Do not copy PR #56's older counts. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "The five-segment high route was remeasured on this static build and is on main. Outdoor segments stay under 1.6 M triangles. Game code is still 7507c59b7ddbb7a02ada9d0eba717d8721474e2a. Frame times are SwiftShader. Do not copy PR #56's older counts. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #60. Do not merge PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }
