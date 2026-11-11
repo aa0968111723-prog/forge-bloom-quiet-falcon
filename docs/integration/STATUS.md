@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 狀態提示（受傷、低生命、恢復）在長條外面，窄卡會換行。390px 的目標卡在 `top: 268px`。門口步道仍接到估計路網。 | 來源 `1340a89` | `integrating` |
+| 美術與場景 | 狀態提示（受傷、低生命、恢復）在長條外面，窄卡會換行。390px 的目標卡在 `top: 268px`。門口步道仍接到估計路網。 | 來源 `1340a89` | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | `.ad-readout` 用 `flex-wrap: wrap` 包住長條與提示 |
 | 已驗證 | `npm run typecheck` 通過。`npm test` 248 通過。`npm run build:site` 通過。1280×720 與 390×780：生命 10/100 旁邊是「受傷」，下一行是「低生命」，專注 48/100 旁邊是「恢復」。提示不在被裁切的長條裡面。390px 目標卡上緣 268，狀態卡下緣 214。同一站跨系統路線：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401。`pageErrors` 空 |
-| 已合併 | 進行中。來源 `cursor/hud-cue-wrap-1a71` @ `1340a89`。衝突用手解，門口步道的截圖情境留下 |
+| 已合併 | 是。遊戲程式在 `78379ae`。來源 `1340a89`。`main` 未受保護、沒有必須的 check，使用快轉 |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍

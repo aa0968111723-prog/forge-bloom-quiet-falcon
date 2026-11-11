@@ -1,16 +1,16 @@
 {
   "updated": "2026-11-11T17:50:00Z",
-  "branch": "cursor/integration-hud-cue-3395",
+  "branch": "main",
   "mainSha": "7ffe826929a97c37986233e0da165b058167e722",
-  "gameSha": "1dc51dfc6dfd33cc1583950397088d5d9425107d",
-  "activeItem": "art-hud-cue-wrap",
+  "gameSha": "78379ae0d2b6f8cfed6335ce440a8bb44044101e",
+  "activeItem": null,
   "sourceHead": "1340a897c0ccdce1326d6fe697c09bb28e96ab2f",
-  "integrationHead": null,
+  "integrationHead": "78379ae0d2b6f8cfed6335ce440a8bb44044101e",
   "verified": {
     "cueWrap": "typecheck, 248 tests, build:site. Cues 受傷, 低生命, 恢復 render outside the bar. At 390px the target top is 268 and the status card ends at 214. Route on 8095: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401, pageErrors empty."
   },
-  "notMerged": ["cursor/hud-cue-wrap-1a71@1340a897c0cc"],
+  "notMerged": [],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Status cues wrap outside the bar on this integration branch and are not yet on origin/main. Parent main is 7ffe826. Source is 1340a89 and must still be that commit before the fast-forward. The route already passed on this tree. After the fast-forward, re-fetch and do not rerun the route unless the game SHA moves again. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
+  "next_action": "Status cues wrap outside the bar on main. Game code is 78379ae0d2b6f8cfed6335ce440a8bb44044101e. At 390px the target top is 268 and the status card ends at 214. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 1340a897c0cc is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
 }
