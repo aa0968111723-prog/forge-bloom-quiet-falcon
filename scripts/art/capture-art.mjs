@@ -422,6 +422,43 @@ try {
       window.__controlsTest.setPhoto(null);
       window.__rpgQA.resume();
     });
+  } else if (scenario === "interiors") {
+    // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
+    // These are game layouts, not surveyed rooms. Enter, look, exit, and check
+    // that the semester (hp, department) survives and the player is back outdoors.
+    const rooms = [
+      ["palace", "classroom"],
+      ["library", "reading"],
+      ["gym", "activity"],
+    ];
+    await hideHud(page);
+    const before = await page.evaluate(() => {
+      const s = window.__rpgQA.rpg.getState();
+      return { hp: s.hp, departmentId: s.departmentId, interiorId: s.interiorId };
+    });
+    for (const [id, role] of rooms) {
+      await enterInterior(page, id);
+      await page.evaluate((p) => window.__controlsTest.setPhoto(p), { yaw: Math.PI * 0.72, distance: 7.5, height: 2.4, lookY: 1.1 });
+      await frames(page, 4);
+      const inside = await page.evaluate(() => {
+        const s = window.__rpgQA.rpg.getState();
+        const g = window.__rpgQA.game.getState();
+        return { interiorId: s.interiorId, floor: s.floor, hp: s.hp, departmentId: s.departmentId, x: g.playerX, z: g.playerZ };
+      });
+      await shot(page, `${id}-inside`, `${role} inside ${JSON.stringify(inside)} before ${JSON.stringify(before)}`);
+      await page.evaluate(() => {
+        window.__controlsTest.setPhoto(null);
+        window.__rpgQA.rpg.getState().exit();
+      });
+      await page.waitForFunction(() => window.__rpgQA.rpg.getState().interiorId === null);
+      await settle(page, { stableFrames: 3 });
+      const outside = await page.evaluate(() => {
+        const s = window.__rpgQA.rpg.getState();
+        const g = window.__rpgQA.game.getState();
+        return { interiorId: s.interiorId, hp: s.hp, departmentId: s.departmentId, x: Number(g.playerX.toFixed(2)), z: Number(g.playerZ.toFixed(2)) };
+      });
+      await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
+    }
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });

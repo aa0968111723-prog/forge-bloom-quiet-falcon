@@ -1,9 +1,12 @@
 {
-  "updated": "2026-11-11T16:10:00Z",
+  "updated": "2026-11-11T16:40:00Z",
   "task_ids": [
-    "ART-032"
+    "ART-060",
+    "ART-080",
+    "ART-081",
+    "ART-082"
   ],
-  "branch": "cursor/college-poses-campus-1a71",
+  "branch": "cursor/campus-registry-1a71",
   "base": "main@71f4d3c4742fab66b0d82edff38c7e6c39497f67",
   "commits": [
     {
@@ -86,5 +89,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-059: basic-attack arc that sweeps with the right-hand swipe instead of scaling a ring to attack range. Then ART-060: regenerate the 64-record registry, keep permanentId/saveKey/aliasOf, and separate estimated/mapped from build status."
+  "next_action": "ART-084: shared prop and material set for roads, stairs, walls, lamps and benches, then use it to connect entrances that are still pending-survey. Do not mark any registry row surveyed."
 }

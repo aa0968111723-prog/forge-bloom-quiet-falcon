@@ -8,7 +8,7 @@
 - 分支：`cursor/tamkang-art-pipeline-1a71`（自 `main` @ `71f4d3c`）。沒有合併 main，沒有更新公開網站。
 - 管線可用：`art/` 來源 → `npm run art:export` → `public/game-art/*.glb` + manifest → `src/game/art/` 載入。
 - 主遊戲已使用：主角（高畫質 `char.student-kit`、省電 `char.student-kit-lod1`）、五名清冊 NPC（`char.npc-kit`，失敗時退回 `Student`）、四種怪物（`creature.quiz/report/exam/final`，失敗時退回舊外形）、工程技能（`StructuralPulse`）。
-- 九學院技能都有專屬特效，施放時改播對應的 `skill-<discipline>`（工程仍是全身 `skill`）。七區、公共室內、UI、音效未開始。地理精度仍全部 `estimated`。
+- 九學院技能都有專屬特效，施放時改播對應的 `skill-<discipline>`（工程仍是全身 `skill`）。清冊已重產且與基準筆數一致，精度仍全部 `estimated`。宮燈教室、圖書館、體育館三類室內可進出。環境道具組、UI、音效未開始。
 
 ## 開發與驗證
 

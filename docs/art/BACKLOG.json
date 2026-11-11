@@ -521,9 +521,14 @@
       "depends": [
         "ART-001"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "64 筆全部有處置；保留 permanentId/saveKey/aliasOf；疑似重複先核對",
-      "evidence": []
+      "evidence": [
+        "docs/art/registry.json",
+        "scripts/art/registry-snapshot.mjs",
+        "scripts/campus-registry.test.mjs"
+      ],
+      "notes": "重新自 CAMPUS_REGISTRY 產生。與 BASELINE §6 比對：64 筆、4 個別名 id、saveKey 48、七區筆數都沒有增刪。accuracy 仍全部 estimated，和 buildStatus 分開。入口仍 pending-survey。"
     },
     {
       "id": "ART-061",
@@ -649,9 +654,13 @@
       "depends": [
         "ART-084"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "遊戲化設計並明示；進出、相機、碰撞、狀態恢復",
-      "evidence": []
+      "evidence": [
+        "src/game/rpg/InteriorDetails.tsx",
+        "docs/art/evidence/m2/public-interiors.jpg"
+      ],
+      "notes": "既有遊戲室內，不是實測房間。宮燈教室、圖書館閱讀桌、體育館球場。進出後 interiorId 回到 null，hp 與主修保留，人站回各棟門外。材質庫 ART-084 仍未做。"
     },
     {
       "id": "ART-081",
@@ -660,9 +669,13 @@
       "depends": [
         "ART-084"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "src/game/rpg/InteriorDetails.tsx",
+        "docs/art/evidence/m2/public-interiors.jpg"
+      ],
+      "notes": "既有遊戲室內，不是實測房間。宮燈教室、圖書館閱讀桌、體育館球場。進出後 interiorId 回到 null，hp 與主修保留，人站回各棟門外。材質庫 ART-084 仍未做。"
     },
     {
       "id": "ART-082",
@@ -671,9 +684,13 @@
       "depends": [
         "ART-084"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "src/game/rpg/InteriorDetails.tsx",
+        "docs/art/evidence/m2/public-interiors.jpg"
+      ],
+      "notes": "既有遊戲室內，不是實測房間。宮燈教室、圖書館閱讀桌、體育館球場。進出後 interiorId 回到 null，hp 與主修保留，人站回各棟門外。材質庫 ART-084 仍未做。"
     },
     {
       "id": "ART-084",
