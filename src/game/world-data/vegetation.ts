@@ -91,6 +91,8 @@ function plazaPlanting(): PlantInstance[] {
     if (z > KENAN_TOP_Z - 4) continue; // keep the slope mouth clear
     // ...and keep the avenue mouth clear on the north side.
     if (z < AXIS.plazaNorthZ && Math.abs(x) < 9) continue;
+    // Title camera sits just outside this ring. A banyan here fills the shot.
+    if (Math.hypot(x + 13, z - 13) < 16) continue;
     out.push(plant(a % 3 === 0 ? "banyan" : "broadleaf", x, z, 1.05 + (a % 4) * 0.06, t));
   }
   for (let a = 0; a < 22; a++) {
