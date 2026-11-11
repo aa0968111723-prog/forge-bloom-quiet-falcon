@@ -536,7 +536,7 @@
       "conflicts": ["docs/art/CHECKPOINT.json"],
       "merged": true,
       "mergeSha": "df1731751b389d02e16025b47e0c0d54e57a25cc",
-      "nextAction": "None. Source d930724 is an ancestor of main. Do not rerun the route unless the game SHA changes."
+      "nextAction": "Game commit d930724 is on main. PR #32 head 1fc5887 only renames an older art checkpoint branch field and still says ART-069. Do not merge that commit. Do not rerun the route unless the game SHA changes."
     }
   ]
 }

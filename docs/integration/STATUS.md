@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 大門與大忠警衛站是開口門柱，路從中間過，碰撞只在門柱。狀態提示仍在長條外面換行。精度仍是 estimated。 | 來源 `d930724` | `merged` |
+| 美術與場景 | 大門與大忠警衛站是開口門柱，路從中間過，碰撞只在門柱。狀態提示仍在長條外面換行。精度仍是 estimated。 | [#32](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/32) 的遊戲程式已在 `main`。head `1fc5887` 只改舊檢查點的分支名稱，不合併 | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
