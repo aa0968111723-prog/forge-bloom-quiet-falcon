@@ -5,14 +5,15 @@ import * as THREE from "three";
 import { clone as cloneSkinned } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { applyToon } from "../world/stylize";
 import { ART_MANIFEST, type ArtId } from "./art-manifest.gen";
+import { disposeOwnedArt, skeletonsIn } from "./instance";
 
 /**
  * Runtime side of the art pipeline: stable asset id → exported GLB.
  *
  * URLs carry the content hash, so a re-export is never served stale. Each
  * mounted instance gets its own skeleton and material clones; geometry and
- * textures stay shared in the loader cache, so unmounting only disposes what
- * the instance owns.
+ * atlas textures stay shared in the loader cache. Unmounting disposes the
+ * cloned materials and each skeleton's bone texture.
  */
 export function artUrl(id: ArtId): string {
   return ART_MANIFEST[id].url;
@@ -47,9 +48,9 @@ export function useArtModel(id: ArtId): ArtInstance {
       mesh.material = material;
       owned.push(material);
     });
-    return { root, clips: gltf.animations, owned };
+    return { root, clips: gltf.animations, owned, skeletons: skeletonsIn(root) };
   }, [gltf, gl]);
-  useEffect(() => () => instance.owned.forEach((m) => m.dispose()), [instance]);
+  useEffect(() => () => disposeOwnedArt(instance.owned, instance.skeletons), [instance]);
   return instance;
 }
 
