@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-11T23:58:00Z",
+  "updated": "2026-11-12T00:08:00Z",
   "task_ids": [
-    "ART-064"
+    "ART-034"
   ],
-  "branch": "cursor/science-hall-1a71",
-  "base": "main@36b3112fd50c",
+  "branch": "cursor/backpack-clearance-1a71",
+  "base": "main@2189e5a6bcd0",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The Liuxian science hall is a pale volume with an east glass bay and a parapet. Chemistry keeps the roof plant. The unexported science-hall silhouette stays separate. The Shao-mo gym stays a pale arena. The shape is estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "Every student-kit clip keeps the skinned backpack front behind the jacket. The closest sample is run at 22 mm. Pitching the bag bone 90 degrees intersects and fails the test. The Liuxian science hall stays a pale volume with an east glass bay. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

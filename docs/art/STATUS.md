@@ -257,6 +257,12 @@
 
 畫面：`docs/art/evidence/science/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：背包穿模（ART-034 的一部分）
+
+每個動作片段的背包正面都留在外套後面。最靠近的是 run，間隙 22.0 mm。只量背包骨原點不會抓到旋轉穿模，所以這輪改量蒙皮頂點。把背包骨轉 90 度會穿進外套。騮先紀念科學館留著。
+
+測試：`scripts/art-pipeline.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。科學館已從實驗樓分開。化學館、工學大樓、建築系館與體育館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。背包正面在每個片段都留在外套後面。科學館、學生活動中心與建築系館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

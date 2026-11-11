@@ -279,3 +279,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 38 輪（騮先紀念科學館）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。科學館是淺色館身、東側直玻璃和壓簷，名牌寫著騮先紀念科學館。沒有實驗樓的屋頂設備。化學館仍是實驗樓。未匯出的舊剪影沒有合併。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/science/hall.jpg`。體育館留在第 37 輪。
+
+## 第 39 輪（背包穿模）— 2026-11-11
+
+`node --test --test-name-pattern "backpack stays behind the jacket" scripts/art-pipeline.test.mjs` 通過。每個動作片段取 17 個時間點，比較背包正面的蒙皮頂點和同一高度的外套背面。最靠近的是 run，間隙 22.0 mm。背包骨轉 90 度會穿進 116.7 mm。沒有新增音效。科學館留在第 38 輪。

@@ -169,6 +169,90 @@ test("the face looks forward (+Z) and the backpack clears the jacket at rest", (
 });
 
 /**
+ * Gap from the skinned backpack to the jacket's back, in chest-local metres.
+ * Positive means the bag's forward surface is still behind the jacket.
+ * Straps are skinned to the chest on purpose, so only bag-bone vertices count.
+ */
+function backpackGap(scene, mesh) {
+  const chest = scene.getObjectByName("chest");
+  scene.updateMatrixWorld(true);
+  mesh.skeleton.update();
+  const pos = mesh.geometry.attributes.position;
+  const skinIndex = mesh.geometry.attributes.skinIndex;
+  const skinWeight = mesh.geometry.attributes.skinWeight;
+  const bagBone = mesh.skeleton.bones.findIndex((bone) => bone.name === "bag");
+  const chestBone = mesh.skeleton.bones.findIndex((bone) => bone.name === "chest");
+  const point = new THREE.Vector3();
+  const bagBonePos = chest.worldToLocal(scene.getObjectByName("bag").getWorldPosition(new THREE.Vector3()));
+  const bag = [];
+  const jacket = [];
+  for (let i = 0; i < pos.count; i++) {
+    const indexes = [skinIndex.getX(i), skinIndex.getY(i), skinIndex.getZ(i), skinIndex.getW(i)];
+    const weights = [skinWeight.getX(i), skinWeight.getY(i), skinWeight.getZ(i), skinWeight.getW(i)];
+    let best = 0;
+    for (let k = 1; k < 4; k++) if (weights[k] > weights[best]) best = k;
+    if (weights[best] < 0.5) continue;
+    mesh.getVertexPosition(i, point);
+    point.applyMatrix4(mesh.matrixWorld);
+    const local = chest.worldToLocal(point);
+    if (indexes[best] === bagBone) {
+      // Front face of the bag body, not the side pockets or the handle.
+      if (Math.abs(local.x - bagBonePos.x) < 0.14 && Math.abs(local.y - bagBonePos.y) < 0.17 && local.z > bagBonePos.z - 0.01) {
+        bag.push(local.clone());
+      }
+    } else if (indexes[best] === chestBone) jacket.push(local.clone());
+  }
+  let gap = Infinity;
+  for (const vertex of bag) {
+    const band = [];
+    for (const cloth of jacket) {
+      if (Math.abs(cloth.x - vertex.x) < 0.08 && Math.abs(cloth.y - vertex.y) < 0.06) band.push(cloth.z);
+    }
+    if (band.length < 3) continue;
+    band.sort((a, b) => a - b);
+    // Shoulder-strap vertices reach back to the bag; the jacket shell is the next surface.
+    const back = band[Math.min(band.length - 1, Math.floor(band.length * 0.2))];
+    gap = Math.min(gap, back - vertex.z);
+  }
+  return gap;
+}
+
+function posedKit() {
+  const scene = kit.scene.clone(true);
+  const mesh = scene.getObjectByName("student");
+  scene.updateMatrixWorld(true);
+  const bones = mesh.skeleton.bones.map((bone) => scene.getObjectByName(bone.name));
+  mesh.bind(new THREE.Skeleton(bones));
+  return { scene, mesh };
+}
+
+test("the backpack stays behind the jacket through every clip", () => {
+  assert.ok(kit.clips.length >= 8);
+  let worst = { name: "", gap: Infinity };
+  for (const clip of kit.clips) {
+    const { scene, mesh } = posedKit();
+    const mixer = new THREE.AnimationMixer(scene);
+    mixer.clipAction(clip).play();
+    let gap = Infinity;
+    for (let i = 0; i <= 16; i++) {
+      mixer.setTime((clip.duration * i) / 16);
+      gap = Math.min(gap, backpackGap(scene, mesh));
+    }
+    if (gap < worst.gap) worst = { name: clip.name, gap };
+    assert.ok(Number.isFinite(gap) && gap > 0.005, `${clip.name} backpack clearance ${(gap * 1000).toFixed(1)} mm`);
+  }
+  const { scene, mesh } = posedKit();
+  const rest = backpackGap(scene, mesh);
+  scene.getObjectByName("bag").rotation.x = Math.PI / 2;
+  const turned = backpackGap(scene, mesh);
+  assert.ok(rest > 0.005, `rest clearance ${(rest * 1000).toFixed(1)} mm`);
+  assert.ok(turned < 0, `a pitched bag still cleared the jacket by ${(turned * 1000).toFixed(1)} mm`);
+  console.log(
+    `backpack clearance: closest ${worst.name} ${(worst.gap * 1000).toFixed(1)} mm; rest ${(rest * 1000).toFixed(1)} mm; pitched bag ${(turned * 1000).toFixed(1)} mm`,
+  );
+});
+
+/**
  * Foot slip: in-place gait, so during stance the planted foot should move
  * backward at ground speed. Measure the stance foot's speed relative to the
  * hips at the controller's walk and sprint speeds with the runtime cadence.
