@@ -667,6 +667,32 @@
       "merged": true,
       "mergeSha": "50464e5a1483fa99d14967bdc6ab4c660c758623",
       "nextAction": "None. Source 944b2c9 is an ancestor of main. Do not merge PR #42 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-tree-lod",
+      "line": "art",
+      "scope": "High-quality detailed canopies switch to the cheap canopy past 48 m so the lantern avenue stays under 1.6 M triangles. Nearby trees stay detailed. Low tier already uses the cheap canopy.",
+      "status": "verified",
+      "pr": 47,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/47",
+      "integrationBranch": "cursor/integration-tree-lod-3395",
+      "sourceBranch": "cursor/tree-lod-1a71",
+      "baseSha": "4f3239af893c",
+      "headSha": "dd628b145038c2b0ec561fe6f25a58bcb51d044f",
+      "dependencies": ["art-map-zones"],
+      "sharedFiles": ["src/game/quality.ts"],
+      "checks": {
+        "conflicts": "Art checkpoint, validation, and the capture script. Kept the zones scenario and added budget. Gate kind, study masses, and skill glyphs stay.",
+        "typecheck": "pass",
+        "npmTest": "254 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8102 high tier at (0,-80): 1280x720 is 1560511 triangles and 458 draws; 390x780 is 1558783 triangles and 388 draws. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "merged": true,
+      "mergeSha": "94fec8e497d9013ec351e8f322da4b2f278b9df4",
+      "nextAction": "None. Source dd628b1 is an ancestor of main. Do not merge PR #45 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }

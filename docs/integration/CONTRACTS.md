@@ -54,6 +54,8 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 白樓的種類是 `white-block`。`theme === "arts"` 是 `hip-roof-block`，宿舍是 `dorm-block`，實驗樓是 `lab-block`，運動館是 `sport-hall`，教學樓是 `study-block`。`form === "gate"` 仍是 `gate`，不因教學樓量體改回方塊。窗帶、名牌、坡頂、宿舍退縮層、實驗樓屋頂設備和教學樓橫樑由 `contextShowsDetail` 決定。高畫質 90 m 內才畫，省電是 48 m。量體一直留著。精度仍是 estimated。
 
+高畫質的詳細樹冠半徑是 `vegetationRange` 48。再遠換成便宜樹冠。省電畫質本來就用 `simpleTrees`，70 m 是便宜樹冠的距離，不是第二個細模半徑。
+
 室內路線用既有 `enter("palace")`／`exit()`。宮燈教室 id 是 `palace`。
 
 ## 存檔

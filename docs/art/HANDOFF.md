@@ -55,5 +55,5 @@ node scripts/art/capture-route.mjs http://127.0.0.1:8089/ /tmp/route --tier low 
 
 - 本主機無 GPU，效能數字只能同主機比較；所有裝置目標 `pending-device`。
 - 主角 LOD0 曾讓省電畫質 frame time 上升；LOD1 已讓省電畫質回到基準（STATUS.md）。NPC 套用角色組時人群一律用 LOD1 等級。
-- 高畫質戶外三角形本來就超過 1.6 M 預算（ART-102）。
+- 高畫質宮燈大道的詳細樹冠改在 48 m 外換成便宜樹冠，同一站 1.56 M，低於 1.6 M（ART-102）。其他路段沒有重測。
 - 匯出結果依 Node 22 + three r185 重現；升級 three 後需重新匯出並跑 `--rebuild`。

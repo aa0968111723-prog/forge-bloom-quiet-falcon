@@ -27,6 +27,7 @@ import {
   gameUrl,
   holdKeys,
   launchBrowser,
+  sampleFrames,
   setPose,
   settle,
   startSemester,
@@ -612,6 +613,12 @@ try {
     await page.evaluate(() => window.__rpgQA.rpg.getState().setPanel("map"));
     await frames(page, 3);
     await shot(page, "map", "district legend");
+  } else if (scenario === "budget") {
+    await setPose(page, 0, -80, 0);
+    await settle(page, { stableFrames: 4 });
+    const sample = await sampleFrames(page, 1500);
+    await shot(page, "avenue", `triangles ${sample.triangles} calls ${sample.drawCalls}`);
+    console.log(JSON.stringify(sample));
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });
