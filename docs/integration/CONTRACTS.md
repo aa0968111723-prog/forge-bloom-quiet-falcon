@@ -38,7 +38,7 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 委託面板的 `claim(id)` 只結 `MISSIONS`。同一個 `claimed` 陣列也收校園事件的 `quest-*` id。校園獎勵走 `grantQuestReward`，不另開背包。學期故事裡還有另一個同名函式，兩本帳沒有合併。
 
-狀態卡可見文字來自 `BarReadout.short`（`src/game/rpg/status.ts`），形如「生命 62/108」。小數最多一位。長句 `line`（目前值、最大值、變化）只放在計量條的 `aria-label`。填色是生命 `#e09a8c`、專注 `#8eb8b4`、經驗 `#ddc691`，軌道 `#cfc6b0`，字色沿用 `--ad-ink`。提示畫在長條外面，窄卡用 `flex-wrap` 換行。窄於 700px 時 `.ad-target` 的 `top` 是 268px。
+狀態卡可見文字來自 `BarReadout.short`（`src/game/rpg/status.ts`），形如「生命 62/108」。小數最多一位。長句 `line`（目前值、最大值、變化）只放在計量條的 `aria-label`。填色是生命 `#e09a8c`、專注 `#8eb8b4`、經驗 `#ddc691`，軌道 `#cfc6b0`，字色沿用 `--ad-ink`。提示畫在長條外面，窄卡用 `flex-wrap` 換行。窄於 700px 時 `.ad-target` 的 `top` 是 268px。快捷欄技能圖示讀 `SKILL_GLYPH`，一個學院一個 lucide 名稱，工程是 `DraftingCompass`。沒有第二份技能表。受擊邊緣是 `.ad-hurt` 的 `inset 0 0 72px 18px #b04c4799`。地圖仍用既有課程標記。
 
 敘事預覽的 `quest-reward` 呼叫既有 `grantQuestReward`。非法效果（`set-hp`、`add-item`、`eval`、`script`、`mutate-save`）整段取消。預覽把結果寫在 `tk-narrative-preview-fixture-v1`。
 

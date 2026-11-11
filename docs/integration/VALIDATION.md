@@ -263,6 +263,14 @@ Node 開發頁 `http://127.0.0.1:8081/narrative`。樣板進入大門警衛站�
 
 瀏覽器 `http://127.0.0.1:8099/?qa=1&q=low`。1280×720 與 390×780：教育館看得到深色基座、淺色上層與橫樑，名牌寫著教育館。1280×720 的大門與大忠警衛站仍是兩根紅柱加綠瓦，人站在開口裡。`pageErrors` 空。同一站跨系統路線再次通過：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401。重載後的畫面在這台機器上超過預設 30 秒才截完，行為斷言在截圖前已經通過。
 
+## 技能圖示與受擊邊緣（本輪）
+
+來源 `dde692f` 接到 `b1e6ba9`。衝突只在美術檢查點與驗收文。教學樓仍是深色基座加淺色上層，開口門柱留著。截圖腳本加上 `icons`，`gates` 與 `study` 留著。
+
+`SKILL_GLYPH` 九個學院各一個不重複的 lucide 名稱。工程是 `DraftingCompass`。`.ad-hurt` 改成 `inset 0 0 72px 18px #b04c4799`。`npm run typecheck` 通過。`npm test` 253 通過。`npm run build:site` 通過。
+
+瀏覽器 `http://127.0.0.1:8100/?qa=1&q=low`。1280×720 與 390×780：土木工程快捷欄的圖示類名是 `lucide-drafting-compass`，生命改到 40 時狀態卡讀到「受傷」，邊緣陰影是 `rgba(176, 76, 71, 0.6) 0px 0px 72px 18px inset`。九個學院切換後的圖示類名分別是 drafting-compass、flask-conical、scroll-text、coins、languages、graduation-cap、globe、cpu、heart-pulse。`pageErrors` 空。同一站跨系統路線再次通過：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作

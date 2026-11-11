@@ -615,6 +615,32 @@
       "merged": true,
       "mergeSha": "7799f6b8cc2ff1413fb42022284465d027f9469f",
       "nextAction": "None. Source d0d1cfa is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-skill-glyphs",
+      "line": "art",
+      "scope": "Each college skill has its own quickbar glyph. A hit darkens the screen edge, and the status card still says 受傷. Map markers stay the existing lesson mark.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-skill-glyphs-3395",
+      "sourceBranch": "cursor/skill-glyphs-1a71",
+      "baseSha": "b1e6ba934cf9",
+      "headSha": "dde692f0d9764fb110d24da55f8085d8982f2e7c",
+      "dependencies": ["art-study-masses"],
+      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/adventure.css"],
+      "checks": {
+        "conflicts": "Art checkpoint and validation only. Kept the study-mass notes and added the glyph round.",
+        "typecheck": "pass",
+        "npmTest": "253 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8100 low tier at 1280x720 and 390x780: engineering glyph is lucide-drafting-compass, hurt card says 受傷, edge shadow is inset 0 0 72px 18px. All nine disciplines switch. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md"],
+      "merged": true,
+      "mergeSha": "8954c5320d91ae56d16604e37c36f09cdc47096c",
+      "nextAction": "None. Source dde692f is an ancestor of main. Do not merge PR #40 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }

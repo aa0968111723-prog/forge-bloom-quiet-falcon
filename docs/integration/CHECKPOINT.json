@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T18:55:00Z",
+  "updated": "2026-11-11T19:10:00Z",
   "branch": "main",
-  "mainSha": "3204c78b6b84",
-  "gameSha": "7799f6b8cc2ff1413fb42022284465d027f9469f",
+  "mainSha": "b1e6ba934cf9",
+  "gameSha": "8954c5320d91ae56d16604e37c36f09cdc47096c",
   "activeItem": null,
-  "sourceHead": "d0d1cfa6b43c84d5966e72ed6028847c8a635ec1",
-  "integrationHead": "7799f6b8cc2ff1413fb42022284465d027f9469f",
+  "sourceHead": "dde692f0d9764fb110d24da55f8085d8982f2e7c",
+  "integrationHead": "8954c5320d91ae56d16604e37c36f09cdc47096c",
   "verified": {
-    "studyMasses": "typecheck, 252 tests, build:site. Education and Hweiwen are study-block: dark base, light upper volume, cornice is context-detail. The source returned slab-block for gates; this merge keeps gate. Route on 8099: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401, pageErrors empty. Desktop 1280 and narrow 390. Open gates still photographed."
+    "skillGlyphs": "typecheck, 253 tests, build:site. Nine college glyphs switch in the live quickbar. Engineering is lucide-drafting-compass. Hurt shadow is inset 0 0 72px 18px at alpha 0.6, and the status card says 受傷. Route on 8100: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401, pageErrors empty. Desktop 1280 and narrow 390."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Study masses are on main. Game code is 7799f6b8cc2ff1413fb42022284465d027f9469f. Teaching buildings use a dark base and a light upper volume. Guard gates stay open. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source d0d1cfa6b43c84d5966e72ed6028847c8a635ec1 is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
+  "next_action": "Skill glyphs are on main. Game code is 8954c5320d91ae56d16604e37c36f09cdc47096c. Each college skill has its own quickbar glyph, and the hurt vignette is a readable red edge. Map markers still use the existing lesson mark. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source dde692f0d9764fb110d24da55f8085d8982f2e7c is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #40 by itself; its game code is already in this integration. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }
