@@ -3,7 +3,7 @@
   "task_ids": [
     "ART-062"
   ],
-  "branch": "cursor/theme-masses-1a71",
+  "branch": "cursor/map-zones-1a71",
   "base": "main@eaa9b72116b3",
   "commits": [
     {
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Dorms, labs, sport halls, and arts buildings now use separate estimated masses. Study buildings are still the generic slab. Guard gates are already open piers on main. Window bands, names, and roof caps still drop off at 90 m, or 48 m on low. Remaining on ART-090: skill icons, map markers, and hit feedback. Do not add unlicensed audio."
+  "next_action": "The campus map now colors each building by its registry district and shows a seven-zone legend. The colors are not surveyed boundaries. Skill glyphs are on a separate PR. Do not add unlicensed audio."
 }

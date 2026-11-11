@@ -161,3 +161,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。白樓是白牆平頂，覺軒是灰牆加綠瓦坡頂。窗帶、名牌和坡頂在高畫質 90 m 內才畫，省電是 48 m；量體一直留著。定步畫面：`docs/art/evidence/halls/white-hall.jpg`、`chuehhsuan.jpg`。精度仍是 estimated。
 
 宿舍是暖色量體，實驗樓是冷灰量體加屋頂設備，游泳館是偏低的綠灰量體。教學樓仍是通用灰牆。定步畫面：`docs/art/evidence/themes/sungtao.jpg`、`chemistry.jpg`、`swimming.jpg`。都是 estimated，不是實測立面。
+
+## 第 12 輪（地圖七區圖例）— 2026-11-11
+
+`node --test scripts/map-zones.test.mjs` 通過。`tsc --noEmit` 通過。校園地圖建物描邊跟清冊分區，圖例是軸線、書圖、理工、教學、文藝、運動、生活。分區框會重疊，所以玩家所在區用最近的建物，不把框線畫成實測界。定步打開地圖，頁面無錯誤：`docs/art/evidence/map/zones.jpg`。

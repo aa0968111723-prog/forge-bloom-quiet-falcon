@@ -781,9 +781,10 @@
       "acceptance": "沿用既有流程；修正狀態卡純文字讀數",
       "evidence": [
         "docs/art/evidence/hud/status-desktop.jpg",
-        "docs/art/evidence/hud/status-narrow.jpg"
+        "docs/art/evidence/hud/status-narrow.jpg",
+        "docs/art/evidence/map/zones.jpg"
       ],
-      "notes": "狀態卡可見讀數已改成短標籤長條，長句留在 aria-label。技能圖示、地圖標記、受擊回饋仍未做。"
+      "notes": "狀態卡是短標籤長條。地圖上七區各有顏色與圖例，建物描邊跟清冊分區走，不把重疊的估計範圍畫成界線。技能圖示與受擊邊緣若尚未合入，以各自的 PR 為準。"
     },
     {
       "id": "ART-091",
