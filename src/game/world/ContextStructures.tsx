@@ -336,6 +336,38 @@ export function ContextStructures({
             </group>
           );
         }
+        if (s.kind === "intl-dorm") {
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh geometry={geo!} position={[0, s.size[1] / 2, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color="#d5ddd6" roughness={0.82} />
+              </mesh>
+              <mesh position={[0, 2.1, s.size[2] / 2 + 0.06]} castShadow>
+                <boxGeometry args={[s.size[0] * 0.62, 3.4, 0.22]} />
+                <meshStandardMaterial color="#8ea4aa" roughness={0.3} metalness={0.08} />
+              </mesh>
+              <mesh
+                name="context-detail"
+                userData={{ x: s.position[0], z: s.position[1] }}
+                position={[0, s.size[1] + 0.35, 0]}
+                castShadow
+              >
+                <boxGeometry args={[s.size[0] + 0.8, 0.55, s.size[2] + 0.8]} />
+                <meshStandardMaterial color="#6d7c78" roughness={0.8} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, 4.2, s.size[2] / 2 + 0.2]}
+                >
+                  <planeGeometry args={[Math.min(9, s.size[0] * 0.62), 1.2]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
         if (s.kind === "dorm-block" || s.kind === "lab-block" || s.kind === "sport-hall") {
           const wall = s.kind === "dorm-block" ? "#d2b48c" : s.kind === "lab-block" ? "#a9b7be" : "#7d9a84";
           return (

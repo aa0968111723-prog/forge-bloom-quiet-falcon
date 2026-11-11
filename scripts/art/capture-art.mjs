@@ -648,6 +648,21 @@ try {
       await settle(page, { stableFrames: 3 });
       await shot(page, id, `${id} official sign`);
     }
+  } else if (scenario === "reitaku") {
+    await hideHud(page);
+    await setPose(page, 450, -20, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(427, -52);
+      window.__controlsTest.setPhoto({
+        yaw: 0.65,
+        distance: 42,
+        height: 12,
+        lookY: 0,
+        target: { x: 427, y: y + 12, z: -52 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "house", "reitaku international house");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
