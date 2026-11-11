@@ -800,8 +800,11 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
-      "nextAction": "Open the integration PR and merge it. Do not merge the source branch by itself. Do not merge PR #32 head 1fc5887."
+      "merged": true,
+      "mergeSha": "45674fb0b02f55b17b24588b341c8f688f2f2ef9",
+      "integrationPr": 55,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/55",
+      "nextAction": "None. Source 07d1a0b is an ancestor of main. Do not merge that source branch by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }
