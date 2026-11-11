@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T17:30:00Z",
-  "branch": "main",
-  "mainSha": "65e007f88cd203e510faea6de6a0abe7eccb4948",
+  "updated": "2026-11-11T17:40:00Z",
+  "branch": "cursor/integration-hud-route-3395",
+  "mainSha": "ebafa14e7ffa5a5735c673cf3017335cd613a2ad",
   "gameSha": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
-  "activeItem": null,
+  "activeItem": "hud-route",
   "sourceHead": "aeda26c3622de77ffbd66c8e86d73627f3d40150",
-  "integrationHead": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
+  "integrationHead": null,
   "verified": {
-    "hud": "typecheck, 246 tests, build:site, browser 1280 and 390. Short labels on the bars, long sentence in aria-label, narrow target below the status card, pageErrors empty."
+    "hudRoute": "Dev server 8087 on game 803fe62. xp 20, notes 19, quest once, quiz-2 65 to 45, reload, revision 1, second client, revision_conflict, offline queue, logout 401, pageErrors empty. Status card showed 生命 100/100 during the gate talk."
   },
   "notMerged": [],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "HUD short labels are on main. Game code is 803fe62f053ddb9bf4513af0493b2df7d01fc741. Visible text is 生命 62/108, 專注 40/100, 經驗 20/180. The aria-label still contains 目前值 and 最大值. At 390px the target card top is 208 and the status card ends at 188. Source aeda26c is an ancestor. Re-fetch origin/main. Do not write a commit only to copy the tip SHA into mainSha. Do not rerun the cross-system route for this readout. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
+  "next_action": "The cross-system route passed on game code 803fe62f053ddb9bf4513af0493b2df7d01fc741: chemistry major, xp 20, notes 19, quest once, quiz-2 65 to 45, reload, first sync revision 1, second client, revision_conflict, offline queue, logout 401. Parent main is ebafa14. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
 }

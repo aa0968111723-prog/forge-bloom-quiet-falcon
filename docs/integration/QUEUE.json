@@ -430,7 +430,28 @@
       "mergeSha": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
       "integrationPr": 26,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/26",
-      "nextAction": "None. Source aeda26c is an ancestor of main. Do not rerun the cross-system route for this readout."
+      "nextAction": "None. Source aeda26c is an ancestor of main."
+    },
+    {
+      "id": "hud-route",
+      "line": "integration",
+      "scope": "Rerun the cross-system playthrough on the short-label HUD. Game code is unchanged from 803fe62.",
+      "status": "verified",
+      "pr": null,
+      "integrationBranch": "cursor/integration-hud-route-3395",
+      "sourceBranch": null,
+      "baseSha": "ebafa14e7ffa5a5735c673cf3017335cd613a2ad",
+      "headSha": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
+      "dependencies": ["art-hud-status"],
+      "sharedFiles": [],
+      "checks": {
+        "conflicts": "none",
+        "browser": "8087, chemistry major, xp 20, notes 19, quest once, quiz-2 65 to 45, reload kept the save, short labels visible, pageErrors empty, no /api requests",
+        "cloud": "local_only, first sync revision 1, second client downloaded the played save, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": [],
+      "merged": false,
+      "nextAction": "Fast-forward the record only while origin/main is still ebafa14."
     }
   ]
 }
