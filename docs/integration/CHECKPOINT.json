@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T21:32:00Z",
-  "branch": "main",
-  "mainSha": "5e994732fdfc",
-  "gameSha": "331da1e16f672b82065619325e50e12af6d111a6",
-  "activeItem": "art-rain-motion",
-  "sourceHead": "70fc091ffa922719e4fab4473a296733affe4388",
-  "integrationHead": "331da1e16f672b82065619325e50e12af6d111a6",
+  "updated": "2026-11-11T21:42:00Z",
+  "branch": "cursor/integration-library-mass-3395",
+  "mainSha": "fb932d2671c4",
+  "gameSha": "21f72cde3fbb53847de214d2791abb0f73b5ce4d",
+  "activeItem": "art-library-mass",
+  "sourceHead": "e09a90ff0563494a3dd155f9679e71c22186a7f2",
+  "integrationHead": "21f72cde3fbb53847de214d2791abb0f73b5ce4d",
   "verified": {
-    "rainMotion": "Static 8111, game 331da1e. 1280x720 wet avenue: streaks move, then prefers-reduced-motion stops the streaks. Bushes and idle still move. pageErrors empty. SwiftShader.",
+    "hall": "Static 8112, game 21f72cd. High 1280x720 and 390x780 show the glass base, set-back upper volume, and the 覺生綜合大樓 plate. pageErrors empty. SwiftShader.",
     "route": "Same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Rain follows a reduced-motion change while the scene is open and is on main. Game code is 331da1e16f672b82065619325e50e12af6d111a6. The patch from 70fc091 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #66. Do not merge PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The integrated hall is a glass base with a set-back upper volume, and the upper windows sit on that face. Game code is 21f72cde3fbb53847de214d2791abb0f73b5ce4d, branched from origin/main fb932d2671c4. The patch from e09a90f is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #63 by itself. Do not merge PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Re-fetch origin/main after this lands. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

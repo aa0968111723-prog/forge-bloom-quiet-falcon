@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-11T21:32:00Z",
+      "updated": "2026-11-11T21:42:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -977,6 +977,32 @@
       "integrationPr": 66,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/66",
       "nextAction": "None. The reduced-motion patch from 70fc091 is already in this integration. Do not merge PR #61 by itself. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-library-mass",
+      "line": "art",
+      "scope": "The integrated hall is a glass base with a set-back upper volume. Upper windows sit on that recessed face. Rain, phone icons, and combat stay.",
+      "status": "verified",
+      "pr": 63,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/63",
+      "integrationBranch": "cursor/integration-library-mass-3395",
+      "sourceBranch": "cursor/library-mass-1a71",
+      "baseSha": "fb932d2671c4",
+      "headSha": "e09a90ff0563494a3dd155f9679e71c22186a7f2",
+      "dependencies": ["art-rain-motion"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Art checkpoint, handoff, status, and validation. Kept rain as round 22 and added the hall as round 23. Capture keeps rain and phone, and adds integrated.",
+        "typecheck": "pass",
+        "npmTest": "261 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8112 high. 1280x720 and 390x780 show the glass base, set-back upper volume, and the nameplate. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "21f72cde3fbb53847de214d2791abb0f73b5ce4d",
+      "nextAction": "Open the integration PR and merge it. Source e09a90f is not an ancestor. Do not merge PR #63 by itself."
     }
   ]
 }

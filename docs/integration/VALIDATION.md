@@ -363,6 +363,14 @@ Node 開發頁 `http://127.0.0.1:8081/narrative`。樣板進入大門警衛站�
 
 瀏覽器 `http://127.0.0.1:8111/?qa=1&q=high`，1280×720，宮燈大道、雨後預設。連續兩幀的差集看得到雨絲位移。打開減少動態之後，差集不再有雨絲，樹叢和待機還在動。`pageErrors` 空。同一站跨系統路線再次通過：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列 `cloudXp` 23、登出 401。`pageErrors` 空。
 
+## 覺生綜合大樓（本輪）
+
+來源 `d061102` 與後續 `e09a90f` 接到 `fb932d2`。衝突在美術檢查點、交接、狀態與驗收文。雨留在第 22 輪，覺生綜合大樓記成第 23 輪。截圖腳本加上 `integrated`，`rain` 與 `phone` 留著。大門仍是 `gate`。
+
+`integrated` 的種類是 `linked-hall`。玻璃基座用整棟底面積，上層退縮。上層窗帶的 local z 跟 `linkedHallProfile`，不再用整棟的寬。名牌是「覺生綜合大樓」。精度仍是 estimated。沒有新的獎勵帳，扣血仍走既有 `attack()`。`npm run typecheck` 通過。`npm test` 261 通過。`npm run build:site` 通過。
+
+瀏覽器 `http://127.0.0.1:8112/?qa=1&q=high`。1280×720 與 390×780 都看得到玻璃基座、退縮上層和名牌。兩次 `pageErrors` 空。同一站跨系統路線再次通過：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列 `cloudXp` 23、登出 401。`pageErrors` 空。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作

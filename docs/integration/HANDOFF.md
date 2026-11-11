@@ -4,18 +4,20 @@
 
 ## 現在
 
-- 這次整合讓雨在場景開著時也跟著減少動態停住。遊戲程式是 `331da1e`，接到 `origin/main` `5e99473`。
-- 條數仍是高畫質 320、低畫質 64。室內不畫。
-- 1280×720 先看到雨絲在動。打開減少動態之後，雨絲不再位移。樹叢和待機仍會動。`pageErrors` 空。
+- 這次整合把覺生綜合大樓改成玻璃基座加退縮上層。遊戲程式是 `21f72cd`，接到 `origin/main` `fb932d2`。
+- 上層窗帶貼著退縮後的牆，不再用整棟的底面積。名牌是「覺生綜合大樓」。精度仍是 estimated。
+- 1280×720 與 390×780 都看得到這棟。兩次 `pageErrors` 空。
 - 跨系統路線在同一站通過：經驗 20、筆記 19、突襲小考 65→45、第二客戶端、`revision_conflict`、斷線佇列 `cloudXp` 23、登出 401。
 
-## 本輪已驗證（雨的減少動態）
+## 本輪已驗證（覺生綜合大樓）
 
-`useReducedArtMotion` 會聽系統設定的變更。`npm test` 261 通過。`node --experimental-transform-types scripts/integration-route.mjs` 在 `http://127.0.0.1:8111/` 走完。幀時間是 SwiftShader。
+`scripts/art/capture-art.mjs` 的 `integrated` 在 `http://127.0.0.1:8112/`。`npm test` 261 通過。`node --experimental-transform-types scripts/integration-route.mjs` 走完同一站。幀時間是 SwiftShader。
 
 ## 下一步
 
-先 `git fetch`。雨跟著減少動態已在 `main`，遊戲程式是 `331da1e`。沒有再變就不要重跑跨系統路線，也不要為了對齊 SHA 再寫一筆。PR #32 的 `1fc5887` 仍不合併。整合 PR 是 #66。來源 `70fc091` 不是祖先，不要單獨合併 PR #61。PR #59、#56、#54、#53、#51 的程式已經在更早的整合裡，也不要再單獨合併。三角形仍用 `7507c59` 那次重測。
+先開整合 PR，再合併。來源 `e09a90f` 的程式已在這次 cherry-pick，那個 SHA 不是祖先，不要單獨合併 PR #63。PR #61、#59、#56、#54、#53、#51 的程式已經在更早的整合裡，也不要再單獨合併。PR #32 的 `1fc5887` 仍不合併。
+
+合併之後先 `git fetch`。遊戲程式沒有再變就不要重跑跨系統路線，也不要為了對齊 SHA 再寫一筆。三角形仍用 `7507c59` 那次重測。
 
 INT-01 與 INT-12 維持不動。不要新增學期選擇，也不要做第二套獎勵帳。
 
