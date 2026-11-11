@@ -15,7 +15,7 @@
 
 ## 下一步
 
-`main` 是 `b260c87fbdcb2e4b2e328c94f989c479124e75ba`。PR #13 已合併。
+`main` 的 tip 是文件記錄。遊戲與雲端存檔的提交是 `b260c87fbdcb2e4b2e328c94f989c479124e75ba`。PR #13 已合併。開始下一項前先 `git fetch origin main`。
 
 下一個是開放的 PR #12，`cursor/college-poses-campus-1a71` @ `c1a3bb3e12733eb5311d4cbdce6b738467167abf`。它和已合併的美術 M2 有多重 merge base，不要整支直接合。用新 worktree。
 
