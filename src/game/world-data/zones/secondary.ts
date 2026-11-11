@@ -22,7 +22,7 @@ export type SecondaryStructure = {
   size: [number, number, number];
   rotationY: number;
   floors?: number;
-  kind: "hip-roof-block" | "slab-block" | "hall" | "pavilion" | "court" | "ship";
+  kind: "hip-roof-block" | "slab-block" | "hall" | "pavilion" | "court" | "ship" | "gate";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -265,11 +265,25 @@ export function buildingApproachPoint(s: SecondaryStructure): { x: number; z: nu
   return { x: s.position[0], z: s.position[1] + s.size[2] / 2 + 3.4 };
 }
 
+/** Side piers of a guard gate. The span between them stays walkable. */
+export const GATE_PIER_WIDTH = 1.5;
+
+export function gatePiers(s: Pick<SecondaryStructure, "position" | "size">) {
+  const pier = GATE_PIER_WIDTH;
+  const offset = (s.size[0] - pier) / 2;
+  return [-1, 1].map((side) => ({
+    x: s.position[0] + side * offset,
+    z: s.position[1],
+    w: pier,
+    d: s.size[2],
+  }));
+}
+
 export const SECONDARY_STRUCTURES: SecondaryStructure[] = [
   ...LEGACY_SECONDARY_STRUCTURES.slice(0, 6),
   ...CAMPUS_SITES.filter((s) => !s.existing).map((s): SecondaryStructure => ({
     id: s.id, name: s.name, nameEn: s.code, cluster: s.x < 0 ? "west-academic" : "east", walkable: true, position: [s.x, s.z], size: [s.w, s.floors * 3.8, s.d],
-    rotationY: 0, floors: s.floors, kind: s.form === "court" ? "court" : "slab-block", accuracy: "estimated",
+    rotationY: 0, floors: s.floors, kind: s.form === "court" ? "court" : s.form === "gate" ? "gate" : "slab-block", accuracy: "estimated",
     referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
   })),
 ];

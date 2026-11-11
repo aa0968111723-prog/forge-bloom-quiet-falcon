@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-069 door links reach a standable point on the estimated road grid, including audiovisual and main-gate. Accuracy stays estimated and stair counts are not surveyed. Status bars, the basic swing, and the campus registry are already on main. Remaining on ART-090: skill icons, map markers, and hit feedback. Next scene work is ART-062 axis-54 silhouettes. Do not add unlicensed audio."
+  "next_action": "ART-062 continues: main-gate and dazhong-gate are open piers with collision only on the posts. White-hall, chuehhsuan, and the other six districts still need their own silhouettes and distance LOD. Accuracy stays estimated. Do not add unlicensed audio."
 }

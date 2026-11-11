@@ -553,9 +553,14 @@
         "ART-060",
         "ART-084"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "逐筆輪廓、入口、碰撞、LOD、步行路線畫面",
-      "evidence": []
+      "evidence": [
+        "scripts/axis-gates.test.mjs",
+        "docs/art/evidence/gates/main-gate.jpg",
+        "docs/art/evidence/gates/dazhong-gate.jpg"
+      ],
+      "notes": "大門與大忠警衛站改成兩根門柱加橫樑，中間可走，碰撞只在門柱。精度仍是 estimated。克難坡、宮燈教室、大道、驚聲廣場沿用既有地標。白樓、覺軒與其餘分區的距離 LOD 還沒做。"
     },
     {
       "id": "ART-063",
