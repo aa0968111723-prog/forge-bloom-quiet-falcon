@@ -15,9 +15,9 @@
 
 ## 下一步
 
-程式提交是 `9256c858be3972272804c2689bb221bdf679bf28`。PR #14 與來源 PR #12 已合併。合併後 typecheck 通過。開始下一項前先 `git fetch origin main`。
+學院施法姿勢的程式提交是 `9256c85`。敘事預覽已在 `/tmp/worktrees/content-narrative` 驗過，尚未進 `main`。開始合併前再 `git fetch`，確認 `main` 仍是 `c95d9c3`、內容 head 仍是 `54a997e`。
 
-下一項是草稿 PR #11，`feature/game-content-world` @ `54a997edb483995486917a6a39b7b70a44189578`。用新 worktree。它改 `routeTree.gen.ts`。確認沒有第二套任務或獎勵 store，而且型別與測試通過之後才合併。
+主場景仍不要假裝已接上敘事。`MAIN_INTEGRATION` 維持 false。
 
 ## 不要做
 

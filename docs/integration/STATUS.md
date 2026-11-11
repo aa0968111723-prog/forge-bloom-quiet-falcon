@@ -9,7 +9,7 @@
 | --- | --- | --- | --- |
 | 美術與場景 | 學院施法姿勢已在 `main`。化學學系技能播 `skill-science`，傷害仍是既有 `attackFx`。 | [#12](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/12) 與 [#14](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/14) 已合併 | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
-| 內容 | 草稿 PR [#11](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/11)，`feature/game-content-world` @ `54a997e`。校園敘事預覽，尚未接到目前 `main`。 | #11 草稿 | `discovered` |
+| 內容 | `/narrative` 預覽已接到整合分支。大門選擇結算 `quest-orient-gate` 一次。主校園畫面還沒接敘事。 | [#11](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/11) 草稿，整合分支準備合併 | `ready_to_merge` |
 
 不操作其他代理正在改的工作區。
 

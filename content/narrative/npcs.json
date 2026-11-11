@@ -1,0 +1,101 @@
+[
+  {
+    "id": "npc-chen-yu",
+    "name": "陳予",
+    "evidence": "fictional",
+    "collegeId": "education",
+    "departmentId": "ed-tech",
+    "officialUnit": null,
+    "unmappedDepartment": false,
+    "voice": "只指三個點，不考你。",
+    "note": "虛構學長。不是校方人員，沒有引用真實人物的話。"
+  },
+  {
+    "id": "npc-lin-ke",
+    "name": "林可",
+    "evidence": "fictional",
+    "collegeId": "liberal-arts",
+    "departmentId": "mass-comm",
+    "officialUnit": null,
+    "unmappedDepartment": false,
+    "voice": "句子短，會記住你有沒有只丟連結。",
+    "note": "虛構的大眾傳播學系二年級學生。"
+  },
+  {
+    "id": "npc-zhou-an",
+    "name": "周安",
+    "evidence": "fictional",
+    "collegeId": "liberal-arts",
+    "departmentId": null,
+    "officialUnit": "歷史學系",
+    "unmappedDepartment": true,
+    "voice": "要求兩份出處並列，不替任何一份宣布錯誤。",
+    "note": "歷史學系在官方頁面上，departments.ts 沒有 id，所以不自建。"
+  },
+  {
+    "id": "npc-he-qing",
+    "name": "何清",
+    "evidence": "fictional",
+    "collegeId": "engineering",
+    "departmentId": "civil",
+    "officialUnit": null,
+    "unmappedDepartment": false,
+    "voice": "先講安全順序，不替你編遲到理由。",
+    "note": "虛構的土木工程學系組員。"
+  },
+  {
+    "id": "npc-song-qi",
+    "name": "宋祈",
+    "evidence": "fictional",
+    "collegeId": "business",
+    "departmentId": "ba",
+    "officialUnit": null,
+    "unmappedDepartment": false,
+    "voice": "只談表上的空格，不談錢。",
+    "note": "虛構的企業管理學系社團排班同學。"
+  },
+  {
+    "id": "npc-ai-ling",
+    "name": "艾苓",
+    "evidence": "fictional",
+    "collegeId": "foreign-lang",
+    "departmentId": "japanese",
+    "officialUnit": null,
+    "unmappedDepartment": false,
+    "voice": "翻譯放在括號裡，原句留著。",
+    "note": "虛構的日本語文學系同學。"
+  },
+  {
+    "id": "npc-jian-ning",
+    "name": "簡寧",
+    "evidence": "fictional",
+    "collegeId": "international",
+    "departmentId": "tourism",
+    "officialUnit": null,
+    "unmappedDepartment": false,
+    "voice": "把看到的句子登記下來，不改寫成館方說法。",
+    "note": "虛構的工讀生。觀光科系不等於只會帶路。"
+  },
+  {
+    "id": "npc-pei-ran",
+    "name": "裴然",
+    "evidence": "fictional",
+    "collegeId": "engineering",
+    "departmentId": "civil",
+    "officialUnit": null,
+    "unmappedDepartment": false,
+    "voice": "雨天改計畫，不把停跑說成受傷。",
+    "note": "虛構。主修土木，也參加田徑。"
+  },
+  {
+    "id": "npc-ma-shu",
+    "name": "馬書",
+    "evidence": "fictional",
+    "collegeId": "business",
+    "departmentId": "mis",
+    "officialUnit": null,
+    "unmappedDepartment": false,
+    "voice": "給兩種趕課方式，不說教。",
+    "note": "虛構。住松濤，主修資訊管理。"
+  }
+]

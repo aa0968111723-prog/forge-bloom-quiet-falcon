@@ -235,22 +235,36 @@
       "id": "content-narrative",
       "line": "content",
       "scope": "Playable campus narrative preview. Not yet wired as the only quest store.",
-      "status": "discovered",
+      "status": "ready_to_merge",
       "pr": 11,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/11",
       "draft": true,
-      "integrationBranch": null,
+      "integrationBranch": "cursor/integration-content-narrative-3395",
       "sourceBranch": "feature/game-content-world",
-      "baseSha": null,
+      "baseSha": "c95d9c34bb0c3eefe4d2d2e1cd845586cedd9dfc",
       "headSha": "54a997edb483995486917a6a39b7b70a44189578",
       "dependencies": ["backend-sync"],
       "sharedFiles": ["src/routeTree.gen.ts", "tsconfig.json"],
       "contractVersion": null,
-      "checks": null,
-      "conflicts": [],
+      "checks": {
+        "diffRead": true,
+        "conflicts": "routeTree.gen.ts only. Kept cloud, health, ready, auth, and added /narrative.",
+        "typecheck": "pass",
+        "npmTest": "239 pass / 0 fail",
+        "buildSite": "pass; static dist has no narrative string",
+        "preview": "gate choice settles quest-orient-gate once, xp 20 notes 1, fixture only, tamkang-rpg-v2 untouched",
+        "secrets": "none added",
+        "licenses": "original SVGs, no campus photos in public/"
+      },
+      "conflicts": [
+        {
+          "id": "route-tree",
+          "resolution": "Generated route tree kept the cloud routes and registered /narrative beside them."
+        }
+      ],
       "merged": false,
       "mergeSha": null,
-      "nextAction": "After the college-pose merge, read this draft in a new worktree. Do not merge it until it is rechecked on that main and does not add a second quest or reward store."
+      "nextAction": "Reconfirm main c95d9c3 and content head 54a997e, then merge. Main scene stays unwired."
     }
   ]
 }

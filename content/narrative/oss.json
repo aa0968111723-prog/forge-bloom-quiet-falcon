@@ -1,0 +1,58 @@
+[
+  {
+    "name": "yuka",
+    "repo": "https://github.com/Mugen87/yuka",
+    "version": "0.7.8",
+    "license": "MIT，著作權 2022 Yuka authors。已讀 node_modules/yuka/LICENSE 與 build/yuka.module.js。",
+    "inspected": "node_modules/yuka/build/yuka.module.js 的 class Vehicle extends MovingEntity，欄位 mass、maxForce、steering；class SeekBehavior 建構子接收 Vector3 target，calculate(vehicle, force)。src/game/rpg/store.ts 以 new Vehicle() 與 steering.add(new SeekBehavior(target)) 使用。",
+    "maintenance": "安裝版 0.7.8 的 package.json 沒有 gitHead。devDependencies 仍鎖在 2022 年附近的工具。只當現成轉向庫，不為對話升級它。",
+    "need": "既有 NPC 移動。敘事不需要第二套轉向。",
+    "compatibility": "已在 store.ts 與 semester/encounter.ts。模組檔約 443 KB。",
+    "size": "build/yuka.module.js 442887 bytes",
+    "alternative": "繼續用現成 Vehicle，不為任務系統再包一層 AI。",
+    "decision": "不採用為對話、任務或隨機事件。轉向維持原呼叫。",
+    "adopted": false
+  },
+  {
+    "name": "@overworld-engine/inventory",
+    "repo": "https://github.com/luzhenqian/overworld",
+    "version": "3.2.0",
+    "license": "MIT，Copyright (c) 2026 NoahLu。已讀 node_modules/@overworld-engine/inventory/LICENSE 與 dist/index.d.ts。",
+    "inspected": "node_modules/@overworld-engine/inventory/dist/index.d.ts 的 createInventory(config) 與 ItemDefinition。註解寫明物品定義由外部注入，name 只是不透明字串。InventoryPersistConfig 會走 zustand persist。src/game/rpg/store.ts 已呼叫 createInventory({ items: ITEMS, capacity: BAG_CAPACITY })。",
+    "maintenance": "package.json 版本 3.2.0，與專案 lock 一致。",
+    "need": "背包已有這套。敘事獎勵的筆記與學分走 growth.grantQuestReward，避免再開一個會自己存檔的背包。",
+    "compatibility": "依賴 @overworld-engine/core 與 zustand 5。dist/index.js 5469 bytes，本體不大，但 persist 會變成第二份存檔。",
+    "size": "dist/index.js 5469 bytes",
+    "alternative": "既有 grantQuestReward 與 story.ts 的一次性帳本。",
+    "decision": "不採用為敘事效果或第二個存檔。背包維持 store.ts 的那一次呼叫。",
+    "adopted": false
+  },
+  {
+    "name": "inkjs",
+    "repo": "https://github.com/inkle/inkjs",
+    "version": "未安裝",
+    "license": "未讀到倉庫內的授權檔，不宣稱。",
+    "inspected": "node_modules 沒有這個套件，沒有讀其 API，因此不宣稱它適合本專案。",
+    "maintenance": "未核對。",
+    "need": "對話與分支。本輪用自己的條件與選項資料。",
+    "compatibility": "未試作。",
+    "size": "未知",
+    "alternative": "src/features/narrative 的資料、條件與白名單。既有 dialog.ts 只負責焦點與 inert，不是任務圖。",
+    "decision": "不採用。沒有讀過程式，不能說它適合。",
+    "adopted": false
+  },
+  {
+    "name": "i18next",
+    "repo": "https://github.com/i18next/i18next",
+    "version": "未安裝",
+    "license": "未讀到授權檔，不宣稱。",
+    "inspected": "node_modules 沒有這個套件，沒有讀其 API。",
+    "maintenance": "未核對。",
+    "need": "缺翻譯檢查。目前只要求 zh-Hant 欄位存在。",
+    "compatibility": "未試作。",
+    "size": "未知",
+    "alternative": "每個玩家看得到的字串都是 { zh-Hant }，驗證器檢查空欄。",
+    "decision": "不採用。沒有讀過程式，不能說它適合。",
+    "adopted": false
+  }
+]

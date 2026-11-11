@@ -6,8 +6,8 @@
 
 | 契約 | 提供線 | 本輪版本 | 位置 |
 | --- | --- | --- | --- |
-| API | 後端 | 草稿。雲端信封 `schemaVersion` 1。尚未接到 `main` | PR #9 `docs/backend/API.md` |
-| 內容 schema | 內容 | 尚無。後端文件裡的 `contentVersion: 2` 目前指 RPG `document.version`，不是內容包 | `docs/content/` 不存在。見 INT-10 |
+| API | 後端 | 雲端信封 `schemaVersion` 1，已在 `main` | `docs/backend/API.md` |
+| 內容 schema | 內容 | 敘事 manifest `revision` 1。沒有 `schemaVersion`。效果白名單在 `src/features/narrative/schema.ts` | `content/narrative/`、`docs/content/` |
 | 資產 manifest | 美術 | `schemaVersion` 1 | `art/assets.json` → `public/game-art/manifest.json` |
 
 ## 資產
@@ -36,7 +36,9 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 敵人 id 與種類（`src/game/rpg/data.ts`）：`quiz-1`…`quiz-4`、`report-1`、`report-2`、`exam-1`、`exam-2`、`final-1`。判定半徑仍是 `ENEMY_TYPES[kind].radius + 2.5`。預警圈用這個半徑。
 
-獎勵仍走 `claim(id)`：`claimed` 已有該任務 id 就返回。沒有第二套獎勵 store。
+主遊戲獎勵仍走 `claim(id)`：`claimed` 已有該任務 id 就返回。
+
+敘事預覽的 `quest-reward` 呼叫既有 `grantQuestReward`。非法效果（`set-hp`、`add-item`、`eval`、`script`、`mutate-save`）整段取消。預覽把結果寫在 `tk-narrative-preview-fixture-v1`，不寫 `tamkang-rpg-v2`。`MAIN_INTEGRATION` 是 false，`AdventureApp` 沒有接這條線。
 
 ## 地點
 

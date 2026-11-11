@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "9256c858be3972272804c2689bb221bdf679bf28",
+  "mainSha": "c95d9c34bb0c3eefe4d2d2e1cd845586cedd9dfc",
   "gameSha": "9256c858be3972272804c2689bb221bdf679bf28",
   "activeItem": "content-narrative",
   "sourceHead": "54a997edb483995486917a6a39b7b70a44189578",
@@ -13,5 +13,5 @@
   "notMerged": ["content-narrative"],
   "blocked": ["INT-01"],
   "waiting": ["content-narrative"],
-  "next_action": "College poses are on main at 9256c85. PR #14 and source PR #12 are merged. Post-merge typecheck passed. Next: draft PR #11 feature/game-content-world @ 54a997e in a new worktree. Reconfirm that head. Do not merge it until typecheck, tests, and a check that it does not add a second quest or reward store all pass on that tree."
+  "next_action": "Content preview is validated on cursor/integration-content-narrative-3395. Reconfirm origin/main is c95d9c3 and feature/game-content-world is 54a997e, then merge. AdventureApp stays unwired. After merge, smoke typecheck on the merge SHA."
 }

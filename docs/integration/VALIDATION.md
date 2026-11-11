@@ -108,6 +108,20 @@ Node 開發頁 `http://127.0.0.1:8080/` 看得到「雲端同步（選配）」�
 
 靜態預覽選化學學系（`science-理學院-2`）。技能後 `__characterTest.action` 是 `skill-science`，`attackFx.skill` 為 true，命中 1 個。`quiz-2` 生命 65→13，與科學傷害 52 一致。畫面「共振反應 · 命中 1 個目標」，冷卻 7 秒。`pageErrors` 空。SwiftShader。
 
+## 敘事預覽（整合工作區，尚未進 main）
+
+來源 `feature/game-content-world` @ `54a997e`，接到 `main` `c95d9c3`。衝突只有 `routeTree.gen.ts`：雲端、health、ready、auth 都留著，並加上 `/narrative`。
+
+| 命令 | 結果 |
+| --- | --- |
+| `npm run typecheck` | 通過 |
+| `npm test` | 239 通過 / 0 失敗 |
+| `npm run build:site` | 通過。靜態 `dist` 沒有 narrative 字樣 |
+
+Node 開發頁 `http://127.0.0.1:8081/narrative`。樣板進入大門警衛站，選「可以只告訴我今天會用到的路嗎？」。經驗 20、筆記 1、已結算 `quest-orient-gate`、旗標 `gate-asked-map`、任務節點 `quest-orient-gate:done`。`tamkang-rpg-v2` 沒有被寫入。進度在 `tk-narrative-preview-fixture-v1`，標 `local-fixture-only`。`pageErrors` 空。交談按鈕在結算後不再出現。
+
+`AdventureApp` 沒有 import 敘事。這不是主校園裡的事件。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
