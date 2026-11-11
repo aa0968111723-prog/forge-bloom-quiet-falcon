@@ -43,7 +43,8 @@ export type SecondaryStructure = {
     | "media-hall"
     | "auditorium"
     | "studio-block"
-    | "activity-hall";
+    | "activity-hall"
+    | "workshop";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -337,6 +338,22 @@ export function studioProfile(size: readonly [number, number, number]) {
  * Student-activity mass for 學生活動中心. The lobby, canopy, and set-back
  * upper floors are an estimated silhouette, not a measured facade.
  */
+/**
+ * Older workshop hall for 工學館. The brick base and roof monitor are estimated.
+ * Chemistry keeps the lab block and its roof plant.
+ */
+export function workshopProfile(size: readonly [number, number, number]) {
+  const baseH = Math.max(3.2, size[1] * 0.3);
+  return {
+    baseH,
+    glassZ: size[2] / 2 + 0.08,
+    glassW: size[0] * 0.42,
+    monitorW: size[0] * 0.26,
+    monitorH: 1.5,
+    monitorD: Math.max(3, size[2] * 0.22),
+  };
+}
+
 export function activityProfile(size: readonly [number, number, number]) {
   const lobbyH = Math.min(4.2, Math.max(3.2, size[1] * 0.28));
   return {
@@ -399,6 +416,7 @@ function campusKind(site: {
   if (site.id === "audiovisual") return "auditorium";
   if (site.id === "architecture") return "studio-block";
   if (site.id === "commons") return "activity-hall";
+  if (site.id === "old-engineering") return "workshop";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

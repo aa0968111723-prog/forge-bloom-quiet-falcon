@@ -9,6 +9,7 @@ import {
   glazingBand,
   linkedHallProfile,
   studioProfile,
+  workshopProfile,
 } from "../src/game/world-data/zones/secondary.ts";
 
 test("context detail drops off with distance and the low tier is shorter", () => {
@@ -36,6 +37,13 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.kind, "intl-dorm");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.kind, "dorm-block");
+  const workshop = SECONDARY_STRUCTURES.find((item) => item.id === "old-engineering");
+  assert.equal(workshop?.kind, "workshop");
+  assert.equal(workshop?.accuracy, "estimated");
+  assert.notEqual(workshop?.kind, "lab-block");
+  const shop = workshopProfile(workshop.size);
+  assert.ok(shop.glassZ > workshop.size[2] / 2, "workshop glass sits on the south face");
+  assert.ok(shop.baseH < workshop.size[1] * 0.45, "the brick base stays the lower storey");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "shed");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.accuracy, "estimated");

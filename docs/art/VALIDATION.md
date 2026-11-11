@@ -255,3 +255,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 32 輪（學生活動中心）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。學生活動中心是一層門廳、南向玻璃、遮陽板和退縮的上層，名牌寫著學生活動中心。沒有綠瓦，也沒有共用窗帶。覺軒仍是坡頂，會議中心仍是低寬會堂。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/activity/hall.jpg`。建築系館留在第 31 輪。
+
+## 第 33 輪（工學館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。工學館是磚紅基座、淺色上層、南向玻璃和屋頂小間，名牌寫著工學館。沒有實驗樓的屋頂設備。化學館仍是實驗樓。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/workshop/hall.jpg`。學生活動中心留在第 32 輪。
