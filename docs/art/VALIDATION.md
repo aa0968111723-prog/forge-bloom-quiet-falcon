@@ -122,3 +122,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 | 體育館球場 | interiorId gym，人在 (0, 4) | interiorId null，人在 (166, -104.5) |
 
 畫面：`docs/art/evidence/m2/public-interiors.jpg`。
+
+## 第 7 輪（光照與大道道具）— 2026-11-11
+
+同一站點 `(0, -80)`、高畫質、定步。`timeOfDay` 依序為 day、sunset、night、wet，頁面沒有錯誤。夕照與夜晚路燈亮起，雨後鋪面變暗反光。畫面：`docs/art/evidence/m2/lighting-avenue.jpg`。陰影尺寸跟畫質設定，真機幀時間仍是 `pending-device`。

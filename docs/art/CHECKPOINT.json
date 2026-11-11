@@ -1,10 +1,9 @@
 {
-  "updated": "2026-11-11T16:40:00Z",
+  "updated": "2026-11-11T16:45:00Z",
   "task_ids": [
-    "ART-060",
-    "ART-080",
-    "ART-081",
-    "ART-082"
+    "ART-084",
+    "ART-086",
+    "ART-087"
   ],
   "branch": "cursor/campus-registry-1a71",
   "base": "main@71f4d3c4742fab66b0d82edff38c7e6c39497f67",
@@ -89,5 +88,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-084: shared prop and material set for roads, stairs, walls, lamps and benches, then use it to connect entrances that are still pending-survey. Do not mark any registry row surveyed."
+  "next_action": "ART-090: replace the raw HP readout on the status card with a readable bar, and check the icon still reads on a narrow viewport. Do not add audio files without a license."
 }

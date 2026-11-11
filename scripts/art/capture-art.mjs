@@ -422,6 +422,17 @@ try {
       window.__controlsTest.setPhoto(null);
       window.__rpgQA.resume();
     });
+  } else if (scenario === "lighting") {
+    // Same stand on 宮燈大道 under the four presets the game actually runs.
+    await setPose(page, 0, -80, 0);
+    await settle(page, { stableFrames: 3 });
+    await hideHud(page);
+    for (const time of ["day", "sunset", "night", "wet"]) {
+      await page.evaluate((id) => window.__rpgQA.game.getState().setTime(id), time);
+      await settle(page, { stableFrames: 3 });
+      const live = await page.evaluate(() => window.__rpgQA.game.getState().timeOfDay);
+      await shot(page, time, `timeOfDay=${live} at (0, -80)`);
+    }
   } else if (scenario === "interiors") {
     // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
     // These are game layouts, not surveyed rooms. Enter, look, exit, and check
