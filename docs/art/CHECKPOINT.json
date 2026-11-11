@@ -1,10 +1,10 @@
 {
   "updated": "2026-11-11T21:02:00Z",
   "task_ids": [
-    "ART-063"
+    "ART-066"
   ],
-  "branch": "cursor/library-mass-1a71",
-  "base": "main@fb932d2671c4",
+  "branch": "cursor/culture-mass-1a71",
+  "base": "main@4bd138fa234b",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "覺生綜合大樓 now reads as a glass base with a set-back upper volume, and the upper windows sit on that recessed face. The shape is estimated. Library and Ching-sheng keep their existing masses. Wet weather still draws 320 or 64 streaks. Phone-width toolbar buttons stay 44px. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The conference center is a low wide hall with a south glass band and a roof overhang. The shape is estimated. The museum stays the ship. 覺生綜合大樓 stays a glass base with a set-back upper volume. Wet weather still draws 320 or 64 streaks. Phone-width toolbar buttons stay 44px. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

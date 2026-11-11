@@ -50,6 +50,9 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
     assert.ok(Math.abs(south.lz - (face + 0.05)) < 1e-6, `upper band floats at ${south.lz}`);
     assert.ok(south.width <= profile.upperWidth - 1, "upper band is wider than the recessed wall");
   }
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "conference")?.kind, "forum-hall");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "conference")?.accuracy, "estimated");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "administration")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.accuracy, "estimated");
   for (const id of ["sungtao", "chemistry", "swimming"]) {
