@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 白樓是白牆平頂，覺軒是灰牆加綠瓦坡頂。窗帶、名牌、坡頂在高畫質 90 m、省電 48 m 外關掉。開口門柱仍在。其餘分區仍是一般量體。 | 來源 `18dee4c` | `integrating` |
+| 美術與場景 | 白樓是白牆平頂，覺軒是灰牆加綠瓦坡頂。窗帶、名牌、坡頂在高畫質 90 m、省電 48 m 外關掉。開口門柱仍在。其餘分區仍是一般量體。 | 來源 `18dee4c` | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | `white-block`、覺軒的 `hip-roof-block`，以及 `contextShowsDetail` |
 | 已驗證 | `npm run typecheck` 通過。`npm test` 251 通過。`npm run build:site` 通過。瀏覽器 1280×720、省電：近處白樓有平頂和窗帶，拉遠後平頂和窗帶消失、量體還在。覺軒近處有綠瓦坡頂。`pageErrors` 空。同一站跨系統路線：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401 |
-| 已合併 | 進行中。來源 `cursor/context-lod-1a71` @ `18dee4c`。衝突用手解，開口門柱留下 |
+| 已合併 | 是。遊戲程式在 `0515383`。來源 `18dee4c`。`main` 未受保護、沒有必須的 check，使用快轉 |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍

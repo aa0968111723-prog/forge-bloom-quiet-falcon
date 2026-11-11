@@ -560,8 +560,9 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
       "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
-      "merged": false,
-      "nextAction": "Fast-forward only while origin/main is still 528a56f and the source head is still 18dee4c. Do not merge PR #32 head 1fc5887."
+      "merged": true,
+      "mergeSha": "0515383cd770c8d5c6afb3960f08f0c1918842d0",
+      "nextAction": "None. Source 18dee4c is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }

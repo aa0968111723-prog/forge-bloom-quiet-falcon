@@ -1,16 +1,16 @@
 {
   "updated": "2026-11-11T18:15:00Z",
-  "branch": "cursor/integration-context-lod-3395",
+  "branch": "main",
   "mainSha": "528a56f855ec",
-  "gameSha": "df1731751b389d02e16025b47e0c0d54e57a25cc",
-  "activeItem": "art-context-lod",
+  "gameSha": "0515383cd770c8d5c6afb3960f08f0c1918842d0",
+  "activeItem": null,
   "sourceHead": "18dee4cc998cd9f5cbe0e62281607dd292e441c9",
-  "integrationHead": null,
+  "integrationHead": "0515383cd770c8d5c6afb3960f08f0c1918842d0",
   "verified": {
     "contextLod": "typecheck, 251 tests, build:site. White hall is a pale block with a flat cap. Chuehhsuan is a hip roof. On the low tier, the cap and window bands are visible up close and gone at about 160 m while the mass stays. Route on 8097: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Context LOD is on this integration branch and is not yet on origin/main. Parent main is 528a56f. Source is 18dee4c and must still be that commit before the fast-forward. The route already passed on this tree. After the fast-forward, re-fetch and do not rerun the route unless the game SHA moves again. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. The other district silhouettes are still generic slabs. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
+  "next_action": "Context LOD is on main. Game code is 0515383cd770c8d5c6afb3960f08f0c1918842d0. White hall is a pale block with a flat cap. Chuehhsuan is a hip roof. Detail drops off at 90 m, or 48 m on low, and the mass stays. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 18dee4cc998c is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. The other district silhouettes are still generic slabs. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
 }
