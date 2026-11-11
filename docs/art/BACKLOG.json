@@ -295,8 +295,9 @@
       "depends": [
         "ART-020"
       ],
-      "status": "in_progress",
-      "acceptance": "腳底滑動已量測（walk 0.0%、run 0.2%）；臉朝 +Z 與靜止背包間隙已測；各動作背包穿模數值檢查待做",
+      "status": "needs_review",
+      "acceptance": "腳底滑動已量測（walk 0.0%、run 0.2%）；臉朝 +Z 與靜止背包間隙已測；每個片段的背包骨都留在胸口後方",
+      "notes": "每個片段取 17 個時間點，把背包骨換到胸口的局部座標。最靠近的是 dodge，局部 z=-0.190，沒有進入 -0.15。背包本體再往前 6.5 cm，仍在胸口關節後面。",
       "evidence": [
         "scripts/art-pipeline.test.mjs",
         "docs/art/evidence/m1/protagonist-poses.jpg"
