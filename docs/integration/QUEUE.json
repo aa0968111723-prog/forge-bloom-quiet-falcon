@@ -972,9 +972,11 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "331da1e16f672b82065619325e50e12af6d111a6",
-      "nextAction": "Open the integration PR and merge it. Source 70fc091 is not an ancestor. Do not merge PR #61 by itself."
+      "integrationPr": 66,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/66",
+      "nextAction": "None. The reduced-motion patch from 70fc091 is already in this integration. Do not merge PR #61 by itself. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }

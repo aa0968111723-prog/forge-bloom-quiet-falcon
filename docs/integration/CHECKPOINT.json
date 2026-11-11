@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T21:32:00Z",
-  "branch": "cursor/integration-rain-motion-3395",
+  "branch": "main",
   "mainSha": "5e994732fdfc",
   "gameSha": "331da1e16f672b82065619325e50e12af6d111a6",
   "activeItem": "art-rain-motion",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Rain follows a reduced-motion change while the scene is open. Game code is 331da1e16f672b82065619325e50e12af6d111a6, branched from origin/main 5e994732fdfc. The patch from 70fc091 is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #61 by itself. Do not merge PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Re-fetch origin/main after this lands. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Rain follows a reduced-motion change while the scene is open and is on main. Game code is 331da1e16f672b82065619325e50e12af6d111a6. The patch from 70fc091 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #66. Do not merge PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 雨後戶外高畫質 320 條、低畫質 64 條。減少動態在場景中途打開也會停。室內不畫。 | 來源 PR #61 `70fc091`。整合尚未開 | `verified` |
+| 美術與場景 | 雨後戶外高畫質 320 條、低畫質 64 條。減少動態在場景中途打開也會停。室內不畫。 | 來源 PR #61 `70fc091`。整合 PR #66 | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | 只改雨對減少動態的讀法。條數與手機圖示留著 |
 | 已驗證 | 靜態頁 `http://127.0.0.1:8111/`。1280×720 先看到雨絲在動，再打開減少動態後雨絲不再位移。`pageErrors` 空。跨系統路線再次通過 |
-| 已合併 | 否。遊戲程式 `331da1e`。`main` 未受保護、沒有必須的 check |
+| 已合併 | 是。遊戲程式 `331da1e`。整合 PR #66。`main` 未受保護、沒有必須的 check |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍
