@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 三條巡禮折線以半徑 0.42 m 走到三個門口。視聽教育館仍是深色廳堂。 | 來源 PR #75 `3c9cf1d`。整合在這條分支 | `verified` |
+| 美術與場景 | 三條巡禮折線以半徑 0.42 m 走到三個門口。視聽教育館仍是深色廳堂。 | 來源 PR #75 `3c9cf1d`。整合 PR #84 | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | 只改三條巡禮折線。視聽教育館、傳播館、麗澤、風洞、司令臺、會議中心與覺生綜合大樓留著 |
 | 已驗證 | `scripts/route-walk.test.mjs` 以半徑 0.42 m 走到三個門口，中線留在護牆之間。`npm test` 263 通過。跨系統路線在 `http://127.0.0.1:8119/` 再次通過，`pageErrors` 空 |
-| 已合併 | 否。遊戲程式 `e5751d9`。這條分支還沒進 `main` |
+| 已合併 | 是。遊戲程式 `e5751d9`。整合 PR #84。`main` 未受保護、沒有必須的 check |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍

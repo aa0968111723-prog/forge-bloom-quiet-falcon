@@ -1196,9 +1196,11 @@
         "route": "8119: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "e5751d9952ddfa2630373cbd1bb23595f6c0861d",
-      "nextAction": "Do not merge PR #75 by itself. Next is PR #77, then PR #79, then PR #80, then PR #82."
+      "integrationPr": 84,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/84",
+      "nextAction": "None. The pilgrimage-walk patch from 3c9cf1d is already in this integration. Do not merge PR #75 by itself. Next is PR #77, then PR #79, then PR #80, then PR #82. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
