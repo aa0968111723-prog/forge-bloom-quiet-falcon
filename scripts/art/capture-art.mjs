@@ -572,6 +572,14 @@ try {
       await settle(page, { stableFrames: 3 });
       await shot(page, id, `${id} open passage`);
     }
+  } else if (scenario === "business") {
+    await hideHud(page);
+    await setPose(page, 132, -158, 0);
+    await page.evaluate(() =>
+      window.__controlsTest.setPhoto({ yaw: 0.35, distance: 16, height: 4.5, lookY: 6 }),
+    );
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "mass", "business study podium");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
