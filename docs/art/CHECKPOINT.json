@@ -3,7 +3,7 @@
   "task_ids": [
     "ART-061"
   ],
-  "branch": "cursor/coin-spread-1a71",
+  "branch": "cursor/touch-targets-1a71",
   "base": "main@5f6080baa691",
   "commits": [
     {
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Business coins spread around one target, and the basic slash chambers in front of the torso. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館, both estimated. The business tower stays a study podium, the title camera stays clear, and high-quality detailed canopies still switch past 48 m. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "Phone-width toolbar buttons are 44px and quickbar glyphs are 24px. Phone and RTX 3060 frame times stay pending-device. Do not add unlicensed audio."
 }

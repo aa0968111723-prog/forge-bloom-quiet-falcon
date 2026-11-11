@@ -133,6 +133,12 @@
 
 打到同一個目標時，金幣沿圓周散開，不再疊在同一個點。普攻蓄力幀的刃改到身前。定步飛行畫面：`docs/art/evidence/coins/travel.jpg`。標示用字與商管大樓基座留著。
 
+## 階段：手機寬度的圖示（ART-091）
+
+390×780 時右上工具鈕是 44px，快捷欄的技能圖示是 24px。觸控窄螢幕不再把快捷鈕縮到 38px。
+
+畫面：`docs/art/evidence/phone/icons.jpg`。測試：`scripts/touch-icons.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。金幣會散開。標示用字改了兩處，座標沒有升成 mapped。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。手機圖示已放大到能點、能辨認。幀時間仍是 pending-device。不要加入沒有授權的音效。
