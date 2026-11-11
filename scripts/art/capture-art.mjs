@@ -769,6 +769,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "architecture studio mass");
+  } else if (scenario === "science") {
+    await hideHud(page);
+    await setPose(page, 210, -230, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(230, -255);
+      window.__controlsTest.setPhoto({
+        yaw: -0.45,
+        distance: 42,
+        height: 12,
+        lookY: 0,
+        target: { x: 230, y: y + 8, z: -255 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "liuxian science hall");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

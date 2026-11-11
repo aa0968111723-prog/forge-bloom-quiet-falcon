@@ -251,3 +251,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 31 輪（建築系館）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。建築系館是混凝土量體、南向玻璃、遮陽板和屋頂採光，名牌寫著建築系館。沒有共用窗帶，也沒有綠瓦。化學館仍是實驗樓。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/studio/hall.jpg`。巡禮折線留在第 30 輪。
+
+## 第 32 輪（騮先紀念科學館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。科學館是淺色館身、東側直玻璃和壓簷，名牌寫著騮先紀念科學館。沒有實驗樓的屋頂設備。化學館仍是實驗樓。未匯出的舊剪影沒有合併。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/science/hall.jpg`。建築系館留在第 31 輪。
