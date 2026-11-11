@@ -15,7 +15,7 @@
 
 ## 下一步
 
-在新 worktree 把 PR #9 接到 `df63d01`。開始前再確認 head 仍是 `a38ef8e`。通過型別、測試與雲端存檔流程之後才合併。它現在是草稿。內容線沒有新 head 時不要空跑。
+後端整合已在 `/tmp/worktrees/backend-sync` 驗過。確認 `origin/main` 仍是 `0eea3cf`、後端 head 仍是 `a38ef8e` 之後合併 `cursor/integration-backend-save-3395`。內容線沒有新 head 時不要空跑。
 
 ## 不要做
 

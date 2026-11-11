@@ -1,10 +1,11 @@
 /**
  * Local email/password sign-in (this app's Better Auth DB — not the broker).
  *
- * Off by default. To enable: set `emailAndPasswordEnabled` to `true` below,
- * then build sign-up / sign-in forms with `authClient.signUp.email` /
- * `authClient.signIn.email` from `@/lib/auth/client` (see the auth skill).
+ * Off unless `AUTH_EMAIL_PASSWORD=true`. The static campus build never reads
+ * this module. The optional Node game service turns it on for players who
+ * choose to sign in; federated Grok sign-in stays available either way.
  *
  * Do NOT edit `server.ts` for this — that file is frozen pre-wired config.
  */
-export const emailAndPasswordEnabled = false;
+const emailPasswordFlag = process.env.AUTH_EMAIL_PASSWORD?.trim().toLowerCase();
+export const emailAndPasswordEnabled = emailPasswordFlag === "true" || emailPasswordFlag === "1";

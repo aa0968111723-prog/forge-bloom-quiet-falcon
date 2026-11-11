@@ -10,22 +10,24 @@
  * the same files at startup instead (see src/lib/db.ts).
  */
 import { readdir, readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 import pg from "pg";
 
-const databaseUrl = process.env.DATABASE_URL;
-if (!databaseUrl) {
-  console.log(
-    "[migrate] DATABASE_URL not set — skipping (the PGLite fallback migrates itself).",
-  );
-  process.exit(0);
-}
+const databaseUrl = process.env.DATABASE_URL?.trim() || undefined;
 
 const migrationsDir = join(dirname(fileURLToPath(import.meta.url)), "..", "migrations");
 
-async function main() {
-  const pool = new pg.Pool({ connectionString: databaseUrl, max: 1 });
+export async function migrateDatabase() {
+  if (!databaseUrl) {
+    console.log("[migrate] DATABASE_URL not set — skipping (the PGLite fallback migrates itself).");
+    return;
+  }
+  const pool = new pg.Pool({
+    connectionString: databaseUrl,
+    max: 1,
+    connectionTimeoutMillis: 3_000,
+  });
   const client = await pool.connect();
   try {
     await client.query(
@@ -65,18 +67,24 @@ async function main() {
       console.log(`[migrate] applied ${name}`);
       count += 1;
     }
-    console.log(count ? `[migrate] done — ${count} migration(s) applied.` : "[migrate] up to date.");
+    console.log(
+      count ? `[migrate] done — ${count} migration(s) applied.` : "[migrate] up to date.",
+    );
   } finally {
     client.release();
     await pool.end();
   }
 }
 
-main().catch((err) => {
-  console.error("[migrate] failed:", err?.message || err);
-  // pg errors carry the context needed to debug a bad SQL file.
-  for (const key of ["code", "detail", "hint", "position", "where"]) {
-    if (err?.[key] != null) console.error(`[migrate]   ${key}: ${err[key]}`);
-  }
-  process.exit(1);
-});
+const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (invokedDirectly) {
+  migrateDatabase().catch((err) => {
+    console.error("[migrate] failed:", err?.message || err);
+    // pg errors carry the context needed to debug a bad SQL file.
+    for (const key of ["code", "detail", "hint", "position", "where"]) {
+      if (err?.[key] != null) console.error(`[migrate]   ${key}: ${err[key]}`);
+    }
+    process.exit(1);
+  });
+}

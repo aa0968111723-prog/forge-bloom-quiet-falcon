@@ -34,6 +34,8 @@ npm run preview:site
 
 靜態版使用 8088 埠，建置輸出 dist，Sites 身份保存在 .openai/hosting.json。Sites 發布保持私人，只發布靜態遊戲，不發布 Node 登入或資料庫服務。瀏覽器自動存檔並可在設定中匯入／匯出；跨瀏覽器不會自動同步。原 Node／TanStack／資料庫程式保留在來源中，登入路由仍保留，但靜態部署不包含伺服器功能。
 
+選配的 RPG 雲端同步不在靜態產物裡。Node 程序是 `scripts/game-services-server.mjs`：聽 `HOST`（預設 `0.0.0.0`）與 `PORT`，`GET /api/health` 不碰資料庫，`GET /api/ready` 在資料庫不可用時回 503，`SIGTERM` 會關掉監聽與資料庫連線後以 0 結束。沒有 `DATABASE_URL` 時用 `PGLITE_DATA_DIR`（預設 `data/pglite`）。有 `DATABASE_URL` 時先跑可重入的 `scripts/migrate.mjs`。契約見 `docs/backend/API.md`。
+
 原巡禮存檔保留，既有背包／科系資料會在第一次開啟 RPG 時遷移；RPG 使用獨立 tamkang-rpg-v2 儲存鍵。地面掉落、建造、任務、技能、生命、學分與角色位置都有保存。手動匯出也包含巡禮進度。
 
 ## 效能與驗證

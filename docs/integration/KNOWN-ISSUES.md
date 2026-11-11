@@ -12,3 +12,4 @@
 | INT-08 | 已處理 | 合併 API 持續 403。`main` 仍未受保護、也沒有必須的 GitHub check，所以 PR #7 與 #8 都用非快轉合併推進，沒有強推 | 一旦出現保護規則或必須的 check，就停在 PR，不再直接推 main |
 | INT-09 | 已處理 | 考卷怪 windup 在面板或告示暫停時仍每幀前進，恢復後預警維持滿圈。Codex 在已合併的 PR #7 上提出 | `nextWindupProgress` 在模擬暫停時停住。PR #8，合併 `d180616`。M2 把 `QuizCreature` 改名 `CreatureActor` 時自動合併仍呼叫它 |
 | INT-10 | discovered | 後端契約把 `contentVersion: 2` 用來表示 RPG 存檔 `document.version`。內容線還沒有自己的 `contentVersion` | 對照時分開記。內容線給出版本前，不把這個數字當成內容包版本 |
+| INT-11 | 已處理 | 開發模式 strict mode 會把 NPC `assemble` 跑兩次。第一次已拿掉零件，第二次就丟「lists a part the kit does not have」，`ArtBoundary` 改畫程序學生 | `assemble` 若已有 `npc:<preset>` 就沿用那一個 mesh。測試：`scripts/art-runtime.test.mjs` |

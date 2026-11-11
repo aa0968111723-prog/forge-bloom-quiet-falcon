@@ -8,7 +8,7 @@
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
 | 美術與場景 | M2 已在 `main`：NPC 套件、`creature.report`／`exam`／`final`、八學院技能外形，加上 glance、暫停預警與單一骨架釋放。 | [#10](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/10) 已合併 | `merged` |
-| 後端 | 草稿 PR [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9)，head `a38ef8e`。可選 RPG 雲端存檔、revision 衝突、只新增表的遷移。基底是美術 M1 之前的 `71f4d3c`。 | #9 草稿 | `discovered` |
+| 後端 | 可選 RPG 雲端存檔已接到目前 `main` 的整合分支。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 仍是草稿；整合分支準備合併 | `ready_to_merge` |
 | 內容 | `claude/tamkang-reality-campus-v1-2bxs0g` 已是 `main` 的祖先，沒有新提交。`docs/content/` 仍不存在。 | 無 | `discovered` |
 
 雲端代理「淡江世界遊戲內容」「後端存檔同步」在本輪盤點時為 RUNNING，尚未推送分支。不操作它們的工作區。

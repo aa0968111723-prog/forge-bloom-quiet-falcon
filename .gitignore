@@ -21,3 +21,4 @@ coverage
 .grok
 AGENTS.md
 AGENTS.project.md
+/data

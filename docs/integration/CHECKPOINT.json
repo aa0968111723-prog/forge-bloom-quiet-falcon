@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "df63d01261ad7d7a0e301b8bf91b1d6c473cbae3",
+  "mainSha": "0eea3cf89b5dc651d9eabae202c13be94537489c",
   "activeItem": "backend-sync",
   "sourceHead": "8d5ffd08dad9f1727a2028bdf683f7355844d9c7",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
@@ -11,5 +11,5 @@
   "notMerged": ["backend-sync", "content-pack"],
   "blocked": ["INT-01"],
   "waiting": ["backend-sync", "content-pack"],
-  "next_action": "Art M2 is on main at df63d01. Post-merge typecheck passed. Open a new worktree from that SHA and integrate draft PR #9 (feature/backend-game-services @ a38ef8e). Reconfirm its head before starting. Do not merge it until typecheck, tests, and the cloud-save flow pass on that tree. Content still has no new head."
+  "next_action": "Backend integration is validated on cursor/integration-backend-save-3395 against main 0eea3cf and source a38ef8e. Reconfirm those SHAs, then merge. The batch also keeps NPC assemble idempotent under strict mode. Content still has no new head."
 }

@@ -80,9 +80,23 @@ PR #8。暫停時考卷怪預警不再自行填滿。`1ad31aa` 上 `npm test` 21
 
 合併後 `main` `df63d01` 與這次驗收的遊戲提交 `be6fdd6` 只差文件。在 `df63d01` 上再跑 `npm run typecheck` 通過。PR #10 顯示已合併。合併 API 403；`main` 未受保護，所以快轉推送，沒有強推。
 
+## 後端雲端存檔（整合工作區，尚未進 main）
+
+來源 `feature/backend-game-services` @ `a38ef8e`，接到 `main` `0eea3cf`，沒有衝突。`package.json` 與存檔 schema 沒有改。遷移 `0003_rpg_saves.sql` 只新增表。
+
+| 命令 | 結果 |
+| --- | --- |
+| `npm run typecheck` | 通過 |
+| `npm test` | 227 通過 / 0 失敗。其中 `rpg cloud save persists, conflicts, and stays optional` 通過 |
+| `npm run build:site` | 通過。`dist` 沒有 `cloud-save`、`雲端同步` 或 `DATABASE_URL` |
+
+流程腳本在本機 PGLite 上實際做了：未登入只留本機；沒有 `confirmFirstSync` 時 409 且本機不變；第二個客戶端要下載才寫入；同時寫入一個成功、一個 `revision_conflict`；敗方可以改留雲端或改留本機；同一 `requestId` 重送不增加 revision；獎勵回執只記一次；離線佇列不會在別的帳號登入時送出；session 過期後讀取是 401；進行中的內容更新保持目前版本。
+
+Node 開發頁 `http://127.0.0.1:8080/` 看得到「雲端同步（選配）」與「尚未同步。本機進度不會自動上傳。」開啟後 `pageErrors` 為空。修正前，開發模式會對五個 NPC 預設丟出零件不符；`assemble` 改成第二次沿用已合併的 mesh。
+
 ## 本輪沒有驗的項目
 
-- 主動登入、雲端同步、第二個客戶端、同步衝突（草稿 PR #9 尚未接到這棵樹）
+- 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
 - 內容版本不相容
 - 行走中的 NPC 套件特寫、非工程學院技能逐一截圖
 - 手機與 RTX 3060：`pending-device`。不填估計 FPS

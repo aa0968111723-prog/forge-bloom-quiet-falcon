@@ -146,11 +146,11 @@
       "id": "backend-sync",
       "line": "backend",
       "scope": "Optional RPG cloud save, revision conflicts, additive migration 0003. Static game still runs without the server.",
-      "status": "discovered",
+      "status": "ready_to_merge",
       "pr": 9,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9",
       "draft": true,
-      "integrationBranch": null,
+      "integrationBranch": "cursor/integration-backend-save-3395",
       "sourceBranch": "feature/backend-game-services",
       "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
       "headSha": "a38ef8e41cfddc9520e60b62a992bae16a4648d5",
@@ -165,11 +165,25 @@
         "cloudSchema": 1,
         "contentVersionField": "RPG document.version 2, not a content pack"
       },
-      "checks": null,
-      "conflicts": [],
+      "checks": {
+        "diffRead": true,
+        "conflicts": "none against main 0eea3cf",
+        "typecheck": "pass",
+        "npmTest": "227 pass / 0 fail, including rpg cloud save persists, conflicts, and stays optional",
+        "buildSite": "pass; dist has no cloud-save, 雲端同步, or DATABASE_URL",
+        "dock": "Node dev page exposes 雲端同步（選配） and says local progress is not uploaded automatically. pageErrors empty after the strict-mode assemble guard",
+        "secrets": "no production secret added; the flow uses a local test secret",
+        "migration": "0003 is additive"
+      },
+      "conflicts": [
+        {
+          "id": "npc-assemble-strict-mode",
+          "resolution": "Found while opening the Node app: dev strict mode runs NPC assemble twice and the second call threw because the part meshes were already removed. assemble now keeps the merged mesh. This is an integration fix on top of art M2, not a backend behavior change."
+        }
+      ],
       "merged": false,
       "mergeSha": null,
-      "nextAction": "After art-m2 is on main, integrate in a new worktree. Do not merge while the PR is still a draft and unverified on that main."
+      "nextAction": "Reconfirm feature/backend-game-services is still a38ef8e and main is still 0eea3cf, then merge this integration branch."
     },
     {
       "id": "content-pack",

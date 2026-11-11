@@ -1,0 +1,121 @@
+# RPG 雲端存檔 API
+
+實作：`src/server/cloud/http.ts`、`src/server/cloud/service.ts`。Node 程序是 `scripts/game-services-server.mjs`。TanStack 路由掛在 `/api/health`、`/api/ready`、`/api/cloud/$`。
+
+身分只看 Better Auth session（cookie 或既有 bearer）。請求裡的 `userId`（body 或 query）一律 `403 forged_user`，即使它等於 session 也不採用。
+
+變更請求要帶 `x-cloud-save: 1`。有 `Sec-Fetch-Site` 時只允許 `same-origin` 或 `none`。`Origin` 若存在，必須在允許清單內；回應會回顯該來源並加 `Access-Control-Allow-Credentials: true`。允許清單是 `BETTER_AUTH_URL`、`CLOUD_SAVE_ORIGINS`，以及本機 `8080` / `8088`。不會回 `*`。
+
+Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環境用 HTTPS 與 `BETTER_AUTH_URL`。
+
+## 版本
+
+| 欄位 | 值 | 意義 |
+| --- | --- | --- |
+| `schemaVersion` | `1` | 這份雲端信封 |
+| `contentVersion` | `2` | RPG 存檔 `document.version` |
+| `revision` | 伺服器整數 | 樂觀鎖。不看裝置時間 |
+
+內容效果只允許 `heal`、`focus`、`damage`、`capacity`、`build_range`、`grant_item`，而且只能有 `type`、`amount`、`itemId`。存檔裡的程式文字會被拒。沒有排行榜端點。客戶端送來的經驗、貨幣、分數只是存檔內容，不是可競技成績。
+
+## 端點
+
+### `GET /api/health`
+
+不碰資料庫。`200 {"ok":true,"service":"cloud-save"}`。
+
+### `GET /api/ready`
+
+`select 1`。資料庫不可用時 `503`：
+
+```json
+{"ok":false,"error":{"code":"database_unavailable","message":"資料庫無法使用。"}}
+```
+
+### `GET /api/cloud/content/manifest`
+
+不需登入。回傳與 `BUNDLED_CONTENT_MANIFEST` 相同的版本與效果白名單，`source` 為 `server`。客戶端失敗時用打包清單。進行中的事件或內容版本不同時，客戶端保持目前內容（`decideContentUpdate`）。
+
+### `GET /api/cloud/saves/rpg`
+
+登入後讀自己的存檔。沒有列時：
+
+```json
+{"error":{"code":"not_found","message":"尚未有雲端存檔。"},"idempotentReplay":false}
+```
+
+成功時 `200`，`ETag` 為 `"<revision>"`，`Cache-Control: no-store`：
+
+```json
+{
+  "revision": 1,
+  "schemaVersion": 1,
+  "contentVersion": 2,
+  "document": {"version": 2, "hp": 80, "xp": 5, "slots": [], "buildings": []},
+  "etag": "\"1\"",
+  "contentHash": "<sha256>",
+  "idempotentReplay": false
+}
+```
+
+### `PUT /api/cloud/saves/rpg`
+
+```json
+{
+  "schemaVersion": 1,
+  "contentVersion": 2,
+  "baseRevision": 0,
+  "confirmFirstSync": true,
+  "requestId": "localreq1abcd",
+  "document": {"version": 2, "hp": 80, "xp": 5, "slots": [{"itemId": "coffee", "quantity": 1}], "buildings": []}
+}
+```
+
+- 尚未有雲端列，且 `confirmFirstSync` 不是 `true` 或 `baseRevision` 不是 `0`：`409 first_sync_required`。不寫入，也不清本機。
+- `baseRevision` 不等於目前 revision：`409 revision_conflict`，body 含 `server`（revision、document、etag、contentHash）與 `clientRevision`。
+- 成功：`200`，revision 加一，舊版本留在 `rpg_save_revisions`（最多 8 筆）。
+- `If-Match` 若存在，必須等於 `baseRevision`，否則 `400 if_match_mismatch`。
+- 舊巡禮形狀（只有 `visited`，或 `version: 1`）：`422 legacy_pilgrimage`。不寫 `pilgrimage` 表，也不寫 RPG 表。
+- 其他不相容內容：`422 incompatible_content`。
+- 壞 JSON：`400 invalid_json`。超過 256 KiB：`413 payload_too_large`。
+- 未登入：`401 unauthorized`。缺 `x-cloud-save`：`403 csrf`。
+
+同一 `requestId` 與相同內容重送：回原來的狀態碼與 body，`idempotentReplay: true`，revision 不再增加。相同 `requestId` 但內容不同：`409 idempotency_mismatch`。
+
+玩家保留雲端：客戶端把 `server.document` 寫回本機，不再 PUT。玩家保留本機：用衝突回應裡的 `server.revision` 當新的 `baseRevision` 再 PUT。這是明示選擇，不是用時間戳覆蓋。
+
+### `POST /api/cloud/saves/rpg/restore`
+
+```json
+{"baseRevision": 4, "revision": 1, "requestId": "restore-first-01"}
+```
+
+把歷史 revision 複製成新的 head。`baseRevision` 必須是目前 head。找不到歷史版本是 `404 revision_not_found`。同樣使用 `requestId` 冪等。
+
+### `POST /api/cloud/saves/rpg/receipts`
+
+```json
+{"eventId": "quest_side", "requestId": "reward-side-0001"}
+```
+
+```json
+{"applied": true, "eventId": "quest_side", "idempotentReplay": false}
+```
+
+`applied: false` 表示這個帳號已經記過該事件。重送同一個 `requestId` 會帶回第一次的 body，並把 `idempotentReplay` 設為 `true`。伺服器不發放經驗或貨幣。客戶端必須在本機把事件 id 記下來，重試時不再呼叫發獎函式。
+
+寫入預設每帳號每 60 秒 30 次（`CLOUD_SAVE_RATE_LIMIT`、`CLOUD_SAVE_RATE_WINDOW_MS`）。超過回 `429 rate_limited` 與 `Retry-After`。這是單一程序內的計數。
+
+## 客戶端
+
+`src/features/cloud-save/client.ts` 的 `createCloudSaveController`：
+
+- `writeLocal` 只寫 `tamkang-rpg-v2`，不發請求。
+- 未登入時 `plan()` 是 `local_only`。
+- 雲端 404 是 `need_first_sync`。`uploadFirstSync` 才會帶 `confirmFirstSync: true`。`keepLocalOnly` 不上傳。
+- 沒有本機存檔時是 `need_download`，要呼叫 `downloadCloud` 才寫入。雲端空資料不會清本機。
+- 本機與雲端不同，且本機記錄的 revision 不等於伺服器：`conflict`。`keepRemoteVersion` / `keepLocalVersion` 才解決。
+- 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。`flush` 只送目前帳號的佇列，沿用原來的 `requestId`，退避 1s、2s、4s，上限 30s。
+- `logout` 只清目前帳號標記，不刪 RPG 存檔，也不把上一個帳號的佇列送給下一個帳號。
+
+Node 首頁 `src/routes/index.tsx` 掛了 `CloudSaveDock`。靜態入口沒有引用它。

@@ -1,0 +1,12 @@
+# 已知限制
+
+- 信箱密碼預設關閉。玩家要使用本機註冊時，程序需有 `AUTH_EMAIL_PASSWORD=true`。`scripts/game-services-server.mjs` 只在非正式環境自動打開。Grok OAuth 仍走原來的 Better Auth 設定。
+- 正式環境的 `scripts/game-services-server.mjs` 沒有 `BETTER_AUTH_SECRET` 會直接結束。開發用密鑰寫在 gitignore 的 `data/dev-auth-secret`，不會印到 log。
+- Better Auth 的 `session_data` cookie 最多可在 300 秒內不查資料庫。整合測試會拿掉這顆 cookie，再把 `session.expiresAt` 設成過去，確認只靠 session token 時過期會 `401`。
+- 限流計數在程序記憶體，多實例不會合併。另外，正式環境的 Better Auth 對 `/sign-in` 與 `/sign-up` 另有每 10 秒 3 次的限制；那是登入套件的行為，不是存檔 API。
+- 沒有競技排行榜，也沒有公開的管理、發獎或列出所有玩家的端點。存檔裡的經驗與貨幣不是伺服器結算的分數。
+- 獎勵回執只保證不重複記帳。客戶端若在回執成功之後當掉、又還沒執行本機發獎，重試不會再發。既有 `grantQuestReward` 仍以任務 id 自己防重。
+- 內容效果白名單檢查結構，不執行內容檔。穩定的任務、物品、技能 id 仍由內容資料定義；這份 API 不另造一套 id。
+- 開發庫是檔案型 PGLite（`PGLITE_DATA_DIR`）或記憶體 PGLite。正式庫是 `DATABASE_URL` 指向的 PostgreSQL，由 `scripts/migrate.mjs` 套用同一批 SQL。沒有破壞性遷移。
+- 直接用 Node 載入這些 TypeScript 檔需要 `--experimental-transform-types`，因為既有 `pglite-dialect.ts` 使用 parameter property。`npm test` 裡的整合測試會自己帶這個旗標。Vite / `tsc` 不需要。
+- 靜態站不會呼叫這些 API。雲端同步只存在於有登入 session 的 Node 程序。

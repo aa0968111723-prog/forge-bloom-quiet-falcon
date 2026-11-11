@@ -9,6 +9,7 @@ import * as THREE from "three";
 import { applyHeadLook, captureLookBase, createLookPose, restoreLookBase } from "../src/game/art/character/look.ts";
 import { nextWindupProgress } from "../src/game/art/creatures/windup.ts";
 import { releaseArtInstance } from "../src/game/art/release.ts";
+import { assemble } from "../src/game/art/character/npc-assemble.ts";
 
 test("head glance stays on the clip pose while gait clips leave the head alone", () => {
   const neck = new THREE.Bone();
@@ -44,6 +45,39 @@ test("quiz windup graphic holds while the simulation is paused", () => {
   assert.ok(resumed < 0.7, `paused windup ran ahead to ${resumed}`);
   const caught = nextWindupProgress(0.2, 0.09, duration, 0.016, false);
   assert.ok(caught >= 1 - 0.09 / duration);
+});
+
+test("assembling an NPC twice keeps the merged mesh when the memo runs again", () => {
+  const root = new THREE.Group();
+  const kit = new THREE.Group();
+  kit.name = "npc-kit";
+  kit.userData = {
+    presets: {
+      "avenue-freshman": {
+        parts: ["head:soft"],
+        colors: {},
+        build: { height: 1, chest: [1, 1, 1] },
+      },
+    },
+    slots: {},
+    upperBody: [],
+    actionLayers: {},
+    stride: { walk: 1, run: 1 },
+  };
+  root.add(kit);
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const colors = new Uint8Array(geometry.attributes.position.count * 4);
+  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+  const bone = new THREE.Bone();
+  const mesh = new THREE.SkinnedMesh(geometry, new THREE.MeshStandardMaterial());
+  mesh.name = "part_head_soft";
+  mesh.add(bone);
+  mesh.bind(new THREE.Skeleton([bone]));
+  root.add(mesh);
+  const first = assemble(root, "avenue-freshman");
+  const second = assemble(root, "avenue-freshman");
+  assert.equal(second.mesh, first.mesh);
+  assert.equal(root.getObjectByName("part_head_soft"), undefined);
 });
 
 test("disposing an art instance frees bone textures and keeps shared geometry", () => {
