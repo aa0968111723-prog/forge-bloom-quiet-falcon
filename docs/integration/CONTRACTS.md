@@ -52,7 +52,7 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 `form === "gate"` 的建築（大門警衛站、大忠警衛站）畫成兩根門柱加橫樑。`gatePiers` 的門柱寬是 1.5。碰撞只加在門柱上，開口中心可以站。這是估計外形，不是實測門寬。
 
-白樓的種類是 `white-block`，覺軒是 `hip-roof-block`。窗帶、名牌和坡頂由 `contextShowsDetail` 決定。高畫質 90 m 內才畫，省電是 48 m。量體一直留著。其餘分區仍是 `slab-block`。精度仍是 estimated。
+白樓的種類是 `white-block`。`theme === "arts"` 是 `hip-roof-block`，宿舍是 `dorm-block`，實驗樓是 `lab-block`，運動館是 `sport-hall`，教學樓仍是 `slab-block`。窗帶、名牌、坡頂、宿舍退縮層和實驗樓屋頂設備由 `contextShowsDetail` 決定。高畫質 90 m 內才畫，省電是 48 m。量體一直留著。精度仍是 estimated。
 
 室內路線用既有 `enter("palace")`／`exit()`。宮燈教室 id 是 `palace`。
 

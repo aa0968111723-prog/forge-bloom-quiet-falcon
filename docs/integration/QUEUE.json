@@ -563,6 +563,32 @@
       "merged": true,
       "mergeSha": "0515383cd770c8d5c6afb3960f08f0c1918842d0",
       "nextAction": "None. Source 18dee4c is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-theme-masses",
+      "line": "art",
+      "scope": "Dorms, labs, sport halls, and arts buildings use separate estimated masses. Study buildings stay the generic slab. Open gates stay open.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-theme-masses-3395",
+      "sourceBranch": "cursor/theme-masses-1a71",
+      "baseSha": "eaa9b72116b3",
+      "headSha": "748608a05489d936fa7b0eb304ce144b52c32272",
+      "dependencies": ["art-context-lod"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "checks": {
+        "conflicts": "Kept gate in the kind union and campusKind. Capture keeps gates and adds themes. Arts use the hip roof; dorm, lab, and sport have their own masses.",
+        "typecheck": "pass",
+        "npmTest": "252 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8098 low tier at 1280x720 and 390x780: sungtao is warm, chemistry is cool with a roof unit, swimming is a low green hall. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "merged": true,
+      "mergeSha": "c8a12829637649e07675d5d10accc3b9c70c82c3",
+      "nextAction": "None. Source 748608a is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }
