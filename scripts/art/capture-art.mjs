@@ -537,6 +537,18 @@ try {
       });
       await shot(page, id, `${id} door stand ${JSON.stringify(at)}`);
     }
+  } else if (scenario === "halls") {
+    await hideHud(page);
+    const stands = [
+      ["white-hall", 85, -536.5, { yaw: 0.9, distance: 42, height: 18, lookY: 6 }],
+      ["chuehhsuan", 150, -536.5, { yaw: 0.2, distance: 28, height: 10, lookY: 3 }],
+    ];
+    for (const [id, x, z, photo] of stands) {
+      await setPose(page, x, z, Math.PI);
+      await page.evaluate((p) => window.__controlsTest.setPhoto(p), photo);
+      await settle(page, { stableFrames: 3 });
+      await shot(page, id, `${id} near silhouette`);
+    }
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });

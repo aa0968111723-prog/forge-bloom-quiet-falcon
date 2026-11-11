@@ -151,3 +151,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 `node --test scripts/campus-links.test.mjs` 2 通過。`tsc --noEmit` 通過。41 個 `CAMPUS_SITES` 門口各有一條步道，起點是門口，終點距路網小於 1.6 m，路網本身是一個相連分量。視聽教育館與正門不再把步道目標放進建築碰撞裡。
 
 定步畫面（高畫質，頁面無錯誤）：`docs/art/evidence/links/audiovisual-door.jpg`、`main-gate-door.jpg`。步道沿量體外側接到路，不是穿牆直線。座標仍是 estimated，沒有階數，不宣稱 1:1。
+
+## 第 10 輪（白樓、覺軒與遠距細節）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 2 通過。`tsc --noEmit` 通過。白樓是白牆平頂，覺軒是灰牆加綠瓦坡頂。窗帶、名牌和坡頂在高畫質 90 m 內才畫，省電是 48 m；量體一直留著。定步畫面：`docs/art/evidence/halls/white-hall.jpg`、`chuehhsuan.jpg`。精度仍是 estimated。
