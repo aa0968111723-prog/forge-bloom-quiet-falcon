@@ -145,6 +145,12 @@
 
 畫面：`docs/art/evidence/route/outdoor.png`。數字：`docs/art/evidence/route/after-shore.json`。
 
+## 階段：覺生綜合大樓（ART-063 的一部分）
+
+書圖區這棟從教學樓基座改成玻璃基座加退縮的淺色上層。圖書館和驚聲大樓仍用既有量體。外形仍是 estimated。
+
+畫面：`docs/art/evidence/integrated/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。戶外路線段已低於 1.6 M。遠景不能走上去。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。覺生綜合大樓已分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

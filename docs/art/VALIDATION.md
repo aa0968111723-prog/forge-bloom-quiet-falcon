@@ -207,3 +207,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 | 返回戶外 | 1,437,689 | 326 |
 
 戶外四段都低於 1.6 M。畫面：`docs/art/evidence/route/outdoor.png`。原始數字：`docs/art/evidence/route/after-shore.json`。手機與 RTX 3060 仍是 `pending-device`。
+
+## 第 21 輪（覺生綜合大樓）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。覺生綜合大樓是玻璃基座加退縮的淺色上層，名牌寫著覺生綜合大樓。精度仍是 estimated。門口步道測試仍通過。定步近景，頁面無錯誤：`docs/art/evidence/integrated/hall.jpg`。
