@@ -207,6 +207,12 @@
 
 測試：`scripts/route-walk.test.mjs`。
 
+## 階段：紹謨紀念體育館（ART-067 的一部分）
+
+運動區這棟不再用圖書館的外牆材質。現在是淺色館身、深色台基、南向高側窗和出挑平頂。泳館仍是綠灰運動館。司令臺仍是低平台。外形仍是 estimated。巡禮折線留著。
+
+畫面：`docs/art/evidence/gym/arena.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。三條折線已能走到門口。視聽教育館、傳播館與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。體育館已從通用廳分開。泳館、司令臺與巡禮折線留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

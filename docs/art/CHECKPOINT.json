@@ -1,7 +1,7 @@
 {
-  "updated": "2026-11-11T22:20:00Z",
+  "updated": "2026-11-11T23:00:00Z",
   "task_ids": [
-    "ART-069"
+    "ART-067"
   ],
   "branch": "cursor/kenan-walk-1a71",
   "base": "main@9b74d14f0cfc",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The three pilgrimage polylines reach the palace, library, and gym doors with a 0.42 m body, passing east of the statue. The Kenan centreline climbs from the apron to the top. Step count and positions stay estimated. The audiovisual hall stays a dark auditorium. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The Shao-mo gym is a pale arena with a dark plinth and a high south clerestory, not the library facade. The pool stays the green sport block. The shape is estimated. The pilgrimage lines still reach the three doors. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

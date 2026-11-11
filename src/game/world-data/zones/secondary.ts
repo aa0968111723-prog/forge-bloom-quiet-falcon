@@ -41,7 +41,8 @@ export type SecondaryStructure = {
     | "shed"
     | "intl-dorm"
     | "media-hall"
-    | "auditorium";
+    | "auditorium"
+    | "arena";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -87,7 +88,7 @@ const LEGACY_SECONDARY_STRUCTURES: SecondaryStructure[] = [
     position: [166, -122],
     size: [44, 16, 30],
     rotationY: 0,
-    kind: "hall",
+    kind: "arena",
     cluster: "east",
     walkable: true,
     accuracy: "estimated",
@@ -311,6 +312,19 @@ export function contextShowsDetail(
   tier: "high" | "low",
 ) {
   return Math.hypot(cameraX - x, cameraZ - z) <= contextDetailLimit(tier);
+}
+
+/**
+ * Sports hall for 紹謨紀念體育館. The plinth and clerestory are an estimated
+ * silhouette, not a measured elevation. The pool stays a separate sport block.
+ */
+export function arenaProfile(size: readonly [number, number, number]) {
+  return {
+    baseH: Math.min(2.2, Math.max(1.4, size[1] * 0.14)),
+    clerestoryY: size[1] - Math.max(2.2, size[1] * 0.18),
+    glassZ: size[2] / 2 + 0.08,
+    glassH: Math.max(1.4, size[1] * 0.12),
+  };
 }
 
 /** Glass base plus the set-back upper volume used by 覺生綜合大樓. */
