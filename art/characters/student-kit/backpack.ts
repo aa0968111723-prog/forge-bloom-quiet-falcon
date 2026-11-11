@@ -14,6 +14,7 @@ import { CELLS, swatch } from "./atlas.ts";
 import { onJacket } from "./body.ts";
 import type { KitRig } from "./skeleton.ts";
 import { STUDENT_KIT } from "./spec.ts";
+import { lod, lowDetail } from "./detail.ts";
 
 export function addBackpack(b: PartBuilder, rig: KitRig) {
   const bagBone = rig.index("bag");
@@ -23,7 +24,10 @@ export function addBackpack(b: PartBuilder, rig: KitRig) {
   const at = (x: number, y: number, z: number): V3 => [o.x + x, o.y + y, o.z + z];
 
   const box = (name: string, size: V3, p: V3, round: number, tile = CELLS.canvas, color = "#ffffff", rot: V3 = [0, 0, 0]) => {
-    const g = round > 0.004 ? new RoundedBoxGeometry(size[0], size[1], size[2], size[0] > 0.2 ? 2 : 1, round) : new THREE.BoxGeometry(size[0], size[1], size[2]);
+    const g =
+      round > 0.004 && (!lowDetail() || size[0] > 0.25)
+        ? new RoundedBoxGeometry(size[0], size[1], size[2], size[0] > 0.2 ? lod(2, 1) : 1, round)
+        : new THREE.BoxGeometry(size[0], size[1], size[2]);
     g.rotateX(rot[0]);
     g.rotateY(rot[1]);
     g.rotateZ(rot[2]);
@@ -39,14 +43,14 @@ export function addBackpack(b: PartBuilder, rig: KitRig) {
   for (const side of [-1, 1]) {
     box("bag-side-pocket", [0.032, 0.12, 0.092], at(side * 0.146, -0.085, 0), 0.012, CELLS.canvas, "#e4d8c3");
     // Stitched edge binding down each side of the pocket.
-    box("bag-binding", [0.008, 0.15, 0.048], at(side * 0.1, -0.06, -0.079), 0, CELLS.strap);
+    if (!lowDetail()) box("bag-binding", [0.008, 0.15, 0.048], at(side * 0.1, -0.06, -0.079), 0, CELLS.strap);
   }
   const handle = sweep([at(-0.045, 0.162, 0.0), at(0, 0.198, 0.0), at(0.045, 0.162, 0.0)], {
     width: () => 0.009,
     thickness: () => 0.005,
     outward: [0, 0, 1],
-    segments: 6,
-    around: 8,
+    segments: lod(6, 4),
+    around: lod(8, 4),
   });
   b.add(handle.geometry, { name: "bag-handle", color: "#ffffff", tile: CELLS.strap, skin: bagBone });
 
@@ -66,10 +70,11 @@ export function addBackpack(b: PartBuilder, rig: KitRig) {
       width: () => 0.017,
       thickness: () => 0.0035,
       outward: (t) => (t < 0.18 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(x(0.35), 0, 1).normalize()),
-      segments: 22,
-      around: 8,
+      segments: lod(22, 12),
+      around: lod(8, 4),
     });
     b.add(strap.geometry, { name: "strap", color: "#ffffff", tile: CELLS.strap, skin: chest });
+    if (lowDetail()) continue;
     const buckle = new THREE.BoxGeometry(0.04, 0.022, 0.008);
     const bp = onJacket(x(0.112), 1.085, true, 0.012);
     buckle.rotateY(x(0.35));
@@ -106,7 +111,7 @@ function addTurtleCharm(b: PartBuilder, pivot: THREE.Vector3, bone: number) {
   ring.translate(pivot.x, pivot.y - 0.002, pivot.z - 0.002);
   b.add(ring, { name: "charm-ring", color: "#ffffff", tile: CELLS.metal, skin: bone });
 
-  const shell = dome(0.027, 0.017, 0.033, 6, 16);
+  const shell = dome(0.027, 0.017, 0.033, lod(6, 4), lod(16, 10));
   // Dome is built along +Y; turn it so it bulges out of the shell plane (+Z).
   shell.geometry.rotateX(Math.PI / 2);
   b.add(place(shell.geometry), { name: "turtle-shell", color: "#ffffff", tile: CELLS.turtle, skin: bone });
@@ -120,11 +125,13 @@ function addTurtleCharm(b: PartBuilder, pivot: THREE.Vector3, bone: number) {
   headG.translate(0, 0.04, 0.004);
   b.add(place(headG), { name: "turtle-head", color: skin, tile: swatch("white"), skin: bone });
   for (const sx of [-1, 1]) {
-    const eye = new THREE.SphereGeometry(0.0022, 6, 5);
-    eye.translate(sx * 0.0055, 0.045, 0.0125);
-    b.add(place(eye), { name: "turtle-eye", color: "#ffffff", tile: swatch("eyeDot"), skin: bone });
+    if (!lowDetail()) {
+      const eye = new THREE.SphereGeometry(0.0022, 6, 5);
+      eye.translate(sx * 0.0055, 0.045, 0.0125);
+      b.add(place(eye), { name: "turtle-eye", color: "#ffffff", tile: swatch("eyeDot"), skin: bone });
+    }
     for (const sy of [-1, 1]) {
-      const flipper = new THREE.SphereGeometry(1, 8, 6);
+      const flipper = new THREE.SphereGeometry(1, lod(8, 5), lod(6, 4));
       flipper.scale(0.016, 0.008, 0.0045);
       flipper.rotateZ(sx * sy * 0.6 + (sy > 0 ? 0 : sx * 0.3));
       flipper.translate(sx * 0.027, sy * 0.021, 0.001);

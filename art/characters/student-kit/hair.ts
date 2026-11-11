@@ -14,6 +14,7 @@ import { sweep } from "../../shared/loft.ts";
 import { CELLS, swatch } from "./atlas.ts";
 import type { KitRig } from "./skeleton.ts";
 import { STUDENT_KIT } from "./spec.ts";
+import { lod } from "./detail.ts";
 
 const DEG = Math.PI / 180;
 
@@ -55,8 +56,8 @@ export function addHair(b: PartBuilder, rig: KitRig) {
   const out = outwardFrom(rig);
 
   // Scalp cap.
-  const cols = 36;
-  const rows = 10;
+  const cols = lod(36, 22);
+  const rows = lod(10, 6);
   const pos: number[] = [];
   const uv: number[] = [];
   const idx: number[] = [];
@@ -99,8 +100,8 @@ export function addHair(b: PartBuilder, rig: KitRig) {
         const i = Math.min(points.length - 1, Math.round(t * (points.length - 1)));
         return out(points[i]);
       },
-      segments: 8,
-      around: 6,
+      segments: lod(8, 5),
+      around: lod(6, 4),
     });
     b.add(lofted.geometry, {
       name,
@@ -169,7 +170,7 @@ export function addHair(b: PartBuilder, rig: KitRig) {
     );
   }
   // Crown strands break up the cap's smooth top.
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < lod(6, 0); i++) {
     const phi = 0.3 + i * 1.05;
     clump(
       "crown",
@@ -194,7 +195,7 @@ export function addHair(b: PartBuilder, rig: KitRig) {
   // Small tied tail on the hairTail bone.
   const tail = rig.at("hairTail");
   const dir = new THREE.Vector3(0, -0.45, -1).normalize();
-  const tie = new THREE.TorusGeometry(0.017, 0.0065, 6, 12);
+  const tie = new THREE.TorusGeometry(0.017, 0.0065, lod(6, 4), lod(12, 8));
   tie.lookAt(dir);
   tie.translate(tail.x, tail.y - 0.004, tail.z - 0.012);
   b.add(tie, { name: "hair-tie", color: "#ffffff", tile: swatch("hairTie"), skin: tailBone });

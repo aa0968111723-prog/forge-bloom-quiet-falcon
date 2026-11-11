@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { quality } from "../../quality";
 import { useRpg } from "../../rpg/store";
 import { useArtModel } from "../assets";
 import { CharacterAnimator, type ActionLayer } from "./animator";
@@ -43,8 +44,12 @@ function stepSpring(s: Spring, tx: number, tz: number, k: number, damping: numbe
  * the animation never feeds back into combat. Hair tail and turtle charm
  * swing on damped springs from the body's own motion.
  */
+/** Hero mesh on the high tier, the LOD1 mesh (same rig and clips) on the low tier. */
+export const PROTAGONIST_ART = { high: "char.student-kit", low: "char.student-kit-lod1" } as const;
+
 export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
-  const { root, clips } = useArtModel("char.student-kit");
+  const [artId] = useState(() => PROTAGONIST_ART[quality().tier]);
+  const { root, clips } = useArtModel(artId);
   const kit = useMemo(() => {
     const data = root.getObjectByName("student-kit")?.userData ?? {};
     return {

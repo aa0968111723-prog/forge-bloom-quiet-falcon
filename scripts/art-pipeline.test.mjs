@@ -69,6 +69,25 @@ test("kit skin weights sum to one and every joint index is a real bone", () => {
   assert.ok(kit.triangles <= KIT_RECORD.budget.triangles, `${kit.triangles} triangles`);
 });
 
+test("the low-tier LOD shares skeleton and clips, stays weighted and under its budget", () => {
+  const low = buildStudentKit(1);
+  const lodRecord = JSON.parse(readFileSync(new URL("../art/assets.json", import.meta.url))).assets.find(
+    (a) => a.id === "char.student-kit-lod1",
+  );
+  assert.deepEqual(low.bones, kit.bones);
+  assert.deepEqual(
+    low.clips.map((c) => c.name),
+    kit.clips.map((c) => c.name),
+  );
+  assert.ok(low.triangles <= lodRecord.budget.triangles, `${low.triangles} triangles`);
+  assert.ok(low.triangles < kit.triangles * 0.5, "LOD1 at least halves the hero mesh");
+  const w = low.mesh.geometry.attributes.skinWeight;
+  for (let i = 0; i < w.count; i++) {
+    const sum = w.getX(i) + w.getY(i) + w.getZ(i) + w.getW(i);
+    assert.ok(Math.abs(sum - 1) < 1e-6);
+  }
+});
+
 test("every clip drives only kit bones, with unit quaternions and seamless loops", () => {
   const names = new Set(kit.bones);
   for (const clip of kit.clips) {

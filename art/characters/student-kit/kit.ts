@@ -15,6 +15,7 @@ import { ACTION_LAYERS, STRIDE, allClips } from "./clips.ts";
 import { addHair } from "./hair.ts";
 import { BONE_NAMES, UPPER_BODY, buildKitRig } from "./skeleton.ts";
 import { STUDENT_KIT } from "./spec.ts";
+import { withDetail, type Detail } from "./detail.ts";
 
 export type BuiltKit = {
   scene: THREE.Group;
@@ -27,7 +28,12 @@ export type BuiltKit = {
   meta: Record<string, unknown>;
 };
 
-export function buildStudentKit(): BuiltKit {
+/** Detail 0 is the hero mesh; detail 1 is the low-tier mesh on the same skeleton and atlas. */
+export function buildStudentKit(detail: Detail = 0): BuiltKit {
+  return withDetail(detail, () => build(detail));
+}
+
+function build(detail: Detail): BuiltKit {
   const rig = buildKitRig();
   const b = new PartBuilder(STUDENT_KIT.atlasSize);
   addHead(b, rig);
@@ -54,8 +60,9 @@ export function buildStudentKit(): BuiltKit {
   scene.name = "student-kit";
   scene.add(mesh);
   scene.userData = {
-    artId: STUDENT_KIT.id,
+    artId: detail === 0 ? STUDENT_KIT.id : `${STUDENT_KIT.id}-lod1`,
     artVersion: STUDENT_KIT.version,
+    detail,
     actionLayers: ACTION_LAYERS,
     upperBody: UPPER_BODY,
     stride: STRIDE,
@@ -75,6 +82,7 @@ export function buildStudentKit(): BuiltKit {
       up: "+Y",
       pivot: "ground between the feet",
       preset: "protagonist",
+      detail: detail === 0 ? "hero (LOD0)" : "low tier (LOD1)",
       material: "one MeshStandardMaterial, base colour atlas × vertex colour",
     },
   };

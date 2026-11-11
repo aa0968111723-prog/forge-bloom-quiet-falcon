@@ -26,6 +26,15 @@ export const ART_BUILDERS: Record<string, () => BuiltAsset> = {
       meta: { ...kit.meta, bones: kit.bones, parts: summariseParts(kit.parts) },
     };
   },
+  "char.student-kit-lod1": () => {
+    const kit = buildStudentKit(1);
+    return {
+      scene: kit.scene,
+      clips: kit.clips,
+      textures: [{ material: "student-atlas", png: kit.atlasPng }],
+      meta: { ...kit.meta, bones: kit.bones, parts: summariseParts(kit.parts) },
+    };
+  },
   "creature.quiz": () => {
     const quiz = buildQuiz();
     return {

@@ -190,18 +190,20 @@ export function validate({ rebuild = false } = {}) {
     });
   }
 
-  // Ids referenced from game code must exist.
+  // Ids referenced from game code must exist; every id must be referenced by game code.
   const used = new Set();
-  for (const file of walk(join(ROOT, "src"))) {
-    if (!/\.(ts|tsx)$/.test(file) || file.endsWith("art-manifest.gen.ts")) continue;
+  const sources = walk(join(ROOT, "src")).filter((f) => /\.(ts|tsx)$/.test(f) && !f.endsWith("art-manifest.gen.ts"));
+  for (const file of sources) {
     const text = readFileSync(file, "utf8");
     for (const m of text.matchAll(/(?:useArtModel|preloadArt|artUrl)\(\s*"([^"]+)"/g)) {
       used.add(m[1]);
       if (!seen.has(m[1])) errors.push(`${relative(ROOT, file)}: references unknown art id ${m[1]}`);
     }
+    // Ids chosen through a lookup table (e.g. per quality tier) count as used.
+    for (const id of seen) if (text.includes(JSON.stringify(id))) used.add(id);
   }
   for (const id of seen) {
-    if (!used.has(id)) warnings.push(`${id}: no useArtModel/preloadArt call in src/ references it`);
+    if (!used.has(id)) warnings.push(`${id}: nothing in src/ references it`);
   }
 
   // Files in the output folder that no record owns.

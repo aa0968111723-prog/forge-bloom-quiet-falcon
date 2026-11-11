@@ -3,7 +3,6 @@ import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { Student } from "../Student";
 import { ArtBoundary } from "../art/ArtBoundary";
-import { preloadArt } from "../art/assets";
 import { Protagonist, type PlayerActions } from "../art/character/Protagonist";
 import { input } from "./input";
 import { SPRINT, WALK, moveTargetSpeed } from "./move";
@@ -19,7 +18,6 @@ import { followCameraSeed, TITLE_ORBIT } from "./follow";
 
 const tmp = new THREE.Vector3();
 const PLAYER_R = 0.42;
-preloadArt("char.student-kit");
 
 /** QA photo camera (art review captures only); null during normal play. */
 let photo: { distance: number; height: number; yaw: number; lookY: number } | null = null;

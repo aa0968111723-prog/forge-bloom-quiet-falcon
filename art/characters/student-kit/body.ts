@@ -22,6 +22,7 @@ import { hring, limbRing, loft, sweep, type Ring } from "../../shared/loft.ts";
 import { CELLS, FACE_EXTENT, swatch } from "./atlas.ts";
 import type { KitRig } from "./skeleton.ts";
 import { STUDENT_KIT } from "./spec.ts";
+import { lod, lowDetail } from "./detail.ts";
 
 const white = new THREE.Color(1, 1, 1);
 const FRONT = Math.PI / 2;
@@ -92,7 +93,7 @@ export function addHead(b: PartBuilder, rig: KitRig) {
   const c = rig.at("head").add(new THREE.Vector3(...(center as unknown as V3)));
   const [rx, ry, rz] = radius as unknown as V3;
 
-  const sphere = new THREE.SphereGeometry(1, 38, 28).toNonIndexed();
+  const sphere = new THREE.SphereGeometry(1, lod(38, 24), lod(28, 18)).toNonIndexed();
   const pos = sphere.attributes.position;
   const v = new THREE.Vector3();
   for (let i = 0; i < pos.count; i++) {
@@ -154,7 +155,7 @@ export function addHead(b: PartBuilder, rig: KitRig) {
 
   // Ears, half hidden by the side locks.
   for (const side of [-1, 1]) {
-    const ear = new THREE.SphereGeometry(1, 12, 10);
+    const ear = new THREE.SphereGeometry(1, lod(12, 8), lod(10, 6));
     ear.scale(0.014, 0.027, 0.02);
     ear.rotateZ(-side * 0.18);
     ear.translate(c.x + side * rx * 0.98, c.y - 0.012, c.z - 0.008);
@@ -168,7 +169,7 @@ export function addHead(b: PartBuilder, rig: KitRig) {
       hring(rig.p("neck", [0, 0.03, 0.006]), 0.04, 0.039),
       hring(rig.p("head", [0, 0.04, 0.014]), 0.037, 0.036),
     ],
-    { segments: 16 },
+    { segments: lod(16, 10) },
   );
   b.add(neck.geometry, {
     name: "neck",
@@ -200,7 +201,7 @@ export function addTorso(b: PartBuilder, rig: KitRig) {
         bulge: (th) => (y > 1.06 && y < 1.18 ? Math.max(0, Math.sin(th)) * 0.006 : 0),
       }),
     ),
-    { segments: 24, thickness: 0.004 },
+    { segments: lod(24, 14), thickness: 0.004 },
   );
   b.add(shirt.geometry, { name: "shirt", color: endShade(0, 0.06, 0.86), tile: CELLS.shirt, skin, param: shirt.param, uvRepeat: [2, 1] });
 
@@ -213,7 +214,7 @@ export function addTorso(b: PartBuilder, rig: KitRig) {
         bulge: (th) => (Math.cos(th - FRONT) > 0.4 ? 0.006 : 0),
       }),
     ),
-    { segments: 26, thickness: 0.011 },
+    { segments: lod(26, 16), thickness: 0.011 },
   );
   b.add(jacket.geometry, {
     name: "jacket",
@@ -236,7 +237,7 @@ export function addTorso(b: PartBuilder, rig: KitRig) {
     ].map(([y, rx, rz, z], i) =>
       hring([0, y, z], rx, rz, { arc: [FRONT + 0.52 - i * 0.04, FRONT + Math.PI * 2 - 0.52 + i * 0.04] }),
     ),
-    { segments: 22, thickness: 0.006 },
+    { segments: lod(22, 12), thickness: 0.006 },
   );
   b.add(collar.geometry, {
     name: "collar",
@@ -247,6 +248,7 @@ export function addTorso(b: PartBuilder, rig: KitRig) {
   });
 
   // Patch pockets with flaps, buttons along the left placket, chest badge.
+  if (lowDetail()) return;
   for (const side of [-1, 1]) {
     const angle = FRONT + side * 0.95;
     const px = Math.cos(angle) * 0.162;
@@ -306,7 +308,7 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
     { c: [X(0.21), 0.895, 0.003], d: [X(0.1), -1, 0.08], r: [0.055, 0.054] },
   ];
   const rings = centers.map(({ c, d, r }) => limbRing(c, d, fwd, r[0], r[1]));
-  const sleeve = loft(rings, { segments: 16, thickness: 0.009 });
+  const sleeve = loft(rings, { segments: lod(16, 10), thickness: 0.009 });
   const tShoulder = paramAt(centers.map((x) => x.c), 1);
   const tElbow = paramAt(centers.map((x) => x.c), 4);
   b.add(sleeve.geometry, {
@@ -325,7 +327,7 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
       limbRing([X(0.209), 0.896, 0.003], [X(0.1), -1, 0.07], fwd, 0.064, 0.063),
       limbRing([X(0.212), 0.876, 0.005], [X(0.1), -1, 0.07], fwd, 0.06, 0.059),
     ],
-    { segments: 16, thickness: 0.008 },
+    { segments: lod(16, 10), thickness: 0.008 },
   );
   b.add(cuff.geometry, {
     name: "cuff",
@@ -342,7 +344,7 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
       limbRing([X(0.217), 0.81, 0.01], [X(0.08), -1, 0.08], fwd, 0.034, 0.033),
       limbRing(rig.p(`hand${L}`, [0, 0.008, 0]), [X(0.08), -1, 0.08], fwd, 0.031, 0.03),
     ],
-    { segments: 12 },
+    { segments: lod(12, 8) },
   );
   b.add(forearm.geometry, {
     name: "forearm",
@@ -362,7 +364,7 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
     ry: rz,
   });
   const palm = loft([palmRing(0.005, 0.016, 0.028), palmRing(-0.035, 0.019, 0.036), palmRing(-0.07, 0.016, 0.037)], {
-    segments: 14,
+    segments: lod(14, 8),
     capEnd: true,
   });
   b.add(palm.geometry, { name: "palm", color: "#ffffff", tile: CELLS.skin, skin: hand, param: palm.param });
@@ -384,8 +386,8 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
         width: (t) => 0.0088 * roundTip(t),
         thickness: (t) => 0.0078 * roundTip(t),
         outward: [X(1), 0, 0],
-        segments: 6,
-        around: 8,
+        segments: lod(6, 3),
+        around: lod(8, 5),
       },
     );
     b.add(finger.geometry, { name: "finger", color: "#ffffff", tile: CELLS.skin, skin: hand, param: finger.param });
@@ -397,8 +399,8 @@ export function addArm(b: PartBuilder, rig: KitRig, side: 1 | -1) {
       width: (t) => 0.0098 * roundTip(t),
       thickness: (t) => 0.0085 * roundTip(t),
       outward: [X(1), 0, 0.4],
-      segments: 6,
-      around: 8,
+      segments: lod(6, 3),
+      around: lod(8, 5),
     },
   );
   b.add(thumb.geometry, { name: "thumb", color: "#ffffff", tile: CELLS.skin, skin: hand, param: thumb.param });
@@ -410,20 +412,20 @@ export function addLowerBody(b: PartBuilder, rig: KitRig) {
   const hips = rig.index("hips");
   const waist = loft(
     [hring([0, 0.835, 0.004], 0.156, 0.107), hring([0, 0.852, 0.004], 0.158, 0.108), hring([0, 0.868, 0.004], 0.155, 0.106)],
-    { segments: 24, thickness: 0.006 },
+    { segments: lod(24, 14), thickness: 0.006 },
   );
   b.add(waist.geometry, { name: "waistband", color: "#f0e8d8", tile: CELLS.shorts, skin: hips, param: waist.param, uvRepeat: [3, 1] });
   const pelvis = loft(
     [hring([0, 0.838, 0.004], 0.154, 0.105), hring([0, 0.79, 0.002], 0.166, 0.11), hring([0, 0.75, 0.0], 0.165, 0.106)],
-    { segments: 24 },
+    { segments: lod(24, 14) },
   );
   b.add(pelvis.geometry, { name: "shorts-seat", color: "#ffffff", tile: CELLS.shorts, skin: hips, param: pelvis.param, uvRepeat: [3, 1] });
-  const crotch = new THREE.SphereGeometry(1, 14, 10);
+  const crotch = new THREE.SphereGeometry(1, lod(14, 8), lod(10, 6));
   crotch.scale(0.07, 0.04, 0.095);
   crotch.translate(0, 0.752, 0.0);
   b.add(crotch, { name: "shorts-gusset", color: "#e8e0cf", tile: CELLS.shorts, skin: hips });
   // Drawstring with aglets.
-  for (const side of [-1, 1]) {
+  for (const side of lowDetail() ? [] : [-1, 1]) {
     const cord = sweep(
       [
         [side * 0.008, 0.853, 0.112],
@@ -450,7 +452,7 @@ export function addLowerBody(b: PartBuilder, rig: KitRig) {
         hring([X(0.087), 0.71, 0.002], 0.087, 0.096, { shape: flatInner }),
         hring([X(0.092), 0.632, 0.003], 0.088, 0.093, { shape: flatInner }),
       ],
-      { segments: 18, thickness: 0.008 },
+      { segments: lod(18, 10), thickness: 0.008 },
     );
     b.add(legShorts.geometry, {
       name: "shorts-leg",
@@ -462,7 +464,7 @@ export function addLowerBody(b: PartBuilder, rig: KitRig) {
     });
     const hem = loft(
       [hring([X(0.092), 0.64, 0.003], 0.09, 0.095), hring([X(0.093), 0.625, 0.003], 0.094, 0.099), hring([X(0.093), 0.608, 0.003], 0.091, 0.096)],
-      { segments: 18, thickness: 0.007 },
+      { segments: lod(18, 10), thickness: 0.007 },
     );
     b.add(hem.geometry, { name: "shorts-hem", color: "#e2d6bf", tile: CELLS.shorts, skin: upLeg, param: hem.param, uvRepeat: [2, 1] });
 
@@ -483,7 +485,7 @@ export function addLowerBody(b: PartBuilder, rig: KitRig) {
     ];
     const leg = loft(
       legRings.map(([y, x, z, rx, rz]) => hring([x, y, z], rx, rz)),
-      { segments: 14 },
+      { segments: lod(14, 9) },
     );
     const tKnee = (0.68 - knee.y) / (0.68 - 0.1);
     const tAnkle = (0.68 - ankle.y) / (0.68 - 0.1);
@@ -497,7 +499,7 @@ export function addLowerBody(b: PartBuilder, rig: KitRig) {
 
     const sock = loft(
       [hring([X(0.09), 0.155, -0.008], 0.041, 0.044), hring([X(0.09), 0.13, -0.009], 0.04, 0.043), hring([X(0.09), 0.08, -0.01], 0.039, 0.045)],
-      { segments: 14, thickness: 0.004 },
+      { segments: lod(14, 9), thickness: 0.004 },
     );
     b.add(sock.geometry, {
       name: "sock",
@@ -529,7 +531,7 @@ function addShoe(b: PartBuilder, ankle: THREE.Vector3, side: 1 | -1, foot: numbe
   ];
   const upper = loft(
     rings.map(([z, y, rx, ry]) => ({ center: [x0, y, z] as V3, ax: [1, 0, 0] as V3, ay: [0, 1, 0] as V3, rx, ry })),
-    { segments: 16, capStart: true, capEnd: true },
+    { segments: lod(16, 10), capStart: true, capEnd: true },
   );
   b.add(upper.geometry, {
     name: "shoe-upper",
@@ -539,11 +541,19 @@ function addShoe(b: PartBuilder, ankle: THREE.Vector3, side: 1 | -1, foot: numbe
     param: upper.param,
   });
   // Padded collar around the ankle opening.
-  const collar = new THREE.TorusGeometry(0.043, 0.009, 6, 16);
+  const collar = new THREE.TorusGeometry(0.043, 0.009, lod(6, 4), lod(16, 10));
   collar.rotateX(Math.PI / 2);
   collar.scale(1, 1, 1.12);
   collar.translate(x0, 0.104, -0.026);
   b.add(collar, { name: "shoe-collar", color: "#ffffff", tile: CELLS.shoe, skin: foot });
+  addShoeDetails(b, x0, foot);
+  // Sole: extruded foot outline, softly bevelled.
+  soleAndStripe(b, x0, foot);
+  void side;
+}
+
+function addShoeDetails(b: PartBuilder, x0: number, foot: number) {
+  if (lowDetail()) return;
   const tongue = new RoundedBoxGeometry(0.05, 0.05, 0.012, 1, 0.005);
   tongue.rotateX(-0.45);
   tongue.translate(x0, 0.1, 0.008);
@@ -573,8 +583,9 @@ function addShoe(b: PartBuilder, ankle: THREE.Vector3, side: 1 | -1, foot: numbe
   const heelTab = new RoundedBoxGeometry(0.03, 0.035, 0.01, 1, 0.004);
   heelTab.translate(x0, 0.085, -0.088);
   b.add(heelTab, { name: "heel-tab", color: "#ffffff", tile: swatch("accent"), skin: foot });
+}
 
-  // Sole: extruded foot outline, softly bevelled.
+function soleAndStripe(b: PartBuilder, x0: number, foot: number) {
   const outline = new THREE.Shape();
   const hw = 0.047;
   outline.moveTo(-0.04, -0.083);
@@ -583,17 +594,16 @@ function addShoe(b: PartBuilder, ankle: THREE.Vector3, side: 1 | -1, foot: numbe
   outline.quadraticCurveTo(hw, 0.188, 0, 0.193);
   outline.quadraticCurveTo(-hw, 0.188, -hw - 0.004, 0.09);
   outline.quadraticCurveTo(-hw - 0.002, 0.02, -0.04, -0.083);
-  const sole = new ExtrudeGeometry(outline, { depth: 0.02, bevelEnabled: true, bevelThickness: 0.004, bevelSize: 0.004, bevelSegments: 1, curveSegments: 6 });
+  const sole = new ExtrudeGeometry(outline, { depth: 0.02, bevelEnabled: true, bevelThickness: 0.004, bevelSize: 0.004, bevelSegments: 1, curveSegments: lod(6, 4) });
   sole.rotateX(Math.PI / 2);
   sole.translate(x0, 0.024, 0);
   b.add(sole, { name: "sole", color: "#ffffff", tile: CELLS.sole, skin: foot, uvRepeat: [1, 1] });
   // Jade midsole stripe, the one accent that ties shoes to the jacket.
-  const stripe = new ExtrudeGeometry(outline, { depth: 0.005, bevelEnabled: false, curveSegments: 6 });
+  const stripe = new ExtrudeGeometry(outline, { depth: 0.005, bevelEnabled: false, curveSegments: lod(6, 4) });
   stripe.scale(1.012, 1.012, 1);
   stripe.rotateX(Math.PI / 2);
   stripe.translate(x0, 0.03, 0);
   b.add(stripe, { name: "midsole-stripe", color: "#ffffff", tile: swatch("accent"), skin: foot });
-  void side;
 }
 
 export function roundTip(t: number) {
