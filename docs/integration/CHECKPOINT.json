@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-11T23:05:00Z",
-  "branch": "cursor/integration-studio-mass-3395",
+  "updated": "2026-11-11T23:00:00Z",
+  "branch": "main",
   "mainSha": "6128e709bf85",
   "gameSha": "988405462bb4c97b777d0d9bd3a20211f8f8341d",
   "activeItem": "art-studio-mass",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The architecture building is a concrete studio on this integration branch: south glass, a canopy, and a roof monitor. Chemistry stays a lab block. Game code is 988405462bb4c97b777d0d9bd3a20211f8f8341d. The patch from 55a42fb is in this integration; that source SHA is not an ancestor. Do not merge PR #77 by itself. Re-fetch origin/main before the fast-forward. Next in-scope art is PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The architecture building is on main: a concrete studio with south glass, a canopy, and a roof monitor. Chemistry stays a lab block. Game code is 988405462bb4c97b777d0d9bd3a20211f8f8341d. The patch from 55a42fb is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee), then PR #85 (road centerlines, head 15c555c), then PR #86 (Ching-sheng shaft, head 27a50b0). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #87. Do not merge PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
