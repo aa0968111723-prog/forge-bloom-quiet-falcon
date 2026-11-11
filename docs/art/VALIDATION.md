@@ -227,3 +227,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 25 輪（司令臺）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。司令臺從實驗樓改成低平台、後方小間和棚頂，不再畫窗帶。台面還不能走上去。精度仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/stand/deck.jpg`。會議中心留在第 24 輪。
+
+## 第 26 輪（建築系館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。建築系館是混凝土量體、南向玻璃、遮陽板和屋頂採光，名牌寫著建築系館。沒有共用窗帶，也沒有綠瓦。化學館仍是實驗樓。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/studio/hall.jpg`。司令臺留在第 25 輪。

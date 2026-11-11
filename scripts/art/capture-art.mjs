@@ -693,6 +693,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "deck", "reviewing stand");
+  } else if (scenario === "studio") {
+    await hideHud(page);
+    await setPose(page, 268, -48, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(285, -90);
+      window.__controlsTest.setPhoto({
+        yaw: -0.55,
+        distance: 42,
+        height: 16,
+        lookY: 0,
+        target: { x: 285, y: y + 8, z: -90 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "architecture studio mass");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

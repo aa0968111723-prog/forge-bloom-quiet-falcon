@@ -597,9 +597,13 @@
         "ART-060",
         "ART-084"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "scripts/context-lod.test.mjs",
+        "docs/art/evidence/studio/hall.jpg"
+      ],
+      "notes": "建築系館從綠瓦坡頂改成混凝土量體、南向玻璃、遮陽板和屋頂採光。化學館仍是實驗樓。精度仍是 estimated，不是實測立面。"
     },
     {
       "id": "ART-065",

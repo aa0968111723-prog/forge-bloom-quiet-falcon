@@ -175,6 +175,12 @@
 
 畫面：`docs/art/evidence/stand/deck.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：建築系館（ART-064 的一部分）
+
+理工區這棟不再跟著文藝主題戴綠瓦。現在是混凝土量體、南向玻璃、遮陽板和屋頂採光。化學館仍是實驗樓。外形仍是 estimated。司令臺留著。
+
+畫面：`docs/art/evidence/studio/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。司令臺已從實驗樓分開。會議中心與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。建築系館已從綠瓦分開。司令臺、會議中心與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
