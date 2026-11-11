@@ -45,7 +45,8 @@ export type SecondaryStructure = {
     | "studio-block"
     | "activity-hall"
     | "watch-post"
-    | "eng-tower";
+    | "eng-tower"
+    | "pool-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -366,6 +367,28 @@ export function watchPostProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * Long pool hall for 紹謨紀念游泳館. The plinth, clerestory and roof spine
+ * are an estimated silhouette, not a measured elevation.
+ */
+export function poolHallProfile(size: readonly [number, number, number]) {
+  const baseH = Math.min(1.5, Math.max(1.05, size[1] * 0.16));
+  const glassH = Math.min(0.9, size[1] * 0.12);
+  const spineH = Math.min(1.2, Math.max(0.7, size[1] * 0.14));
+  const spineD = size[2] * 0.34;
+  return {
+    baseH,
+    glassZ: size[2] / 2 + 0.08,
+    glassH,
+    glassW: size[0] * 0.7,
+    glassY: size[1] - glassH / 2 - 0.28,
+    spineH,
+    spineW: size[0] * 0.62,
+    spineD,
+    spineZ: size[2] * 0.1,
+  };
+}
+
+/**
  * Podium and set-back tower for 工學大樓. The step-back is an estimated
  * silhouette, not a measured elevation.
  */
@@ -434,6 +457,7 @@ function campusKind(site: {
   if (site.id === "commons") return "activity-hall";
   if (site.id === "security") return "watch-post";
   if (site.id === "engineering") return "eng-tower";
+  if (site.id === "swimming") return "pool-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";
