@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-11T21:42:00Z",
-  "branch": "cursor/integration-library-mass-3395",
+  "branch": "main",
   "mainSha": "fb932d2671c4",
   "gameSha": "21f72cde3fbb53847de214d2791abb0f73b5ce4d",
   "activeItem": "art-library-mass",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The integrated hall is a glass base with a set-back upper volume, and the upper windows sit on that face. Game code is 21f72cde3fbb53847de214d2791abb0f73b5ce4d, branched from origin/main fb932d2671c4. The patch from e09a90f is in this integration; that source SHA is not an ancestor. Open the integration PR. Do not merge PR #63 by itself. Do not merge PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. Do not merge PR #32 head 1fc5887. Re-fetch origin/main after this lands. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The integrated hall is on main: a glass base, a set-back upper volume, and upper windows on that face. Game code is 21f72cde3fbb53847de214d2791abb0f73b5ce4d. The patch from e09a90f is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #65 (conference hall) and then PR #67 (reviewing stand). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #69. Do not merge PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }

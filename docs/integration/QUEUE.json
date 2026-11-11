@@ -1000,9 +1000,11 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "21f72cde3fbb53847de214d2791abb0f73b5ce4d",
-      "nextAction": "Open the integration PR and merge it. Source e09a90f is not an ancestor. Do not merge PR #63 by itself."
+      "integrationPr": 69,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/69",
+      "nextAction": "None. The library-hall patch from e09a90f is already in this integration. Do not merge PR #63 by itself. Next is PR #65, then PR #67. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
