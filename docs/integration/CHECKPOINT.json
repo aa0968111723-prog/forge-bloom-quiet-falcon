@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-11T23:35:00Z",
-  "branch": "cursor/integration-road-clearance-3395",
+  "updated": "2026-11-11T23:36:00Z",
+  "branch": "main",
   "mainSha": "26c82cfb9688",
   "gameSha": "bf5f7c6c00fae2593e3988c3c0ab3714e6db1050",
   "activeItem": "art-road-clearance",
@@ -13,5 +13,5 @@
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Two estimated road centerlines are clear of solid walls on this integration branch. The audiovisual stretch steps to z=-25.6 between x 202 and 242. The Dazhong stretch passes between the piers at x=486. A 0.42 m body can walk every centerline. Positions stay estimated. Game code is bf5f7c6c00fae2593e3988c3c0ab3714e6db1050. The patch from 15c555c is in this integration; that source SHA is not an ancestor. Do not merge PR #85 by itself. Re-fetch origin/main before the fast-forward. Next in-scope art is PR #86 (Ching-sheng shaft, head 27a50b0), then PR #88 (gym arena, head 6530243), then PR #90 (Liuxian glass bay, head 42980bb), then PR #91 (backpack clearance, head 94e090f), then PR #93 (older engineering hall workshop, head 37cc7aa). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Two estimated road centerlines are on main. The audiovisual stretch steps to z=-25.6 between x 202 and 242. The Dazhong stretch passes between the piers at x=486. A 0.42 m body can walk every centerline. Positions stay estimated. Game code is bf5f7c6c00fae2593e3988c3c0ab3714e6db1050. The patch from 15c555c is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #86 (Ching-sheng shaft, head 27a50b0), then PR #88 (gym arena, head 6530243), then PR #90 (Liuxian glass bay, head 42980bb), then PR #91 (backpack clearance, head 94e090f), then PR #93 (older engineering hall workshop, head 37cc7aa). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #95. Do not merge PR #85, PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
