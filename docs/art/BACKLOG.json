@@ -668,9 +668,14 @@
       "depends": [
         "ART-062"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "僅遠景",
-      "evidence": []
+      "evidence": [
+        "src/game/world-data/vista.ts",
+        "scripts/river-vista.test.mjs",
+        "docs/art/evidence/vista/west.jpg"
+      ],
+      "notes": "牧羊草坪往西看得到河面和觀音山剪影。近岸在 x=-112 停住，對岸街廓與山脊都在這條線以西。這是估計剪影，不是實測山形或河寬。"
     },
     {
       "id": "ART-080",

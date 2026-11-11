@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { quality } from "../quality";
 import { RIVER_LEVEL, sampleTerrainElevation, terrainGrid } from "../world-data/elevation.ts";
 import { LAWN_AREAS } from "../world-data/vegetation.ts";
+import { VISTA_RIDGES, vistaTown } from "../world-data/vista.ts";
 import { gridSurfaceGeometry } from "./geometry";
 
 /**
@@ -27,34 +28,35 @@ function lawnWeight(x: number, z: number): number {
   return w;
 }
 
-/** Low-rise town blocks along the near river bank, silhouette only. */
+/** Far-bank town. One instanced draw; the blocks are not a walkable district. */
 function TownStrip() {
-  const blocks = useMemo(() => {
-    const out: { x: number; z: number; w: number; h: number; d: number }[] = [];
-    for (let i = 0; i < 46; i++) {
-      const z = -320 + i * 9.6;
-      const jitter = Math.sin(i * 12.9898) * 43758.5453;
-      const f = jitter - Math.floor(jitter);
-      out.push({
-        x: -168 - f * 26,
-        z,
-        w: 4.5 + f * 6,
-        h: 3 + ((i * 7) % 5) * 2.2,
-        d: 5 + ((i * 3) % 4) * 1.5,
-      });
-    }
-    return out;
+  const mesh = useMemo(() => {
+    const blocks = vistaTown();
+    const geo = new THREE.BoxGeometry(1, 1, 1);
+    const inst = new THREE.InstancedMesh(geo, new THREE.MeshStandardMaterial({ roughness: 0.9 }), blocks.length);
+    const color = new THREE.Color();
+    const m = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const s = new THREE.Vector3();
+    const p = new THREE.Vector3();
+    blocks.forEach((b, i) => {
+      p.set(b.x, b.h / 2 + 1.2, b.z);
+      s.set(b.w, b.h, b.d);
+      m.compose(p, q, s);
+      inst.setMatrixAt(i, m);
+      color.set(b.tone ? "#9a948a" : "#8b8d92");
+      inst.setColorAt(i, color);
+    });
+    inst.instanceMatrix.needsUpdate = true;
+    if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
+    return inst;
   }, []);
-  return (
-    <group>
-      {blocks.map((b, i) => (
-        <mesh key={i} position={[b.x, RIVER_LEVEL + b.h / 2 + 1.2, b.z]}>
-          <boxGeometry args={[b.w, b.h, b.d]} />
-          <meshStandardMaterial color={i % 3 ? "#9a948a" : "#8b8d92"} roughness={0.9} />
-        </mesh>
-      ))}
-    </group>
-  );
+  useEffect(() => () => {
+    mesh.geometry.dispose();
+    const material = mesh.material;
+    if (!Array.isArray(material)) material.dispose();
+  }, [mesh]);
+  return <primitive object={mesh} />;
 }
 
 export function Terrain({ wetness }: { wetness: number }) {
@@ -102,17 +104,15 @@ export function Terrain({ wetness }: { wetness: number }) {
           nearer shoulder, and low foothills. Fog does the aerial perspective;
           each layer is flatter and bluer than the last.
         */}
-        {(
-          [
-            [-520, 96, -140, 210, 0.14, "#5e7263"],
-            [-470, 58, 20, 140, -0.24, "#66796d"],
-            [-430, 34, -260, 120, 0.32, "#6d7f74"],
-            [-400, 24, 120, 96, 0.05, "#748577"],
-          ] as const
-        ).map(([x, h, z, r, rot, color]) => (
-          <mesh key={`${x}-${z}`} position={[x, h / 2 - 2, z]} rotation={[0, rot, 0]} scale={[1, 1, 2.1]}>
-            <coneGeometry args={[r, h, 9]} />
-            <meshStandardMaterial color={color} roughness={1} />
+        {VISTA_RIDGES.map((ridge) => (
+          <mesh
+            key={`${ridge.x}-${ridge.z}`}
+            position={[ridge.x, ridge.h / 2 - 2, ridge.z]}
+            rotation={[0, ridge.rot, 0]}
+            scale={[1, 1, 2.1]}
+          >
+            <coneGeometry args={[ridge.r, ridge.h, 9]} />
+            <meshStandardMaterial color={ridge.color} roughness={1} />
           </mesh>
         ))}
         {/* 淡水市街: a strip of small blocks along the near shore. */}

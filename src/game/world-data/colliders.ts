@@ -2,6 +2,7 @@ import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
+import { SHORE_X } from "./vista.ts";
 import { SECONDARY_STRUCTURES, gatePiers } from "./zones/secondary.ts";
 
 export type AABB = { minX: number; maxX: number; minZ: number; maxZ: number };
@@ -66,6 +67,14 @@ function buildColliders(): AABB[] {
   ] as const) {
     out.push(box(dx, AXIS.scrollPlazaZ + dz, 3.0, 3.0));
   }
+
+  // Near bank of the river vista. The water, far town, and ridges are scenery.
+  out.push({
+    minX: -620,
+    maxX: SHORE_X,
+    minZ: WORLD_BOUNDS.minZ - 20,
+    maxZ: WORLD_BOUNDS.maxZ + 20,
+  });
 
   // Out-of-scope context structures.
   for (const s of SECONDARY_STRUCTURES) {

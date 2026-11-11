@@ -182,6 +182,10 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/context-lod.test.mjs` 通過。沿用的商管大樓剪影從通用灰塊改成教學樓的深色基座加淺色上層。精度仍是 estimated，不是實測立面。定步近景，頁面無錯誤：`docs/art/evidence/business/mass.jpg`。
 
+## 第 17 輪（淡水遠景）— 2026-11-11
+
+`node --test scripts/river-vista.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。人站到河上會被推回近岸。對岸街廓與山脊都在岸線以西。牧羊草坪定步往西，頁面無錯誤：`docs/art/evidence/vista/west.jpg`。河面與山脊看得到。不是實測河寬或山形。
+
 ## 第 17 輪（標示用字）— 2026-11-11
 
 `node --test scripts/official-signs.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。秘書處建物雙語頁只用來改兩個標示：科學館是「騮先紀念科學館」，泳館是「紹謨紀念游泳館」。沒有複製該表。座標與 `fieldChecked` 沒有改，精度仍是 estimated。定步名牌，頁面無錯誤：`docs/art/evidence/signs/science.jpg`、`swimming.jpg`。
