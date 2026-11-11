@@ -1,17 +1,16 @@
 {
   "updated": "2026-11-11T16:05:00Z",
   "branch": "main",
-  "mainSha": "5d075b2b8522a478a580fb5998d580395d827055",
+  "mainSha": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
   "gameSha": "5d075b2b8522a478a580fb5998d580395d827055",
-  "activeItem": null,
-  "sourceHead": "54a997edb483995486917a6a39b7b70a44189578",
-  "sourceHead": "8d5ffd08dad9f1727a2028bdf683f7355844d9c7",
+  "activeItem": "content-campus-hook",
+  "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
     "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
   },
-  "notMerged": [],
+  "notMerged": ["content-campus-hook"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Narrative preview is on main at 5d075b2. PR #15 and source PR #11 are merged. Post-merge typecheck passed. AdventureApp still does not call selectEvent. Next real integration is to hook arrival in the existing campus to selectEvent, passing the live growth state into grantQuestReward, without a second HP or reward store. Do not invent that wiring if place ids or the save session shape are still ambiguous. If no new branch exists, do not retest or empty-commit."
+  "next_action": "Campus narrative hook is validated on cursor/integration-narrative-campus-3395. Reconfirm origin/main is 51bbe4d, then merge. Post-merge, typecheck that SHA. Do not treat week-1 as a player-selected semester."
 }

@@ -38,7 +38,9 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 主遊戲獎勵仍走 `claim(id)`：`claimed` 已有該任務 id 就返回。
 
-敘事預覽的 `quest-reward` 呼叫既有 `grantQuestReward`。非法效果（`set-hp`、`add-item`、`eval`、`script`、`mutate-save`）整段取消。預覽把結果寫在 `tk-narrative-preview-fixture-v1`，不寫 `tamkang-rpg-v2`。`MAIN_INTEGRATION` 是 false，`AdventureApp` 沒有接這條線。
+敘事預覽的 `quest-reward` 呼叫既有 `grantQuestReward`。非法效果（`set-hp`、`add-item`、`eval`、`script`、`mutate-save`）整段取消。預覽把結果寫在 `tk-narrative-preview-fixture-v1`。
+
+校園進入點用同一條白名單。差額寫回主存檔的經驗、筆記、學分與 `claimed`。事件旗標、任務節點與已解決事件放在同一份存檔的 `narrative`，不是第二份生命或背包。內容套件的 `MAIN_INTEGRATION` 常數仍是 false。
 
 ## 地點
 

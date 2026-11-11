@@ -45,6 +45,17 @@ import {
   type PromptSnap,
 } from "./prompts.ts";
 import { CAMPUS_SITES, SUPPLY_NODES, siteEntrance } from "./campus.ts";
+import {
+  acknowledgeAt,
+  approachPlace,
+  chooseAt,
+  leaveAt,
+  liveGrowth,
+  readNarrativeSession,
+  rewardDelta,
+  talkAt,
+} from "./narrative-bridge.ts";
+import type { NarrativeSession, PlayUi } from "../../features/narrative/types.ts";
 import { COFFEE_HEAL, FOCUS_CAP, itemVerdict, TEA_FOCUS } from "./itemdetail.ts";
 import { loadLocal, saveLocal } from "../save";
 import { coerceTimeOfDay } from "../world-data/lighting";
@@ -79,7 +90,14 @@ type Enemy = {
   anchorZ: number;
 };
 export type RpgPanel =
-  "department" | "inventory" | "skills" | "build" | "journal" | "map" | null;
+  | "department"
+  | "inventory"
+  | "skills"
+  | "build"
+  | "journal"
+  | "map"
+  | "narrative"
+  | null;
 export type Loot = {
   id: string;
   x: number;
@@ -109,6 +127,10 @@ type RpgState = {
   boss: number;
   discoveries: string[];
   claimed: string[];
+  /** Narrative event memory. Rewards still land in xp, claimed, and the bag. */
+  narrative: NarrativeSession;
+  /** Dialogue shown while panel is "narrative". Not written by itself. */
+  narrativeUi: PlayUi | null;
   buildings: Building[];
   harvested: Record<string, number>;
   loot: Loot[];
@@ -158,6 +180,12 @@ type RpgState = {
   commitPrompt: () => PromptKind | null;
   discover: (id: string) => void;
   claim: (id: string) => void;
+  /** Open a campus narrative event at this site. False means the caller should enter. */
+  openNarrative: (placeId: string) => boolean;
+  narrativeTalk: () => void;
+  narrativeChoose: (choiceId: string) => void;
+  narrativeDismiss: () => void;
+  narrativeEnter: () => void;
   respawn: () => void;
   exportSave: () => void;
   importSave: (text: string) => boolean;
@@ -198,6 +226,14 @@ function readAnchor(value: unknown) {
   )
     return null;
   return { x: point.x, z: point.z };
+}
+function narrativeField(text: string): unknown {
+  try {
+    const raw = JSON.parse(text) as { narrative?: unknown };
+    return raw && typeof raw === "object" ? raw.narrative : undefined;
+  } catch {
+    return undefined;
+  }
 }
 export function decodeSave(text: string): Record<string, unknown> {
   const raw = JSON.parse(text);
@@ -264,6 +300,23 @@ function loadSave() {
   };
 }
 const saved = loadSave();
+function keepClaim(id: string) {
+  return MISSIONS.some((mission) => mission.id === id) || /^quest-[a-z0-9-]+$/.test(id);
+}
+function growthNow() {
+  const s = useRpg.getState();
+  return liveGrowth({
+    departmentId: s.departmentId,
+    xp: s.xp,
+    claimed: s.claimed,
+    discoveries: s.discoveries,
+    slots: inventory.slots(),
+    skillRank: s.skillRank,
+    equipped: s.equipped,
+    boss: s.boss,
+    lesson: s.lesson,
+  });
+}
 function restoreInventory(raw: unknown) {
   inventory.clear();
   if (Array.isArray(raw)) {
@@ -627,9 +680,7 @@ function prepareImport(
       discoveries: strings(record.discoveries).filter((id) =>
         CAMPUS_SITES.some((site) => site.id === id),
       ),
-      claimed: strings(record.claimed).filter((id) =>
-        MISSIONS.some((mission) => mission.id === id),
-      ),
+      claimed: strings(record.claimed).filter(keepClaim),
       buildings: buildings.buildings,
       slots: slots.slots,
       harvested: restoreHarvest(record.harvested),
@@ -770,9 +821,11 @@ export const useRpg = create<RpgState>((set, get) => ({
   built: Math.floor(finite(saved.built)),
   boss: Math.floor(finite(saved.boss, 0, 1)),
   discoveries: strings(saved.discoveries),
-  claimed: strings(saved.claimed).filter((id) =>
-    MISSIONS.some((m) => m.id === id),
+  claimed: strings(saved.claimed).filter(keepClaim),
+  narrative: readNarrativeSession(
+    saved && typeof saved === "object" && "narrative" in saved ? saved.narrative : undefined,
   ),
+  narrativeUi: null,
   buildings: restoreBuildings(saved.buildings),
   harvested: restoreHarvest(saved.harvested),
   loot: restoreLoot(saved.loot),
@@ -1162,6 +1215,77 @@ export const useRpg = create<RpgState>((set, get) => ({
     });
     s.notify(intakeNotice(accepted, left, `完成委託：${m.name}`));
   },
+  openNarrative: (placeId) => {
+    const s = get();
+    const play = approachPlace(s.narrative, growthNow(), placeId, useGame.getState().timeOfDay);
+    if (play.ui.phase !== "available") {
+      set({ narrative: play.session });
+      return false;
+    }
+    set({ narrative: play.session, narrativeUi: play.ui, panel: "narrative", buildKind: null });
+    return true;
+  },
+  narrativeTalk: () => {
+    const s = get();
+    if (!s.narrativeUi || s.narrativeUi.phase !== "available") return;
+    const play = talkAt({ session: s.narrative, growth: growthNow(), ui: s.narrativeUi });
+    set({ narrative: play.session, narrativeUi: play.ui });
+  },
+  narrativeChoose: (choiceId) => {
+    const s = get();
+    if (!s.narrativeUi) return;
+    const before = growthNow();
+    const result = chooseAt({ session: s.narrative, growth: before, ui: s.narrativeUi }, choiceId);
+    if (!result.ok) {
+      set({ narrative: result.play.session, narrativeUi: result.play.ui });
+      if (result.play.ui.notice) s.notify(result.play.ui.notice);
+      return;
+    }
+    const delta = rewardDelta(before, result.play.growth);
+    const questSkipped = result.skipped.some((item) => item.startsWith("quest-reward"));
+    const ui = questSkipped ? result.play.ui : { ...result.play.ui, notice: null };
+    const items: Record<string, number> = {};
+    if (delta.notes > 0) items.notes = delta.notes;
+    if (delta.credit > 0) items.credit = delta.credit;
+    const paid = Object.keys(items).length ? give(items) : { accepted: {}, left: {} };
+    const claimed = [...s.claimed];
+    for (const id of delta.claimed) {
+      if (!claimed.includes(id)) claimed.push(id);
+    }
+    const discoveries = [...s.discoveries];
+    for (const id of delta.discoveries) {
+      if (!discoveries.includes(id)) discoveries.push(id);
+    }
+    const g = useGame.getState();
+    set({
+      ...(delta.xp > 0 ? xpPatch(s, delta.xp) : {}),
+      claimed,
+      discoveries,
+      loot: layRemainder(s.loot, g.playerX, g.playerZ, paid.left),
+      narrative: result.play.session,
+      narrativeUi: ui,
+    });
+    const note = ui.notice ?? ui.outcome ?? "這段對話結束了。";
+    s.notify(Object.keys(paid.accepted).length ? intakeNotice(paid.accepted, paid.left, note) : note);
+  },
+  narrativeDismiss: () => {
+    const s = get();
+    if (!s.narrativeUi) {
+      set({ panel: s.panel === "narrative" ? null : s.panel });
+      return;
+    }
+    const play =
+      s.narrativeUi.phase === "outcome"
+        ? acknowledgeAt({ session: s.narrative, growth: growthNow(), ui: s.narrativeUi })
+        : leaveAt({ session: s.narrative, growth: growthNow(), ui: s.narrativeUi });
+    set({ narrative: play.session, narrativeUi: null, panel: null });
+  },
+  narrativeEnter: () => {
+    const s = get();
+    const placeId = s.narrative.placeId;
+    get().narrativeDismiss();
+    if (placeId) get().enter(placeId);
+  },
   respawn: () => {
     const s = get();
     if (s.hp > 0) return;
@@ -1316,6 +1440,8 @@ export const useRpg = create<RpgState>((set, get) => ({
       lesson: rpg.lesson,
       lessonAnchor: rpg.lessonAnchor ? { ...rpg.lessonAnchor } : null,
       lessonReview: rpg.lessonReview,
+      narrative: rpg.narrative,
+      narrativeUi: rpg.narrativeUi,
     };
     const priorGame = {
       playerX: game.playerX,
@@ -1374,6 +1500,8 @@ export const useRpg = create<RpgState>((set, get) => ({
         checkpoint: save.stand,
         interiorId: null,
         buildKind: null,
+        narrative: readNarrativeSession(narrativeField(text)),
+        narrativeUi: null,
       });
       if (save.pilgrimage) {
         const current = loadLocal();
@@ -1505,7 +1633,7 @@ function runPrompt(choice: PromptChoice) {
     return;
   }
   if (choice.kind === "enter" || choice.kind === "arrive") {
-    s.enter(choice.targetId);
+    if (!s.openNarrative(choice.targetId)) s.enter(choice.targetId);
     return;
   }
   if (choice.kind === "place") {
@@ -1802,6 +1930,7 @@ function snapshot() {
     lessonAnchor: s.lesson === "move" ? s.lessonAnchor : null,
     interiorId: s.interiorId,
     floor: s.interiorId ? s.floor : 1,
+    narrative: s.narrative,
   };
 }
 let saveTimer: ReturnType<typeof setTimeout> | undefined;
@@ -1931,7 +2060,8 @@ useRpg.subscribe((s, prev) => {
     s.harvested !== prev.harvested ||
     s.loot !== prev.loot ||
     s.lesson !== prev.lesson ||
-    s.lessonAnchor !== prev.lessonAnchor
+    s.lessonAnchor !== prev.lessonAnchor ||
+    s.narrative !== prev.narrative
   )
     scheduleSave();
 });

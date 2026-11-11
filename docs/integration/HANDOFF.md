@@ -15,9 +15,9 @@
 
 ## 下一步
 
-`main` 的程式提交是 `5d075b2b8522a478a580fb5998d580395d827055`。PR #15 與來源 PR #11 已合併。合併後 typecheck 通過。
+校園進入點的敘事在 `cursor/integration-narrative-campus-3395`，尚未進 `main`。開始合併前確認 `origin/main` 仍是 `51bbe4d`。
 
-`/narrative` 能玩。`AdventureApp` 仍沒有呼叫 `selectEvent`。下一項是把到達既有地點接到這個選擇，效果仍走白名單，成長狀態用主遊戲那一份。沒有新分支時不要重跑全量測試，也不要做空提交。
+獎勵走既有經驗、背包與 `claimed`。事件記憶在同一份存檔的 `narrative`。預覽路由還在。學期仍是 `week-1`。
 
 ## 不要做
 

@@ -85,6 +85,7 @@ import {
   readHome,
   stageImport,
 } from "./home";
+import { NarrativePanel } from "./NarrativePanel";
 import {
   closeLessonReview,
   lessonReadout,
@@ -1643,6 +1644,10 @@ export function AdventureHud() {
     site = CAMPUS_SITES.find((s) => s.id === state.interior);
   const close = () => {
     const panel = useRpg.getState().panel;
+    if (panel === "narrative") {
+      useRpg.getState().narrativeDismiss();
+      return;
+    }
     useRpg.getState().setPanel(null);
     if (!mobile || !panel) return;
     const restore = panelClosePlan(panel).restoreFocusId;
@@ -1653,7 +1658,9 @@ export function AdventureHud() {
   const title =
     state.panel === "department"
       ? "選擇你的主修"
-      : (PANELS.find((p) => p[0] === state.panel)?.[1] ?? "");
+      : state.panel === "narrative"
+        ? "校園裡的人"
+        : (PANELS.find((p) => p[0] === state.panel)?.[1] ?? "");
   const tier: ChromeTier =
     graphicsTier === "low" ? "low" : graphicsTier === "high" ? "high" : quality().tier;
   return (
@@ -1957,10 +1964,20 @@ export function AdventureHud() {
         <Dialog
           title={title}
           onClose={close}
-          closeId={mobile && state.panel ? panelClosePlan(state.panel).closeId : undefined}
-          scrollId={mobile && state.panel ? panelClosePlan(state.panel).scrollId : undefined}
+          closeId={
+            mobile && state.panel && state.panel !== "narrative"
+              ? panelClosePlan(state.panel).closeId
+              : undefined
+          }
+          scrollId={
+            mobile && state.panel && state.panel !== "narrative"
+              ? panelClosePlan(state.panel).scrollId
+              : undefined
+          }
         >
-          {state.panel === "department" ? (
+          {state.panel === "narrative" ? (
+            <NarrativePanel />
+          ) : state.panel === "department" ? (
             <DepartmentPanel />
           ) : state.panel === "inventory" ? (
             <InventoryPanel />
