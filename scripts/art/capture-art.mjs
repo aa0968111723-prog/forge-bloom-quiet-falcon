@@ -422,6 +422,16 @@ try {
       window.__controlsTest.setPhoto(null);
       window.__rpgQA.resume();
     });
+  } else if (scenario === "hud") {
+    await setPose(page, 0, -80, 0);
+    await settle(page, { stableFrames: 3 });
+    await page.evaluate(() => window.__rpgQA.rpg.setState({ hp: 62, focus: 40, xp: 80 }));
+    await frames(page, 4);
+    const read = await page.evaluate(() => {
+      const card = document.querySelector(".ad-status");
+      return card ? card.innerText.replace(/\s+/g, " ").trim() : "missing";
+    });
+    await shot(page, "status", `viewport ${width}x${height} ${read}`);
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });

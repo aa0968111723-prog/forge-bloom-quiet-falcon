@@ -300,27 +300,34 @@ textarea:focus-visible,
 .ad-meter {
   position: relative;
   grid-column: 1 / -1;
-  min-height: 22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
   height: auto;
-  background: transparent;
-  border-radius: 3px;
-  overflow: visible;
-  margin: 5px 0;
+  padding: 2px 6px;
+  background: #cfc6b0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 4px 0;
   color: var(--ad-ink);
 }
 .ad-meter i {
+  position: absolute;
+  inset: 0 auto 0 0;
   display: block;
-  height: 4px;
-  background: #a96e62;
+  height: auto;
+  background: #e09a8c;
   transition: width calc(var(--ad-motion) * 0.16s);
 }
 .ad-meter.focus i {
-  background: #5c9296;
+  background: #8eb8b4;
 }
 .ad-meter span,
 .ad-cue,
 .ad-xp span {
   position: relative;
+  z-index: 1;
   font-size: var(--ad-type);
   color: var(--ad-ink);
   display: flex;
@@ -328,23 +335,33 @@ textarea:focus-visible,
   gap: 4px;
   line-height: 1.25;
   padding: 0 2px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 .ad-cue svg {
   flex: none;
 }
 .ad-xp {
+  position: relative;
   grid-column: 1 / -1;
-  min-height: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
   height: auto;
-  background: transparent;
-  margin-top: 10px;
+  padding: 2px 6px;
+  background: #cfc6b0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
   color: var(--ad-ink);
 }
 .ad-xp i {
+  position: absolute;
+  inset: 0 auto 0 0;
   display: block;
   background: #ddc691;
-  height: 2px;
+  height: auto;
   transition: width calc(var(--ad-motion) * 0.16s);
 }
 .ad-hud-right {
@@ -1817,7 +1834,7 @@ textarea:focus-visible,
 }
 @media (max-width: 700px) {
   .ad-target {
-    top: 160px;
+    top: 208px;
     left: 12px;
     transform: none;
     width: 180px;

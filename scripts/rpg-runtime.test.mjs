@@ -3724,6 +3724,8 @@ test("statusbar shows current max and change with isolated cues", () => {
     assert.match(bar.line, /目前值/);
     assert.match(bar.line, /最大值/);
     assert.match(bar.line, /變化/);
+    assert.equal(bar.short.includes("目前值"), false);
+    assert.match(bar.short, new RegExp(`${bar.current}/${bar.max}`));
     assert.equal(bar.current <= bar.max, true);
     assert.deepEqual(r.classifyAmount(bar.current, bar.max), {
       full: bar.full,
@@ -3732,6 +3734,10 @@ test("statusbar shows current max and change with isolated cues", () => {
       mark: bar.mark,
     });
   }
+  const fractionalFocus = r.focusReadout({ focus: 41.28 });
+  assert.match(fractionalFocus.line, /目前值 41\.28/);
+  assert.equal(fractionalFocus.short.includes("41.28"), false);
+  assert.equal(fractionalFocus.short, "專注 41.3/100");
   assert.equal(full.life.full, true);
   assert.equal(full.life.low, false);
   assert.equal(full.focus.full, true);
