@@ -196,9 +196,11 @@ function bracketGeo(template: THREE.Group) {
     if (!mesh.isMesh) return;
     const g = mesh.geometry.clone();
     g.applyMatrix4(mesh.matrix);
-    geos.push(g);
+    // BoxGeometry is indexed. Copying positions alone drops the triangles.
+    const flat = g.index ? g.toNonIndexed() : g;
+    if (flat !== g) g.dispose();
+    geos.push(flat);
   });
-  // Merge without the util to keep this module free of extra imports: concatenate non-indexed.
   let count = 0;
   for (const g of geos) count += (g.getAttribute("position") as THREE.BufferAttribute).count;
   const pos = new Float32Array(count * 3);
@@ -228,6 +230,13 @@ export type CastFrame = {
   player: { x: number; y: number; z: number };
 };
 
+/**
+ * Walkable paving sits 0.06 m above terrainHeight (Paths.tsx). Ground casts
+ * need more than that, plus a little for the depth offset, or the avenue
+ * swallows the ring.
+ */
+export const GROUND_CLEARANCE = 0.16;
+
 /** Pose one discipline group for this frame. Returns whether it should show. */
 export function layoutCollegeCast(group: THREE.Object3D, frame: CastFrame) {
   const travel = group.getObjectByName("travel")!;
@@ -235,7 +244,7 @@ export function layoutCollegeCast(group: THREE.Object3D, frame: CastFrame) {
   const fade = 1 - THREE.MathUtils.smoothstep(frame.age, 0.34, LIFE);
   const reach = frame.reduced ? frame.range : frame.range * Math.min(1, Math.pow(frame.age / WAVE, 0.75));
   const shape = group.userData.shape as string;
-  group.position.set(frame.center.x, frame.center.y, frame.center.z);
+  group.position.set(frame.center.x, frame.center.y + GROUND_CLEARANCE, frame.center.z);
   group.rotation.y = frame.yaw;
   group.updateMatrixWorld(true);
   travel.visible = true;

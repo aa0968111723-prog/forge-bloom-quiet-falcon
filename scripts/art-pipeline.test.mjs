@@ -16,7 +16,7 @@ import { buildStudentKit } from "../art/characters/student-kit/kit.ts";
 import { STRIDE, allClips } from "../art/characters/student-kit/clips.ts";
 import { CharacterAnimator } from "../src/game/art/character/animator.ts";
 import { releaseArtInstance } from "../src/game/art/release.ts";
-import { COLLEGE_CASTS, COLLEGE_CAST_LIFE, buildCollegeCasts, layoutCollegeCast } from "../src/game/art/vfx/college-casts.ts";
+import { COLLEGE_CASTS, COLLEGE_CAST_LIFE, GROUND_CLEARANCE, buildCollegeCasts, layoutCollegeCast } from "../src/game/art/vfx/college-casts.ts";
 import { JACKET_RINGS } from "../art/characters/student-kit/body.ts";
 import { BONE_NAMES } from "../art/characters/student-kit/skeleton.ts";
 import { WALK, SPRINT } from "../src/game/rpg/move.ts";
@@ -278,9 +278,23 @@ test("each college skill is a different shape that reaches the cast range", () =
       assert.ok(Math.abs(travel.scale.x - 14) < 0.05, `${group.name} reach ${travel.scale.x}`);
     }
     if (group.userData.shape === "ribbon") assert.ok(Math.abs(travel.scale.z - 14) < 0.05, "ribbon runs forward");
+    if (group.userData.shape === "counter-rings" || group.userData.shape === "board") {
+      group.updateMatrixWorld(true);
+      const y = new THREE.Vector3();
+      travel.getWorldPosition(y);
+      assert.ok(y.y >= frame.center.y + GROUND_CLEARANCE - 1e-4, `${group.name} sits under the paving at y ${y.y}`);
+    }
     if (group.userData.shape === "counter-rings") {
       const ringMesh = travel.getObjectByName("outer").children[0];
       assert.ok(Math.abs(ringMesh.rotation.x + Math.PI / 2) < 1e-6 && Math.abs(ringMesh.rotation.y) < 1e-6 && Math.abs(ringMesh.rotation.z) < 1e-6, "resonance rings stay flat");
+    }
+    if (group.name === "computing") {
+      const bracket = group.getObjectByName("impact0").geometry;
+      // Eight indexed boxes, expanded: 12 triangles × 3 vertices each.
+      assert.equal(bracket.getAttribute("position").count, 8 * 36);
+      bracket.computeBoundingBox();
+      const size = bracket.boundingBox.getSize(new THREE.Vector3());
+      assert.ok(size.x > 0.4 && size.z > 0.4, `bracket collapsed to ${size.x}, ${size.z}`);
     }
     assert.equal(group.getObjectByName("impact0").visible, true, group.name);
     assert.equal(group.getObjectByName("impact1").visible, false, `${group.name} has no second hit`);
