@@ -13,8 +13,11 @@ import * as THREE from "three";
 import { inspectGlb } from "./art/lib/glb.mjs";
 import { checkGlb, rebuildCheck, validate } from "./art/validate-assets.mjs";
 import { buildStudentKit } from "../art/characters/student-kit/kit.ts";
-import { STRIDE } from "../art/characters/student-kit/clips.ts";
+import { STRIDE, allClips } from "../art/characters/student-kit/clips.ts";
+import { CharacterAnimator } from "../src/game/art/character/animator.ts";
+import { releaseArtInstance } from "../src/game/art/release.ts";
 import { JACKET_RINGS } from "../art/characters/student-kit/body.ts";
+import { BONE_NAMES } from "../art/characters/student-kit/skeleton.ts";
 import { WALK, SPRINT } from "../src/game/rpg/move.ts";
 
 const KIT_RECORD = JSON.parse(readFileSync(new URL("../art/assets.json", import.meta.url))).assets.find(
@@ -195,6 +198,62 @@ test("foot slip at walk and sprint speed stays under 15 %", () => {
   console.log(`foot slip: walk ${(walk.slip * 100).toFixed(1)} % (${walk.footSpeed.toFixed(2)} vs ${WALK} m/s), run ${(run.slip * 100).toFixed(1)} % (${run.footSpeed.toFixed(2)} vs ${SPRINT} m/s)`);
   assert.ok(walk.slip < 0.15, `walk slip ${walk.slip}`);
   assert.ok(run.slip < 0.15, `run slip ${run.slip}`);
+});
+
+test("a glance while sprinting stays a bounded offset, because gait clips omit the head", () => {
+  const root = new THREE.Group();
+  for (const name of BONE_NAMES) {
+    const bone = new THREE.Bone();
+    bone.name = name;
+    root.add(bone);
+  }
+  const head = root.getObjectByName("head");
+  const anim = new CharacterAnimator(root, allClips(), {
+    upperBody: ["head"],
+    layers: {},
+    stride: STRIDE,
+  });
+  const glance = 0.4 * 0.55;
+  let bare = 0;
+  for (let i = 0; i < 90; i++) {
+    bare += glance;
+    head.quaternion.identity();
+    anim.update(1 / 30, SPRINT);
+    head.rotation.y += glance;
+  }
+  assert.ok(Math.abs(head.rotation.y - glance) < 0.02, `head yaw drifted to ${head.rotation.y}; stacking would reach ${bare.toFixed(1)}`);
+  anim.dispose();
+});
+
+test("releasing an art instance disposes shared skeletons once and frees the bone texture", () => {
+  const bone = new THREE.Bone();
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute([0, 0, 0, 1, 0, 0, 0, 1, 0], 3));
+  const skeleton = new THREE.Skeleton([bone]);
+  skeleton.computeBoneTexture();
+  const texture = skeleton.boneTexture;
+  assert.ok(texture);
+  const material = new THREE.MeshStandardMaterial();
+  let materialsDisposed = 0;
+  material.dispose = () => {
+    materialsDisposed += 1;
+  };
+  const mesh = new THREE.SkinnedMesh(geometry, material);
+  const second = new THREE.SkinnedMesh(geometry, material);
+  mesh.add(bone);
+  mesh.bind(skeleton);
+  second.bind(skeleton);
+  const root = new THREE.Group();
+  root.add(mesh, second);
+  let texturesDisposed = 0;
+  texture.dispose = () => {
+    texturesDisposed += 1;
+  };
+  releaseArtInstance(root, [material]);
+  assert.equal(texturesDisposed, 1, "two meshes share one skeleton");
+  assert.equal(skeleton.boneTexture, null);
+  assert.equal(materialsDisposed, 1);
+  geometry.dispose();
 });
 
 // ---------------------------------------------------------------- NPC kit

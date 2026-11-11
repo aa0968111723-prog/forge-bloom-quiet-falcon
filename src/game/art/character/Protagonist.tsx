@@ -114,9 +114,15 @@ export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
     }
 
     const speed = speedRef.current;
+    // Walk and run do not animate the head, and idle's weight is zero once
+    // speed passes 2.2 m/s, so the mixer stops writing it. Restoring the bind
+    // rotation first keeps the glance that follows a bounded offset instead of
+    // a twist that grows every frame. Neck is restored too: a clip that omits
+    // it would stack the same way.
+    bones.neck.quaternion.identity();
+    bones.head.quaternion.identity();
     animator.update(dt, speed);
 
-    // Head look layered on top of the clips.
     const look = lookRef.current;
     bones.neck.rotation.y += look.yaw * 0.45;
     bones.neck.rotation.x += look.pitch * 0.5;
