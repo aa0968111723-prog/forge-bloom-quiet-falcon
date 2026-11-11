@@ -2,10 +2,10 @@
   "updated": "2026-11-11T17:30:00Z",
   "branch": "cursor/integration-hud-status-3395",
   "mainSha": "b567b60ffc7bf0a0091f1e79a87dbaa2a8c9012e",
-  "gameSha": "b567b60ffc7bf0a0091f1e79a87dbaa2a8c9012e",
+  "gameSha": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
   "activeItem": "art-hud-status",
   "sourceHead": "aeda26c3622de77ffbd66c8e86d73627f3d40150",
-  "integrationHead": null,
+  "integrationHead": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
   "verified": {
     "hud": "typecheck, 246 tests, build:site, browser 1280 and 390. Short labels on the bars, long sentence in aria-label, narrow target below the status card, pageErrors empty."
   },
