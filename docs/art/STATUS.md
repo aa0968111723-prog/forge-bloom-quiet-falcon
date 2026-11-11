@@ -283,6 +283,12 @@
 
 畫面：`docs/art/evidence/office/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：實棟學人宿舍（ART-068 的一部分）
+
+生活區這棟不再跟松濤共用暖色宿舍和屋頂量體。現在是淺色樓身、南向門廊和兩條窗帶。松濤一館到五館仍是宿舍。麗澤仍是國際學舍。外形仍是 estimated。行政大樓留著。
+
+畫面：`docs/art/evidence/faculty/house.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。行政大樓已從教學樓分開。教育館、會文館與游泳館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。實棟學人宿舍已從學生宿舍分開。松濤、麗澤與行政大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

@@ -11,6 +11,7 @@ import {
   glazingBand,
   poolHallProfile,
   linkedHallProfile,
+  facultyHouseProfile,
   memorialProfile,
   officeProfile,
   scienceHallProfile,
@@ -51,6 +52,17 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.kind, "intl-dorm");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.kind, "dorm-block");
+  const house = SECONDARY_STRUCTURES.find((item) => item.id === "faculty");
+  assert.equal(house?.kind, "faculty-house");
+  assert.equal(house?.accuracy, "estimated");
+  assert.notEqual(house?.kind, "dorm-block");
+  const porch = facultyHouseProfile(house.size);
+  assert.ok(porch.glassZ > house.size[2] / 2, "faculty door sits on the south face");
+  assert.ok(porch.porchW < house.size[0] * 0.4, "the porch stays narrower than the house");
+  assert.ok(porch.porchZ - porch.porchD / 2 >= house.size[2] / 2 - 0.02, "the porch meets the south wall");
+  for (const id of ["sungtao", "sungtao-2", "sungtao-3", "sungtao-4", "sungtao-5"]) {
+    assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === id)?.kind, "dorm-block");
+  }
   const post = SECONDARY_STRUCTURES.find((item) => item.id === "security");
   assert.equal(post?.kind, "watch-post");
   assert.equal(post?.accuracy, "estimated");

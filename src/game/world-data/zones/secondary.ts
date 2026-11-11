@@ -51,7 +51,8 @@ export type SecondaryStructure = {
     | "science-hall"
     | "workshop"
     | "pool-hall"
-    | "office-block";
+    | "office-block"
+    | "faculty-house";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -442,6 +443,24 @@ export function officeProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * Faculty house for 實棟學人宿舍. The porch is an estimated silhouette, not a
+ * measured elevation. The Sungtao halls stay student dorms.
+ */
+export function facultyHouseProfile(size: readonly [number, number, number]) {
+  const porchH = Math.min(3.2, Math.max(2.6, size[1] * 0.16));
+  const porchD = 1.4;
+  return {
+    porchW: Math.min(8, size[0] * 0.28),
+    porchH,
+    porchD,
+    porchZ: size[2] / 2 + porchD / 2,
+    glassZ: size[2] / 2 + 0.08,
+    glassW: Math.min(3.2, size[0] * 0.12),
+    glassH: Math.min(2.4, porchH - 0.6),
+  };
+}
+
+/**
  * Stone shaft for 驚聲大樓. The base and parapet are an estimated silhouette,
  * not a measured elevation. There is no tiled roof.
  */
@@ -536,6 +555,7 @@ function campusKind(site: {
   if (site.id === "old-engineering") return "workshop";
   if (site.id === "swimming") return "pool-hall";
   if (site.id === "administration") return "office-block";
+  if (site.id === "faculty") return "faculty-house";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

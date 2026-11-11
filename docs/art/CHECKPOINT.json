@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T00:40:00Z",
+  "updated": "2026-11-12T00:50:00Z",
   "task_ids": [
-    "ART-066"
+    "ART-068"
   ],
-  "branch": "cursor/office-block-1a71",
-  "base": "main@61ed00f0bfd4",
+  "branch": "cursor/faculty-house-1a71",
+  "base": "main@800d43d94fc7",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The administration building is a stone office block with a south entrance bay and two window bands. Education, foreign languages, and Hweiwen stay classroom blocks. The older admin-hall record stays separate. The entrance position is still unmeasured. The swimming hall stays a pale long hall with a roof spine. The open campus map still writes a two-character lesson label. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The faculty house is a pale block with a south porch and no roof penthouse. The five Sungtao halls stay student dorms. Reitaku stays the international house. The porch is estimated. The administration building stays a stone office block. The swimming hall stays a pale long hall. The open campus map still writes a two-character lesson label. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }
