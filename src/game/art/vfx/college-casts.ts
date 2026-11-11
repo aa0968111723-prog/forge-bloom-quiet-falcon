@@ -96,7 +96,7 @@ export function buildCollegeCasts(detailed: boolean): THREE.Group {
   const coins = new THREE.Group();
   coins.name = "travel";
   for (let i = 0; i < (detailed ? 8 : 4); i++) {
-    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.06, 12), mat("#f6ce7a"));
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.08, 14), mat("#f6ce7a"));
     c.rotation.x = Math.PI / 2;
     c.name = `coin${i}`;
     coins.add(c);
@@ -312,7 +312,7 @@ export function layoutCollegeCast(group: THREE.Object3D, frame: CastFrame) {
     const mesh = o as THREE.Mesh;
     const material = mesh.material as THREE.MeshBasicMaterial | undefined;
     if (material && material.opacity !== undefined && mesh.name !== "back") {
-      const cap = shape === "dome" || shape === "board" ? 0.22 : 0.55;
+      const cap = shape === "dome" ? 0.12 : shape === "board" ? 0.22 : 0.55;
       material.opacity = cap * fade;
     }
   });

@@ -87,3 +87,20 @@ J 普攻、Space 閃避、Q 結構脈衝。錄影 80 秒（`m1-lantern-avenue-ga
 | final-1 | `creature-final-turn.jpg`、`creature-final-fight.jpg`、`creature-final-open.jpg` | 前搖 1.60 s；出手後玩家 72 血；普攻 520→500；擊倒。出生點在樹蔭下；空地（宮燈大道 0, -130）的正面與背面輪廓清楚 |
 
 exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。戰鬥時序是這輪的驗收依據。
+
+## 第 3 輪（八學院技能）— 2026-11-11
+
+`npm test` 222 通過 / 0 失敗。宮燈大道上對 quiz-2 呼叫真正的 `attack(true)`，定步拍下出手後約 0.43 秒。每次施放前把 quiz-2 血量設回 200，否則後面的學院打到已倒下的目標、`hits` 為 0。
+
+| 學院 | 範圍 | 命中 | 畫面 |
+| --- | --- | --- | --- |
+| science | 10 | 1 | 貼地的兩道反向環 |
+| humanities | 14 | 1 | 沿路展開的絲帶 |
+| business | 12 | 1 | 金幣飛向目標 |
+| language | 16 | 1 | 三個符文繞行，紅色預警仍可見 |
+| education | 13 | 1 | 半透明黑板圓，預警圈在上面 |
+| international | 14 | 1 | 兩道弧在路中央會合 |
+| computing | 14 | 1 | 環狀掃描格 |
+| health | 12 | 1 | 淡綠半球，目標與血條仍可讀 |
+
+總覽：`docs/art/evidence/m2/college-skills.jpg`。

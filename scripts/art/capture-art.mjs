@@ -43,6 +43,7 @@ const outDir = ensureDir(resolve(positional[1] ?? "/tmp/art-capture"));
 const scenario = positional[2] ?? "turnaround";
 const tier = flag("--tier", "low");
 const enemyId = flag("--enemy", "report-1");
+const onlySkills = new Set((flag("--only", "") || "").split(",").filter(Boolean));
 /** Optional "x,z": move the enemy (and its leash anchor) somewhere open for the photos. */
 const enemyAt = flag("--at", null)?.split(",").map(Number) ?? null;
 const width = Number(flag("--width", 960));
@@ -254,7 +255,7 @@ try {
       ["international", "international-國際事務學院-0"],
       ["computing", "computing-AI創智學院-0"],
       ["health", "health-精準健康學院-0"],
-    ];
+    ].filter(([name]) => onlySkills.size === 0 || onlySkills.has(name));
     const step = (n = 1) => page.evaluate((c) => window.__rpgQA.step(1 / 30, c), n);
     await page.evaluate(() => {
       const e = window.__rpgQA.rpg.getState().enemies.find((x) => x.id === "quiz-2");
@@ -268,6 +269,8 @@ try {
     for (const [name, id] of majors) {
       const cast = await page.evaluate((major) => {
         const rpg = window.__rpgQA.rpg;
+        const enemy = rpg.getState().enemies.find((x) => x.id === "quiz-2");
+        Object.assign(enemy, { x: 4.2, z: -103, hp: 200, state: "idle", timer: 0, hurt: 0 });
         rpg.setState({ departmentId: major, skillUntil: 0, attackUntil: 0, focus: 100, hp: 100 });
         rpg.getState().attack(true);
         const fx = rpg.getState().attackFx;

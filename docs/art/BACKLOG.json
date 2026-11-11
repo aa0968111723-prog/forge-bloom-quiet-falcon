@@ -378,9 +378,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "預備/出手/作用/命中/消散；低畫質；reduced-motion；不遮預警",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-052",
@@ -389,9 +394,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-053",
@@ -400,9 +410,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上，含回復 20 生命回饋",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-054",
@@ -411,9 +426,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-055",
@@ -422,9 +442,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上，含生命與專注回復",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-056",
@@ -433,9 +458,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上，含專注回復",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-057",
@@ -444,9 +474,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-058",
@@ -455,9 +490,14 @@
       "depends": [
         "ART-023"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同上，含回復 40 生命",
-      "evidence": []
+      "evidence": [
+        "src/game/art/vfx/college-casts.ts",
+        "src/game/art/vfx/CollegeCasts.tsx",
+        "docs/art/evidence/m2/college-skills.jpg"
+      ],
+      "notes": "跟隨 attackFx.range 與 hits；低畫質減少標記；reduced-motion 直接顯示全範圍。工程仍由 StructuralPulse 繪製。"
     },
     {
       "id": "ART-059",

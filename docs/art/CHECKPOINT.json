@@ -1,13 +1,14 @@
 {
-  "updated": "2026-11-11T15:20:00Z",
+  "updated": "2026-11-11T15:50:00Z",
   "task_ids": [
-    "ART-025",
-    "ART-030",
-    "ART-031",
-    "ART-040",
-    "ART-041",
-    "ART-042",
-    "ART-043"
+    "ART-051",
+    "ART-052",
+    "ART-053",
+    "ART-054",
+    "ART-055",
+    "ART-056",
+    "ART-057",
+    "ART-058"
   ],
   "branch": "cursor/tamkang-art-pipeline-1a71",
   "base": "main@71f4d3c4742fab66b0d82edff38c7e6c39497f67",
@@ -61,7 +62,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "219 pass / 0 fail",
+    "npm_test": "222 pass / 0 fail",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "not re-run this round",
     "eslint_new_code": "0 errors"
@@ -92,5 +93,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "ART-051..058: one visible cast per remaining discipline (science, humanities, business, language, education, international, computing, health), each with release, travel to attackFx.range, impact on attackFx.hits, and fade; low tier and reduced-motion; do not cover enemy telegraphs. Engineering stays StructuralPulse. Then ART-032 cast poses and ART-059 the basic swing."
+  "next_action": "ART-032: a distinct cast pose per discipline on the shared rig, triggered with the skill. Then ART-059 the basic-attack arc. Then ART-060: regenerate the 64-record campus registry, keep permanentId/saveKey/aliasOf, and record estimated vs mapped per non-alias."
 }
