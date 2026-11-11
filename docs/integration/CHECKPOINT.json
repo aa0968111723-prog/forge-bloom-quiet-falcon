@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T22:50:00Z",
-  "branch": "main",
-  "mainSha": "9b74d14f0cfc",
-  "gameSha": "e5751d9952ddfa2630373cbd1bb23595f6c0861d",
-  "activeItem": "art-kenan-walk",
-  "sourceHead": "3c9cf1da3529aa621718972b905d685f55c55ab1",
-  "integrationHead": "e5751d9952ddfa2630373cbd1bb23595f6c0861d",
+  "updated": "2026-11-11T23:05:00Z",
+  "branch": "cursor/integration-studio-mass-3395",
+  "mainSha": "6128e709bf85",
+  "gameSha": "988405462bb4c97b777d0d9bd3a20211f8f8341d",
+  "activeItem": "art-studio-mass",
+  "sourceHead": "55a42fbde735a17a31c1915e18cd6786a6c227f8",
+  "integrationHead": "988405462bb4c97b777d0d9bd3a20211f8f8341d",
   "verified": {
-    "walk": "route-walk.test.mjs: a 0.42 m body reaches the palace, library, and gym doors and climbs the Kenan centreline between the walls. npm test 263 pass. SwiftShader host. The polylines are not drawn.",
-    "route": "8119: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
+    "studio": "Static 8120, game 9884054. High 1280x720 shows the concrete volume, south glass, canopy, roof monitor, and the 建築系館 plate. 390x780 is a closer crop of the same face; those parts stay in frame. pageErrors empty. SwiftShader. The shape is estimated.",
+    "route": "8120: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The three pilgrimage polylines are on main. A 0.42 m body reaches the palace, library, and gym doors, passing east of the statue. The Kenan centreline stays between the walls. Game code is e5751d9952ddfa2630373cbd1bb23595f6c0861d. The patch from 3c9cf1d is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #77 (architecture studio, head 55a42fb), then PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #84. Do not merge PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The architecture building is a concrete studio on this integration branch: south glass, a canopy, and a roof monitor. Chemistry stays a lab block. Game code is 988405462bb4c97b777d0d9bd3a20211f8f8341d. The patch from 55a42fb is in this integration; that source SHA is not an ancestor. Do not merge PR #77 by itself. Re-fetch origin/main before the fast-forward. Next in-scope art is PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
