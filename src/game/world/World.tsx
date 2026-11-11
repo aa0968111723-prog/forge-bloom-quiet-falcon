@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { TamkangMaterialsProvider } from "../materials/provider";
 import { useGame } from "../store";
 import { BENCHMARK_BY_ID } from "../world-data/benchmarks.ts";
@@ -12,6 +12,8 @@ import { PalaceClassrooms } from "../landmarks/PalaceClassrooms";
 import { ScrollPlaza } from "../landmarks/ScrollPlaza";
 import { ContextStructures } from "./ContextStructures";
 import { Lighting } from "./Lighting";
+import { LocalLights } from "./LocalLights";
+import { PlacedBuildings } from "./PlacedBuildings";
 import { Grass } from "./Grass";
 import { Sky, Clouds } from "./Sky";
 import { StylizePass } from "./StylizePass";
@@ -38,7 +40,8 @@ import { Vegetation } from "./Vegetation";
  * LANTERN_SUNSET capture is always lit the same way regardless of what the
  * player had selected.
  */
-export function World({ timeOfDay }: { timeOfDay: TimeOfDay }) {
+function Ready({ onReady }: { onReady?: () => void }) { useEffect(() => { onReady?.(); }, [onReady]); return null; }
+export function World({ timeOfDay, onReady }: { timeOfDay: TimeOfDay; onReady?: () => void }) {
   const benchmarkId = useGame((s) => s.benchmarkId);
   const effectiveTime = benchmarkId ? (BENCHMARK_BY_ID[benchmarkId]?.time ?? timeOfDay) : timeOfDay;
   const preset = TIME_PRESETS[effectiveTime];
@@ -46,6 +49,7 @@ export function World({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   return (
     <>
       <Lighting timeOfDay={effectiveTime} />
+      <LocalLights lampsOn={preset.lampsOn} />
       <WindTicker timeOfDay={effectiveTime} />
       <StylizePass timeOfDay={effectiveTime} />
       <PostFx timeOfDay={effectiveTime} />
@@ -55,6 +59,7 @@ export function World({ timeOfDay }: { timeOfDay: TimeOfDay }) {
       <RealityCameraRig />
       <Suspense fallback={null}>
         <TamkangMaterialsProvider>
+          <Ready onReady={onReady}/>
           <Terrain wetness={preset.wetness} />
           <Paths wetness={preset.wetness} />
           <Grass timeOfDay={effectiveTime} />
@@ -71,6 +76,7 @@ export function World({ timeOfDay }: { timeOfDay: TimeOfDay }) {
           <Signage wetness={preset.wetness} />
           <Vegetation />
           <Props lampsOn={preset.lampsOn} />
+          <PlacedBuildings />
           <StampRings />
         </TamkangMaterialsProvider>
       </Suspense>

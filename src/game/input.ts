@@ -4,6 +4,9 @@ export type Actions = {
   sprint: boolean;
   interact: boolean;
   pause: boolean;
+  attack: boolean;
+  backpack: boolean;
+  build: boolean;
 };
 
 const GAME_KEYS = new Set([
@@ -20,6 +23,10 @@ const GAME_KEYS = new Set([
   "Space",
   "KeyE",
   "KeyF",
+  "KeyQ",
+  "KeyB",
+  "KeyI",
+  "KeyC",
   "Escape",
 ]);
 
@@ -39,6 +46,9 @@ export class InputManager {
   joyY = 0;
   prevInteract = false;
   prevPause = false;
+  prevAttack = false;
+  prevBackpack = false;
+  prevBuild = false;
   private attached = false;
 
   attach() {
@@ -108,13 +118,22 @@ export class InputManager {
 
     const interactHeld = has("KeyE") || has("KeyF") || has("Space");
     const pauseHeld = has("Escape");
+    const attackHeld = has("KeyQ");
+    const backpackHeld = has("KeyB") || has("KeyI");
+    const buildHeld = has("KeyC");
     const interact = interactHeld && !this.prevInteract;
     const pause = pauseHeld && !this.prevPause;
+    const attack = attackHeld && !this.prevAttack;
+    const backpack = backpackHeld && !this.prevBackpack;
+    const build = buildHeld && !this.prevBuild;
     this.prevInteract = interactHeld;
     this.prevPause = pauseHeld;
+    this.prevAttack = attackHeld;
+    this.prevBackpack = backpackHeld;
+    this.prevBuild = buildHeld;
     void src;
 
-    return { moveX, moveY, sprint, interact, pause };
+    return { moveX, moveY, sprint, interact, pause, attack, backpack, build };
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
@@ -128,6 +147,26 @@ export class InputManager {
   private onKeyUp = (e: KeyboardEvent) => {
     this.keys.delete(e.code);
   };
+
+  /** Drop a queued tap. A relocate also forgets held movement. */
+  releaseEdges(movement = false) {
+    this.prevInteract = true;
+    this.prevPause = true;
+    this.prevAttack = true;
+    this.prevBackpack = true;
+    this.prevBuild = true;
+    this.lookX = 0;
+    this.lookY = 0;
+    if (movement) {
+      this.keys.clear();
+      this.inject = null;
+      this.joyX = 0;
+      this.joyY = 0;
+      return;
+    }
+    for (const code of ["Space", "KeyE", "KeyF", "KeyQ", "KeyJ"])
+      this.keys.delete(code);
+  }
 
   private clear = () => {
     this.keys.clear();

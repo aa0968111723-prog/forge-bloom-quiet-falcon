@@ -1,6 +1,14 @@
-import { coerceTimeOfDay, type TimeOfDay } from "./world";
+import { coerceTimeOfDay, type TimeOfDay } from "./world-data/lighting.ts";
+import { coerceBuildings, type PlacedStructure } from "./building.ts";
+import { coerceDepartmentId } from "./departments.ts";
+import {
+  coerceInventory,
+  DEFAULT_CAPACITY,
+  type Inventory,
+  type InventoryItem,
+} from "./inventory.ts";
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
 const KEY = "tamkang-world-v1";
 
 /** Player-chosen graphics settings; "auto" defers to device detection. */
@@ -15,39 +23,77 @@ export type SaveBlob = {
   timeOfDay: TimeOfDay;
   muted: boolean;
   graphics: GraphicsPref;
+  inventory: InventoryItem[];
+  inventoryCapacity: number;
+  departmentId: string | null;
+  buildings: PlacedStructure[];
+};
+
+export const SAVE_DEFAULTS = {
+  timeOfDay: "sunset" as TimeOfDay,
+  muted: false,
+  graphics: { tier: "auto" as const, postFx: true },
 };
 
 const defaults: SaveBlob = {
   version: SAVE_VERSION,
   visited: [],
-  timeOfDay: "sunset",
-  muted: false,
-  graphics: { tier: "auto", postFx: true },
+  timeOfDay: SAVE_DEFAULTS.timeOfDay,
+  muted: SAVE_DEFAULTS.muted,
+  graphics: { ...SAVE_DEFAULTS.graphics },
+  inventory: [],
+  inventoryCapacity: DEFAULT_CAPACITY,
+  departmentId: null,
+  buildings: [],
 };
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === "object" ? (value as Record<string, unknown>) : null;
+}
+
+/** Migrate a parsed blob (including pilgrimage-only v1 saves) into the current shape. */
+export function normalizeSave(raw: unknown): SaveBlob {
+  const parsed = asRecord(raw) ?? {};
+  const graphicsRaw = asRecord(parsed.graphics);
+  const capacityRaw = parsed.inventoryCapacity;
+  const capacity =
+    typeof capacityRaw === "number" && Number.isFinite(capacityRaw)
+      ? Math.max(0, Math.floor(capacityRaw))
+      : DEFAULT_CAPACITY;
+  const inventory = coerceInventory(parsed.inventory, capacity);
+  return {
+    version: SAVE_VERSION,
+    visited: Array.isArray(parsed.visited)
+      ? parsed.visited.filter((id): id is string => typeof id === "string")
+      : [],
+    timeOfDay: coerceTimeOfDay(parsed.timeOfDay) ?? defaults.timeOfDay,
+    muted: Boolean(parsed.muted),
+    graphics: {
+      tier:
+        graphicsRaw?.tier === "high" || graphicsRaw?.tier === "low" ? graphicsRaw.tier : "auto",
+      postFx: graphicsRaw?.postFx === false ? false : true,
+    },
+    inventory: inventory.items,
+    inventoryCapacity: inventory.capacity,
+    departmentId: coerceDepartmentId(parsed.departmentId),
+    buildings: coerceBuildings(parsed.buildings),
+  };
+}
+
+export function serializeSave(blob: SaveBlob): string {
+  return JSON.stringify({ ...blob, version: SAVE_VERSION });
+}
+
+export function inventoryFromSave(blob: SaveBlob): Inventory {
+  return coerceInventory(blob.inventory, blob.inventoryCapacity);
+}
 
 export function loadLocal(): SaveBlob {
   try {
+    if (typeof localStorage === "undefined") return { ...defaults };
     const raw = localStorage.getItem(KEY);
     if (!raw) return { ...defaults };
-    const parsed = JSON.parse(raw) as Partial<SaveBlob>;
-    return {
-      ...defaults,
-      ...parsed,
-      version: SAVE_VERSION,
-      visited: Array.isArray(parsed.visited) ? parsed.visited : [],
-      // Saves written before the Reality Pass only knew day / sunset / night;
-      // coerceTimeOfDay accepts those and rejects anything unknown.
-      timeOfDay: coerceTimeOfDay(parsed.timeOfDay) ?? defaults.timeOfDay,
-      muted: Boolean(parsed.muted),
-      // Saves written before graphics settings existed simply get the defaults.
-      graphics: {
-        tier:
-          parsed.graphics?.tier === "high" || parsed.graphics?.tier === "low"
-            ? parsed.graphics.tier
-            : "auto",
-        postFx: parsed.graphics?.postFx ?? true,
-      },
-    };
+    return normalizeSave(JSON.parse(raw));
   } catch {
     return { ...defaults };
   }
@@ -55,7 +101,8 @@ export function loadLocal(): SaveBlob {
 
 export function saveLocal(blob: SaveBlob) {
   try {
-    localStorage.setItem(KEY, JSON.stringify({ ...blob, version: SAVE_VERSION }));
+    if (typeof localStorage === "undefined") return;
+    localStorage.setItem(KEY, serializeSave({ ...blob, version: SAVE_VERSION }));
   } catch {
     /* quota / private mode */
   }

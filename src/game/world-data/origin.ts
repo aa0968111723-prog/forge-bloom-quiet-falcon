@@ -120,8 +120,8 @@ export function worldBearingDeg(dx: number, dz: number): number {
  */
 export const WORLD_BOUNDS = {
   minX: -230,
-  maxX: 205,
-  minZ: -365,
+  maxX: 520,
+  minZ: -660,
   maxZ: 110,
 } as const;
 

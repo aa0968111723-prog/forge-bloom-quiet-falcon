@@ -3,6 +3,8 @@ import { KENAN, kenanRampElevation, kenanStepElevation } from "./kenan.ts";
 import { pavedAt } from "./paths.ts";
 import { clamp01, sampleCurve, smoothstep, type ControlPoint } from "./math.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
+import { CAMPUS_SITES } from "../rpg/campus.ts";
+const SPORTS_PADS = CAMPUS_SITES.filter((s) => s.form === "court");
 
 /**
  * Calibrated campus elevation.
@@ -122,6 +124,9 @@ function landform(x: number, z: number, distOutside: number): number {
 }
 
 function sample(x: number, z: number, stepped: boolean): number {
+  for (const pad of SPORTS_PADS) {
+    if (Math.abs(x - pad.x) <= pad.w / 2 && Math.abs(z - pad.z) <= pad.d / 2) return spineRampElevation(pad.z) + eastRise(pad.x);
+  }
   const spine = stepped ? spineGroundElevation(z) : spineRampElevation(z);
   const hw = corridorHalfWidth(z);
   const outside = Math.abs(x) - hw;
@@ -137,7 +142,12 @@ function sample(x: number, z: number, stepped: boolean): number {
     outer = Math.max(outer, smoothSpine - 0.4);
   }
   const t = smoothstep(0, corridorTransition(z), outside);
-  return spine + (outer - spine) * t;
+  let y = spine + (outer - spine) * t;
+  for (const pad of SPORTS_PADS) {
+    const distance = Math.hypot(Math.max(0,Math.abs(x-pad.x)-pad.w/2),Math.max(0,Math.abs(z-pad.z)-pad.d/2));
+    if (distance < 6) { const flat = spineRampElevation(pad.z)+eastRise(pad.x); y += (flat-y)*(1-smoothstep(0,6,distance)); }
+  }
+  return y;
 }
 
 /** Surface the player, props and vegetation sit on. Stepped inside 克難坡. */

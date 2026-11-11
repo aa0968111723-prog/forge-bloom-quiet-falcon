@@ -1,3 +1,4 @@
+import { Enemies } from "./Enemies";
 import { Npcs } from "./Npcs";
 import { Player } from "./Player";
 import { useGame } from "./store";
@@ -9,6 +10,7 @@ export function GameScene() {
     <>
       <World timeOfDay={timeOfDay} />
       <Npcs />
+      <Enemies />
       <Player />
     </>
   );

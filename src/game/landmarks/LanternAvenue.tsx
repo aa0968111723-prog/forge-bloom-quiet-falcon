@@ -1,7 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
-import { quality } from "../quality";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { propsOfKind } from "../world-data/props.ts";
 import { worldUvCylinder } from "../world/geometry";
@@ -24,7 +23,6 @@ const POST_HEIGHT = 3.1;
 
 export function LanternAvenue({ wetness, lampsOn }: { wetness: number; lampsOn: boolean }) {
   const mats = useTamkangMaterials();
-  const q = quality();
   const lanterns = useMemo(() => propsOfKind("lantern-post"), []);
 
   const bases = useRef<THREE.InstancedMesh>(null);
@@ -83,26 +81,6 @@ export function LanternAvenue({ wetness, lampsOn }: { wetness: number; lampsOn: 
       <instancedMesh ref={caps} args={[geos.cap, undefined, lanterns.length]} castShadow>
         <meshStandardMaterial color="#2c5c40" roughness={0.42} />
       </instancedMesh>
-
-      {/*
-        A handful of real point lights at night, spread along the avenue rather
-        than one per lantern — 34 shadowless point lights would cost more than
-        the rest of the scene put together.
-      */}
-      {lampsOn &&
-        lanterns
-          .filter((_, i) => i % Math.ceil(lanterns.length / q.maxLampLights) === 0)
-          .slice(0, q.maxLampLights)
-          .map((l) => (
-            <pointLight
-              key={`${l.x}-${l.z}`}
-              position={[l.x, sampleGroundElevation(l.x, l.z) + POST_HEIGHT + 0.6, l.z]}
-              color="#ffbc74"
-              intensity={9}
-              distance={26}
-              decay={2}
-            />
-          ))}
     </group>
   );
 }

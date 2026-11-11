@@ -10,7 +10,7 @@ import type { Accuracy } from "../origin.ts";
  * planting and props; `detail: "context"` zones keep their pre-v1 silhouette
  * and are explicitly out of scope (REF_SECONDARY_ZONE_PLACEHOLDER).
  */
-export type ZoneDetail = "reality" | "context" | "backdrop";
+export type ZoneDetail = "reality" | "context" | "backdrop" | "campus";
 
 export type Zone = {
   id: string;
@@ -93,9 +93,18 @@ export const ZONES: Zone[] = [
     id: "east",
     name: "東校園",
     nameEn: "East Campus",
-    detail: "context",
+    detail: "campus",
     bounds: { minX: 70, maxX: 205, minZ: AXIS.northLimitZ, maxZ: 60 },
-    propRange: 120,
+    propRange: 160,
+    accuracy: "estimated",
+  },
+  {
+    id: "west-academic",
+    name: "西校園",
+    nameEn: "West Academic Cluster",
+    detail: "campus",
+    bounds: { minX: -110, maxX: -34, minZ: -290, maxZ: 85 },
+    propRange: 150,
     accuracy: "estimated",
   },
   {

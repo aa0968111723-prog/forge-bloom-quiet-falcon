@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CampusGame } from "@/components/game/CampusGame";
+import AdventureApp from "@/game/rpg/AdventureApp";
 
 export const Route = createFileRoute("/")({
   ssr: false,
@@ -7,5 +7,5 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  return <CampusGame />;
+  return <AdventureApp />;
 }

@@ -148,7 +148,7 @@ function toonPatch(foliage: boolean) {
 /** Materials that must stay untouched: sky, water, grass, HUD sprites. */
 function skip(material: THREE.Material): boolean {
   return (
-    (material as THREE.Material & { isShaderMaterial?: boolean }).isShaderMaterial === true ||
+    (material as THREE.Material & { isMeshStandardMaterial?: boolean }).isMeshStandardMaterial !== true ||
     (material as THREE.Material & { isMeshBasicMaterial?: boolean }).isMeshBasicMaterial === true
   );
 }

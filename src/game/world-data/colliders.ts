@@ -92,10 +92,12 @@ export function resolveCollision(
   x: number,
   z: number,
   radius: number,
+  extra: readonly AABB[] = [],
 ): { x: number; z: number } {
   let px = x;
   let pz = z;
-  for (const b of COLLIDERS) {
+  const blocks = extra.length ? COLLIDERS.concat(extra as AABB[]) : COLLIDERS;
+  for (const b of blocks) {
     const cx = Math.min(Math.max(px, b.minX), b.maxX);
     const cz = Math.min(Math.max(pz, b.minZ), b.maxZ);
     const dx = px - cx;

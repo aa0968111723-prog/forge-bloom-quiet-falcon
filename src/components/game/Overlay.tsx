@@ -27,6 +27,15 @@ import { useGame } from "@/game/store";
 import { campusAudio } from "@/game/audio";
 import { RealityComparePanel } from "@/game/world/RealityCompare";
 import { cn } from "@/lib/cn";
+import {
+  BackpackPanel,
+  BuildPanel,
+  DefeatPanel,
+  HpHud,
+  NearbyCombat,
+  PlayTools,
+  SetupPanel,
+} from "./GameplayPanels";
 
 const TIME_LABEL = Object.fromEntries(
   Object.entries(TIME_PRESETS).map(([id, p]) => [id, p.label]),
@@ -246,8 +255,7 @@ function AreaSplash() {
   useEffect(() => {
     if (phase !== "playing") return;
     const zone = zoneAt(playerX, playerZ);
-    // Context zones stay silent — only the calibrated places announce themselves.
-    if (!zone || zone.detail !== "reality") return;
+    if (!zone || (zone.detail !== "reality" && zone.detail !== "campus")) return;
     if (zone.id === lastZone.current) return;
     const first = lastZone.current === null;
     lastZone.current = zone.id;
@@ -278,6 +286,7 @@ export function GameOverlay() {
   const muted = useGame((s) => s.muted);
   const stampFlash = useGame((s) => s.stampFlash);
   const graphics = useGame((s) => s.graphics);
+  const hud = useGame((s) => s.hud);
   const [coarse, setCoarse] = useState(false);
   const [hint, setHint] = useState(true);
   const [showDone, setShowDone] = useState(false);
@@ -317,6 +326,8 @@ export function GameOverlay() {
     <div className="pointer-events-none absolute inset-0 font-sans text-paper">
       <RealityComparePanel />
       <AreaSplash />
+      {phase === "setup" && <SetupPanel />}
+
       {phase === "title" && (
         // Title: the world is the backdrop, so the plate sits low and light,
         // letting the drifting camera over 宮燈大道 carry the frame.
@@ -365,7 +376,9 @@ export function GameOverlay() {
               </SignedIn>
             </div>
             <p className="mt-4 text-xs text-paper/55">
-              {coarse ? "左搖桿移動 · 右側拖曳視角 · 互動鈕蓋章" : "WASD 移動 · 滑鼠視角 · E 蓋章 · Shift 奔跑 · Esc 選單"}
+              {coarse
+                ? "左搖桿移動 · 右側拖曳視角 · 互動鈕蓋章 · 背包／建造／攻擊"
+                : "WASD 移動 · 滑鼠視角 · E 蓋章 · Q 應戰 · B 背包 · C 建造 · Shift 奔跑 · Esc 選單"}
             </p>
           </div>
         </div>
@@ -382,9 +395,11 @@ export function GameOverlay() {
               </p>
             </div>
             <CompassHud />
+            <HpHud />
           </div>
           <div className="pointer-events-auto absolute right-3 top-3 flex flex-col items-end gap-2 sm:right-5 sm:top-5">
             <div className="flex gap-2">
+              <PlayTools coarse={coarse} />
               <button
                 type="button"
                 className="tk-btn tk-btn-on-dark size-11 min-h-11 p-0"
@@ -404,6 +419,8 @@ export function GameOverlay() {
             </div>
             <Minimap />
           </div>
+
+          <NearbyCombat />
 
           {nearby && (
             <div className="pointer-events-none absolute bottom-36 left-1/2 w-[min(92vw,28rem)] -translate-x-1/2 sm:bottom-10">
@@ -452,6 +469,9 @@ export function GameOverlay() {
               </div>
             </>
           )}
+          {hud === "backpack" && <BackpackPanel />}
+          {hud === "build" && <BuildPanel />}
+          <DefeatPanel />
         </>
       )}
 
@@ -504,6 +524,13 @@ export function GameOverlay() {
                   onClick={() => useGame.getState().setPhase("title")}
                 >
                   返回封面
+                </button>
+                <button
+                  type="button"
+                  className="tk-btn tk-btn-ghost w-full"
+                  onClick={() => useGame.getState().setPhase("setup")}
+                >
+                  更換科系
                 </button>
               </div>
             )}

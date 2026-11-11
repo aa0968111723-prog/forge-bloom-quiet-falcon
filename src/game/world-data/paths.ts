@@ -183,6 +183,38 @@ export const PATH_SEGMENTS: PathSegment[] = [
     accuracy: "estimated",
     referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
   },
+  {
+    id: "east-academic-walk",
+    points: [
+      [64, 8],
+      [64, -40],
+      [80, -90],
+      [130, -90],
+      [166, -90],
+      [180, -160],
+      [180, -210],
+      [150, -236],
+    ],
+    width: 4.2,
+    surface: "sidewalk",
+    tactile: true,
+    accuracy: "estimated",
+    referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
+  },
+  {
+    id: "west-academic-walk",
+    points: [
+      [-34, 8],
+      [-70, 8],
+      [-70, -48],
+      [-70, -160],
+      [-52, -260],
+    ],
+    width: 4.0,
+    surface: "sidewalk",
+    accuracy: "estimated",
+    referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
+  },
 ];
 
 export const PATH_AREAS: PathArea[] = [
@@ -230,6 +262,24 @@ export const PATH_AREAS: PathArea[] = [
     surface: "plaza-tile",
     accuracy: "estimated",
     referenceIds: ["REF_LIBRARY_NINE_FLOORS"],
+  },
+  {
+    id: "east-academic-plaza",
+    shape: "rect",
+    center: [130, -90],
+    size: [22, 16],
+    surface: "plaza-tile",
+    accuracy: "estimated",
+    referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
+  },
+  {
+    id: "west-academic-plaza",
+    shape: "rect",
+    center: [-88, -28],
+    size: [16, 8],
+    surface: "plaza-tile",
+    accuracy: "estimated",
+    referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
   },
 ];
 

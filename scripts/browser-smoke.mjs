@@ -18,9 +18,10 @@ import { checkedOutputPath, checkedUrl } from "./browser-guard.mjs";
 import { computeBrandWarnings } from "./brand-check.mjs";
 
 const url = checkedUrl(process.argv[2] || "http://127.0.0.1:8080/");
+const extraDir = process.env.BROWSER_SMOKE_ALLOWED_DIR;
 const outPng = checkedOutputPath(
   process.argv[3] || "/workspace/screenshots/app-builder-preview.png",
-  ["/workspace"],
+  ["/workspace", extraDir].filter(Boolean),
 );
 const timeoutMs = Number(process.env.BROWSER_SMOKE_TIMEOUT_MS || 45000);
 

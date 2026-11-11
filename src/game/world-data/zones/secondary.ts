@@ -1,20 +1,21 @@
 import { AXIS } from "../axis.ts";
+import { CAMPUS_SITES } from "../../rpg/campus.ts";
 import { sampleGroundElevation } from "../elevation.ts";
 import type { Accuracy } from "../origin.ts";
 
 /**
  * Structures outside the Reality Pass v1 corridor.
  *
- * These were kept from the pre-v1 scene and only *re-seated* onto the new
- * real-scale ground, because leaving them at their old coordinates would have
- * dropped them inside 宮燈大道. Their positions are plausible relative to the
- * corridor and nothing more: every record here is `estimated` and carries
- * REF_SECONDARY_ZONE_PLACEHOLDER. Calibrating the north and east campus is
- * explicitly future work, not v1.
+ * Pre-v1 silhouettes were re-seated onto real-scale ground. East academic and
+ * west academic clusters are now named walkable buildings with colliders;
+ * positions stay `estimated` (REF_SECONDARY_ZONE_PLACEHOLDER).
  */
+export type CampusCluster = "east" | "west-academic" | "north";
+
 export type SecondaryStructure = {
   id: string;
   name: string;
+  nameEn: string;
   /** Centre in world XZ. */
   position: [number, number];
   /** width (X) × height (Y) × depth (Z), metres. */
@@ -22,75 +23,255 @@ export type SecondaryStructure = {
   rotationY: number;
   floors?: number;
   kind: "hip-roof-block" | "slab-block" | "hall" | "pavilion" | "court" | "ship";
+  cluster: CampusCluster;
+  /** Player can walk up to a door approach; solid kinds also have colliders. */
+  walkable: boolean;
   accuracy: Accuracy;
   referenceIds: string[];
 };
 
 const REF = ["REF_SECONDARY_ZONE_PLACEHOLDER"];
 
-export const SECONDARY_STRUCTURES: SecondaryStructure[] = [
+const LEGACY_SECONDARY_STRUCTURES: SecondaryStructure[] = [
   {
     id: "chingsheng-building",
     name: "驚聲大樓",
+    nameEn: "Ching-sheng Building",
     position: [-52, AXIS.scrollPlazaZ - 4],
     size: [30, 30, 24],
     rotationY: 0,
     floors: 8,
     kind: "hip-roof-block",
+    cluster: "west-academic",
+    walkable: true,
     accuracy: "estimated",
     referenceIds: REF,
   },
   {
     id: "business-building",
     name: "商管大樓",
+    nameEn: "Business Building",
     position: [118, -182],
     size: [34, 30, 22],
     rotationY: 0.1,
     floors: 8,
     kind: "slab-block",
+    cluster: "east",
+    walkable: true,
     accuracy: "estimated",
     referenceIds: REF,
   },
   {
     id: "gymnasium",
     name: "紹謨紀念體育館",
+    nameEn: "Shao-mo Memorial Gymnasium",
     position: [166, -122],
     size: [44, 16, 30],
     rotationY: 0,
     kind: "hall",
+    cluster: "east",
+    walkable: true,
     accuracy: "estimated",
     referenceIds: REF,
   },
   {
     id: "maritime-museum",
     name: "海事博物館",
+    nameEn: "Maritime Museum",
     position: [150, -252],
     size: [46, 16, 20],
     rotationY: 0.16,
     kind: "ship",
+    cluster: "east",
+    walkable: true,
     accuracy: "estimated",
     referenceIds: REF,
   },
   {
     id: "juexuan-garden",
     name: "覺軒花園",
+    nameEn: "Jue-xuan Garden",
     position: [-46, -108],
     size: [22, 6, 16],
     rotationY: 0,
     kind: "pavilion",
+    cluster: "west-academic",
+    walkable: true,
     accuracy: "estimated",
     referenceIds: ["REF_PALACE_CLASSROOMS_1954", ...REF],
   },
   {
     id: "volleyball-court",
     name: "排球場",
+    nameEn: "Volleyball Court",
     position: [72, -150],
     size: [18, 0, 32],
     rotationY: 0,
     kind: "court",
+    cluster: "east",
+    walkable: true,
     accuracy: "estimated",
     referenceIds: REF,
   },
+  {
+    id: "engineering-hall",
+    name: "工學大樓",
+    nameEn: "Engineering Building",
+    position: [100, -90],
+    size: [30, 28, 18],
+    rotationY: 0,
+    floors: 7,
+    kind: "slab-block",
+    cluster: "east",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "science-hall",
+    name: "科學館",
+    nameEn: "Science Building",
+    position: [112, -40],
+    size: [26, 24, 16],
+    rotationY: 0,
+    floors: 6,
+    kind: "slab-block",
+    cluster: "east",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "liberal-arts-hall",
+    name: "文學館",
+    nameEn: "Liberal Arts Building",
+    position: [98, 8],
+    size: [24, 22, 16],
+    rotationY: 0,
+    floors: 5,
+    kind: "hip-roof-block",
+    cluster: "east",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "foreign-lang-hall",
+    name: "外語大樓",
+    nameEn: "Foreign Languages Building",
+    position: [138, -40],
+    size: [26, 22, 16],
+    rotationY: 0,
+    floors: 5,
+    kind: "hip-roof-block",
+    cluster: "east",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "education-hall",
+    name: "教育館",
+    nameEn: "Education Building",
+    position: [180, -70],
+    size: [24, 20, 16],
+    rotationY: 0,
+    floors: 5,
+    kind: "slab-block",
+    cluster: "east",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "ai-center",
+    name: "AI創智中心",
+    nameEn: "AI Innovation Center",
+    position: [180, -190],
+    size: [26, 18, 18],
+    rotationY: 0,
+    floors: 4,
+    kind: "slab-block",
+    cluster: "east",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "health-hall",
+    name: "精準健康館",
+    nameEn: "Precision Healthcare Hall",
+    position: [180, -230],
+    size: [24, 16, 16],
+    rotationY: 0,
+    floors: 4,
+    kind: "slab-block",
+    cluster: "east",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "student-center",
+    name: "學生活動中心",
+    nameEn: "Student Activity Center",
+    position: [-88, -48],
+    size: [28, 14, 18],
+    rotationY: 0,
+    floors: 3,
+    kind: "hall",
+    cluster: "west-academic",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "admin-hall",
+    name: "行政大樓",
+    nameEn: "Administration Building",
+    position: [-94, 18],
+    size: [26, 22, 18],
+    rotationY: 0,
+    floors: 6,
+    kind: "slab-block",
+    cluster: "west-academic",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+  {
+    id: "research-hall",
+    name: "研究大樓",
+    nameEn: "Research Building",
+    position: [-86, -160],
+    size: [24, 26, 16],
+    rotationY: 0,
+    floors: 7,
+    kind: "slab-block",
+    cluster: "west-academic",
+    walkable: true,
+    accuracy: "estimated",
+    referenceIds: REF,
+  },
+];
+
+/** Named buildings the player can walk up to (excludes open courts). */
+export function namedWalkableBuildings(): SecondaryStructure[] {
+  return SECONDARY_STRUCTURES.filter((s) => s.walkable && s.kind !== "court");
+}
+
+/** Door approach on the south face, a few metres off the wall. */
+export function buildingApproachPoint(s: SecondaryStructure): { x: number; z: number } {
+  return { x: s.position[0], z: s.position[1] + s.size[2] / 2 + 3.4 };
+}
+
+export const SECONDARY_STRUCTURES: SecondaryStructure[] = [
+  ...LEGACY_SECONDARY_STRUCTURES.slice(0, 6),
+  ...CAMPUS_SITES.filter((s) => !s.existing).map((s): SecondaryStructure => ({
+    id: s.id, name: s.name, nameEn: s.code, cluster: s.x < 0 ? "west-academic" : "east", walkable: true, position: [s.x, s.z], size: [s.w, s.floors * 3.8, s.d],
+    rotationY: 0, floors: s.floors, kind: s.form === "court" ? "court" : "slab-block", accuracy: "estimated",
+    referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
+  })),
 ];
 
 export function structureGroundY(s: SecondaryStructure): number {

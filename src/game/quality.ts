@@ -50,7 +50,7 @@ const HIGH: QualitySettings = {
   drawDistance: 900,
   terrainStep: 2,
   maxLampLights: 8,
-  dpr: [1, 1.75],
+  dpr: [1, 1.5],
   simpleTrees: false,
 };
 
@@ -66,8 +66,8 @@ const LOW: QualitySettings = {
   propRange: 90,
   drawDistance: 520,
   terrainStep: 4,
-  maxLampLights: 3,
-  dpr: [1, 1.25],
+  maxLampLights: 2,
+  dpr: [0.85, 1.15],
   simpleTrees: true,
 };
 

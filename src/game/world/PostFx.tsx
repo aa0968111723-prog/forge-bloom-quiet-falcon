@@ -1,5 +1,5 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
@@ -63,7 +63,10 @@ const VIGNETTE = {
 };
 
 /** Bloom strength per weather. Day is deliberately almost nothing. */
-const BLOOM: Record<TimeOfDay, { strength: number; threshold: number; radius: number }> = {
+const BLOOM: Record<
+  TimeOfDay,
+  { strength: number; threshold: number; radius: number }
+> = {
   day: { strength: 0.12, threshold: 0.95, radius: 0.3 },
   cloudy: { strength: 0.06, threshold: 0.98, radius: 0.25 },
   sunset: { strength: 0.3, threshold: 0.82, radius: 0.42 },
@@ -87,6 +90,7 @@ export function PostFx({ timeOfDay }: { timeOfDay: TimeOfDay }) {
 
 function PostFxComposer({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   const { gl, scene, camera, size } = useThree();
+  const composerDpr = useRef(gl.getPixelRatio());
   const preset = TIME_PRESETS[timeOfDay];
 
   const composer = useMemo(() => {
@@ -112,15 +116,23 @@ function PostFxComposer({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   }, [composer, size.width, size.height, gl]);
 
   useEffect(() => {
-    // The composer's OutputPass owns tone mapping; the renderer must not also
-    // apply it or the image is mapped twice and goes flat.
-    gl.toneMapping = THREE.NoToneMapping;
+    // Render targets stay linear in WebGLRenderer. OutputPass reads this
+    // setting to apply ACES once when converting the final image to the screen.
+    gl.toneMapping = THREE.ACESFilmicToneMapping;
+    gl.info.autoReset = false;
     return () => {
       gl.toneMapping = THREE.ACESFilmicToneMapping;
+      gl.info.autoReset = true;
     };
   }, [gl]);
 
-  useEffect(() => () => composer.dispose(), [composer]);
+  useEffect(
+    () => () => {
+      for (const pass of composer.passes) pass.dispose();
+      composer.dispose();
+    },
+    [composer],
+  );
 
   useFrame((_, delta) => {
     const target = BLOOM[timeOfDay];
@@ -135,6 +147,11 @@ function PostFxComposer({ timeOfDay }: { timeOfDay: TimeOfDay }) {
     }
     // Exposure still comes from the preset; apply it before the composer runs.
     gl.toneMappingExposure = preset.exposure;
+    if (composerDpr.current !== gl.getPixelRatio()) {
+      composerDpr.current = gl.getPixelRatio();
+      composer.setPixelRatio(composerDpr.current);
+    }
+    gl.info.reset();
     composer.render(delta);
   }, 1);
 

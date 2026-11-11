@@ -8,6 +8,8 @@ import { campusAudio } from "./audio";
 import { landmarkAt, resolveCollision, SPAWN, terrainHeight } from "./world";
 import { pavedAt } from "./world-data/paths.ts";
 import { kenanSection } from "./world-data/kenan.ts";
+import { buildingAabbs } from "./building.ts";
+import { enemyAt } from "./world-data/encounters.ts";
 
 const tmp = new THREE.Vector3();
 const PLAYER_R = 0.42;
@@ -47,7 +49,13 @@ export function Player() {
     const el = gl.domElement;
     const onClick = () => {
       const s = useGame.getState();
-      if (s.phase === "playing" && !s.plaqueId && !window.matchMedia("(pointer: coarse)").matches) {
+      if (
+        s.phase === "playing" &&
+        !s.plaqueId &&
+        s.hud === "none" &&
+        !s.downed &&
+        !window.matchMedia("(pointer: coarse)").matches
+      ) {
         el.requestPointerLock();
       }
     };
@@ -108,7 +116,7 @@ export function Player() {
     // Reality Compare Mode (F8) owns the camera outright.
     if (useGame.getState().benchmarkId) return;
 
-    if (phase === "title") {
+    if (phase === "title" || phase === "setup") {
       // Drift above 驚聲銅像廣場 looking north down 宮燈大道.
       const t = state.clock.elapsedTime;
       camera.position.set(-13 + Math.sin(t * 0.1) * 2.2, 31.5, 13 + Math.cos(t * 0.08) * 1.8);
@@ -123,15 +131,29 @@ export function Player() {
     }
 
     const actions = input.sample();
+    const hud = useGame.getState().hud;
+    const downed = useGame.getState().downed;
     if (actions.pause) {
       if (plaqueId) useGame.getState().openPlaque(null);
+      else if (hud !== "none") useGame.getState().toggleHud("none");
       else if (phase === "playing") {
         document.exitPointerLock();
         useGame.getState().pause();
       } else if (phase === "paused" || phase === "codex") useGame.getState().resume();
     }
+    if (actions.backpack && phase === "playing" && !downed) {
+      document.exitPointerLock();
+      useGame.getState().toggleHud("backpack");
+    }
+    if (actions.build && phase === "playing" && !downed) {
+      document.exitPointerLock();
+      useGame.getState().toggleHud("build");
+    }
+    if (actions.attack && phase === "playing" && !downed && !plaqueId) {
+      useGame.getState().strikeNearby();
+    }
 
-    const frozen = phase !== "playing" || Boolean(plaqueId);
+    const frozen = phase !== "playing" || Boolean(plaqueId) || hud !== "none" || downed;
 
     const fx = -Math.sin(camYaw.current);
     const fz = -Math.cos(camYaw.current);
@@ -165,7 +187,8 @@ export function Player() {
     if (sp > 0.4) {
       const nx = pos.current.x + vel.current.x * delta;
       const nz = pos.current.z + vel.current.z * delta;
-      const resolved = resolveCollision(nx, nz, PLAYER_R);
+      const extras = buildingAabbs(useGame.getState().buildings);
+      const resolved = resolveCollision(nx, nz, PLAYER_R, extras);
       const ground = terrainHeight(resolved.x, resolved.z);
       const step = ground - pos.current.y;
       if (step < 0.7) {
@@ -185,6 +208,9 @@ export function Player() {
 
     const nearby = landmarkAt(pos.current.x, pos.current.z);
     useGame.getState().setNearby(nearby?.id ?? null);
+    const foe = enemyAt(pos.current.x, pos.current.z);
+    const foeHp = foe ? (useGame.getState().enemies[foe.id] ?? 0) : 0;
+    useGame.getState().setNearbyEnemy(foe && foeHp > 0 ? foe.id : null);
 
     // Glance at whatever landmark is close, but only when it is off to the
     // side — staring straight ahead is what the body already does.
@@ -205,12 +231,16 @@ export function Player() {
       lookRef.current.yaw = THREE.MathUtils.damp(lookRef.current.yaw, targetYaw, 4, delta);
       lookRef.current.pitch = THREE.MathUtils.damp(lookRef.current.pitch, targetPitch, 4, delta);
     }
-    if (actions.interact && nearby && phase === "playing") {
-      if (!useGame.getState().visited.includes(nearby.id)) {
-        useGame.getState().stamp(nearby.id);
-        campusAudio.stamp();
-      } else {
-        useGame.getState().openPlaque(nearby.id);
+    if (actions.interact && phase === "playing" && !downed) {
+      if (hud === "build") {
+        useGame.getState().tryPlaceHere();
+      } else if (nearby) {
+        if (!useGame.getState().visited.includes(nearby.id)) {
+          useGame.getState().stamp(nearby.id);
+          campusAudio.stamp();
+        } else {
+          useGame.getState().openPlaque(nearby.id);
+        }
       }
     }
 
@@ -229,7 +259,7 @@ export function Player() {
       visualY.current + lookH + 0.42 + Math.sin(camPitch.current) * CAM_DIST,
       pos.current.z + Math.cos(camYaw.current) * Math.cos(camPitch.current) * CAM_DIST,
     );
-    const pushed = resolveCollision(tmp.x, tmp.z, CAM_R);
+    const pushed = resolveCollision(tmp.x, tmp.z, CAM_R, buildingAabbs(useGame.getState().buildings));
     tmp.x = pushed.x;
     tmp.z = pushed.z;
     const camGround = terrainHeight(tmp.x, tmp.z) + 1.25;

@@ -1,8 +1,11 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { surface, useTamkangMaterials } from "../materials/context";
-import { SECONDARY_STRUCTURES, structureGroundY } from "../world-data/zones/secondary.ts";
+import {
+  SECONDARY_STRUCTURES,
+  structureGroundY,
+} from "../world-data/zones/secondary.ts";
 import { InstancedPlanes, type PlaneItem } from "./InstancedPlanes";
-import { useCampusSigns } from "./labels";
+import { makeSignTexture, useCampusSigns, useFontTick } from "./labels";
 import { worldUvBox } from "./geometry";
 
 /**
@@ -14,9 +17,26 @@ import { worldUvBox } from "./geometry";
  * Deliberately simple massing — calibrating them is future work, and pretending
  * otherwise would dilute what "reality zone" means.
  */
-export function ContextStructures({ wetness, lampsOn }: { wetness: number; lampsOn: boolean }) {
+export function ContextStructures({
+  wetness,
+  lampsOn,
+}: {
+  wetness: number;
+  lampsOn: boolean;
+}) {
   const mats = useTamkangMaterials();
   const signs = useCampusSigns();
+  const fontTick = useFontTick();
+  const nameplates = useMemo(() => {
+    const m: Record<string, ReturnType<typeof makeSignTexture>> = {};
+    for (const s of SECONDARY_STRUCTURES) {
+      if (s.kind === "court") continue;
+      m[s.id] = makeSignTexture(s.name, { width: 900, height: 180 });
+    }
+    return m;
+    // Rebuild after webfonts land.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fontTick]);
 
   const items = useMemo(
     () =>
@@ -26,12 +46,29 @@ export function ContextStructures({ wetness, lampsOn }: { wetness: number; lamps
         geo:
           s.kind === "court"
             ? null
-            : worldUvBox(s.size[0], s.size[1], s.size[2], mats["library/facade"].spec.tile),
+            : worldUvBox(
+                s.size[0],
+                s.size[1],
+                s.size[2],
+                mats["library/facade"].spec.tile,
+              ),
       })),
     [mats],
   );
 
   const facade = surface(mats["library/facade"], { wetness });
+  useEffect(
+    () => () => {
+      for (const t of Object.values(nameplates)) t.dispose();
+    },
+    [nameplates],
+  );
+  useEffect(
+    () => () => {
+      for (const item of items) item.geo?.dispose();
+    },
+    [items],
+  );
   // Muted, dark-tinted glazing: these towers are background context, and at
   // 300 m bright bands read as zebra stripes against the facade.
   const glass = surface(mats["library/glass"], {
@@ -46,7 +83,8 @@ export function ContextStructures({ wetness, lampsOn }: { wetness: number; lamps
   const glazing = useMemo(() => {
     const out: PlaneItem[] = [];
     for (const { s, y } of items) {
-      if (s.kind === "court" || s.kind === "ship" || s.kind === "pavilion") continue;
+      if (s.kind === "court" || s.kind === "ship" || s.kind === "pavilion")
+        continue;
       const floors = s.floors ?? 6;
       for (let f = 0; f < floors; f++) {
         const fy = y + ((f + 0.55) * s.size[1]) / floors;
@@ -75,31 +113,87 @@ export function ContextStructures({ wetness, lampsOn }: { wetness: number; lamps
         if (s.kind === "court") {
           return (
             <group key={s.id} position={[s.position[0], y, s.position[1]]}>
-              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]} receiveShadow>
+              <mesh
+                rotation={[-Math.PI / 2, 0, 0]}
+                position={[0, 0.05, 0]}
+                receiveShadow
+              >
                 <planeGeometry args={[s.size[0], s.size[2]]} />
-                <meshStandardMaterial color="#5d8a52" roughness={0.9} />
+                <meshStandardMaterial
+                  color={s.id === "parking" ? "#59666b" : "#5d8a52"}
+                  roughness={0.9}
+                />
               </mesh>
-              <mesh position={[0, 1.15, 0]}>
-                <boxGeometry args={[0.06, 2.3, s.size[2] * 0.6]} />
-                <meshStandardMaterial color="#f3eee4" />
-              </mesh>
+              {(s.id === "volleyball-court" || s.id === "wuhu-courts") && (
+                <mesh position={[0, 1.15, 0]}>
+                  <boxGeometry args={[0.06, 2.3, s.size[2] * 0.6]} />
+                  <meshStandardMaterial color="#f3eee4" />
+                </mesh>
+              )}
+              {s.id === "track" && (
+                <>
+                  <mesh
+                    rotation={[-Math.PI / 2, 0, 0]}
+                    position={[0, 0.09, 0]}
+                    scale={[s.size[0] * 0.46, s.size[2] * 0.46, 1]}
+                  >
+                    <ringGeometry args={[0.76, 1, 72]} />
+                    <meshStandardMaterial color="#b77861" roughness={0.95} />
+                  </mesh>
+                  {[0.81, 0.87, 0.93].map((r) => (
+                    <mesh
+                      key={r}
+                      rotation={[-Math.PI / 2, 0, 0]}
+                      position={[0, 0.1, 0]}
+                      scale={[s.size[0] * 0.46, s.size[2] * 0.46, 1]}
+                    >
+                      <ringGeometry args={[r, r + 0.005, 72]} />
+                      <meshBasicMaterial color="#e4d2ac" />
+                    </mesh>
+                  ))}
+                </>
+              )}
+              {s.id === "parking" &&
+                Array.from({ length: 12 }, (_, i) => (
+                  <mesh
+                    key={i}
+                    position={[-s.size[0] / 2 + 4 + i * 4.5, 0.1, 0]}
+                  >
+                    <boxGeometry args={[0.12, 0.02, s.size[2] * 0.75]} />
+                    <meshBasicMaterial color="#e1d9b8" />
+                  </mesh>
+                ))}
             </group>
           );
         }
         if (s.kind === "ship") {
           // 海事博物館: white hull, superstructure, bow towards the road.
           return (
-            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
-              <mesh position={[0, s.size[1] * 0.28, 0]} castShadow receiveShadow>
+            <group
+              key={s.id}
+              position={[s.position[0], y, s.position[1]]}
+              rotation={[0, s.rotationY, 0]}
+            >
+              <mesh
+                position={[0, s.size[1] * 0.28, 0]}
+                castShadow
+                receiveShadow
+              >
                 <boxGeometry args={[s.size[0], s.size[1] * 0.56, s.size[2]]} />
                 <meshStandardMaterial color="#eef1f4" roughness={0.55} />
               </mesh>
-              <mesh position={[s.size[0] * 0.56, s.size[1] * 0.24, 0]} rotation={[0, 0, -0.5]} castShadow>
+              <mesh
+                position={[s.size[0] * 0.56, s.size[1] * 0.24, 0]}
+                rotation={[0, 0, -0.5]}
+                castShadow
+              >
                 <coneGeometry args={[s.size[2] * 0.5, s.size[0] * 0.24, 4]} />
                 <meshStandardMaterial color="#eef1f4" roughness={0.55} />
               </mesh>
               <mesh position={[-4, s.size[1] * 0.72, 0]} castShadow>
-                <boxGeometry args={[s.size[0] * 0.4, s.size[1] * 0.34, s.size[2] * 0.7]} />
+                <boxGeometry
+                  args={[s.size[0] * 0.4, s.size[1] * 0.34, s.size[2] * 0.7]}
+                />
                 <meshStandardMaterial color="#dfe4e8" roughness={0.5} />
               </mesh>
               <mesh position={[2, s.size[1] * 0.98, 0]} castShadow>
@@ -119,30 +213,47 @@ export function ContextStructures({ wetness, lampsOn }: { wetness: number; lamps
             <group key={s.id} position={[s.position[0], y, s.position[1]]}>
               <mesh position={[0, 1.7, 0]} castShadow receiveShadow>
                 <boxGeometry args={[s.size[0] * 0.72, 3.4, s.size[2] * 0.72]} />
-                <meshStandardMaterial {...surface(mats["palace/red-wall"], { wetness })} />
+                <meshStandardMaterial
+                  {...surface(mats["palace/red-wall"], { wetness })}
+                />
               </mesh>
               <mesh position={[0, 3.9, 0]} castShadow>
                 <coneGeometry args={[s.size[0] * 0.58, 1.9, 4]} />
-                <meshStandardMaterial {...surface(mats["palace/green-roof-tile"], { wetness })} />
+                <meshStandardMaterial
+                  {...surface(mats["palace/green-roof-tile"], { wetness })}
+                />
               </mesh>
             </group>
           );
         }
         return (
-          <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
-            <mesh geometry={geo!} position={[0, s.size[1] / 2, 0]} castShadow receiveShadow>
+          <group
+            key={s.id}
+            position={[s.position[0], y, s.position[1]]}
+            rotation={[0, s.rotationY, 0]}
+          >
+            <mesh
+              geometry={geo!}
+              position={[0, s.size[1] / 2, 0]}
+              castShadow
+              receiveShadow
+            >
               <meshStandardMaterial {...facade} />
             </mesh>
             {s.kind === "hip-roof-block" && (
               <mesh position={[0, s.size[1] + 1.1, 0]} castShadow>
-                <coneGeometry args={[Math.hypot(s.size[0], s.size[2]) * 0.42, 2.6, 4]} />
-                <meshStandardMaterial {...surface(mats["palace/green-roof-tile"], { wetness })} />
+                <coneGeometry
+                  args={[Math.hypot(s.size[0], s.size[2]) * 0.42, 2.6, 4]}
+                />
+                <meshStandardMaterial
+                  {...surface(mats["palace/green-roof-tile"], { wetness })}
+                />
               </mesh>
             )}
-            {s.id === "gymnasium" && (
+            {nameplates[s.id] && (
               <mesh position={[0, 3.2, s.size[2] / 2 + 0.12]}>
-                <planeGeometry args={[8.5, 1.4]} />
-                <meshStandardMaterial map={signs.gym} roughness={0.55} />
+                <planeGeometry args={[Math.min(8.5, s.size[0] * 0.7), 1.4]} />
+                <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
               </mesh>
             )}
           </group>

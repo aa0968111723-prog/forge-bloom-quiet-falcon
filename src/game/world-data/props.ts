@@ -214,12 +214,45 @@ function roadLamps(): PropInstance[] {
   return out;
 }
 
+function campusClusterProps(): PropInstance[] {
+  const out: PropInstance[] = [];
+  const eastLamps: [number, number][] = [
+    [64, 8],
+    [64, -40],
+    [80, -90],
+    [130, -90],
+    [166, -90],
+    [180, -160],
+    [180, -210],
+  ];
+  for (const [x, z] of eastLamps) {
+    out.push(prop("street-lamp", x + 2.2, z, "east", 0));
+    out.push(prop("bench", x - 2.4, z, "east", Math.PI / 2));
+  }
+  const westLamps: [number, number][] = [
+    [-70, 8],
+    [-70, -48],
+    [-70, -160],
+    [-52, -260],
+  ];
+  for (const [x, z] of westLamps) {
+    out.push(prop("street-lamp", x + 2.2, z, "west-academic", 0));
+    out.push(prop("bench", x - 2.4, z, "west-academic", Math.PI / 2));
+  }
+  out.push(prop("noticeboard", 130, -82, "east", 0));
+  out.push(prop("noticeboard", -88, -24, "west-academic", 0));
+  out.push(prop("bin", 128, -84, "east"));
+  out.push(prop("bin", -86, -26, "west-academic"));
+  return out;
+}
+
 export const PROPS: PropInstance[] = [
   ...kenanProps(),
   ...plazaProps(),
   ...avenueProps(),
   ...northProps(),
   ...roadLamps(),
+  ...campusClusterProps(),
 ];
 
 export function propsOfKind(kind: PropKind): PropInstance[] {

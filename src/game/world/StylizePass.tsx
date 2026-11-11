@@ -1,5 +1,5 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import * as THREE from "three";
 import { quality } from "../quality";
 import { TIME_PRESETS, type TimeOfDay } from "../world-data/lighting.ts";
@@ -34,16 +34,58 @@ function isFoliage(material: THREE.Material): boolean {
 /** Rim/transmission character per weather. */
 const STYLE_BY_TIME: Record<
   TimeOfDay,
-  { rim: string; rimStrength: number; trans: string; transStrength: number; steps: number; mix: number }
+  {
+    rim: string;
+    rimStrength: number;
+    trans: string;
+    transStrength: number;
+    steps: number;
+    mix: number;
+  }
 > = {
-  day: { rim: "#d7ecf8", rimStrength: 0.16, trans: "#9ccb63", transStrength: 0.3, steps: 4, mix: 0.6 },
+  day: {
+    rim: "#d7ecf8",
+    rimStrength: 0.16,
+    trans: "#9ccb63",
+    transStrength: 0.3,
+    steps: 4,
+    mix: 0.6,
+  },
   // Overcast light wraps: almost no rim, very soft banding.
-  cloudy: { rim: "#dfe6ea", rimStrength: 0.08, trans: "#8aa86a", transStrength: 0.12, steps: 5, mix: 0.36 },
+  cloudy: {
+    rim: "#dfe6ea",
+    rimStrength: 0.08,
+    trans: "#8aa86a",
+    transStrength: 0.12,
+    steps: 5,
+    mix: 0.36,
+  },
   // Golden hour: warm rim and a canopy glowing from behind — the strongest
   // stylisation of the five, but still short of washing the frame out.
-  sunset: { rim: "#ffc98e", rimStrength: 0.3, trans: "#ffb765", transStrength: 0.7, steps: 3, mix: 0.7 },
-  night: { rim: "#8fa6c8", rimStrength: 0.22, trans: "#2c4460", transStrength: 0.08, steps: 3, mix: 0.6 },
-  wet: { rim: "#cdd8de", rimStrength: 0.14, trans: "#7f9a63", transStrength: 0.14, steps: 4, mix: 0.44 },
+  sunset: {
+    rim: "#ffc98e",
+    rimStrength: 0.3,
+    trans: "#ffb765",
+    transStrength: 0.7,
+    steps: 3,
+    mix: 0.7,
+  },
+  night: {
+    rim: "#8fa6c8",
+    rimStrength: 0.22,
+    trans: "#2c4460",
+    transStrength: 0.08,
+    steps: 3,
+    mix: 0.6,
+  },
+  wet: {
+    rim: "#cdd8de",
+    rimStrength: 0.14,
+    trans: "#7f9a63",
+    transStrength: 0.14,
+    steps: 4,
+    mix: 0.44,
+  },
 };
 
 export function StylizePass({ timeOfDay }: { timeOfDay: TimeOfDay }) {
@@ -52,6 +94,14 @@ export function StylizePass({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   const target = STYLE_BY_TIME[timeOfDay];
   const preset = TIME_PRESETS[timeOfDay];
   const q = quality();
+  const targets = useMemo(
+    () => ({
+      rim: new THREE.Color(target.rim),
+      trans: new THREE.Color(target.trans),
+      sun: new THREE.Vector3(...preset.sunPos).normalize(),
+    }),
+    [target, preset],
+  );
 
   useFrame((_, delta) => {
     // Bounded sweep: catch materials as they appear, then leave the graph alone.
@@ -61,7 +111,8 @@ export function StylizePass({ timeOfDay }: { timeOfDay: TimeOfDay }) {
           const mesh = obj as THREE.Mesh;
           const mat = mesh.material;
           if (!mat) return;
-          for (const m of Array.isArray(mat) ? mat : [mat]) applyToon(m, isFoliage(m));
+          for (const m of Array.isArray(mat) ? mat : [mat])
+            applyToon(m, isFoliage(m));
         });
       }
       frame.current += 1;
@@ -69,18 +120,18 @@ export function StylizePass({ timeOfDay }: { timeOfDay: TimeOfDay }) {
 
     // Ease the stylisation toward the current weather.
     const k = 1 - Math.exp(-2.2 * delta);
-    (STYLE.rimColor.value as THREE.Color).lerp(new THREE.Color(target.rim), k);
-    (STYLE.transColor.value as THREE.Color).lerp(new THREE.Color(target.trans), k);
-    STYLE.rimStrength.value += (target.rimStrength - STYLE.rimStrength.value) * k;
-    STYLE.transStrength.value += (target.transStrength - STYLE.transStrength.value) * k;
+    (STYLE.rimColor.value as THREE.Color).lerp(targets.rim, k);
+    (STYLE.transColor.value as THREE.Color).lerp(targets.trans, k);
+    STYLE.rimStrength.value +=
+      (target.rimStrength - STYLE.rimStrength.value) * k;
+    STYLE.transStrength.value +=
+      (target.transStrength - STYLE.transStrength.value) * k;
     STYLE.toonSteps.value += (target.steps - STYLE.toonSteps.value) * k;
     // The low tier softens the banding: without normal maps the hard bands
     // read as flat blotches rather than as painted shading.
     const mix = q.tier === "high" ? target.mix : target.mix * 0.6;
     STYLE.toonMix.value += (mix - STYLE.toonMix.value) * k;
-    (STYLE.sunDir.value as THREE.Vector3)
-      .lerp(new THREE.Vector3(...preset.sunPos).normalize(), k)
-      .normalize();
+    (STYLE.sunDir.value as THREE.Vector3).lerp(targets.sun, k).normalize();
   });
 
   return null;

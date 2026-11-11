@@ -170,7 +170,7 @@ const VENDOR_PROPS: Partial<Record<PropKind, { url: string; scale: number }>> = 
   "street-lamp": { url: "/models/vendor/kaykit/streetlight.gltf", scale: 4.7 },
 };
 
-export function Props({ lampsOn }: { lampsOn: boolean }) {
+export function Props({ lampsOn: _lampsOn }: { lampsOn: boolean }) {
   const q = quality();
 
   const byKind = useMemo(() => {
@@ -183,8 +183,6 @@ export function Props({ lampsOn }: { lampsOn: boolean }) {
     }
     return [...map.entries()];
   }, []);
-
-  const lamps = useMemo(() => PROPS.filter((p) => p.kind === "street-lamp"), []);
 
   return (
     <group>
@@ -209,21 +207,6 @@ export function Props({ lampsOn }: { lampsOn: boolean }) {
           </group>
         );
       })}
-      {/* A few live lights under street lamps at night, capped by quality tier. */}
-      {lampsOn &&
-        lamps
-          .filter((_, i) => i % Math.ceil(lamps.length / Math.max(1, q.maxLampLights - 2)) === 0)
-          .slice(0, Math.max(1, q.maxLampLights - 2))
-          .map((l) => (
-            <pointLight
-              key={`${l.x}:${l.z}`}
-              position={[l.x, sampleGroundElevation(l.x, l.z) + 4.4, l.z]}
-              color="#e8ecf4"
-              intensity={7}
-              distance={22}
-              decay={2}
-            />
-          ))}
     </group>
   );
 }

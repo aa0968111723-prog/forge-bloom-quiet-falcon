@@ -92,7 +92,7 @@ export function CampusGame() {
             far: quality().drawDistance,
             position: [-13, 31.5, 13],
           }}
-          gl={{ antialias: quality().tier === "high", powerPreference: "high-performance" }}
+          gl={{ antialias: quality().tier === "high", powerPreference: "high-performance", preserveDrawingBuffer: true }}
           onCreated={({ gl }) => {
             gl.setClearColor("#e8965a");
             // Perf probe for the regression harness (dev + prod, negligible cost).

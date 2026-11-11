@@ -16,6 +16,8 @@ artifacts
 *.log
 /tmp
 coverage
+/work
+/outputs
 .grok
 AGENTS.md
 AGENTS.project.md

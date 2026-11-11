@@ -5,6 +5,7 @@ import { buildBodyGeometry, buildRig, type Rig } from "./character/rig";
 import { useCharacterAnimation } from "./character/useCharacterAnimation";
 
 type StudentProps = {
+  actionRef?: { current: { swing: number; dodge: number } };
   speed?: number;
   speedRef?: { current: number };
   accent?: string;
@@ -78,10 +79,16 @@ function faceTexture(): THREE.CanvasTexture {
 const HAIR_COLOR = "#2b2320";
 
 /** Head dressing: face sphere, hair cap, fringe tufts, side hair. */
-function buildHeadDressing(face: THREE.CanvasTexture, castShadow: boolean): THREE.Group {
+function buildHeadDressing(
+  face: THREE.CanvasTexture,
+  castShadow: boolean,
+): THREE.Group {
   const group = new THREE.Group();
   group.position.set(0, 0.1, 0);
-  const hair = new THREE.MeshStandardMaterial({ color: HAIR_COLOR, roughness: 0.6 });
+  const hair = new THREE.MeshStandardMaterial({
+    color: HAIR_COLOR,
+    roughness: 0.6,
+  });
 
   const faceMesh = new THREE.Mesh(
     new THREE.SphereGeometry(0.15, 18, 16),
@@ -121,11 +128,23 @@ function buildHeadDressing(face: THREE.CanvasTexture, castShadow: boolean): THRE
 function buildBackpack(castShadow: boolean): THREE.Group {
   const group = new THREE.Group();
   group.position.set(0, 0.02, -0.17);
-  const canvasMat = new THREE.MeshStandardMaterial({ color: "#c9b48a", roughness: 0.8 });
-  const trimMat = new THREE.MeshStandardMaterial({ color: "#b5a077", roughness: 0.8 });
-  const strapMat = new THREE.MeshStandardMaterial({ color: "#8d7a56", roughness: 0.8 });
+  const canvasMat = new THREE.MeshStandardMaterial({
+    color: "#c9b48a",
+    roughness: 0.8,
+  });
+  const trimMat = new THREE.MeshStandardMaterial({
+    color: "#b5a077",
+    roughness: 0.8,
+  });
+  const strapMat = new THREE.MeshStandardMaterial({
+    color: "#8d7a56",
+    roughness: 0.8,
+  });
 
-  const body = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.32, 0.13), canvasMat);
+  const body = new THREE.Mesh(
+    new THREE.BoxGeometry(0.24, 0.32, 0.13),
+    canvasMat,
+  );
   body.castShadow = castShadow;
   group.add(body);
 
@@ -134,7 +153,10 @@ function buildBackpack(castShadow: boolean): THREE.Group {
   group.add(lid);
 
   for (const sx of [-1, 1]) {
-    const strap = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.3, 0.02), strapMat);
+    const strap = new THREE.Mesh(
+      new THREE.BoxGeometry(0.035, 0.3, 0.02),
+      strapMat,
+    );
     strap.position.set(sx * 0.07, 0.02, 0.065);
     strap.rotation.x = 0.12;
     group.add(strap);
@@ -149,10 +171,17 @@ type Character = {
   dispose: () => void;
 };
 
-function buildCharacter(accent: string, castShadow: boolean, face: THREE.CanvasTexture): Character {
+function buildCharacter(
+  accent: string,
+  castShadow: boolean,
+  face: THREE.CanvasTexture,
+): Character {
   const rig = buildRig();
   const geometry = buildBodyGeometry(rig, accent);
-  const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.72 });
+  const material = new THREE.MeshStandardMaterial({
+    vertexColors: true,
+    roughness: 0.72,
+  });
 
   const mesh = new THREE.SkinnedMesh(geometry, material);
   mesh.castShadow = castShadow;
@@ -168,7 +197,11 @@ function buildCharacter(accent: string, castShadow: boolean, face: THREE.CanvasT
 
   const shadowBlob = new THREE.Mesh(
     new THREE.CircleGeometry(0.34, 14),
-    new THREE.MeshBasicMaterial({ color: "#0d243f", transparent: true, opacity: 0.25 }),
+    new THREE.MeshBasicMaterial({
+      color: "#0d243f",
+      transparent: true,
+      opacity: 0.25,
+    }),
   );
   shadowBlob.rotation.x = -Math.PI / 2;
   shadowBlob.position.y = 0.03;
@@ -203,6 +236,7 @@ export function Student({
   accent = "#1a3f6d",
   castShadow = true,
   lookRef,
+  actionRef,
 }: StudentProps) {
   const face = useMemo(() => faceTexture(), []);
   const character = useMemo(
@@ -225,8 +259,12 @@ export function Student({
           window.__characterTest = {
             weights,
             boneRotation: (name) => {
-              const bone = character.rig.skeleton.bones.find((b) => b.name === name);
-              return bone ? { x: bone.rotation.x, y: bone.rotation.y, z: bone.rotation.z } : null;
+              const bone = character.rig.skeleton.bones.find(
+                (b) => b.name === name,
+              );
+              return bone
+                ? { x: bone.rotation.x, y: bone.rotation.y, z: bone.rotation.z }
+                : null;
             },
           };
         }
@@ -258,6 +296,14 @@ export function Student({
     neck.rotation.x += look.pitch * 0.5;
     head.rotation.y += look.yaw * 0.55;
     head.rotation.x += look.pitch * 0.5;
+    if (actionRef) {
+      const { swing, dodge } = actionRef.current;
+      character.rig.bones.upperArmR.rotation.x -= swing * 1.65;
+      character.rig.bones.upperArmR.rotation.z -= swing * 0.6;
+      character.rig.bones.lowerArmR.rotation.x -= swing * 0.7;
+      character.rig.bones.chest.rotation.y += swing * 0.35;
+      character.rig.bones.spine.rotation.x += dodge * 0.45;
+    }
   });
 
   return <primitive object={character.group} />;

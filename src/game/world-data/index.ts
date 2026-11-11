@@ -18,5 +18,7 @@ export * from "./vegetation.ts";
 export * from "./props.ts";
 export * from "./benchmarks.ts";
 export * from "./lighting.ts";
+export * from "./local-lights.ts";
+export * from "./encounters.ts";
 export * from "./zones/index.ts";
 export * from "./zones/secondary.ts";
