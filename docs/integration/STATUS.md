@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 大門與大忠警衛站是開口門柱，路從中間過，碰撞只在門柱。狀態提示仍在長條外面換行。精度仍是 estimated。 | 來源 `d930724` | `integrating` |
+| 美術與場景 | 大門與大忠警衛站是開口門柱，路從中間過，碰撞只在門柱。狀態提示仍在長條外面換行。精度仍是 estimated。 | 來源 `d930724` | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | `kind: "gate"` 與 `gatePiers`。門柱寬 1.5 |
 | 已驗證 | `npm run typecheck` 通過。`npm test` 249 通過，其中 `scripts/axis-gates.test.mjs` 通過：兩座站的中心半徑 0.6 m 不被推開，門柱中心會被推開。`npm run build:site` 通過。瀏覽器 1280×720：人站在兩根紅柱與綠瓦橫樑中間，路從開口穿過，`pageErrors` 空。同一站跨系統路線：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401 |
-| 已合併 | 進行中。來源 `cursor/axis-silhouettes-1a71` @ `d930724`。衝突用手解，狀態提示的檢查點留下 |
+| 已合併 | 是。遊戲程式在 `df17317`。來源 `d930724`。`main` 未受保護、沒有必須的 check，使用快轉 |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍

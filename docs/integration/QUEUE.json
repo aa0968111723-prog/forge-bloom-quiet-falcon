@@ -534,8 +534,9 @@
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json"],
-      "merged": false,
-      "nextAction": "Fast-forward only while origin/main is still b55f311 and the source head is still d930724."
+      "merged": true,
+      "mergeSha": "df1731751b389d02e16025b47e0c0d54e57a25cc",
+      "nextAction": "None. Source d930724 is an ancestor of main. Do not rerun the route unless the game SHA changes."
     }
   ]
 }
