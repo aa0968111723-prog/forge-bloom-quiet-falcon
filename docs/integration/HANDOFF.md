@@ -8,7 +8,8 @@
 - 來源：PR #6，分支 `cursor/tamkang-art-pipeline-1a71`，head `017b755`，base `main` @ `71f4d3c`。
 - 不要把提交推回美術線分支。美術代理若還在，那條分支是它的。
 - 不要改「淡江世界遊戲內容」「後端存檔同步」正在用的工作區。本輪它們還沒有遠端分支。
-- `art-m1` 是 `ready_to_merge`。通過條件後合併的是整合分支，不是單獨再合併 PR #6（否則會少掉 glance 與骨架修正）。
+- `art-m1` 驗收已過，但合併受阻。PR #7（head `b3db57b`）`mergeable_state` 為 clean，`PUT /pulls/7/merge` 回 403。沒有推 main。
+- 通過條件後要合併的是 PR #7，不是單獨再合併 PR #6（否則會少掉 glance 與骨架修正）。
 
 ## 本輪已驗證
 

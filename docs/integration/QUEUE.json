@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11T15:41:00Z",
+  "updated": "2026-11-11T15:45:00Z",
   "base": "main",
   "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
   "items": [
@@ -7,7 +7,7 @@
       "id": "art-m1",
       "line": "art",
       "scope": "Asset pipeline, protagonist kit, quiz creature, engineering skill effect, plus integration fixes for head glance and skeleton disposal.",
-      "status": "ready_to_merge",
+      "status": "blocked",
       "pr": 6,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/6",
       "integrationBranch": "cursor/integration-art-m1-3395",
@@ -54,7 +54,10 @@
       ],
       "merged": false,
       "mergeSha": null,
-      "nextAction": "Reconfirm source head 017b755 and main 71f4d3c, merge the integration PR, then record mergeSha. Do not merge PR 6 separately."
+      "integrationPr": 7,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/7",
+      "verifiedHead": "b3db57bdee87e87c89423c8ad747e4e5eab978f0",
+      "nextAction": "PR #7 is mergeable and checks passed at b3db57b, but PUT /pulls/7/merge returned 403 (token cannot merge). Do not push main directly and do not merge PR #6 alone. Retry the merge API when the token can merge, or leave #7 for a principal who can."
     },
     {
       "id": "backend-sync",

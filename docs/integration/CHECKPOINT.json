@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11T15:41:00Z",
+  "updated": "2026-11-11T15:45:00Z",
   "branch": "cursor/integration-art-m1-3395",
   "worktree": "/tmp/worktrees/art-pr6",
   "mainSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
@@ -13,7 +13,12 @@
     "route": "ok, pageErrors empty, SwiftShader host only"
   },
   "notMerged": ["art-m1"],
-  "blocked": [],
+  "blocked": [
+    {
+      "id": "art-m1",
+      "reason": "GitHub merge API returned 403 Resource not accessible by personal access token for PR #7. mergeable_state was clean, base 71f4d3c, head b3db57b, no check runs."
+    }
+  ],
   "waiting": ["backend-sync", "content-pack"],
-  "next_action": "Reconfirm PR 6 head is still 017b755 and main is still 71f4d3c. Merge cursor/integration-art-m1-3395 into main. Fetch the merge SHA, smoke that tree, write mergeSha into QUEUE.json. Then check whether the backend or content agents have pushed a branch."
+  "next_action": "Retry merging PR #7 when the token is allowed to merge. Do not force-push main. On wake, re-list remote heads: if backend or content has a new branch, start that item; if PR #7 is merged, record mergeSha and smoke the merge tree."
 }

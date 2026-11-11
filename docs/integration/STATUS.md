@@ -24,7 +24,7 @@
 | --- | --- |
 | 已製作 | 美術 M1 與上述兩項修正，在整合分支 |
 | 已驗證 | 本機 typecheck、217 項測試、靜態建置、省電畫質五段路線（SwiftShader，見 `VALIDATION.md`） |
-| 已合併 | 尚未。合併 SHA 寫入 `QUEUE.json` 後才算 |
+| 已合併 | 否。PR #7 驗收已過、`mergeable_state` 為 clean，但合併 API 回 403，token 不能合併。沒有直接推 main |
 | 已部署 | 否。本輪不部署 |
 
 ## 尚未完成的遊戲範圍
