@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-11T19:56:00Z",
+  "updated": "2026-11-11T20:18:00Z",
   "task_ids": [
     "ART-061"
   ],
-  "branch": "cursor/sign-names-1a71",
-  "base": "main@95bd4d42035c",
+  "branch": "cursor/coin-spread-1a71",
+  "base": "main@5f6080baa691",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Science and the pool now use the secretariat sign names. Coordinates stay estimated and the campus-map PDF is still unread building by building. The business tower stays a study podium, the title camera stays clear, and high-quality detailed canopies still switch past 48 m. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "Business coins spread around one target, and the basic slash chambers in front of the torso. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館, both estimated. The business tower stays a study podium, the title camera stays clear, and high-quality detailed canopies still switch past 48 m. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

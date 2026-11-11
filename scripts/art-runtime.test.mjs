@@ -87,6 +87,7 @@ test("the basic slash travels from the right to the left with the attack clip", 
   const follow = basicSwingPose(0.25, false);
   const gone = basicSwingPose(0.46, false);
   assert.ok(chamber.visible && chamber.x < -0.2, `chamber should be on the character's right, x ${chamber.x}`);
+  assert.ok(chamber.z < -0.5, `the chambered blade should sit in front of the torso, z ${chamber.z}`);
   assert.ok(follow.visible && follow.x > 0.3, `follow-through should be on the character's left, x ${follow.x}`);
   assert.ok(contact.x > chamber.x && contact.x < follow.x, "the blade is between the two ends at the hit frame");
   assert.equal(gone.visible, false);

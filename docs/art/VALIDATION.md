@@ -185,3 +185,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 17 輪（標示用字）— 2026-11-11
 
 `node --test scripts/official-signs.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。秘書處建物雙語頁只用來改兩個標示：科學館是「騮先紀念科學館」，泳館是「紹謨紀念游泳館」。沒有複製該表。座標與 `fieldChecked` 沒有改，精度仍是 estimated。定步名牌，頁面無錯誤：`docs/art/evidence/signs/science.jpg`、`swimming.jpg`。
+
+## 第 18 輪（商管金幣與普攻蓄力）— 2026-11-11
+
+`node --test scripts/art-pipeline.test.mjs scripts/art-runtime.test.mjs` 通過。`tsc --noEmit` 通過。只有一個命中點時，金幣彼此距離超過 0.8 m。蓄力幀刃的 local z 在 -0.5 之前，也就是身前。定步飛行幀，頁面無錯誤：`docs/art/evidence/coins/travel.jpg`。標示用字留在第 17 輪。

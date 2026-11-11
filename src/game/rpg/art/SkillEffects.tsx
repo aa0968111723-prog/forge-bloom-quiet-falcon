@@ -93,7 +93,7 @@ export function SkillEffects() {
     for(const group of effects.children) {
       group.visible=group.name===name;
       if(!group.visible)continue;
-      if(name==="basic"){group.position.x=swing.x;group.rotation.z=swing.roll;group.rotation.y=0;}
+      if(name==="basic"){group.position.x=swing.x;group.position.z=swing.z;group.rotation.z=swing.roll;group.rotation.y=0;}
       else group.rotation.y=reduced?0:fx.skill?t*.65:0;
       group.traverse(o=>{
         const mesh=o as THREE.Mesh;
