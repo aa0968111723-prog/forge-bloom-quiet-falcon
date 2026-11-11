@@ -693,6 +693,21 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "deck", "reviewing stand");
+  } else if (scenario === "shed") {
+    await hideHud(page);
+    await setPose(page, 450, -145, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(427, -177);
+      window.__controlsTest.setPhoto({
+        yaw: 0.7,
+        distance: 40,
+        height: 10,
+        lookY: 0,
+        target: { x: 427, y: y + 4, z: -177 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "duct", "wind tunnel shed");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
