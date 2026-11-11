@@ -136,6 +136,11 @@ export function resolveCollision(
   }
   px = Math.min(Math.max(px, WORLD_BOUNDS.minX + 8), WORLD_BOUNDS.maxX - 8);
   pz = Math.min(Math.max(pz, WORLD_BOUNDS.minZ + 8), WORLD_BOUNDS.maxZ - 8);
+  // The shore volume covers the whole map in Z. Near the north or south end the
+  // nearest face is that Z edge, and the world clamp then drops the player
+  // back inside the water. A saved position west of the bank always returns
+  // to the walkable side instead.
+  if (px < SHORE_X + radius) px = SHORE_X + radius;
   return { x: px, z: pz };
 }
 

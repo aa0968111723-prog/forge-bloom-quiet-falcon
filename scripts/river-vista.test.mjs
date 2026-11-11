@@ -20,3 +20,13 @@ test("the river vista stays west of the last walkable shore", () => {
   const meadow = resolveCollision(-70, -298, 0.6);
   assert.ok(meadow.x < -60, "the meadow west of the library stays walkable");
 });
+
+test("a saved position in the vista corner returns to the walkable shore", () => {
+  for (const z of [-640, 100]) {
+    const stood = resolveCollision(-180, z, 0.42);
+    assert.ok(stood.x >= SHORE_X + 0.42 - 1e-6, `corner z ${z} stayed in the water at x ${stood.x}`);
+    const again = resolveCollision(stood.x, stood.z, 0.42);
+    assert.ok(Math.abs(again.x - stood.x) < 1e-6, `corner z ${z} was pushed back west`);
+    assert.equal(again.z, stood.z);
+  }
+});
