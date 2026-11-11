@@ -17,6 +17,9 @@
     "test": "node scripts/run-tests.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "art:export": "node scripts/art/export-assets.mjs",
+    "art:validate": "node scripts/art/validate-assets.mjs",
+    "art:route": "node scripts/art/capture-route.mjs",
     "dev:site": "vite --config vite.static.config.ts",
     "build:site": "vite build --config vite.static.config.ts",
     "preview:site": "vite preview --config vite.static.config.ts --host 0.0.0.0 --port 8088"

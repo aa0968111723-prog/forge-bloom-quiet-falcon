@@ -6,6 +6,10 @@ declare global {
     __characterTest?: {
       weights: { idle: number; walk: number; run: number; walkRate: number };
       boneRotation: (name: string) => { x: number; y: number; z: number } | null;
+      /** One-shot action currently playing on the player, if any. */
+      action?: string | null;
+      /** QA: start a one-shot clip without a game event (pose review only). */
+      play?: (name: string) => void;
     };
     /** WebGL renderer statistics, exposed for the perf regression. */
     __perfTest?: {
@@ -33,6 +37,8 @@ declare global {
       getBenchmark?: () => string | null;
       /** Adjust camera yaw without resetting velocity. */
       setYaw?: (yaw: number) => void;
+      /** QA photo camera orbiting the player; null restores the follow camera. */
+      setPhoto?: (p: { distance: number; height: number; yaw: number; lookY: number } | null) => void;
     };
   }
 }

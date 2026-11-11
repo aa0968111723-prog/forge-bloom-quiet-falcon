@@ -1,0 +1,44 @@
+{
+  "$comment": "Source of truth for art asset records. scripts/art/export-assets.mjs adds measured metrics and writes public/game-art/manifest.json; scripts/art/validate-assets.mjs checks both.",
+  "schemaVersion": 1,
+  "categories": ["character", "creature", "campus", "prop", "vegetation", "material", "vfx", "ui", "audio"],
+  "statuses": ["planned", "in_progress", "exported", "integrated", "needs_review", "accepted", "blocked"],
+  "assets": [
+    {
+      "id": "char.student-kit",
+      "name": "學生角色組（主角預設）",
+      "category": "character",
+      "version": 1,
+      "source": {
+        "type": "procedural-ts",
+        "entry": "art/characters/student-kit/kit.ts",
+        "files": [
+          "art/characters/student-kit/spec.ts",
+          "art/characters/student-kit/skeleton.ts",
+          "art/characters/student-kit/body.ts",
+          "art/characters/student-kit/hair.ts",
+          "art/characters/student-kit/backpack.ts",
+          "art/characters/student-kit/atlas.ts",
+          "art/characters/student-kit/clips.ts",
+          "art/shared/builder.ts",
+          "art/shared/loft.ts",
+          "art/shared/raster.ts"
+        ]
+      },
+      "license": "Project-original: code-authored geometry, texture and animation; no third-party content.",
+      "output": "public/game-art/characters/student-kit.glb",
+      "units": "m",
+      "pivot": "ground between the feet",
+      "forward": "+Z",
+      "up": "+Y",
+      "skinned": true,
+      "animations": ["idle", "walk", "run", "attack", "skill", "dodge", "hurt", "interact"],
+      "budget": { "triangles": 22000, "bytes": 2600000, "textureSize": 512, "textures": 1 },
+      "runtime": ["src/game/art/character/Protagonist.tsx"],
+      "status": "integrated",
+      "review": "needs_review",
+      "evidence": [],
+      "notes": "Protagonist preset: dark chestnut hair with a small tied tail, ivory tee, open jade overshirt, beige shorts, white sneakers, canvas backpack with turtle charm. NPC presets pending."
+    }
+  ]
+}
