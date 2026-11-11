@@ -393,7 +393,41 @@
       "conflicts": [],
       "merged": true,
       "mergeSha": "5f7b6aa157917a8bd7e3d7cb6c32032ac1b8fc17",
-      "nextAction": "None. The route is on main. Do not redo it unless the game SHA changes."
+      "nextAction": "None. The route is on main. The HUD readout that follows does not require rerunning it."
+    },
+    {
+      "id": "art-hud-status",
+      "line": "art",
+      "scope": "Life, focus, and experience show short labels on contrast-safe bars. The long current/max/change sentence stays in the aria-label. At 390px the target card sits below the status card.",
+      "status": "verified",
+      "pr": 24,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/24",
+      "integrationBranch": "cursor/integration-hud-status-3395",
+      "sourceBranch": "cursor/hud-status-1a71",
+      "baseSha": "b567b60ffc7bf0a0091f1e79a87dbaa2a8c9012e",
+      "headSha": "aeda26c3622de77ffbd66c8e86d73627f3d40150",
+      "dependencies": ["art-basic-swing"],
+      "sharedFiles": [
+        "src/game/rpg/status.ts",
+        "src/game/rpg/AdventureHud.tsx",
+        "src/game/rpg/adventure.css",
+        "scripts/rpg-runtime.test.mjs"
+      ],
+      "checks": {
+        "conflicts": "art checkpoint, art status, art validation, capture-art. Kept lighting, interiors, and the swing record. Took the short-label behavior and the hud capture scenario.",
+        "typecheck": "pass",
+        "npmTest": "246 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "1280 and 390 short labels, aria keeps 目前值, hp 62 then 20 updates the bar, narrow target below the card, pageErrors empty"
+      },
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
+      "merged": false,
+      "nextAction": "Fast-forward main only while origin/main is still b567b60 and the source head is still aeda26c."
     }
   ]
 }

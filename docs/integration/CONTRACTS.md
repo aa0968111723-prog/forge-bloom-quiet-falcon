@@ -38,6 +38,8 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 委託面板的 `claim(id)` 只結 `MISSIONS`。同一個 `claimed` 陣列也收校園事件的 `quest-*` id。校園獎勵走 `grantQuestReward`，不另開背包。學期故事裡還有另一個同名函式，兩本帳沒有合併。
 
+狀態卡可見文字來自 `BarReadout.short`（`src/game/rpg/status.ts`），形如「生命 62/108」。小數最多一位。長句 `line`（目前值、最大值、變化）只放在計量條的 `aria-label`。填色是生命 `#e09a8c`、專注 `#8eb8b4`、經驗 `#ddc691`，軌道 `#cfc6b0`，字色沿用 `--ad-ink`。窄於 700px 時 `.ad-target` 的 `top` 是 208px。
+
 敘事預覽的 `quest-reward` 呼叫既有 `grantQuestReward`。非法效果（`set-hp`、`add-item`、`eval`、`script`、`mutate-save`）整段取消。預覽把結果寫在 `tk-narrative-preview-fixture-v1`。
 
 校園進入點用同一條白名單。差額寫回主存檔的經驗、筆記、學分與 `claimed`。事件旗標、任務節點與已解決事件放在同一份存檔的 `narrative`，不是第二份生命或背包。內容套件的 `MAIN_INTEGRATION` 常數仍是 false。

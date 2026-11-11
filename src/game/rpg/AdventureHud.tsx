@@ -994,11 +994,11 @@ function LifeMeter() {
       aria-valuemax={bar.max}
       aria-label={bar.line}
     >
-      <span>{bar.line}</span>
+      <i style={{ width: bar.fraction * 100 + "%" }} />
+      <span>{bar.short}</span>
       {bar.cues.map((cue) => (
         <StatusCueMark key={cue.id} id={cue.id} />
       ))}
-      <i style={{ width: bar.fraction * 100 + "%" }} />
     </div>
   );
 }
@@ -1015,11 +1015,11 @@ function FocusMeter() {
       aria-valuemax={bar.max}
       aria-label={bar.line}
     >
-      <span>{bar.line}</span>
+      <i style={{ width: bar.fraction * 100 + "%" }} />
+      <span>{bar.short}</span>
       {bar.cues.map((cue) => (
         <StatusCueMark key={cue.id} id={cue.id} />
       ))}
-      <i style={{ width: bar.fraction * 100 + "%" }} />
     </div>
   );
 }
@@ -1038,11 +1038,11 @@ function ProgressMeter() {
         aria-valuemax={bar.max}
         aria-label={bar.line}
       >
-        <span>{bar.line}</span>
+        <i style={{ width: bar.fraction * 100 + "%" }} />
+        <span>{bar.short}</span>
         {bar.cues.map((cue) => (
           <StatusCueMark key={cue.id} id={cue.id} />
         ))}
-        <i style={{ width: bar.fraction * 100 + "%" }} />
       </div>
     </>
   );

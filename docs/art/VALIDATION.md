@@ -130,3 +130,16 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 7 輪（光照與大道道具）— 2026-11-11
 
 同一站點 `(0, -80)`、高畫質、定步。`timeOfDay` 依序為 day、sunset、night、wet，頁面沒有錯誤。夕照與夜晚路燈亮起，雨後鋪面變暗反光。畫面：`docs/art/evidence/m2/lighting-avenue.jpg`。陰影尺寸跟畫質設定，真機幀時間仍是 `pending-device`。
+
+## 第 8 輪（狀態卡長條）— 2026-11-11
+
+`node --test --test-name-pattern "statusbar shows current max"` 通過。`tsc --noEmit` 通過。可見短標籤不含「目前值」；`line` 仍含目前值、最大值、變化。專注 41.28 的短標籤是「專注 41.3/100」。
+
+宮燈大道定步截圖（`scripts/art/capture-art.mjs` scenario `hud`，`hp 62 / focus 40 / xp 80`，回復後專注顯示 41.3）：
+
+| 視窗 | 卡片文字 | 畫面 |
+| --- | --- | --- |
+| 1280×720 | 生命 62/108、專注 41.3/100 恢復、經驗 20/180 升級 | `docs/art/evidence/hud/status-desktop.jpg` |
+| 390×780 | 同上；目標卡在狀態卡下方，經驗條未被蓋住 | `docs/art/evidence/hud/status-narrow.jpg` |
+
+填色與墨色 `#102e32` 的對比：生命 `#e09a8c` 6.29、專注 `#8eb8b4` 6.63、經驗 `#ddc691` 8.61、空軌 `#cfc6b0` 8.47，皆高於 4.5。窄視窗與 reduced-motion 仍使用 `var(--ad-ink)` 與 `var(--ad-type)`。

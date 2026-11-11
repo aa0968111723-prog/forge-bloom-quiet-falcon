@@ -55,6 +55,8 @@ export type BarReadout = {
   maxChange: number;
   changeText: string;
   line: string;
+  /** Short label drawn on the bar. The long sentence stays in `line` for assistive text. */
+  short: string;
   full: boolean;
   zero: boolean;
   low: boolean;
@@ -127,6 +129,14 @@ function fractionOf(current: number, max: number) {
   return Math.min(1, Math.max(0, current / max));
 }
 
+/** One decimal at most, so a regen fraction does not spill across the bar. */
+function meterCount(value: number) {
+  if (!Number.isFinite(value)) return "0";
+  const rounded = Math.round(value * 10) / 10;
+  const clean = Object.is(rounded, -0) ? 0 : rounded;
+  return Number.isInteger(clean) ? String(clean) : clean.toFixed(1);
+}
+
 function bar(args: {
   label: string;
   current: number;
@@ -146,6 +156,7 @@ function bar(args: {
     maxChange: args.maxChange,
     changeText: text,
     line: `${args.label} 目前值 ${args.current} 最大值 ${args.max} ${text}`,
+    short: `${args.label === "等級" ? "經驗" : args.label} ${meterCount(args.current)}/${meterCount(args.max)}`,
     full: kind.full,
     zero: kind.zero,
     low: kind.low,

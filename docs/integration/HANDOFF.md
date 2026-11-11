@@ -4,30 +4,19 @@
 
 ## 現在
 
-- `origin/main` 是 `df63d01261ad7d7a0e301b8bf91b1d6c473cbae3`。PR #10 已合併。遊戲合併提交是 `be6fdd6`，其後這份記錄只改文件。
-- 來源美術 head 仍是 `8d5ffd08dad9f1727a2028bdf683f7355844d9c7`。
-- 後端草稿 PR #9，分支 `feature/backend-game-services`，head `a38ef8e41cfddc9520e60b62a992bae16a4648d5`，基底 `71f4d3c`。下一項用新 worktree。
-- 內容沒有新提交。不要改其他代理的工作區。
+- 這次整合是狀態卡短標籤。來源 PR #24，`cursor/hud-status-1a71` @ `aeda26c`。接到 `origin/main` `b567b60`。
+- 可見文字是「生命 62/108」。長句留在 `aria-label`。390×780 的目標卡在狀態卡下面。
+- `npm run typecheck`、`npm test`（246）、`npm run build:site` 都通過。瀏覽器沒有 page error。
 
-## 本輪已驗證（M2，尚未進 main）
+## 本輪已驗證（狀態卡）
 
-在 `/tmp/worktrees/art-m2` 的 `be6fdd6`：`npm run typecheck` 通過，`npm test` 225 通過，衝突檔 eslint 0，`npm run build:site` 通過。靜態預覽 `http://127.0.0.1:8090/` 的省電五段路線：`quiz-2` 65→25，室內宮燈教室可見主角，返回戶外，`pageErrors` 空。另拍到分組報告聚合體 145/145、期中考監視者 240/240、期末・截止日 520/520。主機是 SwiftShader。
+在 `/tmp/worktrees/hud-status`。1280×720 與 390×780 都讀到短標籤，生命從 62 改成 20 後標籤與填色一起變。窄視窗目標卡上緣 208，狀態卡下緣 188。主機是 SwiftShader。
 
 ## 下一步
 
-靜態產物預覽 `http://127.0.0.1:8093/` 已走完整條路線，結果與開發站相同：經驗 20、筆記 19、突襲小考 65→45、第二客戶端、`revision_conflict`、登出 401。遊戲程式仍是 `27e180c`。
+先確認 `origin/main` 仍是 `b567b60`、來源 head 仍是 `aeda26c`，再快轉。快轉之後下一次先 `git fetch`。這次只改讀數，不要為了它重跑跨系統路線。遊戲程式 SHA 會離開 `27e180c`。
 
-遠端沒有超前 `main` 的分支。下一次先 `git fetch` 看有沒有新 head。遊戲程式沒變就不要重跑路線，也不要為了把檢查點 SHA 對齊再寫一筆空記錄。
-
-路線命令：
-
-```sh
-node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8086/ /tmp/integration-route
-```
-
-靜態站要先開著。這次結果：經驗 20、筆記 19、突襲小考 65→45、第二客戶端下載到化學學系、衝突是 `revision_conflict`、登出後 401。
-
-遠端沒有超前 `main` 的分支。INT-01 與 INT-12 維持不動。不要新增學期選擇，也不要做第二套獎勵帳。
+INT-01 與 INT-12 維持不動。不要新增學期選擇，也不要做第二套獎勵帳。ART-090 剩下技能圖示、地圖標記、受擊回饋。
 
 ## 不要做
 

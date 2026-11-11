@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T16:05:00Z",
-  "branch": "main",
-  "mainSha": "ac27ee71113b2b1da8bf4c5261c5613539cbb443",
-  "gameSha": "27e180cefd4648995db484e875660f9b821df64b",
-  "activeItem": null,
-  "sourceHead": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
-  "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
+  "updated": "2026-11-11T17:30:00Z",
+  "branch": "cursor/integration-hud-status-3395",
+  "mainSha": "b567b60ffc7bf0a0091f1e79a87dbaa2a8c9012e",
+  "gameSha": "b567b60ffc7bf0a0091f1e79a87dbaa2a8c9012e",
+  "activeItem": "art-hud-status",
+  "sourceHead": "aeda26c3622de77ffbd66c8e86d73627f3d40150",
+  "integrationHead": null,
   "verified": {
-    "artM2": "typecheck, 225 tests, eslint 0 on resolved files, build:site, low-tier route and report/exam/final screenshots on be6fdd6. SwiftShader only."
+    "hud": "typecheck, 246 tests, build:site, browser 1280 and 390. Short labels on the bars, long sentence in aria-label, narrow target below the status card, pageErrors empty."
   },
-  "notMerged": [],
+  "notMerged": ["cursor/hud-status-1a71@aeda26c"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The built static preview on 8093 passed the full route: xp 20, notes 19, quest once, quiz-2 65 to 45, reload, first sync revision 1, second client, revision_conflict, offline queue, logout 401. Game code is still 27e180cefd4648995db484e875660f9b821df64b. Re-fetch origin/main. No remote head is ahead. Do not redo the route unless the game SHA changes. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "HUD short labels are verified on this integration branch and not yet on origin/main. Parent main is b567b60. Source is aeda26c and must still be that commit before the fast-forward. Visible text is 生命 62/108, 專注 40/100, 經驗 20/180. The aria-label still contains 目前值 and 最大值. At 390px the target card top is 208 and the status card ends at 188. Do not rerun the cross-system route for this readout. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Skill icons, map markers, and hit feedback are still open. Phone and RTX 3060 remain pending-device."
 }

@@ -761,9 +761,13 @@
       "depends": [
         "ART-020"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "沿用既有流程；修正狀態卡純文字讀數",
-      "evidence": []
+      "evidence": [
+        "docs/art/evidence/hud/status-desktop.jpg",
+        "docs/art/evidence/hud/status-narrow.jpg"
+      ],
+      "notes": "狀態卡可見讀數已改成短標籤長條，長句留在 aria-label。技能圖示、地圖標記、受擊回饋仍未做。"
     },
     {
       "id": "ART-091",

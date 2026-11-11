@@ -14,6 +14,7 @@
  *   creature     --enemy <id>: idle turnaround at its spawn, then chase, windup
  *                (telegraph), strike, hurt and defeat against the real AI
  *   swing        basic attack on 宮燈大道: chamber, contact, follow-through
+ *   hud          status card short labels; keeps the HUD visible
  *   skills       each non-engineering college cast on 宮燈大道: release, travel,
  *                impact, fade, against quiz-2 and the real attack()
  *
@@ -497,6 +498,16 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "hud") {
+    await setPose(page, 0, -80, 0);
+    await settle(page, { stableFrames: 3 });
+    await page.evaluate(() => window.__rpgQA.rpg.setState({ hp: 62, focus: 40, xp: 80 }));
+    await frames(page, 4);
+    const read = await page.evaluate(() => {
+      const card = document.querySelector(".ad-status");
+      return card ? card.innerText.replace(/\s+/g, " ").trim() : "missing";
+    });
+    await shot(page, "status", `viewport ${width}x${height} ${read}`);
   } else if (scenario === "avenue") {
     await setPose(page, 0, -70, 0);
     await settle(page, { stableFrames: 4 });
