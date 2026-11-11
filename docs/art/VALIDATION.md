@@ -255,3 +255,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 32 輪（學生活動中心）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。學生活動中心是一層門廳、南向玻璃、遮陽板和退縮的上層，名牌寫著學生活動中心。沒有綠瓦，也沒有共用窗帶。覺軒仍是坡頂，會議中心仍是低寬會堂。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/activity/hall.jpg`。建築系館留在第 31 輪。
+
+## 第 33 輪（背包穿模）— 2026-11-11
+
+`node --test --test-name-pattern "backpack stays" scripts/art-pipeline.test.mjs` 通過。每個動作片段取 17 個時間點，背包骨換到胸口局部座標。最靠近胸口的是 dodge，局部 z=-0.190，限制是 -0.15。背包本體再往前 6.5 cm，仍在關節後面。沒有新增音效。學生活動中心留在第 32 輪。

@@ -219,6 +219,12 @@
 
 畫面：`docs/art/evidence/activity/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：背包穿模（ART-034 的一部分）
+
+每個動作片段的背包骨都留在胸口後方。最靠近的是 dodge，局部 z=-0.190。背包本體再往前 6.5 cm，仍沒有進到胸口關節。學生活動中心留著。
+
+測試：`scripts/art-pipeline.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。學生活動中心已從綠瓦分開。建築系館、覺軒與會議中心留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。背包在每個片段都留在胸口後面。學生活動中心、建築系館與覺軒留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

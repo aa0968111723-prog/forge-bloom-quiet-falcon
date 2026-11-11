@@ -168,6 +168,29 @@ test("the face looks forward (+Z) and the backpack clears the jacket at rest", (
   }
 });
 
+test("the backpack stays behind the chest through every clip", () => {
+  assert.ok(kit.clips.length >= 8);
+  let worst = { name: "", z: -Infinity };
+  for (const clip of kit.clips) {
+    const scene = kit.scene.clone(true);
+    const mixer = new THREE.AnimationMixer(scene);
+    mixer.clipAction(clip).play();
+    const chest = scene.getObjectByName("chest");
+    const bag = scene.getObjectByName("bag");
+    let closest = -Infinity;
+    for (let i = 0; i <= 16; i++) {
+      mixer.setTime((clip.duration * i) / 16);
+      scene.updateMatrixWorld(true);
+      const local = chest.worldToLocal(bag.getWorldPosition(new THREE.Vector3()));
+      closest = Math.max(closest, local.z);
+    }
+    // The bag bone rests 19 cm behind the chest. Its body reaches 6.5 cm forward of the bone.
+    if (closest > worst.z) worst = { name: clip.name, z: closest };
+    assert.ok(closest < -0.15, `${clip.name} bag enters the chest at local z ${closest.toFixed(3)}`);
+  }
+  console.log(`backpack clearance: closest ${worst.name} local z ${worst.z.toFixed(3)} (limit -0.15)`);
+});
+
 /**
  * Foot slip: in-place gait, so during stance the planted foot should move
  * backward at ground speed. Measure the stance foot's speed relative to the
