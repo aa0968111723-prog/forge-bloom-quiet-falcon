@@ -263,3 +263,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 34 輪（工學大樓）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。工學大樓是深色基座加退縮的淺色塔樓，兩條窗帶貼著退縮的南牆，名牌寫著工學大樓。沒有實驗樓的屋頂設備。工學館與化學館仍是實驗樓。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/engineering/tower.jpg`。勤務監控留在第 33 輪。
+
+## 第 35 輪（課程地圖標記）— 2026-11-11
+
+`node --test scripts/lesson-marker.test.mjs` 通過。`tsc --noEmit` 通過。五個進行中的課程步驟各對應兩個字：選系、移動、補給、普攻、技能。完成與沒有課程時不寫字。字只畫在展開的校園地圖，小地圖仍是金圈。定步把課程設成移動、標記放在 (0, -80)，打開地圖，頁面無錯誤：`docs/art/evidence/map/lesson.jpg`。金圈上方看得到「移動」。工學大樓留在第 34 輪。沒有新增音效。

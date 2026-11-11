@@ -104,6 +104,7 @@ import {
   openLessonReview,
   skipLesson,
 } from "./lesson";
+import { lessonMapLabel } from "./lesson-label";
 
 const PANELS = [
   ["inventory", CHROME_CONTROLS.inventory, Backpack, "I"],
@@ -749,15 +750,28 @@ function MapGraphic({ compact = false }: { compact?: boolean }) {
         />
       ))}
       {marker ? (
-        <circle
-          key={`${lesson}:${lessonAnchor?.x ?? ""}:${lessonAnchor?.z ?? ""}`}
-          cx={px(marker.x)}
-          cy={pz(marker.z)}
-          r={compact ? 7 : 10}
-          fill="none"
-          stroke="#ddaf61"
-          strokeWidth={compact ? 2 : 3}
-        />
+        <g key={`${lesson}:${lessonAnchor?.x ?? ""}:${lessonAnchor?.z ?? ""}`}>
+          <circle
+            cx={px(marker.x)}
+            cy={pz(marker.z)}
+            r={compact ? 7 : 10}
+            fill="none"
+            stroke="#ddaf61"
+            strokeWidth={compact ? 2 : 3}
+          />
+          {!compact && (
+            <text
+              x={px(marker.x)}
+              y={pz(marker.z) - 16}
+              textAnchor="middle"
+              fill="#f4e2b8"
+              fontSize="16"
+              fontWeight="700"
+            >
+              {lessonMapLabel(lesson)}
+            </text>
+          )}
+        </g>
       ) : null}
       <g
         transform={

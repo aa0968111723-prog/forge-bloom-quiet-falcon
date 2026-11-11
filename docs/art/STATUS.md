@@ -223,14 +223,18 @@
 
 畫面：`docs/art/evidence/watch/post.jpg`。測試：`scripts/context-lod.test.mjs`。
 
-## 下一步
-
 ## 階段：工學大樓（ART-064 的一部分）
 
 理工區這棟不再跟化學館共用實驗樓。現在是深色基座加退縮的淺色塔樓，窗帶貼著退縮的牆。工學館與化學館仍是實驗樓。外形仍是 estimated。勤務監控留著。
 
 畫面：`docs/art/evidence/engineering/tower.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：課程地圖標記（ART-090 的一部分）
+
+展開的校園地圖在課程金圈上方寫兩個字。進行中的步驟是選系、移動、補給、普攻、技能。小地圖仍只畫金圈，因為那個比例下兩個字會縮成幾個像素。工學大樓仍是退縮塔樓。
+
+畫面：`docs/art/evidence/map/lesson.jpg`。測試：`scripts/lesson-marker.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。工學大樓已從實驗樓分開。工學館、化學館、風洞與勤務監控留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。課程標記在展開地圖上可讀。工學館、化學館、風洞與勤務監控留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

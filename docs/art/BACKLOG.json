@@ -822,16 +822,18 @@
       "depends": [
         "ART-020"
       ],
-      "status": "in_progress",
+      "status": "needs_review",
       "acceptance": "沿用既有流程；修正狀態卡純文字讀數",
       "evidence": [
         "docs/art/evidence/hud/status-desktop.jpg",
         "docs/art/evidence/hud/status-narrow.jpg",
         "docs/art/evidence/icons/engineering.jpg",
         "docs/art/evidence/icons/hurt.jpg",
-        "docs/art/evidence/map/zones.jpg"
+        "docs/art/evidence/map/zones.jpg",
+        "docs/art/evidence/map/lesson.jpg",
+        "scripts/lesson-marker.test.mjs"
       ],
-      "notes": "狀態卡是短標籤長條。九學院技能各有一個圖示，工程是製圖圓規。受擊時畫面邊緣變紅，狀態卡顯示受傷。地圖上七區各有顏色與圖例，建物描邊跟清冊分區走，不把重疊的估計範圍畫成界線。課程標記仍在。"
+      "notes": "狀態卡是短標籤長條。九學院技能各有一個圖示，工程是製圖圓規。受擊時畫面邊緣變紅，狀態卡顯示受傷。地圖上七區各有顏色與圖例，建物描邊跟清冊分區走，不把重疊的估計範圍畫成界線。展開的校園地圖在課程金圈上方寫兩個字：選系、移動、補給、普攻、技能。小地圖仍只畫金圈。"
     },
     {
       "id": "ART-091",

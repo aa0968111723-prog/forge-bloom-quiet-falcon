@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-11T23:25:00Z",
+  "updated": "2026-11-11T23:35:00Z",
   "task_ids": [
-    "ART-064"
+    "ART-090"
   ],
-  "branch": "cursor/eng-tower-1a71",
-  "base": "main@592b6a1488b7",
+  "branch": "cursor/lesson-marker-1a71",
+  "base": "main@26c82cfb9688",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "222 pass / 0 fail",
+    "npm_test": "lesson-marker 1 pass; full suite not re-run this round",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "not re-run this round",
     "eslint_new_code": "0 errors"
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The engineering building is a dark podium with a set-back pale tower. The glass bands sit on the recessed face. The old engineering hall and chemistry stay lab blocks. The shape is estimated. The security post stays a low booth. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The open campus map writes a two-character lesson label above the gold ring. The minimap stays a ring. The engineering tower, old engineering hall, chemistry, and the security post stay as they are. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }
