@@ -432,6 +432,41 @@ export function ContextStructures({
             </group>
           );
         }
+        if (s.kind === "media-hall") {
+          const baseH = Math.max(2.8, s.size[1] * 0.36);
+          const upperH = Math.max(1, s.size[1] - baseH);
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh position={[0, baseH / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], baseH, s.size[2]]} />
+                <meshStandardMaterial color="#3e4650" roughness={0.72} />
+              </mesh>
+              <mesh position={[0, baseH + upperH / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], upperH, s.size[2]]} />
+                <meshStandardMaterial color="#e6e0d4" roughness={0.84} />
+              </mesh>
+              <mesh
+                name="context-detail"
+                userData={{ x: s.position[0], z: s.position[1] }}
+                position={[s.size[0] * 0.28, s.size[1] + 2.1, 0]}
+                castShadow
+              >
+                <boxGeometry args={[0.45, 4.2, 0.45]} />
+                <meshStandardMaterial color="#2c3338" roughness={0.55} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, baseH + 1.2, s.size[2] / 2 + 0.08]}
+                >
+                  <planeGeometry args={[Math.min(9, s.size[0] * 0.6), 1.2]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
         if (s.kind === "study-block") {
           const baseH = Math.max(2.4, s.size[1] * 0.18);
           const upperH = Math.max(1, s.size[1] - baseH);

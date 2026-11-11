@@ -187,6 +187,12 @@
 
 畫面：`docs/art/evidence/reitaku/house.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：傳播館（ART-065 的一部分）
+
+教學區的傳播館 O、Q 不再是綠瓦坡頂。現在是深色基座、淺色上層和屋頂天線。文學館仍是坡頂。天線不是實測。麗澤留著。
+
+畫面：`docs/art/evidence/media/o.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。麗澤已從松濤分開。風洞、司令臺、會議中心與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。傳播館已從坡頂分開。麗澤、風洞、司令臺與文學館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

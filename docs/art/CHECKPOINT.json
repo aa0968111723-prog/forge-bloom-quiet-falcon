@@ -1,10 +1,10 @@
 {
   "updated": "2026-11-11T21:02:00Z",
   "task_ids": [
-    "ART-068"
+    "ART-065"
   ],
-  "branch": "cursor/reitaku-mass-1a71",
-  "base": "main@24ffb9da4c9e",
+  "branch": "cursor/media-halls-1a71",
+  "base": "main@f82692dd2ae1",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Reitaku is a cool gray-green house with a glass lobby. Sungtao stays the warm dorm. The shape is estimated. The wind tunnel stays a low shed. The reviewing stand stays a low deck. Phone and RTX 3060 frame times stay pending-device. Do not add unlicensed audio."
+  "next_action": "Communication halls O and Q are dark-base media halls with a roof mast, not hip roofs. Humanities stays a hip roof. The mast is estimated. Reitaku stays a cool gray-green house. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

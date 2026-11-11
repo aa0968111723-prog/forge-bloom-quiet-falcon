@@ -235,3 +235,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 27 輪（麗澤國際學舍）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。麗澤是淺灰綠牆、底層玻璃門廳和平頂橫樑，名牌寫著麗澤國際學舍。松濤仍是暖色宿舍。精度仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/reitaku/house.jpg`。風洞留在第 26 輪。
+
+## 第 28 輪（傳播館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。傳播館 O、Q 是深色基座、淺色上層和屋頂天線，不再是綠瓦坡頂。文學館仍是坡頂。名牌寫著傳播館 O 館。精度仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/media/o.jpg`。麗澤留在第 27 輪。

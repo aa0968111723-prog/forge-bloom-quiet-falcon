@@ -613,9 +613,13 @@
         "ART-060",
         "ART-084"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "scripts/context-lod.test.mjs",
+        "docs/art/evidence/media/o.jpg"
+      ],
+      "notes": "傳播館 O、Q 從坡頂改成深色基座、淺色上層和屋頂天線。文學館仍是坡頂。天線不是實測。精度仍是 estimated。"
     },
     {
       "id": "ART-066",
