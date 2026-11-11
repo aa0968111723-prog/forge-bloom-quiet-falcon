@@ -251,8 +251,8 @@ test("each college skill is a different shape that reaches the cast range", () =
     }
     if (group.userData.shape === "ribbon") assert.ok(Math.abs(travel.scale.z - 14) < 0.05, "ribbon runs forward");
     if (group.userData.shape === "counter-rings") {
-      const outer = travel.getObjectByName("outer");
-      assert.ok(Math.abs(outer.rotation.x + Math.PI / 2) < 1e-6 && Math.abs(outer.rotation.z) < 1e-6, "resonance rings stay flat");
+      const ringMesh = travel.getObjectByName("outer").children[0];
+      assert.ok(Math.abs(ringMesh.rotation.x + Math.PI / 2) < 1e-6 && Math.abs(ringMesh.rotation.y) < 1e-6 && Math.abs(ringMesh.rotation.z) < 1e-6, "resonance rings stay flat");
     }
     assert.equal(group.getObjectByName("impact0").visible, true, group.name);
     assert.equal(group.getObjectByName("impact1").visible, false, `${group.name} has no second hit`);

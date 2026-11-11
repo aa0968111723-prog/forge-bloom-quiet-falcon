@@ -79,10 +79,14 @@ export function buildCollegeCasts(detailed: boolean): THREE.Group {
     ["outer", 0.92, 1],
     ["ringB", 0.55, 0.63],
   ] as const) {
+    // Spin lives on a parent so the ring's own rotation stays "flat" (x = -90°).
+    // Combining that with rotation.y on the same object stands the ring upright.
+    const spin = new THREE.Group();
+    spin.name = name;
     const mesh = new THREE.Mesh(new THREE.RingGeometry(innerR, outerR, 64), mat("#b9a2fa"));
     mesh.rotation.x = -Math.PI / 2;
-    mesh.name = name;
-    science.add(mesh);
+    spin.add(mesh);
+    science.add(spin);
   }
   add("science", "counter-rings", science, new THREE.CylinderGeometry(0.12, 0.12, 0.9, 8), "#b9a2fa", false);
   const ribbon = new THREE.Mesh(wavyRibbon(), mat("#f4b28c"));
@@ -239,9 +243,9 @@ export function layoutCollegeCast(group: THREE.Object3D, frame: CastFrame) {
     travel.scale.setScalar(Math.max(0.05, reach));
     // Spin around Y only. Setting Z on a ring that lies flat (rotation.x = -90°) stands it up.
     if (shape === "counter-rings") {
-      travel.rotation.y = frame.reduced ? 0 : frame.age * 2.2;
-      const innerRing = travel.getObjectByName("ringB");
-      if (innerRing) innerRing.rotation.y = frame.reduced ? 0 : -frame.age * 4.4;
+      const spin = frame.reduced ? 0 : frame.age * 2.2;
+      travel.getObjectByName("outer")!.rotation.y = spin;
+      travel.getObjectByName("ringB")!.rotation.y = -spin * 2;
     }
     if (shape === "meeting-arcs") {
       const close = frame.reduced ? 1 : Math.min(1, frame.age / WAVE);
