@@ -271,3 +271,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 36 輪（驚聲大樓）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。驚聲大樓是石色樓身、深色基座、底層玻璃和平頂壓簷，名牌寫著驚聲大樓。沒有綠瓦。文學館仍是坡頂。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/memorial/tower.jpg`。路網中線留在第 35 輪。
+
+## 第 37 輪（行政大樓）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。行政大樓是石色樓身、深色基座、南向入口玻璃和兩條窗帶，名牌寫著行政大樓。沒有教學樓的暖色基座，也沒有共用窗帶。入口玻璃貼著南牆，入口寬度小於樓寬。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。精度仍是 estimated，入口位置仍待測。門口步道測試仍通過。定步白天近景，頁面無錯誤：`docs/art/evidence/office/hall.jpg`。驚聲大樓留在第 36 輪。沒有新增音效。
