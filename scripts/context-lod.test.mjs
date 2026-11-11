@@ -7,6 +7,7 @@ import {
   contextShowsDetail,
   glazingBand,
   linkedHallProfile,
+  watchPostProfile,
 } from "../src/game/world-data/zones/secondary.ts";
 
 test("context detail drops off with distance and the low tier is shorter", () => {
@@ -34,7 +35,15 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.kind, "intl-dorm");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "reitaku")?.kind, "dorm-block");
+  const post = SECONDARY_STRUCTURES.find((item) => item.id === "security");
+  assert.equal(post?.kind, "watch-post");
+  assert.equal(post?.accuracy, "estimated");
+  assert.notEqual(post?.kind, "lab-block");
+  const watch = watchPostProfile(post.size);
+  assert.ok(watch.glassZ > post.size[2] / 2, "watch window sits on the south face");
+  assert.ok(watch.glassH < post.size[1], "watch window stays on the wall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "shed");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "lab-block");

@@ -235,3 +235,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 27 輪（麗澤國際學舍）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。麗澤是淺灰綠牆、底層玻璃門廳和平頂橫樑，名牌寫著麗澤國際學舍。松濤仍是暖色宿舍。精度仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/reitaku/house.jpg`。風洞留在第 26 輪。
+
+## 第 28 輪（勤務監控管制中心）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。勤務監控管制中心是低崗亭、南向窗和屋頂天線，名牌寫著勤務監控管制中心。沒有實驗樓的屋頂設備。化學館仍是實驗樓，大門仍是門柱。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/watch/post.jpg`。麗澤留在第 27 輪。

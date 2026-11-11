@@ -187,6 +187,12 @@
 
 畫面：`docs/art/evidence/reitaku/house.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：勤務監控管制中心（ART-062 的一部分）
+
+軸線上這棟不再是一層的實驗樓。現在是低崗亭、南向窗和一根屋頂天線。大門與大忠警衛站仍是開口門柱。化學館仍是實驗樓。外形仍是 estimated。麗澤留著。
+
+畫面：`docs/art/evidence/watch/post.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。麗澤已從松濤分開。風洞、司令臺、會議中心與覺生綜合大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。管制中心已從實驗樓分開。麗澤、風洞與司令臺留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

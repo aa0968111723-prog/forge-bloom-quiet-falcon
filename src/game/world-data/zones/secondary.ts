@@ -39,7 +39,8 @@ export type SecondaryStructure = {
     | "forum-hall"
     | "stand"
     | "shed"
-    | "intl-dorm";
+    | "intl-dorm"
+    | "watch-post";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -311,6 +312,20 @@ export function contextShowsDetail(
   return Math.hypot(cameraX - x, cameraZ - z) <= contextDetailLimit(tier);
 }
 
+/**
+ * Low control booth for 勤務監控管制中心. The window and mast are an
+ * estimated silhouette, not a measured hut.
+ */
+export function watchPostProfile(size: readonly [number, number, number]) {
+  return {
+    glassZ: size[2] / 2 + 0.06,
+    glassH: Math.min(1.6, size[1] * 0.42),
+    glassW: Math.max(2.4, size[0] * 0.55),
+    mastH: 2.4,
+    mastX: size[0] * 0.32,
+  };
+}
+
 /** Glass base plus the set-back upper volume used by 覺生綜合大樓. */
 export function linkedHallProfile(size: readonly [number, number, number]) {
   const baseH = Math.max(3.2, size[1] * 0.42);
@@ -357,6 +372,7 @@ function campusKind(site: {
   if (site.id === "reviewing") return "stand";
   if (site.id === "wind-lab") return "shed";
   if (site.id === "reitaku") return "intl-dorm";
+  if (site.id === "security") return "watch-post";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

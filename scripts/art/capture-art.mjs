@@ -723,6 +723,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "house", "reitaku international house");
+  } else if (scenario === "watch") {
+    await hideHud(page);
+    await setPose(page, 12, -358, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(25, -375);
+      window.__controlsTest.setPhoto({
+        yaw: -0.7,
+        distance: 16,
+        height: 4.5,
+        lookY: 0,
+        target: { x: 25, y: y + 2.2, z: -375 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "post", "security watch post");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
