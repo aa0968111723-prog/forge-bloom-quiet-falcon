@@ -47,13 +47,6 @@ function ground(mesh: THREE.Mesh) {
   return mesh;
 }
 
-function ring(color: string, inner: number, outer: number) {
-  const mesh = new THREE.Mesh(new THREE.RingGeometry(inner, outer, 48), mat(color));
-  mesh.rotation.x = -Math.PI / 2;
-  mesh.name = "travel";
-  return ground(mesh);
-}
-
 /** One group per discipline. Children: travel, impact0..7, back (return pulse). */
 export function buildCollegeCasts(detailed: boolean): THREE.Group {
   const root = new THREE.Group();
@@ -80,12 +73,18 @@ export function buildCollegeCasts(detailed: boolean): THREE.Group {
     root.add(g);
   };
 
-  const science = ring("#b9a2fa", 0.92, 1);
-  const inner = new THREE.Mesh(new THREE.RingGeometry(0.55, 0.63, 40), mat("#b9a2fa"));
-  inner.rotation.x = -Math.PI / 2;
-  inner.name = "ringB";
-  science.add(inner);
-  add("science", "counter-rings", science, new THREE.CylinderGeometry(0.08, 0.08, 0.7, 8), "#b9a2fa", false);
+  const science = new THREE.Group();
+  science.name = "travel";
+  for (const [name, innerR, outerR] of [
+    ["outer", 0.92, 1],
+    ["ringB", 0.55, 0.63],
+  ] as const) {
+    const mesh = new THREE.Mesh(new THREE.RingGeometry(innerR, outerR, 64), mat("#b9a2fa"));
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.name = name;
+    science.add(mesh);
+  }
+  add("science", "counter-rings", science, new THREE.CylinderGeometry(0.12, 0.12, 0.9, 8), "#b9a2fa", false);
   const ribbon = new THREE.Mesh(wavyRibbon(), mat("#f4b28c"));
   ribbon.name = "travel";
   ribbon.position.y = 0.35;
@@ -93,7 +92,7 @@ export function buildCollegeCasts(detailed: boolean): THREE.Group {
   const coins = new THREE.Group();
   coins.name = "travel";
   for (let i = 0; i < (detailed ? 8 : 4); i++) {
-    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.025, 10), mat("#f6ce7a"));
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.06, 12), mat("#f6ce7a"));
     c.rotation.x = Math.PI / 2;
     c.name = `coin${i}`;
     coins.add(c);
@@ -104,6 +103,7 @@ export function buildCollegeCasts(detailed: boolean): THREE.Group {
   for (let i = 0; i < 3; i++) {
     const glyph = new THREE.Mesh(glyphShape(), mat("#92deb3"));
     glyph.name = `glyph${i}`;
+    glyph.scale.setScalar(4);
     glyphs.add(glyph);
   }
   add("language", "glyphs", glyphs, glyphShape(), "#92deb3", false);
@@ -124,7 +124,7 @@ export function buildCollegeCasts(detailed: boolean): THREE.Group {
   scan.name = "travel";
   const cells = detailed ? 12 : 6;
   for (let i = 0; i < cells; i++) {
-    const cell = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.04, 0.22), mat("#80dfd0"));
+    const cell = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.08, 0.7), mat("#80dfd0"));
     cell.name = `cell${i}`;
     scan.add(cell);
   }
@@ -148,7 +148,7 @@ const _b = new THREE.Vector3();
 const _c = new THREE.Vector3();
 
 function wavyRibbon() {
-  const g = new THREE.PlaneGeometry(1, 0.22, 12, 1);
+  const g = new THREE.PlaneGeometry(1, 0.7, 12, 1);
   const pos = g.attributes.position;
   for (let i = 0; i < pos.count; i++) pos.setZ(i, Math.sin(pos.getX(i) * 18) * 0.04);
   g.translate(0.5, 0, 0);
@@ -237,19 +237,20 @@ export function layoutCollegeCast(group: THREE.Object3D, frame: CastFrame) {
   travel.visible = true;
   if (shape === "counter-rings" || shape === "board" || shape === "meeting-arcs") {
     travel.scale.setScalar(Math.max(0.05, reach));
-    if (!frame.reduced && shape === "counter-rings") travel.rotation.z = frame.age * 4;
+    // Spin around Y only. Setting Z on a ring that lies flat (rotation.x = -90°) stands it up.
+    if (shape === "counter-rings") {
+      travel.rotation.y = frame.reduced ? 0 : frame.age * 2.2;
+      const innerRing = travel.getObjectByName("ringB");
+      if (innerRing) innerRing.rotation.y = frame.reduced ? 0 : -frame.age * 4.4;
+    }
     if (shape === "meeting-arcs") {
       const close = frame.reduced ? 1 : Math.min(1, frame.age / WAVE);
       travel.getObjectByName("arcL")!.position.x = -(1 - close) * 0.45;
       travel.getObjectByName("arcR")!.position.x = (1 - close) * 0.45;
     }
-    if (!frame.reduced && shape === "counter-rings") {
-      const innerRing = travel.getObjectByName("ringB");
-      if (innerRing) innerRing.rotation.z = -frame.age * 6;
-    }
   } else if (shape === "ribbon") {
-    travel.scale.set(Math.max(0.05, reach), 1, 1);
-    travel.position.z = 0;
+    travel.scale.set(1, 1, Math.max(0.05, reach));
+    travel.position.set(0, 0.7, 0);
   } else if (shape === "dome") {
     travel.scale.setScalar(Math.max(0.05, reach));
     travel.position.y = 0.02;
@@ -275,7 +276,7 @@ export function layoutCollegeCast(group: THREE.Object3D, frame: CastFrame) {
       if (hit) group.worldToLocal(_b.set(hit.x, hit.y + 0.8, hit.z));
       else _b.set(Math.sin(i) * reach, 0.6, Math.cos(i) * reach);
       coin.position.lerpVectors(_a, _b, u);
-      coin.position.y += Math.sin(u * Math.PI) * 0.8;
+      coin.position.y += Math.sin(u * Math.PI) * 1.6;
     });
   }
   const showImpact = frame.age > (frame.reduced ? 0 : 0.05);
@@ -306,7 +307,10 @@ export function layoutCollegeCast(group: THREE.Object3D, frame: CastFrame) {
   group.traverse((o) => {
     const mesh = o as THREE.Mesh;
     const material = mesh.material as THREE.MeshBasicMaterial | undefined;
-    if (material && material.opacity !== undefined && mesh.name !== "back") material.opacity = 0.45 * fade;
+    if (material && material.opacity !== undefined && mesh.name !== "back") {
+      const cap = shape === "dome" || shape === "board" ? 0.22 : 0.55;
+      material.opacity = cap * fade;
+    }
   });
   if (back.visible) (back.material as THREE.MeshBasicMaterial).opacity = 0.7 * fade;
   return frame.age < LIFE;
