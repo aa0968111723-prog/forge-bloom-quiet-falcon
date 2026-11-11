@@ -67,7 +67,7 @@ const LEGACY_SECONDARY_STRUCTURES: SecondaryStructure[] = [
     size: [34, 30, 22],
     rotationY: 0.1,
     floors: 8,
-    kind: "slab-block",
+    kind: "study-block",
     cluster: "east",
     walkable: true,
     accuracy: "estimated",

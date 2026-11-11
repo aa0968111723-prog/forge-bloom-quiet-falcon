@@ -117,6 +117,12 @@
 
 畫面：`docs/art/evidence/links/`。測試：`scripts/campus-links.test.mjs`。
 
+## 階段：商管大樓改成教學樓量體（ART-062 的一部分）
+
+清冊裡的商管大樓標記 `existing`，所以畫面上用的是舊剪影，不是後來的教學樓基座。這棟現在跟其他教學樓一樣：深色基座、淺色上層、近處橫樑。座標與外形仍是 estimated。
+
+畫面：`docs/art/evidence/business/mass.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`：門口步道已接到能站的路點。狀態卡、普攻光刃與清冊都在 `main`。ART-090 其餘是技能圖示、地圖標記、受擊回饋。下一項場景是 ART-062。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。商管大樓不再是通用灰塊。高畫質大道三角形已低於 1.6 M。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
