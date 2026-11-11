@@ -243,6 +243,12 @@
 
 畫面：`docs/art/evidence/memorial/tower.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：行政大樓（ART-066 的一部分）
+
+文藝區這棟不再跟教育館共用教學樓基座。現在是石色樓身、深色基座、南向入口玻璃和兩條窗帶。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。入口位置仍待測。外形仍是 estimated。驚聲大樓留著。
+
+畫面：`docs/art/evidence/office/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。驚聲大樓已從綠瓦分開。文學館、覺生綜合大樓與路網中線留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。行政大樓已從教學樓分開。教育館、驚聲大樓與路網中線留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
