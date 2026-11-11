@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T20:36:00Z",
-  "branch": "main",
-  "mainSha": "5f6080baa691",
-  "gameSha": "45674fb0b02f55b17b24588b341c8f688f2f2ef9",
-  "activeItem": "art-coin-spread",
-  "sourceHead": "07d1a0b",
-  "integrationHead": "45674fb0b02f55b17b24588b341c8f688f2f2ef9",
+  "updated": "2026-11-11T20:46:00Z",
+  "branch": "cursor/integration-river-vista-3395",
+  "mainSha": "abef230dcbbc",
+  "gameSha": "87aa4c80b77e5f52c88c18e323e818cc44ddf167",
+  "activeItem": "art-river-vista",
+  "sourceHead": "4bd41a494244e4c20c5e24058b03e998f775e5f6",
+  "integrationHead": "87aa4c80b77e5f52c88c18e323e818cc44ddf167",
   "verified": {
-    "coinSpread": "typecheck, 256 tests, build:site. One business target spreads the coins, and the chambered slash sits in front of the torso. Sign names stay. High shots at 1280x720 and 390x780, pageErrors empty. Route on 8106: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
+    "riverVista": "typecheck, 257 tests, build:site. The player stops at x=-112. Far town and ridges stay west of that shore. Coins and sign names stay. High shots at 1280x720 and 390x780, pageErrors empty. Route on 8107: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Business coins spread around one target, and the basic slash chambers in front of the torso. They are on main. Game code is 45674fb0b02f55b17b24588b341c8f688f2f2ef9. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館. Both stay estimated. The business podium, title camera, 48 m canopy switch, district map, skill glyphs, hurt edge, and open gates stay. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 07d1a0b is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #55. Do not merge the coin-spread source branch by itself. Do not merge PR #51 by itself. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "The west vista stops the player at the near bank. Game code is 87aa4c80b77e5f52c88c18e323e818cc44ddf167. The far town and ridges stay west of x=-112 and are not a survey. Business coins still spread, and the slash still chambers in front. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館. The route on this tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 4bd41a4 is PR #54. After this integration is on main, do not merge that old baseline by itself. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #53 or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }

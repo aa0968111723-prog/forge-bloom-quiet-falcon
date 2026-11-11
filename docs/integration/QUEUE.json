@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11T20:36:00Z",
+  "updated": "2026-11-11T20:46:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -805,6 +805,35 @@
       "integrationPr": 55,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/55",
       "nextAction": "None. Source 07d1a0b is an ancestor of main. Do not merge that source branch by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-river-vista",
+      "line": "art",
+      "scope": "The west river vista stays beyond the walkable shore. Coins, sign names, and combat rules stay.",
+      "status": "verified",
+      "pr": 54,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/54",
+      "integrationBranch": "cursor/integration-river-vista-3395",
+      "sourceBranch": "cursor/river-vista-1a71",
+      "baseSha": "abef230dcbbc",
+      "headSha": "4bd41a494244e4c20c5e24058b03e998f775e5f6",
+      "dependencies": ["art-coin-spread"],
+      "sharedFiles": [
+        "src/game/world/Terrain.tsx",
+        "src/game/world-data/colliders.ts",
+        "src/game/world-data/vista.ts"
+      ],
+      "checks": {
+        "conflicts": "Art checkpoint, handoff, and status. Kept the coin round as 18 and added the vista as round 19. Capture keeps signs and the coin close-up, and adds vista.",
+        "typecheck": "pass",
+        "npmTest": "257 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8107 high tier: 1280x720 and 390x780 show the river and ridges from the meadow. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md"],
+      "merged": false,
+      "nextAction": "Open the integration PR and merge it. Do not merge PR #54 by itself. Do not merge PR #32 head 1fc5887."
     }
   ]
 }
