@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T20:51:00Z",
-  "branch": "main",
-  "mainSha": "8d9b97911d3a",
+  "updated": "2026-11-11T20:58:00Z",
+  "branch": "cursor/integration-route-measure-3395",
+  "mainSha": "61ee069559f7",
   "gameSha": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
-  "activeItem": "art-shore-save",
-  "sourceHead": "f7584b3e8fa702c334b173698cf179af9e8409c4",
+  "activeItem": "art-route-measure",
+  "sourceHead": "c635b97fe7fb25c513b1face74efe434cdfb6d14",
   "integrationHead": "7507c59b7ddbb7a02ada9d0eba717d8721474e2a",
   "verified": {
-    "shoreSave": "typecheck, 258 tests, build:site. A saved position west of the bank, including the north and south corners, returns to the walkable shore and stays there. Route on 8108: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. pageErrors empty."
+    "routeMeasure": "Static high 1280x720 on 8108, game 7507c59. title 1204683, outdoor 1562527, combat 1495745, indoor 46548, return 1437689. pageErrors empty. Frame times are SwiftShader. The cross-system route was not rerun because the game SHA did not change."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "A saved position in the river, including the north and south corners, returns to the walkable shore. It is on main. Game code is 7507c59b7ddbb7a02ada9d0eba717d8721474e2a. The vista, coins, and sign names stay. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. The shore-save patch from f7584b3 is already in this integration. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #58. Do not merge PR #54 by itself. PR #56 is a route remeasure on an older base. Read that evidence before integrating it, and do not treat those triangle counts as measured on this tree. Do not merge PR #53 or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "The five-segment high route was remeasured on this static build. Outdoor segments stay under 1.6 M triangles. Game code is still 7507c59b7ddbb7a02ada9d0eba717d8721474e2a. Frame times are SwiftShader. Do not copy PR #56's older counts. Re-fetch origin/main. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }

@@ -139,6 +139,12 @@
 
 畫面：`docs/art/evidence/vista/west.jpg`。測試：`scripts/river-vista.test.mjs`。
 
+## 階段：同一條路線的高畫質三角形
+
+樹冠改短之後，在現在的靜態頁重測。標題、戶外、戰鬥、返回都低於 1.6 M。室內是 46.5 k。幀時間仍是這台軟體算繪，不是手機或 RTX 3060。遠景與金幣留著。
+
+畫面：`docs/art/evidence/route/outdoor.png`。數字：`docs/art/evidence/route/after-shore.json`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。遠景不能走上去。標示用字沒有升成 mapped。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。戶外路線段已低於 1.6 M。遠景不能走上去。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

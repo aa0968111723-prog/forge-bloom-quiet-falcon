@@ -193,3 +193,17 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 19 輪（淡水遠景）— 2026-11-11
 
 `node --test scripts/river-vista.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。人站到河上會被推回近岸。地圖南北兩端、存在水裡的位置也回到可走的這一側，不會再被世界邊界推回去。對岸街廓與山脊都在岸線以西。牧羊草坪定步往西，頁面無錯誤：`docs/art/evidence/vista/west.jpg`。河面與山脊看得到。不是實測河寬或山形。金幣留在第 18 輪。
+
+## 第 20 輪（同一條路線重測）— 2026-11-11
+
+`scripts/art/capture-route.mjs`，高畫質 1280×720，靜態頁 `http://127.0.0.1:8108/`，遊戲程式 `7507c59`。頁面無錯誤。主機仍是 SwiftShader。戶外段只有 2 到 3 幀，幀時間不能拿去跟手機或 RTX 3060 比。PR #56 的數字是更早的開發頁量的，沒有抄進來。
+
+| 段落 | 三角形 | draw calls |
+| --- | --- | --- |
+| 標題 | 1,204,683 | 453 |
+| 戶外 | 1,562,527 | 461 |
+| 戰鬥 | 1,495,745 | 455 |
+| 室內 | 46,548 | 13 |
+| 返回戶外 | 1,437,689 | 326 |
+
+戶外四段都低於 1.6 M。畫面：`docs/art/evidence/route/outdoor.png`。原始數字：`docs/art/evidence/route/after-shore.json`。手機與 RTX 3060 仍是 `pending-device`。

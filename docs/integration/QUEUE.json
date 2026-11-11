@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11T20:51:00Z",
+  "updated": "2026-11-11T20:58:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -865,6 +865,31 @@
       "integrationPr": 58,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/58",
       "nextAction": "None. The shore-save patch from f7584b3 is already in this integration. Do not merge PR #54 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-route-measure",
+      "line": "art",
+      "scope": "Remeasure the five-segment high-quality route on the current static build. Outdoor segments stay under 1.6 M triangles. No game code change.",
+      "status": "verified",
+      "pr": 56,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/56",
+      "integrationBranch": "cursor/integration-route-measure-3395",
+      "sourceBranch": "cursor/route-remeasure-1a71",
+      "baseSha": "61ee069559f7",
+      "headSha": "c635b97fe7fb25c513b1face74efe434cdfb6d14",
+      "dependencies": ["art-shore-save"],
+      "sharedFiles": [],
+      "checks": {
+        "conflicts": "Did not cherry-pick the source docs. Those counts were from an older dev server. This record is a new capture on the current static build.",
+        "typecheck": "not rerun; no game code change",
+        "npmTest": "not rerun; game SHA unchanged at 258 pass",
+        "buildSite": "existing static preview of 7507c59",
+        "browser": "8108 high 1280x720. title 1204683, outdoor 1562527, combat 1495745, indoor 46548, return 1437689. pageErrors empty",
+        "route": "not rerun; game SHA unchanged"
+      },
+      "conflicts": [],
+      "merged": false,
+      "nextAction": "Open the integration PR and merge it. Do not merge PR #56 by itself."
     }
   ]
 }
