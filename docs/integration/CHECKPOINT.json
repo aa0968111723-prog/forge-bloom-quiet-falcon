@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T23:00:00Z",
-  "branch": "main",
-  "mainSha": "6128e709bf85",
-  "gameSha": "988405462bb4c97b777d0d9bd3a20211f8f8341d",
-  "activeItem": "art-studio-mass",
-  "sourceHead": "55a42fbde735a17a31c1915e18cd6786a6c227f8",
-  "integrationHead": "988405462bb4c97b777d0d9bd3a20211f8f8341d",
+  "updated": "2026-11-11T23:15:00Z",
+  "branch": "cursor/integration-activity-hall-3395",
+  "mainSha": "761496327269",
+  "gameSha": "320747d19a9a143d80e9cfbea8f2971adbbcc81c",
+  "activeItem": "art-activity-hall",
+  "sourceHead": "4bf084a309da13933d2bb3b8a659ab2150d0e292",
+  "integrationHead": "320747d19a9a143d80e9cfbea8f2971adbbcc81c",
   "verified": {
-    "studio": "Static 8120, game 9884054. High 1280x720 shows the concrete volume, south glass, canopy, roof monitor, and the 建築系館 plate. 390x780 is a closer crop of the same face; those parts stay in frame. pageErrors empty. SwiftShader. The shape is estimated.",
-    "route": "8120: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
+    "activity": "Static 8121, game 320747d. High 1280x720 shows the lobby, south glass, canopy, set-back upper volume, and the 學生活動中心 plate. 390x780 is a closer crop of the same face; those parts stay in frame. pageErrors empty. SwiftShader. The shape is estimated. 覺軒 stays a hip roof.",
+    "route": "8121: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The architecture building is on main: a concrete studio with south glass, a canopy, and a roof monitor. Chemistry stays a lab block. Game code is 988405462bb4c97b777d0d9bd3a20211f8f8341d. The patch from 55a42fb is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #79 (activity center, head 4bf084a), then PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee), then PR #85 (road centerlines, head 15c555c), then PR #86 (Ching-sheng shaft, head 27a50b0). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #87. Do not merge PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The student activity center is a lobby with a set-back upper volume on this integration branch. 覺軒 stays a hip roof. Game code is 320747d19a9a143d80e9cfbea8f2971adbbcc81c. The patch from 4bf084a is in this integration; that source SHA is not an ancestor. Do not merge PR #79 by itself. Re-fetch origin/main before the fast-forward. Next in-scope art is PR #80 (security booth, head 8e6f1e6), then PR #82 (engineering tower, head e0c5fee), then PR #85 (road centerlines, head 15c555c), then PR #86 (Ching-sheng shaft, head 27a50b0). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
