@@ -817,6 +817,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "tower", "engineering tower");
+  } else if (scenario === "garden") {
+    await hideHud(page);
+    await setPose(page, 248, -518, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(220, -550);
+      window.__controlsTest.setPhoto({
+        yaw: -0.75,
+        distance: 36,
+        height: 10,
+        lookY: 0,
+        target: { x: 220, y: y + 4, z: -550 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "house", "yingyuan garden house");
   } else if (scenario === "roads") {
     await hideHud(page);
     await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
