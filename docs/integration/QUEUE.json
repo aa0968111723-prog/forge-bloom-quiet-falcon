@@ -641,6 +641,32 @@
       "merged": true,
       "mergeSha": "8954c5320d91ae56d16604e37c36f09cdc47096c",
       "nextAction": "None. Source dde692f is an ancestor of main. Do not merge PR #40 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-map-zones",
+      "line": "art",
+      "scope": "Campus map building strokes follow the seven registry districts. The full map shows a legend. The player district is the nearest site, because the estimated boxes overlap. The lesson marker stays.",
+      "status": "verified",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": "cursor/integration-map-zones-3395",
+      "sourceBranch": "cursor/map-zones-1a71",
+      "baseSha": "b9c44773542b",
+      "headSha": "944b2c9cedabde9dc71ed5bc13690b2acbf30952",
+      "dependencies": ["art-skill-glyphs"],
+      "sharedFiles": ["src/game/rpg/AdventureHud.tsx"],
+      "checks": {
+        "conflicts": "Art backlog, checkpoint, and validation. Kept skill-glyph notes and added the seven-zone legend. Capture keeps icons, gates, study, and adds zones.",
+        "typecheck": "pass",
+        "npmTest": "254 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8101 low tier at 1280x720 and 390x780: map panel open, legend lists 軸線 書圖 理工 教學 文藝 運動 生活, buildings have district strokes. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md"],
+      "merged": true,
+      "mergeSha": "50464e5a1483fa99d14967bdc6ab4c660c758623",
+      "nextAction": "None. Source 944b2c9 is an ancestor of main. Do not merge PR #42 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }

@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T19:10:00Z",
+  "updated": "2026-11-11T19:20:00Z",
   "branch": "main",
-  "mainSha": "b1e6ba934cf9",
-  "gameSha": "8954c5320d91ae56d16604e37c36f09cdc47096c",
+  "mainSha": "b9c44773542b",
+  "gameSha": "50464e5a1483fa99d14967bdc6ab4c660c758623",
   "activeItem": null,
-  "sourceHead": "dde692f0d9764fb110d24da55f8085d8982f2e7c",
-  "integrationHead": "8954c5320d91ae56d16604e37c36f09cdc47096c",
+  "sourceHead": "944b2c9cedabde9dc71ed5bc13690b2acbf30952",
+  "integrationHead": "50464e5a1483fa99d14967bdc6ab4c660c758623",
   "verified": {
-    "skillGlyphs": "typecheck, 253 tests, build:site. Nine college glyphs switch in the live quickbar. Engineering is lucide-drafting-compass. Hurt shadow is inset 0 0 72px 18px at alpha 0.6, and the status card says 受傷. Route on 8100: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401, pageErrors empty. Desktop 1280 and narrow 390."
+    "mapZones": "typecheck, 254 tests, build:site. Full map legend is 軸線, 書圖, 理工, 教學, 文藝, 運動, 生活. Building strokes follow the registry zone. zoneNear(0,-80 area) is axis-54. Lesson marker stays. Route on 8101: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401, pageErrors empty. Desktop 1280 and narrow 390."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Skill glyphs are on main. Game code is 8954c5320d91ae56d16604e37c36f09cdc47096c. Each college skill has its own quickbar glyph, and the hurt vignette is a readable red edge. Map markers still use the existing lesson mark. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source dde692f0d9764fb110d24da55f8085d8982f2e7c is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #40 by itself; its game code is already in this integration. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "Map zones are on main. Game code is 50464e5a1483fa99d14967bdc6ab4c660c758623. The campus map colors buildings by registry district and shows a seven-name legend. The colors are not surveyed boundaries. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source 944b2c9cedabde9dc71ed5bc13690b2acbf30952 is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #42 by itself; its game code is already in this integration. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }

@@ -271,6 +271,14 @@ Node 開發頁 `http://127.0.0.1:8081/narrative`。樣板進入大門警衛站�
 
 瀏覽器 `http://127.0.0.1:8100/?qa=1&q=low`。1280×720 與 390×780：土木工程快捷欄的圖示類名是 `lucide-drafting-compass`，生命改到 40 時狀態卡讀到「受傷」，邊緣陰影是 `rgba(176, 76, 71, 0.6) 0px 0px 72px 18px inset`。九個學院切換後的圖示類名分別是 drafting-compass、flask-conical、scroll-text、coins、languages、graduation-cap、globe、cpu、heart-pulse。`pageErrors` 空。同一站跨系統路線再次通過：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401。
 
+## 地圖七區圖例（本輪）
+
+來源 `944b2c9` 接到 `b9c4477`。衝突在美術待辦、檢查點與驗收文。技能圖示與受擊邊緣留著。教學樓仍是深色基座加淺色上層，開口門柱留著。截圖腳本加上 `zones`，`icons`、`gates` 與 `study` 留著。
+
+`ZONE_MARK` 七個顏色與名稱都不重複。宮燈教室是軸線。玩家在 `(0, -80)` 附近最近的分區是 `axis-54`。`npm run typecheck` 通過。`npm test` 254 通過。`npm run build:site` 通過。
+
+瀏覽器 `http://127.0.0.1:8101/?qa=1&q=low`。1280×720 與 390×780 都打開校園地圖。圖例是軸線、書圖、理工、教學、文藝、運動、生活。建物有分區描邊，課程標記仍在。`pageErrors` 空。同一站跨系統路線再次通過：經驗 20、筆記 19、任務一次、突襲小考 65→45、revision 1、第二客戶端、`revision_conflict`、斷線佇列、登出 401。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
