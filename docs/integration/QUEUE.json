@@ -146,7 +146,7 @@
       "id": "backend-sync",
       "line": "backend",
       "scope": "Optional RPG cloud save, revision conflicts, additive migration 0003. Static game still runs without the server.",
-      "status": "ready_to_merge",
+      "status": "merged",
       "pr": 9,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9",
       "draft": true,
@@ -181,29 +181,57 @@
           "resolution": "Found while opening the Node app: dev strict mode runs NPC assemble twice and the second call threw because the part meshes were already removed. assemble now keeps the merged mesh. This is an integration fix on top of art M2, not a backend behavior change."
         }
       ],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm feature/backend-game-services is still a38ef8e and main is still 0eea3cf, then merge this integration branch."
+      "merged": true,
+      "mergeSha": "b260c87fbdcb2e4b2e328c94f989c479124e75ba",
+      "integrationPr": 13,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13",
+      "nextAction": "None. Post-merge SHA is the validated head. Typecheck passed on b260c87 before the fast-forward."
     },
     {
-      "id": "content-pack",
-      "line": "content",
-      "scope": "Campus data, image references, story, quests, events, open-source assets.",
+      "id": "art-college-poses",
+      "line": "art",
+      "scope": "College cast poses on top of the NPC kit and creatures. Overlaps files already integrated in art M2.",
       "status": "discovered",
-      "pr": null,
-      "prUrl": null,
+      "pr": 12,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/12",
+      "draft": false,
       "integrationBranch": null,
-      "sourceBranch": null,
+      "sourceBranch": "cursor/college-poses-campus-1a71",
       "baseSha": null,
-      "headSha": null,
-      "dependencies": [],
-      "sharedFiles": [],
+      "headSha": "c1a3bb3e12733eb5311d4cbdce6b738467167abf",
+      "dependencies": ["art-m2", "backend-sync"],
+      "sharedFiles": [
+        "src/game/art/character/NpcCharacter.tsx",
+        "src/game/art/character/Protagonist.tsx",
+        "src/game/rpg/AdventureApp.tsx"
+      ],
       "contractVersion": null,
       "checks": null,
       "conflicts": [],
       "merged": false,
       "mergeSha": null,
-      "nextAction": "claude/tamkang-reality-campus-v1-2bxs0g is already an ancestor of main. Wait for a new content head. Do not invent a schema."
+      "nextAction": "New worktree from main b260c87. Reconfirm head c1a3bb3. Resolve the overlap with the merged NPC assemble guard. Do not take the branch whole."
+    },
+    {
+      "id": "content-narrative",
+      "line": "content",
+      "scope": "Playable campus narrative preview. Not yet wired as the only quest store.",
+      "status": "discovered",
+      "pr": 11,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/11",
+      "draft": true,
+      "integrationBranch": null,
+      "sourceBranch": "feature/game-content-world",
+      "baseSha": null,
+      "headSha": "54a997edb483995486917a6a39b7b70a44189578",
+      "dependencies": ["backend-sync"],
+      "sharedFiles": ["src/routeTree.gen.ts", "tsconfig.json"],
+      "contractVersion": null,
+      "checks": null,
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "After the college-pose merge, read this draft in a new worktree. Do not merge it until it is rechecked on that main and does not add a second quest or reward store."
     }
   ]
 }

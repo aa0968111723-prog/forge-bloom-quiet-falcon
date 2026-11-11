@@ -15,7 +15,11 @@
 
 ## 下一步
 
-後端整合已在 `/tmp/worktrees/backend-sync` 驗過。確認 `origin/main` 仍是 `0eea3cf`、後端 head 仍是 `a38ef8e` 之後合併 `cursor/integration-backend-save-3395`。內容線沒有新 head 時不要空跑。
+`main` 是 `b260c87fbdcb2e4b2e328c94f989c479124e75ba`。PR #13 已合併。
+
+下一個是開放的 PR #12，`cursor/college-poses-campus-1a71` @ `c1a3bb3e12733eb5311d4cbdce6b738467167abf`。它和已合併的美術 M2 有多重 merge base，不要整支直接合。用新 worktree。
+
+其後是草稿 PR #11，`feature/game-content-world` @ `54a997edb483995486917a6a39b7b70a44189578`。它改 `routeTree.gen.ts`，要在後端這版 main 上重解。草稿在重驗前不合併。
 
 ## 不要做
 
