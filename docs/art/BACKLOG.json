@@ -637,9 +637,13 @@
         "ART-060",
         "ART-084"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": "同上",
-      "evidence": []
+      "evidence": [
+        "scripts/context-lod.test.mjs",
+        "docs/art/evidence/stand/deck.jpg"
+      ],
+      "notes": "司令臺不再是實驗樓。現在是低平台、後方小間和棚頂，沒有共用窗帶，也沒有屋頂設備。台面還不能走上去。精度仍是 estimated。"
     },
     {
       "id": "ART-068",
