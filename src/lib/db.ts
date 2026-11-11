@@ -3,10 +3,8 @@ export type DbSource = "neon" | "pglite";
 
 // An empty/whitespace DATABASE_URL (an easy misconfig in deploy UIs) must mean
 // "unset" — otherwise production would silently run on the PGLite fallback.
-const rawDatabaseUrl =
-  typeof process !== "undefined" ? process.env.DATABASE_URL : undefined;
-const databaseUrl =
-  rawDatabaseUrl && rawDatabaseUrl.trim() ? rawDatabaseUrl : undefined;
+const rawDatabaseUrl = typeof process !== "undefined" ? process.env.DATABASE_URL : undefined;
+const databaseUrl = rawDatabaseUrl && rawDatabaseUrl.trim() ? rawDatabaseUrl : undefined;
 
 /**
  * Active backend: real **Neon** when `DATABASE_URL` is set (deployed / configured
@@ -25,14 +23,10 @@ export const dbSource: DbSource = databaseUrl ? "neon" : "pglite";
  *   const rows2 = await sql.query("select * from todos where id = $1", [id]);
  */
 export interface Sql {
-  <T = Record<string, unknown>>(
-    strings: TemplateStringsArray,
-    ...values: unknown[]
-  ): Promise<T[]>;
-  query<T = Record<string, unknown>>(
-    text: string,
-    params?: unknown[],
-  ): Promise<T[]>;
+  <T = Record<string, unknown>>(strings: TemplateStringsArray, ...values: unknown[]): Promise<T[]>;
+  query<T = Record<string, unknown>>(text: string, params?: unknown[]): Promise<T[]>;
+  /** Run `fn` on one connection. The callback sees only its own statements. */
+  transaction<T>(fn: (tx: Sql) => Promise<T>): Promise<T>;
 }
 
 /**
@@ -44,6 +38,7 @@ export interface Sql {
  */
 const globalRef = globalThis as typeof globalThis & {
   __pgSqlPromise__?: Promise<Sql>;
+  __pgPool__?: import("pg").Pool;
   __pgliteInstance__?: Promise<import("@electric-sql/pglite").PGlite>;
   __pgliteMigrateChain__?: Promise<void>;
 };
@@ -68,7 +63,7 @@ const identity = (v: string) => v;
 type Run = <T>(text: string, params: unknown[]) => Promise<T[]>;
 
 /** Wrap a query runner in the tagged-template + `.query()` `Sql` surface. */
-function toSql(run: Run): Sql {
+function toSql(run: Run, transaction?: <T>(fn: (tx: Sql) => Promise<T>) => Promise<T>): Sql {
   const sql = (async <T = Record<string, unknown>>(
     strings: TemplateStringsArray,
     ...values: unknown[]
@@ -80,6 +75,11 @@ function toSql(run: Run): Sql {
   }) as unknown as Sql;
   sql.query = <T = Record<string, unknown>>(text: string, params: unknown[] = []) =>
     run<T>(text, params);
+  sql.transaction =
+    transaction ??
+    (<T>(fn: (tx: Sql) => Promise<T>) => {
+      return fn(sql);
+    });
   return sql;
 }
 
@@ -91,13 +91,40 @@ function createNeonSql(): Promise<Sql> {
     types.setTypeParser(OID_INT8, Number);
     types.setTypeParser(OID_DATE, identity);
     types.setTypeParser(OID_INTERVAL, identity);
-    const pool = new Pool({ connectionString: databaseUrl });
-    return toSql(async <T>(text: string, params: unknown[]) => {
+    const pool = new Pool({
+      connectionString: databaseUrl,
+      connectionTimeoutMillis: 3_000,
+    });
+    globalRef.__pgPool__ = pool;
+    const run = async <T>(text: string, params: unknown[]) => {
       const res = await pool.query(text, params);
       return res.rows as T[];
+    };
+    return toSql(run, async (fn) => {
+      const client = await pool.connect();
+      try {
+        await client.query("BEGIN");
+        const tx = toSql(async <T>(text: string, params: unknown[]) => {
+          const res = await client.query(text, params);
+          return res.rows as T[];
+        });
+        const result = await fn(tx);
+        await client.query("COMMIT");
+        return result;
+      } catch (err) {
+        try {
+          await client.query("ROLLBACK");
+        } catch {
+          // The connection may already be dead. Keep the original error.
+        }
+        throw err;
+      } finally {
+        client.release();
+      }
     });
   })().catch((err) => {
     globalRef.__pgSqlPromise__ = undefined;
+    globalRef.__pgPool__ = undefined;
     throw err;
   });
   return globalRef.__pgSqlPromise__;
@@ -109,13 +136,15 @@ async function createPgliteSql(): Promise<Sql> {
   // data survives source edits (it resets on dev-server restart).
   globalRef.__pgliteInstance__ ??= (async () => {
     const { PGlite } = await import("@electric-sql/pglite");
-    const pg = new PGlite({
-      parsers: {
-        [OID_INT8]: Number,
-        [OID_DATE]: identity,
-        [OID_INTERVAL]: identity,
-      },
-    });
+    const parsers = {
+      [OID_INT8]: Number,
+      [OID_DATE]: identity,
+      [OID_INTERVAL]: identity,
+    };
+    // PGLITE_DATA_DIR persists across process restarts. Unset stays in memory,
+    // which is the live-preview default and resets when the dev server exits.
+    const dataDir = process.env.PGLITE_DATA_DIR?.trim();
+    const pg = dataDir ? new PGlite(dataDir, { parsers }) : new PGlite({ parsers });
     await pg.waitReady;
     await pg.exec(
       "create table if not exists _migrations (name text primary key, applied_at timestamptz not null default now())",
@@ -133,19 +162,10 @@ async function createPgliteSql(): Promise<Sql> {
   // reload after adding a migration file applies it live — with passes
   // serialized on a global chain so concurrent callers never double-apply.
   const migrate = async (): Promise<void> => {
-    const migrations = import.meta.glob("/migrations/*.sql", {
-      query: "?raw",
-      import: "default",
-      eager: true,
-    }) as Record<string, string>;
-    const doneRows = await pg.query<{ name: string }>(
-      "select name from _migrations",
-    );
+    const migrations = await loadMigrationFiles();
+    const doneRows = await pg.query<{ name: string }>("select name from _migrations");
     const done = new Set(doneRows.rows.map((r) => r.name));
-    for (const [path, text] of Object.entries(migrations).sort(([a], [b]) =>
-      a.localeCompare(b),
-    )) {
-      const name = path.split("/").pop() as string;
+    for (const { name, text } of migrations) {
       if (done.has(name)) continue;
       // Apply + record atomically (parity with scripts/migrate.mjs) so a failed
       // statement can't leave a file half-applied but untracked.
@@ -161,10 +181,51 @@ async function createPgliteSql(): Promise<Sql> {
   globalRef.__pgliteMigrateChain__ = pass;
   await pass;
 
-  return toSql(async <T>(text: string, params: unknown[]) => {
-    const result = await pg.query<T>(text, params);
-    return result.rows;
-  });
+  return toSql(
+    async <T>(text: string, params: unknown[]) => {
+      const result = await pg.query<T>(text, params);
+      return result.rows;
+    },
+    async (fn) =>
+      pg.transaction(async (tx) => {
+        const txSql = toSql(async <T>(text: string, params: unknown[]) => {
+          const result = await tx.query<T>(text, params);
+          return result.rows;
+        });
+        return fn(txSql);
+      }),
+  );
+}
+
+/**
+ * Vite inlines `import.meta.glob` so the deployed bundle does not need the
+ * migrations directory. Plain Node (tests, the game-services process) reads
+ * the same files from disk. The call must stay a literal `import.meta.glob`.
+ */
+async function loadMigrationFiles(): Promise<Array<{ name: string; text: string }>> {
+  let bundled: Record<string, string> | null = null;
+  try {
+    bundled = import.meta.glob("/migrations/*.sql", {
+      query: "?raw",
+      import: "default",
+      eager: true,
+    }) as Record<string, string>;
+  } catch {
+    bundled = null;
+  }
+  if (bundled && typeof bundled === "object" && Object.keys(bundled).length > 0) {
+    return Object.entries(bundled)
+      .map(([path, text]) => ({ name: path.split("/").pop() as string, text }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+  const { readdir, readFile } = await import("node:fs/promises");
+  const { dirname, join } = await import("node:path");
+  const { fileURLToPath } = await import("node:url");
+  const dir = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "migrations");
+  const names = (await readdir(dir)).filter((name) => name.endsWith(".sql")).sort();
+  return Promise.all(
+    names.map(async (name) => ({ name, text: await readFile(join(dir, name), "utf8") })),
+  );
 }
 
 let sqlPromise: Promise<Sql> | null = null;
@@ -222,6 +283,29 @@ export async function getPglite(): Promise<import("@electric-sql/pglite").PGlite
 export function ensureDbReady(): Promise<void> {
   if (dbSource !== "pglite") return Promise.resolve();
   return getSql().then(() => undefined);
+}
+
+/** Close the shared pool or PGLite instance. Used by graceful shutdown. */
+export async function closeDb(): Promise<void> {
+  const pool = globalRef.__pgPool__;
+  const pglite = globalRef.__pgliteInstance__;
+  globalRef.__pgPool__ = undefined;
+  globalRef.__pgSqlPromise__ = undefined;
+  globalRef.__pgliteInstance__ = undefined;
+  globalRef.__pgliteMigrateChain__ = undefined;
+  sqlPromise = null;
+  if (pool) {
+    await pool.end().catch(() => undefined);
+  }
+  if (!pglite) return;
+  const pg = await pglite.catch(() => null);
+  if (!pg) return;
+  try {
+    await pg.exec("CHECKPOINT");
+  } catch {
+    // A failed checkpoint still needs the instance closed.
+  }
+  await pg.close();
 }
 
 // Server-only eager start: kick PGLite bootstrap as soon as this module loads in
