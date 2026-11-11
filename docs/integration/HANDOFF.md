@@ -15,9 +15,9 @@
 
 ## 下一步
 
-校園進入點的敘事在 `cursor/integration-narrative-campus-3395`，尚未進 `main`。開始合併前確認 `origin/main` 仍是 `51bbe4d`。
+`main` 是 `c279651248e0da2c006fa36a00f8ccb805febb9c`。PR #18 已合併。合併後 typecheck 通過。
 
-獎勵走既有經驗、背包與 `claimed`。事件記憶在同一份存檔的 `narrative`。預覽路由還在。學期仍是 `week-1`。
+獎勵走既有經驗、背包與 `claimed`。事件記憶在同一份存檔的 `narrative`。預覽路由還在。學期仍是 `week-1`。沒有新分支時不要重跑全量測試，也不要做空提交。
 
 ## 不要做
 

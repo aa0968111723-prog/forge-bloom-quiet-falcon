@@ -272,12 +272,12 @@
       "id": "content-campus-hook",
       "line": "content",
       "scope": "Campus enter prompt calls selectEvent. Rewards write the live xp, bag, and claimed list.",
-      "status": "ready_to_merge",
+      "status": "merged",
       "pr": null,
       "integrationBranch": "cursor/integration-narrative-campus-3395",
       "sourceBranch": "main",
       "baseSha": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
-      "headSha": null,
+      "headSha": "c279651248e0da2c006fa36a00f8ccb805febb9c",
       "dependencies": ["content-narrative"],
       "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx"],
       "checks": {
@@ -287,9 +287,11 @@
         "browser": "gate dialogue, xp 20, notes 19, claimed quest-orient-gate, second enter opens the building"
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm main 51bbe4d and merge."
+      "merged": true,
+      "mergeSha": "c279651248e0da2c006fa36a00f8ccb805febb9c",
+      "integrationPr": 18,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18",
+      "nextAction": "None. Post-merge typecheck passed. Semester stays week-1."
     }
   ]
 }
