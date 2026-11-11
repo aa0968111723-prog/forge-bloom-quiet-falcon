@@ -213,4 +213,12 @@
 
 ## 下一步
 
-見 `CHECKPOINT.json`。建築系館已從綠瓦分開。巡禮折線、視聽教育館與化學館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+## 階段：學生活動中心（ART-066 的一部分）
+
+文藝區這棟不再跟著文藝主題戴綠瓦。現在是一層門廳、南向玻璃、遮陽板和退縮的上層。分區仍是 culture-58。會議中心仍是低寬會堂，覺軒仍是坡頂。外形仍是 estimated。建築系館留著。
+
+畫面：`docs/art/evidence/activity/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。學生活動中心已從綠瓦分開。建築系館、覺軒與會議中心留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

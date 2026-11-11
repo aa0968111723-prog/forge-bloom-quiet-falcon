@@ -42,7 +42,8 @@ export type SecondaryStructure = {
     | "intl-dorm"
     | "media-hall"
     | "auditorium"
-    | "studio-block";
+    | "studio-block"
+    | "activity-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -332,6 +333,22 @@ export function studioProfile(size: readonly [number, number, number]) {
   };
 }
 
+/**
+ * Student-activity mass for 學生活動中心. The lobby, canopy, and set-back
+ * upper floors are an estimated silhouette, not a measured facade.
+ */
+export function activityProfile(size: readonly [number, number, number]) {
+  const lobbyH = Math.min(4.2, Math.max(3.2, size[1] * 0.28));
+  return {
+    lobbyH,
+    glassZ: size[2] / 2 + 0.08,
+    glassW: size[0] * 0.68,
+    canopyDepth: 2.6,
+    upperW: size[0] - 2.4,
+    upperD: size[2] - 1.8,
+  };
+}
+
 /** Glass base plus the set-back upper volume used by 覺生綜合大樓. */
 export function linkedHallProfile(size: readonly [number, number, number]) {
   const baseH = Math.max(3.2, size[1] * 0.42);
@@ -381,6 +398,7 @@ function campusKind(site: {
   if (site.id === "business-o" || site.id === "business-q") return "media-hall";
   if (site.id === "audiovisual") return "auditorium";
   if (site.id === "architecture") return "studio-block";
+  if (site.id === "commons") return "activity-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";
