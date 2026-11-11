@@ -15,9 +15,9 @@
 
 ## 下一步
 
-學院施法姿勢的程式提交是 `9256c85`。敘事預覽已在 `/tmp/worktrees/content-narrative` 驗過，尚未進 `main`。開始合併前再 `git fetch`，確認 `main` 仍是 `c95d9c3`、內容 head 仍是 `54a997e`。
+`main` 的程式提交是 `5d075b2b8522a478a580fb5998d580395d827055`。PR #15 與來源 PR #11 已合併。合併後 typecheck 通過。
 
-主場景仍不要假裝已接上敘事。`MAIN_INTEGRATION` 維持 false。
+`/narrative` 能玩。`AdventureApp` 仍沒有呼叫 `selectEvent`。下一項是把到達既有地點接到這個選擇，效果仍走白名單，成長狀態用主遊戲那一份。沒有新分支時不要重跑全量測試，也不要做空提交。
 
 ## 不要做
 

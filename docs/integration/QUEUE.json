@@ -235,7 +235,7 @@
       "id": "content-narrative",
       "line": "content",
       "scope": "Playable campus narrative preview. Not yet wired as the only quest store.",
-      "status": "ready_to_merge",
+      "status": "merged",
       "pr": 11,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/11",
       "draft": true,
@@ -262,9 +262,11 @@
           "resolution": "Generated route tree kept the cloud routes and registered /narrative beside them."
         }
       ],
-      "merged": false,
-      "mergeSha": null,
-      "nextAction": "Reconfirm main c95d9c3 and content head 54a997e, then merge. Main scene stays unwired."
+      "merged": true,
+      "mergeSha": "5d075b2b8522a478a580fb5998d580395d827055",
+      "integrationPr": 15,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/15",
+      "nextAction": "None for the preview. Post-merge typecheck passed. Main scene is still unwired."
     }
   ]
 }
