@@ -1061,6 +1061,32 @@
       "integrationPr": 74,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/74",
       "nextAction": "None. The stand patch from 1e077d1 is already in this integration. Do not merge PR #67 by itself. Next is PR #68, then PR #70, then PR #72, then PR #73. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-wind-shed",
+      "line": "art",
+      "scope": "The wind tunnel is a long low shed with a roof duct and an intake. It no longer uses the lab-block windows. Chemistry stays a lab. The reviewing stand stays.",
+      "status": "verified",
+      "pr": 68,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/68",
+      "integrationBranch": "cursor/integration-wind-shed-3395",
+      "sourceBranch": "cursor/wind-shed-1a71",
+      "baseSha": "a07defcb432c",
+      "headSha": "916a19e4e633ccafe2fdeec96afb7647c82fe8bf",
+      "dependencies": ["art-reviewing-stand"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, the mass renderer, the capture script, and the art docs. Kept linked-hall, forum-hall, and stand, and added shed. Capture keeps integrated, forum, and stand, and adds shed.",
+        "typecheck": "pass",
+        "npmTest": "261 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8115 high. 1280x720 and 390x780 show the long low shed, roof duct, and intake. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": "43be21f4f0b8a12ac520c7a25f4e200a0e959192",
+      "nextAction": "None. The shed patch from 916a19e is already in this integration. Do not merge PR #68 by itself. Next is PR #70, then PR #72, then PR #73, then PR #75. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }

@@ -1,17 +1,17 @@
 {
-  "updated": "2026-11-11T22:05:00Z",
-  "branch": "main",
-  "mainSha": "1ee26e649c68",
-  "gameSha": "60c07ff4b7708de2b9323bd800b595e3729a2895",
-  "activeItem": "art-reviewing-stand",
-  "sourceHead": "1e077d1d3a9d49b2d59bef4600667080dda44a43",
-  "integrationHead": "60c07ff4b7708de2b9323bd800b595e3729a2895",
+  "updated": "2026-11-11T22:12:00Z",
+  "branch": "cursor/integration-wind-shed-3395",
+  "mainSha": "a07defcb432c",
+  "gameSha": "43be21f4f0b8a12ac520c7a25f4e200a0e959192",
+  "activeItem": "art-wind-shed",
+  "sourceHead": "916a19e4e633ccafe2fdeec96afb7647c82fe8bf",
+  "integrationHead": "43be21f4f0b8a12ac520c7a25f4e200a0e959192",
   "verified": {
-    "stand": "Static 8114, game 60c07ff. High 1280x720 and 390x780 show the low deck, rear booth, and canopy. pageErrors empty. SwiftShader.",
+    "shed": "Static 8115, game 43be21f. High 1280x720 and 390x780 show the long low shed, roof duct, and intake. pageErrors empty. SwiftShader.",
     "route": "Same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The reviewing stand is on main: a low deck, a rear booth, and a canopy. Game code is 60c07ff4b7708de2b9323bd800b595e3729a2895. The patch from 1e077d1 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #68 (wind shed), then PR #70 (Reitaku), then PR #72 (media halls), then PR #73 (auditorium). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #74. Do not merge PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "The wind tunnel is a long low shed with a roof duct and an intake. Game code is 43be21f4f0b8a12ac520c7a25f4e200a0e959192. The patch from 916a19e is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #70 (Reitaku), then PR #72 (media halls), then PR #73 (auditorium), then PR #75 (pilgrimage walk, head 3c9cf1d). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
