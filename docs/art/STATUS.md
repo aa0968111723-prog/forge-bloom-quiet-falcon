@@ -163,6 +163,12 @@
 
 畫面：`docs/art/evidence/integrated/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：傳播館（ART-065 的一部分）
+
+教學區的傳播館 O、Q 不再是綠瓦坡頂。現在是深色基座、淺色上層和屋頂天線。文學館仍是坡頂。天線不是實測。
+
+畫面：`docs/art/evidence/media/o.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。覺生綜合大樓已分開。雨仍跟著畫質。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。傳播館已從坡頂分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

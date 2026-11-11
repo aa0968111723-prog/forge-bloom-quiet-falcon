@@ -219,3 +219,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 23 輪（覺生綜合大樓）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。覺生綜合大樓是玻璃基座加退縮的淺色上層，上層窗帶貼著退縮後的牆，名牌寫著覺生綜合大樓。精度仍是 estimated。門口步道測試仍通過。定步近景，頁面無錯誤：`docs/art/evidence/integrated/hall.jpg`。雨留在第 22 輪。
+
+## 第 24 輪（傳播館）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。傳播館 O、Q 是深色基座、淺色上層和屋頂天線，不再是綠瓦坡頂。文學館仍是坡頂。名牌寫著傳播館 O 館。精度仍是 estimated。定步畫面，頁面無錯誤：`docs/art/evidence/media/o.jpg`。
