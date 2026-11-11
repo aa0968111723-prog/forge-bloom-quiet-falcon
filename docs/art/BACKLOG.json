@@ -1,0 +1,754 @@
+{
+  "$comment": "Work packages for the full art, campus and integration goal. Status values: planned, in_progress, done, needs_review, blocked. 'done' requires the listed evidence; 'needs_review' means it works in game but awaits human art review or polish.",
+  "schemaVersion": 1,
+  "updated": "2026-11-11",
+  "branch": "cursor/tamkang-art-pipeline-1a71",
+  "order": [
+    "baseline",
+    "pipeline",
+    "sample",
+    "characters",
+    "creatures",
+    "skills",
+    "terrain-zones",
+    "interiors-environment",
+    "ui-audio",
+    "integration-delivery"
+  ],
+  "packages": [
+    {
+      "id": "ART-001",
+      "phase": "baseline",
+      "title": "環境與原始碼盤點、BASELINE.md",
+      "depends": [],
+      "status": "done",
+      "acceptance": "分支/HEAD/工作區、工具版本、美術入口、命令、測試與畫面基準、限制",
+      "evidence": [
+        "docs/art/BASELINE.md"
+      ]
+    },
+    {
+      "id": "ART-002",
+      "phase": "baseline",
+      "title": "改造前五段路線效能（高／省電，同主機）",
+      "depends": [
+        "ART-001"
+      ],
+      "status": "done",
+      "acceptance": "首頁、戶外、戰鬥、室內、返回戶外：載入時間、frame median/P95、draw calls、三角形、傳輸量",
+      "evidence": [
+        "docs/art/evidence/baseline/baseline-high.json",
+        "docs/art/evidence/baseline/baseline-low.json"
+      ]
+    },
+    {
+      "id": "ART-010",
+      "phase": "pipeline",
+      "title": "art/ 來源結構與資產紀錄 schema",
+      "depends": [
+        "ART-001"
+      ],
+      "status": "done",
+      "acceptance": "每件資產有 stable ID、來源檔、授權、輸出、單位、pivot、朝向、動畫、預算、runtime 位置、狀態、證據",
+      "evidence": [
+        "art/assets.json",
+        "docs/art/PIPELINE.md"
+      ]
+    },
+    {
+      "id": "ART-011",
+      "phase": "pipeline",
+      "title": "GLB 匯出、程序貼圖內嵌、manifest 與 runtime 對照表",
+      "depends": [
+        "ART-010"
+      ],
+      "status": "done",
+      "acceptance": "npm run art:export 從來源重建全部輸出並量測",
+      "evidence": [
+        "scripts/art/export-assets.mjs",
+        "public/game-art/manifest.json"
+      ]
+    },
+    {
+      "id": "ART-012",
+      "phase": "pipeline",
+      "title": "驗證器：缺檔、ID 重複、無效引用、骨架動畫相容、預算、未使用、重建一致",
+      "depends": [
+        "ART-011"
+      ],
+      "status": "done",
+      "acceptance": "art:validate --rebuild 0 錯誤；壞檔測試能被抓到",
+      "evidence": [
+        "scripts/art/validate-assets.mjs",
+        "scripts/art-pipeline.test.mjs"
+      ]
+    },
+    {
+      "id": "ART-013",
+      "phase": "pipeline",
+      "title": "runtime 載入、實例複製、資源釋放、載入失敗回退",
+      "depends": [
+        "ART-011"
+      ],
+      "status": "done",
+      "acceptance": "useArtModel + ArtBoundary；失敗時有遊戲內訊息與回退外形",
+      "evidence": [
+        "src/game/art/assets.ts",
+        "src/game/art/ArtBoundary.tsx"
+      ]
+    },
+    {
+      "id": "ART-014",
+      "phase": "pipeline",
+      "title": "截圖與量測工具（turnaround、poses、combat、route、QA 定步時鐘）",
+      "depends": [
+        "ART-001"
+      ],
+      "status": "done",
+      "acceptance": "在真實遊戲畫面內可重現截圖與時序",
+      "evidence": [
+        "scripts/art/capture-art.mjs",
+        "scripts/art/capture-route.mjs"
+      ]
+    },
+    {
+      "id": "ART-015",
+      "phase": "pipeline",
+      "title": "網格／貼圖壓縮評估（meshopt、KTX2）",
+      "depends": [
+        "ART-011",
+        "ART-100"
+      ],
+      "status": "planned",
+      "acceptance": "依量測決定；主角目前 1.1 MB raw / 0.4 MB gzip",
+      "evidence": []
+    },
+    {
+      "id": "ART-016",
+      "phase": "pipeline",
+      "title": "Blender 來源往返",
+      "depends": [
+        "ART-011"
+      ],
+      "status": "blocked",
+      "blocker": "本機無 Blender；GLB 可匯入 Blender，但未實測",
+      "evidence": []
+    },
+    {
+      "id": "ART-020",
+      "phase": "sample",
+      "title": "精製主角（學生角色組主角預設）",
+      "depends": [
+        "ART-011"
+      ],
+      "status": "needs_review",
+      "acceptance": "臉型、眼眉、分束頭髮與小束髮、外套厚度、袖口、手、鞋、背包與小龜吊飾；idle/walk/run/attack/skill/dodge/hurt/interact；在主遊戲使用",
+      "review": "鞋頭仍偏扁、四肢偏細、手部為連指造型",
+      "evidence": [
+        "docs/art/evidence/m1/protagonist-front.jpg",
+        "docs/art/evidence/m1/protagonist-poses.jpg",
+        "docs/art/evidence/m1/protagonist-face.jpg"
+      ]
+    },
+    {
+      "id": "ART-021",
+      "phase": "sample",
+      "title": "可走宮燈教室／宮燈大道樣板",
+      "depends": [
+        "ART-001"
+      ],
+      "status": "needs_review",
+      "acceptance": "主角、怪物、技能在大道上同框交戰；尺度與光照一致",
+      "review": "沿用既有大道與建物幾何；宮燈、碧瓦與窗格精修列入 ART-062",
+      "evidence": [
+        "docs/art/evidence/m1/combat-3-telegraph-late.jpg"
+      ]
+    },
+    {
+      "id": "ART-022",
+      "phase": "sample",
+      "title": "考卷怪（預警、攻擊、受擊、擊倒）",
+      "depends": [
+        "ART-011"
+      ],
+      "status": "needs_review",
+      "acceptance": "專屬輪廓；idle/chase/windup/attack/hurt/defeat 由真實狀態驅動；預警圈＝真實判定半徑",
+      "evidence": [
+        "docs/art/evidence/m1/combat-2-telegraph-early.jpg",
+        "docs/art/evidence/m1/combat-4-strike.jpg",
+        "docs/art/evidence/m1/combat-8-defeat-0.60.jpg"
+      ]
+    },
+    {
+      "id": "ART-023",
+      "phase": "sample",
+      "title": "工程技能「結構脈衝」",
+      "depends": [
+        "ART-013"
+      ],
+      "status": "needs_review",
+      "acceptance": "預備（冷卻就緒）、出手、波前到真實範圍、命中於 attackFx.hits、消散；低畫質與 reduced-motion",
+      "evidence": [
+        "docs/art/evidence/m1/combat-7-skill-release.jpg",
+        "docs/art/evidence/m1/combat-7-skill-travel.jpg",
+        "docs/art/evidence/m1/combat-7-skill-impact.jpg"
+      ]
+    },
+    {
+      "id": "ART-024",
+      "phase": "sample",
+      "title": "M1 樣板整合驗收（主遊戲內同時出現並交戰）",
+      "depends": [
+        "ART-020",
+        "ART-021",
+        "ART-022",
+        "ART-023"
+      ],
+      "status": "done",
+      "acceptance": "真實戰鬥規則下的時序截圖與錄影",
+      "evidence": [
+        "docs/art/evidence/m1/combat.json",
+        "docs/art/evidence/m1/realplay/desktop-8aafe.jpg",
+        "docs/art/evidence/m1/realplay/desktop-acef7.jpg"
+      ]
+    },
+    {
+      "id": "ART-025",
+      "phase": "sample",
+      "title": "M1 needs_review 修正：鞋楦、手部、被阻擋時的步行表現",
+      "depends": [
+        "ART-020"
+      ],
+      "status": "planned",
+      "acceptance": "鞋頭有高度與圓度；手指可辨；按住方向撞牆時不呈現停住／滑動",
+      "evidence": []
+    },
+    {
+      "id": "ART-030",
+      "phase": "characters",
+      "title": "NPC 可重用系統：體型、髮型、服裝、配件",
+      "depends": [
+        "ART-020"
+      ],
+      "status": "planned",
+      "acceptance": "≥3 體型、≥4 髮型、≥4 服裝、≥4 配件；同一骨架與動畫",
+      "evidence": []
+    },
+    {
+      "id": "ART-031",
+      "phase": "characters",
+      "title": "依遊戲角色清冊配置 NPC 預設，避免近似角色",
+      "depends": [
+        "ART-030"
+      ],
+      "status": "planned",
+      "acceptance": "src/game/Npcs.tsx 與對話角色全部有對應預設",
+      "evidence": []
+    },
+    {
+      "id": "ART-032",
+      "phase": "characters",
+      "title": "九學院施放姿勢",
+      "depends": [
+        "ART-020"
+      ],
+      "status": "planned",
+      "acceptance": "每個 discipline 有專屬 skill 片段",
+      "evidence": []
+    },
+    {
+      "id": "ART-033",
+      "phase": "characters",
+      "title": "角色 LOD（省電與人群）",
+      "depends": [
+        "ART-030"
+      ],
+      "status": "in_progress",
+      "acceptance": "主角 LOD1 完成（9.1k，省電畫質使用，重測回到基準）；NPC 人群 LOD 待角色組完成",
+      "evidence": [
+        "docs/art/evidence/m1/route/after-lod-low.json"
+      ]
+    },
+    {
+      "id": "ART-034",
+      "phase": "characters",
+      "title": "動畫驗證：肩肘膝、腳底滑動、背包穿模、臉部方向",
+      "depends": [
+        "ART-020"
+      ],
+      "status": "in_progress",
+      "acceptance": "腳底滑動已量測（walk 0.0%、run 0.2%）；臉朝 +Z 與靜止背包間隙已測；各動作背包穿模數值檢查待做",
+      "evidence": [
+        "scripts/art-pipeline.test.mjs",
+        "docs/art/evidence/m1/protagonist-poses.jpg"
+      ]
+    },
+    {
+      "id": "ART-040",
+      "phase": "creatures",
+      "title": "分組報告聚合體（report）",
+      "depends": [
+        "ART-022"
+      ],
+      "status": "planned",
+      "acceptance": "活頁夾／報告堆輪廓；六種狀態回饋；數值不變",
+      "evidence": []
+    },
+    {
+      "id": "ART-041",
+      "phase": "creatures",
+      "title": "期中考監視者（exam）",
+      "depends": [
+        "ART-022"
+      ],
+      "status": "planned",
+      "acceptance": "監考者輪廓與時鐘；六種狀態回饋",
+      "evidence": []
+    },
+    {
+      "id": "ART-042",
+      "phase": "creatures",
+      "title": "期末 · 截止日（final）",
+      "depends": [
+        "ART-022"
+      ],
+      "status": "planned",
+      "acceptance": "截止日巨型時鐘；保留一次性獎勵與 boss 規則",
+      "evidence": []
+    },
+    {
+      "id": "ART-043",
+      "phase": "creatures",
+      "title": "舊巡禮模式敵人（Enemies.tsx exam/report/anomaly）處置",
+      "depends": [
+        "ART-040",
+        "ART-041"
+      ],
+      "status": "planned",
+      "acceptance": "共用新模型或明示保留",
+      "evidence": []
+    },
+    {
+      "id": "ART-050",
+      "phase": "skills",
+      "title": "engineering 結構脈衝",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "needs_review",
+      "acceptance": "同 ART-023",
+      "evidence": [
+        "src/game/art/vfx/StructuralPulse.tsx"
+      ]
+    },
+    {
+      "id": "ART-051",
+      "phase": "skills",
+      "title": "science 共振反應",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "planned",
+      "acceptance": "預備/出手/作用/命中/消散；低畫質；reduced-motion；不遮預警",
+      "evidence": []
+    },
+    {
+      "id": "ART-052",
+      "phase": "skills",
+      "title": "humanities 敘事解構",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-053",
+      "phase": "skills",
+      "title": "business 資源調度",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "planned",
+      "acceptance": "同上，含回復 20 生命回饋",
+      "evidence": []
+    },
+    {
+      "id": "ART-054",
+      "phase": "skills",
+      "title": "language 多重詠唱",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-055",
+      "phase": "skills",
+      "title": "education 知識領域",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "planned",
+      "acceptance": "同上，含生命與專注回復",
+      "evidence": []
+    },
+    {
+      "id": "ART-056",
+      "phase": "skills",
+      "title": "international 協議共識",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "planned",
+      "acceptance": "同上，含專注回復",
+      "evidence": []
+    },
+    {
+      "id": "ART-057",
+      "phase": "skills",
+      "title": "computing 模型推演",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-058",
+      "phase": "skills",
+      "title": "health 復原領域",
+      "depends": [
+        "ART-023"
+      ],
+      "status": "planned",
+      "acceptance": "同上，含回復 40 生命",
+      "evidence": []
+    },
+    {
+      "id": "ART-059",
+      "phase": "skills",
+      "title": "普攻光刃與揮擊同步",
+      "depends": [
+        "ART-020"
+      ],
+      "status": "planned",
+      "acceptance": "弧線跟隨右手由右至左",
+      "evidence": []
+    },
+    {
+      "id": "ART-060",
+      "phase": "terrain-zones",
+      "title": "清冊重新產生、差異報告、每筆處置",
+      "depends": [
+        "ART-001"
+      ],
+      "status": "planned",
+      "acceptance": "64 筆全部有處置；保留 permanentId/saveKey/aliasOf；疑似重複先核對",
+      "evidence": []
+    },
+    {
+      "id": "ART-061",
+      "phase": "terrain-zones",
+      "title": "官方校園圖與建物資料核對（URL、查閱日期、授權）",
+      "depends": [
+        "ART-060"
+      ],
+      "status": "planned",
+      "acceptance": "SOURCES.md 每筆來源有查閱日期與授權狀態",
+      "evidence": []
+    },
+    {
+      "id": "ART-062",
+      "phase": "terrain-zones",
+      "title": "axis-54 校門、克難坡、宮燈教室／大道、驚聲廣場",
+      "depends": [
+        "ART-060",
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "逐筆輪廓、入口、碰撞、LOD、步行路線畫面",
+      "evidence": []
+    },
+    {
+      "id": "ART-063",
+      "phase": "terrain-zones",
+      "title": "library-55",
+      "depends": [
+        "ART-060",
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-064",
+      "phase": "terrain-zones",
+      "title": "stem-56",
+      "depends": [
+        "ART-060",
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-065",
+      "phase": "terrain-zones",
+      "title": "teaching-57",
+      "depends": [
+        "ART-060",
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-066",
+      "phase": "terrain-zones",
+      "title": "culture-58",
+      "depends": [
+        "ART-060",
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-067",
+      "phase": "terrain-zones",
+      "title": "sports-59",
+      "depends": [
+        "ART-060",
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-068",
+      "phase": "terrain-zones",
+      "title": "life-60",
+      "depends": [
+        "ART-060",
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-069",
+      "phase": "terrain-zones",
+      "title": "道路、坡道、階梯與入口連通驗證",
+      "depends": [
+        "ART-062"
+      ],
+      "status": "planned",
+      "acceptance": "每個非別名入口可達；不漂浮、不穿牆、不被裝飾物卡住",
+      "evidence": []
+    },
+    {
+      "id": "ART-070",
+      "phase": "terrain-zones",
+      "title": "淡水遠景（不可走）",
+      "depends": [
+        "ART-062"
+      ],
+      "status": "planned",
+      "acceptance": "僅遠景",
+      "evidence": []
+    },
+    {
+      "id": "ART-080",
+      "phase": "interiors-environment",
+      "title": "可重用公共室內：教室",
+      "depends": [
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "遊戲化設計並明示；進出、相機、碰撞、狀態恢復",
+      "evidence": []
+    },
+    {
+      "id": "ART-081",
+      "phase": "interiors-environment",
+      "title": "可重用公共室內：圖書閱讀空間",
+      "depends": [
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-082",
+      "phase": "interiors-environment",
+      "title": "可重用公共室內：活動空間",
+      "depends": [
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同上",
+      "evidence": []
+    },
+    {
+      "id": "ART-084",
+      "phase": "interiors-environment",
+      "title": "環境道具組：道路、階梯、地表、圍牆、欄杆、路燈、長椅、標示、花圃、生活道具",
+      "depends": [
+        "ART-011"
+      ],
+      "status": "planned",
+      "acceptance": "一致材質與比例；instancing",
+      "evidence": []
+    },
+    {
+      "id": "ART-085",
+      "phase": "interiors-environment",
+      "title": "植栽：樹木、草叢、花圃",
+      "depends": [
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "同一風格；LOD",
+      "evidence": []
+    },
+    {
+      "id": "ART-086",
+      "phase": "interiors-environment",
+      "title": "材質庫一致性與日／夕／夜光照檢查",
+      "depends": [
+        "ART-084"
+      ],
+      "status": "planned",
+      "acceptance": "三時段固定角度截圖",
+      "evidence": []
+    },
+    {
+      "id": "ART-087",
+      "phase": "interiors-environment",
+      "title": "天氣效果與品質分級",
+      "depends": [
+        "ART-086"
+      ],
+      "status": "planned",
+      "acceptance": "低畫質降級；實機效能檢查",
+      "evidence": []
+    },
+    {
+      "id": "ART-090",
+      "phase": "ui-audio",
+      "title": "角色卡、技能圖示、任務／地圖標記、互動與受擊回饋",
+      "depends": [
+        "ART-020"
+      ],
+      "status": "planned",
+      "acceptance": "沿用既有流程；修正狀態卡純文字讀數",
+      "evidence": []
+    },
+    {
+      "id": "ART-091",
+      "phase": "ui-audio",
+      "title": "手機圖示可辨識度",
+      "depends": [
+        "ART-090"
+      ],
+      "status": "planned",
+      "acceptance": "手機視窗截圖",
+      "evidence": []
+    },
+    {
+      "id": "ART-092",
+      "phase": "ui-audio",
+      "title": "有授權來源的音效",
+      "depends": [],
+      "status": "blocked",
+      "blocker": "尚未取得有明確授權的音檔；目前保留 WebAudio 合成音，不建立缺檔引用",
+      "evidence": []
+    },
+    {
+      "id": "ART-100",
+      "phase": "integration-delivery",
+      "title": "同主機、同解析度、同路線改造前後比較",
+      "depends": [
+        "ART-002",
+        "ART-024"
+      ],
+      "status": "done",
+      "acceptance": "同主機、同解析度、同路線前後比較（省電三次、高畫質兩次）；裝置目標另列 ART-101",
+      "evidence": [
+        "docs/art/STATUS.md",
+        "docs/art/evidence/m1/route/after-low.json",
+        "docs/art/evidence/m1/route/after-high.json",
+        "docs/art/evidence/m1/route/after-lod-low.json"
+      ]
+    },
+    {
+      "id": "ART-101",
+      "phase": "integration-delivery",
+      "title": "真機量測（手機省電、RTX 3060 高畫質）",
+      "depends": [
+        "ART-100"
+      ],
+      "status": "blocked",
+      "blocker": "無真機與 GPU；一律 pending-device",
+      "evidence": []
+    },
+    {
+      "id": "ART-102",
+      "phase": "integration-delivery",
+      "title": "高畫質戶外三角形 2.74 M 降到 1.6 M 預算內",
+      "depends": [
+        "ART-100"
+      ],
+      "status": "planned",
+      "acceptance": "依量測調整 LOD／植栽／陰影",
+      "evidence": []
+    },
+    {
+      "id": "ART-103",
+      "phase": "integration-delivery",
+      "title": "分區載入、instancing、LOD 與資源釋放",
+      "depends": [
+        "ART-102"
+      ],
+      "status": "planned",
+      "acceptance": "依量測",
+      "evidence": []
+    },
+    {
+      "id": "ART-104",
+      "phase": "integration-delivery",
+      "title": "主線、存檔、一次性獎勵相容回歸",
+      "depends": [
+        "ART-024"
+      ],
+      "status": "in_progress",
+      "acceptance": "既有 206 項測試持續通過；新增美術不改存檔欄位",
+      "evidence": [
+        "scripts/rpg-runtime.test.mjs"
+      ]
+    },
+    {
+      "id": "ART-110",
+      "phase": "integration-delivery",
+      "title": "交付文件與 PR",
+      "depends": [],
+      "status": "in_progress",
+      "acceptance": "STATUS、VALIDATION、SOURCES、KNOWN-ISSUES、HANDOFF、CHECKPOINT 持續更新",
+      "evidence": [
+        "docs/art/STATUS.md"
+      ]
+    }
+  ]
+}

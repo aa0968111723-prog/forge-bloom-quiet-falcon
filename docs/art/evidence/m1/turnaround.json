@@ -1,0 +1,60 @@
+{
+  "ok": true,
+  "scenario": "turnaround",
+  "tier": "high",
+  "viewport": "800x800",
+  "webgl": {
+    "ok": true,
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "vendor": "Google Inc. (Google)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "captures": [
+    {
+      "name": "front",
+      "path": "/tmp/m1/turnaround/turnaround-front.png",
+      "note": "photo yaw 3.14 rad, body faces north, 宮燈教室 interior light"
+    },
+    {
+      "name": "three-quarter",
+      "path": "/tmp/m1/turnaround/turnaround-three-quarter.png",
+      "note": "photo yaw 2.36 rad, body faces north, 宮燈教室 interior light"
+    },
+    {
+      "name": "side",
+      "path": "/tmp/m1/turnaround/turnaround-side.png",
+      "note": "photo yaw 1.57 rad, body faces north, 宮燈教室 interior light"
+    },
+    {
+      "name": "back",
+      "path": "/tmp/m1/turnaround/turnaround-back.png",
+      "note": "photo yaw 0.00 rad, body faces north, 宮燈教室 interior light"
+    },
+    {
+      "name": "face",
+      "path": "/tmp/m1/turnaround/turnaround-face.png",
+      "note": "face close-up, front"
+    },
+    {
+      "name": "face-three-quarter",
+      "path": "/tmp/m1/turnaround/turnaround-face-three-quarter.png",
+      "note": "face close-up, three-quarter"
+    },
+    {
+      "name": "hands",
+      "path": "/tmp/m1/turnaround/turnaround-hands.png",
+      "note": "hand and cuff close-up"
+    },
+    {
+      "name": "shoes",
+      "path": "/tmp/m1/turnaround/turnaround-shoes.png",
+      "note": "sneakers close-up"
+    },
+    {
+      "name": "backpack",
+      "path": "/tmp/m1/turnaround/turnaround-backpack.png",
+      "note": "backpack, straps and turtle charm"
+    }
+  ],
+  "pageErrors": []
+}

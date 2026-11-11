@@ -6,6 +6,10 @@ declare global {
     __characterTest?: {
       weights: { idle: number; walk: number; run: number; walkRate: number };
       boneRotation: (name: string) => { x: number; y: number; z: number } | null;
+      /** One-shot action currently playing on the player, if any. */
+      action?: string | null;
+      /** QA: start a one-shot clip without a game event (pose review only). */
+      play?: (name: string) => void;
     };
     /** WebGL renderer statistics, exposed for the perf regression. */
     __perfTest?: {
@@ -13,6 +17,19 @@ declare global {
         render: { calls: number; triangles: number };
         memory: { geometries: number; textures: number };
       };
+    };
+    /**
+     * Store access for scripted art/QA captures. Only installed when the page
+     * is opened with `?qa=1`; the game never reads it.
+     */
+    __rpgQA?: {
+      rpg: typeof import("./rpg/store").useRpg;
+      game: typeof import("./store").useGame;
+      /** Stop the render loop; frames then only advance through `step`. */
+      freeze?: () => void;
+      resume?: () => void;
+      /** Render `count` frames, each exactly `dt` seconds apart. */
+      step?: (dt?: number, count?: number) => void;
     };
     __controlsTest?: {
       getYaw: () => number;
@@ -25,6 +42,8 @@ declare global {
       getBenchmark?: () => string | null;
       /** Adjust camera yaw without resetting velocity. */
       setYaw?: (yaw: number) => void;
+      /** QA photo camera orbiting the player; null restores the follow camera. */
+      setPhoto?: (p: { distance: number; height: number; yaw: number; lookY: number } | null) => void;
     };
   }
 }

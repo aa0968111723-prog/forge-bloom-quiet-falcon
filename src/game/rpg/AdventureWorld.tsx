@@ -34,6 +34,7 @@ import { detailedRoom, InteriorDetails, roomFinish } from "./InteriorDetails";
 import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
 import { Monster } from "./art/Monster";
 import { SkillEffects } from "./art/SkillEffects";
+import { StructuralPulse } from "../art/vfx/StructuralPulse";
 
 /** Scene marker. Sentences the player must read stay on the DOM plaque. */
 export function Sign({
@@ -747,6 +748,7 @@ export function AdventureSystems() {
       <Supplies />
       <BuildGhost />
       <SkillEffects />
+      <StructuralPulse />
       <BaseLights />
     </group>
   );

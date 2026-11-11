@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { creatureModel } from "./creatures";
@@ -9,8 +9,20 @@ import { useGame } from "../../store";
 import { terrainHeight } from "../../world";
 import { ENEMY_TYPES } from "../data";
 import { useRpg } from "../store";
+import { ArtBoundary } from "../../art/ArtBoundary";
+import { QuizCreature } from "../../art/creatures/QuizCreature";
+import { preloadArt } from "../../art/assets";
 type Enemy = ReturnType<typeof useRpg.getState>["enemies"][number];
+preloadArt("creature.quiz");
+/** Upgraded kinds come from the art pipeline; the rest keep the procedural model until their pass. */
 export function Monster({enemy}:{enemy:Enemy}) {
+  if (enemy.kind !== "quiz") return <LegacyMonster enemy={enemy}/>;
+  const fallback = <LegacyMonster enemy={enemy}/>;
+  return <ArtBoundary id="creature.quiz" fallback={fallback} onFail={(m)=>useRpg.getState().notify(m)}>
+    <Suspense fallback={fallback}><QuizCreature enemy={enemy}/></Suspense>
+  </ArtBoundary>;
+}
+function LegacyMonster({enemy}:{enemy:Enemy}) {
   const root=useRef<THREE.Group>(null), floating=useRef<THREE.Group>(null);
   const warning=useRef<THREE.Mesh>(null), bar=useRef<THREE.Mesh>(null), label=useRef<THREE.Group>(null);
   const reduced=useReducedArtMotion(), type=ENEMY_TYPES[enemy.kind], boss=enemy.kind==="final";

@@ -1,0 +1,103 @@
+{
+  "updated": "2026-11-11T15:45:00Z",
+  "base": "main",
+  "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+  "items": [
+    {
+      "id": "art-m1",
+      "line": "art",
+      "scope": "Asset pipeline, protagonist kit, quiz creature, engineering skill effect, plus integration fixes for head glance and skeleton disposal.",
+      "status": "blocked",
+      "pr": 6,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/6",
+      "integrationBranch": "cursor/integration-art-m1-3395",
+      "sourceBranch": "cursor/tamkang-art-pipeline-1a71",
+      "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+      "headSha": "017b755cf196585ea5bcf134efafdd697f40ceb8",
+      "dependencies": [],
+      "sharedFiles": [
+        "package.json",
+        "eslint.config.mjs",
+        "tsconfig.json",
+        "src/game/rpg/AdventureApp.tsx",
+        "src/game/rpg/AdventurePlayer.tsx",
+        "src/game/rpg/AdventureWorld.tsx",
+        "src/game/rpg/art/Monster.tsx",
+        "src/game/rpg/art/SkillEffects.tsx",
+        "src/game/controls-test.d.ts"
+      ],
+      "contractVersion": {
+        "artSchema": 1,
+        "savePilgrimage": 2,
+        "saveRpg": 2,
+        "contentSchema": null
+      },
+      "checks": {
+        "diffRead": true,
+        "conflicts": "none",
+        "typecheck": "pass",
+        "npmTest": "217 pass / 0 fail",
+        "buildSite": "pass",
+        "route": "docs/integration/evidence/integration-low.json",
+        "secrets": "none added",
+        "branchProtection": "main.protected=false via branches API; protection endpoint 403 for this token; no rulesets returned"
+      },
+      "conflicts": [
+        {
+          "id": "codex-head-look",
+          "resolution": "Restore the post-clip neck/head pose before applying glance. Walk and run do not animate head, so in-place += twisted it while moving."
+        },
+        {
+          "id": "codex-skeleton-dispose",
+          "resolution": "Unmount disposes cloned skeleton bone textures and cloned materials. Shared geometry and atlas textures stay in the loader cache."
+        }
+      ],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": 7,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/7",
+      "verifiedHead": "b3db57bdee87e87c89423c8ad747e4e5eab978f0",
+      "nextAction": "PR #7 is mergeable and checks passed at b3db57b, but PUT /pulls/7/merge returned 403 (token cannot merge). Do not push main directly and do not merge PR #6 alone. Retry the merge API when the token can merge, or leave #7 for a principal who can."
+    },
+    {
+      "id": "backend-sync",
+      "line": "backend",
+      "scope": "Identity, database, cloud save, multi-device sync, content API.",
+      "status": "discovered",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": null,
+      "sourceBranch": null,
+      "baseSha": null,
+      "headSha": null,
+      "dependencies": ["art-m1"],
+      "sharedFiles": [],
+      "contractVersion": null,
+      "checks": null,
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Wait for a pushed branch or PR. Do not invent a second save store."
+    },
+    {
+      "id": "content-pack",
+      "line": "content",
+      "scope": "Campus data, image references, story, quests, events, open-source assets.",
+      "status": "discovered",
+      "pr": null,
+      "prUrl": null,
+      "integrationBranch": null,
+      "sourceBranch": null,
+      "baseSha": null,
+      "headSha": null,
+      "dependencies": [],
+      "sharedFiles": [],
+      "contractVersion": null,
+      "checks": null,
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "nextAction": "Wait for a pushed branch or PR. Reconcile department catalogs only when the content line names a canonical id list."
+    }
+  ]
+}

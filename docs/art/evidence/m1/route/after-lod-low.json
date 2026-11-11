@@ -1,0 +1,115 @@
+{
+  "ok": true,
+  "label": "after-lod-low",
+  "url": "http://127.0.0.1:8089/?qa=1&q=low",
+  "tier": "low",
+  "viewport": "844x390",
+  "host": "4vcpu Intel(R) Xeon(R) Processor / ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "webgl": {
+    "ok": true,
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "vendor": "Google Inc. (Google)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "measuredAt": "2026-11-11T11:55:00.916Z",
+  "timeToTitleMs": 6047,
+  "segments": [
+    {
+      "segment": "title",
+      "timeToOperableMs": 13307,
+      "frames": 6,
+      "frameMsMedian": 691.65,
+      "frameMsP95": 833.3,
+      "drawCalls": 393,
+      "triangles": 380210,
+      "geometries": 422,
+      "textures": 86
+    },
+    {
+      "segment": "outdoor",
+      "timeToOperableMs": 36172,
+      "frames": 7,
+      "frameMsMedian": 650.1,
+      "frameMsP95": 749.8,
+      "drawCalls": 333,
+      "triangles": 350876,
+      "geometries": 495,
+      "textures": 96
+    },
+    {
+      "segment": "combat",
+      "frames": 6,
+      "frameMsMedian": 641.7,
+      "frameMsP95": 783.3,
+      "drawCalls": 325,
+      "triangles": 343500,
+      "geometries": 514,
+      "textures": 95,
+      "fight": {
+        "quiz2": {
+          "hp": 25,
+          "state": "chase"
+        },
+        "playerHp": 100,
+        "kills": 0
+      }
+    },
+    {
+      "segment": "indoor",
+      "timeToOperableMs": 2378,
+      "frames": 114,
+      "frameMsMedian": 33.3,
+      "frameMsP95": 50,
+      "drawCalls": 11,
+      "triangles": 12352,
+      "geometries": 168,
+      "textures": 64
+    },
+    {
+      "segment": "outdoor-return",
+      "timeToOperableMs": 5108,
+      "frames": 9,
+      "frameMsMedian": 483.4,
+      "frameMsP95": 550,
+      "drawCalls": 208,
+      "triangles": 337160,
+      "geometries": 372,
+      "textures": 75
+    }
+  ],
+  "transfer": {
+    "resources": 51,
+    "transferBytes": 2354561,
+    "encodedBytes": 2339664,
+    "byType": {
+      "js": {
+        "count": 4,
+        "transferBytes": 453986,
+        "encodedBytes": 452786
+      },
+      "css": {
+        "count": 2,
+        "transferBytes": 16122,
+        "encodedBytes": 15522
+      },
+      "svg": {
+        "count": 2,
+        "transferBytes": 1003,
+        "encodedBytes": 806
+      },
+      "glb": {
+        "count": 2,
+        "transferBytes": 806940,
+        "encodedBytes": 806340
+      },
+      "png": {
+        "count": 40,
+        "transferBytes": 1075470,
+        "encodedBytes": 1063470
+      }
+    }
+  },
+  "usedJSHeapBytes": 113786099,
+  "pageErrors": [],
+  "note": "Frame times are from this host's browser. Not a phone or desktop-GPU result."
+}

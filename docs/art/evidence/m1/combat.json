@@ -1,0 +1,95 @@
+{
+  "ok": true,
+  "scenario": "combat",
+  "tier": "low",
+  "viewport": "960x600",
+  "webgl": {
+    "ok": true,
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "vendor": "Google Inc. (Google)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "captures": [
+    {
+      "name": "1-chase",
+      "path": "/tmp/m1/combat/combat-1-chase.png",
+      "note": "chase {\"state\":\"chase\",\"timer\":0,\"hp\":65,\"hurt\":0,\"x\":3.8,\"z\":-102.4}"
+    },
+    {
+      "name": "2-telegraph-early",
+      "path": "/tmp/m1/combat/combat-2-telegraph-early.png",
+      "note": "windup {\"state\":\"windup\",\"timer\":0.567,\"hp\":65,\"hurt\":0,\"x\":1.87,\"z\":-99.44}"
+    },
+    {
+      "name": "3-telegraph-late",
+      "path": "/tmp/m1/combat/combat-3-telegraph-late.png",
+      "note": "windup {\"state\":\"windup\",\"timer\":0.167,\"hp\":65,\"hurt\":0,\"x\":1.87,\"z\":-99.44}"
+    },
+    {
+      "name": "4-strike",
+      "path": "/tmp/m1/combat/combat-4-strike.png",
+      "note": "strike resolved {\"playerHp\":91,\"hurtUntil\":6.07,\"clock\":5.73}"
+    },
+    {
+      "name": "5-player-hurt",
+      "path": "/tmp/m1/combat/combat-5-player-hurt.png",
+      "note": "0.17 s after the strike: player flinch if it landed"
+    },
+    {
+      "name": "6-basic-attack",
+      "path": "/tmp/m1/combat/combat-6-basic-attack.png",
+      "note": "J at t≈0.13 s {\"state\":\"recover\",\"timer\":0.433,\"hp\":45,\"hurt\":0.067,\"x\":1.87,\"z\":-99.44}"
+    },
+    {
+      "name": "7-skill-release",
+      "path": "/tmp/m1/combat/combat-7-skill-release.png",
+      "note": "skill t=0.03 s {\"range\":12,\"hits\":[\"quiz-2\"],\"skill\":true} enemy {\"state\":\"chase\",\"timer\":-0.033,\"hp\":5,\"hurt\":0.133,\"x\":2.89,\"z\":-101}"
+    },
+    {
+      "name": "7-skill-travel",
+      "path": "/tmp/m1/combat/combat-7-skill-travel.png",
+      "note": "skill t=0.10 s {\"range\":12,\"hits\":[\"quiz-2\"],\"skill\":true} enemy {\"state\":\"chase\",\"timer\":-0.033,\"hp\":5,\"hurt\":0.067,\"x\":2.82,\"z\":-100.89}"
+    },
+    {
+      "name": "7-skill-impact",
+      "path": "/tmp/m1/combat/combat-7-skill-impact.png",
+      "note": "skill t=0.20 s {\"range\":12,\"hits\":[\"quiz-2\"],\"skill\":true} enemy {\"state\":\"chase\",\"timer\":-0.033,\"hp\":5,\"hurt\":0,\"x\":2.74,\"z\":-100.78}"
+    },
+    {
+      "name": "7-skill-settle",
+      "path": "/tmp/m1/combat/combat-7-skill-settle.png",
+      "note": "skill t=0.30 s {\"range\":12,\"hits\":[\"quiz-2\"],\"skill\":true} enemy {\"state\":\"chase\",\"timer\":-0.033,\"hp\":5,\"hurt\":0,\"x\":2.6,\"z\":-100.55}"
+    },
+    {
+      "name": "7-skill-dissipate",
+      "path": "/tmp/m1/combat/combat-7-skill-dissipate.png",
+      "note": "skill t=0.50 s {\"range\":12,\"hits\":[\"quiz-2\"],\"skill\":true} enemy {\"state\":\"chase\",\"timer\":-0.033,\"hp\":5,\"hurt\":0,\"x\":2.37,\"z\":-100.21}"
+    },
+    {
+      "name": "7-skill-gone",
+      "path": "/tmp/m1/combat/combat-7-skill-gone.png",
+      "note": "skill t=0.73 s {\"range\":12,\"hits\":[\"quiz-2\"],\"skill\":true} enemy {\"state\":\"chase\",\"timer\":-0.033,\"hp\":5,\"hurt\":0,\"x\":2.15,\"z\":-99.87}"
+    },
+    {
+      "name": "8-defeat-0.07",
+      "path": "/tmp/m1/combat/combat-8-defeat-0.07.png",
+      "note": "defeat t=0.07 s {\"state\":\"dead\",\"timer\":99.933,\"hp\":0,\"hurt\":0.133,\"x\":1.85,\"z\":-99.41}"
+    },
+    {
+      "name": "8-defeat-0.27",
+      "path": "/tmp/m1/combat/combat-8-defeat-0.27.png",
+      "note": "defeat t=0.27 s {\"state\":\"dead\",\"timer\":99.733,\"hp\":0,\"hurt\":0,\"x\":1.85,\"z\":-99.41}"
+    },
+    {
+      "name": "8-defeat-0.60",
+      "path": "/tmp/m1/combat/combat-8-defeat-0.60.png",
+      "note": "defeat t=0.60 s {\"state\":\"dead\",\"timer\":99.4,\"hp\":0,\"hurt\":0,\"x\":1.85,\"z\":-99.41}"
+    },
+    {
+      "name": "8-defeat-1.07",
+      "path": "/tmp/m1/combat/combat-8-defeat-1.07.png",
+      "note": "defeat t=1.07 s {\"state\":\"dead\",\"timer\":98.933,\"hp\":0,\"hurt\":0,\"x\":1.85,\"z\":-99.41}"
+    }
+  ],
+  "pageErrors": []
+}

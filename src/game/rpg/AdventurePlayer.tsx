@@ -1,7 +1,9 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { Suspense, useEffect, useLayoutEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { Student } from "../Student";
+import { ArtBoundary } from "../art/ArtBoundary";
+import { Protagonist, type PlayerActions } from "../art/character/Protagonist";
 import { input } from "./input";
 import { SPRINT, WALK, moveTargetSpeed } from "./move";
 import { useRpg } from "./store";
@@ -16,6 +18,9 @@ import { followCameraSeed, TITLE_ORBIT } from "./follow";
 
 const tmp = new THREE.Vector3();
 const PLAYER_R = 0.42;
+
+/** QA photo camera (art review captures only); null during normal play. */
+let photo: { distance: number; height: number; yaw: number; lookY: number } | null = null;
 const CAM_R = 0.7;
 const BASE_FOV = 58;
 const SPRINT_FOV = 63;
@@ -50,7 +55,7 @@ export function AdventurePlayer() {
   const hudAcc = useRef(0);
   const dodgeTime = useRef(0);
   const dodgeDirection = useRef({ x: 0, z: -1 });
-  const actionRef = useRef({ swing: 0, dodge: 0 });
+  const actionRef = useRef<PlayerActions>({ swing: 0, dodge: 0, dodgeSerial: 0, interactSerial: 0 });
   const groundAt = (x: number, z: number) =>
     useRpg.getState().interiorId ? 0 : terrainHeight(x, z);
   const collide = (x: number, z: number, radius: number) =>
@@ -107,6 +112,9 @@ export function AdventurePlayer() {
       },
       setKeys: (codes) => {
         input.inject = codes;
+      },
+      setPhoto: (p) => {
+        photo = p;
       },
       getPosition: () => ({
         x: pos.current.x,
@@ -244,6 +252,7 @@ export function AdventurePlayer() {
     }
     if (dodged) {
       dodgeTime.current = 0.28;
+      actionRef.current.dodgeSerial += 1;
       dodgeDirection.current =
         mag > 0.01
           ? { x: dx / Math.hypot(dx, dz), z: dz / Math.hypot(dx, dz) }
@@ -322,7 +331,9 @@ export function AdventurePlayer() {
     }
     if (!frozen) {
       for (let n = 0; n < actions.interactCount; n++) {
-        if (useRpg.getState().commitPrompt() === "stamp") campusAudio.stamp();
+        const committed = useRpg.getState().commitPrompt();
+        if (committed) actionRef.current.interactSerial += 1;
+        if (committed === "stamp") campusAudio.stamp();
       }
     }
 
@@ -339,6 +350,24 @@ export function AdventurePlayer() {
     if (group.current) {
       group.current.position.set(pos.current.x, visualY.current, pos.current.z);
       group.current.rotation.y = faceYaw.current + Math.PI;
+    }
+
+    hudAcc.current += delta;
+    if (hudAcc.current > 0.12 || snapped) {
+      hudAcc.current = 0;
+      useGame
+        .getState()
+        .setPlayer(pos.current.x, pos.current.z, camYaw.current);
+    }
+
+    if (photo) {
+      camera.position.set(
+        pos.current.x + Math.sin(photo.yaw) * photo.distance,
+        visualY.current + photo.height,
+        pos.current.z + Math.cos(photo.yaw) * photo.distance,
+      );
+      camera.lookAt(pos.current.x, visualY.current + photo.lookY, pos.current.z);
+      return;
     }
 
     const lookH = 1.32;
@@ -381,19 +410,18 @@ export function AdventurePlayer() {
         persp.updateProjectionMatrix();
       }
     }
-
-    hudAcc.current += delta;
-    if (hudAcc.current > 0.12 || snapped) {
-      hudAcc.current = 0;
-      useGame
-        .getState()
-        .setPlayer(pos.current.x, pos.current.z, camYaw.current);
-    }
   });
 
+  // The previous procedural student stands in while the kit streams and if it
+  // ever fails to load, so the player is never invisible.
+  const standIn = <Student speedRef={speedRef} lookRef={lookRef} actionRef={actionRef} />;
   return (
     <group ref={group}>
-      <Student speedRef={speedRef} lookRef={lookRef} actionRef={actionRef} />
+      <ArtBoundary id="char.student-kit" fallback={standIn} onFail={(m) => useRpg.getState().notify(m)}>
+        <Suspense fallback={standIn}>
+          <Protagonist speedRef={speedRef} lookRef={lookRef} actionRef={actionRef} />
+        </Suspense>
+      </ArtBoundary>
     </group>
   );
 }

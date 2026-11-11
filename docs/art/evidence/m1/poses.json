@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "scenario": "poses",
+  "tier": "high",
+  "viewport": "800x800",
+  "webgl": {
+    "ok": true,
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "vendor": "Google Inc. (Google)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "captures": [
+    {
+      "name": "idle",
+      "path": "/tmp/m1/poses/poses-idle.png",
+      "note": "idle, three-quarter front"
+    },
+    {
+      "name": "attack",
+      "path": "/tmp/m1/poses/poses-attack.png",
+      "note": "attack at t=0.13 s"
+    },
+    {
+      "name": "skill",
+      "path": "/tmp/m1/poses/poses-skill.png",
+      "note": "skill at t=0.17 s"
+    },
+    {
+      "name": "dodge",
+      "path": "/tmp/m1/poses/poses-dodge.png",
+      "note": "dodge at t=0.13 s"
+    },
+    {
+      "name": "hurt",
+      "path": "/tmp/m1/poses/poses-hurt.png",
+      "note": "hurt at t=0.07 s"
+    },
+    {
+      "name": "interact",
+      "path": "/tmp/m1/poses/poses-interact.png",
+      "note": "interact at t=0.30 s"
+    }
+  ],
+  "pageErrors": []
+}

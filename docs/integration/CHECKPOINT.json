@@ -1,0 +1,24 @@
+{
+  "updated": "2026-11-11T15:45:00Z",
+  "branch": "cursor/integration-art-m1-3395",
+  "worktree": "/tmp/worktrees/art-pr6",
+  "mainSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
+  "activeItem": "art-m1",
+  "sourceHead": "017b755cf196585ea5bcf134efafdd697f40ceb8",
+  "verified": {
+    "typecheck": "pass",
+    "npmTest": "217 pass / 0 fail",
+    "eslintTouched": "0 errors",
+    "buildSite": "pass",
+    "route": "ok, pageErrors empty, SwiftShader host only"
+  },
+  "notMerged": ["art-m1"],
+  "blocked": [
+    {
+      "id": "art-m1",
+      "reason": "GitHub merge API returned 403 Resource not accessible by personal access token for PR #7. mergeable_state was clean, base 71f4d3c, head b3db57b, no check runs."
+    }
+  ],
+  "waiting": ["backend-sync", "content-pack"],
+  "next_action": "Retry merging PR #7 when the token is allowed to merge. Do not force-push main. On wake, re-list remote heads: if backend or content has a new branch, start that item; if PR #7 is merged, record mergeSha and smoke the merge tree."
+}
