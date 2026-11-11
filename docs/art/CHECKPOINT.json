@@ -3,7 +3,7 @@
   "task_ids": [
     "ART-070"
   ],
-  "branch": "cursor/river-vista-1a71",
+  "branch": "cursor/weather-tier-1a71",
   "base": "main@abef230dcbbc",
   "commits": [
     {
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The west vista is scenery: the player stops at the near river bank, and the far town and ridges stay beyond it. The shapes are not a survey. Business coins still spread around one target, and the basic slash still chambers in front of the torso. Science stays 騮先紀念科學館 and the pool stays 紹謨紀念游泳館, both estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "Wet weather draws 320 rain streaks on high and 64 on low, and none indoors. Frame times stay pending-device. Do not add unlicensed audio."
 }

@@ -776,9 +776,14 @@
       "acceptance": "低畫質降級；實機效能檢查",
       "evidence": [
         "src/game/world/Lighting.tsx",
-        "src/game/world-data/lighting.ts"
+        "src/game/world-data/lighting.ts",
+        "src/game/world/Rain.tsx",
+        "src/game/world/rain-count.ts",
+        "scripts/rain-tier.test.mjs",
+        "docs/art/evidence/rain/high.jpg",
+        "docs/art/evidence/rain/low.jpg"
       ],
-      "notes": "wet 是第五個光照預設。陰影開關與貼圖尺寸跟 quality().shadows / shadowMapSize。真機幀時間仍 pending-device。"
+      "notes": "雨後預設會在戶外鏡頭周圍下雨。高畫質 320 條，低畫質 64 條，室內不畫。減少動態時雨絲停住。鋪面仍用 wetness。真機幀時間仍 pending-device。"
     },
     {
       "id": "ART-090",

@@ -15,6 +15,7 @@ import { Lighting } from "./Lighting";
 import { LocalLights } from "./LocalLights";
 import { PlacedBuildings } from "./PlacedBuildings";
 import { Grass } from "./Grass";
+import { Rain } from "./Rain";
 import { Sky, Clouds } from "./Sky";
 import { StylizePass } from "./StylizePass";
 import { Water } from "./Water";
@@ -56,6 +57,7 @@ export function World({ timeOfDay, onReady }: { timeOfDay: TimeOfDay; onReady?: 
       <PostFx timeOfDay={effectiveTime} />
       <Sky timeOfDay={effectiveTime} />
       <Clouds timeOfDay={effectiveTime} />
+      <Rain timeOfDay={effectiveTime} />
       <Water timeOfDay={effectiveTime} />
       <RealityCameraRig />
       <Suspense fallback={null}>
