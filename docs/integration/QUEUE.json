@@ -693,6 +693,32 @@
       "merged": true,
       "mergeSha": "94fec8e497d9013ec351e8f322da4b2f278b9df4",
       "nextAction": "None. Source dd628b1 is an ancestor of main. Do not merge PR #45 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
+    },
+    {
+      "id": "art-title-camera",
+      "line": "art",
+      "scope": "Plaza ring trees stay 16 m from the title camera so a banyan no longer fills the hero shot. Azaleas stay. The 48 m canopy switch stays.",
+      "status": "verified",
+      "pr": 48,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/48",
+      "integrationBranch": "cursor/integration-title-camera-3395",
+      "sourceBranch": "cursor/title-camera-1a71",
+      "baseSha": "1e980af13e81",
+      "headSha": "eab68c7aaf892cace9d34f3a5c0ef5a989221f09",
+      "dependencies": ["art-tree-lod"],
+      "sharedFiles": ["src/game/world-data/vegetation.ts"],
+      "checks": {
+        "conflicts": "Art checkpoint and known issues. Kept the 48 m budget note and marked KI-10 done. Capture keeps budget and zones, and adds title.",
+        "typecheck": "pass",
+        "npmTest": "255 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8103 high tier title: 1280x720 and 390x780 show the statue plaza and palace. pageErrors empty",
+        "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/KNOWN-ISSUES.md"],
+      "merged": true,
+      "mergeSha": "adfd28af237a6a5759940d63080b186caad1deb0",
+      "nextAction": "None. Source eab68c7 is an ancestor of main. Do not merge PR #46 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
     }
   ]
 }

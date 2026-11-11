@@ -1,16 +1,16 @@
 {
-  "updated": "2026-11-11T19:10:00Z",
+  "updated": "2026-11-11T19:25:00Z",
   "branch": "main",
-  "mainSha": "4f3239af893c",
-  "gameSha": "94fec8e497d9013ec351e8f322da4b2f278b9df4",
+  "mainSha": "1e980af13e81",
+  "gameSha": "adfd28af237a6a5759940d63080b186caad1deb0",
   "activeItem": null,
-  "sourceHead": "dd628b145038c2b0ec561fe6f25a58bcb51d044f",
-  "integrationHead": "94fec8e497d9013ec351e8f322da4b2f278b9df4",
+  "sourceHead": "eab68c7aaf892cace9d34f3a5c0ef5a989221f09",
+  "integrationHead": "adfd28af237a6a5759940d63080b186caad1deb0",
   "verified": {
-    "treeLod": "typecheck, 254 tests, build:site. High tier at (0, -80): 1280x720 is 1560511 triangles and 458 draws; 390x780 is 1558783 triangles and 388 draws. Both under 1.6 M. pageErrors empty. Route on 8102: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
+    "titleCamera": "typecheck, 255 tests, build:site. Plaza ring trees stay 16 m from TITLE_ORBIT (-13, 13). High title shots at 1280x720 and 390x780 show the statue plaza and palace without a foreground canopy filling the frame. pageErrors empty. Route on 8103: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401."
   },
   "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
   "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "Tree LOD is on main. Game code is 94fec8e497d9013ec351e8f322da4b2f278b9df4. High-quality detailed canopies switch to the cheap canopy past 48 m. The lantern avenue at 1280x720 draws 1560511 triangles. The district map, skill glyphs, hurt edge, study masses, and open gates stay. Other route segments were not remeasured. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source dd628b145038c2b0ec561fe6f25a58bcb51d044f is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #47. Do not merge PR #45 by itself; its game code is already in this integration. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
+  "next_action": "The title camera is on main. Game code is adfd28af237a6a5759940d63080b186caad1deb0. Plaza ring trees leave 16 m around TITLE_ORBIT. The 48 m canopy switch, district map, skill glyphs, hurt edge, study masses, and open gates stay. The route on that tree passed: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401. Source eab68c7aaf892cace9d34f3a5c0ef5a989221f09 is an ancestor. Re-fetch origin/main. Do not rerun the route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #48. Do not merge PR #46 by itself; its game code is already in this integration. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device."
 }

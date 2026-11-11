@@ -103,8 +103,16 @@ try {
   await page.goto(gameUrl(base, { tier }), { waitUntil: "domcontentloaded" });
   await waitForTitle(page);
   const gl = await webglInfo(page);
-  await startSemester(page);
-  await page.waitForFunction(() => Boolean(window.__characterTest?.play), undefined, { timeout: 120000 });
+  if (scenario === "title") {
+    await frames(page, 8);
+    await shot(page, "card", "title with card");
+    await hideHud(page);
+    await frames(page, 4);
+    await shot(page, "world", "title camera without the card");
+  } else {
+    await startSemester(page);
+    await page.waitForFunction(() => Boolean(window.__characterTest?.play), undefined, { timeout: 120000 });
+  }
 
   if (scenario === "turnaround" || scenario === "poses" || scenario === "casts") {
     await enterInterior(page, "palace");
