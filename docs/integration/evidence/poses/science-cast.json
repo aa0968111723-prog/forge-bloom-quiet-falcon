@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "before": null,
+  "after": {
+    "departmentId": "science-理學院-2",
+    "action": "skill-science",
+    "attackFx": {
+      "skill": true,
+      "hits": 1
+    }
+  },
+  "pageErrors": []
+}

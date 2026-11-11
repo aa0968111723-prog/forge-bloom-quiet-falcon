@@ -266,9 +266,13 @@
       "depends": [
         "ART-020"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "每個 discipline 有專屬 skill 片段",
-      "evidence": []
+      "evidence": [
+        "art/characters/student-kit/clips.ts",
+        "docs/art/evidence/m2/cast-poses.jpg"
+      ],
+      "notes": "工程是全身下砸（skill）。其餘八學院是上半身：科學舉手、人文翻頁、商管遞出、語言環抱、教育指向、國際張開、資工比框、健康捧在胸前。由 attackFx.skill 與主修選擇片段。"
     },
     {
       "id": "ART-033",

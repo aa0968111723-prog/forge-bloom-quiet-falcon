@@ -103,7 +103,7 @@ try {
   await startSemester(page);
   await page.waitForFunction(() => Boolean(window.__characterTest?.play), undefined, { timeout: 120000 });
 
-  if (scenario === "turnaround" || scenario === "poses") {
+  if (scenario === "turnaround" || scenario === "poses" || scenario === "casts") {
     await enterInterior(page, "palace");
     // Stand mid-room facing the blackboard (north).
     await setPose(page, 0, 1.5, 0);
@@ -130,6 +130,18 @@ try {
       await photo(page, Math.PI * 0.15, { distance: 1.0, height: 1.25, lookY: 1.05 });
       await shot(page, "backpack", "backpack, straps and turtle charm");
       await page.evaluate(() => window.__controlsTest.setPhoto(null));
+    } else if (scenario === "casts") {
+      await photo(page, Math.PI * 0.72, { distance: 2.6, height: 1.2, lookY: 0.9 });
+      await page.evaluate(() => window.__rpgQA.freeze());
+      const step = (n) => page.evaluate((c) => window.__rpgQA.step(1 / 30, c), n);
+      const casts = ["skill", "skill-science", "skill-humanities", "skill-business", "skill-language", "skill-education", "skill-international", "skill-computing", "skill-health"];
+      for (const clip of casts) {
+        await page.evaluate((c) => window.__characterTest.play(c), clip);
+        await step(6);
+        await shot(page, clip, `${clip} at 0.20 s`);
+        await step(14);
+      }
+      await page.evaluate(() => window.__rpgQA.resume());
     } else {
       await photo(page, Math.PI * 0.72, { distance: 2.7, height: 1.15, lookY: 0.8 });
       await page.evaluate(() => window.__rpgQA.freeze());

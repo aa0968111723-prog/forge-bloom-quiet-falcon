@@ -226,6 +226,34 @@ test("a glance while sprinting stays a bounded offset, because gait clips omit t
   anim.dispose();
 });
 
+test("each college has a different cast pose, and engineering keeps the slam", () => {
+  const clips = allClips();
+  const names = [
+    "skill",
+    "skill-science",
+    "skill-humanities",
+    "skill-business",
+    "skill-language",
+    "skill-education",
+    "skill-international",
+    "skill-computing",
+    "skill-health",
+  ];
+  const signature = (name) => {
+    const clip = clips.find((c) => c.name === name);
+    assert.ok(clip, name);
+    const arm = clip.tracks.find((t) => t.name === "upperArmR.quaternion");
+    assert.ok(arm, `${name} moves the right arm`);
+    return Array.from(arm.values).map((v) => v.toFixed(3)).join(",");
+  };
+  const sigs = names.map(signature);
+  assert.equal(new Set(sigs).size, names.length);
+  const slam = clips.find((c) => c.name === "skill");
+  assert.ok(slam.tracks.some((t) => t.name.startsWith("upperLeg")), "engineering slam uses the legs");
+  const science = clips.find((c) => c.name === "skill-science");
+  assert.equal(science.tracks.some((t) => t.name.startsWith("upperLeg")), false);
+});
+
 test("each college skill is a different shape that reaches the cast range", () => {
   const root = buildCollegeCasts(true);
   assert.deepEqual(

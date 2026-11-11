@@ -191,13 +191,13 @@
       "id": "art-college-poses",
       "line": "art",
       "scope": "College cast poses on top of the NPC kit and creatures. Overlaps files already integrated in art M2.",
-      "status": "discovered",
+      "status": "ready_to_merge",
       "pr": 12,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/12",
       "draft": false,
-      "integrationBranch": null,
+      "integrationBranch": "cursor/integration-art-poses-3395",
       "sourceBranch": "cursor/college-poses-campus-1a71",
-      "baseSha": null,
+      "baseSha": "f842edeb6c51496ce0c6de5dd05cabd68d57df0b",
       "headSha": "c1a3bb3e12733eb5311d4cbdce6b738467167abf",
       "dependencies": ["art-m2", "backend-sync"],
       "sharedFiles": [
@@ -206,11 +206,28 @@
         "src/game/rpg/AdventureApp.tsx"
       ],
       "contractVersion": null,
-      "checks": null,
-      "conflicts": [],
+      "checks": {
+        "diffRead": true,
+        "conflicts": "assets.ts disposer and Protagonist glance comment. Skill clip selection auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "228 pass / 0 fail",
+        "buildSite": "pass",
+        "route": "chemistry skill plays skill-science, 共振反應 hits quiz-2 for 52 (65 to 13), pageErrors empty",
+        "secrets": "none added"
+      },
+      "conflicts": [
+        {
+          "id": "disposer",
+          "resolution": "Their merge of older main had switched the test back to instance.ts and deleted release.ts. Keep releaseArtInstance. Point the skeleton test at it."
+        },
+        {
+          "id": "glance-comment",
+          "resolution": "Keep the comment that identity() would drop the bind pose. The new skill-${discipline} playback stayed."
+        }
+      ],
       "merged": false,
       "mergeSha": null,
-      "nextAction": "New worktree from main b260c87. Reconfirm head c1a3bb3. Resolve the overlap with the merged NPC assemble guard. Do not take the branch whole."
+      "nextAction": "Reconfirm main f842ede and art head c1a3bb3, then merge."
     },
     {
       "id": "content-narrative",

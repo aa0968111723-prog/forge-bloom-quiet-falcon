@@ -104,3 +104,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 | health | 12 | 1 | 淡綠半球，目標與血條仍可讀 |
 
 總覽：`docs/art/evidence/m2/college-skills.jpg`。
+
+## 第 4 輪（學院施放姿勢）— 2026-11-11
+
+`npm test` 226 通過。九段施放在宮燈教室定步到 0.20 秒，姿勢互不相同：工程下砸用到腿，其餘八段只動上半身。工程沒有 `skill-engineering` 片段，所以仍播原本的 `skill`。畫面：`docs/art/evidence/m2/cast-poses.jpg`。

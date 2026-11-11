@@ -4,6 +4,7 @@
   "mainSha": "8a815e9920c42c5d7f893caad6ca86c67e1c2f64",
   "gameSha": "b260c87fbdcb2e4b2e328c94f989c479124e75ba",
   "activeItem": "art-college-poses",
+  "sourceHead": "c1a3bb3e12733eb5311d4cbdce6b738467167abf",
   "sourceHead": "8d5ffd08dad9f1727a2028bdf683f7355844d9c7",
   "integrationHead": "be6fdd608504ba6fb531b69156d96d155cfe369e",
   "verified": {
@@ -12,5 +13,5 @@
   "notMerged": ["art-college-poses", "content-narrative"],
   "blocked": ["INT-01"],
   "waiting": ["art-college-poses", "content-narrative"],
-  "next_action": "main is b260c87. PR #13 and source PR #9 are merged. Next: integrate open PR #12 (cursor/college-poses-campus-1a71 @ c1a3bb3) in a new worktree. Its diff against main has multiple merge bases and overlaps the NPC kit, so resolve conflicts instead of taking the branch whole. Do not start that while another shared-file merge is in flight. After that, read draft PR #11 (feature/game-content-world @ 54a997e). It is not merged."
+  "next_action": "College poses are validated on cursor/integration-art-poses-3395. Reconfirm origin/main is f842ede and cursor/college-poses-campus-1a71 is c1a3bb3, then merge. Draft PR #11 stays queued."
 }

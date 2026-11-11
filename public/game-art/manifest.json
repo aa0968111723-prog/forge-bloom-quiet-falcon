@@ -41,6 +41,14 @@
         "run",
         "attack",
         "skill",
+        "skill-science",
+        "skill-humanities",
+        "skill-business",
+        "skill-language",
+        "skill-education",
+        "skill-international",
+        "skill-computing",
+        "skill-health",
         "dodge",
         "hurt",
         "interact"
@@ -162,8 +170,8 @@
         }
       },
       "metrics": {
-        "bytes": 1156404,
-        "sha256": "75203f79c7999018c1c18fcb9b2a43686f60b6a018e1792bd723ebbb7a2ff23f",
+        "bytes": 1204912,
+        "sha256": "d86327022992bbe8890f0ef485cba5313f2537e6e9495668272a51c643fe93d2",
         "triangles": 21248,
         "vertices": 20121,
         "meshes": 1,
@@ -352,6 +360,118 @@
             ]
           },
           {
+            "name": "skill-science",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "chest.rotation",
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-humanities",
+            "duration": 0.6,
+            "channels": 6,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "handR.rotation",
+              "upperArmL.rotation",
+              "head.rotation"
+            ]
+          },
+          {
+            "name": "skill-business",
+            "duration": 0.6,
+            "channels": 5,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "handR.rotation",
+              "upperArmL.rotation"
+            ]
+          },
+          {
+            "name": "skill-language",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "chest.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-education",
+            "duration": 0.6,
+            "channels": 6,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handR.rotation",
+              "upperArmL.rotation"
+            ]
+          },
+          {
+            "name": "skill-international",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "chest.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-computing",
+            "duration": 0.6,
+            "channels": 7,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-health",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "chest.rotation",
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
             "name": "dodge",
             "duration": 0.45,
             "channels": 15,
@@ -455,6 +575,14 @@
         "run",
         "attack",
         "skill",
+        "skill-science",
+        "skill-humanities",
+        "skill-business",
+        "skill-language",
+        "skill-education",
+        "skill-international",
+        "skill-computing",
+        "skill-health",
         "dodge",
         "hurt",
         "interact"
@@ -554,8 +682,8 @@
         }
       },
       "metrics": {
-        "bytes": 644568,
-        "sha256": "94a0fc12b9ac0cdeaaa511a9868f21757666c02589614f58f5f3b2f344dbca19",
+        "bytes": 692968,
+        "sha256": "9ac7911a6258a4482ec93113ddbfffbdf9cd1ed2221ea1b5ef3d6fa2273c3fb5",
         "triangles": 9276,
         "vertices": 9123,
         "meshes": 1,
@@ -744,6 +872,118 @@
             ]
           },
           {
+            "name": "skill-science",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "chest.rotation",
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-humanities",
+            "duration": 0.6,
+            "channels": 6,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "handR.rotation",
+              "upperArmL.rotation",
+              "head.rotation"
+            ]
+          },
+          {
+            "name": "skill-business",
+            "duration": 0.6,
+            "channels": 5,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "handR.rotation",
+              "upperArmL.rotation"
+            ]
+          },
+          {
+            "name": "skill-language",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "chest.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-education",
+            "duration": 0.6,
+            "channels": 6,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handR.rotation",
+              "upperArmL.rotation"
+            ]
+          },
+          {
+            "name": "skill-international",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "chest.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-computing",
+            "duration": 0.6,
+            "channels": 7,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-health",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "chest.rotation",
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
             "name": "dodge",
             "duration": 0.45,
             "channels": 15,
@@ -848,6 +1088,14 @@
         "run",
         "attack",
         "skill",
+        "skill-science",
+        "skill-humanities",
+        "skill-business",
+        "skill-language",
+        "skill-education",
+        "skill-international",
+        "skill-computing",
+        "skill-health",
         "dodge",
         "hurt",
         "interact"
@@ -931,8 +1179,8 @@
         }
       },
       "metrics": {
-        "bytes": 1540952,
-        "sha256": "b252de3609138ae44865e4dcf6ccdedc3f4bd8bb809af87e58451c9e4cab8d44",
+        "bytes": 1589456,
+        "sha256": "7827dc913a0bf0667f417095883f30ac45ce4656dbb976f25e535e2ba27da861",
         "triangles": 31120,
         "vertices": 26414,
         "meshes": 25,
@@ -1721,6 +1969,118 @@
             ]
           },
           {
+            "name": "skill-science",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "chest.rotation",
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-humanities",
+            "duration": 0.6,
+            "channels": 6,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "handR.rotation",
+              "upperArmL.rotation",
+              "head.rotation"
+            ]
+          },
+          {
+            "name": "skill-business",
+            "duration": 0.6,
+            "channels": 5,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "handR.rotation",
+              "upperArmL.rotation"
+            ]
+          },
+          {
+            "name": "skill-language",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "chest.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-education",
+            "duration": 0.6,
+            "channels": 6,
+            "targets": [
+              "chest.rotation",
+              "upperArmR.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handR.rotation",
+              "upperArmL.rotation"
+            ]
+          },
+          {
+            "name": "skill-international",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "chest.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-computing",
+            "duration": 0.6,
+            "channels": 7,
+            "targets": [
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
+            "name": "skill-health",
+            "duration": 0.6,
+            "channels": 8,
+            "targets": [
+              "chest.rotation",
+              "upperArmL.rotation",
+              "upperArmR.rotation",
+              "lowerArmL.rotation",
+              "lowerArmR.rotation",
+              "head.rotation",
+              "handL.rotation",
+              "handR.rotation"
+            ]
+          },
+          {
             "name": "dodge",
             "duration": 0.45,
             "channels": 15,
@@ -1826,7 +2186,8 @@
         "textures": 1
       },
       "runtime": [
-        "src/game/art/creatures/QuizCreature.tsx"
+        "src/game/art/creatures/CreatureActor.tsx",
+        "src/game/rpg/art/Monster.tsx"
       ],
       "status": "integrated",
       "review": "needs_review",

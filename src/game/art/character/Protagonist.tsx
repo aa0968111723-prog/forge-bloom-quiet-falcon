@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { quality } from "../../quality";
+import { DEPARTMENTS } from "../../rpg/data";
 import { useRpg } from "../../rpg/store";
 import { useArtModel } from "../assets";
 import { CharacterAnimator, type ActionLayer } from "./animator";
@@ -100,7 +101,10 @@ export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
     const fx = rpg.attackFx;
     if (fx && fx.at !== s.fxAt) {
       s.fxAt = fx.at;
-      animator.play(fx.skill ? "skill" : "attack");
+      const discipline = DEPARTMENTS.find((d) => d.id === rpg.departmentId)?.discipline;
+      const named = discipline ? `skill-${discipline}` : "";
+      const cast = fx.skill ? (named && animator.has(named) ? named : "skill") : "attack";
+      animator.play(cast);
     }
     if (rpg.hurtUntil > s.hurtUntil + 1e-6) {
       s.hurtUntil = rpg.hurtUntil;
