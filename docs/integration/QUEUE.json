@@ -4004,6 +4004,62 @@
       "integrationPr": 284,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/284",
       "nextAction": "None. The legal experience, defeats, and clock from 80c96f3d are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-living-interior",
+      "line": "backend",
+      "scope": "Confirming a living indoor save continues from that same file, so the library floor 3 is written back and the player stands at x 0, z 4. A dead save stays outside, with the interior cleared and the floor returned to 1. Both documents still upload.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-living-interior-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "6655b945b802520adc786064f393cd42c6488124",
+      "headSha": "86adb5f3be3b620aa9b311de2705c7c7e64a7dbe",
+      "dependencies": ["backend-xp-clock"],
+      "sharedFiles": ["src/game/rpg/home.ts", "scripts/cloud-game-link.test.mjs", "docs/backend/API.md"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json updated_at and completed tail. Kept 2026-11-12T10:14:08Z, the merge note at fe1ed26, and the living-interior line. npm_test stayed 426. home.ts and API.md auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "426 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BcBedLA4.js",
+        "browser": "8218. The standing route completed.",
+        "route": "8218: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "d899d633b75a0385c87a6d9129dfcedfec08bc17",
+      "integrationPr": 286,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/286",
+      "nextAction": "None. The confirmed living interior from 86adb5f3 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-direct-import",
+      "line": "backend",
+      "scope": "A first import with no local file continues from the chosen text when hp is above 0, so the library floor 3 is written back and the player stands at x 0, z 4. A dead direct import stays on the title, with the interior cleared and the floor returned to 1. Both documents still upload.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-direct-import-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "c0cfc2a6bddc08058e6243e3289b7f234cc2b42d",
+      "headSha": "92b3440a230468fd9a23b552a4686a4f87238b89",
+      "dependencies": ["backend-living-interior"],
+      "sharedFiles": ["src/game/rpg/home.ts", "src/game/rpg/AdventureHud.tsx", "scripts/cloud-game-link.test.mjs"],
+      "checks": {
+        "conflicts": "AdventureHud settings file input and docs/backend/CHECKPOINT.json updated_at plus completed tail. The direct path uses the already-read text. Kept 2026-11-12T10:32:00Z, the merge note at 342e6b2, and the direct-import line. npm_test stayed 428. home.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "428 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DFIHI42O.js",
+        "browser": "8219. The standing route completed.",
+        "route": "8219: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "90ffbb93c5e38f728e9906b668842ab528a00de1",
+      "integrationPr": 288,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/288",
+      "nextAction": "None. The direct living interior from 92b3440a is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

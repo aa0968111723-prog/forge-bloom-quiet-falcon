@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T10:36:30Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "6655b94",
+  "base": "f2656a5",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -134,7 +134,8 @@
     "merged main at 342e6b2; the lifetime build count and spilled variety rewards were already on this branch",
     "a direct import keeps a living interior floor",
     "merged main at 6655b94; legal experience, defeats, and clock were already on this branch",
-    "healing indoors still writes the living floor"
+    "healing indoors still writes the living floor",
+    "merged main at f2656a5; the direct living interior was already on this branch"
   ],
   "verification": {
     "npm_test": "429 pass, 0 fail; healing indoors still writes the living floor",
