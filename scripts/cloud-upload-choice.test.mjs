@@ -29,8 +29,7 @@ function fakeCloud() {
   let heldId = "";
   let failMatchingPut = false;
   let refuseMatchingPut = false;
-  let refuseFirstSync = false;
-  const seen = new Map();
+  let refuseFirstSync = false;  const seen = new Map();
   const puts = [];
   let ids = 0;
   let sessionId = "user-a";
@@ -157,8 +156,7 @@ function fakeCloud() {
     },
     refuseFirstSync() {
       refuseFirstSync = true;
-    },
-    replace(document) {
+    },    replace(document) {
       remote = document;
       revision += 1;
     },
@@ -2427,7 +2425,6 @@ test("a refused first sync keeps the newer local file", async () => {
   assert.equal(planned.status, "in_sync");
   assert.equal(planned.revision, 1);
 });
-
 test("a signed-out save write stays queued for this account", async () => {
   let rejectPut = true;
   const cloud = fakeCloud();
