@@ -5,7 +5,7 @@
 | ID | 範圍 | 狀態 | 說明 | 下一步 |
 | --- | --- | --- | --- | --- |
 | KI-01 | 效能 | 已處理 | 新主角 20.9k 三角形讓本主機省電畫質室內 frame median 33.3 → 50 ms。已加 LOD1（9.1k）於省電畫質使用，重測回到 33.3／50 ms（STATUS.md）。 | NPC 套用角色組時沿用 LOD 規則 |
-| KI-02 | 傳輸 | needs_review | 省電畫質未壓縮傳輸 +0.8 MB（主角 LOD1 0.62 MB、考卷怪 0.17 MB）；高畫質 +1.3 MB。vite preview 未 gzip。 | 依量測評估 meshopt／KTX2（ART-015）；部署端確認 gzip |
+| KI-02 | 傳輸 | needs_review | 省電畫質未壓縮傳輸 +0.8 MB（主角 LOD1 0.62 MB、考卷怪 0.17 MB）；高畫質 +1.3 MB。vite preview 未 gzip。2026-11-12 量到 7 個 GLB gzip 合計 1.70 MB，決定先不加 meshopt／KTX2。 | 部署端確認 gzip；真機傳輸仍是 ART-101 |
 | KI-03 | 主角外觀 | needs_review | 鞋楦已加高並加圓頭與橡膠鞋頭，手指已分開；四肢仍偏細，待審閱。 | 審閱 `evidence/m2/protagonist-shoes-hands.jpg` |
 | KI-04 | 樣板場景 | needs_review | 宮燈大道沿用既有建物與宮燈；未依新方向精修碧瓦、窗格與宮燈燈頭。 | 併入 axis-54（ART-062） |
 | KI-05 | 怪物 | needs_review | quiz／report／exam／final 都改由管線模型繪製，數值與 AI 未改。final 空地正面與背面見 `creature-final-open.jpg`；側面仍會被近處樹冠擋住。 | 審閱 `evidence/m2/creature-*` |
