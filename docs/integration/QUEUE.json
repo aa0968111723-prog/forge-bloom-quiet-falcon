@@ -5147,9 +5147,11 @@
         "route": "8254 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "9e12bb2df2cf6dcfdb0ad38aee9e3117a3188332",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #259 by itself."
+      "integrationPr": 329,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/329",
+      "nextAction": "None. The in-room hoop push from 2ee4ec18 is already in this integration. Do not merge PR #259 by itself. The classroom desk commit e79fbbf0 is still separate."
     }
   ]
 }
