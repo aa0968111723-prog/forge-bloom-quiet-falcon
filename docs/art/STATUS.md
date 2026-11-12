@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：游泳館水道（ART-067 的一部分）
+
+紹謨紀念游泳館室內是水面、分道線和西端出發台。進門和讀檔站在南邊甲板 z=5.2。人走到池邊會停在水面外。出發台低於踏階，不另設碰撞。體育館仍是籃架和中圈。水道長度仍待測。外形仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/pool/lanes.jpg`。測試：`scripts/pool-water.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。游泳館室內已有會擋人的水面。車阻已會擋人。田徑場內圈已有草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

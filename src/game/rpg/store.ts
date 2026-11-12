@@ -52,6 +52,7 @@ import {
   type PromptSnap,
 } from "./prompts.ts";
 import { CAMPUS_SITES, SUPPLY_NODES, siteEntrance } from "./campus.ts";
+import { interiorSpawn } from "./interior-layout.ts";
 import {
   acknowledgeAt,
   approachPlace,
@@ -1220,6 +1221,17 @@ function xpPatch(s: RpgState, amount: number) {
 }
 const loadedGathered = restoreCountMap(saved.gathered, GATHERED_ITEMS);
 const loadedFelled = restoreCountMap(saved.felled, ["quiz", "report", "exam", "final"] as const);
+
+function interiorArrival(id: string) {
+  const stand = interiorSpawn(id);
+  return {
+    warp: { x: stand.x, z: stand.z, yaw: stand.yaw },
+    playerX: stand.x,
+    playerZ: stand.z,
+    playerYaw: stand.yaw,
+  };
+}
+
 export const useRpg = create<RpgState>((set, get) => ({
   departmentId: legacyDepartment(saved.departmentId),
   xp: finite(saved.xp),
@@ -1301,10 +1313,7 @@ export const useRpg = create<RpgState>((set, get) => ({
         snapCam: true,
         plaqueId: null,
         hud: "none",
-        warp: { x: 0, z: 4, yaw: 0 },
-        playerX: 0,
-        playerZ: 4,
-        playerYaw: 0,
+        ...interiorArrival(resume.id),
       });
       flushSave();
       return;
@@ -2042,11 +2051,8 @@ export const useRpg = create<RpgState>((set, get) => ({
     settlePlay("relocate");
     set({ interiorId: id, floor: 1, buildKind: null });
     useGame.setState({
-      warp: { x: 0, z: 4, yaw: 0 },
+      ...interiorArrival(id),
       snapCam: true,
-      playerX: 0,
-      playerZ: 4,
-      playerYaw: 0,
       plaqueId: null,
       hud: "none",
     });
