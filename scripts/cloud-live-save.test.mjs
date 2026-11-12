@@ -213,3 +213,32 @@ test("an old RPG import stays out of the pilgrimage bucket", () => {
   const current = validateRpgDocument(base);
   assert.equal(current.ok, true);
 });
+
+test("quest marks on ground loot stay in the cloud document", () => {
+  const marked = validateRpgDocument({
+    ...base,
+    loot: [{ id: "pile-quest", x: 4, z: 8, items: { notes: 2, parts: 1 }, quest: { notes: 1 } }],
+  });
+  assert.equal(marked.ok, true, marked.ok ? "" : marked.message);
+  if (marked.ok) assert.equal(marked.document.loot?.[0]?.quest?.notes, 1);
+
+  const older = validateRpgDocument({
+    ...base,
+    loot: [{ id: "pile-old", x: 4, z: 8, items: { notes: 1 } }],
+  });
+  assert.equal(older.ok, true, older.ok ? "" : older.message);
+
+  const extra = validateRpgDocument({
+    ...base,
+    loot: [{ id: "pile-extra", x: 1, z: 1, items: { notes: 1 }, source: "quest" }],
+  });
+  assert.equal(extra.ok, false);
+  if (!extra.ok) assert.equal(extra.code, "unsafe_content");
+
+  const over = validateRpgDocument({
+    ...base,
+    loot: [{ id: "pile-over", x: 1, z: 1, items: { notes: 1 }, quest: { notes: 2 } }],
+  });
+  assert.equal(over.ok, false);
+  if (!over.ok) assert.equal(over.code, "invalid_document");
+});

@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T05:02:00Z",
+  "updated_at": "2026-11-12T05:05:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "f317ceb",
+  "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -29,10 +29,11 @@
     "flush removes only the items it finished, so a receipt queued during an upload stays and a dropped upload is not sent",
     "an upload that lands after the player keeps the cloud save is written back from the chosen local file",
     "the first flush of a queued upload sends the current local file when the player kept playing offline",
-    "a failed upload retries the newest local file under a new request id, and continues only when the cloud still holds this device's last write"
+    "a failed upload retries the newest local file under a new request id, and continues only when the cloud still holds this device's last write",
+    "merged main at 1c8f11e and kept quest marks on ground loot in the cloud document"
   ],
   "verification": {
-    "npm_test": "344 pass, 0 fail; a failed upload retries the newest local file and does not overwrite another device",
+    "npm_test": "348 pass, 0 fail; quest marks on ground loot stay in the cloud document",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
