@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T04:10:00Z",
+  "updated_at": "2026-11-12T04:20:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "83fa529",
+  "base": "e95c137",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -12,10 +12,11 @@
     "upload control uses first sync only when the cloud is empty, then the stored revision, and flushes only the signed-in account queue",
     "reloading a signed-in client retries the same request id without bumping revision",
     "merged the library ramp railings and proved a restarted database replays the original request id without changing revision or floor",
-    "player can restore the previous cloud revision into the local save as a new head"
+    "player can restore the previous cloud revision into the local save as a new head",
+    "player can list only their own revision numbers and restore a chosen one; pruned revisions and other accounts do not change the local save"
   ],
   "verification": {
-    "npm_test": "321 pass, 0 fail; previous cloud revision restores into the local save",
+    "npm_test": "322 pass, 0 fail; chosen cloud revision restores, pruned and foreign revisions do not",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
