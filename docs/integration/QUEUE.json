@@ -2181,6 +2181,32 @@
       "integrationPr": 162,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/162",
       "nextAction": "None. The live campus snapshot from 7182c6e is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "content-collection-quests",
+      "line": "content",
+      "scope": "Four semester quests track lifetime notes, parts, drinks, and report defeats. Spending does not reduce the count. Quest rewards do not add to it. Ten patrols stay off doors, faculty posts, and existing encounters. The cloud whitelist accepts gathered and felled.",
+      "status": "verified",
+      "pr": 160,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/160",
+      "integrationBranch": "cursor/integration-collection-quests-3395",
+      "sourceBranch": "cursor/quest-play-75f5",
+      "baseSha": "e95c137109e10d61e9e77c3b56cf111937b722f3",
+      "headSha": "4628005319eb91a3f3931eb1088080687111da95",
+      "dependencies": ["content-faculty-story", "backend-campus-snapshot"],
+      "sharedFiles": ["src/game/rpg/data.ts", "src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx", "src/features/cloud-save/contract.ts"],
+      "checks": {
+        "conflicts": "store.ts supply settlement and the end of rpg-runtime.test.mjs. Kept the gear bonus, the semester errand, and the interior-resume test. Gathered counts the supplies actually accepted, not the errand notes.",
+        "typecheck": "pass",
+        "npmTest": "324 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-YMSPf-td.js",
+        "browser": "8154. 1280x720 shows the gate patrol and the journal at 4/12 notes. pageErrors empty.",
+        "route": "8154: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["src/game/rpg/store.ts", "scripts/rpg-runtime.test.mjs"],
+      "merged": false,
+      "mergeSha": "f73b76a9abe50fcb43ca93d94366eb95c80f71d8",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #160 by itself."
     }
   ]
 }
