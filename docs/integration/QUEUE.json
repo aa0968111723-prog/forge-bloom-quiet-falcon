@@ -5656,6 +5656,34 @@
       "integrationPr": 347,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/347",
       "nextAction": "None. The notice copy from 9ba62780 is already in this integration. This is on integration PR #347. Do not merge PR #290 by itself. No open art pull request is newer than PR #290."
+    },
+    {
+      "id": "content-student-encounters",
+      "line": "content",
+      "scope": "Roll call, hillside rain, and club flyers each have two layouts and do not chase. A wrong route or repair can be edited twice. Rewards still settle once.",
+      "status": "verified",
+      "pr": 128,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/128",
+      "integrationBranch": "cursor/integration-student-encounters-3395",
+      "sourceBranch": "cursor/gameplay-variety-fb95",
+      "baseSha": "833e8f5ec48e83d084249bac52c1b8e9941c3e39",
+      "headSha": "7c65c1b5da79155688125ba67816f83dbec01e64",
+      "dependencies": ["content-encounter-import", "art-notice-copy"],
+      "sharedFiles": ["src/features/gameplay-variety/catalog.ts", "src/features/gameplay-variety/combat.ts", "scripts/gameplay-variety.test.mjs"],
+      "checks": {
+        "conflicts": "The cherry-pick applied cleanly. Notice boards, zebra bars, and the existing quest settlement stayed.",
+        "typecheck": "pass",
+        "npmTest": "479 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BMQlCBWh.js sha256 b7306ef858fcd25807af92e97b7751197853e13299bc9b886084c713a3b52b12. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8273/",
+        "route": "8273 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User FMYrJ5z82Dj1Kwsr1hjajYcoNElF3Cha."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Recorded before the integration PR. The student encounters from 7c65c1b5 are in this branch and are not on main yet. Do not merge PR #128 by itself. The next commit on that PR is 3270f9f8ebb4d08fb37c8a31c6d596c5f4219f69."
     }
   ]
 }
