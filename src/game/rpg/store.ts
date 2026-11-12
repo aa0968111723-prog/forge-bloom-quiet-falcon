@@ -2584,6 +2584,11 @@ function resumeInterior(raw: Record<string, unknown> | null | undefined) {
       : 1;
   return { id: site.id, floor: Math.max(1, Math.min(site.floors, floor)) };
 }
+function wrapYaw(yaw: number) {
+  if (!Number.isFinite(yaw)) return 0;
+  const turn = Math.PI * 2;
+  return yaw - turn * Math.floor(yaw / turn);
+}
 function snapshot() {
   const s = useRpg.getState();
   const g = useGame.getState(),
@@ -2594,8 +2599,8 @@ function snapshot() {
     !onTitle && outside
       ? { ...outside, yaw: Math.PI }
       : onTitle && s.checkpoint
-        ? { x: s.checkpoint.x, z: s.checkpoint.z, yaw: s.checkpoint.yaw }
-        : { x: g.playerX, z: g.playerZ, yaw: g.playerYaw };
+        ? { x: s.checkpoint.x, z: s.checkpoint.z, yaw: wrapYaw(s.checkpoint.yaw) }
+        : { x: g.playerX, z: g.playerZ, yaw: wrapYaw(g.playerYaw) };
   return {
     version: 2,
     departmentId: s.departmentId,

@@ -153,3 +153,32 @@ test("a variety run still uploads after more stations were placed than can stand
   assert.equal(reloaded.variety.active.caps.built, 49);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("a long look-around still uploads the same facing", async () => {
+  const { useGame } = await import("../src/game/store.ts");
+  const { withinAttack } = await import("../src/game/rpg/rules.ts");
+  for (const yaw of [100_001, -100_001]) {
+    useGame.setState({ phase: "playing", playerX: 12, playerZ: -20, playerYaw: yaw });
+    useRpg.setState({
+      freshStart: false,
+      hp: 80,
+      departmentId: "math",
+      interiorId: null,
+      checkpoint: null,
+    });
+    useRpg.getState().keepProgress();
+    const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+    const checked = validateRpgDocument(saved);
+    assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+    assert.ok(saved.position.yaw >= 0 && saved.position.yaw < Math.PI * 2);
+    const ahead = { x: 12 - Math.sin(yaw), z: -20 - Math.cos(yaw) };
+    assert.equal(
+      withinAttack(12, -20, saved.position.yaw, ahead.x, ahead.z, 3.7, false),
+      withinAttack(12, -20, yaw, ahead.x, ahead.z, 3.7, false),
+    );
+    assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+    const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+    assert.equal(validateRpgDocument(reloaded).ok, true);
+    assert.ok(reloaded.position.yaw >= 0 && reloaded.position.yaw < Math.PI * 2);
+  }
+});
