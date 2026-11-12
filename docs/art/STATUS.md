@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：覺軒（ART-062 的一部分）
+
+覺軒不再用共用的扁錐坡頂。南向有迴廊，坡頂較高也比較收。文學館仍是共用坡頂。外形是 estimated，不是實測立面。
+
+畫面：`docs/art/evidence/chueh/veranda.jpg`。測試：`scripts/chueh-veranda.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。覺軒已有南向迴廊。文學館仍是共用坡頂。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
