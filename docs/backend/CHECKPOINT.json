@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:03:24Z",
+  "updated_at": "2026-11-12T06:06:24Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "4f300a7",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -51,10 +51,11 @@
     "a revision conflict from another account does not drop the queued upload or offer that save",
     "merged main at 85ecd5d; the restore session confirm was already on this branch",
     "a restore revision conflict from another account is not offered as this save",
-    "merged main at 4f300a7; the upload response confirm and continued-upload confirm were already on this branch"
+    "merged main at 4f300a7; the upload response confirm and continued-upload confirm were already on this branch",
+    "a dropped upload is not recorded when the landed read belongs to another account"
   ],
   "verification": {
-    "npm_test": "369 pass, 0 fail; a restore conflict from another account is not offered as this save",
+    "npm_test": "370 pass, 0 fail; a dropped upload is not recorded when the landed read belongs to another account",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

@@ -596,6 +596,7 @@ export function createCloudSaveController(options: {
           return;
         }
         if (canonicalJson(payload.document) !== canonicalJson(pending.body.document)) return;
+        if ((await accountGate(userId)) === "mismatch") return;
         if (readQueue(userId).some((current) => current.kind === "put")) {
           bumpQueuedPutBase(userId, payload.revision);
           writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
