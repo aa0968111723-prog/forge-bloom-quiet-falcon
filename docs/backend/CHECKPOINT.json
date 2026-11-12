@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T07:40:08Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "8daa1ef",
+  "base": "0f5da63",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -83,7 +83,8 @@
     "a move lesson with an unusable anchor still uploads",
     "merged main at 8daa1ef; the 80-character campus memory was already on this branch",
     "a stray discovery still uploads the sites already found",
-    "an old piece of gear with a wild durability still uploads"
+    "an old piece of gear with a wild durability still uploads",
+    "merged main at 0f5da63; the trimmed ground-loot id was already on this branch"
   ],
   "verification": {
     "npm_test": "396 pass, 0 fail; an old piece of gear with a wild durability still uploads",

@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T07:31:47Z",
+      "updated": "2026-11-12T07:37:01Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3192,6 +3192,34 @@
       "integrationPr": 231,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/231",
       "nextAction": "None. The 80-character campus memory from ce2b4cd is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-loot-id",
+      "line": "backend",
+      "scope": "Import keeps the first 80 characters of a ground-loot id, the same limit as a building id. Items and the quest mark stay, so the pile can still upload. A raw upload of an id longer than 80, without that import, is still rejected.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-loot-id-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "8daa1ef5c026fc2bc1355c9053a09a51e2919fc5",
+      "headSha": "ba24f0cbc13311bb16372d3c5bd8ad9eb5a1ae11",
+      "dependencies": ["backend-memory-length"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:28:10Z entry and the long ground-loot id line. store.ts merged cleanly.",
+        "typecheck": "pass",
+        "npmTest": "392 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BsO770iL.js",
+        "browser": "8189. The standing route completed.",
+        "route": "8189: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": true,
+      "mergeSha": "79cdcaedbe0dc147731a5ac794e8f467f524dd1b",
+      "integrationPr": 233,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/233",
+      "nextAction": "None. The trimmed ground-loot id from ba24f0cb is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
