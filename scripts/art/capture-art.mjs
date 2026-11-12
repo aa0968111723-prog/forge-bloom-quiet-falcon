@@ -815,7 +815,7 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
- } else if (scenario === "bollard") {
+} else if (scenario === "bollard") {
     await hideHud(page);
     await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
     await setPose(page, -5.2, 89.2, -Math.PI / 2);
@@ -1416,7 +1416,22 @@ try {
       });
     });
     await settle(page, { stableFrames: 3 });
-    await shot(page, "west", "language hall downhill skirt");
+    await shot(page, "west", "language hall downhill skirt");  } else if (scenario === "commonsskirt") {
+    await hideHud(page);
+    await setPose(page, 130, -60, 0);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(160, -39);
+      window.__controlsTest.setPhoto({
+        yaw: -2.4,
+        distance: 40,
+        height: 8,
+        lookY: 2,
+        target: { x: 160, y: y + 5, z: -39 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "west", "activity hall downhill skirt");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
