@@ -3082,7 +3082,7 @@
       "id": "backend-empty-cloud",
       "line": "backend",
       "scope": "A queued upload lands as a first sync when this account's cloud row is gone. Another account's session does not send it.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-empty-cloud-3395",
@@ -3100,9 +3100,11 @@
         "route": "8185: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "a488180ee96845a1a3c3018172f55b9183d9eb3e",
-      "nextAction": "Open the integration PR, then fast-forward. Do not merge PR #156 by itself."
+      "integrationPr": 226,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/226",
+      "nextAction": "None. The empty-cloud queued upload from 320a536 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
