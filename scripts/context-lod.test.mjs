@@ -117,6 +117,8 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   const veranda = gardenHouseProfile(garden.size);
   assert.ok(veranda.glassZ > garden.size[2] / 2, "garden door sits on the south face");
   assert.ok(veranda.porchZ - veranda.porchD / 2 >= garden.size[2] / 2 - 0.02, "the veranda meets the south wall");
+  assert.ok(Math.abs(veranda.wallY + veranda.bodyH / 2 - garden.size[1]) < 1e-6, "the wall reaches the roof");
+  assert.ok(veranda.wallY - veranda.bodyH / 2 >= veranda.baseH - 1e-6, "the wall sits on the plinth");
   assert.ok(veranda.roofH < garden.size[1], "the hip roof stays a cap");
   assert.ok(veranda.roofR < Math.hypot(garden.size[0], garden.size[2]) * 0.5, "the roof does not use the academic cone");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "hip-roof-block");

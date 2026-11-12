@@ -405,7 +405,12 @@ export function memorialProfile(size: readonly [number, number, number]) {
 export function gardenHouseProfile(size: readonly [number, number, number]) {
   const porchD = 1.6;
   const porchH = Math.min(2.6, Math.max(2.2, size[1] * 0.34));
+  const baseH = 1.4;
+  const bodyH = Math.max(0, size[1] - baseH);
   return {
+    baseH,
+    bodyH,
+    wallY: baseH + bodyH / 2,
     roofH: Math.min(2.2, Math.max(1.5, size[1] * 0.28)),
     roofR: Math.min(size[0], size[2]) * 0.62,
     porchW: Math.min(12, size[0] * 0.42),
