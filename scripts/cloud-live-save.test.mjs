@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { MAX_DOCUMENT_KEYS, validateRpgDocument } from "../src/features/cloud-save/contract.ts";
+import { emptyFelled, emptyGathered } from "../src/game/rpg/data.ts";
 
 const base = {
   version: 2,
@@ -171,6 +172,17 @@ test("cloud saves reject fields outside the live snapshot", () => {
   const tooWide = validateRpgDocument({ ...base, narrative: { version: 1, flags: overflow } });
   assert.equal(tooWide.ok, false);
   if (!tooWide.ok) assert.match(tooWide.message, /欄位過多/);
+});
+
+test("live collection counters fit the cloud save and older saves can omit them", () => {
+  const counted = validateRpgDocument({
+    ...base,
+    gathered: emptyGathered(),
+    felled: emptyFelled(),
+  });
+  assert.equal(counted.ok, true, counted.ok ? "" : counted.message);
+  const older = validateRpgDocument(base);
+  assert.equal(older.ok, true, older.ok ? "" : older.message);
 });
 
 test("an old RPG import stays out of the pilgrimage bucket", () => {

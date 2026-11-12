@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T04:40:00Z",
+  "updated_at": "2026-11-12T04:45:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "e95c137",
+  "base": "b579dff",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -15,10 +15,11 @@
     "player can restore the previous cloud revision into the local save as a new head",
     "player can list only their own revision numbers and restore a chosen one; pruned revisions and other accounts do not change the local save",
     "backup of one account restores the save head, history, idempotency rows, and reward receipts without touching another account",
-    "an old RPG import is rejected as legacy_rpg and is not stored as pilgrimage; the world save is still legacy_pilgrimage and neither write changes the RPG row"
+    "an old RPG import is rejected as legacy_rpg and is not stored as pilgrimage; the world save is still legacy_pilgrimage and neither write changes the RPG row",
+    "merged collection quests at b579dff; gathered and felled survive upload, download, and process restart, and older saves can omit them"
   ],
   "verification": {
-    "npm_test": "324 pass, 0 fail; old RPG import is not stored as pilgrimage",
+    "npm_test": "328 pass, 0 fail after merging collection quests at b579dff",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

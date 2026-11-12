@@ -26,6 +26,8 @@ function campusSave() {
     slots: [{ itemId: "notes", quantity: 1 }],
     buildings: [{ id: "desk-1", kind: "desk", x: 4, z: 8, rotation: 0, hp: 120 }],
     departmentId: "engineering-工學院-0",
+    gathered: { notes: 12, parts: 4, coffee: 1, tea: 3 },
+    felled: { quiz: 5, report: 2, exam: 0, final: 0 },
     interiorId: "library",
     floor: 3,
     position: { x: 12, z: 18, yaw: 0 },
@@ -141,6 +143,8 @@ function assertCampus(raw) {
   const doc = typeof raw === "string" ? JSON.parse(raw) : raw;
   assert.equal(doc.interiorId, "library");
   assert.equal(doc.floor, 3);
+  assert.equal(doc.gathered.notes, 12);
+  assert.equal(doc.felled.report, 2);
   assert.equal(doc.narrative.seed, "campus");
   assert.equal(doc.narrative.activeEventId, "evt-library-compare");
   assert.equal(doc.narrative.mode, "in-event");
@@ -272,6 +276,8 @@ async function main() {
       assert.equal(unchanged.revision, 1);
       assert.equal(unchanged.document.xp, 40);
       assert.equal(unchanged.document.floor, 3);
+      assert.equal(unchanged.document.gathered.notes, 12);
+      assert.equal(unchanged.document.felled.report, 2);
 
       const edited = JSON.parse(after.readLocal());
       edited.floor = 1;
@@ -287,6 +293,8 @@ async function main() {
       assert.equal(local.floor, 3);
       assert.equal(local.xp, 40);
       assert.equal(local.interiorId, "library");
+      assert.equal(local.gathered.notes, 12);
+      assert.equal(local.felled.report, 2);
     } finally {
       await stopChild(second.child);
     }
