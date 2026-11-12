@@ -695,6 +695,22 @@ export function shipBowCorners(size: readonly [number, number, number]) {
   };
 }
 
+/**
+ * Bow triangles with outward winding. The first two vertices of each face
+ * run so the right-hand normal leaves the hull: bottom down, top up, south
+ * +Z, north -Z.
+ */
+export function shipBowTriangles(size: readonly [number, number, number]) {
+  const { base, tip } = shipBowCorners(size);
+  const [a, b, c, d] = base;
+  return [
+    [b, a, tip],
+    [d, c, tip],
+    [c, b, tip],
+    [a, d, tip],
+  ] as const;
+}
+
 function campusKind(site: {
   id: string;
   form?: "court" | "gate";

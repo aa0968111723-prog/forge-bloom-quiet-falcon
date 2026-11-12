@@ -24,7 +24,7 @@ import {
   classHallProfile,
   dormFrontProfile,
   languageHallProfile,
-  shipBowCorners,
+  shipBowTriangles,
   shipProfile,
   scienceHallProfile,
   studioProfile,
@@ -96,14 +96,7 @@ function LodGlazing({
 }
 
 function shipBowGeometry(size: SecondaryStructure["size"]) {
-  const { base, tip } = shipBowCorners(size);
-  const [a, b, c, d] = base;
-  const positions = new Float32Array([
-    ...a, ...b, ...tip,
-    ...c, ...d, ...tip,
-    ...b, ...c, ...tip,
-    ...d, ...a, ...tip,
-  ]);
+  const positions = new Float32Array(shipBowTriangles(size).flat(2));
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   geometry.computeVertexNormals();
