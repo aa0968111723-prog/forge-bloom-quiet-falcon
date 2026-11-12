@@ -3920,6 +3920,32 @@
       "integrationPr": 278,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/278",
       "nextAction": "None. The spilled errand notes from 822b747c are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-variety-spill",
+      "line": "backend",
+      "scope": "When the bag is already full of parts and notes, a variety settlement's 4 notes spill with a quest mark. Collection stays 0 before and after pickup. The saved quest mark stays 4 and the document still uploads. Credit that does not fit takes the same mark.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-variety-spill-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "fe1ed265154584842ae5dcc8c74eafb022bf4939",
+      "headSha": "4a6afda3e2a96f1259ca051e15dcc6f5b1759fe8",
+      "dependencies": ["backend-errand-spill"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/features/gameplay-variety/host.ts", "docs/backend/API.md"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json base and npm_test. Kept 2026-11-12T09:51:59Z, base 4e6a7df, and the variety-notes line. npm_test stayed 422. store.ts, host.ts, and API.md auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "422 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-C-C9gvht.js",
+        "browser": "8215. The standing route completed.",
+        "route": "8215: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "e1542410ea1b2ff34de875b68963c8086036374d",
+      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
