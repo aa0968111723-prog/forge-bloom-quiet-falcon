@@ -2,12 +2,11 @@ import {
   AVENUE_PAVED_WIDTH,
   AVENUE_PLANTING_WIDTH,
   AXIS,
-  DOLPHIN_ISLAND_RADIUS,
   PLAZA_RADIUS,
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LIBRARY, PALACE, bollards, palaceHallZs } from "./landmarks.ts";
 import { COLLIDERS } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
@@ -110,8 +109,9 @@ function kenanProps(): PropInstance[] {
   out.push(prop("tactile-strip", 0, AXIS.gateZ + 2.4, "kenan", 0, 1, 5.2));
   out.push(prop("hydrant", -5.9, AXIS.gateZ + 4.2, "kenan"));
   out.push(prop("utility-box", 6.2, AXIS.gateZ + 6.4, "kenan", -Math.PI / 2));
-  out.push(prop("bollard", -2.2, AXIS.gateZ + 1.2, "kenan"));
-  out.push(prop("bollard", 2.2, AXIS.gateZ + 1.2, "kenan"));
+  for (const post of bollards()) {
+    if (post.zone === "kenan") out.push(prop("bollard", post.x, post.z, post.zone, post.rot));
+  }
   // Street lamps up the banks.
   let i = 0;
   for (let z = KENAN.bottomZ - 4; z > KENAN_TOP_Z; z -= 13, i++) {
@@ -176,9 +176,8 @@ function avenueProps(): PropInstance[] {
 function northProps(): PropInstance[] {
   const out: PropInstance[] = [];
   // Roundabout: kerb bollards, lamps, signage.
-  for (let a = 0; a < 10; a++) {
-    const t = (a / 10) * Math.PI * 2;
-    out.push(prop("bollard", Math.sin(t) * DOLPHIN_ISLAND_RADIUS, AXIS.dolphinZ + Math.cos(t) * DOLPHIN_ISLAND_RADIUS, "dolphin", t));
+  for (const post of bollards()) {
+    if (post.zone === "dolphin") out.push(prop("bollard", post.x, post.z, post.zone, post.rot));
   }
   for (const [x, z] of [
     [-13, AXIS.dolphinZ + 12],

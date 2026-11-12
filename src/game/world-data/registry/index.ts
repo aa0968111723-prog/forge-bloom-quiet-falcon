@@ -6,7 +6,7 @@
  * repeats a published figure that the existing references already cap at
  * `mapped`. `surveyed` is not used. y is null when no surveyed elevation exists.
  */
-import { AXIS } from "../axis.ts";
+import { AXIS, DOLPHIN_BOLLARD_EXIT, DOLPHIN_BOLLARD_NORTH } from "../axis.ts";
 import { LANDMARKS, PALACE, SPAWN } from "../landmarks.ts";
 import {
   AXIS_BEARING_ACCURACY,
@@ -1103,6 +1103,8 @@ export const ROUTE_SPECS = [
       [STATUE_PASS_X, 0],
       [0, AXIS.avenueSouthZ],
       [DOLPHIN_PASS_X, AXIS.dolphinZ],
+      DOLPHIN_BOLLARD_EXIT,
+      DOLPHIN_BOLLARD_NORTH,
       [0, AXIS.scrollPlazaZ],
       [libraryEntrance.x, libraryEntrance.z],
     ] as XZ[],
