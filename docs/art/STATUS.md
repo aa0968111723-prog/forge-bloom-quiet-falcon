@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：閱覽桌（ART-081 的一部分）
+
+閱讀室北牆有兩座 1.4×1.3 m 的閱覽桌，後面有擋板，會擋住半徑 0.42 m 的身體。中間走道留著。教室同一點不會被推開。南門仍站得住。從南緣往北跨 1.04 m 仍停在中心南側。推出方向若會出房間就改走另一軸。房間仍不是實測。田徑場內圈留著。
+
+畫面：`docs/art/evidence/carrel/east.jpg`。測試：`scripts/reading-carrel.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。閱讀室閱覽桌會擋人。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

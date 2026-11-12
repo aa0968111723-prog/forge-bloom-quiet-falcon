@@ -685,6 +685,22 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "carrel") {
+    await hideHud(page);
+    await enterInterior(page, "library");
+    await setPose(page, 4.5, -3.5, 0);
+    await frames(page, 12);
+    await holdKeys(page, ["KeyW"]);
+    await page.waitForFunction(() => window.__controlsTest.getPosition().z < -4.2);
+    await frames(page, 8);
+    await holdKeys(page, []);
+    await frames(page, 8);
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.6, distance: 4.6, height: 1.8, lookY: 1.1 });
+    });
+    await frames(page, 6);
+    await shot(page, "east", `reading carrel, walked north and stopped ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
