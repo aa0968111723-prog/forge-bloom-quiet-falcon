@@ -2601,6 +2601,34 @@
       "integrationPr": 196,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/196",
       "nextAction": "None. The session recheck from 7d115d0 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-reward-blip",
+      "line": "backend",
+      "scope": "After the account is confirmed, a failed second session check still asks the server before granting. A reward the server already recorded is not granted again.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-reward-blip-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "327520d5275192e47637d0c1bad4535c71d034a5",
+      "headSha": "0b254d5814d49e7ab6518268cdb97aa197a2158d",
+      "dependencies": ["backend-session-gate"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T05:32:04Z entry and the session-blip line.",
+        "typecheck": "pass",
+        "npmTest": "354 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-B0KWHzwD.js unchanged",
+        "browser": "8168. The standing route completed.",
+        "route": "8168: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "2783f8aae2ff1541344f7c5d296f609673b608c9",
+      "integrationPr": 197,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/197",
+      "nextAction": "None. The session-blip reward check from 0b254d5 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
