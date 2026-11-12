@@ -635,7 +635,15 @@ PR #122 `571779` 沒有第二個顧衡。那條分支的遊戲程式比現在的
 
 瀏覽器 `http://127.0.0.1:8144/`。1280×720 與 390×780 都看得到人站在圖書館前的坡上。頁面無錯誤。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。
 
-PR #122 的 head 已改到 `b1615b6`，標題是沈酌還沒有新劇情時主遊戲會直接說。和 `main` 的差集還有 `docs/full-integration`、路線腳本和 `adventure.css`。這一輪不合併。不要帶進 `docs/full-integration`。
+PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒有新的期末規則，三隻異象的說法只寫在他們的路線腳本和 `docs/full-integration`。這一輪只把雲端契約對裝備欄的檢查接進來。
+
+## 雲端裝備契約（本輪）
+
+來源 `a76918e` 的 `src/features/cloud-save/contract.ts` 接到 `a91b3bd`。沒有帶 `docs/full-integration`、他們的路線腳本，也沒有改 `.ad-interact` 的位置。沈酌沒有新句子時的提示已經在主遊戲裡。
+
+雲端存檔接受 `loadout`、`gear`、`quarantine`、`quarantineGear` 和 `heldBuild`。裝備欄多一個 `bonus` 欄會以 `unsafe_content` 拒絕。品質不在 plain／fine、裝備實例超過 24、隔離數量是 0、手持設施沒有耐久，都會拒絕。沒有這些欄位的舊存檔仍通過。`npm run typecheck` 通過。`npm test` 309 通過。`npm run build:site` 產物仍是 `AdventureApp-BLw17Z0-.js`。
+
+跨系統路線仍走 `http://127.0.0.1:8144/`，雲端伺服器用的是這份契約。通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。帶著裝備欄的本機存檔上傳成功。
 
 ## 本輪沒有驗的項目
 
