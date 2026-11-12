@@ -2106,6 +2106,10 @@ function runPrompt(choice: PromptChoice) {
     }
     return;
   }
+  if (choice.kind === "talk") {
+    s.openNarrative(choice.targetId);
+    return;
+  }
   if (choice.kind === "enter" || choice.kind === "arrive") {
     if (!s.openNarrative(choice.targetId)) s.enter(choice.targetId);
     return;

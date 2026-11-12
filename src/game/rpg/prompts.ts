@@ -1,3 +1,4 @@
+import { facultyPosts, nearestFacultyPost, FACULTY_REACH } from "../../features/faculty-story/posts.ts";
 import { LANDMARKS, landmarkAt, terrainHeight } from "../world.ts";
 import { CAMPUS_SITES, SUPPLY_NODES, siteEntrance } from "./campus.ts";
 import { ITEMS, RECIPES, type BuildKind } from "./data.ts";
@@ -21,6 +22,7 @@ export type PromptKind =
   | "pickup"
   | "supply"
   | "cool"
+  | "talk"
   | "enter"
   | "arrive"
   | "stamp"
@@ -412,6 +414,10 @@ export function promptDecision(snap: PromptSnap): PromptChoice | null {
     const line = offerLine(node.items, snap);
     return choice("supply", line, line, node.id, node.x, node.z);
   }
+  const post = nearestFacultyPost(snap.playerX, snap.playerZ);
+  if (post && inSight(snap, post.x, post.z)) {
+    return choice("talk", `與${post.name}交談`, "交談", post.placeId, post.x, post.z);
+  }
   const site = CAMPUS_SITES.find((item) => {
     const door = siteEntrance(item);
     return Math.hypot(door.x - snap.playerX, door.z - snap.playerZ) < 5;
@@ -657,6 +663,21 @@ export function promptLabels(
         plateReach,
         NAMEPLATE_SCALE,
         terrainHeight(door.x, door.z) + 3.6,
+      );
+    }
+    for (const post of facultyPosts()) {
+      const near = Math.hypot(snap.playerX - post.x, snap.playerZ - post.z) < FACULTY_REACH;
+      add("talk", post.placeId, "交談", post.x, post.z, near, PROMPT_MARKER_SCALE);
+      const plateReach = Math.hypot(view.x - post.x, view.z - post.z) < NAMEPLATE_REACH;
+      add(
+        "name",
+        "faculty:" + post.id,
+        post.name,
+        post.x,
+        post.z,
+        plateReach,
+        NAMEPLATE_SCALE,
+        terrainHeight(post.x, post.z) + 2.2,
       );
     }
     for (const landmark of LANDMARKS) {
