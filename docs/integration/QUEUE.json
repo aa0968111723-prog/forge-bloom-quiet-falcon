@@ -2405,6 +2405,32 @@
       "integrationPr": 179,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/179",
       "nextAction": "None. The cloud resume from 0781e84 and 936ad5b is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "content-psych-story",
+      "line": "content",
+      "scope": "Xu Hui stands outside the library and quotes the player's attribution and recovery choice. Both paths pay once through the existing narrative growth and do not name a semester. Quest or dialogue leftovers on the ground do not raise gathered.",
+      "status": "verified",
+      "pr": 160,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/160",
+      "integrationBranch": "cursor/integration-psych-story-3395",
+      "sourceBranch": "cursor/quest-play-75f5",
+      "baseSha": "f317ceb4448d45222ad6a7a60e290246d2da094d",
+      "headSha": "a735de020fd201e9bbf742f9b188cc39653d7262",
+      "dependencies": ["content-collection-quests", "content-faculty-story"],
+      "sharedFiles": ["src/features/psych-story/build.ts", "src/game/rpg/store.ts", "src/game/rpg/prompts.ts", "src/features/narrative/load.ts"],
+      "checks": {
+        "conflicts": "store.ts claim and narrativeChoose. Kept stampSemester and marked leftover rewards with layRemainder(..., true).",
+        "typecheck": "pass",
+        "npmTest": "340 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Dnl7wjlJ.js",
+        "browser": "8161. Xu Hui capture and the standing route completed.",
+        "route": "8161: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty. Xu Hui xp 0 to 18 to 26 to 36, gathered stayed 0."
+      },
+      "conflicts": ["src/game/rpg/store.ts"],
+      "merged": false,
+      "mergeSha": "546676be861ef80ca5f75b780ed2d07a45ce3d16",
+      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #160 by itself."
     }
   ]
 }
