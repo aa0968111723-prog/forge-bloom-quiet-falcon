@@ -34,6 +34,12 @@ type QueueItem = {
 
 type Meta = { revision: number; contentHash: string };
 
+export type CloudRevision = {
+  revision: number;
+  contentHash: string;
+  createdAt: string;
+};
+
 export type RemoteHead = {
   revision: number;
   schemaVersion: number;
@@ -221,16 +227,81 @@ export function createCloudSaveController(options: {
     return downloadCloud();
   }
 
+  function headRevisionOf(current: SyncPlan): number | null {
+    if (current.status === "in_sync" || current.status === "local_changes") return current.revision;
+    if (current.status === "conflict" || current.status === "need_download")
+      return current.remote.revision;
+    return null;
+  }
+
+  async function listRevisions(): Promise<
+    | { status: "ready"; headRevision: number | null; revisions: CloudRevision[] }
+    | Extract<SyncPlan, { status: "local_only" | "error" }>
+  > {
+    if (!activeUser()) return { status: "local_only", reason: "signed_out" };
+    try {
+      const response = await cloudFetch("/api/cloud/saves/rpg/revisions", { method: "GET" });
+      if (response.status === 401)
+        return { status: "error", code: "unauthorized", message: "請先登入。" };
+      if (response.status >= 500) return { status: "local_only", reason: "server_unavailable" };
+      const payload = await response.json();
+      if (!response.ok) {
+        return {
+          status: "error",
+          code: String(payload?.error?.code ?? response.status),
+          message: String(payload?.error?.message ?? "無法讀取雲端版本。"),
+        };
+      }
+      const revisions = Array.isArray(payload.revisions)
+        ? payload.revisions.flatMap((item: unknown) => {
+            if (!item || typeof item !== "object") return [];
+            const row = item as Record<string, unknown>;
+            if (typeof row.revision !== "number" || typeof row.contentHash !== "string") return [];
+            return [
+              {
+                revision: row.revision,
+                contentHash: row.contentHash,
+                createdAt: typeof row.createdAt === "string" ? row.createdAt : "",
+              },
+            ];
+          })
+        : [];
+      return {
+        status: "ready",
+        headRevision: typeof payload.headRevision === "number" ? payload.headRevision : null,
+        revisions,
+      };
+    } catch {
+      return { status: "local_only", reason: "offline" };
+    }
+  }
+
+  async function restoreRevision(
+    revision: number,
+  ): Promise<SyncPlan | { status: "restored"; revision: number }> {
+    const userId = activeUser();
+    if (!userId) return { status: "local_only", reason: "signed_out" };
+    if (!Number.isInteger(revision) || revision < 1) {
+      return { status: "error", code: "invalid_document", message: "要恢復的版本不正確。" };
+    }
+    const current = await plan();
+    const base = headRevisionOf(current);
+    if (base == null) return current;
+    if (revision === base) {
+      return {
+        status: "error",
+        code: "revision_not_found",
+        message: "這就是目前的雲端版本。",
+      };
+    }
+    return postRestore(userId, base, revision);
+  }
+
   async function restorePrevious(): Promise<SyncPlan | { status: "restored"; revision: number }> {
     const userId = activeUser();
     if (!userId) return { status: "local_only", reason: "signed_out" };
     const current = await plan();
-    const base =
-      current.status === "in_sync" || current.status === "local_changes"
-        ? current.revision
-        : current.status === "conflict" || current.status === "need_download"
-          ? current.remote.revision
-          : null;
+    const base = headRevisionOf(current);
     if (base == null) return current;
     if (base <= 1) {
       return {
@@ -239,12 +310,20 @@ export function createCloudSaveController(options: {
         message: "沒有更早的雲端版本。",
       };
     }
+    return postRestore(userId, base, base - 1);
+  }
+
+  async function postRestore(
+    userId: string,
+    base: number,
+    revision: number,
+  ): Promise<SyncPlan | { status: "restored"; revision: number }> {
     try {
       const response = await cloudFetch("/api/cloud/saves/rpg/restore", {
         method: "POST",
         body: JSON.stringify({
           baseRevision: base,
-          revision: base - 1,
+          revision,
           requestId: randomId(),
         }),
       });
@@ -264,7 +343,7 @@ export function createCloudSaveController(options: {
         return {
           status: "error",
           code: String(payload?.error?.code ?? response.status),
-          message: String(payload?.error?.message ?? "無法恢復上一份雲端版本。"),
+          message: String(payload?.error?.message ?? "無法恢復指定的雲端版本。"),
         };
       }
       if (payload.document) writeLocal(JSON.stringify(payload.document));
@@ -582,6 +661,8 @@ export function createCloudSaveController(options: {
     downloadCloud,
     keepRemoteVersion,
     keepLocalVersion,
+    listRevisions,
+    restoreRevision,
     restorePrevious,
     noteReward,
     flush,

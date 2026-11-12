@@ -268,3 +268,88 @@ test("restore previous copies the prior cloud save into the local file", async (
   assert.equal(JSON.parse(client.readLocal()).xp, 1);
   assert.equal((await client.plan()).status, "in_sync");
 });
+
+test("a chosen older revision restores locally and a missing one does not", async () => {
+  const history = new Map();
+  let remote = null;
+  let revision = 0;
+  let ids = 0;
+  async function head() {
+    return {
+      revision,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document: remote,
+      etag: `"${revision}"`,
+      contentHash: await sha256Hex(canonicalJson(remote)),
+    };
+  }
+  const fetch = async (url, init = {}) => {
+    const method = init.method ?? "GET";
+    if (method === "GET" && String(url).endsWith("/revisions")) {
+      const revisions = [...history.entries()]
+        .sort((left, right) => right[0] - left[0])
+        .map(([storedRevision, document]) => ({
+          revision: storedRevision,
+          contentHash: "hash",
+          createdAt: "2026-11-12T00:00:00.000Z",
+          document,
+        }));
+      return jsonResponse(200, { headRevision: revision || null, revisions });
+    }
+    if (method === "GET") {
+      if (!remote)
+        return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+      return jsonResponse(200, await head());
+    }
+    const body = JSON.parse(init.body);
+    if (method === "POST") {
+      if (body.baseRevision !== revision) {
+        return jsonResponse(409, {
+          error: { code: "revision_conflict", message: "版本衝突。" },
+          server: await head(),
+        });
+      }
+      const prior = history.get(body.revision);
+      if (!prior) {
+        return jsonResponse(404, {
+          error: { code: "revision_not_found", message: "找不到要恢復的版本。" },
+        });
+      }
+      remote = prior;
+      revision += 1;
+      history.set(revision, remote);
+      return jsonResponse(200, await head());
+    }
+    remote = body.document;
+    revision += 1;
+    history.set(revision, remote);
+    return jsonResponse(200, await head());
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => `chooseq${String(++ids).padStart(4, "0")}`,
+  });
+  client.bindAccount("user-a");
+  for (const xp of [1, 2, 3]) {
+    client.writeLocal(JSON.stringify(save(xp)));
+    assert.equal((await client.uploadLocal()).revision, xp);
+  }
+  client.writeLocal(JSON.stringify(save(99)));
+  const listed = await client.listRevisions();
+  assert.equal(listed.status, "ready");
+  assert.deepEqual(
+    listed.revisions.map((item) => item.revision),
+    [3, 2, 1],
+  );
+  assert.equal(JSON.stringify(listed).includes('"document"'), false);
+  const missing = await client.restoreRevision(8);
+  assert.equal(missing.status, "error");
+  assert.equal(JSON.parse(client.readLocal()).xp, 99);
+  const chosen = await client.restoreRevision(1);
+  assert.equal(chosen.status, "restored");
+  assert.equal(chosen.revision, 4);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});

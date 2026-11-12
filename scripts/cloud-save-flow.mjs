@@ -561,6 +561,113 @@ async function main() {
     assert.equal(previous.document.xp, 5);
     assert.ok(previous.revision > restored.revision);
 
+    const histJar = createJar(origin);
+    const histUser = await signUp(histJar, base, "player-hist@example.com");
+    let histRevision = 0;
+    for (let xp = 1; xp <= 9; xp += 1) {
+      const response = await putJson(
+        histJar,
+        base,
+        saveBody(JSON.parse(rpgText(xp)), {
+          baseRevision: histRevision,
+          confirmFirstSync: histRevision === 0,
+          requestId: `histreq${String(xp).padStart(4, "0")}`,
+        }),
+      );
+      const uploaded = await response.json();
+      assert.equal(response.status, 200, JSON.stringify(uploaded));
+      histRevision = uploaded.revision;
+      assert.equal(histRevision, xp);
+    }
+    const listedResponse = await histJar.fetch(`${base}/api/cloud/saves/rpg/revisions`);
+    const listed = await listedResponse.json();
+    assert.equal(listedResponse.status, 200);
+    assert.equal(listed.headRevision, 9);
+    assert.equal(listed.revisions.length, 8);
+    assert.equal(listed.revisions[0].revision, 9);
+    assert.equal(typeof listed.revisions[0].createdAt, "string");
+    assert.ok(listed.revisions[0].createdAt.length > 0);
+    assert.equal(
+      listed.revisions.some((item) => item.revision === 1),
+      false,
+    );
+    assert.equal(
+      listed.revisions.some((item) => item.revision === 2),
+      true,
+    );
+    assert.equal(JSON.stringify(listed).includes('"document"'), false);
+    assert.equal(
+      (await histJar.fetch(`${base}/api/cloud/saves/rpg/revisions?userId=${histUser}`)).status,
+      403,
+    );
+    assert.equal(
+      (await createJar(origin).fetch(`${base}/api/cloud/saves/rpg/revisions`)).status,
+      401,
+    );
+    const foreignHistory = await (await jarC.fetch(`${base}/api/cloud/saves/rpg/revisions`)).json();
+    assert.equal(foreignHistory.headRevision, null);
+    assert.deepEqual(foreignHistory.revisions, []);
+    const foreignRestore = await jarC.fetch(`${base}/api/cloud/saves/rpg/restore`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-cloud-save": "1" },
+      body: JSON.stringify({
+        baseRevision: 9,
+        revision: 2,
+        requestId: "foreign-restore-01",
+      }),
+    });
+    assert.equal(foreignRestore.status, 404);
+    const histStorage = memoryStorage();
+    let histIds = 0;
+    const histClient = createCloudSaveController({
+      fetch: (url, init) => histJar.fetch(url, init),
+      baseUrl: base,
+      storage: histStorage,
+      randomId: () => `histclient${String(++histIds).padStart(4, "0")}`,
+    });
+    histClient.bindAccount(histUser);
+    histClient.writeLocal(rpgText(99));
+    const missing = await histClient.restoreRevision(1);
+    assert.equal(missing.status, "error", JSON.stringify(missing));
+    assert.equal(JSON.parse(histClient.readLocal()).xp, 99);
+    const headStill = await (await histJar.fetch(`${base}/api/cloud/saves/rpg`)).json();
+    assert.equal(headStill.revision, 9);
+    assert.equal(headStill.document.xp, 9);
+    const chosenRevision = await histClient.restoreRevision(2);
+    assert.equal(chosenRevision.status, "restored", JSON.stringify(chosenRevision));
+    assert.equal(chosenRevision.revision, 10);
+    assert.equal(JSON.parse(histClient.readLocal()).xp, 2);
+    const afterPrune = await (await histJar.fetch(`${base}/api/cloud/saves/rpg/revisions`)).json();
+    assert.equal(afterPrune.revisions.length, 8);
+    assert.equal(
+      afterPrune.revisions.some((item) => item.revision === 2),
+      false,
+    );
+    const historyReplay = await histJar.fetch(`${base}/api/cloud/saves/rpg/restore`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-cloud-save": "1" },
+      body: JSON.stringify({ baseRevision: 10, revision: 3, requestId: "hist-replay-01" }),
+    });
+    const historyReplayBody = await historyReplay.json();
+    assert.equal(historyReplay.status, 200, JSON.stringify(historyReplayBody));
+    assert.equal(historyReplayBody.revision, 11);
+    assert.equal(historyReplayBody.document.xp, 3);
+    const historyReplayAgain = await histJar.fetch(`${base}/api/cloud/saves/rpg/restore`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-cloud-save": "1" },
+      body: JSON.stringify({ baseRevision: 10, revision: 3, requestId: "hist-replay-01" }),
+    });
+    const replayAgainBody = await historyReplayAgain.json();
+    assert.equal(historyReplayAgain.status, 200);
+    assert.equal(replayAgainBody.idempotentReplay, true);
+    assert.equal(replayAgainBody.revision, 11);
+    assert.equal(replayAgainBody.document.xp, 3);
+    const receipts = await sql.query(
+      "select count(*) as n from reward_receipts where user_id = $1",
+      [histUser],
+    );
+    assert.equal(Number(receipts[0].n), 0);
+
     const pg = await getPglite();
     const migration = readFileSync(join(root, "migrations/0003_rpg_saves.sql"), "utf8");
     await pg.exec(migration);
