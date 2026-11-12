@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：電箱（ART-084 的一部分）
+
+坡底、宮燈大道和圖書館前的七個電箱會擋住半徑 0.42 m 的身體。從東邊走向坡底那個會停在箱面外。電箱旁邊和三條巡禮折線仍走得過。箱位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/utility.jpg`。測試：`scripts/utility-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。電箱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
