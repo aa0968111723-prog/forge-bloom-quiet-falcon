@@ -1954,6 +1954,34 @@
       "integrationPr": 144,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/144",
       "nextAction": "None. The gear-field checks from a76918e are already in this integration. Do not merge PR #122 by itself."
+    },
+    {
+      "id": "art-court-clearing",
+      "line": "art",
+      "scope": "Scattered trees stay 3 m outside the courts, the track, and the parking rows. The Wuhu grass stays open. Plant positions stay estimated. This does not depend on the court lines.",
+      "status": "merged",
+      "pr": 140,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/140",
+      "integrationBranch": "cursor/integration-court-clearing-3395",
+      "sourceBranch": "cursor/court-clearing-1a71",
+      "baseSha": "d32e7149fded701b7dcdc3c2ac1446baca1b71b1",
+      "headSha": "5739cd39ad1bb0d2e668ca126ec44476c4315423",
+      "dependencies": ["art-library-ramp"],
+      "sharedFiles": ["src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "art docs and capture-art.mjs. Kept rounds 1-51 and the ramp and lamp captures. Court clearing is round 52.",
+        "typecheck": "pass",
+        "npmTest": "310 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-D2eWEjyb.js",
+        "browser": "8146. 1280x720 and 390x780 show the Wuhu grass empty and trees outside. pageErrors empty.",
+        "route": "8146: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "merged": true,
+      "mergeSha": "a26b87d4a5bbd83dbee6ed405d7ef9b1dcf7c2a4",
+      "integrationPr": 146,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/146",
+      "nextAction": "None. The court clearing from 5739cd3 is already in this integration. Do not merge PR #140 by itself."
     }
   ]
 }

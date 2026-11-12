@@ -12,6 +12,7 @@ import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { hash2 } from "./math.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
+import { SECONDARY_STRUCTURES } from "./zones/secondary.ts";
 
 /**
  * Reality placement for planting.
@@ -54,6 +55,14 @@ function blockedByBuilding(x: number, z: number, margin: number): boolean {
   return COLLIDERS.some(
     (b) => x > b.minX - margin && x < b.maxX + margin && z > b.minZ - margin && z < b.maxZ + margin,
   );
+}
+
+/** Courts have no collider, so scatter would otherwise plant through the lines. */
+function blockedByCourt(x: number, z: number, margin: number): boolean {
+  return SECONDARY_STRUCTURES.some((s) => {
+    if (s.kind !== "court") return false;
+    return Math.abs(x - s.position[0]) < s.size[0] / 2 + margin && Math.abs(z - s.position[1]) < s.size[2] / 2 + margin;
+  });
 }
 
 /** 克難坡: planted banks either side, wetter and mossier towards the bottom. */
@@ -239,6 +248,7 @@ export function scatterPlants(density: number): PlantInstance[] {
       // Keep the west view corridor from the meadow to the water open too.
       if (jx < -100 && jz < -260 && jz > -340) continue;
       if (blockedByBuilding(jx, jz, 5)) continue;
+      if (blockedByCourt(jx, jz, 3)) continue;
       // Density falls off with distance from the corridor so the far edges
       // stay cheap, and the caller's density knob scales the whole hill.
       const falloff = margin > 130 ? 0.55 : 1;
