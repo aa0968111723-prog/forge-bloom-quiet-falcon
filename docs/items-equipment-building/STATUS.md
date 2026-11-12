@@ -18,4 +18,4 @@
 
 ## 尚未由這一線落地
 
-雲端正式白名單。見 `MIGRATION.md`。手機與獨立顯示卡的畫面還沒有，這一輪的畫面是 SwiftShader。
+雲端白名單已收下 `loadout`、`gear`、`quarantine`、`quarantineGear`、`heldBuild`、`pockets`。見 `MIGRATION.md`。手機與獨立顯示卡的畫面還沒有，這一輪的畫面是 SwiftShader。

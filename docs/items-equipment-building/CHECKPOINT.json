@@ -16,7 +16,6 @@
     "barrier cover stacks once with ward-pin mitigation"
   ],
   "todo": [
-    "integration whitelist for loadout, gear, quarantine, quarantineGear, heldBuild, pockets",
     "phone and discrete-GPU capture"
   ],
   "blocked": [
@@ -28,5 +27,5 @@
     "AGENTS.md was not in the repo",
     "docs/items-equipment-building/ did not exist"
   ],
-  "next_action": "Leave this branch for review. Do not merge it from the feature line. The integration line should whitelist the six optional save keys, including pockets, before a cloud round-trip is treated as durable. Re-run npm test and npx tsc --noEmit on bd2e531c6bf9d4d92165d9eb26640a508db450f6."
+  "next_action": "The six optional save keys, including pockets, are already on the integration allowlist. Do not merge this source branch by itself. Phone and discrete-GPU capture are still open. Content version was not bumped."
 }

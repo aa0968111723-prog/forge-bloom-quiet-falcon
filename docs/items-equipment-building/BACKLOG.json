@@ -11,7 +11,6 @@
     "barrier cover stacks once with the ward pin"
   ],
   "todo": [
-    "integration whitelist for loadout, gear, quarantine, quarantineGear, heldBuild, pockets",
     "phone and discrete-GPU capture of the same loop",
     "surveyed campus coordinates, if a later line measures them"
   ],

@@ -26,6 +26,6 @@ npm run dev
 
 ## 下一個動作
 
-統整線把 `loadout`、`gear`、`quarantine`、`quarantineGear`、`heldBuild`、`pockets` 放進正式白名單後，雲端回合才算這些欄位耐久。在那之前不要升內容版本，也不要從功能線合併。手機與獨立顯示卡的同一條路線還沒拍。校園位置仍是 estimated。
+`loadout`、`gear`、`quarantine`、`quarantineGear`、`heldBuild`、`pockets` 已在整合線的雲端白名單。內容版本沒有升。不要從功能線整份合併。手機與獨立顯示卡的同一條路線還沒拍。校園位置仍是 estimated。
 
 開始時沒有 `AGENTS.md`。沒有新的外部素材。

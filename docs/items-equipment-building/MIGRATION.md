@@ -36,6 +36,6 @@
 
 快照多了可選的 `heldBuild`。讀回時如果那座建物的 ID 不在 `buildings` 裡，就放回原座標並結束移動。取消、倒下與換點也會先放回。這個欄位不是第二份建物清單。
 
-## 統整線尚未做的事
+## 統整線已經收下的鍵
 
-雲端白名單還沒有正式列入 `loadout`、`gear`、`quarantine`、`quarantineGear`、`heldBuild`、`pockets`。現有 `walkValue` 會放行這些額外鍵，所以本地與目前的匯入可以帶著它們。統整線若收緊白名單，要一併收下這六個鍵，否則舊檔的槽位與縫好的口袋會在雲端回合被丟掉。不要為了這件事單獨升內容版本，除非統整線決定要拒絕未知鍵。雲端 `MAX_SLOTS` 從 24 調到 36，schema 與內容版本沒有加。
+`loadout`、`gear`、`quarantine`、`quarantineGear`、`heldBuild`、`pockets` 已在雲端白名單。沒有這些欄位的舊存檔仍可上傳。內容版本沒有加。雲端 `MAX_SLOTS` 是 36。
