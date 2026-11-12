@@ -176,8 +176,10 @@ function northProps(): PropInstance[] {
   out.push(prop("drain-grate", 0, AXIS.scrollPlazaZ - 6, "scroll"));
 
   // Library forecourt: benches (「閱讀的女孩」 sits on one), ramp, tactile route.
-  for (let k = 0; k < 6; k++) {
-    out.push(prop("bench", -12 + k * 8.4, AXIS.libraryFrontZ + 6.4, "library", Math.PI));
+  // The second bench used to sit at x=-3.6. A 1.7 m seat then crossed the ramp skirt.
+  const benchZ = AXIS.libraryFrontZ + 6.4;
+  for (const x of [-12, -4.8, 4.8, 13.2, 21.6, 30]) {
+    out.push(prop("bench", x, benchZ, "library", Math.PI));
   }
   out.push(prop("ramp", LIBRARY_RAMP.x, LIBRARY_RAMP.z, "library", 0, 1, LIBRARY_RAMP.length));
   out.push(prop("tactile-strip", 10, AXIS.libraryFrontZ + 9, "library", 0, 1, 16));
@@ -187,7 +189,13 @@ function northProps(): PropInstance[] {
   out.push(prop("utility-box", LIBRARY.center[0] + 26, AXIS.libraryFrontZ + 4, "library", -Math.PI / 2));
   out.push(prop("hydrant", -6, AXIS.libraryFrontZ + 4, "library"));
   for (let k = 0; k < 8; k++) {
-    out.push(prop("planter", -18 + k * 5.4, AXIS.libraryFrontZ + 14, "library", 0, 1, 4.2));
+    const x = -18 + k * 5.4;
+    // The planter on the ramp's x used to run 2 m up the south end. Sit it south of the lip.
+    const crossesRamp = Math.abs(x - LIBRARY_RAMP.x) < LIBRARY_RAMP.width / 2 + LIBRARY_RAMP.skirt + 0.4;
+    const z = crossesRamp
+      ? LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2 + 2.1 + 0.4
+      : AXIS.libraryFrontZ + 14;
+    out.push(prop("planter", x, z, "library", 0, 1, 4.2));
   }
   return out;
 }
