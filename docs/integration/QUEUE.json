@@ -1710,7 +1710,7 @@
       "id": "art-joint-limits",
       "line": "art",
       "scope": "Measure shoulder, elbow, and knee bends on every clip. This host measured knee 94 degrees, elbow 97 degrees, and shoulder raise 166 degrees. A knee folded backward, an elbow folded the wrong way, or a shoulder raised further fails the test. The mesh does not change.",
-      "status": "verified",
+      "status": "merged",
       "pr": 108,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/108",
       "integrationBranch": "cursor/integration-joint-limits-3395",
@@ -1728,11 +1728,11 @@
         "route": "not rerun. Game code stays 9c803bb"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #108 by itself. Next is PR #110 at head eee5c91."
+      "merged": true,
+      "mergeSha": "1f973902310f1edeaad8146f3bd8e93173d99c8c",
+      "integrationPr": 126,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/126",
+      "nextAction": "None. The joint measurement from 6ac2cf3 is already in this integration. Do not merge PR #108 by itself. Next is PR #110 at head eee5c91."
     }
   ]
 }
