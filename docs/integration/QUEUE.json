@@ -2522,7 +2522,7 @@
       "id": "backend-cloud-drop",
       "line": "backend",
       "scope": "A dropped upload stays dropped when its send disconnects. If the server already stored that send, the chosen local save is written back. Quest marks on ground loot survive a database process restart.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-cloud-drop-3395",
@@ -2540,9 +2540,11 @@
         "route": "8165: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "6b428074d2bc306c519741f8f8541a2e55e525f4",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 192,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/192",
+      "nextAction": "None. The disconnect behavior from dd6263a and the restart proof from c04dd7b are already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
