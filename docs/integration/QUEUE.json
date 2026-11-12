@@ -5119,9 +5119,11 @@
         "route": "8253 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "1c9fdf9426cd2247fd7949c0c2c2a2fb1469d636",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #259 by itself. The later hoop commit 2ee4ec18 is still separate."
+      "integrationPr": 328,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/328",
+      "nextAction": "None. The hoop bases from c3698975 are already in this integration. Do not merge PR #259 by itself. The later hoop commit 2ee4ec18 is still separate."
     }
   ]
 }
