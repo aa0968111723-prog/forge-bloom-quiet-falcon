@@ -1644,11 +1644,11 @@
         "route": "8135: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #105 by itself. Next is PR #107 at head 4dc3786."
+      "merged": true,
+      "mergeSha": "088a3ef64347b6cd2b7a3fc6b419827c63a5a228",
+      "integrationPr": 120,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/120",
+      "nextAction": "None. The language-hall patch from d5a28c8 is already in this integration. Do not merge PR #105 by itself. Next is PR #107 at head 4dc3786, then PR #108 at head 6ac2cf3, then PR #110 at head eee5c91, then PR #111 at head 412b130, then PR #113 at head f2750c7, then PR #115 at head 9672ff3, then PR #116 at head 9a3d594, then PR #118 at head 266e4b7. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
