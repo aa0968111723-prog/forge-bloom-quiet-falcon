@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { addPatch } from "./shader-patch";
+import { addPatch } from "./shader-patch.ts";
 
 /**
  * Global wind.
@@ -19,6 +19,17 @@ export const WIND = {
 
 export function tickWind(delta: number) {
   WIND.time.value += delta;
+}
+
+/**
+ * One wind step. Reduced motion holds the clock and eases strength to zero,
+ * so canopies, shrubs and grass stop swaying.
+ */
+export function stepWind(delta: number, target: number, reduced: boolean) {
+  const capped = Math.min(Math.max(delta, 0), 0.08);
+  if (!reduced) WIND.time.value += capped;
+  const goal = reduced ? 0 : target;
+  WIND.strength.value += (goal - WIND.strength.value) * Math.min(1, capped * 2);
 }
 
 export type WindProfile = {

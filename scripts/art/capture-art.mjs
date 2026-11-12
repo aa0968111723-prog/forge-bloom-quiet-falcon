@@ -100,6 +100,7 @@ try {
   page.setDefaultTimeout(180000);
   page.on("pageerror", (e) => pageErrors.push(e.message));
   page.on("console", (m) => m.type() === "error" && pageErrors.push("console: " + m.text()));
+  if (scenario === "still-wind") await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(gameUrl(base, { tier }), { waitUntil: "domcontentloaded" });
   await waitForTitle(page);
   const gl = await webglInfo(page);
@@ -964,6 +965,18 @@ try {
     await frames(page, 4);
     await shot(page, "skirt", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.z < -297.7) throw new Error(`walked onto the plinth ${JSON.stringify(stopped)}`);
+  } else if (scenario === "still-wind") {
+    const reduced = await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
+    if (!reduced) throw new Error("reduced motion was not applied");
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 0, -40, 0);
+    await frames(page, 20);
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.4, distance: 7, height: 2.2, lookY: 1.4 });
+    });
+    await frames(page, 4);
+    await shot(page, "avenue", "reduced motion, day, avenue canopy");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

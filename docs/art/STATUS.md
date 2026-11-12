@@ -554,6 +554,12 @@
 
 畫面：`docs/art/evidence/library/plinth.jpg`。測試：`scripts/library-plinth.test.mjs`。
 
+## 階段：減少動態時風停（ART-087 的一部分）
+
+系統要求減少動態時，樹冠、灌木和草的風力收到 0，時鐘也不再走。恢復一般動態後，白天風力回到 1。雨絲原本就會停。沒有新增音效。圖書館台基留著。
+
+畫面：`docs/art/evidence/motion/still-avenue.jpg`。測試：`scripts/wind-motion.test.mjs`。
+
 ## 下一步
 
 見 `CHECKPOINT.json`。路燈燈柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

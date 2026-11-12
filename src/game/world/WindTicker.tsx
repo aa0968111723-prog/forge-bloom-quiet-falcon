@@ -1,5 +1,6 @@
 import { useFrame } from "@react-three/fiber";
-import { tickWind, WIND } from "./wind";
+import { useReducedArtMotion } from "../art/motion";
+import { stepWind } from "./wind";
 import type { TimeOfDay } from "../world-data/lighting.ts";
 
 /** How hard the wind blows in each weather. Tamsui is never still. */
@@ -12,10 +13,9 @@ const STRENGTH: Record<TimeOfDay, number> = {
 };
 
 export function WindTicker({ timeOfDay }: { timeOfDay: TimeOfDay }) {
+  const reduced = useReducedArtMotion();
   useFrame((_, delta) => {
-    tickWind(Math.min(delta, 0.08));
-    const target = STRENGTH[timeOfDay];
-    WIND.strength.value += (target - WIND.strength.value) * Math.min(1, delta * 2);
+    stepWind(delta, STRENGTH[timeOfDay], reduced);
   });
   return null;
 }

@@ -472,3 +472,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/library-plinth.test.mjs scripts/library-ramp.test.mjs scripts/ramp-rails.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。圖書館台基比牆面每邊多出 2.5 m，高 1.1 m，和模型同一組數字。半徑 0.42 m 站在南緣會被推開。南緣外側 1.2 m 不被推開。坡道中線和左右各 0.5 m、主巡禮和三條折線的轉折點不被推開。定步白天從南邊走向台基，頁面無錯誤：`docs/art/evidence/library/plinth.jpg`。尺寸仍是 estimated。帶字路牌留在第 85 輪。沒有新增音效。
 
+## 第 87 輪（減少動態時風停）— 2026-11-12
+
+`node --test scripts/wind-motion.test.mjs` 通過。`tsc --noEmit` 通過。風力從 1 開始，減少動態走 40 步後低於 0.02，時鐘停在原值。恢復一般動態後白天風力回到 0.8 以上，時鐘繼續走。定步白天、系統減少動態，宮燈大道頁面無錯誤：`docs/art/evidence/motion/still-avenue.jpg`。雨絲原本就會停。圖書館台基留在第 86 輪。沒有新增音效。
+
