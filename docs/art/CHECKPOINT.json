@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T06:10:00Z",
+  "updated": "2026-11-12T03:45:00Z",
   "task_ids": [
-    "ART-090"
+    "ART-015"
   ],
-  "branch": "cursor/minimap-lesson-1a71",
-  "base": "main@57fc468",
+  "branch": "cursor/unused-textures-1a71",
+  "base": "main@53ec394",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "lesson-marker, garden-pavilion, and court-lines pass; full suite re-run on the integration branch",
+    "npm_test": "unused-textures passes; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "AdventureApp-BL8Hzgt0.js",
     "eslint_new_code": "0 errors"
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The minimap shows the two-character lesson label. On a narrow window the lesson chip sits under the minimap so the department name stays readable. The garden pavilion stays four posts and a green roof. Court lines and wet colours stay. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The four unreferenced JPGs in public/textures are gone, 1199761 bytes, and dist/textures is no longer emitted. meshopt and KTX2 stay planned. The minimap lesson label stays. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

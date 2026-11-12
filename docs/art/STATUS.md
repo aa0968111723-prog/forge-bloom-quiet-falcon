@@ -361,6 +361,12 @@
 
 畫面：`docs/art/evidence/hud/minimap-desktop.jpg`、`minimap-narrow.jpg`。測試：`scripts/lesson-marker.test.mjs`。
 
+## 階段：未引用貼圖（ART-015 的一部分）
+
+`public/textures` 的四張 JPG 沒有任何程式引用，卻會被打進靜態站，合計 1,199,761 bytes。目錄已移除。`dist/textures` 不再存在。材質庫仍是 `public/materials/tamkang`。meshopt 與 KTX2 仍是 planned。沒有新增音效。
+
+測試：`scripts/unused-textures.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。小地圖已寫課程的兩個字。覺軒花園已改成可走的亭子。綜合球場已有兩塊標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。未引用的四張貼圖已移出靜態站。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。meshopt 與 KTX2 仍待評估。
