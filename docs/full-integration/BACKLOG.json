@@ -60,7 +60,7 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Source 7f6f3c8 wired at f300327. 1280x720. Both opening choices visible. Played fac-gu-meet-line. xp 512 to 534. Architecture site discover is the extra 12 before the choice. Reload and second client keep the flag and quest-faculty-gu-meet. The fail choice was not clicked in the browser."
+      "note": "The earlier route played fac-gu-meet-line. A fresh architecture major then played fac-gu-meet-fail: xp 12 to 34, week-1 stayed, outcome 失敗的那版可以先放上來. Leaving the clash unpaid kept xp 34. Reload kept the fail flag and the clash line 你沒有先藏."
     },
     {
       "id": "FI-CLOUD",
@@ -72,7 +72,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 7c85a42 includes the court clearing via #146. Ramp #143 and gear contract #144 are already on this branch. Do not merge them again. Re-fetch before the next slice."
+      "note": "main 9dd707e includes wet courts via #147 and the court clearing via #146. Both are on this branch. Do not merge them again. Re-fetch before the next slice."
     },
     {
       "id": "FI-GEAR",

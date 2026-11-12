@@ -1,22 +1,20 @@
 {
-  "updated": "2026-11-12T03:10:00Z",
+  "updated": "2026-11-12T03:14:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "7c85a4245368b2bfe3ea5d6589f969030bdc82d9",
-  "gameSha": "15fcc9c682009c4d5c02279e8678a9c34737e12f",
-  "verifiedHead": "15fcc9c682009c4d5c02279e8678a9c34737e12f",
-  "playedBundle": "dist/assets/AdventureApp-LRjQocEU.js. Built after adding getCamera on the court-clearing merge. The road script and that read are committed with these notes.",
+  "base": "9dd707e6ce718322391a832af74213ec562b9827",
+  "gameSha": "fc20dff6ed671e1fdeb354d11a0591ee240d3458",
+  "verifiedHead": "fc20dff6ed671e1fdeb354d11a0591ee240d3458",
+  "playedBundle": "dist/assets/AdventureApp-LRjQocEU.js from 2f7667b. The fail choice was played before the wet-court merge. That merge does not change faculty dialogue.",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
-  "rampSource": "main a91b3bd via integration PR #143",
-  "gearContractSource": "main d32e714 via integration PR #144",
-  "courtSource": "main 7c85a42 via integration PR #146, merged here as 15fcc9c. Do not merge #146 again.",
+  "wetCourtSource": "main 9dd707e via integration PR #147, merged here as fc20dff. Do not merge #147 again.",
   "soleMerger": {
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T03:08:00Z",
+    "checkedAt": "2026-11-12T03:09:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, library ramp #143, gear-field cloud contract #144, court clearing #146. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -24,26 +22,25 @@
     "npm run build:site",
     "node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route",
     "node --experimental-transform-types scripts/integration-colleges.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-colleges",
-    "node --experimental-transform-types scripts/integration-roads.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-roads"
+    "node --experimental-transform-types scripts/integration-roads.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-roads",
+    "node --experimental-transform-types scripts/integration-gu-fail.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-fail"
   ],
   "done": [
-    "Seven estimated road samples, one per district, were stood on and walked with KeyW for 24 frames at 1280x720 and 390x780. Minimap labels were 軸線、書圖、理工、教學、文藝、運動、生活. Each walk moved more than 1.5 m. The follow camera stayed about 5.1 m behind and 2.86 m above, and was not the title orbit.",
-    "The campus map dialog at both sizes shows those seven legend labels. Zone labels are the nearest site's district, not a surveyed boundary.",
-    "npm test 311 pass / 0 fail, including court-clearing. tsc --noEmit passed. build:site passed. dist has no revision_conflict or cloud-save string. The road script exited 0.",
-    "Nine college skills remain the earlier title-picker run. Finals still require claiming mission first."
+    "A fresh architecture major picked 我帶了失敗的那一版. Outcome is 失敗的那版可以先放上來. fac-gu-meet-fail is true and fac-gu-meet-line is false. xp went from 12 to 34. Semester stayed week-1.",
+    "The next line is the fail variant, 你沒有先藏. Leaving without choosing kept xp at 34. Reload kept the department, xp, fail flag, and that line.",
+    "After merging wet courts, npx tsc --noEmit passed and npm test was 312 pass / 0 fail. The dialogue script exited 0 with pageErrors empty on the previous bundle."
   ],
   "todo": [
-    "Play 顧衡's fail choice in a second fresh browser save. The line choice was the one clicked. The fail outcome is in scripts/faculty-story.test.mjs.",
+    "The clash choices 裂縫畫進圖 and 圖先保持乾淨 were visible and not clicked.",
     "Enter interiors other than main-gate.",
-    "The 390x780 frame shows the quickbar over the character's lower body. Movement still happened. This window is a fine pointer, not a coarse-pointer phone HUD.",
-    "Gesture clips were not re-timed. A still frame cannot show that idle, talk, and deliver are smooth."
+    "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
+    "Gesture clips were not re-timed."
   ],
   "blocked": [
     "This line must not merge to main while bc-4054e39b is the writer of main.",
     "Phone coarse-pointer HUD and RTX 3060 are pending-device. This host forces SwiftShader.",
     "AGENTS.md is absent.",
-    "Gesture timing is pending a recording, not a still frame.",
-    "Road samples are estimated. This pass does not walk every polyline."
+    "Gesture timing is pending a recording, not a still frame."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is 顧衡's unplayed fail choice in a fresh save, then an interior other than main-gate. Do not flip MAIN_INTEGRATION. Do not merge court #146, ramp #143, gear contract #144, lamps, faculty, gear, or encounters again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is an interior other than main-gate. Do not flip MAIN_INTEGRATION. Do not merge wet courts #147, court clearing #146, ramp #143, or the earlier faculty, gear, and encounter lines again. Do not merge PR #32 head 1fc5887."
 }

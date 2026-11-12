@@ -85,4 +85,16 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 
 390×780 的運動區畫面裡，快捷列蓋住角色下半身。小地圖和學期卡的方框沒有跟快捷列重疊。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。
 
+## 顧衡的失敗選項
+
+這段是新的一局，打在 `2f7667b` 的靜態建置 `AdventureApp-LRjQocEU.js`。之後 main 前進到雨天球場 `9dd707e`，差異在 `src/game/materials/wet.ts` 與球場材質，沒有改教職員對話，所以沒有把這句再打一次。合併後的檢查是 `npx tsc --noEmit` 通過，`npm test` 312 通過、0 失敗。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-gu-fail.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-fail` | 通過，exit 0。`pageErrors` 空 |
+
+站點 `http://127.0.0.1:8088/`。1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。
+
+標題選建築學系。站上估計位置後經驗是 12。點失敗選項後經驗 34，學期 `week-1`，狀態卡仍是「第一週 · 先問入口方向」。結果句是「失敗的那版可以先放上來。你把它帶來，我就不當你在躲。」下一句是「你沒有先藏。裂縫還在。」離開不結算，經驗停在 34。重載後仍是建築學系、經驗 34、失敗旗標，再交談還是這一句。補剖面那一個旗標是假。固定畫面不能用來宣稱手勢流暢。
+
 畫面檔：`/opt/cursor/artifacts/integration-route/08-faculty-choices.png`、`08b-faculty-line.png`。裝置是這台雲端主機的 headless Chrome，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。
