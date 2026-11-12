@@ -423,3 +423,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 74 輪（會文館）— 2026-11-12
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。會文館是底層柱廊、淺色上層和木色壓簷。柱廊貼著南牆，高度留在地面一層。教育館仍是自己的樓身。外國語文大樓仍是語言館。文學館仍是坡頂。柱廊外形仍是 estimated。船首留在第 73 輪。沒有新增音效。`build:site` 產物 `AdventureApp-D5dZSqEe.js`。
+
+## 第 75 輪（司令臺台面）— 2026-11-12
+
+`node --test scripts/stand-deck.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 可以站在司令臺南半台面，不會被推出台外。後方小間仍把人推開。台面比周圍地面高 1.25 m，台緣外 1.6 m 是一半高度，再外 8 m 回到地面。台高仍是 estimated。會文館留在第 74 輪。沒有新增音效。`build:site` 產物 `BUNDLE_AFTER_BUILD`。

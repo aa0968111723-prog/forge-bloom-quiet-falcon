@@ -4,7 +4,7 @@ import { BOLLARD, LANDMARKS, LIBRARY, PALACE, bollards, palaceHallZs } from "./l
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
-import { SECONDARY_STRUCTURES, gatePiers, pavilionPosts } from "./zones/secondary.ts";
+import { SECONDARY_STRUCTURES, gatePiers, pavilionPosts, standBlocks } from "./zones/secondary.ts";
 
 export type AABB = { minX: number; maxX: number; minZ: number; maxZ: number };
 
@@ -88,6 +88,10 @@ function buildColliders(): AABB[] {
     }
     if (s.kind === "pavilion") {
       for (const post of pavilionPosts(s)) out.push(box(post.x, post.z, post.w, post.d));
+      continue;
+    }
+    if (s.kind === "stand") {
+      for (const block of standBlocks(s)) out.push(box(block.x, block.z, block.w, block.d));
       continue;
     }
     out.push(box(s.position[0], s.position[1], s.size[0], s.size[2]));

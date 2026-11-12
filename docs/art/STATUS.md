@@ -464,3 +464,13 @@
 ## 下一步
 
 見 `CHECKPOINT.json`。會文館已從教學樓分開。教育館、外國語文大樓與船首留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+
+## 階段：司令臺台面（ART-067 的一部分）
+
+司令臺的台面可以走上去。人站在台上時比周圍地面高 1.25 m，四周 3.2 m 降回地面。後方小間和兩根棚柱仍擋住。台高仍是 estimated。會文館柱廊留著。坡面這輪還沒有自己的網格。
+
+畫面：`docs/art/evidence/stand/walk.jpg`。測試：`scripts/stand-deck.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。司令臺台面已能站人。後方小間仍擋住。台高仍是 estimated。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

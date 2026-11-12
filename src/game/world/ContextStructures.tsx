@@ -31,6 +31,7 @@ import {
   chemHallProfile,
   seminarProfile,
   workshopProfile,
+  STAND_DECK_H,
   structureGroundY,
   watchPostProfile,
 } from "../world-data/zones/secondary.ts";
@@ -474,7 +475,7 @@ export function ContextStructures({
           );
         }
         if (s.kind === "stand") {
-          const deckH = 1.25;
+          const deckH = STAND_DECK_H;
           const roofY = 3.15;
           return (
             <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
