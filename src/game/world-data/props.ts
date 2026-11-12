@@ -175,7 +175,7 @@ function northProps(): PropInstance[] {
   out.push(prop("drain-grate", 0, AXIS.scrollPlazaZ + 6, "scroll"));
   out.push(prop("drain-grate", 0, AXIS.scrollPlazaZ - 6, "scroll"));
 
-  // Library forecourt: benches (「閱讀的女孩」 sits on one), ramp, tactile route.
+  // Library forecourt: benches (「閱讀的女孩」 sits on the west one), ramp, tactile route.
   for (let k = 0; k < 6; k++) {
     out.push(prop("bench", -12 + k * 8.4, AXIS.libraryFrontZ + 6.4, "library", Math.PI));
   }
@@ -281,6 +281,9 @@ export const PROPS: PropInstance[] = [
   ...roadLamps(),
   ...campusClusterProps(),
 ];
+
+/** West forecourt bench, clear of the library ramp. The statue sits here. */
+export const READING_GIRL_SEAT = { x: -12, z: AXIS.libraryFrontZ + 6.4 } as const;
 
 export function propsOfKind(kind: PropKind): PropInstance[] {
   return PROPS.filter((p) => p.kind === kind);

@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { surface, useTamkangMaterials } from "../materials/context";
-import { AXIS } from "../world-data/axis.ts";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { LIBRARY } from "../world-data/landmarks.ts";
+import { READING_GIRL_SEAT } from "../world-data/props.ts";
 import { quality } from "../quality";
 import { worldUvBox } from "../world/geometry";
 import { InstancedPlanes, type PlaneItem } from "../world/InstancedPlanes";
@@ -117,7 +117,13 @@ export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolea
       </mesh>
 
       {q.tier === "high" && (
-        <group position={[-2 - LIBRARY.center[0], 0, AXIS.libraryFrontZ + 6.4 - LIBRARY.center[1]]}>
+        <group
+          position={[
+            READING_GIRL_SEAT.x - LIBRARY.center[0],
+            sampleGroundElevation(READING_GIRL_SEAT.x, READING_GIRL_SEAT.z) - ground,
+            READING_GIRL_SEAT.z - LIBRARY.center[1],
+          ]}
+        >
           <ReadingGirl material={surface(mats["campus/bronze"], { wetness })} />
         </group>
       )}

@@ -343,6 +343,12 @@
 
 畫面：`docs/art/evidence/courts/field-day.jpg`、`field-wet.jpg`。測試：`scripts/wet-surface.test.mjs`。
 
+## 階段：閱讀的女孩（ART-084 的一部分）
+
+圖書館前的銅像坐在坡道西側的長椅上，腳底跟長椅同一塊地面。坡道中線仍高出廣場，雕像不再坐在那裡。坡度與長椅位置仍是 estimated。雨後的球場仍把顏色乘小。
+
+畫面：`docs/art/evidence/library/reader.jpg`。測試：`scripts/reading-girl.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。球場在雨後會變暗。草皮已不種樹。圖書館坡道已升到台基。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。閱讀的女孩已離開坡面。球場在雨後會變暗。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
