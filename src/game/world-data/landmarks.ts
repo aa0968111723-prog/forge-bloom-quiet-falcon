@@ -329,10 +329,17 @@ export const LANDMARKS: RealityLandmark[] = [
     accuracy: "estimated",
     referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER"],
     zone: "east",
-    interact: { x: 150, z: -140, radius: 10 },
+    // North of the ring, on open grass. The pad itself is solid.
+    interact: { x: 150, z: -143.6, radius: 10 },
     mapColor: "#8a6a44",
   },
 ];
+
+/**
+ * 五虎碑 north of the gym. The ring is estimated.
+ * The pad is wide enough that one dodge step cannot cross its centre.
+ */
+export const TIGER_STELE = { x: 150, z: -140, pad: 3.2 } as const;
 
 export const LANDMARK_BY_ID: Record<string, RealityLandmark> = Object.fromEntries(
   LANDMARKS.map((l) => [l.id, l]),

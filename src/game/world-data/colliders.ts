@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LANDMARKS, LIBRARY, PALACE, TIGER_STELE, palaceHallZs } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -58,6 +58,9 @@ function buildColliders(): AABB[] {
 
   // 海豚里程碑 plinth on the roundabout island
   out.push(box(0, AXIS.dolphinZ, 3.4, 3.4));
+
+  // 五虎碑。石座連同環繞的銅雕一起擋，蓋章點留在北側空地。
+  out.push(box(TIGER_STELE.x, TIGER_STELE.z, TIGER_STELE.pad, TIGER_STELE.pad));
 
   // 書卷廣場 — four separate blades, walkable between.
   for (const [dx, dz] of [

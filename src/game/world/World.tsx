@@ -10,6 +10,7 @@ import { LanternAvenue } from "../landmarks/LanternAvenue";
 import { Library } from "../landmarks/Library";
 import { PalaceClassrooms } from "../landmarks/PalaceClassrooms";
 import { ScrollPlaza } from "../landmarks/ScrollPlaza";
+import { TigerStele } from "../landmarks/TigerStele";
 import { ContextStructures } from "./ContextStructures";
 import { Lighting } from "./Lighting";
 import { LocalLights } from "./LocalLights";
@@ -77,6 +78,7 @@ export function World({ timeOfDay, onReady }: { timeOfDay: TimeOfDay; onReady?: 
           <Library wetness={preset.wetness} lampsOn={preset.lampsOn} />
 
           <ContextStructures wetness={preset.wetness} lampsOn={preset.lampsOn} />
+          <TigerStele wetness={preset.wetness} />
           <Signage wetness={preset.wetness} />
           <Vegetation />
           <Props lampsOn={preset.lampsOn} />
