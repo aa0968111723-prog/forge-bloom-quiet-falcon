@@ -3,8 +3,8 @@
   "task_ids": [
     "ART-084"
   ],
-  "branch": "cursor/ramp-benches-1a71",
-  "base": "main@e1af2a3",
+  "branch": "cursor/reading-girl-1a71",
+  "base": "main@8a592c7",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "ramp-furniture, dorm-front, and class-hall pass; full suite re-run on the integration branch",
+    "npm_test": "reading-girl and ramp-furniture pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-B6lbdES4.js",
+    "build_site": "AdventureApp-6wIH-ZA2.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The library bench nearest the ramp sits at x=-4.8, so the 1.7 m seat stays off the skirt. The planter on the ramp's x sits south of the lip. Positions stay estimated. Sungtao 2 has a south glass lobby and canopy. The other Sungtao halls stay the warm dorm block with a penthouse. The education hall has a south canopy and one shade per upper floor. Hweiwen stays the classroom block. The south interior doorway is 2.5 m half-width and matches the wall opening. Walking through it returns the player to that building's door with hp and department kept. A body beside the jamb stays inside. Public interiors have a ceiling whose top meets the 4.4 m wall top. A downward look keeps the follow camera 0.35 m under the slab, and the player stays in view. The rooms stay the existing 20 by 16 m game layouts, not a survey. A 0.42 m body on a bollard is still pushed off the post. The library line still leaves the dolphin ring through the north-east gap. The track infield is still a 24 by 40 m pitch with a centre line and no net. The library ramp rails still follow the deck and still push a 0.42 m body off the rail. Bollard positions and infield sizes stay estimated. The garden pavilion is still four posts. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The reading girl sits on the west library bench at x=-12, where the ramp lift is zero. The ramp centre at that same z is still more than 0.4 m above the plaza. The seat is estimated. The library bench nearest the ramp sits at x=-4.8, so the 1.7 m seat stays off the skirt. The planter on the ramp's x sits south of the lip. Sungtao 2 has a south glass lobby and canopy. The other Sungtao halls stay the warm dorm block with a penthouse. The education hall has a south canopy and one shade per upper floor. Hweiwen stays the classroom block. The south interior doorway is 2.5 m half-width and matches the wall opening. Walking through it returns the player to that building's door with hp and department kept. A body beside the jamb stays inside. Public interiors have a ceiling whose top meets the 4.4 m wall top. A downward look keeps the follow camera 0.35 m under the slab, and the player stays in view. The rooms stay the existing 20 by 16 m game layouts, not a survey. A 0.42 m body on a bollard is still pushed off the post. The library line still leaves the dolphin ring through the north-east gap. The track infield is still a 24 by 40 m pitch with a centre line and no net. The library ramp rails still follow the deck and still push a 0.42 m body off the rail. Bollard positions and infield sizes stay estimated. The garden pavilion is still four posts. Wet courts still darken by scaling their colours. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

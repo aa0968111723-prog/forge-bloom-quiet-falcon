@@ -564,6 +564,23 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "clear", "bench and planter clear of the library ramp");
+  } else if (scenario === "reader") {
+    await hideHud(page);
+    await setPose(page, -12, -286, 0);
+    const seat = await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(-12, -293.6);
+      window.__controlsTest.setPhoto({
+        yaw: 0.22,
+        distance: 16,
+        height: 4.5,
+        lookY: 1.2,
+        target: { x: -7, y: y + 0.4, z: -294 },
+      });
+      return y;
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "seat", `reading girl ground ${seat.toFixed(2)}`);
   } else if (scenario === "field") {
     await hideHud(page);
     await setPose(page, 425, -560, Math.PI);

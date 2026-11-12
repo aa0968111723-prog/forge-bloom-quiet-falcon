@@ -391,3 +391,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 66 輪（坡道旁的家具）— 2026-11-12
 
 `node --test scripts/ramp-furniture.test.mjs` 通過。`tsc --noEmit` 通過。六張圖書館長椅的 1.7 m 座椅範圍，坡道高度都是 0。八個花台的整段也是 0。靠坡的那張長椅在 x=-4.8。對準坡道的花台比坡道南端更南。位置仍是 estimated。松濤二館留在第 65 輪。沒有新增音效。`build:site` 產物 `AdventureApp-B6lbdES4.js`。
+
+## 第 67 輪（閱讀的女孩）— 2026-11-12
+
+`node --test scripts/reading-girl.test.mjs` 通過。`tsc --noEmit` 通過。雕像的座位在西側長椅，坡道高度是 0。同一條 z 的坡道中線仍高出廣場。座位仍是 estimated。坡道旁的家具留在第 66 輪。沒有新增音效。`build:site` 產物 `AdventureApp-6wIH-ZA2.js`。
