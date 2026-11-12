@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：欄杆跟著坡（ART-084 的一部分）
+
+圖書館坡道兩側的欄杆不再是一根水平桿。立柱站在坡面上，橫桿逐段連過去。立柱的 X 仍和 0.12 m 的碰撞同一條線。克難坡仍不設欄杆。位置仍是 estimated。
+
+畫面：`docs/art/evidence/ramp/slope-rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

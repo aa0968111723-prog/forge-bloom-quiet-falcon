@@ -359,3 +359,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 58 輪（欄杆擋人）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs scripts/library-ramp.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 站在坡道中線不被推開。站在東側欄杆 x=-1.05 會被推到 x=-1.530，移開 0.48 m。南端外 1.2 m 的入口也不被推開。估計路網仍是一個相連的格網。克難坡仍沒有欄杆。沒有新增音效。欄杆留在第 57 輪。`build:site` 產物 `AdventureApp-C6frxvLx.js`。
+
+## 第 59 輪（欄杆跟著坡）— 2026-11-12
+
+`node --test scripts/ramp-rails.test.mjs` 通過。`tsc --noEmit` 通過。同一道欄杆的北側柱腳高於南側。連接兩端的桿，本地 +Z 對準這段升高。立柱的 X 仍落在 0.12 m 的碰撞上。克難坡仍沒有欄杆。定步白天，頁面無錯誤：`docs/art/evidence/ramp/slope-rails.jpg`。橫桿沿著坡面上去。位置仍是 estimated。欄杆留在第 57 輪的位置。沒有新增音效。
