@@ -4508,6 +4508,34 @@
       "integrationPr": 306,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/306",
       "nextAction": "None. The Hweiwen colonnade from 412b130 is already in this integration. Do not merge PR #111 by itself."
+    },
+    {
+      "id": "art-stand-deck",
+      "line": "art",
+      "scope": "The reviewing deck can be stood on. It rises 1.25 m above the surrounding ground and falls back across 3.2 m. The back booth and two roof posts still block. The height stays estimated. The apron does not have its own mesh yet.",
+      "status": "verified",
+      "pr": 113,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/113",
+      "integrationBranch": "cursor/integration-stand-deck-3395",
+      "sourceBranch": "cursor/stand-deck-1a71",
+      "baseSha": "b0f056182dc6e7fbd7834247d349f06fa650e035",
+      "headSha": "bc5715bf5b1f1c4a041a9a70a5d22ebbe70c1705",
+      "dependencies": ["art-hweiwen-hall"],
+      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world.ts", "src/game/world-data/zones/secondary.ts", "src/game/world-data/vegetation.ts"],
+      "checks": {
+        "conflicts": "pavilion posts and the library ramp lift stayed. The duplicate planting import was dropped. build_site set to AdventureApp-CUNQXjpT.js.",
+        "typecheck": "pass",
+        "npmTest": "440 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CUNQXjpT.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "8235",
+        "route": "8235: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "c5a8aefbb023e4e884543526ee4a53ff596b0bff",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. The next commit on PR #113 is f2750c7, which draws the ramp. Do not merge PR #113 by itself."
     }
   ]
 }
