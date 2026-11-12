@@ -32,6 +32,7 @@ export type SecondaryStructure = {
     | "gate"
     | "white-block"
     | "dorm-block"
+    | "dorm-front"
     | "lab-block"
     | "sport-hall"
     | "study-block"
@@ -560,6 +561,26 @@ export function arenaProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * Public ground floor for 松濤二館. The site record lists 文錙藝術中心 and 美食廣場.
+ * The glass and canopy are an estimated silhouette. The other Sungtao halls stay
+ * the warm dorm block with a roof penthouse.
+ */
+export function dormFrontProfile(size: readonly [number, number, number]) {
+  const lobbyH = Math.min(4.2, Math.max(3.4, size[1] * 0.18));
+  const canopyD = 2.2;
+  return {
+    lobbyH,
+    glassW: Math.min(14, size[0] * 0.46),
+    glassH: lobbyH * 0.62,
+    glassZ: size[2] / 2 + 0.08,
+    canopyD,
+    canopyW: Math.min(16, size[0] * 0.5),
+    canopyZ: size[2] / 2 + canopyD / 2,
+    canopyY: lobbyH - 0.12,
+  };
+}
+
+/**
  * Teaching hall for 外國語文大樓. The ground gallery and south set-back are
  * an estimated silhouette. 會文館 stays a classroom block. The older
  * foreign-lang-hall record stays separate.
@@ -675,6 +696,7 @@ function campusKind(site: {
   if (site.id === "education") return "class-hall";
   if (site.id === "chemistry") return "chem-hall";
   if (site.theme === "arts") return "hip-roof-block";
+  if (site.id === "sungtao-2") return "dorm-front";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";
   if (site.theme === "sport") return "sport-hall";

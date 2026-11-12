@@ -409,6 +409,12 @@
 
 畫面：`docs/art/evidence/education/hall.jpg`。測試：`scripts/class-hall.test.mjs`。
 
+## 階段：松濤二館（ART-068 的一部分）
+
+松濤二館的南向有底層玻璃和雨遮，屋頂量體留著。其他四館仍是暖色宿舍。門面是 estimated，不是實測立面。教育館、室內南門、天花板、車阻、田徑場內圈和坡道欄杆留著。
+
+畫面：`docs/art/evidence/sungtao/front.jpg`。測試：`scripts/dorm-front.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。教育館已有雨遮。會文館仍是教學樓。室內南門已可走出。公共室內已有天花板，往下看時鏡頭留在天花下。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。松濤二館已有公共門面。其他松濤館仍是宿舍。教育館已有雨遮。會文館仍是教學樓。室內南門已可走出。公共室內已有天花板，往下看時鏡頭留在天花下。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

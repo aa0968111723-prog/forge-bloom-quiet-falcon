@@ -383,3 +383,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 64 輪（教育館）— 2026-11-12
 
 `node --test scripts/class-hall.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。教育館是 class-hall。會文館仍是 study-block。外語大樓仍是 language-hall。雨遮高 3.1 m，比樓身窄，伸到南牆外面。樓層遮陽比樓層數少一條。外形仍是 estimated。室內南門留在第 63 輪。沒有新增音效。`build:site` 產物 `AdventureApp-D2jQsO3t.js`。
+
+## 第 65 輪（松濤二館）— 2026-11-12
+
+`node --test scripts/dorm-front.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。松濤二館是 dorm-front。一、三、四、五館仍是 dorm-block。麗澤仍是 intl-dorm。門廳低於樓高的四分之一，玻璃在南牆外，雨遮接到南牆。門面仍是 estimated。教育館留在第 64 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BMq2a5-L.js`。

@@ -753,6 +753,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "education classroom hall");
+  } else if (scenario === "dormfront") {
+    await hideHud(page);
+    await setPose(page, 427, -220, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(427, -255);
+      window.__controlsTest.setPhoto({
+        yaw: 0.35,
+        distance: 42,
+        height: 14,
+        lookY: 2,
+        target: { x: 427, y: y + 10, z: -255 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "sungtao 2 public front");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
