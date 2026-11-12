@@ -4844,6 +4844,32 @@
       "integrationPr": 318,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/318",
       "nextAction": "None. The campus-gate piers from f8696f0c are already in this integration. Do not merge PR #236 by itself. The text-sign commit 23614a9a is still separate."
+    },
+    {
+      "id": "art-text-sign",
+      "line": "art",
+      "scope": "Five named boards stop a walking body. Their yawed footprints are axis-aligned boxes shared with the mesh. An 80 ms dodge takes 0.2 m substeps and cannot cross a board.",
+      "status": "verified",
+      "pr": 238,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/238",
+      "integrationBranch": "cursor/integration-text-sign-3395",
+      "sourceBranch": "cursor/text-sign-1a71",
+      "baseSha": "828ae094cd5a518688359aa09504021171c69b0f",
+      "headSha": "23614a9a89b3402e2daf78e036bdf899a40dcdd9",
+      "dependencies": ["art-gate-pier"],
+      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world-data/landmarks.ts", "src/game/world/Signage.tsx", "src/game/world-data/vegetation.ts", "scripts/text-sign.test.mjs"],
+      "checks": {
+        "conflicts": "Campus-gate piers, bollards, lamp poles, trunk boxes, indoor steps, and the single 0.2 m substep stayed. Named boards joined COLLIDERS. Pilgrimage lines stay clear.",
+        "typecheck": "pass",
+        "npmTest": "452 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Bi9fH_nk.js sha256 0cb0f63cf9767a15ce8f1456956ea089a619b84e306f51f419e95d6582d7e63a. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8244/",
+        "route": "8244 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "c4397cd3e9d004e3d0dc3b5d55e63bb5762404db",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #238 by itself. The library-plinth commit e59376ac is still separate."
     }
   ]
 }
