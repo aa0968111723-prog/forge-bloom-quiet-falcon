@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T09:42:39Z",
+  "updated_at": "2026-11-12T09:48:17Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "dd6a7f3",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -121,10 +121,11 @@
     "merged main at 1be6a82; the follow-up stop resume was already on this branch",
     "a full stack ground still keeps an extra kind that already has room",
     "merged main at d5b89c4; the full-pile split was already on this branch",
-    "merging piles on a full ground keeps every quest mark"
+    "merging piles on a full ground keeps every quest mark",
+    "an errand that spills notes keeps those notes out of collection"
   ],
   "verification": {
-    "npm_test": "420 pass, 0 fail; merging piles on a full ground keeps every quest mark",
+    "npm_test": "421 pass, 0 fail; an errand that spills notes keeps those notes out of collection",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
