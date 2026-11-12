@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：海豚勉詞（ART-062 的一部分）
+
+海豚里程碑基座南面寫兩行：立足淡江，放眼世界；掌握資訊，開創未來。牌子高 0.72 m，仍在既有石座上。沒有新增碰撞。字位仍是 estimated。田徑場內圈留著。
+
+畫面：`docs/art/evidence/dolphin-motto/south.jpg`。測試：`scripts/dolphin-motto.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。海豚基座已寫滿四句勉詞。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
