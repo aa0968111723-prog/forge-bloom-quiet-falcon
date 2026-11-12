@@ -267,7 +267,7 @@
 
 ## 階段：課程地圖標記（ART-090 的一部分）
 
-展開的校園地圖在課程金圈上方寫兩個字。進行中的步驟是選系、移動、補給、普攻、技能。小地圖仍只畫金圈。工學館仍是磚紅基座和屋頂小間。
+展開的校園地圖在課程金圈上方寫兩個字。進行中的步驟是選系、移動、補給、普攻、技能。小地圖左下角也寫這兩個字。工學館仍是磚紅基座和屋頂小間。
 
 畫面：`docs/art/evidence/map/lesson.jpg`。測試：`scripts/lesson-marker.test.mjs`。
 
@@ -337,6 +337,12 @@
 
 畫面：`docs/art/evidence/courts/open.jpg`。測試：`scripts/court-clearing.test.mjs`。
 
+## 階段：小地圖課程字（ART-090 的一部分）
+
+右上角小地圖在課程進行時，左下角寫兩個字：選系、移動、補給、普攻、技能。展開的校園地圖仍把這兩個字寫在金圈上方。窄視窗的課程條改到小地圖下方，系名不再被蓋住。狀態卡仍是短標籤長條。沒有新增音效。
+
+畫面：`docs/art/evidence/hud/minimap-desktop.jpg`、`minimap-narrow.jpg`。測試：`scripts/lesson-marker.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。球場草皮已不種樹。圖書館坡道已升到台基。路燈中心已留在牆外。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。小地圖已寫課程的兩個字。球場草皮已不種樹。圖書館坡道已升到台基。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

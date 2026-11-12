@@ -857,9 +857,11 @@
         "docs/art/evidence/icons/hurt.jpg",
         "docs/art/evidence/map/zones.jpg",
         "docs/art/evidence/map/lesson.jpg",
+        "docs/art/evidence/hud/minimap-desktop.jpg",
+        "docs/art/evidence/hud/minimap-narrow.jpg",
         "scripts/lesson-marker.test.mjs"
       ],
-      "notes": "狀態卡是短標籤長條。九學院技能各有一個圖示，工程是製圖圓規。受擊時畫面邊緣變紅，狀態卡顯示受傷。地圖上七區各有顏色與圖例，建物描邊跟清冊分區走，不把重疊的估計範圍畫成界線。展開的校園地圖在課程金圈上方寫兩個字：選系、移動、補給、普攻、技能。小地圖仍只畫金圈。"
+      "notes": "狀態卡是短標籤長條。九學院技能各有一個圖示，工程是製圖圓規。受擊時畫面邊緣變紅，狀態卡顯示受傷。地圖上七區各有顏色與圖例，建物描邊跟清冊分區走，不把重疊的估計範圍畫成界線。展開的校園地圖在課程金圈上方寫兩個字：選系、移動、補給、普攻、技能。小地圖左下角用同樣兩個字，12px，窄視窗 11px。窄視窗的課程條改到小地圖下方，不再蓋住系名。"
     },
     {
       "id": "ART-091",

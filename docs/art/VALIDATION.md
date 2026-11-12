@@ -335,3 +335,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 52 輪（球場不種樹）— 2026-11-12
 
 `node --test scripts/court-clearing.test.mjs` 通過。`tsc --noEmit` 通過。密度 1 的散佈樹沒有一棵落在球場、田徑場或停車場裡面，五虎崗外緣 2.9 m 內也沒有。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/open.jpg`。草皮是空的，樹在場外。植栽位置仍是 estimated。圖書館坡道留在第 51 輪。沒有新增音效。`build:site` 產物 `AdventureApp-D2eWEjyb.js`。
+
+## 第 53 輪（小地圖課程字）— 2026-11-12
+
+`node --test scripts/lesson-marker.test.mjs` 通過。`tsc --noEmit` 通過。進行中的課程在小地圖左下角寫兩個字，這一輪是「移動」。展開地圖仍把同樣的字寫在金圈上方。1280×720 與 390×844 都拍到這個字，頁面無錯誤：`docs/art/evidence/hud/minimap-desktop.jpg`、`minimap-narrow.jpg`。窄視窗的課程條在小地圖下方，系名「土木工程學系」完整。狀態卡仍是短標籤長條。沒有新增音效。球場不種樹留在第 52 輪。`build:site` 產物 `AdventureApp-BL8Hzgt0.js`。
