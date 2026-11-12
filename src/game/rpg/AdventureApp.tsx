@@ -5,6 +5,7 @@ import { useGame } from "../store";
 import { quality, setQualityPreference } from "../quality";
 import { TITLE_ORBIT } from "./follow";
 import { World } from "../world/World";
+import { FacultyCast } from "../../features/faculty-story/FacultyCast";
 import { Npcs } from "../Npcs";
 import { CAMPUS_SITES } from "./campus";
 import { AdventurePlayer } from "./AdventurePlayer";
@@ -98,6 +99,7 @@ function Scene({ onReady }: { onReady: () => void }) {
             <CampusExtension />
             <VarietyMarks />
             <Npcs />
+            <FacultyCast />
           </>
         )}
         <AdventureSystems />

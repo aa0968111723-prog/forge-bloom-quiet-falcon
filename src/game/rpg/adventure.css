@@ -661,6 +661,32 @@ textarea:focus-visible,
   margin: 0 0 21px;
   font-size: var(--ad-type) !important;
 }
+.ad-narrative-scrim .ad-dialog > header .ad-icon {
+  width: 44px;
+  height: 44px;
+}
+.ad-narrative-scrim .ad-dialog-body .ad-lead,
+.ad-narrative-scrim .ad-faculty-card {
+  font-size: 16px !important;
+  line-height: 1.65;
+}
+.ad-narrative-scrim .ad-faculty-card {
+  margin: 0 0 12px;
+  color: var(--ad-ink);
+}
+.ad-narrative-scrim .ad-dialog-body {
+  min-height: 0;
+  flex: 1;
+}
+.ad-narrative-scrim .ad-dialog-body .ad-primary {
+  width: 100%;
+  margin-bottom: 8px;
+}
+@media (max-width: 800px) {
+  .ad-narrative-scrim .ad-dialog-body {
+    max-height: 40dvh;
+  }
+}
 .ad-filter {
   display: flex;
   gap: 10px;
