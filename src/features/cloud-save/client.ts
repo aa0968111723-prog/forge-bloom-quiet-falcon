@@ -529,11 +529,13 @@ export function createCloudSaveController(options: {
         body: JSON.stringify({ eventId, requestId }),
       });
       const payload = await response.json().catch(() => null);
-      if (response.ok && payload?.applied === false) {
-        rememberReward(userId, record);
-        return { granted: false };
-      }
-      if (response.ok && payload?.applied === true) {
+      if (response.ok && (payload?.applied === false || payload?.applied === true)) {
+        const confirmed = await accountGate(userId);
+        if (confirmed !== "ok") return { granted: false };
+        if (payload.applied === false) {
+          rememberReward(userId, record);
+          return { granted: false };
+        }
         rememberReward(userId, record);
         grant();
         return { granted: true };

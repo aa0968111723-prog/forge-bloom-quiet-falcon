@@ -1909,3 +1909,103 @@ test("a dropped upload is not recorded when the landed read belongs to another a
   assert.equal(JSON.parse(client.readLocal()).xp, 1);
   assert.equal(client.queuedCount("user-a"), 0);
 });
+
+test("another account's reward receipt does not decide this grant", async () => {
+  let sessionId = "user-a";
+  let posts = 0;
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      posts += 1;
+      const body = JSON.parse(init.body);
+      if (posts === 1) {
+        sessionId = "user-b";
+        return jsonResponse(200, { applied: false, eventId: body.eventId });
+      }
+      return jsonResponse(200, { applied: true, eventId: body.eventId });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "rewardacct0001",
+  });
+  client.bindAccount("user-a");
+  let grants = 0;
+  const grant = () => {
+    grants += 1;
+  };
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, false);
+  assert.equal(grants, 0);
+  assert.deepEqual(JSON.parse(storage.getItem("tamkang-cloud-save-receipt:user-a")), []);
+  assert.equal(storage.getItem("tamkang-cloud-save-receipt:local"), null);
+  sessionId = "user-a";
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, true);
+  assert.equal(grants, 1);
+  assert.equal(posts, 2);
+});
+
+test("another account's applied reward is not granted on this device", async () => {
+  let sessionId = "user-a";
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      sessionId = "user-b";
+      const body = JSON.parse(init.body);
+      return jsonResponse(200, { applied: true, eventId: body.eventId });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "rewardacct0002",
+  });
+  client.bindAccount("user-a");
+  let grants = 0;
+  const result = await client.noteReward("gather-notes", () => {
+    grants += 1;
+  });
+  assert.equal(result.granted, false);
+  assert.equal(grants, 0);
+  assert.deepEqual(JSON.parse(storage.getItem("tamkang-cloud-save-receipt:user-a")), []);
+  assert.equal(storage.getItem("tamkang-cloud-save-receipt:local"), null);
+});
+
+test("a session blip does not settle a reward receipt", async () => {
+  let reads = 0;
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      reads += 1;
+      if (reads === 3) throw new Error("session blip");
+      return sessionFor("user-a");
+    }
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      const body = JSON.parse(init.body);
+      return jsonResponse(200, { applied: true, eventId: body.eventId });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "rewardblip0001",
+  });
+  client.bindAccount("user-a");
+  let grants = 0;
+  const result = await client.noteReward("gather-notes", () => {
+    grants += 1;
+  });
+  assert.equal(result.granted, false);
+  assert.equal(grants, 0);
+  assert.deepEqual(JSON.parse(storage.getItem("tamkang-cloud-save-receipt:user-a")), []);
+  assert.equal(storage.getItem("tamkang-cloud-save-receipt:local"), null);
+  assert.equal(client.queuedCount("user-a"), 0);
+});
