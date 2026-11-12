@@ -493,3 +493,13 @@
 ## 下一步
 
 見 `CHECKPOINT.json`。傳輸預算已量過，meshopt 與 KTX2 先留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+
+## 階段：宮燈大道四時段（ART-086）
+
+同一站點 (0, -80) 留下晴天、夕照、夜、雨後。晴天路燈滅，夕照與夜路燈亮，雨後鋪面變濕。不是實測日照。行政大樓仍是石色樓身。
+
+畫面：`docs/art/evidence/lighting/`。測試：`scripts/lighting-times.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。四時段截圖已留下。行政大樓已從教學樓分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
