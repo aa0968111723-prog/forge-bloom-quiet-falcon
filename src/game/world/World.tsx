@@ -10,6 +10,7 @@ import { LanternAvenue } from "../landmarks/LanternAvenue";
 import { Library } from "../landmarks/Library";
 import { PalaceClassrooms } from "../landmarks/PalaceClassrooms";
 import { ScrollPlaza } from "../landmarks/ScrollPlaza";
+import { ShepherdMeadow } from "../landmarks/ShepherdMeadow";
 import { ContextStructures } from "./ContextStructures";
 import { Lighting } from "./Lighting";
 import { LocalLights } from "./LocalLights";
@@ -75,6 +76,7 @@ export function World({ timeOfDay, onReady }: { timeOfDay: TimeOfDay; onReady?: 
           <DolphinMilestone wetness={preset.wetness} />
           <ScrollPlaza wetness={preset.wetness} />
           <Library wetness={preset.wetness} lampsOn={preset.lampsOn} />
+          <ShepherdMeadow wetness={preset.wetness} />
 
           <ContextStructures wetness={preset.wetness} lampsOn={preset.lampsOn} />
           <Signage wetness={preset.wetness} />

@@ -1001,6 +1001,32 @@ try {
     const reduced = await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
     await photo(page, Math.PI * 0.15, { distance: 1.05, height: 1.25, lookY: 1.05 });
     await shot(page, "backpack", `reduced motion ${reduced}, backpack and turtle charm at rest targets`);
+  } else if (scenario === "sheep") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, -58, -294, 0);
+    await page.evaluate(() => {
+      const rpg = window.__rpgQA.rpg;
+      const enemies = rpg.getState().enemies.map((enemy) => ({
+        ...enemy,
+        x: 400,
+        z: 400,
+        state: "idle",
+      }));
+      rpg.setState({ enemies });
+    });
+    await frames(page, 8);
+    await holdKeys(page, ["KeyW"]);
+    await page.waitForFunction(() => window.__controlsTest.getPosition().z < -300.7);
+    await frames(page, 8);
+    await holdKeys(page, []);
+    await frames(page, 8);
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: -0.55, distance: 8, height: 2.1, lookY: 1.6 });
+    });
+    await frames(page, 6);
+    await shot(page, "south", `shepherd figure, day, walked north and stopped ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

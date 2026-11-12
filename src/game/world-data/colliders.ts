@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, bollards, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
+import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, SHEPHERD, bollards, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -81,6 +81,9 @@ function buildColliders(): AABB[] {
 
   // 驚聲銅像 plinth
   out.push(box(0, 0, 3.2, 3.2));
+
+  // 牧羊草坪的紀念雕塑。石座連人一起擋，蓋章點留在南側。
+  out.push(box(SHEPHERD.x, SHEPHERD.z, SHEPHERD.pad, SHEPHERD.pad));
 
   // 海豚里程碑 plinth on the roundabout island
   out.push(box(0, AXIS.dolphinZ, 3.4, 3.4));

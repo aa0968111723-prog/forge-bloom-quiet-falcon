@@ -488,3 +488,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/still-charm.test.mjs` 通過。`tsc --noEmit` 通過。減少動態時髮尾和小龜的目標都是 0。吊飾從 0.45 經過阻尼後回到 0.02 以內。普通向前速度仍把髮尾帶離 0。宮燈教室內、減少動態的背包畫面：`docs/art/evidence/charm/backpack.jpg`。標題鏡頭留在第 89 輪。沒有新增音效。
 
+## 第 91 輪（牧羊草坪雕塑）— 2026-11-12
+
+`node --test scripts/shepherd-figure.test.mjs` 通過。`tsc --noEmit` 通過。石座中心會把人推開。蓋章點留在草地上。80 ms 的閃避不會穿過去。巡禮折線不經過石座。白天從南邊走向石座會停在外側：`docs/art/evidence/meadow/figure.jpg`。外形與位置仍是 estimated。吊飾停住留在第 90 輪。沒有新增音效。
+
