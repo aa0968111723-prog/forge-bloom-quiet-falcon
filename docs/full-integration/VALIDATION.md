@@ -1104,3 +1104,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 30 減 12 是 18，也就是開場階段的 6 加上崗位探索的 12。這一拍不加筆記。對句不看這次是去問原句還是先寫下來。
 
 畫面：`/opt/cursor/artifacts/integration-heng-meet/ask-outcome.png`、`ask-next.png`、`write-outcome.png`、`write-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。十二支車阻柱、田徑場內野和坡道側欄沒有走。這條線沒有另做這次地上堆拆分，也沒有另做車阻柱碰撞。
+
+## 簡衡的兩個對句選項
+
+這段打在 `AdventureApp-Dt7w4AzO.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-Bu0SLQqh.js`。`main` 尖端 `b03df4b` 註記 PR #275，GitHub 上這份 PR 的狀態是 MERGED。遊戲變更是 `c9c12b0`。合併提交 `bb5c592`。主遊戲檔 892225 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-heng-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-heng-clash` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 420 通過、0 失敗。對象是合併 `bb5c592` |
+| `npm run build:site` | 產出 `index-Bu0SLQqh.js` 與 `AdventureApp-Dt7w4AzO.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場。點對句之前存檔經驗 30、筆記 18。這一次點選沒有新增校園發現項目。開場句都是「沒有把兩句合成一句」。
+
+- 「我對過了。兩句沒有合成一句。」之前先選去問原句。存檔經驗 38，筆記 19。結果句「各自已經開口」。畫面是 1 級、「經驗 38/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。對話卡仍寫教授、外交與國際關係學系。學期仍是第一週。再按「與簡衡交談」，這局沒有簡禾和江照的開口旗，面板關著，通知含「上一件事還沒完成」。`quest-faculty-cross-clash` 只有一筆。沒有 `quest-faculty-cross-turn`，也沒有工作室任務。重載後經驗 38、筆記 19，再按仍是這則通知。
+- 「有一句我還不確定，請標成待查。」之前先選先寫下來。經驗同樣 30→38，筆記 18→19。結果句「這一格先空著」。再按同樣是這則通知。重載後這則通知還在，生命仍是 100/100。
+
+38 減 30 是 8，也就是對句階段的經驗。筆記加 1。並列那一拍這兩局沒有打開。
+
+畫面：`/opt/cursor/artifacts/integration-heng-clash/check-outcome.png`、`check-done.png`、`unsure-outcome.png`、`unsure-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。十二支車阻柱、田徑場內野和坡道側欄沒有走。這條線沒有另做這次溢出堆疊。

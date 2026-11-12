@@ -6,8 +6,8 @@
 ## 現在停在哪
 
 - 基線 `eccee6d`。它註記 PR #242。GitHub 上這份 PR 的狀態是 MERGED。同一段還有 PR #241，GitHub 狀態是 CLOSED，`mergeCommit` 是 null，提交已在 main。遊戲提交 `264a94c` 與 `f90a3c8` 已在 main，也在這個分支（合併提交 `08de580`）。超出範圍的敘事時鐘仍可上傳，叫不出名字的地點會被拿掉。靜態檔名是 `AdventureApp-DyYCDMBl.js`，入口 `index-CuYsTjzn.js`，888972 bytes。
-- 簡衡的兩個開場各在一局新學期點過。存檔經驗 12→30，筆記停在 18，畫面是 1 級、經驗 30/60、生命 100。對句不看開場選了哪句，兩個對句選項還沒點。見 VALIDATION.md。靜態檔是 `AdventureApp-B1vE3ZD5.js`。
-- 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`。2026-11-12T09:47Z 查看時是 RUNNING，分支回到 `cursor/integration-art-m1-3395`。後端當時也在 RUNNING。內容線 `bc-a2d70f8d` 在 `feature/game-content-world` 上 RUNNING，不要合那條分支。玩法尖端上次是 `3270f9f`，`store.ts` 落後，不要整支合併。合併仍交給原整合線。許回已接線，這條線沒有點她。十二支車阻柱、田徑場內野和坡道側欄仍沒有走。
+- 簡衡的兩個對句各在一局新學期點過。開場已結算。存檔經驗 30→38，筆記 18→19，畫面是 1 級、經驗 38/60、生命 100。再按是還沒完成的通知，面板關著。並列那一拍要簡禾和江照都已開過口，這兩局沒有去找他們。見 VALIDATION.md。靜態檔是 `AdventureApp-Dt7w4AzO.js`。
+- 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`。2026-11-12T09:54Z 查看時是 RUNNING，分支是 `cursor/integration-art-m1-3395`。後端當時也在 RUNNING。內容線 `bc-a2d70f8d` 在 `feature/game-content-world` 上 RUNNING，不要合那條分支。玩法尖端上次是 `3270f9f`，`store.ts` 落後，不要整支合併。合併仍交給原整合線。許回已接線，這條線沒有點她。十二支車阻柱、田徑場內野和坡道側欄仍沒有走。
 - `docs/integration/**` 是對方的。這條線只寫 `docs/full-integration/**`。
 - `MAIN_INTEGRATION` 保持 false。存檔鍵 `tamkang-rpg-v2`，版本 2。
 
@@ -68,14 +68,15 @@ node --experimental-transform-types scripts/integration-jiang-clash.mjs http://1
 node --experimental-transform-types scripts/integration-jiang-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-jiang-turn
 node --experimental-transform-types scripts/integration-jiang-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-jiang-after
 node --experimental-transform-types scripts/integration-heng-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-heng-meet
+node --experimental-transform-types scripts/integration-heng-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-heng-clash
 ```
 
 預覽是 `npm run preview:site`，埠 8088。路線瀏覽器強制 SwiftShader。390×780 在這台機器上是細指標窄窗。室內這段是在 1280×720 點的。
 
 ## 下一步
 
-1. 重新抓 `origin/main`。2026-11-12T09:47Z 之後它是 `4e6a7df`。地上堆全數保留 #270 與車阻柱碰撞 #273 已合進這個分支，不要再合一次。對方又推了新提交才接。十二支車阻柱、田徑場內野和坡道側欄仍沒有走。
-2. 簡衡的開場兩句已各點過一次，重載保留。對句不看開場選了哪句。下一拍是「我對過了。兩句沒有合成一句。」和「有一句我還不確定，請標成待查。」瀏覽器沒有點。並列那一拍還要簡禾和江照都已開過口。簡禾的先修或改期旗仍沒有在江照的暫定句上打開。
+1. 重新抓 `origin/main`。2026-11-12T09:54Z 之後它是 `b03df4b`。溢出物品留在現有堆 #275 已合進這個分支，不要再合一次。對方又推了新提交才接。十二支車阻柱、田徑場內野和坡道側欄仍沒有走。
+2. 簡衡的對句兩句已各點過一次，重載保留。再按是還沒完成的通知。下一拍要先在主遊戲讓簡禾和江照各自開口，再回來點「維持兩句並列，不選邊。」或「建議對調一小時，但要他們自己點頭。」這兩局沒有那兩面旗，所以並列句沒有打開。簡禾的先修或改期旗仍沒有在江照的暫定句上打開。
 3. 許回已接在圖書館估計門口外。對方的畫面是他們的紀錄。這條線還沒點。另外三條收集仍是 0。後端線當時仍在寫，不要把那條分支再合一次。
 4. 玩法尖端 `3270f9f` 的目錄與戰鬥檔和這條線有差。他們的 `store.ts` 落後。要接時只接新遭遇，不要整支合併。
 5. 手勢流暢度要另錄，不要用單張畫面宣稱。
