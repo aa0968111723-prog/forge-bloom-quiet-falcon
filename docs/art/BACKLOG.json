@@ -844,9 +844,11 @@
         "scripts/planting-lod.test.mjs",
         "docs/art/evidence/planting/avenue.jpg",
         "docs/art/evidence/courts/open.jpg",
-        "scripts/court-clearing.test.mjs"
+        "scripts/court-clearing.test.mjs",
+        "docs/art/evidence/planting/trunk.jpg",
+        "scripts/tree-stop.test.mjs"
       ],
-      "notes": "宮燈大道近處看得到杜鵑、灌木和花圃。樹木與灌木在高畫質 48 m 內用模型，外面改便宜樹冠。杜鵑、花圃、地被和青苔超出距離就不畫。棕櫚超出距離留便宜樹冠。散佈的樹不種進球場、田徑場和停車場，外緣再留 3 m。植栽位置仍是 estimated。"
+      "notes": "宮燈大道近處看得到杜鵑、灌木和花圃。樹木與灌木在高畫質 48 m 內用模型，外面改便宜樹冠。杜鵑、花圃、地被和青苔超出距離就不畫。棕櫚超出距離留便宜樹冠。散佈的樹不種進球場、田徑場和停車場，外緣再留 3 m。點名的 134 棵樹，樹幹底部半徑跟模型同一組數字，會擋住身體。灌木和遠景散佈的樹沒有這層碰撞。植栽位置仍是 estimated。"
     },
     {
       "id": "ART-086",

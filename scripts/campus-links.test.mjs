@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance } from "../src/game/rpg/campus.ts";
 import { resolveCollision } from "../src/game/world-data/colliders.ts";
+import "../src/game/world-data/vegetation.ts";
 import { entranceRoadPath } from "../src/game/rpg/rules.ts";
 
 function distPointSeg(px, pz, ax, az, bx, bz) {

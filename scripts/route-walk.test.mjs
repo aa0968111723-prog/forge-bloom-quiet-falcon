@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { resolveCollision } from "../src/game/world-data/colliders.ts";
 import "../src/game/world-data/props.ts";
+import "../src/game/world-data/vegetation.ts";
 import { KENAN_APRON_SOUTH_Z, KENAN_HALF_WIDTH, KENAN_TOP_Z } from "../src/game/world-data/kenan.ts";
 import { ROUTE_SPECS } from "../src/game/world-data/registry/index.ts";
 

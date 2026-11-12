@@ -119,6 +119,13 @@ export function poleAabbs(): readonly AABB[] {
   return poleBoxes;
 }
 
+/** Specimen trunks, registered by vegetation after placement. Kept out of COLLIDERS so a tree is not inside itself. */
+let trunkBoxes: AABB[] = [];
+
+export function registerTrunkBoxes(boxes: readonly AABB[]) {
+  trunkBoxes = boxes.slice();
+}
+
 /** Short enough that a 13 m/s dodge cannot step past the centre of a 0.18 m pole. */
 export const COLLISION_SUBSTEP = 0.2;
 
@@ -161,7 +168,9 @@ export function resolveCollision(
 ): { x: number; z: number } {
   let px = x;
   let pz = z;
-  const blocks = extra.length ? COLLIDERS.concat(poleBoxes, extra as AABB[]) : COLLIDERS.concat(poleBoxes);
+  const blocks = extra.length
+    ? COLLIDERS.concat(poleBoxes, trunkBoxes, extra as AABB[])
+    : COLLIDERS.concat(poleBoxes, trunkBoxes);
   for (const b of blocks) {
     const cx = Math.min(Math.max(px, b.minX), b.maxX);
     const cz = Math.min(Math.max(pz, b.minZ), b.maxZ);

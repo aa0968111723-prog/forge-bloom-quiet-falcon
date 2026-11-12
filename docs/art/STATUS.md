@@ -530,6 +530,12 @@
 
 畫面：`docs/art/evidence/props/lamp.jpg`。測試：`scripts/lamp-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：樹幹（ART-085 的一部分）
+
+校區裡點名的 134 棵樹，樹幹會擋住半徑 0.42 m 的身體。從西邊走向坡底那棵榕樹會停在樹幹外。灌木和地面植物沒有樹幹。巡禮折線和估計路網仍走得過。樹位仍是 estimated。遠景散佈的樹仍可走過去。路燈燈柱留著。
+
+畫面：`docs/art/evidence/planting/trunk.jpg`。測試：`scripts/tree-stop.test.mjs`、`scripts/route-walk.test.mjs`、`scripts/campus-links.test.mjs`。
+
 ## 下一步
 
 見 `CHECKPOINT.json`。路燈燈柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
