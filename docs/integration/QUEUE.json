@@ -2545,6 +2545,32 @@
       "integrationPr": 192,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/192",
       "nextAction": "None. The disconnect behavior from dd6263a and the restart proof from c04dd7b are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "art-rail-body",
+      "line": "art",
+      "scope": "A 0.12 m body on each library ramp rail pushes a 0.42 m player off it. The ramp centre and the south approach stay open.",
+      "status": "verified",
+      "pr": 165,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/165",
+      "integrationBranch": "cursor/integration-rail-body-3395",
+      "sourceBranch": "cursor/rail-stop-1a71",
+      "baseSha": "b745f27f725e33bc94a1cb47399b198c54130bbb",
+      "headSha": "002453c78a88fffbc902ce6859d0a3cd6a7294e3",
+      "dependencies": ["art-ramp-rails"],
+      "sharedFiles": ["src/game/world-data/colliders.ts"],
+      "checks": {
+        "conflicts": "none",
+        "typecheck": "pass",
+        "npmTest": "351 pass / 0 fail. The library ramp railing test now checks the bodies.",
+        "buildSite": "pass. AdventureApp-B0KWHzwD.js",
+        "browser": "8166. The standing route completed.",
+        "route": "8166: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "a745ddf85d5f5737575ba58de48969f7ca67caf5",
+      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #165 by itself. Re-check the collider when the sloped rails from PR #163 land."
     }
   ]
 }
