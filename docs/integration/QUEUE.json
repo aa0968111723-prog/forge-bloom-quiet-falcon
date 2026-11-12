@@ -5231,9 +5231,11 @@
         "route": "8257 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "0a448897056ba8aececa71c77cd04d9ede2bde46",
-      "nextAction": "Open the integration PR. Do not merge PR #266 by itself. The reading-girl commit 44bf4c9f is still separate."
+      "integrationPr": 332,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/332",
+      "nextAction": "None. The shelf clearance from bf82dc53 is already in this integration. Do not merge PR #266 by itself. The reading-girl commit 44bf4c9f is still separate."
     }
   ]
 }
