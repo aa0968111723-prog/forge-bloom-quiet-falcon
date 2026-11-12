@@ -669,6 +669,20 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "column") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, -5.5, -50.4, Math.PI / 2);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 40);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: -0.4, distance: 6, height: 1.6, lookY: 1.1 });
+    });
+    await frames(page, 4);
+    await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.x < -9.2) throw new Error(`walked through the column ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
