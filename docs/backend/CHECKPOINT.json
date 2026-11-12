@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:48:40Z",
+  "updated_at": "2026-11-12T05:52:24Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "32a15ad",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -44,10 +44,11 @@
     "a built station's harvest cooldown still inside 180 seconds survives import and a cloud reload",
     "merged main at 7570724; the session-blip reward check was already on this branch",
     "a restored cloud save is not applied when the session changes account or the confirm read blips",
-    "merged main at 32a15ad; the session-blip save write-back was already on this branch"
+    "merged main at 32a15ad; the session-blip save write-back was already on this branch",
+    "an upload response is not recorded when the session changes account or the confirm read blips"
   ],
   "verification": {
-    "npm_test": "358 pass, 0 fail; a session change does not apply a restored cloud save",
+    "npm_test": "361 pass, 0 fail; a session change does not record another account's upload revision",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
