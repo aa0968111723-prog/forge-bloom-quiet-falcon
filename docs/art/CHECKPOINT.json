@@ -57,7 +57,7 @@
     "typecheck": "pass",
     "npm_test": "court-lines and reading-girl pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "BUNDLE_AFTER_BUILD",
+    "build_site": "AdventureApp-HPXzNEa2.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [

@@ -4312,6 +4312,34 @@
       "integrationPr": 299,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/299",
       "nextAction": "None. The reading girl from c44667c1 is already in this integration. Do not merge PR #151 by itself."
+    },
+    {
+      "id": "art-scooter-bays",
+      "line": "art",
+      "scope": "The scooter lot has 23 bays on the north edge and 23 on the south, 2.4 m by 4 m. The stall lines stay inside the pad and at least 10 m from the centre. Twelve old stripes still run through the aisle and cut the bays. Stall sizes stay estimated.",
+      "status": "verified",
+      "pr": 158,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/158",
+      "integrationBranch": "cursor/integration-scooter-bays-3395",
+      "sourceBranch": "cursor/parking-stalls-1a71",
+      "baseSha": "868124b844608eec34dc34dfe3d4e5e4bfcc29e3",
+      "headSha": "d798fa23a05019489c37bfb5d528b34eefea661d",
+      "dependencies": ["art-reading-girl"],
+      "sharedFiles": ["src/game/world-data/court-lines.ts", "src/game/world/ContextStructures.tsx", "scripts/court-lines.test.mjs"],
+      "checks": {
+        "conflicts": "ContextStructures and court-lines imports, plus docs/art. Kept trackInfield with parkingStalls. The twelve centre stripes stay until 1788c30. build_site set to AdventureApp-HPXzNEa2.js.",
+        "typecheck": "pass",
+        "npmTest": "437 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-HPXzNEa2.js",
+        "browser": "8229. The standing route completed.",
+        "route": "8229: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "fb181b4a04558cda2a7b766e34fa9a88cf0123cd",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #158 by itself."
     }
   ]
 }
