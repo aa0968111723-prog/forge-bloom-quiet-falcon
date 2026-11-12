@@ -3197,7 +3197,7 @@
       "id": "backend-loot-id",
       "line": "backend",
       "scope": "Import keeps the first 80 characters of a ground-loot id, the same limit as a building id. Items and the quest mark stay, so the pile can still upload. A raw upload of an id longer than 80, without that import, is still rejected.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-loot-id-3395",
@@ -3215,9 +3215,11 @@
         "route": "8189: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "79cdcaedbe0dc147731a5ac794e8f467f524dd1b",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 233,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/233",
+      "nextAction": "None. The trimmed ground-loot id from ba24f0cb is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
