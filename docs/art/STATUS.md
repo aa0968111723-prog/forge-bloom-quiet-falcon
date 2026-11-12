@@ -307,6 +307,12 @@
 
 畫面：`docs/art/evidence/planting/avenue.jpg`。測試：`scripts/planting-lod.test.mjs`。
 
+## 階段：海事博物館船首（ART-066 的一部分）
+
+船首的四個底角蓋住船身前臉，尖端在前臉前方。船身長度仍是 estimated。植栽仍依距離分開。
+
+畫面：`docs/art/evidence/museum/bow.jpg`。測試：`scripts/ship-bow.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。植栽已按距離分開。外國語文大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。船首已接到前臉。植栽已按距離分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

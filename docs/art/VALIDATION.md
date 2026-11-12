@@ -315,3 +315,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 47 輪（植栽距離）— 2026-11-12
 
 `node --test scripts/planting-lod.test.mjs` 通過。`tsc --noEmit` 通過。距離 48 m 以內的植株留在近景，正好 48 m 和更遠的進遠景。樹木與灌木近景用模型，遠景改便宜樹冠。杜鵑、花圃、地被和青苔超出距離就不畫。棕櫚超出距離留便宜樹冠。定步白天站在宮燈大道，頁面無錯誤：`docs/art/evidence/planting/avenue.jpg`。近處看得到圓灌木和粉紅花圃。植栽位置仍是 estimated。外國語文大樓留在第 46 輪。沒有新增音效。
+
+## 第 48 輪（海事博物館船首）— 2026-11-12
+
+`node --test scripts/ship-bow.test.mjs` 通過。`tsc --noEmit` 通過。船首底邊落在前臉內側 0.08 m，四個角蓋滿前臉的高和寬，尖端在前臉前方、高度在船身中線。定步白天從船首前方看，頁面無錯誤：`docs/art/evidence/museum/bow.jpg`。船首貼著前臉收到尖端。船身長度仍是 estimated。植栽留在第 47 輪。沒有新增音效。`build:site` 本輪未重跑。

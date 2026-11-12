@@ -6,6 +6,7 @@ import { quality } from "../quality";
 import {
   GATE_PIER_WIDTH,
   SECONDARY_STRUCTURES,
+  type SecondaryStructure,
   activityProfile,
   arenaProfile,
   contextShowsDetail,
@@ -18,6 +19,8 @@ import {
   memorialProfile,
   officeProfile,
   languageHallProfile,
+  shipBowCorners,
+  shipProfile,
   scienceHallProfile,
   studioProfile,
   workshopProfile,
@@ -82,6 +85,58 @@ function LodGlazing({
     <instancedMesh ref={ref} args={[geometry, undefined, items.length]}>
       {children}
     </instancedMesh>
+  );
+}
+
+function shipBowGeometry(size: SecondaryStructure["size"]) {
+  const { base, tip } = shipBowCorners(size);
+  const [a, b, c, d] = base;
+  const positions = new Float32Array([
+    ...a, ...b, ...tip,
+    ...c, ...d, ...tip,
+    ...b, ...c, ...tip,
+    ...d, ...a, ...tip,
+  ]);
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+function ShipMass({
+  s,
+  y,
+  sign,
+}: {
+  s: SecondaryStructure;
+  y: number;
+  sign: THREE.Texture;
+}) {
+  const bow = useMemo(() => shipBowGeometry(s.size), [s.size]);
+  useEffect(() => () => bow.dispose(), [bow]);
+  const ship = shipProfile(s.size);
+  return (
+    <group position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+      <mesh position={[0, ship.hullY, 0]} castShadow receiveShadow>
+        <boxGeometry args={[s.size[0], ship.hullH, s.size[2]]} />
+        <meshStandardMaterial color="#eef1f4" roughness={0.55} />
+      </mesh>
+      <mesh geometry={bow} castShadow>
+        <meshStandardMaterial color="#eef1f4" roughness={0.55} />
+      </mesh>
+      <mesh position={[-4, s.size[1] * 0.72, 0]} castShadow>
+        <boxGeometry args={[s.size[0] * 0.4, s.size[1] * 0.34, s.size[2] * 0.7]} />
+        <meshStandardMaterial color="#dfe4e8" roughness={0.5} />
+      </mesh>
+      <mesh position={[2, s.size[1] * 0.98, 0]} castShadow>
+        <cylinderGeometry args={[0.5, 0.7, s.size[1] * 0.3, 10]} />
+        <meshStandardMaterial color="#1a3f6d" roughness={0.5} />
+      </mesh>
+      <mesh position={[0, 4.2, s.size[2] / 2 + 0.08]}>
+        <planeGeometry args={[9, 1.5]} />
+        <meshStandardMaterial map={sign} roughness={0.55} />
+      </mesh>
+    </group>
   );
 }
 
@@ -268,45 +323,7 @@ export function ContextStructures({
           );
         }
         if (s.kind === "ship") {
-          // 海事博物館: white hull, superstructure, bow towards the road.
-          return (
-            <group
-              key={s.id}
-              position={[s.position[0], y, s.position[1]]}
-              rotation={[0, s.rotationY, 0]}
-            >
-              <mesh
-                position={[0, s.size[1] * 0.28, 0]}
-                castShadow
-                receiveShadow
-              >
-                <boxGeometry args={[s.size[0], s.size[1] * 0.56, s.size[2]]} />
-                <meshStandardMaterial color="#eef1f4" roughness={0.55} />
-              </mesh>
-              <mesh
-                position={[s.size[0] * 0.56, s.size[1] * 0.24, 0]}
-                rotation={[0, 0, -0.5]}
-                castShadow
-              >
-                <coneGeometry args={[s.size[2] * 0.5, s.size[0] * 0.24, 4]} />
-                <meshStandardMaterial color="#eef1f4" roughness={0.55} />
-              </mesh>
-              <mesh position={[-4, s.size[1] * 0.72, 0]} castShadow>
-                <boxGeometry
-                  args={[s.size[0] * 0.4, s.size[1] * 0.34, s.size[2] * 0.7]}
-                />
-                <meshStandardMaterial color="#dfe4e8" roughness={0.5} />
-              </mesh>
-              <mesh position={[2, s.size[1] * 0.98, 0]} castShadow>
-                <cylinderGeometry args={[0.5, 0.7, s.size[1] * 0.3, 10]} />
-                <meshStandardMaterial color="#1a3f6d" roughness={0.5} />
-              </mesh>
-              <mesh position={[0, 4.2, s.size[2] / 2 + 0.08]}>
-                <planeGeometry args={[9, 1.5]} />
-                <meshStandardMaterial map={signs.museum} roughness={0.55} />
-              </mesh>
-            </group>
-          );
+          return <ShipMass key={s.id} s={s} y={y} sign={signs.museum} />;
         }
         if (s.kind === "gate") {
           const pier = GATE_PIER_WIDTH;

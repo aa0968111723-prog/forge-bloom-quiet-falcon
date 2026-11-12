@@ -496,6 +496,23 @@ try {
       const live = await page.evaluate(() => window.__rpgQA.game.getState().timeOfDay);
       await shot(page, time, `timeOfDay=${live} at (0, -80)`);
     }
+  } else if (scenario === "museum") {
+    // Side view of the maritime museum so the bow can be seen against the hull.
+    await hideHud(page);
+    await setPose(page, 190, -250, Math.PI / 2);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(176, -255);
+      window.__controlsTest.setPhoto({
+        yaw: 0.55,
+        distance: 24,
+        height: 5,
+        lookY: 3,
+        target: { x: 176, y: y + 3, z: -255 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "bow", "maritime museum bow on the hull");
   } else if (scenario === "interiors") {
     // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
     // These are game layouts, not surveyed rooms. Enter, look, exit, and check
