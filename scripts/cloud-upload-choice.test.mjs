@@ -729,3 +729,107 @@ test("restoring a cloud revision drops the queued local upload", async () => {
   assert.equal(client.queuedCount("user-a"), 0);
   assert.deepEqual(posts, ["http://127.0.0.1/api/cloud/saves/rpg/restore"]);
 });
+
+test("flush keeps a receipt that arrives while an upload is in flight", async () => {
+  const storage = memoryStorage();
+  const cloud = fakeCloud();
+  const fetch = async (url, init) => {
+    if ((init?.method ?? "GET") === "PUT") {
+      const key = "tamkang-cloud-save-queue:user-a";
+      const raw = storage.getItem(key);
+      const items = raw ? JSON.parse(raw) : [];
+      if (items.some((item) => item.kind === "put")) {
+        items.push({
+          id: "reward-gather-notes",
+          userId: "user-a",
+          kind: "receipt",
+          body: { eventId: "gather-notes", requestId: "reward-gather-notes" },
+          attempts: 0,
+          nextAt: 0,
+        });
+        storage.setItem(key, JSON.stringify(items));
+      }
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(2)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(5)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  const left = JSON.parse(storage.getItem("tamkang-cloud-save-queue:user-a"));
+  assert.equal(left.length, 1);
+  assert.equal(left[0].kind, "receipt");
+  assert.equal(
+    cloud.puts.some((body) => body.document?.xp === 5),
+    true,
+  );
+});
+
+test("flush does not send an upload dropped while an earlier item is in flight", async () => {
+  const storage = memoryStorage();
+  const key = "tamkang-cloud-save-queue:user-a";
+  const sent = [];
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    const method = init.method ?? "GET";
+    if (method === "POST") {
+      const items = JSON.parse(storage.getItem(key)).filter((item) => item.kind !== "put");
+      storage.setItem(key, JSON.stringify(items));
+      return jsonResponse(200, { applied: true, eventId: "gather-notes" });
+    }
+    sent.push(JSON.parse(init.body));
+    return jsonResponse(200, { revision: 2, contentHash: "abc" });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "laterupload0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  const now = Date.now();
+  storage.setItem(
+    key,
+    JSON.stringify([
+      {
+        id: "reward-gather-notes",
+        userId: "user-a",
+        kind: "receipt",
+        body: { eventId: "gather-notes", requestId: "reward-gather-notes" },
+        attempts: 0,
+        nextAt: now - 10,
+      },
+      {
+        id: "laterupload0001",
+        userId: "user-a",
+        kind: "put",
+        body: {
+          schemaVersion: 1,
+          contentVersion: 2,
+          baseRevision: 1,
+          confirmFirstSync: false,
+          requestId: "laterupload0001",
+          document: save(4),
+        },
+        attempts: 0,
+        nextAt: now,
+      },
+    ]),
+  );
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.deepEqual(sent, []);
+  assert.equal(client.queuedCount("user-a"), 0);
+});
