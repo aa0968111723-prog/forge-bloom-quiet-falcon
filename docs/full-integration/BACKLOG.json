@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T02:48:00Z",
+  "updated": "2026-11-12T03:31:24Z",
   "items": [
     {
       "id": "FI-MUTEX",
@@ -72,7 +72,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 9dd707e includes wet courts via #147 and the court clearing via #146. Both are on this branch. Do not merge them again. Re-fetch before the next slice."
+      "note": "main 57fc468 includes court lines via #149 and the garden pavilion via #150, on top of wet courts #147 and court clearing #146. Merged here as 88bc531. Do not merge them again. Pavilion screenshots are the other integrator's record. Re-fetch before the next slice."
     },
     {
       "id": "FI-GEAR",
@@ -87,9 +87,16 @@
       "note": "Faculty #139, encounters #136, ramp #143, and gear contract #144 are on main and on this branch. Nine college skills were played from the title picker. Do not merge those lines again."
     },
     {
+      "id": "FI-INTERIOR",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Fresh civil-engineering semester on AdventureApp-B2sSdjRz.js at 1280x720. Library floor 2 survived 繼續學期, xp 12, week-1, exit (10, -290). Chemistry exit (288, -243.5) xp 24. Gym exit (166, -104.5) xp 36. The extra 12s are existing site discovery. Import of an indoor file still stands at the door. A downed continue stays outside; that path is a unit test."
+    },
+    {
       "id": "FI-BROWSER-REST",
       "status": "not-verified-here",
-      "note": "Four monster kinds were hit on the earlier route. One interior, main-gate, was entered and then interiorId returned to null. Nine college skills are played. Seven estimated road points were walked at 1280 and 390. The follow camera stayed about 5.1 m behind. Not every polyline was walked. The 390 quickbar covers the character's lower body."
+      "note": "Four monster kinds were hit on the earlier route. main-gate was entered earlier. Library floor 2, chemistry, and the gym were entered on AdventureApp-B2sSdjRz.js at 1280x720. Library floor 2 survived 繼續學期. Exits landed on the doors. Nine college skills are played. Seven estimated road points were walked at 1280 and 390. The follow camera stayed about 5.1 m behind. Not every polyline was walked. The 390 quickbar covers the character's lower body. Clash choices and variety abort are still unplayed."
     }
   ]
 }

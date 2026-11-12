@@ -1,20 +1,22 @@
 {
-  "updated": "2026-11-12T03:14:00Z",
+  "updated": "2026-11-12T03:31:24Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "9dd707e6ce718322391a832af74213ec562b9827",
-  "gameSha": "fc20dff6ed671e1fdeb354d11a0591ee240d3458",
-  "verifiedHead": "fc20dff6ed671e1fdeb354d11a0591ee240d3458",
-  "playedBundle": "dist/assets/AdventureApp-LRjQocEU.js from 2f7667b. The fail choice was played before the wet-court merge. That merge does not change faculty dialogue.",
+  "base": "57fc468",
+  "baseFull": "57fc468 is origin/main. Court lines integration PR #149 and garden pavilion integration PR #150. Merged here as 88bc53167ac7d0b01403bb9b4579e707c805aebb.",
+  "gameSha": "88bc53167ac7d0b01403bb9b4579e707c805aebb plus the interior resume sources in this commit",
+  "verifiedHead": "this commit, played before the notes were added; the JavaScript matches because these notes do not change the build",
+  "playedBundle": "dist/assets/AdventureApp-B2sSdjRz.js. index-ClUiOG2v.js. Preview http://127.0.0.1:8088/ served that index.",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
-  "wetCourtSource": "main 9dd707e via integration PR #147, merged here as fc20dff. Do not merge #147 again.",
+  "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
+  "courtLineSource": "main via integration PR #149, commit 27ceb69. Do not merge #149 again.",
   "soleMerger": {
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T03:09:00Z",
+    "checkedAt": "2026-11-12T03:31:24Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -23,24 +25,26 @@
     "node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route",
     "node --experimental-transform-types scripts/integration-colleges.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-colleges",
     "node --experimental-transform-types scripts/integration-roads.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-roads",
-    "node --experimental-transform-types scripts/integration-gu-fail.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-fail"
+    "node --experimental-transform-types scripts/integration-gu-fail.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-fail",
+    "node --experimental-transform-types scripts/integration-interiors.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-interiors"
   ],
   "done": [
-    "A fresh architecture major picked 我帶了失敗的那一版. Outcome is 失敗的那版可以先放上來. fac-gu-meet-fail is true and fac-gu-meet-line is false. xp went from 12 to 34. Semester stayed week-1.",
-    "The next line is the fail variant, 你沒有先藏. Leaving without choosing kept xp at 34. Reload kept the department, xp, fail flag, and that line.",
-    "After merging wet courts, npx tsc --noEmit passed and npm test was 312 pass / 0 fail. The dialogue script exited 0 with pageErrors empty on the previous bundle."
+    "A fresh civil-engineering semester entered 覺生紀念圖書館, went to floor 2, reloaded with 繼續學期, and was still inside on floor 2. xp 12, semester week-1. Exit returned to the door (10, -290).",
+    "鍾靈化學館 and 紹謨紀念體育館 were entered from their door buttons and exited to (288, -243.5) and (166, -104.5). xp 24 then 36 from the existing per-site discovery, not a new interior reward.",
+    "A living continue keeps the room. A downed continue stays at the door. Import of an indoor file still stands at the door. npm test 315 pass / 0 fail. tsc passed. dist has no cloud-save or revision_conflict string."
   ],
   "todo": [
     "The clash choices 裂縫畫進圖 and 圖先保持乾淨 were visible and not clicked.",
-    "Enter interiors other than main-gate.",
+    "Variety abort was not played in the browser.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
-    "Gesture clips were not re-timed."
+    "Gesture clips were not re-timed. Interior stills do not prove animation smoothness."
   ],
   "blocked": [
     "This line must not merge to main while bc-4054e39b is the writer of main.",
     "Phone coarse-pointer HUD and RTX 3060 are pending-device. This host forces SwiftShader.",
     "AGENTS.md is absent.",
-    "Gesture timing is pending a recording, not a still frame."
+    "Gesture timing is pending a recording, not a still frame.",
+    "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is an interior other than main-gate. Do not flip MAIN_INTEGRATION. Do not merge wet courts #147, court clearing #146, ramp #143, or the earlier faculty, gear, and encounter lines again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is Gu Heng's clash choices on a fresh semester. Do not flip MAIN_INTEGRATION. Do not merge pavilion #150, court lines #149, wet courts #147, or the earlier faculty, gear, and encounter lines again. Do not merge PR #32 head 1fc5887."
 }

@@ -98,3 +98,29 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 標題選建築學系。站上估計位置後經驗是 12。點失敗選項後經驗 34，學期 `week-1`，狀態卡仍是「第一週 · 先問入口方向」。結果句是「失敗的那版可以先放上來。你把它帶來，我就不當你在躲。」下一句是「你沒有先藏。裂縫還在。」離開不結算，經驗停在 34。重載後仍是建築學系、經驗 34、失敗旗標，再交談還是這一句。補剖面那一個旗標是假。固定畫面不能用來宣稱手勢流暢。
 
 畫面檔：`/opt/cursor/artifacts/integration-route/08-faculty-choices.png`、`08b-faculty-line.png`。裝置是這台雲端主機的 headless Chrome，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。
+
+## 大門以外的公共室內
+
+這段打在合併 `88bc531`（main `57fc468`，球場標線 #149 與覺軒花園 #150）之後的工作樹。花園與標線的畫面是對方 STATUS 的紀錄，這裡沒有重看。
+
+| 指令 | 結果 |
+| --- | --- |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 315 通過、0 失敗。含 `scripts/court-lines.test.mjs`、`scripts/garden-pavilion.test.mjs`，以及「continuing a living semester returns to the saved public interior」 |
+| `npm run build:site` | 通過。`AdventureApp-B2sSdjRz.js`，入口 `index-ClUiOG2v.js`。`dist` 沒有 `revision_conflict` 或 `cloud-save` |
+| `node --experimental-transform-types scripts/integration-interiors.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-interiors` | 通過，exit 0。`pageErrors` 空 |
+| `npx eslint` 只掃這次改過的 `store.ts`、`home.ts`、`AdventureApp.tsx`、兩支腳本 | 既有 `store.ts:2132` `useFacility` rules-of-hooks 錯誤，以及既有 `dirty` 未使用警告。兩處都不在這次 diff。不把全庫 lint 說成通過 |
+
+站點 `http://127.0.0.1:8088/`，預覽伺服的就是這次 `dist`。1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。
+
+標題預設選土木工程學系，存檔 id `engineering-工學院-1`。學期全程 `week-1`，狀態卡「第一週 · 先問入口方向」。
+
+- 覺生紀念圖書館：門口「進入覺生紀念圖書館」，「上一樓」後室內列是「覺生紀念圖書館 · 2 樓」。`pagehide` 寫入 `interiorId: library`、`floor: 2`。標題按鈕出現時檔案仍是這兩欄。按「繼續學期」後仍是圖書館二樓，經驗 12。再按「返回校園」回到 `(10, -290)`。
+- 鍾靈化學館：進入後室內列「鍾靈化學館 · 1 樓」，返回 `(288, -243.5)`，經驗 24。
+- 紹謨紀念體育館：進入後室內列「紹謨紀念體育館 · 1 樓」，返回 `(166, -104.5)`，經驗 36。
+
+24 與 36 是每棟既有地點發現 +12，不是新的室內獎勵。房間是遊戲重建，座標 estimated。室內普攻與技能寫「場景不可用」。返回鈕在室內列上，沒有被快捷列蓋住。
+
+直接匯入一份室內存檔仍把人放在門口並清掉 `interiorId`。血量 0 的「繼續學期」也站在門口。這兩條是 `scripts/rpg-runtime.test.mjs` 的斷言，瀏覽器沒有再打倒地。
+
+畫面：`/opt/cursor/artifacts/integration-interiors/library-floor-2.png`、`library-reloaded.png`、`chemistry-inside.png`、`gym-inside.png`。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。

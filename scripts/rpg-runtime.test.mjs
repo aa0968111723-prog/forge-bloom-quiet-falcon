@@ -7808,3 +7808,53 @@ test("faculty talk with no event shows a notice instead of doing nothing", async
   assert.equal(useRpg.getState().panel, null);
   assert.match(useRpg.getState().notice, /已經談完/);
 });
+
+test("continuing a living semester returns to the saved public interior", () => {
+  const room = CAMPUS_SITES.find((site) => site.form !== "court" && site.floors >= 2);
+  assert.ok(room);
+  const door = siteEntrance(room);
+  useRpg.setState({
+    departmentId: DEPARTMENTS[0].id,
+    hp: 100,
+    xp: 12,
+    interiorId: room.id,
+    floor: 2,
+    freshStart: false,
+    panel: null,
+    buildings: [],
+    discoveries: [room.id],
+  });
+  useGame.setState({
+    phase: "playing",
+    playerX: 0,
+    playerZ: 4,
+    playerYaw: 0,
+    warp: { x: 0, z: 4, yaw: 0 },
+    plaqueId: null,
+  });
+  flushSave();
+  const filed = JSON.parse(savedData.get(RPG_SAVE_KEY));
+  assert.equal(filed.interiorId, room.id);
+  assert.equal(filed.floor, 2);
+  useGame.setState({ phase: "title", playerX: door.x, playerZ: door.z, playerYaw: Math.PI });
+  r.enterHome();
+  assert.equal(useGame.getState().phase, "playing");
+  assert.equal(useRpg.getState().interiorId, room.id);
+  assert.equal(useRpg.getState().floor, 2);
+  assert.equal(useRpg.getState().hp, 100);
+  assert.equal(useGame.getState().playerX, 0);
+  assert.equal(useGame.getState().playerZ, 4);
+  const kept = JSON.parse(savedData.get(RPG_SAVE_KEY));
+  assert.equal(kept.interiorId, room.id);
+  assert.equal(kept.floor, 2);
+
+  useRpg.setState({ hp: 0, interiorId: room.id, floor: 2, freshStart: false });
+  useGame.setState({ phase: "playing", playerX: 0, playerZ: 4, playerYaw: 0 });
+  flushSave();
+  useGame.setState({ phase: "title" });
+  r.enterHome();
+  assert.equal(useRpg.getState().hp, 0);
+  assert.equal(useRpg.getState().interiorId, null);
+  assert.equal(useGame.getState().playerX, door.x);
+  assert.equal(useGame.getState().playerZ, door.z);
+});
