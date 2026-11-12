@@ -5684,6 +5684,30 @@
       "integrationPr": 348,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/348",
       "nextAction": "None. The student encounters from 7c65c1b5 are already in this integration. This is on integration PR #348. Do not merge PR #128 by itself. The next commit on that PR is 3270f9f8ebb4d08fb37c8a31c6d596c5f4219f69."
+    },
+    {
+      "id": "content-variety-checkpoint",
+      "title": "Point the variety checkpoint at the campus encounter commit",
+      "status": "verified",
+      "pr": 128,
+      "branch": "cursor/gameplay-variety-fb95",
+      "headSha": "3270f9f8ebb4d08fb37c8a31c6d596c5f4219f69",
+      "dependencies": ["content-student-encounters"],
+      "sharedFiles": ["docs/gameplay-variety/CHECKPOINT.json"],
+      "checks": {
+        "conflicts": "The cherry-pick applied cleanly. The head field now names 7c65c1b5.",
+        "typecheck": "pass",
+        "npmTest": "479 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BMQlCBWh.js sha256 b7306ef858fcd25807af92e97b7751197853e13299bc9b886084c713a3b52b12. Same hash as integration PR #348. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "not re-run; the bundle hash matches the route on port 8273",
+        "route": "not re-run. Last route 8273 still stands: cloudXp 47, revision_conflict, pageErrors empty, ok true. User FMYrJ5z82Dj1Kwsr1hjajYcoNElF3Cha."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "d37677879b86c6e66ad42e6bed41c0cb3f82a267",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "None. The variety checkpoint now points at 7c65c1b5. It is not on main yet. Do not merge PR #128 by itself. That line has no newer game commit."
     }
   ]
 }
