@@ -615,6 +615,23 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "open", "open garden pavilion");
+  } else if (scenario === "ramp") {
+    // Library forecourt ramp. Rails sit just outside the 1.6 m deck.
+    await hideHud(page);
+    await setPose(page, -2, -284, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(-2, -292.6);
+      window.__controlsTest.setPhoto({
+        yaw: 0.15,
+        distance: 14,
+        height: 3.2,
+        lookY: 0.6,
+        target: { x: -2, y, z: -292.6 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "rails", "library ramp with a railing each side");
   } else if (scenario === "interiors") {
     // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
     // These are game layouts, not surveyed rooms. Enter, look, exit, and check

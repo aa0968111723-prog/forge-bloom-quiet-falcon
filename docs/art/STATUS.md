@@ -361,6 +361,12 @@
 
 畫面：`docs/art/evidence/hud/minimap-desktop.jpg`、`minimap-narrow.jpg`。測試：`scripts/lesson-marker.test.mjs`。
 
+## 階段：圖書館坡道欄杆（ART-084 的一部分）
+
+坡道左右各一道欄杆，立柱含兩端。欄杆在現在這道 1.6 m 坡面外側，跟著坡道中線，不回到舊的南牆位置。克難坡仍不設欄杆。欄杆位置仍是 estimated。小地圖課程字留著。
+
+畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。小地圖已寫課程的兩個字。覺軒花園已改成可走的亭子。綜合球場已有兩塊標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

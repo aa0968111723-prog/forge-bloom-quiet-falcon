@@ -2125,6 +2125,34 @@
       "integrationPr": 155,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/155",
       "nextAction": "None. The living interior resume from e2d26ff is already in this integration. Do not merge PR #122 by itself."
+    },
+    {
+      "id": "art-ramp-rails",
+      "line": "art",
+      "scope": "The library ramp has a railing on each side of the current deck, with posts including both ends. The rails sit outside the 1.6 m deck. Kenan stays rail-free. Positions are estimated.",
+      "status": "merged",
+      "pr": 132,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/132",
+      "integrationBranch": "cursor/integration-ramp-rails-3395",
+      "sourceBranch": "cursor/ramp-rails-1a71",
+      "baseSha": "4793fde2aa28d62e7abaaa083113d288fa9ba3be",
+      "headSha": "1dce1141859efe5a8dd45c77b54a437f9a20b5f5",
+      "dependencies": ["art-library-ramp"],
+      "sharedFiles": ["src/game/world-data/props.ts", "src/game/world/Props.tsx", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "art docs, capture-art.mjs, props.ts, and Props.tsx. Kept rounds 1-56, the ramp mesh, and the current LIBRARY_RAMP position. Rails are round 57.",
+        "typecheck": "pass",
+        "npmTest": "315 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Cl3Ho6pe.js",
+        "browser": "8152. 1280x720 and 390x780 show a railing on each side of the ramp. pageErrors empty.",
+        "route": "8152: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty. First browser close hit EIO; the rerun passed."
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/props.ts", "src/game/world/Props.tsx"],
+      "merged": true,
+      "mergeSha": "70cf72c50e8d7a5df1e95d6e3e94ac3f459e0461",
+      "integrationPr": 159,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/159",
+      "nextAction": "None. The library ramp railings from 1dce114 are already in this integration. Do not merge PR #132 by itself."
     }
   ]
 }
