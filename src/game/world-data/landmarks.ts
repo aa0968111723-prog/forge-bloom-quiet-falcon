@@ -531,6 +531,20 @@ export function pottedPlants(): { x: number; z: number; zone: string }[] {
   return pots;
 }
 
+/** Hydrant body diameter, matching the prop cylinder. */
+export const HYDRANT = { diameter: 0.3 } as const;
+
+/** The seven campus hydrants, in world XZ. The mesh and the collider both use this list. */
+export function hydrants(): { x: number; z: number; zone: string }[] {
+  const posts = [{ x: -5.9, z: AXIS.gateZ + 4.2, zone: "kenan" }];
+  for (let k = 0; k < 5; k++) {
+    const z = AXIS.avenueSouthZ - 22 - k * 42;
+    posts.push({ x: -(AVENUE_PAVED_WIDTH / 2 + 3.9), z: z - 6, zone: "avenue" });
+  }
+  posts.push({ x: -6, z: AXIS.libraryFrontZ + 4, zone: "library" });
+  return posts;
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",

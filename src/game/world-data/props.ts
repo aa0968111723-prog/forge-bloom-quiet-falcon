@@ -6,7 +6,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LAMP_POLE, LIBRARY, PALACE, acUnits, benches, bins, bollards, lanternPosts, noticeboards, palaceHallZs, planters, pottedPlants, signPosts, utilityBoxes } from "./landmarks.ts";
+import { LAMP_POLE, LIBRARY, PALACE, acUnits, benches, bins, bollards, hydrants, lanternPosts, noticeboards, palaceHallZs, planters, pottedPlants, signPosts, utilityBoxes } from "./landmarks.ts";
 import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
@@ -112,7 +112,9 @@ function kenanProps(): PropInstance[] {
     if (board.zone === "kenan") out.push(prop("noticeboard", board.x, board.z, board.zone, board.rotationY));
   }
   out.push(prop("tactile-strip", 0, AXIS.gateZ + 2.4, "kenan", 0, 1, 5.2));
-  out.push(prop("hydrant", -5.9, AXIS.gateZ + 4.2, "kenan"));
+  for (const post of hydrants()) {
+    if (post.zone === "kenan") out.push(prop("hydrant", post.x, post.z, post.zone));
+  }
   for (const cabinet of utilityBoxes()) {
     if (cabinet.zone === "kenan") out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
   }
@@ -186,7 +188,9 @@ function avenueProps(): PropInstance[] {
     const z = AXIS.avenueSouthZ - 22 - k * 42;
     out.push(prop("drain-grate", -(AVENUE_PAVED_WIDTH / 2 + 0.18), z, "avenue"));
     out.push(prop("drain-grate", AVENUE_PAVED_WIDTH / 2 + 0.18, z, "avenue"));
-    out.push(prop("hydrant", -(AVENUE_PAVED_WIDTH / 2 + 3.9), z - 6, "avenue"));
+    for (const post of hydrants()) {
+      if (post.zone === "avenue" && post.z === z - 6) out.push(prop("hydrant", post.x, post.z, post.zone));
+    }
     for (const cabinet of utilityBoxes()) {
       if (cabinet.zone === "avenue" && cabinet.z === z + 8) {
         out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
@@ -254,7 +258,9 @@ function northProps(): PropInstance[] {
   for (const cabinet of utilityBoxes()) {
     if (cabinet.zone === "library") out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
   }
-  out.push(prop("hydrant", -6, AXIS.libraryFrontZ + 4, "library"));
+  for (const post of hydrants()) {
+    if (post.zone === "library") out.push(prop("hydrant", post.x, post.z, post.zone));
+  }
   for (const bed of planters()) {
     if (bed.zone === "library") out.push(prop("planter", bed.x, bed.z, bed.zone, bed.rotationY, 1, bed.length));
   }

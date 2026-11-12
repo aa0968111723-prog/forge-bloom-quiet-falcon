@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS, PLAZA_FLAGPOLE, SCROLL_WEST_WALL } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BIN, BOLLARD, CAMPUS_GATE, LANDMARKS, LANTERN_BASE, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, POT, READING_GIRL, SHEPHERD, TIGER_STELE, acUnitFootprint, acUnits, benchFootprint, benches, bins, bollards, lanternPosts, libraryPorchPosts, noticeboardFootprint, noticeboards, palaceColumns, palaceHallZs, planterFootprint, planters, pottedPlants, signFootprint, signPosts, textSignAabb, textSigns, utilityBoxFootprint, utilityBoxes } from "./landmarks.ts";
+import { BIN, BOLLARD, CAMPUS_GATE, HYDRANT, LANDMARKS, LANTERN_BASE, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, POT, READING_GIRL, SHEPHERD, TIGER_STELE, acUnitFootprint, acUnits, benchFootprint, benches, bins, bollards, hydrants, lanternPosts, libraryPorchPosts, noticeboardFootprint, noticeboards, palaceColumns, palaceHallZs, planterFootprint, planters, pottedPlants, signFootprint, signPosts, textSignAabb, textSigns, utilityBoxFootprint, utilityBoxes } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -178,6 +178,8 @@ function buildColliders(): AABB[] {
   }
 
   for (const pot of pottedPlants()) out.push(box(pot.x, pot.z, POT.diameter, POT.diameter));
+
+  for (const post of hydrants()) out.push(box(post.x, post.z, HYDRANT.diameter, HYDRANT.diameter));
 
   // Library ramp rails. The bars are outside the 1.6 m deck; the centre stays open.
   for (const side of [-1, 1] as const) {
