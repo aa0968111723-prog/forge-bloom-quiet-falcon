@@ -95,6 +95,22 @@ export function createCloudSaveController(options: {
 
   function bindAccount(userId: string): void {
     storage.setItem(CLOUD_ACTIVE_USER_KEY, userId);
+    const account = readReceipts(userId);
+    const known = new Set(account.map((item) => item.eventId));
+    for (const item of readReceipts("local")) {
+      if (known.has(item.eventId)) continue;
+      account.push(item);
+      known.add(item.eventId);
+      enqueue({
+        id: item.requestId,
+        userId,
+        kind: "receipt",
+        body: { eventId: item.eventId, requestId: item.requestId },
+        attempts: 0,
+        nextAt: now(),
+      });
+    }
+    writeReceipts(userId, account);
   }
 
   function logout(): void {
@@ -376,29 +392,73 @@ export function createCloudSaveController(options: {
     });
   }
 
-  async function noteReward(eventId: string, grant: () => void): Promise<{ granted: boolean }> {
-    const userId = activeUser() ?? "local";
-    const records = readReceipts(userId);
-    if (records.some((item) => item.eventId === eventId)) return { granted: false };
-    const requestId = `reward-${eventId}`
+  function rewardRequestId(eventId: string): string {
+    return `reward-${eventId}`
       .replace(/:/g, "_")
       .replace(/[^A-Za-z0-9_-]/g, "")
       .slice(0, 80)
       .padEnd(8, "0");
-    records.push({ eventId, requestId });
-    writeReceipts(userId, records);
-    grant();
-    if (activeUser()) {
-      enqueue({
-        id: requestId,
-        userId: activeUser() as string,
-        kind: "receipt",
-        body: { eventId, requestId },
-        attempts: 0,
-        nextAt: now(),
-      });
-      await flush();
+  }
+
+  function rememberReward(
+    userId: string | null,
+    record: { eventId: string; requestId: string },
+  ): void {
+    const device = readReceipts("local");
+    if (!device.some((item) => item.eventId === record.eventId)) {
+      device.push(record);
+      writeReceipts("local", device);
     }
+    if (!userId) return;
+    const account = readReceipts(userId);
+    if (!account.some((item) => item.eventId === record.eventId)) {
+      account.push(record);
+      writeReceipts(userId, account);
+    }
+  }
+
+  async function noteReward(eventId: string, grant: () => void): Promise<{ granted: boolean }> {
+    const userId = activeUser();
+    const seen =
+      readReceipts("local").some((item) => item.eventId === eventId) ||
+      (userId ? readReceipts(userId).some((item) => item.eventId === eventId) : false);
+    if (seen) return { granted: false };
+    const requestId = rewardRequestId(eventId);
+    const record = { eventId, requestId };
+    if (!userId) {
+      rememberReward(null, record);
+      grant();
+      return { granted: true };
+    }
+    try {
+      const response = await cloudFetch("/api/cloud/saves/rpg/receipts", {
+        method: "POST",
+        body: JSON.stringify({ eventId, requestId }),
+      });
+      const payload = await response.json().catch(() => null);
+      if (response.ok && payload?.applied === false) {
+        rememberReward(userId, record);
+        return { granted: false };
+      }
+      if (response.ok && payload?.applied === true) {
+        rememberReward(userId, record);
+        grant();
+        return { granted: true };
+      }
+      if (response.status < 500) return { granted: false };
+    } catch {
+      // The account is signed in, but the server cannot be reached.
+    }
+    rememberReward(userId, record);
+    enqueue({
+      id: requestId,
+      userId,
+      kind: "receipt",
+      body: { eventId, requestId },
+      attempts: 0,
+      nextAt: now(),
+    });
+    grant();
     return { granted: true };
   }
 
