@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：海事博物館裙牆（ART-066 的一部分）
+
+海事博物館的船身仍放在基地中心。西邊坡低 2.8 m，樓底有一條裙牆接到地面。南邊入口沒有被裙牆擋住。東邊較高的坡仍會埋進船身下緣。裙牆是 estimated。
+
+畫面：`docs/art/evidence/museum/skirt.jpg`。測試：`scripts/museum-skirt.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。海事博物館西邊樓底已接到坡上。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

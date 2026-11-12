@@ -669,6 +669,22 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "museumskirt") {
+    await hideHud(page);
+    await setPose(page, 110, -252, 0);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(150, -252);
+      window.__controlsTest.setPhoto({
+        yaw: -1.15,
+        distance: 38,
+        height: 5,
+        lookY: 1,
+        target: { x: 150, y: y + 4, z: -252 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "west", "museum downhill skirt");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
