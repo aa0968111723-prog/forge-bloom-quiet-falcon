@@ -55,7 +55,8 @@ export type SecondaryStructure = {
     | "faculty-house"
     | "garden-house"
     | "language-hall"
-    | "chem-hall";
+    | "chem-hall"
+    | "class-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -560,9 +561,31 @@ export function arenaProfile(size: readonly [number, number, number]) {
 
 /**
  * Teaching hall for 外國語文大樓. The ground gallery and south set-back are
- * an estimated silhouette. 教育館 and 會文館 stay classroom blocks. The older
+ * an estimated silhouette. 會文館 stays a classroom block. The older
  * foreign-lang-hall record stays separate.
  */
+/**
+ * Classroom hall for 教育館. The south canopy and floor shades are an estimated
+ * silhouette, not a measured elevation. 會文館 stays a classroom block.
+ */
+export function classHallProfile(size: readonly [number, number, number], floors = 5) {
+  const porchD = 2.2;
+  const porchW = Math.min(9, size[0] * 0.32);
+  const porchH = 3.1;
+  const shadeY: number[] = [];
+  for (let floor = 1; floor < floors; floor++) shadeY.push(((floor + 0.15) * size[1]) / floors);
+  return {
+    porchD,
+    porchW,
+    porchH,
+    porchZ: size[2] / 2 + porchD / 2,
+    postX: porchW / 2 - 0.18,
+    shadeY,
+    shadeD: 0.55,
+    shadeZ: size[2] / 2 + 0.22,
+  };
+}
+
 export function languageHallProfile(size: readonly [number, number, number]) {
   const galleryH = Math.min(3.6, Math.max(3, size[1] * 0.18));
   const upperD = size[2] - 2.2;
@@ -649,6 +672,7 @@ function campusKind(site: {
   if (site.id === "faculty") return "faculty-house";
   if (site.id === "yingyuan") return "garden-house";
   if (site.id === "foreign") return "language-hall";
+  if (site.id === "education") return "class-hall";
   if (site.id === "chemistry") return "chem-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
