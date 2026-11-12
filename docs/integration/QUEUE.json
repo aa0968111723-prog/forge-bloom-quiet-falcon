@@ -5539,11 +5539,11 @@
         "route": "8268 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User sE9YGkso9z6CwEZMm5rB0ayY4BwJHTk7."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Recorded before the integration PR. The museum swan from e149387c is in this branch and is not on main yet. Do not merge PR #283 by itself. The next art commit is 7f328f22b539e7e7483fd93e326f7511a83f8f73 on PR #285."
+      "merged": true,
+      "mergeSha": "92c8d0ded0be62890374bf740692ec4cdebd9e67",
+      "integrationPr": 343,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/343",
+      "nextAction": "None. The museum swan from e149387c is already in this integration. This is on integration PR #343. Do not merge PR #283 by itself. The next art commit is 7f328f22b539e7e7483fd93e326f7511a83f8f73 on PR #285."
     }
   ]
 }
