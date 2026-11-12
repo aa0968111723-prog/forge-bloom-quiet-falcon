@@ -884,3 +884,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 46 減 38 是 8，也就是保養階段的經驗。這一拍不加筆記。貼表那一句不看這次是改格還是只討論。
 
 畫面：`/opt/cursor/artifacts/integration-meng-turn/yield-outcome.png`、`yield-next.png`、`talk-outcome.png`、`talk-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次計時匯入。
+
+## 孟昭的兩個貼表選項
+
+這段打在 `AdventureApp-DtR2SJf-.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-B08NedEa.js`。`main` 尖端 `a91731f` 註記 PR #248，GitHub 上這份 PR 的狀態是 MERGED。同一段的 PR #247 也是 MERGED。遊戲變更是 `3709557` 和 `28f7eda`。合併提交 `9221a61`。主遊戲檔 889448 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-meng-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-meng-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 402 通過、0 失敗。對象是合併 `9221a61` |
+| `npm run build:site` | 產出 `index-B08NedEa.js` 與 `AdventureApp-DtR2SJf-.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場、衝突和保養。點貼表之前存檔經驗 46、筆記 19。
+
+- 「表就這樣貼。我的格子維持現在這樣。」之前先請她說哪一段不能借，衝突選剩下的時段，保養改到另一格。存檔經驗 56，筆記 20。結果句「你的時段沒有被抽走。」畫面是 1 級、「經驗 56/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。再按「與孟昭交談」，面板沒有打開，通知是「這段已經談完」。`quest-faculty-hours-after` 只有一筆。沒有工作室任務。重載後經驗 56、筆記 20，再按仍是這句通知。
+- 「讓出的那格寫給下一組，不自己留。」之前先聽兩個都能用的時段，衝突各讓十五分鐘，保養只做不碰儀器的討論。經驗同樣 46→56，筆記 19→20。結果句「這不是把你從表上除名。」再按也是「這段已經談完」。重載後這句通知還在，生命仍是 100/100。
+
+56 減 46 是 10，也就是貼表階段的經驗。筆記加 1。談完通知不看這次是維持格子還是寫給下一組。
+
+畫面：`/opt/cursor/artifacts/integration-meng-after/post-outcome.png`、`post-done.png`、`give-outcome.png`、`give-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做空鍵或過長領取的匯入。
