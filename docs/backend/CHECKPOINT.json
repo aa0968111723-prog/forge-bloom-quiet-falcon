@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T06:30:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "38b6f9f",
+  "base": "f317ceb",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
