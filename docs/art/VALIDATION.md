@@ -371,3 +371,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 61 輪（車阻）— 2026-11-12
 
 `node --test scripts/bollard-stop.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。十二根車阻和網格用同一組座標，直徑 0.22 m。半徑 0.42 m 站在坡底西側柱心會被推開。柱南 1.2 m、主巡禮和三條折線的轉折點不被推開。圖書館折線從圓環東北側缺口出去，再沿北側回到中線，走完全程仍到得了門口。路燈離柱超過 1.2 m。定步白天從西邊走向坡底車阻，頁面無錯誤，停在 x=-2.73：`docs/art/evidence/props/bollard.jpg`。柱位仍是 estimated。田徑場內圈留在第 60 輪。沒有新增音效。`build:site` 產物 `AdventureApp-WcRwHzcr.js`。
+
+## 第 62 輪（終點線）— 2026-11-12
+
+`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。南直道有一條終點線，軸向是 Z，x=0，長度等於跑道內外緣的差。整條線落在跑道帶上，不在內圈橢圓裡，沒有球網。太小的場不畫。內圈仍是 5 條線。定步白天從南邊看，頁面無錯誤：`docs/art/evidence/track/finish.jpg`。白線橫過分道。線寬仍是 estimated。車阻留在第 61 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BIJh8daR.js`。
