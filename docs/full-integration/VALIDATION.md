@@ -554,3 +554,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 56 減 46 是 10，也就是收尾階段的經驗。筆記加 1。簡禾這條課表線到這裡結束。
 
 畫面：`/opt/cursor/artifacts/integration-he-after/lock-outcome.png`、`lock-done.png`、`backup-outcome.png`、`backup-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 程晰的兩個開場選項
+
+這段打在 `AdventureApp-CdIK2TH9.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-DnUtITqM.js`。`main` 尖端 `d12a2d9`（隔離過的匯入物品可以帶著原 id 一起上傳，整合 PR #215，遊戲提交 `371829b`），合併提交 `977f757`。這次重建換成這組檔名。`dist` 沒有字面 `revision_conflict`、`DATABASE_URL` 或「隔離裝備」。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-xi-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-xi-meet` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 378 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出是 `index-DnUtITqM.js` 與 `AdventureApp-CdIK2TH9.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，直接站到工學大樓估計位置。點開場之前存檔經驗 12，那是站在原地發現工學大樓。筆記 18 是新學期背包原有的。
+
+- 「我先問每一個人，問完再決定收不收。」存檔經驗 30，筆記 18。結果句「有人還沒回，那一份就還不是資料。」畫面是 1 級、「經驗 30/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「有人已經把檔丟進來了」。兩個衝突選項都在。離開不結算，沒有 `quest-faculty-ethics-clash`。`quest-faculty-ethics-meet` 只有一筆。沒有工作室任務。重載後經驗 30、筆記 18，再交談仍是這一句。
+- 「我先只用自己的那一份。」經驗同樣 12→30，筆記 18。結果句「別人的先不要拖進同一個資料夾。」衝突仍是「有人已經把檔丟進來了」。離開不結算。重載後這一句還在。
+
+30 減 12 是 18，也就是開場 6 加第一次走到崗位的探索 12。筆記沒有加。衝突不看這次是先問每個人還是只用自己的。
+
+畫面：`/opt/cursor/artifacts/integration-xi-meet/ask-outcome.png`、`ask-next.png`、`own-outcome.png`、`own-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
