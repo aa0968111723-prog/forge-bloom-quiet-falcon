@@ -64,6 +64,8 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 學期只看既有 `claimed`，不看電腦日期，也不另開獎勵帳。大門任務 `quest-orient-gate` 和補給委託 `quest-errand-campus-post` 都領取後是期中；再加上既有戰鬥任務 `first` 才是期末；否則是第一週。委託付經驗 12、筆記 2，只進既有背包，而且只記一次。合法放置結算同一次。兩份科系清冊都留著。查詢把「化學系／化學學系」「數學系／應用數學與數據科學學系」當別名。存檔仍用 RPG id，鍵仍是 `tamkang-rpg-v2`。`MAIN_INTEGRATION` 仍是 false。
 
+裝備、製作和臨時設施也走這只背包。主工具、配件、背包各一槽，格子仍是 24。徽章仍走原來的裝備，不加第二次生命。材料不足或數量不對就不扣。拆除與退還仍是一半，向下取整。負重、燈和採集加成寫在同一份 `tamkang-rpg-v2` 的 `loadout` 與 `gear`，不另開存檔。
+
 同一條高畫質路線在遊戲程式 `7507c59` 的靜態頁重測：標題 1,204,683、戶外 1,562,527、戰鬥 1,495,745、返回 1,437,689，都低於 1.6 M。室內 46,548。幀時間是這台 SwiftShader，不是手機或 RTX 3060。手機圖示只改 CSS，沒有重測三角形。
 
 窄於 700px 時右上 `.ad-icon` 是 44×44，快捷欄 svg 是 24×24。觸控且窄於 700px 的快捷鈕是 44px。更寬的畫面仍用 42×42 的工具鈕。技能圖示仍讀 `SKILL_GLYPH`，沒有第二份技能表。
@@ -83,7 +85,7 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 | 鍵 | 版本欄 | 內容 |
 | --- | --- | --- |
 | `tamkang-world-v1` | `version: 2`（`SAVE_VERSION`） | 巡禮造訪、光影、音量、畫質、舊背包與科系 |
-| `tamkang-rpg-v2` | `snapshot().version === 2` | 生命、專注、任務 `claimed`、建築、背包槽、位置、室內，以及同一份存檔上的 `narrative` 事件記憶 |
+| `tamkang-rpg-v2` | `snapshot().version === 2` | 生命、專注、任務 `claimed`、建築、背包槽、裝備 `loadout` 與 `gear`、位置、室內，以及同一份存檔上的 `narrative` 事件記憶 |
 
 寫入是延遲 1.8 秒的本地 `localStorage`。另一個分頁寫入同一鍵時，`onForeignSave` 只把文字放進 `foreignText` 並把 `saveConflict` 設為 true，不直接覆蓋目前進度。玩家再選接受本機或接受外來。這是分頁衝突，不是雲端同步。
 

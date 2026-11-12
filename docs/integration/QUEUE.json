@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T02:05:00Z",
+      "updated": "2026-11-12T02:20:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1761,6 +1761,34 @@
       "integrationPr": 130,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/130",
       "nextAction": "None. The chemistry hall from eee5c91 is already in this integration. Do not merge PR #110 by itself. Next content is PR #129 at head edd3a72, then PR #128 at head d82bf00. Next art after those is PR #127 at head 2d81b0b, then PR #111 at head 412b130."
+    },
+    {
+      "id": "content-items-gear",
+      "line": "content",
+      "scope": "Gear slots, crafting, and facilities pay the existing bag. The grid stays 24. The badge keeps its own equip path. A short cost is not taken. Legal placement and the campus supply still advance the semester once.",
+      "status": "verified",
+      "pr": 129,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/129",
+      "integrationBranch": "cursor/integration-items-gear-3395",
+      "sourceBranch": "cursor/items-equipment-building-15c5",
+      "baseSha": "e1f52fdb6c6095e74daa0aa0ad59dd11b1304051",
+      "headSha": "edd3a72f28206c7c6f253c2adf6d3e7179ed3d05",
+      "dependencies": ["art-chem-hall"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx", "src/game/rpg/AdventureApp.tsx"],
+      "checks": {
+        "conflicts": "store.ts place and supply only. New builds and moves still settle the errand once. The gather hook's extra note shares that bag.",
+        "typecheck": "pass after the QA hook type names inventory",
+        "npmTest": "279 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DI52tBJ2.js",
+        "browser": "8139 at 1280x720 and 390x780. Bag reads 4/24 and carry 80. Three slots are empty. pageErrors empty.",
+        "route": "8139: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401"
+      },
+      "conflicts": ["src/game/rpg/store.ts"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #129 by itself. Next is PR #128 at head d82bf00."
     }
   ]
 }
