@@ -5371,9 +5371,11 @@
         "route": "8262 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "1cff5f451dba5849ce76297519ce339fe36c6ecc",
-      "nextAction": "Open the integration PR. Do not merge PR #274 by itself. The activity-room court commit 5511da85 is still separate."
+      "integrationPr": 337,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/337",
+      "nextAction": "None. The pool glow from 683baba3 is already in this integration. Do not merge PR #274 by itself. The activity-room court commit 5511da85 is still separate."
     }
   ]
 }
