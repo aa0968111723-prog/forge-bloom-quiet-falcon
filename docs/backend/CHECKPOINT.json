@@ -74,7 +74,7 @@
     "a rate-limited reward is granted once and stays on this account's queue"
   ],
   "verification": {
-    "npm_test": "388 pass, 0 fail; a rate-limited reward is granted once and stays on this account's queue",
+    "npm_test": "389 pass, 0 fail; a rate-limited reward is granted once and stays on this account's queue",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
