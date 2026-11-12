@@ -2966,6 +2966,11 @@ useRpg.subscribe((s, prev) => {
 });
 useGame.subscribe((s, prev) => {
   if (s.phase === "title") return;
+  // The cloud file is this save. A stamp, mute, or time change has to land before the next step.
+  if (s.visited !== prev.visited || s.timeOfDay !== prev.timeOfDay || s.muted !== prev.muted) {
+    flushSave();
+    return;
+  }
   if (
     s.playerX === prev.playerX &&
     s.playerZ === prev.playerZ &&

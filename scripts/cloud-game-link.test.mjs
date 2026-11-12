@@ -1654,3 +1654,39 @@ test("healing indoors still writes the living floor", async () => {
   assert.equal(useRpg.getState().floor, 3);
   assert.equal(validateRpgDocument(saved).ok, true);
 });
+
+test("a landmark stamp is in the rpg save before the next move", () => {
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+    floor: 1,
+    panel: null,
+  });
+  useGame.setState({
+    phase: "playing",
+    playerX: 10,
+    playerZ: 12,
+    playerYaw: 0.2,
+    visited: [],
+    muted: false,
+    timeOfDay: "day",
+    plaqueId: null,
+  });
+  flushSave();
+  const before = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(before.pilgrimage.visited.includes("kenan"), false);
+  assert.equal(before.pilgrimage.muted, false);
+  assert.equal(before.pilgrimage.timeOfDay, "day");
+  useGame.getState().stamp("kenan");
+  useGame.getState().toggleMute();
+  useGame.getState().setTime("night");
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.pilgrimage.visited.includes("kenan"), true);
+  assert.equal(saved.pilgrimage.muted, true);
+  assert.equal(saved.pilgrimage.timeOfDay, "night");
+  assert.equal(saved.position.x, 10);
+  assert.equal(saved.position.z, 12);
+  assert.equal(validateRpgDocument(saved).ok, true);
+});
