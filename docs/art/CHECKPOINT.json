@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-12T04:20:00Z",
+  "updated": "2026-11-12T04:30:00Z",
   "task_ids": [
-    "ART-084"
+    "ART-067"
   ],
-  "branch": "cursor/slope-rails-1a71",
+  "branch": "cursor/track-infield-1a71",
   "base": "main@e95c137",
   "commits": [
     {
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "ramp-rails passes; full suite re-run on the integration branch",
+    "npm_test": "court-lines passes; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "rebuilt on the integration branch",
     "eslint_new_code": "0 errors"
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The library ramp rails follow the deck, and each bar aims along that rise. A 0.42 m body on a rail is still pushed off the rail. The ramp centre and the south approach stay open. The 0.12 m colliders stay on the same X as the posts. Kenan stays rail-free. Rail positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The track infield is a 24 by 40 m pitch with a centre line and no net. The lines stay inside the inner oval. The library ramp rails still follow the deck and still push a 0.42 m body off the rail. Sizes stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }
