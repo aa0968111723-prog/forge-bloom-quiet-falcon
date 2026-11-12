@@ -124,3 +124,21 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 直接匯入一份室內存檔仍把人放在門口並清掉 `interiorId`。血量 0 的「繼續學期」也站在門口。這兩條是 `scripts/rpg-runtime.test.mjs` 的斷言，瀏覽器沒有再打倒地。
 
 畫面：`/opt/cursor/artifacts/integration-interiors/library-floor-2.png`、`library-reloaded.png`、`chemistry-inside.png`、`gym-inside.png`。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。
+
+## 顧衡的兩個衝突選項
+
+這段打在 `e2d26ff` 的靜態建置 `AdventureApp-B2sSdjRz.js`，站點 `http://127.0.0.1:8088/`。之後 main 前進到 `4793fde`（小地圖課程標籤 #153、室內續玩 #155）。差異沒有改教職員對話，所以沒有把這兩句再打一次。合併後 `npx tsc --noEmit` 通過，`npm test` 315 通過、0 失敗。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-gu-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-clash` | 通過，exit 0。`pageErrors` 空 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。
+
+兩局都從標題選建築學系，存檔 id `engineering-工學院-0`。學期全程 `week-1`，狀態卡「第一週 · 先問入口方向」。
+
+- 失敗版之後點「裂縫畫進圖，註明還沒修。」經驗 34→46，筆記 18→19，結果句「沒修完不叫好看，叫還沒做完。」提示「已入袋：課堂筆記 ×1」。`quest-faculty-gu-clash` 與 `quest-faculty-studio-clash` 各一筆。再交談沒有新的話，沒有第二筆。
+- 走到化學館估計崗位。沈酌開場「顧衡說你把裂縫留在圖上。」經驗 46→58 是既有地點發現。兩個選項都在。按「離開，不結算」，沒有 `quest-faculty-shen-meet`。重載後經驗 58、筆記 19、誠實旗標還在。
+- 另一局先補剖面，再點「圖先保持乾淨，裂縫另紙附上。」經驗同樣 34→46，筆記 19，結果句「另紙我收。」沈酌開場「顧衡說裂縫在另一張紙上。」離開不結算。重載後經驗 58、筆記 19、另紙旗標還在。
+
+畫面：`/opt/cursor/artifacts/integration-gu-clash/honest-outcome.png`、`honest-shen.png`、`aside-outcome.png`、`aside-shen.png`。固定畫面不能用來宣稱手勢流暢。沒有重測三角形或幀時間。對方在 `http://127.0.0.1:8151/` 的室內續玩紀錄是他們的，不是這次衝突路線。

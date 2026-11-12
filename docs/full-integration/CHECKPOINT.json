@@ -1,11 +1,11 @@
 {
-  "updated": "2026-11-12T03:31:24Z",
+  "updated": "2026-11-12T03:43:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "57fc468",
-  "baseFull": "57fc468 is origin/main. Court lines integration PR #149 and garden pavilion integration PR #150. Merged here as 88bc53167ac7d0b01403bb9b4579e707c805aebb.",
+  "base": "4793fde2aa28d62e7abaaa083113d288fa9ba3be",
+  "baseFull": "4793fde is origin/main. Minimap lesson label integration PR #153, source PR #148 at 9f89d1c. Living interior resume integration PR #155, source recorded as this line's e2d26ff. Merged here as 823ce2b7f346b07fad1a235beff15c1bf899c6a7.",
   "gameSha": "e2d26ffd200150d99c2237bafc14be2e552af5eb",
   "verifiedHead": "e2d26ffd200150d99c2237bafc14be2e552af5eb",
-  "playedBundle": "dist/assets/AdventureApp-B2sSdjRz.js. index-ClUiOG2v.js. Preview http://127.0.0.1:8088/ served that index.",
+  "playedBundle": "dist/assets/AdventureApp-B2sSdjRz.js. The clash routes were played on that bundle. The later minimap merge does not change faculty dialogue.",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -14,9 +14,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T03:31:24Z",
+    "checkedAt": "2026-11-12T03:42:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -26,18 +26,19 @@
     "node --experimental-transform-types scripts/integration-colleges.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-colleges",
     "node --experimental-transform-types scripts/integration-roads.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-roads",
     "node --experimental-transform-types scripts/integration-gu-fail.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-fail",
-    "node --experimental-transform-types scripts/integration-interiors.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-interiors"
+    "node --experimental-transform-types scripts/integration-interiors.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-interiors",
+    "node --experimental-transform-types scripts/integration-gu-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-clash"
   ],
   "done": [
-    "A fresh civil-engineering semester entered 覺生紀念圖書館, went to floor 2, reloaded with 繼續學期, and was still inside on floor 2. xp 12, semester week-1. Exit returned to the door (10, -290).",
-    "鍾靈化學館 and 紹謨紀念體育館 were entered from their door buttons and exited to (288, -243.5) and (166, -104.5). xp 24 then 36 from the existing per-site discovery, not a new interior reward.",
-    "A living continue keeps the room. A downed continue stays at the door. Import of an indoor file still stands at the door. npm test 315 pass / 0 fail. tsc passed. dist has no cloud-save or revision_conflict string."
+    "Two fresh architecture semesters paid Gu Heng's clash choices once each. Honest: xp 34 to 46, notes 19, outcome 沒修完不叫好看. Aside: same xp and notes, outcome 另紙我收. Semester stayed week-1.",
+    "Shen Zhuo's opening followed the flag: 裂縫留在圖上, or 裂縫在另一張紙上. Her two choices were visible. Leaving unpaid kept xp at 58 after the existing chemistry discovery. Reload kept department, xp 58, notes 19, and the flag. Gu Heng then had nothing new to say.",
+    "After merging minimap label #153 and the already-merged interior resume #155, npx tsc --noEmit passed and npm test stayed 315 pass / 0 fail. Dialogue was not replayed because that merge does not change faculty lines."
   ],
   "todo": [
-    "The clash choices 裂縫畫進圖 and 圖先保持乾淨 were visible and not clicked.",
+    "Shen Zhuo's choices 這是數據 and 我想重做到好看為止 were visible and not clicked.",
     "Variety abort was not played in the browser.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
-    "Gesture clips were not re-timed. Interior stills do not prove animation smoothness."
+    "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
   ],
   "blocked": [
     "This line must not merge to main while bc-4054e39b is the writer of main.",
@@ -46,5 +47,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is Gu Heng's clash choices on a fresh semester. Do not flip MAIN_INTEGRATION. Do not merge pavilion #150, court lines #149, wet courts #147, or the earlier faculty, gear, and encounter lines again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Shen Zhuo's two visible choices on a fresh semester. Do not flip MAIN_INTEGRATION. Do not merge minimap #153, interior #155, pavilion #150, or the earlier faculty, gear, and encounter lines again. Faculty, variety, and items agents were RUNNING at the same check; their pushed trees do not add game code beyond main. Do not merge PR #32 head 1fc5887."
 }
