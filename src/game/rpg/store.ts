@@ -920,6 +920,34 @@ function freeLootSlot(piles: Loot[]) {
   }
   return false;
 }
+function stackOverflow(piles: Loot[], extra: Loot) {
+  const order = piles
+    .map((pile, index) => ({ pile, index }))
+    .sort((a, b) => {
+      const aSame = a.pile.x === extra.x && a.pile.z === extra.z ? 0 : 1;
+      const bSame = b.pile.x === extra.x && b.pile.z === extra.z ? 0 : 1;
+      return aSame - bSame || a.index - b.index;
+    });
+  for (const [id, qty] of Object.entries(extra.items)) {
+    let remaining = qty;
+    let markLeft = extra.quest?.[id] ?? 0;
+    for (const { pile } of order) {
+      if (remaining <= 0) break;
+      const held = pile.items[id] ?? 0;
+      if (held >= LOOT_STACK) continue;
+      if (!(id in pile.items) && Object.keys(pile.items).length >= LOOT_ITEM_KEYS) continue;
+      const take = Math.min(LOOT_STACK - held, remaining);
+      pile.items[id] = held + take;
+      remaining -= take;
+      if (markLeft <= 0) continue;
+      const moved = Math.min(take, markLeft);
+      const quest = { ...(pile.quest ?? {}) };
+      quest[id] = Math.min(pile.items[id], (quest[id] ?? 0) + moved);
+      pile.quest = quest;
+      markLeft -= moved;
+    }
+  }
+}
 function cloudLoot(piles: Loot[]) {
   const out: Loot[] = [];
   const pending: Loot[] = [];
@@ -930,7 +958,11 @@ function cloudLoot(piles: Loot[]) {
     }
   }
   for (const extra of pending) {
-    if (out.length < LOOT_PILES || freeLootSlot(out)) out.push(extra);
+    if (out.length < LOOT_PILES || freeLootSlot(out)) {
+      out.push(extra);
+      continue;
+    }
+    stackOverflow(out, extra);
   }
   return out;
 }

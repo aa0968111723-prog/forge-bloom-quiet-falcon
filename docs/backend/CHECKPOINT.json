@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T09:30:42Z",
+  "updated_at": "2026-11-12T09:39:10Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1be6a82",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -118,10 +118,11 @@
     "merged main at 3b5a11c; the variety overflow join was already on this branch",
     "merged main at dd6a7f3; the refused upload resume was already on this branch",
     "a full ground still keeps every kind when one pile must split",
-    "merged main at 1be6a82; the follow-up stop resume was already on this branch"
+    "merged main at 1be6a82; the follow-up stop resume was already on this branch",
+    "a full stack ground still keeps an extra kind that already has room"
   ],
   "verification": {
-    "npm_test": "417 pass, 0 fail; a full ground still keeps every kind when one pile must split",
+    "npm_test": "418 pass, 0 fail; a full stack ground still keeps an extra kind that already has room",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

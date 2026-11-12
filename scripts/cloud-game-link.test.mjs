@@ -1172,3 +1172,75 @@ test("a full ground still keeps every kind when one pile must split", () => {
   assert.equal(reloaded.loot.find((pile) => pile.items["field-lamp"]).quest["field-lamp"], 1);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("a full stack ground still keeps an extra kind that already has room", () => {
+  const ids = [
+    "notes",
+    "parts",
+    "coffee",
+    "tea",
+    "credit",
+    "badge",
+    "copper",
+    "glass",
+    "cloth",
+    "herb",
+    "ink",
+    "chalk",
+    "resin",
+    "mint",
+    "bandage",
+    "lamp-oil",
+    "field-lamp",
+  ];
+  const fillerIds = [...ids.slice(0, 15), "field-lamp"];
+  const fillerItems = Object.fromEntries(fillerIds.map((id) => [id, 99]));
+  const roomy = { ...fillerItems, "field-lamp": 98 };
+  const wideItems = Object.fromEntries(ids.map((id) => [id, 1]));
+  const building = { id: "station-1", kind: "rest", x: 12, z: -20, rotation: 0, hp: 40 };
+  const loot = [];
+  for (let index = 0; index < 99; index += 1) {
+    loot.push({
+      id: `pile-${index}`,
+      x: 40 + (index % 40),
+      z: 8 + Math.floor(index / 40),
+      items: index === 0 ? roomy : { ...fillerItems },
+    });
+  }
+  loot.push({ id: "pile-wide", x: 12, z: 18, items: wideItems, quest: { "field-lamp": 1 } });
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    buildings: [building],
+    loot,
+  });
+  replaceMemory(emptyMemory());
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.ok(saved.loot.length <= 100);
+  assert.ok(saved.loot.every((pile) => Object.keys(pile.items).length <= 16));
+  const kept = {};
+  for (const pile of saved.loot) {
+    for (const [id, count] of Object.entries(pile.items)) kept[id] = (kept[id] ?? 0) + count;
+  }
+  assert.equal(kept["field-lamp"], 9801);
+  assert.equal(kept["lamp-oil"], 1);
+  assert.equal(kept.notes, 99 * 99 + 1);
+  const marked = saved.loot.find((pile) => pile.quest?.["field-lamp"]);
+  assert.equal(marked.quest["field-lamp"], 1);
+  assert.ok(marked.items["field-lamp"] >= 1);
+  assert.equal(saved.buildings[0].id, "station-1");
+  assert.equal(saved.hp, 80);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const again = {};
+  for (const pile of reloaded.loot) {
+    for (const [id, count] of Object.entries(pile.items)) again[id] = (again[id] ?? 0) + count;
+  }
+  assert.equal(again["field-lamp"], 9801);
+  assert.equal(reloaded.loot.find((pile) => pile.quest?.["field-lamp"]).quest["field-lamp"], 1);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
