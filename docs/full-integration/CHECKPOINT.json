@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T04:52:12Z",
+  "updated": "2026-11-12T05:02:36Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "38b6f9f68000874729bbba307a3a7a1e2e3a636a",
-  "baseFull": "38b6f9f is origin/main. A downloaded cloud save waits for the player, integration PR #176. Merged here as 8f60c21474f6. Faculty files are unchanged. Dialogue was played on the pre-rebuild AdventureApp-BztmqH0m.js. Content version stays 2.",
-  "playedBundle": "Qiu clash: dist/assets/AdventureApp-BztmqH0m.js via index-D1yzos4G.js. Preview http://127.0.0.1:8088/. The post-merge build emitted the same file names.",
-  "builtAfter": "npm run build:site after #176 wrote the same index-D1yzos4G.js and AdventureApp-BztmqH0m.js. The static entry is adventure-main.tsx and does not import CloudSaveDock, so the new hold-save prompt is absent from dist. The dist has no literal revision_conflict or DATABASE_URL.",
-  "gameSha": "8f60c21474f6173e5f8565801155c029d46e1502",
-  "verifiedHead": "8f60c21474f6173e5f8565801155c029d46e1502",
+  "base": "f317ceb4448d45222ad6a7a60e290246d2da094d",
+  "baseFull": "f317ceb is origin/main. A cloud download resumes the living save, integration PR #179. Merged here as acac00ac8f12. Faculty files are unchanged. Dialogue was played on the pre-rebuild AdventureApp-BztmqH0m.js. Content version stays 2.",
+  "playedBundle": "Qiu turn: dist/assets/AdventureApp-BztmqH0m.js via index-D1yzos4G.js. Preview http://127.0.0.1:8088/. Played before the #179 rebuild.",
+  "builtAfter": "npm run build:site after #179 wrote index-BQlGVBxC.js and AdventureApp-QTEjcuoP.js. The one-line acceptForeignSave change is in the adventure chunk, so the hash moved. Faculty files are unchanged and the dialogue was not replayed. The dist has no literal revision_conflict or DATABASE_URL.",
+  "gameSha": "acac00ac8f127928fb1cb7514145f483a15cd024",
+  "verifiedHead": "acac00ac8f127928fb1cb7514145f483a15cd024",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -15,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T04:45:00Z",
+    "checkedAt": "2026-11-12T04:54:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -37,17 +37,18 @@
     "node --experimental-transform-types scripts/integration-reports.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-reports",
     "node --experimental-transform-types scripts/integration-gu-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-turn",
     "node --experimental-transform-types scripts/integration-qiu-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-meet",
-    "node --experimental-transform-types scripts/integration-qiu-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-clash"
+    "node --experimental-transform-types scripts/integration-qiu-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-clash",
+    "node --experimental-transform-types scripts/integration-qiu-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-turn"
   ],
   "done": [
-    "Merged origin/main 38b6f9f (cloud-hold save #176) as 8f60c21. npx tsc --noEmit passed. npm test was 335 pass / 0 fail. Faculty files are unchanged. Dialogue was played on the pre-rebuild AdventureApp-BztmqH0m.js.",
-    "Two fresh architecture semesters paid Qiu Ning's clash choices on that bundle. Club: store xp 160 to 168, notes 21 to 22, outcome 我沒有把評圖拿掉. Review: same xp and notes, outcome 這不是他們讓路. The card stayed level 2 and showed 108/180, hp 108, focus 100. Semester stayed week-1. Toast was 課堂筆記 ×1.",
-    "The next turn line followed the flag: 社團的小時我不動, or 評圖的小時我不動. Both turn choices were visible. Leaving unpaid omitted quest-faculty-qiu-turn. Reload kept xp 168, notes 22, and that line. quest-faculty-qiu-clash stayed at one."
+    "Merged origin/main f317ceb (cloud resume #179) as acac00a. npx tsc --noEmit passed. npm test was 338 pass / 0 fail. Faculty files are unchanged. Dialogue was played on the pre-rebuild AdventureApp-BztmqH0m.js.",
+    "Two fresh architecture semesters paid Qiu Ning's turn choices on that bundle. Note: store xp 168 to 180, notes stayed 22, outcome 說明用你的名字. Names: same xp and notes, outcome 我不會代她寫. The card stayed level 2 and showed 120/180, hp 108, focus 100. Semester stayed week-1. The +12 is turn xp 8 plus studio turn 4.",
+    "Liang Wan's next line follows earlier flags, not the note or names flag. The ours route said 這句還在. The route without ours or club said 表可以留. Both of her choices were visible. Leaving unpaid omitted quest-faculty-liang-turn. Reload kept xp 180, notes 22, and that line. quest-faculty-qiu-turn stayed at one."
   ],
   "todo": [
-    "Qiu Ning's turn choices 我寫一張說明，寫明誰讓出一小時 and 請梁晚把三邊的名字分開，不合成一句 were visible and not clicked.",
+    "Liang Wan's turn choices 每個人的句子分開寫，不合併成我們 and 我的請求留在第一行，其他人的話另行列出 were visible and not clicked.",
     "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked.",
-    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #176 already merged. Do not merge that branch again.",
+    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #179 already merged. Do not merge that branch again.",
     "Variety tip 3270f9f was the last fetched head. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
@@ -59,5 +60,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Qiu Ning's turn choices, 我寫一張說明，寫明誰讓出一小時 or 請梁晚把三邊的名字分開，不合成一句. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge cloud-hold save #176 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Liang Wan's turn choices, 每個人的句子分開寫，不合併成我們 or 我的請求留在第一行，其他人的話另行列出. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge cloud resume #179 again. Do not merge PR #32 head 1fc5887."
 }

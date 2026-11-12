@@ -313,3 +313,24 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 168 減 160 是 8，也就是衝突階段的經驗。筆記加 1。
 
 畫面：`/opt/cursor/artifacts/integration-qiu-clash/club-outcome.png`、`club-next.png`、`review-outcome.png`、`review-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 邱寧的兩個見習選項
+
+這段打在 `AdventureApp-BztmqH0m.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-D1yzos4G.js`。之後 `main` 進到 `f317ceb`（雲端下載恢復進行中的存檔，整合 PR #179）。差異在雲端客戶端、`acceptForeignSave` 與測試，沒有改教職員對話，所以對話打在合併前的產物上。合併後重建寫出 `index-BQlGVBxC.js` 與 `AdventureApp-QTEjcuoP.js`，因為 `store.ts` 多了一行。這段對話沒有在新檔名上重打。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-qiu-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-turn` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 338 通過、0 失敗。對象是合併後的原始碼 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到邱寧的衝突。點見習之前存檔經驗 168、筆記 22。
+
+- 「我寫一張說明，寫明誰讓出一小時。」存檔經驗 180，筆記 22。結果句「說明用你的名字。」畫面是 2 級、「經驗 120/180」、生命 108/108、專注 100/100。學期仍是第一週。走到梁晚，她說「這句還在」。兩個選項都在。離開不結算，沒有 `quest-faculty-liang-turn`。`quest-faculty-qiu-turn` 與 `quest-faculty-studio-turn` 各一筆。重載後經驗 180、筆記 22，再交談仍是這一句。
+- 「請梁晚把三邊的名字分開，不合成一句。」經驗同樣 168→180，筆記 22。結果句「我不會代她寫。」梁晚說「表可以留」。離開不結算。重載後這一句還在。
+
+180 減 168 是 12：見習階段 8，加上工作室 `turn` 的 4。筆記沒有加。梁晚的開場看先前的「我們同意」與社團旗標，不看這次的說明或名字旗標。「我們同意」排在社團那句前面，所以說明那一局沒有出現社團那句。
+
+畫面：`/opt/cursor/artifacts/integration-qiu-turn/note-outcome.png`、`note-next.png`、`names-outcome.png`、`names-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
