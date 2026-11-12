@@ -5,9 +5,9 @@
 
 ## 現在停在哪
 
-- 基線 `2925e8a`。登入過期時，這個帳號的上傳留在佇列，是整合 PR #222，也在這個分支（合併提交 `247032c`，遊戲提交 `bf54ca7`）。靜態檔名仍是 `AdventureApp-Deis1R0q.js`，入口 `index-BOaAbmC9.js`。
-- 程晰的兩個收尾各在一局新學期點過。存檔經驗 46→56，筆記 19→20，畫面是 1 級、經驗 56/60。再交談是「這段已經談完」。見 VALIDATION.md。
-- 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`。2026-11-12T06:58Z 查看時是 RUNNING，分支是 `cursor/integration-art-m1-3395`。後端當時也在 RUNNING。玩法尖端上次是 `3270f9f`，`store.ts` 落後，不要整支合併。合併仍交給原整合線。許回已接線，這條線沒有點她。坡道側欄仍沒有走。
+- 基線 `873d831`。它註記整合 PR #223。遊戲提交 `f490dd3`，main 合併 `41d4d38`，也在這個分支（合併提交 `90d14c0`）。建物計數超過 48 之後仍可上傳。靜態檔名是 `AdventureApp-CZDjMJrv.js`，入口 `index-BuKqFUpM.js`，887532 bytes。
+- 衛寧的兩個開場各在一局新學期點過。站在科學館先發現地點，存檔經驗 12→30，筆記停在 18，畫面是 1 級、經驗 30/60。衝突兩句都在，沒有點。見 VALIDATION.md。
+- 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`。2026-11-12T07:04Z 查看時是 RUNNING，分支是 `cursor/integration-art-m1-3395`。後端當時也在 RUNNING。玩法尖端上次是 `3270f9f`，`store.ts` 落後，不要整支合併。合併仍交給原整合線。許回已接線，這條線沒有點她。坡道側欄仍沒有走。
 - `docs/integration/**` 是對方的。這條線只寫 `docs/full-integration/**`。
 - `MAIN_INTEGRATION` 保持 false。存檔鍵 `tamkang-rpg-v2`，版本 2。
 
@@ -47,14 +47,15 @@ node --experimental-transform-types scripts/integration-xi-meet.mjs http://127.0
 node --experimental-transform-types scripts/integration-xi-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-xi-clash
 node --experimental-transform-types scripts/integration-xi-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-xi-turn
 node --experimental-transform-types scripts/integration-xi-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-xi-after
+node --experimental-transform-types scripts/integration-wei-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-wei-meet
 ```
 
 預覽是 `npm run preview:site`，埠 8088。路線瀏覽器強制 SwiftShader。390×780 在這台機器上是細指標窄窗。室內這段是在 1280×720 點的。
 
 ## 下一步
 
-1. 重新抓 `origin/main`。過期登入的上傳佇列 #222 已經在這個分支，不要再合一次。對方又推了新提交才接。坡道側欄仍沒有走。
-2. 程晰的收尾兩句已各點過一次，重載保留。再交談是「這段已經談完」，這條檔案線結束。衛寧的開場在騮先紀念科學館的估計位置，沒有前置條件。「這次的不足寫進限制，不把人數說大。」和「再發一輪。已經空著的格子不要補。」瀏覽器沒有點。
+1. 重新抓 `origin/main`。建物計數 #223 已經在這個分支，不要再合一次。對方又推了新提交才接。坡道側欄仍沒有走。
+2. 衛寧的開場兩句已各點過一次，重載保留。衝突不看開場選了哪句。「空答就是沒有回答，不進同意。」和「只統計寫了字的人，空答另列一行。」瀏覽器沒有點。
 3. 許回已接在圖書館估計門口外。對方的畫面是他們的紀錄。這條線還沒點。另外三條收集仍是 0。後端線當時仍在寫，不要把那條分支再合一次。
 4. 玩法尖端 `3270f9f` 的目錄與戰鬥檔和這條線有差。他們的 `store.ts` 落後。要接時只接新遭遇，不要整支合併。
 5. 手勢流暢度要另錄，不要用單張畫面宣稱。

@@ -642,3 +642,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 56 減 46 是 10，也就是收尾階段的經驗。筆記加 1。程晰這條檔案線到這裡結束。
 
 畫面：`/opt/cursor/artifacts/integration-xi-after/method-outcome.png`、`method-done.png`、`sample-outcome.png`、`sample-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。坡道側欄沒有走。
+
+## 衛寧的兩個開場選項
+
+這段打在 `AdventureApp-CZDjMJrv.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-BuKqFUpM.js`。`main` 尖端 `873d831`（註記整合 PR #223；遊戲提交 `f490dd3`，main 合併 `41d4d38`，建物計數超過 48 仍可上傳），合併提交 `90d14c0`。主遊戲檔 887532 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-wei-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-wei-meet` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 385 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出是 `index-BuKqFUpM.js` 與 `AdventureApp-CZDjMJrv.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，直接站到騮先紀念科學館的估計位置。站上去先發現地點，存檔經驗 12、筆記 18。
+
+- 「這次的不足寫進限制，不把人數說大。」存檔經驗 30，筆記 18。結果句「不能說到沒填的人。」畫面是 1 級、「經驗 30/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「有人想把空答算成同意」。兩個衝突選項都在。離開不結算，沒有 `quest-faculty-survey-clash`。`quest-faculty-survey-meet` 只有一筆。沒有工作室任務。重載後經驗 30、筆記 18，再交談仍是這一句。
+- 「再發一輪。已經空著的格子不要補。」經驗同樣 12→30，筆記停在 18。結果句「不要幫別人補答。」衝突仍是「有人想把空答算成同意」。離開不結算。重載後這一句還在。
+
+30 減 12 是 18，也就是開場 6 加上崗位發現 12。筆記 18 是新學期背包原有的。衝突不看這次是寫進限制還是再發一輪。
+
+畫面：`/opt/cursor/artifacts/integration-wei-meet/limit-outcome.png`、`limit-next.png`、`round-outcome.png`、`round-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。坡道側欄沒有走。
