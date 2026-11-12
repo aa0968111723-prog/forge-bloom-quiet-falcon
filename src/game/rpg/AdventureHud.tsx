@@ -103,6 +103,7 @@ import {
   confirmImport,
   enterHome,
   exportHomeBackup,
+  importChosenSave,
   readHome,
   stageImport,
 } from "./home";
@@ -975,7 +976,7 @@ function SettingsPanel() {
             return;
           }
           const text = await f.text();
-          if (stageImport(text) === "direct") useRpg.getState().importSave(await f.text());
+          if (stageImport(text) === "direct") importChosenSave(text);
         }}
       />
       <button
@@ -1974,7 +1975,7 @@ export function AdventureHud() {
                   return;
                 }
                 const text = await f.text();
-                if (stageImport(text) === "direct") useRpg.getState().importSave(text);
+                if (stageImport(text) === "direct") importChosenSave(text);
               }}
             />
             <div className="ad-title-features">
