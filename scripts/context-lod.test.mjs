@@ -14,6 +14,7 @@ import {
   scienceHallProfile,
   studioProfile,
   watchPostProfile,
+  chemHallProfile,
   workshopProfile,
 } from "../src/game/world-data/zones/secondary.ts";
 
@@ -80,7 +81,17 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(bay.glassZ > science.size[2] / 2, "science bay sits on the south face");
   assert.ok(bay.bayX > 0, "the glass bay stays on the east end");
   assert.equal(SECONDARY_STRUCTURES.some((item) => item.id === "science-hall"), false);
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
+  const chem = SECONDARY_STRUCTURES.find((item) => item.id === "chemistry");
+  assert.equal(chem?.kind, "chem-hall");
+  assert.equal(chem?.accuracy, "estimated");
+  assert.notEqual(chem?.kind, "lab-block");
+  const stack = chemHallProfile(chem.size);
+  assert.ok(stack.glassZ > chem.size[2] / 2, "chemistry glass sits on the south face");
+  assert.ok(stack.glassY + stack.glassH / 2 < chem.size[1], "chemistry glass stays on the wall");
+  assert.ok(stack.stackX + stack.stackW / 2 < chem.size[0] / 2, "the fume stack stays on the roof");
+  assert.ok(Math.abs(stack.stackZ) + stack.stackD / 2 < chem.size[2] / 2, "the fume stack stays inside the roof");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "science")?.kind, "science-hall");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "old-engineering")?.kind, "workshop");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.kind, "shed");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "wind-lab")?.accuracy, "estimated");
@@ -137,7 +148,6 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(studioFace.glassZ > studio.size[2] / 2, "studio glass sits on the south face");
   assert.ok(studioFace.glassH < studio.size[1], "studio glass stays on the wall");
   assert.ok(studioFace.monitorZ > 0, "roof monitor faces the south approach");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chemistry")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "administration")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.accuracy, "estimated");
