@@ -5124,6 +5124,32 @@
       "integrationPr": 328,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/328",
       "nextAction": "None. The hoop bases from c3698975 are already in this integration. Do not merge PR #259 by itself. The later hoop commit 2ee4ec18 is still separate."
+    },
+    {
+      "id": "art-hoop-push",
+      "line": "art",
+      "scope": "A hoop push along the activity-room wall stays inside the room. Classrooms do not grow those bases. The south door stays open.",
+      "status": "verified",
+      "pr": 259,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/259",
+      "integrationBranch": "cursor/integration-hoop-push-3395",
+      "sourceBranch": "cursor/hoop-base-1a71",
+      "baseSha": "dce7c4e332b1f4fc55e7dadf4178944d0391058d",
+      "headSha": "2ee4ec1841a95360e2a7ac1831240a9a0f2981bc",
+      "dependencies": ["art-hoop-base"],
+      "sharedFiles": ["src/game/rpg/rules.ts", "scripts/hoop-base.test.mjs"],
+      "checks": {
+        "conflicts": "The hoop plates, airframes, five-tigers stele, shepherd meadow figure, and outdoor colliders stay. A wall-side push now stays inside the room.",
+        "typecheck": "pass",
+        "npmTest": "461 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DG8LvEb7.js sha256 3c32c80b1cb97fef7c67806e3c5e0d43fb80d45a6b279995bdac637a67a35348. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8254/",
+        "route": "8254 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "9e12bb2df2cf6dcfdb0ad38aee9e3117a3188332",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #259 by itself."
     }
   ]
 }
