@@ -580,4 +580,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 114 輪（文學館）— 2026-11-12
 
-`node --test scripts/lit-hall.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。文學館是 lit-hall。覺軒仍是 hip-roof-block。平簷高度小於 1 m。南向窗比 6 m 寬，窗高停在地面層。定步白天南向，頁面無錯誤：`docs/art/evidence/humanities/hall.jpg`。看得到綠瓦平簷、橫帶和「文學館」，沒有尖頂。外形仍是 estimated。第 113 輪的商管大樓留著。沒有新增音效。
+`node --test scripts/lit-hall.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。文學館是 lit-hall。覺軒仍是 hip-roof-block。平簷高度小於 1 m。南向窗比 6 m 寬，窗高停在地面層。定步白天南向，頁面無錯誤：`docs/art/evidence/humanities/hall.jpg`。看得到綠瓦平簷、橫帶和「文學館」，沒有尖頂。外形仍是 estimated。第 113 輪的商管大樓留著。沒有新增音效。`build:site` 產物 `AdventureApp-yNYaaj66.js`。

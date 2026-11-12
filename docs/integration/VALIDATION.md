@@ -1725,7 +1725,15 @@ JS 產物的檔名和大小都沒變，跨系統路線沒有重跑，仍是 8237
 
 瀏覽器 `http://127.0.0.1:8274/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；390×780 的窄畫面仍讀到「期中 · 擊退三隻異象」；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；同時上傳時較早落地的那一邊是經驗加 3，所以雲端經驗是 47；斷線的加 1 留在佇列；登出 401。`pageErrors` 空。幀時間是 SwiftShader。靜態產物換了，所以重跑這條路線。登入的使用者是 `VOJyD3dq0jx25cln1a3j4m8cllWqnjzF`。這筆已在整合 PR #350。
 
-## 商管大樓（本輪）
+## 文學館（本輪）
+
+來源 `cee451f2` 接到 `e8aa687d`。會文館、商管樓身和文學館平簷撞在同一段繪製與拍照腳本，三邊都留下。行政大樓的說明仍在 `officeProfile` 上面。文學館是 lit-hall：淺色樓身、南向寬窗、兩條橫帶、綠瓦平簷。覺軒仍是 hip-roof-block。外形是 estimated。
+
+`npm run typecheck` 通過。`npm test` 482 通過。靜態產物是 `AdventureApp-yNYaaj66.js`，雜湊 `3d3cebbab913ef6d46e866660e6841c07ea01a01de15a776e16edcedd1101c6b`。`dist/assets` 沒有 `cloud-save` 或 `DATABASE_URL`。
+
+跨系統路線 `http://127.0.0.1:8276/` 通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；390×780 的窄畫面仍讀到「期中 · 擊退三隻異象」；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；同時上傳時較早落地的那一邊是經驗加 3，所以雲端經驗是 47；斷線的加 1 留在佇列；登出 401。`pageErrors` 空。幀時間是 SwiftShader。登入的使用者是 `uIlJm4baFKXjcXiGBNaGY982xgVtTgPU`。這筆還沒有上 main。
+
+## 商管大樓（上一輪）
 
 來源 `15991ca7` 接到 `41cc456b`。`ContextStructures.tsx` 的教育館雨遮和商管樓身撞在同一段，兩邊都留下。行政大樓的說明改回到 `officeProfile` 上面。商管大樓是 business-hall：深色玻璃底座、退縮的淺色樓身、兩條橫帶。行政大樓仍是 office-block。外形是 estimated。
 

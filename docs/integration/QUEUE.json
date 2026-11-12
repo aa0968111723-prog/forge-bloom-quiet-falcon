@@ -5780,6 +5780,30 @@
       "integrationPr": 352,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/352",
       "nextAction": "This is on integration PR #352. Do not merge PR #177 by itself. The next game commit is PR #178 cee451f28cf5, the literature hall flat eave."
+    },
+    {
+      "id": "art-lit-eave",
+      "title": "Give the literature hall a flat eave instead of a hip roof",
+      "status": "verified",
+      "pr": 178,
+      "branch": "cursor/lit-hall-1a71",
+      "headSha": "cee451f28cf5373dba088c43058b5d1ef32a25ea",
+      "dependencies": ["art-business-podium"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the seminar hall, the business hall, and the later capture scenes, and added the literature hall. The office comment stays above officeProfile. Art notes kept the later milestones and appended this eave.",
+        "typecheck": "pass",
+        "npmTest": "482 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-yNYaaj66.js sha256 3d3cebbab913ef6d46e866660e6841c07ea01a01de15a776e16edcedd1101c6b. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8276/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User uIlJm4baFKXjcXiGBNaGY982xgVtTgPU."
+      },
+      "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "e8aa687d77126ae92e0f0125ef106e6b0c4cfd6b",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #178 by itself. The next game commit is PR #180 346dd73358c2, the Sungtao south balconies."
     }
   ]
 }
