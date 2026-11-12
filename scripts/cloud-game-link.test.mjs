@@ -1079,7 +1079,8 @@ test("a full ground still keeps a variety overflow on the pile already there", (
   ];
   inventory.clear();
   for (const id of fillers) inventory.add(id, 1);
-  assert.equal(inventory.isFull(), true);
+  assert.equal(inventory.slots().length, 24);
+  assert.equal(inventory.add("supply-pouch", 1).added, 0);
   const building = { id: "station-1", kind: "rest", x: 12, z: -20, rotation: 0, hp: 40 };
   const loot = [{ id: "pile-feet", x: 12, z: 18, items: { notes: 1 } }];
   for (let index = 1; index < 100; index += 1) {

@@ -220,6 +220,7 @@ const TOP_LEVEL_KEYS = new Set([
   "buildings",
   "heldBuild",
   "slots",
+  "pockets",
   "harvested",
   "loot",
   "clock",
@@ -264,6 +265,9 @@ function checkFields(doc: SaveDocument): ValidationResult {
   }
   if ("equipped" in doc && typeof doc.equipped !== "boolean") {
     return { ok: false, code: "invalid_document", message: "裝備狀態必須是布林值。" };
+  }
+  if ("pockets" in doc && !integerIn(doc.pockets, 0, 8)) {
+    return { ok: false, code: "invalid_document", message: "縫上的口袋不在允許範圍。" };
   }
   if (!Array.isArray(doc.slots) || doc.slots.length > MAX_SLOTS) {
     return { ok: false, code: "invalid_document", message: "背包槽位超過上限。" };
