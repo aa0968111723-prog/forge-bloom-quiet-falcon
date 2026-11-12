@@ -714,6 +714,18 @@ export function createCloudSaveController(options: {
       }
       const payload = await response.json().catch(() => null);
       if (response.ok) {
+        const confirmed = await accountGate(userId);
+        if (confirmed !== "ok") {
+          if (stillQueued(item)) {
+            remember(item, {
+              ...pending,
+              attempts: Math.max(1, pending.attempts),
+              nextAt: now(),
+            });
+          }
+          writeRemaining();
+          return { sent, paused: true };
+        }
         const revision = payload && typeof payload.revision === "number" ? payload.revision : null;
         const contentHash =
           payload && typeof payload.contentHash === "string" ? payload.contentHash : null;
@@ -855,6 +867,19 @@ export function createCloudSaveController(options: {
           code: String(payload?.error?.code ?? response.status),
           message: String(payload?.error?.message ?? "上傳失敗。"),
         };
+      }
+      const confirmed = await accountGate(userId);
+      if (confirmed !== "ok") {
+        enqueue({
+          id: String(body.requestId),
+          userId,
+          kind: "put",
+          body,
+          attempts: 1,
+          nextAt: now(),
+        });
+        if (confirmed === "offline") return { status: "queued" };
+        return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
       }
       writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
       return { status: "uploaded", revision: payload.revision };
