@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T08:24:06Z",
+      "updated": "2026-11-12T08:29:24Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3444,6 +3444,32 @@
       "integrationPr": 247,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/247",
       "nextAction": "None. The empty narrative key filter from 7c82d000 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-quest-claim",
+      "line": "backend",
+      "scope": "Import drops a claimed quest id longer than 64 characters. A 64-character quest id stays, and first and explorer stay. A raw upload longer than 64 is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-quest-claim-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "5bc4ad8bdef8dbd71eb870de89c1348e2ced2bdb",
+      "headSha": "31a01db5e89534fac06ee9737727c297bfebbc97",
+      "dependencies": ["backend-narrative-key"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T07:52:01Z and the long-claim line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "401 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CR0Zhon5.js",
+        "browser": "8198. The standing route completed.",
+        "route": "8198: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "28f7eda8e8f1912c34f4d898da2222ef941983a6",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
