@@ -446,3 +446,54 @@ test("an offline reward is recorded once and stays with its account queue", asyn
   assert.equal(posts[1].eventId, "gather-notes");
   assert.equal(grants, 1);
 });
+
+test("a signed-in reward waits for the server and does not grant a recorded event", async () => {
+  let applied = false;
+  let posts = 0;
+  const fetch = async (url, init = {}) => {
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      posts += 1;
+      const body = JSON.parse(init.body);
+      return jsonResponse(200, { applied, eventId: body.eventId });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+  });
+  client.bindAccount("user-a");
+  let grants = 0;
+  assert.equal(
+    (
+      await client.noteReward("gather-notes", () => {
+        grants += 1;
+      })
+    ).granted,
+    false,
+  );
+  assert.equal(grants, 0);
+  assert.equal(posts, 1);
+  applied = true;
+  assert.equal(
+    (
+      await client.noteReward("gather-parts", () => {
+        grants += 1;
+      })
+    ).granted,
+    true,
+  );
+  assert.equal(grants, 1);
+  assert.equal(posts, 2);
+  assert.equal(
+    (
+      await client.noteReward("gather-parts", () => {
+        grants += 1;
+      })
+    ).granted,
+    false,
+  );
+  assert.equal(grants, 1);
+  assert.equal(posts, 2);
+});
