@@ -2606,7 +2606,7 @@
       "id": "backend-reward-blip",
       "line": "backend",
       "scope": "After the account is confirmed, a failed second session check still asks the server before granting. A reward the server already recorded is not granted again.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-reward-blip-3395",
@@ -2624,9 +2624,11 @@
         "route": "8168: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "2783f8aae2ff1541344f7c5d296f609673b608c9",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 197,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/197",
+      "nextAction": "None. The session-blip reward check from 0b254d5 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
