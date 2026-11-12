@@ -5,9 +5,9 @@
 
 ## 現在停在哪
 
-- 基線 `5deed92`。雲端重試是整合 PR #187，也在這個分支（合併提交 `420ad49`）。教職員對話檔沒有改。靜態檔名仍是 `AdventureApp-CJBhF4Kt.js`。
-- 沈酌的兩個紀錄各在一局新學期點過。存檔經驗 188→196，筆記停在 22，畫面是 2 級、經驗 136/180。邱寧的貼表跟著先前時段，兩個選項沒有點。見 VALIDATION.md。
-- 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`。2026-11-12T05:15Z 查看時是 RUNNING，分支是 `cursor/integration-art-m1-3395`。後端當時也在 RUNNING。玩法尖端上次是 `3270f9f`，`store.ts` 落後，不要整支合併。合併仍交給原整合線。許回已接線，這條線沒有點她。
+- 基線 `b745f27`。中斷的上傳保持丟掉是整合 PR #192，也在這個分支（合併提交 `d0c95aa`）。教職員對話檔沒有改。靜態檔名仍是 `AdventureApp-CJBhF4Kt.js`。
+- 邱寧的兩個貼表各在一局新學期點過。存檔經驗 196→206，筆記 22→23，畫面是 2 級、經驗 146/180。顧衡的下一句跟著先前裂縫，兩個選項沒有點。見 VALIDATION.md。
+- 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`。2026-11-12T05:26Z 查看時是 RUNNING，分支是 `cursor/integration-art-m1-3395`。後端當時也在 RUNNING。玩法尖端上次是 `3270f9f`，`store.ts` 落後，不要整支合併。合併仍交給原整合線。許回已接線，這條線沒有點她。
 - `docs/integration/**` 是對方的。這條線只寫 `docs/full-integration/**`。
 - `MAIN_INTEGRATION` 保持 false。存檔鍵 `tamkang-rpg-v2`，版本 2。
 
@@ -35,14 +35,15 @@ node --experimental-transform-types scripts/integration-qiu-clash.mjs http://127
 node --experimental-transform-types scripts/integration-qiu-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-turn
 node --experimental-transform-types scripts/integration-liang-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-turn
 node --experimental-transform-types scripts/integration-shen-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-turn
+node --experimental-transform-types scripts/integration-qiu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-after
 ```
 
 預覽是 `npm run preview:site`，埠 8088。路線瀏覽器強制 SwiftShader。390×780 在這台機器上是細指標窄窗。室內這段是在 1280×720 點的。
 
 ## 下一步
 
-1. 重新抓 `origin/main`。雲端重試 #187 已經在這個分支，不要再合一次。對方又推了新提交才接。
-2. 沈酌的紀錄兩句已各點過一次，重載保留。邱寧的貼表跟著先前時段。「公告之前，我和另一邊對調一小時。」和「就照現在這張表貼出去。」瀏覽器沒有點。
+1. 重新抓 `origin/main`。中斷上傳 #192 已經在這個分支，不要再合一次。對方又推了新提交才接。
+2. 邱寧的貼表兩句已各點過一次，重載保留。顧衡的開場跟著先前裂縫。「現在把缺的裂縫和紀錄補進正式圖面。」和「圖先維持這樣，我用你留下的時段補。」瀏覽器沒有點。
 3. 許回已接在圖書館估計門口外。對方的畫面是他們的紀錄。這條線還沒點。另外三條收集仍是 0。後端線當時仍在寫，不要把那條分支再合一次。
 4. 玩法尖端 `3270f9f` 的目錄與戰鬥檔和這條線有差。他們的 `store.ts` 落後。要接時只接新遭遇，不要整支合併。
 5. 手勢流暢度要另錄，不要用單張畫面宣稱。

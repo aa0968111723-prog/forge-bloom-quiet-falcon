@@ -378,3 +378,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 196 減 188 是 8，也就是紀錄階段的經驗。筆記沒有加。邱寧的貼表看先前的社團或評圖旗標，不看這次是帶來還是補步驟。
 
 畫面：`/opt/cursor/artifacts/integration-shen-turn/show-outcome.png`、`show-next.png`、`rebuild-outcome.png`、`rebuild-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 邱寧的兩個貼表選項
+
+這段打在 `AdventureApp-CJBhF4Kt.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-Dkr69rSJ.js`。之後 `main` 進到 `b745f27`（中斷的上傳保持丟掉，整合 PR #192），合併提交 `d0c95aa`。差異在雲端客戶端。靜態重建仍是同一組檔名。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-qiu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 352 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出仍是 `index-Dkr69rSJ.js` 與 `AdventureApp-CJBhF4Kt.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到沈酌的紀錄。點貼表之前存檔經驗 196、筆記 22。
+
+- 「公告之前，我和另一邊對調一小時。」存檔經驗 206，筆記 23。結果句「我改的是順序。」畫面是 2 級、「經驗 146/180」、生命 108/108、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。走到顧衡，他說「它已經在」。兩個選項都在。離開不結算，沒有 `quest-faculty-gu-after`。`quest-faculty-qiu-after` 只有一筆。重載後經驗 206、筆記 23，再交談仍是這一句。
+- 「就照現在這張表貼出去。」經驗同樣 196→206，筆記 22→23。結果句「我沒有把它拿掉。」顧衡說「裂縫還不在圖上」。離開不結算。重載後這一句還在。
+
+206 減 196 是 10，也就是收尾階段的經驗。筆記加 1。顧衡的開場看先前的裂縫旗標，不看這次是對調還是照貼。
+
+畫面：`/opt/cursor/artifacts/integration-qiu-after/swap-outcome.png`、`swap-next.png`、`post-outcome.png`、`post-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。

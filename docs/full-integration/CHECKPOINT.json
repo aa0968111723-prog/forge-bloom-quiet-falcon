@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T05:25:08Z",
+  "updated": "2026-11-12T05:36:42Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "5deed92acb02435b35861e0e96399e5613ee702a",
-  "baseFull": "5deed92 is origin/main. A queued upload retries the newest local file, integration PR #187. Merged here as 420ad49dee2c. Faculty files and the adventure chunk are unchanged. Dialogue was played on AdventureApp-CJBhF4Kt.js. Content version stays 2.",
-  "playedBundle": "Shen turn: dist/assets/AdventureApp-CJBhF4Kt.js via index-Dkr69rSJ.js. Preview http://127.0.0.1:8088/. The post-merge build emitted the same file names.",
-  "builtAfter": "npm run build:site after #187 wrote the same index-Dkr69rSJ.js and AdventureApp-CJBhF4Kt.js. The static entry does not import the cloud client. The dist has no literal revision_conflict or DATABASE_URL.",
-  "gameSha": "420ad49dee2c1a41141741df5b8a32f6a6601ef8",
-  "verifiedHead": "420ad49dee2c1a41141741df5b8a32f6a6601ef8",
+  "base": "b745f27f725e33bc94a1cb47399b198c54130bbb",
+  "baseFull": "b745f27 is origin/main. A dropped upload stays dropped, integration PR #192. Merged here as d0c95aa340b1. Faculty files and the adventure chunk are unchanged. Dialogue was played on AdventureApp-CJBhF4Kt.js. Content version stays 2.",
+  "playedBundle": "Qiu after: dist/assets/AdventureApp-CJBhF4Kt.js via index-Dkr69rSJ.js. Preview http://127.0.0.1:8088/. The post-merge build emitted the same file names.",
+  "builtAfter": "npm run build:site after #192 wrote the same index-Dkr69rSJ.js and AdventureApp-CJBhF4Kt.js. The static entry does not import the cloud client. The dist has no literal revision_conflict or DATABASE_URL.",
+  "gameSha": "d0c95aa340b11d6aaefd211a6a534f00a73ef4d8",
+  "verifiedHead": "d0c95aa340b11d6aaefd211a6a534f00a73ef4d8",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -15,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T05:15:00Z",
+    "checkedAt": "2026-11-12T05:26:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -40,18 +40,19 @@
     "node --experimental-transform-types scripts/integration-qiu-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-clash",
     "node --experimental-transform-types scripts/integration-qiu-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-turn",
     "node --experimental-transform-types scripts/integration-liang-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-turn",
-    "node --experimental-transform-types scripts/integration-shen-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-turn"
+    "node --experimental-transform-types scripts/integration-shen-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-turn",
+    "node --experimental-transform-types scripts/integration-qiu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-after"
   ],
   "done": [
-    "Merged origin/main 5deed92 (cloud retry #187) as 420ad49. npx tsc --noEmit passed. npm test was 349 pass / 0 fail. build:site kept AdventureApp-CJBhF4Kt.js.",
-    "Two fresh architecture semesters paid Shen Zhuo's record choices on that bundle. Show: store xp 188 to 196, notes stayed 22, outcome 我不會寫成教師要求公開. Rebuild: same xp and notes, outcome 仍然算那一次. The card stayed level 2 and showed 136/180, hp 108, focus 100. Semester stayed week-1. The +8 is the turn stage. This beat adds no notes.",
-    "Qiu Ning's posting line followed the earlier hour flag: 最好的小時在社團, or 最好的小時在評圖. Both posting choices were visible. Leaving unpaid omitted quest-faculty-qiu-after. Reload kept xp 196, notes 22, and that line. quest-faculty-shen-turn stayed at one."
+    "Merged origin/main b745f27 (dropped upload #192) as d0c95aa. npx tsc --noEmit passed. npm test was 352 pass / 0 fail. build:site kept AdventureApp-CJBhF4Kt.js.",
+    "Two fresh architecture semesters paid Qiu Ning's posting choices on that bundle. Swap: store xp 196 to 206, notes 22 to 23, outcome 我改的是順序. Post: same xp and notes, outcome 我沒有把它拿掉. The card stayed level 2 and showed 146/180, hp 108, focus 100. Semester stayed week-1. Toast was 課堂筆記 ×1. The +10 is the after stage.",
+    "Gu Heng's next line followed the earlier crack flag: 它已經在, or 裂縫還不在圖上. Both of his choices were visible. Leaving unpaid omitted quest-faculty-gu-after. Reload kept xp 206, notes 23, and that line. quest-faculty-qiu-after stayed at one."
   ],
   "todo": [
-    "Qiu Ning's posting choices 公告之前，我和另一邊對調一小時 and 就照現在這張表貼出去 were visible and not clicked.",
+    "Gu Heng's closing choices 現在把缺的裂縫和紀錄補進正式圖面 and 圖先維持這樣，我用你留下的時段補 were visible and not clicked.",
     "Xu Hui is wired at the estimated library post. This line did not click her. docs/quest-play/evidence screenshots are the other line's record.",
     "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked.",
-    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #187 already merged. Do not merge that branch again.",
+    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #192 already merged. Do not merge that branch again.",
     "Variety tip 3270f9f was the last fetched head. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
@@ -63,5 +64,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Qiu Ning's posting choices, 公告之前，我和另一邊對調一小時 or 就照現在這張表貼出去. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge cloud retry #187 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Gu Heng's closing choices, 現在把缺的裂縫和紀錄補進正式圖面 or 圖先維持這樣，我用你留下的時段補. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge dropped upload #192 again. Do not merge PR #32 head 1fc5887."
 }
