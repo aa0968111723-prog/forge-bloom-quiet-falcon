@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:12:00Z",
+  "updated_at": "2026-11-12T05:16:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -32,10 +32,11 @@
     "a failed upload retries the newest local file under a new request id, and continues only when the cloud still holds this device's last write",
     "merged main at 1c8f11e and kept quest marks on ground loot in the cloud document",
     "a continued upload that the player drops is written back from the chosen local file",
-    "a dropped upload that disconnects is not retried, and is written back only when that send already landed"
+    "a dropped upload that disconnects is not retried, and is written back only when that send already landed",
+    "quest marks on ground loot, library floor 3, and the content hash survive a database restart and a revision restore"
   ],
   "verification": {
-    "npm_test": "351 pass, 0 fail; a dropped upload is not retried after a disconnect unless that send already landed",
+    "npm_test": "351 pass, 0 fail; quest loot and its content hash survive a database restart and revision restore",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

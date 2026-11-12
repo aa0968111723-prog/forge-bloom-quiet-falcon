@@ -831,6 +831,9 @@ async function verifyProcessRestart() {
       ...JSON.parse(rpgText(15, ["first", "gather-notes"])),
       gathered: { notes: 12, parts: 0, coffee: 0, tea: 0 },
       felled: { quiz: 0, report: 2, exam: 0, final: 0 },
+      interiorId: "library",
+      floor: 3,
+      loot: [{ id: "pile-quest", x: 4, z: 8, items: { notes: 2 }, quest: { notes: 1 } }],
     };
     const saved = await putJson(
       jar,
@@ -864,13 +867,34 @@ async function verifyProcessRestart() {
     try {
       await second.listening();
       const jar2 = createJar(origin);
-      await signIn(jar2, origin, "restart@example.com");
+      const restartedUser = await signIn(jar2, origin, "restart@example.com");
       const loaded = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg`)).json();
       assert.equal(loaded.document.xp, 15);
       assert.equal(loaded.revision, 2);
       assert.equal(loaded.document.gathered.notes, 13);
       assert.equal(loaded.document.felled.report, 2);
+      assert.equal(loaded.document.interiorId, "library");
+      assert.equal(loaded.document.floor, 3);
+      assert.equal(loaded.document.loot[0].quest.notes, 1);
       assert.equal(loaded.document.claimed.includes("gather-notes"), true);
+      const { canonicalJson, sha256Hex } = await import("../src/features/cloud-save/contract.ts");
+      const { createCloudSaveController, memoryStorage } = await import(
+        "../src/features/cloud-save/client.ts"
+      );
+      assert.equal(await sha256Hex(canonicalJson(loaded.document)), loaded.contentHash);
+      const client = createCloudSaveController({
+        fetch: (url, init) => jar2.fetch(url, init),
+        baseUrl: origin,
+        storage: memoryStorage(),
+        randomId: () => "restart-download-1",
+      });
+      client.bindAccount(restartedUser);
+      const downloaded = await client.downloadCloud();
+      assert.equal(downloaded.status, "downloaded", JSON.stringify(downloaded));
+      const local = JSON.parse(client.readLocal());
+      assert.equal(local.loot[0].quest.notes, 1);
+      assert.equal(local.interiorId, "library");
+      assert.equal(local.floor, 3);
       const history = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg/revisions`)).json();
       assert.deepEqual(
         history.revisions.map((item) => item.revision).sort((left, right) => left - right),
@@ -897,6 +921,26 @@ async function verifyProcessRestart() {
       const still = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg`)).json();
       assert.equal(still.revision, 2);
       assert.equal(still.document.gathered.notes, 13);
+      assert.equal(still.document.loot[0].quest.notes, 1);
+      const restored = await jar2.fetch(`${origin}/api/cloud/saves/rpg/restore`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-cloud-save": "1" },
+        body: JSON.stringify({
+          baseRevision: 2,
+          revision: 1,
+          requestId: "restart-restore-1",
+        }),
+      });
+      const restoredBody = await restored.json();
+      assert.equal(restored.status, 200, JSON.stringify(restoredBody));
+      assert.equal(restoredBody.revision, 3);
+      assert.equal(restoredBody.document.gathered.notes, 12);
+      assert.equal(restoredBody.document.loot[0].quest.notes, 1);
+      assert.equal(restoredBody.document.floor, 3);
+      assert.equal(
+        await sha256Hex(canonicalJson(restoredBody.document)),
+        restoredBody.contentHash,
+      );
     } finally {
       await stopChild(second.child);
     }
