@@ -5291,7 +5291,33 @@
       "mergeSha": "6dabb15e48b7340dd3f6c2a60d3b5f78a777027c",
       "integrationPr": 334,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/334",
-      "nextAction": "None. The gym clerestory from c3ce7704 is already in this integration. Do not merge PR #269 by itself. The scroll-words commit 5fe60b19 is still separate."
+      "nextAction": "None. The gym clerestory from c3ce7704 is already in this integration. Do not merge PR #269 by itself. The scroll-words commit 5fe60b19 is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-scroll-words",
+      "line": "art",
+      "scope": "The four scroll blades carry 樸實剛毅, one character each, inside the existing boxes.",
+      "status": "verified",
+      "pr": 271,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/271",
+      "integrationBranch": "cursor/integration-scroll-words-3395",
+      "sourceBranch": "cursor/scroll-words-1a71",
+      "baseSha": "d7656b2c26636ae80e506421dbe80ec26470c2c2",
+      "headSha": "5fe60b199b30639facd4cb6b6a43b64d56e94029",
+      "dependencies": ["art-gym-glow"],
+      "sharedFiles": ["src/game/landmarks/ScrollPlaza.tsx", "src/game/world-data/scroll-blades.ts", "scripts/scroll-words.test.mjs"],
+      "checks": {
+        "conflicts": "The blade positions stay. Plaques sit inside the existing 3 m boxes. The gym clerestory and earlier colliders stay.",
+        "typecheck": "pass",
+        "npmTest": "467 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BAb1q8mR.js sha256 ef1d8784e1aab8fe8511ace8fe9a8b66ee3a3a55e4ef2ed33b03a4c08a06f334. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8260/",
+        "route": "8260 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "ed9a2f99693a53449ad289464006091b190f5655",
+      "nextAction": "Open the integration PR. Do not merge PR #271 by itself. The dolphin-motto commit 5c3589bc is still separate."
     }
   ]
 }
