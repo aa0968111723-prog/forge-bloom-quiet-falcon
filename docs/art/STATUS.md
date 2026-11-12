@@ -319,6 +319,12 @@
 
 畫面：`docs/art/evidence/chem/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：路燈淨空（ART-084 的一部分）
+
+路燈中心若落在實體裡，會沿最近的一面推到牆外 1.2 m。商管大樓和海事博物館各有一盞從樓裡移到南牆外。圖書館名牌改朝南，貼在南牆外側。位置仍是 estimated。化學館仍是淺色館身和屋頂排氣箱。
+
+畫面：`docs/art/evidence/props/business.jpg`、`museum.jpg`。測試：`scripts/prop-clearance.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。化學館已從實驗樓方塊分開。科學館、工學館與工學大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。路燈中心已留在牆外。化學館已從實驗樓方塊分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
