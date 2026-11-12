@@ -228,11 +228,12 @@ async function main() {
       });
       assert.equal(again.status, 200, await again.clone().text());
       const restored = memoryStorage();
+      let nextRequest = 3;
       const after = createCloudSaveController({
         fetch: (url, init) => jar2.fetch(url, init),
         baseUrl: origin,
         storage: restored,
-        randomId: () => "campusreq03",
+        randomId: () => `campusreq${String(++nextRequest).padStart(2, "0")}`,
       });
       after.bindAccount(user.user.id);
       assert.equal((await after.plan()).status, "need_download");
@@ -271,6 +272,21 @@ async function main() {
       assert.equal(unchanged.revision, 1);
       assert.equal(unchanged.document.xp, 40);
       assert.equal(unchanged.document.floor, 3);
+
+      const edited = JSON.parse(after.readLocal());
+      edited.floor = 1;
+      edited.xp = 41;
+      after.writeLocal(JSON.stringify(edited));
+      const pushed = await after.pushLocal();
+      assert.equal(pushed.status, "uploaded", JSON.stringify(pushed));
+      assert.equal(pushed.revision, 2);
+      const rolled = await after.restorePrevious();
+      assert.equal(rolled.status, "restored", JSON.stringify(rolled));
+      assert.equal(rolled.revision, 3);
+      const local = JSON.parse(after.readLocal());
+      assert.equal(local.floor, 3);
+      assert.equal(local.xp, 40);
+      assert.equal(local.interiorId, "library");
     } finally {
       await stopChild(second.child);
     }

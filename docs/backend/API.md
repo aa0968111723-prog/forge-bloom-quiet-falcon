@@ -129,5 +129,6 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 - 本機與雲端不同，且本機記錄的 revision 不等於伺服器：`conflict`。`keepRemoteVersion` / `keepLocalVersion` 才解決。
 - 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。`flush` 只送目前帳號的佇列，沿用原來的 `requestId`，退避 1s、2s、4s，上限 30s。
 - `logout` 只清目前帳號標記，不刪 RPG 存檔，也不把上一個帳號的佇列送給下一個帳號。
+- `restorePrevious` 在玩家按下時，把目前 head 的前一個 revision 複製成新 head，並寫回本機。只有一份雲端版本時不改本機。離線時不把恢復排進佇列。
 
 Node 首頁 `src/routes/index.tsx` 掛了 `CloudSaveDock`。靜態入口沒有引用它。
