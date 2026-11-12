@@ -2326,7 +2326,7 @@
       "id": "backend-cloud-integrity",
       "line": "backend",
       "scope": "A downloaded or restored cloud document is checked against the whitelist and its content hash before it replaces the local RPG save. While the server is unreachable, a later upload replaces the earlier queued save for that account. Reward receipts in the same queue stay.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-cloud-integrity-3395",
@@ -2344,9 +2344,11 @@
         "route": "8158: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "fa00af764ef29f56f0372911f2537df28bb6232c",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 173,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/173",
+      "nextAction": "None. The cloud integrity checks from b080a9e and 5ffb8fc are already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
