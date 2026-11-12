@@ -2937,6 +2937,34 @@
       "integrationPr": 215,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/215",
       "nextAction": "None. The quarantine item ids from b1131cb are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-db-queue",
+      "line": "backend",
+      "scope": "While the session is still valid, a 503, 429, or 5xx response keeps the upload the player already asked to send on that account's queue, counted as already sent. A rejected save is not queued.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-db-queue-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "d12a2d91ee58f2131df41b140f677965ea3397c2",
+      "headSha": "ab9e517bc665c2184ebf96331d871282e131d47e",
+      "dependencies": ["backend-quarantine-ids"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:34:34Z entry and the database-outage line.",
+        "typecheck": "pass",
+        "npmTest": "379 pass / 0 fail",
+        "buildSite": "pass. Game script bytes match the previous bundle. Served file is AdventureApp-BpSHmHEQ.js because the stylesheet hash moved.",
+        "browser": "8180. The standing route completed.",
+        "route": "8180: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": true,
+      "mergeSha": "ef46fb6484eae285c41c8ed6584512d1138f2436",
+      "integrationPr": 217,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/217",
+      "nextAction": "None. The database-down upload queue from ab9e517 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
