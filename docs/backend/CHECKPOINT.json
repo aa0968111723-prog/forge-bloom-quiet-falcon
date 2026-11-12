@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:05:00Z",
+  "updated_at": "2026-11-12T05:20:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "b579dff",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -18,10 +18,11 @@
     "an old RPG import is rejected as legacy_rpg and is not stored as pilgrimage; the world save is still legacy_pilgrimage and neither write changes the RPG row",
     "merged collection quests at b579dff; gathered and felled survive upload, download, and process restart, and older saves can omit them",
     "after a database process restart, collection counts, the claimed quest, and the revision list remain, and a new request id does not record the same reward again",
-    "a reward granted while signed out is not granted again after login, logout, or an account switch, and the other account's upload queue stays put"
+    "a reward granted while signed out is not granted again after login, logout, or an account switch, and the other account's upload queue stays put",
+    "a signed-in reward asks the server first and does not grant an event the server already recorded"
   ],
   "verification": {
-    "npm_test": "329 pass, 0 fail; offline rewards are not granted again after login or account switch",
+    "npm_test": "330 pass, 0 fail; a signed-in client does not grant a reward the server already recorded",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

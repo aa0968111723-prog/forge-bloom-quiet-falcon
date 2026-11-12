@@ -400,34 +400,65 @@ export function createCloudSaveController(options: {
       .padEnd(8, "0");
   }
 
-  async function noteReward(eventId: string, grant: () => void): Promise<{ granted: boolean }> {
-    const userId = activeUser();
+  function rememberReward(
+    userId: string | null,
+    record: { eventId: string; requestId: string },
+  ): void {
     const device = readReceipts("local");
-    const account = userId ? readReceipts(userId) : [];
-    if (
-      device.some((item) => item.eventId === eventId) ||
-      account.some((item) => item.eventId === eventId)
-    ) {
-      return { granted: false };
+    if (!device.some((item) => item.eventId === record.eventId)) {
+      device.push(record);
+      writeReceipts("local", device);
     }
-    const requestId = rewardRequestId(eventId);
-    const record = { eventId, requestId };
-    device.push(record);
-    writeReceipts("local", device);
-    if (userId) {
+    if (!userId) return;
+    const account = readReceipts(userId);
+    if (!account.some((item) => item.eventId === record.eventId)) {
       account.push(record);
       writeReceipts(userId, account);
-      enqueue({
-        id: requestId,
-        userId,
-        kind: "receipt",
-        body: { eventId, requestId },
-        attempts: 0,
-        nextAt: now(),
-      });
     }
+  }
+
+  async function noteReward(eventId: string, grant: () => void): Promise<{ granted: boolean }> {
+    const userId = activeUser();
+    const seen =
+      readReceipts("local").some((item) => item.eventId === eventId) ||
+      (userId ? readReceipts(userId).some((item) => item.eventId === eventId) : false);
+    if (seen) return { granted: false };
+    const requestId = rewardRequestId(eventId);
+    const record = { eventId, requestId };
+    if (!userId) {
+      rememberReward(null, record);
+      grant();
+      return { granted: true };
+    }
+    try {
+      const response = await cloudFetch("/api/cloud/saves/rpg/receipts", {
+        method: "POST",
+        body: JSON.stringify({ eventId, requestId }),
+      });
+      const payload = await response.json().catch(() => null);
+      if (response.ok && payload?.applied === false) {
+        rememberReward(userId, record);
+        return { granted: false };
+      }
+      if (response.ok && payload?.applied === true) {
+        rememberReward(userId, record);
+        grant();
+        return { granted: true };
+      }
+      if (response.status < 500) return { granted: false };
+    } catch {
+      // The account is signed in, but the server cannot be reached.
+    }
+    rememberReward(userId, record);
+    enqueue({
+      id: requestId,
+      userId,
+      kind: "receipt",
+      body: { eventId, requestId },
+      attempts: 0,
+      nextAt: now(),
+    });
     grant();
-    if (userId) await flush();
     return { granted: true };
   }
 
