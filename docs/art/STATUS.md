@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：校門門柱（ART-062 的一部分）
+
+水源街校門的兩根門柱會擋住半徑 0.42 m 的身體。從西邊走向西側那根會停在柱面外。門洞中線和頭頂的橫梁仍走得過。80 ms 的閃避拆成 0.2 m 的小步，不會穿到柱子另一側。門位仍是 estimated。田徑場內圈留著。
+
+畫面：`docs/art/evidence/gates/campus-arch.jpg`。測試：`scripts/gate-pier.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。水源街校門的門柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

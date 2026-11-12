@@ -367,3 +367,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 60 輪（田徑場內圈）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
+
+## 第 61 輪（校門門柱）— 2026-11-12
+
+`node --test scripts/gate-pier.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/campus-links.test.mjs scripts/axis-gates.test.mjs` 通過。`tsc --noEmit` 通過。水源街校門兩根門柱和網格用同一組座標，截面 1 m。半徑 0.42 m 站在西側柱心會被推開。門洞中線、主巡禮和三條折線的轉折點不被推開。橫梁在頭頂以上。定步白天從西邊走向西側門柱，頁面無錯誤，停在 x=-5.52：`docs/art/evidence/gates/campus-arch.jpg`。從西面接觸點一次走 1.04 m 會被推到東面；拆成 0.2 m 的小步後停在西面。掃掠會撞上，終點留在柱心以西。門位仍是 estimated。田徑場內圈留在第 60 輪。沒有新增音效。`build:site` 產物 `AdventureApp-Bf3RCKkz.js`。
