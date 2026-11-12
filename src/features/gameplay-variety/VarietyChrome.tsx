@@ -4,7 +4,7 @@ import { quality } from "../../game/quality.ts";
 import { terrainHeight } from "../../game/world.ts";
 import { useRpg } from "../../game/rpg/store.ts";
 import { eventById } from "./catalog.ts";
-import { cellsInShape, sameCell, telegraphLabel } from "./shapes.ts";
+import { combatCellText, combatCue, interruptReady } from "./combat.ts";
 import "./host.ts";
 import {
   actVariety,
@@ -215,28 +215,20 @@ export function VarietyPanel() {
       ) : null}
       {run.phase === "combat" && board?.board === "combat" ? (
         <>
-          <p>
-            生命 {board.playerHp}。異象 {board.enemyHp}。{telegraphLabel(board.telegraph)}。{board.log}
-            {board.deskHp != null ? ` 桌子 ${board.deskHp}。` : ""}
-          </p>
+          <p data-gv="combat-cue">{combatCue(board, run.caps.skillRank)}</p>
           <div className="gv-grid" data-gv="grid">
             {Array.from({ length: 25 }, (_, index) => {
               const cell = { x: index % 5, y: Math.floor(index / 5) };
-              const shaped = board.telegraph ? cellsInShape(board.telegraph).some((item) => sameCell(item, cell)) : false;
-              const marks = [
-                sameCell(cell, board.player) ? "你" : "",
-                sameCell(cell, board.enemy) ? "異" : "",
-                board.desk && sameCell(cell, board.desk) ? "桌" : "",
-                board.nodes.some((node) => sameCell(node, cell)) ? "結" : "",
-              ].join("");
+              const text = combatCellText(board, cell);
+              const shaped = text.includes("扇") || text.includes("條");
               return (
                 <span
                   key={index}
                   className="gv-cell"
                   data-shape={shaped ? board.telegraph?.kind : undefined}
-                  aria-label={shaped ? telegraphLabel(board.telegraph) : "空格"}
+                  aria-label={text || "空格"}
                 >
-                  {marks || (shaped ? (board.telegraph?.kind === "arc" ? "扇" : "條") : "")}
+                  {text}
                 </span>
               );
             })}
@@ -255,7 +247,13 @@ export function VarietyPanel() {
                 ["wait", "觀察"],
               ] as const
             ).map(([action, text]) => (
-              <button type="button" key={action} data-gv={action} onClick={() => actVariety({ type: "combat", action })}>
+              <button
+                type="button"
+                key={action}
+                data-gv={action}
+                data-ready={action === "skill" && interruptReady(board, run.caps.skillRank) ? "yes" : undefined}
+                onClick={() => actVariety({ type: "combat", action })}
+              >
                 {text}
               </button>
             ))}
@@ -265,8 +263,9 @@ export function VarietyPanel() {
       {run.phase === "route" && board?.board === "route" ? (
         <>
           <p>
-            {board.note} 預算 {board.budget} 分鐘。目前：{board.order.join(" → ") || "還沒排"}。
+            {board.note}             預算 {board.budget} 分鐘。目前：{board.order.join(" → ") || "還沒排"}。
           </p>
+          {board.objection ? <p data-gv="objection">{board.objection}已試 {board.checks ?? 0} 次，可以改順序再走。三次對不上就重來。</p> : null}
           <div className="gv-actions">
             {board.stops.map((stop) => (
               <button type="button" key={stop.id} onClick={() => actVariety({ type: "route-pick", id: stop.id })}>
@@ -285,6 +284,7 @@ export function VarietyPanel() {
       {run.phase === "repair" && board?.board === "repair" ? (
         <>
           <p>熱源在「{board.slotNames[board.heat]}」。冷卻片要貼著它，電池要離開它，熱源那格留空。</p>
+          {board.objection ? <p data-gv="objection">{board.objection}已試 {board.checks ?? 0} 次，可以改零件再接。三次對不上就重來。</p> : null}
           {board.slotNames.map((name, index) => (
             <div className="gv-row" key={name}>
               <span>

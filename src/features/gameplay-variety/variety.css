@@ -62,8 +62,10 @@
 .gv-cell[data-shape="rect"] {
   background: repeating-linear-gradient(90deg, #f4efe2, #f4efe2 4px, #e3c58c 4px, #e3c58c 8px);
 }
-.gv-on {
+.gv-on,
+.gv-panel button[data-ready="yes"] {
   outline: 2px solid #102e32;
+  outline-offset: 2px;
 }
 .gv-note {
   font-size: 14px;

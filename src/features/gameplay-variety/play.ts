@@ -248,14 +248,25 @@ export function reduceVariety(memory: Memory, action: PlayAction): Memory {
 
   if (run.phase === "route" && run.board?.board === "route") {
     if (action.type === "route-pick" && !run.board.order.includes(action.id)) {
-      return { ...memory, active: { ...run, board: { ...run.board, order: [...run.board.order, action.id] } } };
+      return {
+        ...memory,
+        active: { ...run, board: { ...run.board, order: [...run.board.order, action.id], objection: null } },
+      };
     }
     if (action.type === "route-undo") {
-      return { ...memory, active: { ...run, board: { ...run.board, order: run.board.order.slice(0, -1) } } };
+      return {
+        ...memory,
+        active: { ...run, board: { ...run.board, order: run.board.order.slice(0, -1), objection: null } },
+      };
     }
     if (action.type === "route-commit") {
       const verdict = routeVerdict(run.board);
-      if (!verdict.ok) return fail(memory, run, verdict.reason, run.board);
+      if (!verdict.ok) {
+        const checks = (run.board.checks ?? 0) + 1;
+        const board = { ...run.board, objection: verdict.reason, checks };
+        if (checks >= 3) return fail(memory, run, verdict.reason, board);
+        return { ...memory, active: { ...run, board } };
+      }
       return succeed(memory, run, "field", verdict.reason);
     }
   }
@@ -263,17 +274,22 @@ export function reduceVariety(memory: Memory, action: PlayAction): Memory {
   if (run.phase === "repair" && run.board?.board === "repair") {
     if (action.type === "repair-clear") {
       const slots = run.board.slots.map((part, index) => (index === action.slot ? null : part));
-      return { ...memory, active: { ...run, board: { ...run.board, slots } } };
+      return { ...memory, active: { ...run, board: { ...run.board, slots, objection: null } } };
     }
     if (action.type === "repair-assign") {
       const slots = run.board.slots.map((part) => (part === action.part ? null : part));
       if (action.slot < 0 || action.slot >= slots.length) return memory;
       slots[action.slot] = action.part;
-      return { ...memory, active: { ...run, board: { ...run.board, slots } } };
+      return { ...memory, active: { ...run, board: { ...run.board, slots, objection: null } } };
     }
     if (action.type === "repair-check") {
       const verdict = repairVerdict(run.board);
-      if (!verdict.ok) return fail(memory, run, verdict.reason, run.board);
+      if (!verdict.ok) {
+        const checks = (run.board.checks ?? 0) + 1;
+        const board = { ...run.board, objection: verdict.reason, checks };
+        if (checks >= 3) return fail(memory, run, verdict.reason, board);
+        return { ...memory, active: { ...run, board } };
+      }
       return succeed(memory, run, "field", verdict.reason);
     }
   }

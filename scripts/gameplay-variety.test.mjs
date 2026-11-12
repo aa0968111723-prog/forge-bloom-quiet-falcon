@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { VARIETY_EVENTS, kindCoverage } from "../src/features/gameplay-variety/catalog.ts";
-import { createCombat, stepCombat, withCombat } from "../src/features/gameplay-variety/combat.ts";
+import { combatCellText, combatCue, createCombat, interruptReady, stepCombat, withCombat } from "../src/features/gameplay-variety/combat.ts";
 import { escortAct } from "../src/features/gameplay-variety/escort.ts";
 import { agreeingClues } from "../src/features/gameplay-variety/investigate.ts";
 import { emptyMemory, readMemory, saveMemory } from "../src/features/gameplay-variety/memory.ts";
@@ -360,6 +360,154 @@ test("the night patrol can switch into the report lane and that fight can be won
   assert.equal(state.outcome, "win");
   memory = reduceVariety(memory, { type: "abort" });
   assert.equal(memory.active, null);
+});
+
+test("a wrong route or repair can be edited before the third miss", () => {
+  let route = play("gv-library-route");
+  route = reduceVariety(route, { type: "route-pick", id: "desk" });
+  route = reduceVariety(route, { type: "route-commit" });
+  assert.equal(route.active.phase, "route");
+  assert.deepEqual(route.active.board.order, ["desk"]);
+  assert.match(route.active.board.objection, /沒開/);
+  route = reduceVariety(route, { type: "route-undo" });
+  assert.equal(route.active.board.objection, null);
+  route = reduceVariety(route, { type: "route-pick", id: "desk" });
+  route = reduceVariety(route, { type: "route-commit" });
+  route = reduceVariety(route, { type: "route-commit" });
+  assert.equal(route.active.phase, "failed");
+
+  let repair = play("gv-avenue-repair");
+  repair = reduceVariety(repair, { type: "repair-check" });
+  assert.equal(repair.active.phase, "repair");
+  assert.equal(repair.active.board.checks, 1);
+  const kept = repair.active.board.slots.slice();
+  repair = reduceVariety(repair, { type: "repair-check" });
+  repair = reduceVariety(repair, { type: "repair-check" });
+  assert.equal(repair.active.phase, "failed");
+  assert.deepEqual(repair.active.board.slots, kept);
+});
+
+test("combat text keeps the telegraph on an occupied cell and names the interrupt beat", () => {
+  const telegraph = { kind: "arc", x: 1.5, z: 1.5, facing: 0, radius: 1.2, half: Math.PI };
+  const early = withCombat(createCombat("quiz"), { windup: 2, telegraph, player: { x: 1, y: 2 } });
+  assert.equal(interruptReady(early, 1), false);
+  assert.match(combatCue(early, 1), /前搖剩 2 拍，還沒到能打斷的節拍/);
+  const ready = withCombat(early, { windup: 1 });
+  assert.equal(interruptReady(ready, 1), true);
+  assert.match(combatCue(ready, 1), /現在可以打斷/);
+  const mark = combatCellText(ready, ready.player);
+  assert.match(mark, /你/);
+  assert.match(mark, /扇/);
+  const lit = withCombat(createCombat("final"), { lit: [true, false] });
+  assert.match(combatCellText(lit, lit.nodes[0]), /亮/);
+  assert.match(combatCellText(lit, lit.nodes[1]), /結/);
+  assert.match(combatCue(lit, 1), /還有 1 處結界沒亮/);
+  const guarded = stepCombat(withCombat(ready, { guard: true }), "wait", emptyCaps);
+  assert.ok(guarded.lastEnemyHit > 0);
+  assert.match(guarded.log, /擋掉一半/);
+});
+
+function toward(player, cell) {
+  if (player.x < cell.x) return "east";
+  if (player.x > cell.x) return "west";
+  if (player.y < cell.y) return "south";
+  if (player.y > cell.y) return "north";
+  return "wait";
+}
+
+function enemyTrace(kind, actions) {
+  let state = createCombat(kind);
+  const trace = [`${state.enemy.x},${state.enemy.y}`];
+  for (const action of actions) {
+    state = stepCombat(state, action, emptyCaps);
+    trace.push(`${state.enemy.x},${state.enemy.y}`);
+    assert.equal(state.retargets, 0);
+  }
+  return trace;
+}
+
+test("roll call, hillside rain, and club flyers are different from the four chases", () => {
+  for (const id of ["rollcall", "rollcall-late", "downpour", "downpour-slow", "flyer", "flyer-wide"]) {
+    assert.equal(VARIETY_EVENTS.some((event) => event.combat === id), true);
+  }
+  const names = VARIETY_EVENTS.filter((event) => event.combat)
+    .map((event) => `${event.title} ${event.summary}`)
+    .join(" ");
+  assert.match(names, /宮燈教室/);
+  assert.match(names, /活動中心/);
+  assert.match(names, /五虎崗/);
+  assert.match(names, /覺生/);
+
+  let call = createCombat("rollcall");
+  call = stepCombat(call, "wait", emptyCaps);
+  const seat = call.seats[0];
+  const point = cellPoint(seat);
+  assert.equal(shapeContains(call.telegraph, point.x, point.z), true);
+  assert.equal(shapeContains(call.telegraph, point.x + 1, point.z), false);
+  for (const kind of ["rollcall", "rollcall-late"]) {
+    let answered = createCombat(kind);
+    const still = { ...answered.enemy };
+    let guard = 0;
+    while (answered.outcome === "ongoing" && guard < 50) {
+      const target = answered.telegraph ? answered.seats[answered.seatIndex] : null;
+      answered = stepCombat(answered, target ? toward(answered.player, target) : "wait", emptyCaps);
+      assert.deepEqual(answered.enemy, still);
+      guard += 1;
+    }
+    assert.equal(answered.outcome, "win", kind);
+    assert.equal(answered.enemyHp, 90);
+    assert.match(answered.log, /點到名了/);
+  }
+
+  let guard = 0;
+  let missed = createCombat("rollcall");
+  while (missed.outcome === "ongoing" && guard < 20) {
+    missed = stepCombat(missed, "wait", emptyCaps);
+    guard += 1;
+  }
+  assert.equal(missed.outcome, "lose");
+  assert.match(missed.log, /沒應到/);
+
+  for (const kind of ["downpour", "downpour-slow"]) {
+    let rain = createCombat(kind);
+    const puddle = { ...rain.enemy };
+    guard = 0;
+    while (rain.outcome === "ongoing" && guard < 20) {
+      const action = rain.player.y > 0 ? "north" : "wait";
+      rain = stepCombat(rain, action, emptyCaps);
+      assert.deepEqual(rain.enemy, puddle);
+      guard += 1;
+    }
+    assert.equal(rain.outcome, "win");
+    assert.match(rain.log, /屋簷/);
+    assert.ok(rain.enemyHp > 0);
+  }
+
+  const moves = ["east", "east", "north", "south", "wait", "west", "wait", "east"];
+  assert.deepEqual(enemyTrace("flyer", moves), enemyTrace("flyer", moves.map(() => "wait")));
+  assert.deepEqual(enemyTrace("flyer-wide", moves), enemyTrace("flyer-wide", moves.map(() => "wait")));
+
+  for (const kind of ["flyer", "flyer-wide"]) {
+    let flyer = createCombat(kind);
+    guard = 0;
+    while (flyer.outcome === "ongoing" && guard < 24) {
+      const door = flyer.nodes[0];
+      let action = "wait";
+      if (!(flyer.player.x === door.x && flyer.player.y === door.y)) {
+        const next = {
+          x: flyer.player.x + Math.sign(door.x - flyer.player.x),
+          y: flyer.player.y + (flyer.player.x === door.x ? Math.sign(door.y - flyer.player.y) : 0),
+        };
+        const blocked = next.x === flyer.enemy.x && next.y === flyer.enemy.y;
+        if (!blocked) action = toward(flyer.player, next);
+      }
+      flyer = stepCombat(flyer, action, emptyCaps);
+      guard += 1;
+    }
+    assert.equal(flyer.outcome, "win", kind);
+    assert.ok(flyer.enemyHp > 0);
+    assert.match(flyer.log, /進門/);
+  }
 });
 
 test("encounter memory round-trips and a rejected write does not throw", () => {

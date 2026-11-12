@@ -8,6 +8,6 @@
 
 重跑：`node --test scripts/gameplay-variety.test.mjs`，然後 `npx tsc --noEmit`。主遊戲用 `npm run dev`，`?qa=1` 才有 `window.__rpgQA`。
 
-扇形小考、護盾監考、截止日桌子已在主遊戲打完。手機與 RTX 3060 沒有實測。沒有 CI 結果。校園點位仍是估計。扇形小考與護盾監考的錨點已離開既有遭遇，避免入口上就被小考打死。
+扇形小考、護盾監考、截止日桌子已在主遊戲打完。點名、坡道積水、發傳單也已各打過一場。這三種不寫進共用的 `ENEMY_TYPES`。手機與 RTX 3060 沒有實測。`7b9bd86` 的 CI 不能代表這次內容。校園點位仍是估計。
 
 下一步：統整線決定要不要讀 story signal。這條線不要改共用 store 的其他欄位。

@@ -12,6 +12,11 @@
       "note": "signals 存在 tamkang-gameplay-variety-v1。統整線再決定怎麼接到教授劇情。這條線不寫 narrative.flags。"
     },
     {
+      "id": "gv-campus-foes",
+      "status": "done",
+      "note": "點名、坡道積水、發傳單各兩個配置。主遊戲打了宮燈教室、五虎崗坡道、活動中心。商管與松濤的第二配置只有單元測試。"
+    },
+    {
       "id": "gv-device",
       "status": "blocked",
       "note": "手機與 RTX 3060 仍是 pending-device。SwiftShader 與 390×780 視窗不能代替。"
