@@ -15,6 +15,7 @@ import { CAMPUS_SITES } from "./campus";
 import { useGame } from "../store";
 import { campusAudio } from "../audio";
 import { landmarkAt, resolveCollision, SPAWN, terrainHeight } from "../world";
+import { substepCollision } from "../world-data/colliders.ts";
 import { pavedAt } from "../world-data/paths.ts";
 import { kenanSection } from "../world-data/kenan.ts";
 import { followCameraSeed, TITLE_ORBIT } from "./follow";
@@ -314,11 +315,16 @@ export function AdventurePlayer() {
           }
         }
       }
-      const nx = interiorId ? pos.current.x : pos.current.x + vel.current.x * delta;
-      const nz = interiorId ? pos.current.z : pos.current.z + vel.current.z * delta;
       const resolved = interiorId
         ? { x: pos.current.x, z: pos.current.z }
-        : collide(nx, nz, PLAYER_R);
+        : substepCollision(
+            pos.current.x,
+            pos.current.z,
+            vel.current.x * delta,
+            vel.current.z * delta,
+            PLAYER_R,
+            collide,
+          );
       const ground = groundAt(resolved.x, resolved.z);
       const step = ground - pos.current.y;
       if (step < 0.7) {
