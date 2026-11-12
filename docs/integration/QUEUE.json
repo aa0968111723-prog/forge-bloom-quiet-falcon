@@ -4928,6 +4928,32 @@
       "integrationPr": 321,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/321",
       "nextAction": "None. The still wind from 427b2489 is already in this integration. Do not merge PR #243 by itself. The still-water commit 0dd53a5c is still separate."
+    },
+    {
+      "id": "art-still-water",
+      "line": "art",
+      "scope": "Reduced motion holds the river clock and the cloud drift. Sky, fog and sun colours still follow the time of day.",
+      "status": "verified",
+      "pr": 244,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/244",
+      "integrationBranch": "cursor/integration-still-water-3395",
+      "sourceBranch": "cursor/still-water-1a71",
+      "baseSha": "cd5ef37b96e4fc7a532cdf01845764311c5d76cf",
+      "headSha": "0dd53a5c10e9ffbcfb7cb3e44bdddfac1543d038",
+      "dependencies": ["art-still-wind"],
+      "sharedFiles": ["src/game/world/scenery-motion.ts", "src/game/world/Water.tsx", "src/game/world/Sky.tsx", "scripts/scenery-motion.test.mjs"],
+      "checks": {
+        "conflicts": "The still wind, library plinth, named boards, campus-gate piers, lamp poles, and trunk boxes stay. Reduced motion now holds the river clock and the cloud drift.",
+        "typecheck": "pass",
+        "npmTest": "455 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BT8g_KwQ.js sha256 227034d99ad0c2dd22ee916e11309dfff2b3e3a6a0991bb4885888df6659bf0e. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8247/",
+        "route": "8247 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "8f7171d2baace5efb944bf216932df6db053c3a0",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #244 by itself. The still-title commit 119f5c3f is still separate."
     }
   ]
 }
