@@ -4839,9 +4839,11 @@
         "route": "8243 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "08b97834ad3872ff5e81613200142fc698b62e78",
-      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #236 by itself. The text-sign commit 23614a9a is still separate."
+      "integrationPr": 318,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/318",
+      "nextAction": "None. The campus-gate piers from f8696f0c are already in this integration. Do not merge PR #236 by itself. The text-sign commit 23614a9a is still separate."
     }
   ]
 }
