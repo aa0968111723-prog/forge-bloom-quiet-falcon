@@ -356,3 +356,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 188 減 180 是 8，也就是分句階段的經驗。筆記沒有加。沈酌的開場看她自己先前的公開或留存，不看這次的分句或分行旗標。
 
 畫面：`/opt/cursor/artifacts/integration-liang-turn/split-outcome.png`、`split-next.png`、`list-outcome.png`、`list-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 沈酌的兩個紀錄選項
+
+這段打在 `AdventureApp-CJBhF4Kt.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-Dkr69rSJ.js`。之後 `main` 進到 `5deed92`（排隊上傳改送最新本機檔，整合 PR #187），合併提交 `420ad49`。差異在雲端客戶端與白名單。靜態重建仍是同一組檔名。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-shen-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-turn` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 349 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出仍是 `index-Dkr69rSJ.js` 與 `AdventureApp-CJBhF4Kt.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到梁晚的分句。點紀錄之前存檔經驗 188、筆記 22。
+
+- 「評圖時把紀錄帶來，給顧衡看。」存檔經驗 196，筆記 22。結果句「我不會寫成教師要求公開。」畫面是 2 級、「經驗 136/180」、生命 108/108、專注 100/100。學期仍是第一週。走到邱寧，她說「最好的小時在社團」。兩個貼表選項都在。離開不結算，沒有 `quest-faculty-qiu-after`。`quest-faculty-shen-turn` 只有一筆。重載後經驗 196、筆記 22，再交談仍是這一句。
+- 「若當時沒寫完整，我現在跟你一起補步驟。」經驗同樣 188→196，筆記 22。結果句「仍然算那一次。」邱寧說「最好的小時在評圖」。離開不結算。重載後這一句還在。
+
+196 減 188 是 8，也就是紀錄階段的經驗。筆記沒有加。邱寧的貼表看先前的社團或評圖旗標，不看這次是帶來還是補步驟。
+
+畫面：`/opt/cursor/artifacts/integration-shen-turn/show-outcome.png`、`show-next.png`、`rebuild-outcome.png`、`rebuild-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。

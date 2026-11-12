@@ -116,7 +116,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Liang's turn on AdventureApp-CJBhF4Kt.js at 1280x720. Split and list each moved store xp from 180 to 188 and left notes at 22. The card showed 128/180. Week-1 stayed. The +8 is the turn stage. Shen's next line followed her earlier flag and was left unpaid."
+      "note": "Two fresh architecture semesters paid Liang's turn on AdventureApp-CJBhF4Kt.js at 1280x720. Split and list each moved store xp from 180 to 188 and left notes at 22. The card showed 128/180. Week-1 stayed. The +8 is the turn stage. Shen's record choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-SHEN-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Shen's record choices on AdventureApp-CJBhF4Kt.js at 1280x720. Show and rebuild each moved store xp from 188 to 196 and left notes at 22. The card showed 136/180. Week-1 stayed. The +8 is the turn stage. Qiu's posting line followed the earlier hour flag and was left unpaid."
     },
     {
       "id": "FI-XU-HUI",
@@ -142,7 +149,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 1c8f11e includes Xu Hui via #182. Merged here as a1a6fff. Do not merge it again. Faculty dialogue files were unchanged. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main 5deed92 includes the cloud retry via #187. Merged here as 420ad49. Do not merge it again. Faculty dialogue files and the static adventure chunk were unchanged. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",
