@@ -4788,6 +4788,32 @@
       "integrationPr": 316,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/316",
       "nextAction": "None. The curated trunks from 07379b70 are already in this integration. Do not merge PR #232 by itself. The dodge-through-trunk commit 2b50ea05 is still separate."
+    },
+    {
+      "id": "art-tree-dodge",
+      "line": "art",
+      "scope": "An 80 ms dodge at 13 m/s takes 0.2 m substeps and stops on the near side of a curated trunk. Sweep casts include the trunk boxes.",
+      "status": "verified",
+      "pr": 232,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/232",
+      "integrationBranch": "cursor/integration-tree-dodge-3395",
+      "sourceBranch": "cursor/tree-stop-1a71",
+      "baseSha": "029fead98914eb6b33bd2d23b57d1bb459c3220b",
+      "headSha": "2b50ea05da4212327763e2eea35b2801a1cdf3ad",
+      "dependencies": ["art-tree-stop"],
+      "sharedFiles": ["src/game/rpg/physics/sweep.ts", "src/game/world-data/colliders.ts", "scripts/tree-stop.test.mjs"],
+      "checks": {
+        "conflicts": "Indoor room steps stayed. Outdoor movement already used 0.2 m substeps. Sweep casts now include trunk boxes and lamp poles.",
+        "typecheck": "pass",
+        "npmTest": "450 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Bd0yGuF3.js unchanged. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8242/",
+        "route": "not rerun. Bundle hash unchanged. Last route on 8242 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "64b73fa26152f0b2e8dd94e9633bc0420dc5d41f",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #232 by itself."
     }
   ]
 }
