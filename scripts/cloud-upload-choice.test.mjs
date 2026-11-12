@@ -2092,3 +2092,117 @@ test("a rejected save is not queued after the database answers", async () => {
   assert.equal(uploaded.status, "error");
   assert.equal(client.queuedCount("user-a"), 0);
 });
+
+test("an expired session keeps this account's upload and reward", async () => {
+  let expired = true;
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const receipts = [];
+  const fetch = async (url, init) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      return expired ? jsonResponse(401, {}) : sessionFor("user-a");
+    }
+    if (String(url).endsWith("/receipts") && init?.method === "POST") {
+      const body = JSON.parse(init.body);
+      receipts.push(body.eventId);
+      return jsonResponse(200, { applied: true, eventId: body.eventId });
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  const uploaded = await client.uploadLocal();
+  assert.equal(uploaded.status, "queued");
+  assert.equal(client.queuedCount("user-a"), 1);
+  let grants = 0;
+  assert.equal(
+    (
+      await client.noteReward("gather-notes", () => {
+        grants += 1;
+      })
+    ).granted,
+    true,
+  );
+  assert.equal(grants, 1);
+  expired = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 2);
+  assert.equal(flushed.paused, false);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 1);
+  assert.equal(head.document.xp, 4);
+  assert.deepEqual(receipts, ["gather-notes"]);
+  assert.equal(
+    (
+      await client.noteReward("gather-notes", () => {
+        grants += 1;
+      })
+    ).granted,
+    false,
+  );
+  assert.equal(grants, 1);
+  assert.equal(client.queuedCount("user-a"), 0);
+});
+
+test("a session with no user keeps this account's upload", async () => {
+  let anonymous = true;
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const fetch = async (url, init) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      return anonymous ? jsonResponse(200, { user: null }) : sessionFor("user-a");
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(7)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  anonymous = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.document.xp, 7);
+});
+
+test("a signed-out save write stays queued for this account", async () => {
+  let rejectPut = true;
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const fetch = async (url, init) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    if (init?.method === "PUT" && rejectPut) {
+      rejectPut = false;
+      return jsonResponse(401, { error: { code: "unauthorized", message: "請先登入。" } });
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  const uploaded = await client.uploadLocal();
+  assert.equal(uploaded.status, "queued");
+  assert.equal(client.queuedCount("user-a"), 1);
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(flushed.paused, false);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 1);
+  assert.equal(head.document.xp, 4);
+});
