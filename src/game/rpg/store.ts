@@ -357,8 +357,12 @@ function loadSave() {
   };
 }
 const saved = loadSave();
+const CLAIM_ID = /^[a-z0-9:_-]{1,64}$/;
 function keepClaim(id: string) {
-  return MISSIONS.some((mission) => mission.id === id) || /^quest-[a-z0-9-]+$/.test(id);
+  return (
+    CLAIM_ID.test(id) &&
+    (MISSIONS.some((mission) => mission.id === id) || /^quest-[a-z0-9-]+$/.test(id))
+  );
 }
 function growthNow() {
   const s = useRpg.getState();
@@ -2630,7 +2634,7 @@ function snapshot() {
     gathered: s.gathered,
     felled: s.felled,
     discoveries: s.discoveries.filter(keepDiscovery),
-    claimed: s.claimed,
+    claimed: s.claimed.filter(keepClaim),
     buildings: s.buildings,
     heldBuild: s.heldBuild,
     slots: inventory.slots(),

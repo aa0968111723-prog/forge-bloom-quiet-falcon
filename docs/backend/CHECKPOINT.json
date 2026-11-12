@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T07:49:32Z",
+  "updated_at": "2026-11-12T07:52:01Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -89,10 +89,12 @@
     "a narrative place the cloud cannot name still uploads",
     "merged main at 6e90df9; the repaired ground pile was already on this branch",
     "a narrative timer outside the cloud range still uploads",
-    "an empty narrative key still uploads the named entries"
+    "an empty narrative key still uploads the named entries",
+    "merged main at 1b24d66; the move-lesson anchor was already on this branch",
+    "a quest claim longer than the cloud allows still uploads the others"
   ],
   "verification": {
-    "npm_test": "400 pass, 0 fail; an empty narrative key still uploads the named entries",
+    "npm_test": "401 pass, 0 fail; a quest claim longer than the cloud allows still uploads the others",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
