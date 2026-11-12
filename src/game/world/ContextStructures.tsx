@@ -1085,12 +1085,12 @@ export function ContextStructures({
           const profile = gardenHouseProfile(s.size);
           return (
             <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
-              <mesh position={[0, 0.7, 0]} castShadow receiveShadow>
-                <boxGeometry args={[s.size[0], 1.4, s.size[2]]} />
+              <mesh position={[0, profile.baseH / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], profile.baseH, s.size[2]]} />
                 <meshStandardMaterial color="#8d734c" roughness={0.86} />
               </mesh>
-              <mesh position={[0, 0.7 + (s.size[1] - 1.4) / 2, 0]} castShadow receiveShadow>
-                <boxGeometry args={[s.size[0] - 0.3, Math.max(1, s.size[1] - 1.4), s.size[2] - 0.3]} />
+              <mesh position={[0, profile.wallY, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0] - 0.3, profile.bodyH, s.size[2] - 0.3]} />
                 <meshStandardMaterial color="#f6f1e6" roughness={0.84} />
               </mesh>
               <mesh position={[0, s.size[1] + profile.roofH / 2, 0]} castShadow>
