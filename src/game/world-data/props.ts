@@ -9,6 +9,7 @@ import {
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
 import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { COLLIDERS } from "./colliders.ts";
+import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
 
 /**
@@ -178,11 +179,11 @@ function northProps(): PropInstance[] {
   for (let k = 0; k < 6; k++) {
     out.push(prop("bench", -12 + k * 8.4, AXIS.libraryFrontZ + 6.4, "library", Math.PI));
   }
-  out.push(prop("ramp", LIBRARY.center[0] - 20, AXIS.libraryFrontZ + 1.6, "library", 0, 1, 14));
+  out.push(prop("ramp", LIBRARY_RAMP.x, LIBRARY_RAMP.z, "library", 0, 1, LIBRARY_RAMP.length));
   out.push(prop("tactile-strip", 10, AXIS.libraryFrontZ + 9, "library", 0, 1, 16));
   out.push(prop("name-plate", 10, AXIS.libraryFrontZ + 0.15, "library", Math.PI / 2, 1.6));
   out.push(prop("bin", 20, AXIS.libraryFrontZ + 6, "library"));
-  out.push(prop("bin", -2, AXIS.libraryFrontZ + 6, "library"));
+  out.push(prop("bin", LIBRARY_RAMP.x - 3.4, LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2 + 1.2, "library"));
   out.push(prop("utility-box", LIBRARY.center[0] + 26, AXIS.libraryFrontZ + 4, "library", -Math.PI / 2));
   out.push(prop("hydrant", -6, AXIS.libraryFrontZ + 4, "library"));
   for (let k = 0; k < 8; k++) {

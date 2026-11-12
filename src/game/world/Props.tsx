@@ -1,7 +1,8 @@
-import { useLayoutEffect, useMemo, useRef, type JSX } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, type JSX } from "react";
 import * as THREE from "three";
 import { quality } from "../quality";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
+import { libraryRampTriangles } from "../world-data/library-ramp.ts";
 import { PROPS, type PropInstance, type PropKind } from "../world-data/props.ts";
 import { VendorModel, type VendorInstance } from "./vendor";
 
@@ -104,7 +105,7 @@ function buildParts(kind: PropKind): Part[] {
     case "tactile-strip":
       return [{ geometry: box(0.6, 0.03, 1), material: { color: "#d9bc55", roughness: 0.8 }, offset: [0, 0.02, 0], stretchZ: true }];
     case "ramp":
-      return [{ geometry: box(1.6, 0.1, 1), material: CONCRETE, offset: [0, 0.06, 0], stretchZ: true }];
+      return [];
     case "planter":
       return [
         { geometry: box(0.8, 0.45, 1), material: CONCRETE, offset: [0, 0.22, 0], stretchZ: true, castShadow: true },
@@ -123,6 +124,22 @@ function buildParts(kind: PropKind): Part[] {
         { geometry: cyl(0.05, 0.05, 1.0, 6), material: METAL_DARK, offset: [0.8, 0.5, 0] },
       ];
   }
+}
+
+function LibraryRampMesh() {
+  const geometry = useMemo(() => {
+    const positions = new Float32Array(libraryRampTriangles().flat(2));
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geo.computeVertexNormals();
+    return geo;
+  }, []);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  return (
+    <mesh geometry={geometry} receiveShadow>
+      <meshStandardMaterial {...CONCRETE} />
+    </mesh>
+  );
 }
 
 function PartLayer({ part, instances }: { part: Part; instances: PropInstance[] }) {
@@ -198,6 +215,7 @@ export function Props({ lampsOn: _lampsOn }: { lampsOn: boolean }) {
           }));
           return <VendorModel key={kind} url={vendor.url} instances={vendorInstances} />;
         }
+        if (kind === "ramp") return <LibraryRampMesh key={kind} />;
         const parts = buildParts(kind);
         return (
           <group key={kind}>

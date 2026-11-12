@@ -327,3 +327,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 50 輪（路燈淨空）— 2026-11-12
 
 `node --test scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。每一盞路燈的中心都在碰撞體外面。商管大樓那盞在南牆外，z 大於 -171。海事博物館那盞在南牆外，z 大於 -242。圖書館名牌朝南，z 在南牆外側。定步白天，頁面無錯誤：`docs/art/evidence/props/business.jpg`、`museum.jpg`。兩盞燈都站在牆前的草地上。位置仍是 estimated。化學館留在第 49 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CBoDD94C.js`。
+
+## 第 51 輪（圖書館坡道）— 2026-11-12
+
+`node --test scripts/library-ramp.test.mjs` 通過。`tsc --noEmit` 通過。坡道北端在圖書館南牆外 0.4 m 以內，高度是 1.05 m。南端貼地。坡道外側 0.5 m 裙邊收到 0。頂面法線朝上。網格頂點用的是走路高度，坡端和裙邊中點的網格與腳底相差小於 2 cm。人站在坡面上。定步白天從南端看，頁面無錯誤：`docs/art/evidence/ramp/slope.jpg`。同一站點量到北端地面 20.74、南端 19.51、坡外 19.59。坡度仍是 estimated。路燈淨空留在第 50 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BLw17Z0-.js`。
