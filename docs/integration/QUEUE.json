@@ -2634,7 +2634,7 @@
       "id": "backend-save-blip",
       "line": "backend",
       "scope": "A dropped upload that already landed is still replaced with the chosen local file when the follow-up session read fails. A different account does not receive that write.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-save-blip-3395",
@@ -2652,9 +2652,11 @@
         "route": "8169: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "e0aff3acd559742ace7c7900e3a1dc9d8c2a1622",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 198,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/198",
+      "nextAction": "None. The session-blip write-back from 26afab8 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
