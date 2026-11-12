@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：松濤二館（ART-068 的一部分）
+
+松濤二館的南向有底層玻璃和雨遮，屋頂量體留著。其他四館仍是暖色宿舍。門面是 estimated，不是實測立面。
+
+畫面：`docs/art/evidence/sungtao/front.jpg`。測試：`scripts/dorm-front.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。松濤二館已有公共門面。其他松濤館仍是宿舍。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
