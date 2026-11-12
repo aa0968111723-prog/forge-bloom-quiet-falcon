@@ -3054,7 +3054,7 @@
       "id": "art-track-infield",
       "line": "art",
       "scope": "The track infield is a 24 by 40 m pitch with a centre line and no net. Every end stays inside the inner oval.",
-      "status": "verified",
+      "status": "merged",
       "pr": 167,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/167",
       "integrationBranch": "cursor/integration-grass-pitch-3395",
@@ -3072,9 +3072,11 @@
         "route": "8184: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "ab3d088555c0da0b1d3435cc333ff19972a8454d",
-      "nextAction": "Open the integration PR, then fast-forward. Do not merge PR #167 by itself."
+      "integrationPr": 225,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/225",
+      "nextAction": "None. The track infield from 6bf79fe is already in this integration. Do not merge PR #167 by itself."
     }
   ]
 }
