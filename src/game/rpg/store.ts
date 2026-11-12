@@ -2811,7 +2811,8 @@ export function flushSave() {
 function scheduleSave() {
   dirty = true;
   if (foreignText) return;
-  if (saveTimer) clearTimeout(saveTimer);
+  // Keep the first deadline. Continuous healing used to push the write forever.
+  if (saveTimer) return;
   if (useRpg.getState().saved !== "pending") useRpg.setState({ saved: "pending" });
   saveTimer = setTimeout(flushSave, SAVE_DELAY);
 }

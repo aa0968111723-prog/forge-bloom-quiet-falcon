@@ -28,7 +28,7 @@ await register(
   import.meta.url,
 );
 
-const { RPG_SAVE_KEY, flushSave, inventory, noteCloudSave, useRpg } = await import(
+const { RPG_SAVE_KEY, flushSave, inventory, noteCloudSave, tickRpg, useRpg } = await import(
   "../src/game/rpg/store.ts"
 );
 const { useGame } = await import("../src/game/store.ts");
@@ -1618,5 +1618,39 @@ test("a direct import of a dead save stays outside", async () => {
   assert.equal(useRpg.getState().hp, 0);
   assert.equal(useRpg.getState().interiorId, null);
   assert.equal(useGame.getState().phase, "title");
+  assert.equal(validateRpgDocument(saved).ok, true);
+});
+
+test("healing indoors still writes the living floor", async () => {
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+    floor: 1,
+    panel: null,
+    focus: 100,
+  });
+  useGame.setState({
+    phase: "playing",
+    plaqueId: null,
+    playerX: 12,
+    playerZ: -20,
+    playerYaw: 0,
+    benchmarkId: null,
+  });
+  flushSave();
+  useRpg.setState({ interiorId: "library", floor: 3, hp: 30 });
+  const start = Date.now();
+  while (Date.now() - start < 2500) {
+    tickRpg(0.05);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+  }
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.interiorId, "library");
+  assert.equal(saved.floor, 3);
+  assert.ok(saved.hp > 30);
+  assert.equal(useRpg.getState().interiorId, "library");
+  assert.equal(useRpg.getState().floor, 3);
   assert.equal(validateRpgDocument(saved).ok, true);
 });
