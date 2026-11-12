@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T02:28:00Z",
+  "updated": "2026-11-12T02:48:00Z",
   "items": [
     {
       "id": "FI-MUTEX",
@@ -18,7 +18,7 @@
       "status": "verified",
       "merged": false,
       "deployed": false,
-      "note": "week-1 until quest-orient-gate and quest-errand-campus-post are both claimed. finals only after those two and mission first. Browser confirmed week-1 to midterm. Finals is unit-tested only."
+      "note": "Browser route: locked at 1/3 while midterm, then three kills and one claim of mission first. xp 666, text 期末 · 委託已結算. Reload and second client stay finals. A second claim does not pay."
     },
     {
       "id": "FI-SUPPLY",

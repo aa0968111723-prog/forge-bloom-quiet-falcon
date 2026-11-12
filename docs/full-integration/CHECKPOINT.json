@@ -1,18 +1,18 @@
 {
-  "updated": "2026-11-12T02:38:00Z",
+  "updated": "2026-11-12T02:48:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "f5ac6538072dc5ba303f3de6d5893e5d90f72f2e",
-  "gameSha": "85c21ba5d829a6c12d16ed5ed857018742e48872",
+  "base": "54dfe86879bb0998cd30a43d3a082c2385cde4e3",
+  "gameSha": "a56956caf53bf795ef6f69b83a5aa2750d398e71",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "cursor/gameplay-variety-fb95@d82bf0056f51b7a4f1bcecf28d1146690fbdc3ab",
-  "verifiedHead": "85c21ba5d829a6c12d16ed5ed857018742e48872",
-  "routeScript": "Shen Zhuo quiet-talk step is uncommitted until the docs commit. The played bundle is the 85c21ba build.",
+  "verifiedHead": "a56956caf53bf795ef6f69b83a5aa2750d398e71",
+  "routeScript": "The first-mission steps are committed with these notes. The played bundle is the a56956c build; the route script does not change the client.",
   "soleMerger": {
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear is on main via #133. Encounters via #136. Faculty through the gesture commit via #139 at f5ac653. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, street lamps #141 at 54dfe86. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -26,13 +26,12 @@
     "Browser route at 1280x720 shows both of 顧衡's opening choices, picks 我先補剖面，補完再請你看。, and keeps fac-gu-meet-line. The other flag stays false.",
     "That choice pays quest-faculty-gu-meet and quest-faculty-studio-meet once. xp goes from 512 to 534. Semester stays midterm. Reload and the second cloud client keep the claims and the flag.",
     "Standing at the architecture post also discovered the existing architecture site, +12, which is why xp is 534 rather than 522.",
-    "Talking to 沈酌 before her line is open shows 這位現在沒有新的話說。上一件事還沒完成，或這段已經談完。 Panel stays null. xp stays 512. Then 顧衡 still pays once, to 546.",
-    "npm test 306 pass / 0 fail. tsc passed. build:site passed. The full route exited 0, including the wrench and the second cloud client."
+    "Mission first stays locked at 1/3 kills and semester stays midterm. After quiz-2 and quiz-1 also fall, kills are 3. The journal button pays once: xp 666, text 期末 · 委託已結算. Reload and the second client keep finals.",
+    "npm test 307 pass / 0 fail. build:site passed. The full route exited 0."
   ],
   "todo": [
     "Play the other 顧衡 choice in a second fresh save. This browser pass only selected the line choice. The fail choice outcome is in scripts/faculty-story.test.mjs.",
-    "Play finals only after midterm and mission first.",
-    "The other eight college skills are not played yet.",
+    "The other eight college skills are still not played from a changed department.",
     "Gesture clips were not re-timed on this host. A still frame cannot show that idle, talk, and deliver are smooth.",
     "Leave further art merges to the running integrator."
   ],
@@ -42,5 +41,5 @@
     "AGENTS.md is absent.",
     "Gesture timing is pending a recording, not a still frame."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is the other eight college skills and finals only after mission first. Do not flip MAIN_INTEGRATION. Do not merge faculty, gear, or encounters again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is the other eight college skills from the department the player actually picks. Do not flip MAIN_INTEGRATION. Do not merge lamps, faculty, gear, or encounters again. Do not merge PR #32 head 1fc5887."
 }

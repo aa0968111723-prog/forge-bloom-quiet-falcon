@@ -541,6 +541,65 @@ async function playOffline(page) {
   await page.getByRole("button", { name: "關閉" }).click();
   note("craft-wrench", wornGear);
 
+  await page.setViewportSize({ width: 1280, height: 720 });
+  assert.equal((await readLive(page)).semester, "midterm");
+  await page.getByRole("button", { name: "學期委託" }).click();
+  const lockedMission = page.locator("article").filter({
+    has: page.getByRole("heading", { name: "第一堂異象課" }),
+  });
+  const lockedButton = lockedMission.getByRole("button", { name: "領取獎勵" });
+  await lockedButton.waitFor({ state: "visible", timeout: 15000 });
+  assert.equal(await lockedButton.isDisabled(), true);
+  await shot(page, "10-mission-locked");
+  await page.getByRole("button", { name: "關閉" }).click();
+  const kills = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg;
+    for (const id of ["quiz-2", "quiz-1", "report-1", "exam-1"]) {
+      if (rpg.getState().kills >= 3) break;
+      const enemy = rpg.getState().enemies.find((item) => item.id === id);
+      if (!enemy || enemy.hp <= 0) continue;
+      window.__controlsTest.setPose(enemy.x, enemy.z + 2.4, 0);
+      let hp = enemy.hp;
+      for (let i = 0; i < 40 && hp > 0; i += 1) {
+        rpg.setState({ attackUntil: 0, panel: null });
+        rpg.getState().attack(false);
+        hp = rpg.getState().enemies.find((item) => item.id === id)?.hp ?? 0;
+      }
+    }
+    return rpg.getState().kills;
+  });
+  assert.ok(kills >= 3, `kills stayed at ${kills}`);
+  const armedMission = await readLive(page);
+  assert.equal(armedMission.semester, "midterm");
+  assert.equal(armedMission.claimed.includes("first"), false);
+  await page.getByRole("button", { name: "學期委託" }).click();
+  const mission = page.locator("article").filter({
+    has: page.getByRole("heading", { name: "第一堂異象課" }),
+  });
+  const xpBeforeClaim = (await readLive(page)).xp;
+  await mission.getByRole("button", { name: "領取獎勵" }).click();
+  const claimedMission = await readLive(page);
+  assert.ok(claimedMission.claimed.includes("first"));
+  assert.equal(claimedMission.claimed.filter((id) => id === "first").length, 1);
+  assert.equal(claimedMission.semester, "finals");
+  assert.equal(claimedMission.semesterText, "期末 · 委託已結算");
+  assert.equal(claimedMission.xp, xpBeforeClaim + 60);
+  assert.equal(await mission.getByRole("button", { name: "已領取" }).isDisabled(), true);
+  const paidOnce = await page.evaluate(() => {
+    const before = window.__rpgQA.rpg.getState().xp;
+    window.__rpgQA.rpg.getState().claim("first");
+    return window.__rpgQA.rpg.getState().xp === before;
+  });
+  assert.equal(paidOnce, true);
+  await page.getByRole("button", { name: "關閉" }).click();
+  await shot(page, "10b-finals");
+  note("mission-first", {
+    kills,
+    xp: claimedMission.xp,
+    semester: claimedMission.semester,
+    text: claimedMission.semesterText,
+  });
+
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const savedText = await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2"));
   const saved = JSON.parse(savedText);
@@ -557,7 +616,9 @@ async function playOffline(page) {
   assert.ok(reloaded.claimed.includes("quest-gv-night-peace"));
   assert.ok(reloaded.claimed.includes("quest-faculty-gu-meet"));
   assert.ok(reloaded.claimed.includes("quest-faculty-studio-meet"));
-  assert.equal(reloaded.semester, "midterm");
+  assert.ok(reloaded.claimed.includes("first"));
+  assert.equal(reloaded.claimed.filter((id) => id === "first").length, 1);
+  assert.equal(reloaded.semester, "finals");
   assert.equal(reloaded.equipped, true);
   assert.ok(reloaded.buildings.includes("lantern"));
   assert.ok(reloaded.buildings.includes("research"));
@@ -738,7 +799,8 @@ async function syncCloud(document) {
     assert.ok(remote.claimed.includes("quest-gv-night-peace"));
     assert.ok(remote.claimed.includes("quest-faculty-gu-meet"));
     assert.equal(remote.narrative.flags["fac-gu-meet-line"], true);
-    assert.equal(remote.narrative.semester, "midterm");
+    assert.ok(remote.claimed.includes("first"));
+    assert.equal(remote.narrative.semester, "finals");
     assert.equal(remote.equipped, true);
     assert.equal(remote.loadout.tool, "repair-wrench");
     assert.equal(remote.loadout.accessory, "badge");
