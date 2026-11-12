@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T10:14:08Z",
+  "updated_at": "2026-11-12T10:18:40Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "fe1ed26",
+  "base": "342e6b2",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -130,7 +130,8 @@
     "merged main at de1d7c1; the quest-mark merge was already on this branch",
     "experience, defeats, and the game clock inside the cloud cap survive import",
     "merged main at fe1ed26; the spilled errand notes were already on this branch",
-    "confirming an import keeps a living interior floor"
+    "confirming an import keeps a living interior floor",
+    "merged main at 342e6b2; the lifetime build count and spilled variety rewards were already on this branch"
   ],
   "verification": {
     "npm_test": "426 pass, 0 fail; confirming an import keeps a living interior floor",
@@ -141,5 +142,9 @@
     "build_site": "npm run build:site passed; dist has no cloud-save or DATABASE_URL"
   },
   "next_action": "When a later merge adds a snapshot() field, extend the cloud whitelist and re-run npm test plus the live-save fixture. Do not merge or deploy.",
-  "out_of_scope": ["competitive leaderboard", "production deploy", "art and campus geometry"]
+  "out_of_scope": [
+    "competitive leaderboard",
+    "production deploy",
+    "art and campus geometry"
+  ]
 }
