@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { SWIMMING_POOL, poolBlockPositions, poolLaneOffsets } from "../src/game/rpg/interior-layout.ts";
+import { SWIMMING_POOL, interiorSpawn, poolBlockPositions, poolLaneOffsets } from "../src/game/rpg/interior-layout.ts";
 import { stepInterior } from "../src/game/rpg/physics/interior.ts";
 import { resolveInterior } from "../src/game/rpg/rules.ts";
 
@@ -50,4 +50,12 @@ test("the swimming hall keeps a body on the deck", () => {
   const gymWalk = stepInterior(0, 1, 0, -0.2, radius, false, true, false, false, false);
   assert.equal(gymWalk.x, 0);
   assert.ok(gymWalk.z < 1);
+
+  const spawn = interiorSpawn("swimming");
+  assert.ok(spawn.z >= SWIMMING_POOL.halfZ + radius + 0.5);
+  const stood = onWater(spawn.x, spawn.z);
+  assert.equal(stood.x, spawn.x);
+  assert.equal(stood.z, spawn.z);
+  assert.equal(interiorSpawn("gym").z, 4);
+  assert.equal(interiorSpawn("palace").z, 4);
 });

@@ -96,6 +96,12 @@ export function poolLaneOffsets() {
   return Array.from({ length: lanes - 1 }, (_, i) => -halfZ + step * (i + 1));
 }
 
+/** Where a body appears on entering or resuming an interior. The pool deck stays south of the water. */
+export function interiorSpawn(id: string) {
+  if (id === "swimming") return { x: 0, z: SWIMMING_POOL.halfZ + 1.2, yaw: 0 };
+  return { x: 0, z: 4, yaw: 0 };
+}
+
 export function poolBlockPositions() {
   const { halfX, halfZ, lanes } = SWIMMING_POOL;
   const step = (halfZ * 2) / lanes;

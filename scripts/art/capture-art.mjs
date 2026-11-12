@@ -1225,7 +1225,9 @@ try {
   } else if (scenario === "pool-water") {
     await hideHud(page);
     await enterInterior(page, "swimming");
-    await setPose(page, 0, 5.6, 0);
+    await frames(page, 8);
+    const spawned = await page.evaluate(() => window.__controlsTest.getPosition());
+    if (spawned.z < 5) throw new Error(`spawned in the water ${JSON.stringify(spawned)}`);
     await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
     await frames(page, 36);
     await page.evaluate(() => window.__controlsTest.setKeys([]));
@@ -1234,7 +1236,7 @@ try {
       window.__controlsTest.setPhoto({ yaw: 0.45, distance: 12, height: 8.2, lookY: 0.3 });
     });
     await frames(page, 6);
-    await shot(page, "lanes", `stopped ${JSON.stringify(stopped)}`);
+    await shot(page, "lanes", `spawned ${JSON.stringify(spawned)} stopped ${JSON.stringify(stopped)}`);
     if (stopped.z < 4.3 || stopped.z > 4.7) throw new Error(`walked into the water ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
