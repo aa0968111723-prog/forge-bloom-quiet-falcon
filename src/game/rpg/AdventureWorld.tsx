@@ -33,7 +33,7 @@ import { gearBonus, instanceFor } from "../../features/items-equipment-building/
 import { quality } from "../quality";
 import { signHost } from "./chrome";
 import { detailedRoom, InteriorDetails, roomFinish } from "./InteriorDetails";
-import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
+import { ACTIVITY_COURT, ROOM_TABLE_SIZE, ROOM_TABLES, activityCourtSegments } from "./interior-layout";
 import { Monster } from "./art/Monster";
 import { SkillEffects } from "./art/SkillEffects";
 import { StructuralPulse } from "../art/vfx/StructuralPulse";
@@ -517,9 +517,16 @@ export function Interior() {
             <meshBasicMaterial color="#e9dbb1" />
           </mesh>
           <mesh position={[0, 0.03, 0]}>
-            <boxGeometry args={[17, 0.02, 0.06]} />
+            <boxGeometry args={[site.id === "gym" ? ACTIVITY_COURT.halfX * 2 : 17, 0.02, 0.06]} />
             <meshBasicMaterial color="#e9dbb1" />
           </mesh>
+          {site.id === "gym" &&
+            activityCourtSegments().map((mark, index) => (
+              <mesh key={index} position={mark.position}>
+                <boxGeometry args={mark.size} />
+                <meshBasicMaterial color="#e9dbb1" />
+              </mesh>
+            ))}
           {[-1, 1].map((side) => (
             <group key={side} position={[side * 8, 0, 0]}>
               <mesh position={[0, 2.3, 0]}>

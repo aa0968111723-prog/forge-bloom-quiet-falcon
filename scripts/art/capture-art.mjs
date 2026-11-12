@@ -699,6 +699,15 @@ try {
     await frames(page, 4);
     await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x > -2.4) throw new Error(`walked through the bollard ${JSON.stringify(stopped)}`);
+  } else if (scenario === "gym-floor") {
+    await hideHud(page);
+    await enterInterior(page, "gym");
+    await setPose(page, 0, 1.2, Math.PI);
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.55, distance: 10, height: 7.2, lookY: 0.4 });
+    });
+    await frames(page, 8);
+    await shot(page, "court", "activity room court lines between the hoops");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
