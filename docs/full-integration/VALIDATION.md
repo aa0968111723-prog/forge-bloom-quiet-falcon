@@ -950,3 +950,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 38 減 30 是 8，也就是衝突階段的經驗。筆記加 1。報告那一句不看這次是空著等還是標成暫定。
 
 畫面：`/opt/cursor/artifacts/integration-sang-clash/wait-outcome.png`、`wait-next.png`、`draft-outcome.png`、`draft-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這兩種玩法筆記匯入。
+
+## 桑知的兩個報告選項
+
+這段打在 `AdventureApp-mqgMY3sR.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-CgJcOhPo.js`。`main` 尖端 `95d35d1` 註記 PR #254，GitHub 上這份 PR 的狀態是 MERGED。遊戲變更是 `3a2be39`。合併提交 `9b935d7`。主遊戲檔 889875 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-sang-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-sang-turn` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 406 通過、0 失敗。對象是合併 `9b935d7` |
+| `npm run build:site` | 產出 `index-CgJcOhPo.js` 與 `AdventureApp-mqgMY3sR.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場和衝突。點報告之前存檔經驗 38、筆記 19。這一次點選沒有新增校園發現項目。
+
+- 「我只講自己寫的那一段。」之前先選對調，衝突選空著等。存檔經驗 46，筆記仍是 19。結果句「你沒有把結論講成只有你的。」畫面是 1 級、「經驗 46/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「可以交了」。兩個交作業選項都在。離開不結算，沒有 `quest-faculty-case-after`。`quest-faculty-case-turn` 只有一筆。沒有工作室任務。重載後經驗 46、筆記 19，再交談仍是「可以交了」。
+- 「我們各講一半，結論不獨佔。」之前先選一起寫，衝突標成暫定。經驗同樣 38→46，筆記停在 19。結果句「不在台上收成一個人的話。」再交談，她改說「它還在」。兩個交作業選項仍在。離開不結算。重載後這一句還在，生命仍是 100/100。
+
+46 減 38 是 8，也就是報告階段的經驗。這一拍不加筆記。交作業那一句看的是衝突有沒有標成暫定，不看報告選了哪句。
+
+畫面：`/opt/cursor/artifacts/integration-sang-turn/own-outcome.png`、`own-next.png`、`half-outcome.png`、`half-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次種子匯入。
