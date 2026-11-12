@@ -1,6 +1,7 @@
 import { CAMPUS_SITES } from "../../game/rpg/campus.ts";
 import type {
   Choice,
+  Condition,
   Effect,
   EventRecord,
   Line,
@@ -85,9 +86,16 @@ function effects(post: FacultyPost, beat: BeatSpec, choice: BeatSpec["choices"][
   return list;
 }
 
+function lineWhen(entry: { flag?: string; flags?: string[] }): Condition {
+  if (entry.flags?.length) {
+    return { op: "all", of: entry.flags.map((id) => ({ op: "flag", id, equals: true })) };
+  }
+  return { op: "flag", id: entry.flag ?? "", equals: true };
+}
+
 function linesOf(beat: BeatSpec): Line[] {
   const conditional = (beat.flagLines ?? []).map((entry) => ({
-    when: { op: "flag" as const, id: entry.flag, equals: true },
+    when: lineWhen(entry),
     text: zh(entry.text),
   }));
   return [...conditional, { text: zh(beat.line) }];

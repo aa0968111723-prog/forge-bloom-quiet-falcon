@@ -18,6 +18,7 @@ import {
   createPlay,
   leave,
   loadCatalog,
+  openingLine,
   talk,
   validateCatalog,
 } from "../src/features/narrative/index.ts";
@@ -95,7 +96,37 @@ test("six side lines and the two extra arcs have different goals and both ending
     playFacultyLine("cross-a", prepCross(0), 0).play.session.memory["npc-jian-heng:after"],
     playFacultyLine("cross-b", prepCross(1), 1).play.session.memory["npc-jian-heng:after"],
   );
+  const heard = playFacultyLine("cross-hear", prepCross(0), 0);
+  const classed = playFacultyLine("cross-class", prepCross(1), 1);
+  const turnAt = prepCross(0).indexOf("evt-faculty-heng-turn");
+  assert.match(heard.openings[turnAt], /先修/);
+  assert.match(heard.openings[turnAt], /見習/);
+  assert.match(classed.openings[turnAt], /不能改期/);
+  assert.match(classed.openings[turnAt], /商管課/);
+  assert.notEqual(heard.openings[turnAt], classed.openings[turnAt]);
+  const mixed = openingAt(
+    playOnto(playOnto(createPlay("cross-mix"), ["evt-faculty-he-meet"], 0), ["evt-faculty-jiang-meet"], 1),
+    "evt-faculty-heng-turn",
+    ["evt-faculty-heng-meet", "evt-faculty-heng-clash"],
+  );
+  assert.match(mixed, /先修/);
+  assert.match(mixed, /商管的課/);
+  const jiangTurn = openingAt(
+    playOnto(createPlay("jiang-hears-he"), ["evt-faculty-he-meet"], 1),
+    "evt-faculty-jiang-turn",
+    ["evt-faculty-jiang-meet", "evt-faculty-jiang-clash"],
+  );
+  assert.match(jiangTurn, /不能改期/);
+  assert.doesNotMatch(jiangTurn, /先留了先修/);
 });
+
+function openingAt(play, eventId, leadIn) {
+  const ready = playOnto(play, leadIn, 0);
+  const event = catalog.events.find((entry) => entry.id === eventId);
+  const talking = talk(catalog, arrive(catalog, ready, event.placeId));
+  assert.equal(talking.ui.eventId, eventId);
+  return openingLine(catalog, talking);
+}
 
 function playOnto(play, eventIds, choiceIndex) {
   let next = play;
