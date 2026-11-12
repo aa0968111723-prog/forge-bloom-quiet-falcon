@@ -3859,9 +3859,11 @@
         "route": "8212: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "c9c12b0504b2c4e9465b272303de802e22c18866",
-      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 275,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/275",
+      "nextAction": "None. The stack-room overflow from e93edbf8 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
