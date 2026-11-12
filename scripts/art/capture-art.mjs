@@ -1238,6 +1238,27 @@ try {
     await frames(page, 6);
     await shot(page, "lanes", `spawned ${JSON.stringify(spawned)} stopped ${JSON.stringify(stopped)}`);
     if (stopped.z < 4.3 || stopped.z > 4.7) throw new Error(`walked into the water ${JSON.stringify(stopped)}`);
+  } else if (scenario === "swan") {
+    await hideHud(page);
+    await enterInterior(page, "museum");
+    await setPose(page, 0, -3.4, 0);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 30);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPose(2.2, -3.6, -0.7);
+      window.__controlsTest.setPhoto({
+        yaw: -0.9,
+        distance: 3.4,
+        height: 1.45,
+        lookY: 0.55,
+        target: { x: 0, y: 0, z: -5.3 },
+      });
+    });
+    await frames(page, 6);
+    await shot(page, "plinth", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.z < -4.3 || stopped.z > -4.0) throw new Error(`walked through the swan ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

@@ -80,6 +80,7 @@ export function AdventurePlayer() {
           useRpg.getState().interiorId === "palace",
           useRpg.getState().interiorId === "library",
           useRpg.getState().interiorId === "swimming",
+          useRpg.getState().interiorId === "museum",
         )
       : resolveBuildings(x, z, radius, useRpg.getState().buildings);
   const { camera, gl } = useThree();
@@ -302,6 +303,7 @@ export function AdventurePlayer() {
           interiorId === "palace",
           interiorId === "library",
           interiorId === "swimming",
+          interiorId === "museum",
         );
         pos.current.x = step.x;
         pos.current.z = step.z;

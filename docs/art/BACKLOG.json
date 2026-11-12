@@ -681,10 +681,12 @@
         "docs/art/evidence/museum/bow.jpg",
         "docs/art/evidence/exhibits/jet.jpg",
         "docs/art/evidence/exhibits/heli.jpg",
+        "docs/art/evidence/museum/swan.jpg",
         "scripts/ship-bow.test.mjs",
-        "scripts/museum-exhibits.test.mjs"
+        "scripts/museum-exhibits.test.mjs",
+        "scripts/swan-exhibit.test.mjs"
       ],
-      "notes": "守謙國際會議中心是低寬量體。視聽教育館從坡頂改成深色廳堂加舞台塔。文學館仍是坡頂。海事博物館的船首蓋住前臉再收到尖端，船首長度仍是 estimated。北側停了一架戰鬥機和一架直升機，平行於船身，會擋人，南門留著。旋翼不轉。學生活動中心從綠瓦坡頂改成一層門廳、南向玻璃、遮陽板和退縮的上層，沒有共用窗帶。覺軒仍是坡頂。門廳外形仍是 estimated。行政大樓從教學樓基座改成石色樓身、南向入口玻璃和兩條窗帶。會文館仍是教學樓。教育館另有雨遮。外語大樓另有長廊。舊的 admin-hall 不合併。入口位置仍待測。濯纓苑／校史館從圖書館外牆改成白牆、木色基座、綠瓦坡頂和南向迴廊。迴廊貼著南牆。外形仍是 estimated。"
+      "notes": "守謙國際會議中心是低寬量體。視聽教育館從坡頂改成深色廳堂加舞台塔。文學館仍是坡頂。海事博物館的船首蓋住前臉再收到尖端，船首長度仍是 estimated。北側停了一架戰鬥機和一架直升機，平行於船身，會擋人，南門留著。旋翼不轉。室內北牆有一座黑天鵝剪影，1.4 m 台座會擋人，沒有新的清冊編號。學生活動中心從綠瓦坡頂改成一層門廳、南向玻璃、遮陽板和退縮的上層，沒有共用窗帶。覺軒仍是坡頂。門廳外形仍是 estimated。行政大樓從教學樓基座改成石色樓身、南向入口玻璃和兩條窗帶。會文館仍是教學樓。教育館另有雨遮。外語大樓另有長廊。舊的 admin-hall 不合併。入口位置仍待測。濯纓苑／校史館從圖書館外牆改成白牆、木色基座、綠瓦坡頂和南向迴廊。迴廊貼著南牆。外形仍是 estimated。"
     },
     {
       "id": "ART-067",

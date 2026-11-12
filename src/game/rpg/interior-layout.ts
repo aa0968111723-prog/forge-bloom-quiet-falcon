@@ -110,3 +110,10 @@ export function poolBlockPositions() {
     z: -halfZ + step * (i + 0.5),
   }));
 }
+
+/**
+ * Black-swan plinth in the museum interior. The bird is an estimated
+ * silhouette. The pad is wide enough that a dodge cannot step through it,
+ * and its north face stays inside the room.
+ */
+export const MUSEUM_SWAN = { x: 0, z: -5.3, size: 1.4 };

@@ -662,6 +662,11 @@
 
 畫面：`docs/art/evidence/pool/lanes.jpg`。測試：`scripts/pool-water.test.mjs`。
 
-## 下一步
+## 階段：黑天鵝（ART-066 的一部分）
 
-見 `CHECKPOINT.json`。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+海事博物館室內北牆是一座黑天鵝剪影和寫著黑天鵝的台座。人走到台座會停在外面，也留在房間裡。閱讀室沒有這座台座。船型外觀留著。外形仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/museum/swan.jpg`。測試：`scripts/swan-exhibit.test.mjs`。
+
+## 下一步
+見 `CHECKPOINT.json`。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

@@ -8,6 +8,7 @@ import { RECIPES, type BuildKind } from "./data.ts";
 import {
   CLASSROOM_DESK,
   HOOP_STANDS,
+  MUSEUM_SWAN,
   READING_CARRELS,
   ROOM_TABLES,
   ROOM_TABLE_SIZE,
@@ -315,6 +316,7 @@ export function resolveInterior(
   podium = false,
   carrels = false,
   water = false,
+  exhibit = false,
 ) {
   const minX = -9 + radius, maxX = 9 - radius, minZ = -7 + radius, maxZ = 7 - radius;
   let px = Math.max(minX, Math.min(maxX, x)),
@@ -373,6 +375,23 @@ export function resolveInterior(
     if (Math.abs(px) < hx && Math.abs(pz) < hz) {
       if (hx - Math.abs(px) < hz - Math.abs(pz)) px = px >= 0 ? hx : -hx;
       else pz = pz >= 0 ? hz : -hz;
+    }
+  }
+  if (exhibit) {
+    const hx = MUSEUM_SWAN.size / 2 + radius;
+    const hz = hx;
+    const dx = px - MUSEUM_SWAN.x;
+    const dz = pz - MUSEUM_SWAN.z;
+    if (Math.abs(dx) < hx && Math.abs(dz) < hz) {
+      const pushX = MUSEUM_SWAN.x + (dx >= 0 ? hx : -hx);
+      const pushZ = MUSEUM_SWAN.z + (dz >= 0 ? hz : -hz);
+      const xFits = pushX >= minX && pushX <= maxX;
+      const zFits = pushZ >= minZ && pushZ <= maxZ;
+      if (hx - Math.abs(dx) <= hz - Math.abs(dz)) {
+        if (xFits) px = pushX;
+        else if (zFits) pz = pushZ;
+      } else if (zFits) pz = pushZ;
+      else if (xFits) px = pushX;
     }
   }
   if (!furnished) return { x: px, z: pz };
