@@ -3355,9 +3355,11 @@
         "route": "8194: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "264a94c5a0524df89437b378a72dc2173c13ad3a",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 241,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/241",
+      "nextAction": "None. The folded narrative clock from aac0f666 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
