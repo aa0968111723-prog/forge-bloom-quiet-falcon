@@ -10,7 +10,7 @@ test("the education hall has its own classroom canopy", () => {
   const language = SECONDARY_STRUCTURES.find((s) => s.id === "foreign");
   assert.ok(hall);
   assert.equal(hall.kind, "class-hall");
-  assert.equal(seminar?.kind, "study-block");
+  assert.equal(seminar?.kind, "seminar-hall");
   assert.equal(language?.kind, "language-hall");
   const site = CAMPUS_SITES.find((s) => s.id === "education");
   assert.ok(site);

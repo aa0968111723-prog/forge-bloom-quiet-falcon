@@ -141,9 +141,9 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(seminar?.kind, "seminar-hall");
   assert.equal(seminar?.accuracy, "estimated");
   assert.notEqual(seminar?.kind, "study-block");
-  const porch = seminarProfile(seminar.size);
-  assert.ok(porch.porchZ - porch.porchD / 2 >= seminar.size[2] / 2 - 0.02, "the porch meets the south wall");
-  assert.ok(porch.porchH < seminar.size[1] * 0.35, "the porch stays the ground storey");
+  const seminarPorch = seminarProfile(seminar.size);
+  assert.ok(seminarPorch.porchZ - seminarPorch.porchD / 2 >= seminar.size[2] / 2 - 0.02, "the porch meets the south wall");
+  assert.ok(seminarPorch.porchH < seminar.size[1] * 0.35, "the porch stays the ground storey");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "class-hall");
   const language = SECONDARY_STRUCTURES.find((item) => item.id === "foreign");
   assert.equal(language?.kind, "language-hall");

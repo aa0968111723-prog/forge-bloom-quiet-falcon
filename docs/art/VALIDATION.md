@@ -422,4 +422,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 74 輪（會文館）— 2026-11-12
 
-`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。會文館是底層柱廊、淺色上層和木色壓簷。柱廊貼著南牆，高度留在地面一層。教育館仍是自己的樓身。外國語文大樓仍是語言館。文學館仍是坡頂。柱廊外形仍是 estimated。船首留在第 73 輪。沒有新增音效。`build:site` 產物 `BUNDLE_AFTER_BUILD`。
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。會文館是底層柱廊、淺色上層和木色壓簷。柱廊貼著南牆，高度留在地面一層。教育館仍是自己的樓身。外國語文大樓仍是語言館。文學館仍是坡頂。柱廊外形仍是 estimated。船首留在第 73 輪。沒有新增音效。`build:site` 產物 `AdventureApp-D5dZSqEe.js`。
