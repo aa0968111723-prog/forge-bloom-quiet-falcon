@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：教室講台（ART-080 的一部分）
+
+宮燈教室黑板前有一張 1.6×1.3 m 的講台，會擋住半徑 0.42 m 的身體。從南緣往北跨 1.04 m 仍停在講台中心南側。閱讀室同一點不會被推開。南門仍站得住。講台不和學生桌重疊。房間仍不是實測。田徑場內圈留著。
+
+畫面：`docs/art/evidence/desk/front.jpg`。測試：`scripts/class-desk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。宮燈教室講台會擋人。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

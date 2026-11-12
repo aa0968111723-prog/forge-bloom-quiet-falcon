@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { Color, Matrix4, type InstancedMesh } from "three";
-import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
+import { CLASSROOM_DESK, ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
 
 type Point = [number, number, number];
 type Box = { at: Point; size: Point; color: string };
@@ -129,6 +129,15 @@ function studyTables(room: "palace" | "library") {
   ]);
 }
 
+function classroomDesk() {
+  const { x, z, width, depth } = CLASSROOM_DESK;
+  return [
+    box([x, 0.96, z], [width, 0.1, depth], "#916248"),
+    box([x, 0.46, z], [width - 0.16, 0.9, depth - 0.16], "#674535"),
+    box([x - 0.2, 1.06, z + 0.1], [0.42, 0.05, 0.28], "#ddd2a9"),
+  ];
+}
+
 function museumCases() {
   return ROOM_TABLES.flatMap(({ x, z }, index) => [
     box([x, 0.38, z], [1.56, 0.76, 0.86], "#304c58"),
@@ -153,7 +162,8 @@ export function InteriorDetails({ room, floor }: { room: DetailedRoom; floor: nu
   const furniture = useMemo(() => {
     if (room === "museum") return museumCases();
     if (room === "gym") return [];
-    return studyTables(room);
+    const tables = studyTables(room);
+    return room === "palace" ? tables.concat(classroomDesk()) : tables;
   }, [room]);
   return (
     <>

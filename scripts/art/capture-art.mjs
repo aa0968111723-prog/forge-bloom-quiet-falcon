@@ -685,6 +685,22 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "desk") {
+    await hideHud(page);
+    await enterInterior(page, "palace");
+    await setPose(page, 0, -3.5, 0);
+    await frames(page, 12);
+    await holdKeys(page, ["KeyW"]);
+    await page.waitForFunction(() => window.__controlsTest.getPosition().z < -4.3);
+    await frames(page, 8);
+    await holdKeys(page, []);
+    await frames(page, 8);
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.45, distance: 4.8, height: 1.7, lookY: 1.05 });
+    });
+    await frames(page, 6);
+    await shot(page, "front", `palace desk, walked north and stopped ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
