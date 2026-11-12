@@ -632,6 +632,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "wuhu", "two marked courts on the wuhu field");
+  } else if (scenario === "net") {
+    await hideHud(page);
+    await setPose(page, 436, -580, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(436, -595);
+      window.__controlsTest.setPhoto({
+        yaw: 0.2,
+        distance: 14,
+        height: 2.4,
+        lookY: 1.2,
+        target: { x: 436, y: y + 1.1, z: -595 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "posts", "court net of posts and tapes");
   } else if (scenario === "parking") {
     await hideHud(page);
     await setPose(page, 290, -590, Math.PI);

@@ -65,6 +65,49 @@ export function parkingStalls(id: string, size: readonly [number, number, number
   return lines;
 }
 
+export type CourtNetPiece = {
+  x: number;
+  z: number;
+  /** Extent along the net. Posts are short; the top tape spans the court. */
+  length: number;
+  height: number;
+  y: number;
+  axis: "x" | "z";
+};
+
+/**
+ * A net is posts, a top tape, and thin verticals. It is not a solid wall:
+ * the court has no collider, so a full-height slab would look like a barrier
+ * the player walks through.
+ */
+export function courtNetPieces(line: CourtLine): CourtNetPiece[] {
+  if (!line.net) return [];
+  const alongX = line.axis === "x";
+  const end = (side: number) => ({
+    x: line.x + (alongX ? side * (line.length / 2) : 0),
+    z: line.z + (alongX ? 0 : side * (line.length / 2)),
+  });
+  const posts = [-1, 1].map((side) => {
+    const at = end(side);
+    return { ...at, length: 0.08, height: 2.2, y: 1.1, axis: line.axis };
+  });
+  const top = { x: line.x, z: line.z, length: line.length, height: 0.05, y: 2.16, axis: line.axis };
+  const count = Math.max(3, Math.round(line.length / 1.6));
+  const tapes = [];
+  for (let i = 1; i < count; i++) {
+    const t = -line.length / 2 + (line.length * i) / count;
+    tapes.push({
+      x: line.x + (alongX ? t : 0),
+      z: line.z + (alongX ? 0 : t),
+      length: 0.04,
+      height: 2.05,
+      y: 1.08,
+      axis: line.axis,
+    });
+  }
+  return [...posts, top, ...tapes];
+}
+
 export function lineInsideCourt(line: CourtLine, size: readonly [number, number, number]) {
   const hx = line.axis === "x" ? line.length / 2 : 0;
   const hz = line.axis === "z" ? line.length / 2 : 0;

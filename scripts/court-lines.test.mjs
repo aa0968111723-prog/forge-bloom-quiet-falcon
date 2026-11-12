@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-import { courtMarkings, lineInsideCourt, lineInsideTrackOval, parkingStalls, trackInfield } from "../src/game/world-data/court-lines.ts";
+import { courtMarkings, courtNetPieces, lineInsideCourt, lineInsideTrackOval, parkingStalls, trackInfield } from "../src/game/world-data/court-lines.ts";
 import { SECONDARY_STRUCTURES } from "../src/game/world-data/zones/secondary.ts";
 
 test("open courts keep their painted lines inside the grass", () => {
@@ -33,6 +33,12 @@ test("open courts keep their painted lines inside the grass", () => {
     "utf8",
   );
   assert.equal(renderer.includes("s.size[2] * 0.75"), false);
+  const net = wuhu.find((line) => line.net);
+  const pieces = courtNetPieces(net);
+  assert.equal(pieces.filter((piece) => piece.height === 2.2).length, 2);
+  assert.ok(pieces.some((piece) => piece.length === net.length && piece.height < 0.1));
+  assert.ok(pieces.every((piece) => piece.length < 1 || piece.height < 0.2));
+  assert.equal(courtNetPieces(wuhu.find((line) => !line.net)).length, 0);
 });
 
 test("the track infield is a pitch inside the oval", () => {

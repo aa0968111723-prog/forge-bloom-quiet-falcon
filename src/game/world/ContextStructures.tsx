@@ -32,7 +32,7 @@ import {
 } from "../world-data/zones/secondary.ts";
 import { type PlaneItem } from "./InstancedPlanes";
 import { makeSignTexture, useCampusSigns, useFontTick } from "./labels";
-import { courtMarkings, parkingStalls, trackInfield } from "../world-data/court-lines.ts";
+import { courtMarkings, courtNetPieces, parkingStalls, trackInfield } from "../world-data/court-lines.ts";
 import { worldUvBox } from "./geometry";
 
 /**
@@ -246,12 +246,16 @@ export function ContextStructures({
                     <boxGeometry args={[line.length, 0.02, 0.08]} />
                     <meshBasicMaterial color="#f4efe4" />
                   </mesh>
-                  {line.net && (
-                    <mesh position={[line.x, 1.2, line.z]}>
-                      <boxGeometry args={[line.length, 2.1, 0.04]} />
+                  {courtNetPieces(line).map((piece, n) => (
+                    <mesh
+                      key={`${s.id}-net-${i}-${n}`}
+                      position={[piece.x, piece.y, piece.z]}
+                      rotation={piece.axis === "z" ? [0, Math.PI / 2, 0] : [0, 0, 0]}
+                    >
+                      <boxGeometry args={[piece.length, piece.height, 0.04]} />
                       <meshStandardMaterial color="#f3eee4" />
                     </mesh>
-                  )}
+                  ))}
                 </group>
               ))}
               {s.id === "track" && (

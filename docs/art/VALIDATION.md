@@ -403,3 +403,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 69 輪（車道不再畫線）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。停車場仍有 50 條車格線，南北各 23 個車格。貫穿中線的 12 條舊長條已拿掉，車道不再畫線。車格留在邊緣。尺寸仍是 estimated。機車格留在第 68 輪。沒有新增音效。`build:site` 產物 `AdventureApp-COgoRz7i.js`。
+
+## 第 70 輪（球場球網）— 2026-11-12
+
+`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。每張網有兩根高 2.2 m 的柱，頂帶和網同長但高度小於 0.1 m。沒有又長又高的一片。不是網的邊線不會產生網件。標線尺寸仍是 estimated。車道留在第 69 輪。沒有新增音效。`build:site` 產物 `BUNDLE_AFTER_BUILD`。
