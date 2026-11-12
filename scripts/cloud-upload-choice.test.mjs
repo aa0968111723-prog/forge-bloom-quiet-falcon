@@ -42,11 +42,23 @@ function fakeCloud() {
     }
     const body = JSON.parse(init.body);
     puts.push(body);
+    const requestKey = canonicalJson(body);
     if (rejectNextPut && method === "PUT") {
       rejectNextPut = false;
       throw new Error("socket closed");
     }
-    if (seen.has(body.requestId)) return jsonResponse(200, seen.get(body.requestId));
+    const prior = seen.get(body.requestId);
+    if (prior) {
+      if (prior.request !== requestKey) {
+        return jsonResponse(409, {
+          error: {
+            code: "idempotency_mismatch",
+            message: "相同 requestId 不能改用不同內容重送。",
+          },
+        });
+      }
+      return jsonResponse(200, prior.response);
+    }
     if (!remote) {
       if (body.confirmFirstSync !== true || body.baseRevision !== 0) {
         return jsonResponse(409, {
@@ -57,7 +69,7 @@ function fakeCloud() {
       remote = body.document;
       revision = 1;
       const created = await head();
-      seen.set(body.requestId, created);
+      seen.set(body.requestId, { request: requestKey, response: created });
       if (dropNextPut) {
         dropNextPut = false;
         throw new Error("socket closed");
@@ -73,7 +85,7 @@ function fakeCloud() {
     remote = body.document;
     revision += 1;
     const updated = await head();
-    seen.set(body.requestId, updated);
+    seen.set(body.requestId, { request: requestKey, response: updated });
     if (dropNextPut) {
       dropNextPut = false;
       throw new Error("socket closed");
@@ -2347,4 +2359,80 @@ test("a rejected reward receipt is not granted or queued", async () => {
   assert.equal(grants, 0);
   assert.equal(posts, 1);
   assert.equal(client.queuedCount("user-a"), 0);
+});
+
+function requeueLanded(storage, userId, body) {
+  storage.setItem(
+    `tamkang-cloud-save-queue:${userId}`,
+    JSON.stringify([
+      {
+        id: body.requestId,
+        userId,
+        kind: "put",
+        body,
+        attempts: 0,
+        nextAt: 0,
+      },
+    ]),
+  );
+}
+
+test("a reused request id continues the newer local file from this device's save", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  const landed = cloud.puts.at(-1);
+  requeueLanded(storage, "user-a", landed);
+  client.writeLocal(JSON.stringify(save(4)));
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 2);
+  assert.equal(head.document.xp, 4);
+  assert.equal(cloud.puts.at(-1).document.xp, 4);
+  assert.equal(cloud.puts.at(-1).baseRevision, 1);
+  assert.notEqual(cloud.puts.at(-1).requestId, landed.requestId);
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 2);
+});
+
+test("a reused request id does not overwrite another device's save", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  requeueLanded(storage, "user-a", cloud.puts.at(-1));
+  cloud.replace(save(7));
+  client.writeLocal(JSON.stringify(save(4)));
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.equal(
+    cloud.puts.some((body) => body.document?.xp === 4 && body.baseRevision === 2),
+    false,
+  );
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.document.xp, 7);
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const planned = await client.plan();
+  assert.equal(planned.status, "conflict");
+  assert.equal(planned.remote.document.xp, 7);
 });

@@ -770,6 +770,68 @@ export function createCloudSaveController(options: {
       }
       return "drop";
     };
+    const resumeMismatchedPut = async (
+      item: QueueItem,
+      pending: QueueItem,
+    ): Promise<"sent" | "queued" | "pause" | "drop"> => {
+      if (pending.kind !== "put" || !pending.body.document || !item.body.document) return "drop";
+      if (!stillQueued(item)) return "drop";
+      let response: Response;
+      try {
+        response = await cloudFetch("/api/cloud/saves/rpg", { method: "GET" });
+      } catch {
+        remember(item, { ...item, attempts: Math.max(1, item.attempts), nextAt: now() + 1_000 });
+        return "queued";
+      }
+      if (response.status === 401) return "pause";
+      const payload = await response.json().catch(() => null);
+      if ((await accountGate(userId)) !== "ok") return "pause";
+      if (response.status === 404) {
+        return landOnEmptyCloud(item, {
+          ...pending,
+          body: { ...pending.body, confirmFirstSync: false },
+        });
+      }
+      if (
+        !response.ok ||
+        !payload?.document ||
+        typeof payload.revision !== "number" ||
+        typeof payload.contentHash !== "string"
+      ) {
+        remember(item, { ...item, attempts: Math.max(1, item.attempts), nextAt: now() + 1_000 });
+        return "queued";
+      }
+      let headJson = "";
+      let originalJson = "";
+      let latestJson = "";
+      const prepared = prepareLocal();
+      const document = prepared.ok ? prepared.document : pending.body.document;
+      try {
+        headJson = canonicalJson(payload.document);
+        originalJson = canonicalJson(item.body.document);
+        latestJson = canonicalJson(document);
+      } catch {
+        return "drop";
+      }
+      if (headJson === latestJson) {
+        writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
+        return "sent";
+      }
+      if (headJson !== originalJson) return "drop";
+      const requestId = randomId();
+      return adoptOwnGhost(
+        item,
+        {
+          ...pending,
+          id: requestId,
+          body: { ...pending.body, requestId, confirmFirstSync: false, document },
+        },
+        {
+          error: { code: "revision_conflict" },
+          server: { revision: payload.revision, document: payload.document },
+        },
+      );
+    };
     for (const item of items) {
       if (item.userId !== userId) continue;
       if (!stillQueued(item)) continue;
@@ -870,6 +932,16 @@ export function createCloudSaveController(options: {
           }
           if (landed !== "queued") finished.add(item.id);
           if (landed === "sent") sent += 1;
+          continue;
+        }
+        if (pending.kind === "put" && payload?.error?.code === "idempotency_mismatch") {
+          const resumed = await resumeMismatchedPut(item, pending);
+          if (resumed === "pause") {
+            writeRemaining();
+            return { sent, paused: true };
+          }
+          if (resumed !== "queued") finished.add(item.id);
+          if (resumed === "sent") sent += 1;
           continue;
         }
         const ghost = await adoptOwnGhost(item, pending, payload);

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T08:35:57Z",
+  "updated_at": "2026-11-12T08:57:02Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "95d35d1",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -108,10 +108,11 @@
     "a full ground still keeps a variety overflow on the pile already there",
     "merged main at a91731f; the trimmed quest claim was already on this branch",
     "merged main at a0806b6; the trimmed pilgrimage list was already on this branch",
-    "merged main at 95d35d1; the empty variety note, the clipped variety note, and the empty narrative seed were already on this branch"
+    "merged main at 95d35d1; the empty variety note, the clipped variety note, and the empty narrative seed were already on this branch",
+    "a reused request id continues the newer local file from this device's save"
   ],
   "verification": {
-    "npm_test": "409 pass, 0 fail; a full ground still keeps a variety overflow on the pile already there",
+    "npm_test": "411 pass, 0 fail; a reused request id continues the newer local file from this device's save",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
