@@ -3948,6 +3948,32 @@
       "integrationPr": 280,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/280",
       "nextAction": "None. The spilled variety rewards from 4a6afda3 are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-build-count",
+      "line": "backend",
+      "scope": "A lifetime build count of 1000001, inside the cloud cap of 10000000, survives import and reload. The active variety event stays gv-night-patrol, and its capability snapshot keeps the same count. The document still uploads.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-build-count-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "7edd533c199c634e6074c76fd67f5754e572b1ac",
+      "headSha": "aec6ded1af93aefb0ffbe5c9092e85a9aee2f36b",
+      "dependencies": ["backend-variety-spill"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/features/gameplay-variety/memory.ts", "docs/backend/API.md"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T09:56:41Z, the merge note at b03df4b, and the build-count line. npm_test stayed 423. store.ts, memory.ts, and API.md auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "423 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BymKMTuT.js",
+        "browser": "8216. The standing route completed.",
+        "route": "8216: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "c59f207773c2c5cd45d9f951cad749adb40ae162",
+      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
