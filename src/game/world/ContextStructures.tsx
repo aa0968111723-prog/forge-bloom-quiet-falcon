@@ -38,6 +38,7 @@ import {
   chuehVerandaProfile,
   workshopProfile,
   STAND_DECK_H,
+  foundationSpan,
   structureGroundY,
   watchPostProfile,
 } from "../world-data/zones/secondary.ts";
@@ -289,6 +290,17 @@ export function ContextStructures({
       <LodGlazing items={glazing}>
         <meshStandardMaterial {...glass} />
       </LodGlazing>
+      {items.map(({ s, y }) => {
+        if (s.id !== "maritime-museum") return null;
+        const span = foundationSpan(s);
+        if (span.gap < 1) return null;
+        return (
+          <mesh key={`${s.id}-skirt`} position={[s.position[0], y - span.gap / 2, s.position[1]]} receiveShadow>
+            <boxGeometry args={[s.size[0] + 0.4, span.gap, s.size[2] + 0.4]} />
+            <meshStandardMaterial color="#8d8478" roughness={0.92} />
+          </mesh>
+        );
+      })}
       {items.map(({ s, y, geo }) => {
         if (s.kind === "court") {
           return (
