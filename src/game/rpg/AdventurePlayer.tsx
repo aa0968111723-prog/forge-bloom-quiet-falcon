@@ -7,7 +7,8 @@ import { Protagonist, type PlayerActions } from "../art/character/Protagonist";
 import { input } from "./input";
 import { SPRINT, WALK, moveTargetSpeed } from "./move";
 import { useRpg } from "./store";
-import { resolveBuildings, resolveInterior } from "./rules";
+import { footprint, resolveBuildings, resolveInterior } from "./rules";
+import { cameraClearance } from "./physics/camera.ts";
 import { CAMPUS_SITES } from "./campus";
 import { useGame } from "../store";
 import { campusAudio } from "../audio";
@@ -122,6 +123,11 @@ export function AdventurePlayer() {
         x: pos.current.x,
         y: pos.current.y,
         z: pos.current.z,
+      }),
+      getCamera: () => ({
+        x: camera.position.x,
+        y: camera.position.y,
+        z: camera.position.z,
       }),
       setPose: (x: number, z: number, yaw = 0) => {
         pos.current.set(x, terrainHeight(x, z), z);
@@ -381,14 +387,37 @@ export function AdventurePlayer() {
       yaw: camYaw.current,
       pitch: camPitch.current,
     });
-    tmp.set(seeded.x, seeded.y, seeded.z);
-    const pushed = collide(tmp.x, tmp.z, CAM_R);
-    tmp.x = pushed.x;
-    tmp.z = pushed.z;
-    const camGround = groundAt(tmp.x, tmp.z) + 1.25;
-    if (tmp.y < camGround) tmp.y = camGround;
-    if (snapped) camera.position.copy(tmp);
-    else camera.position.lerp(tmp, 1 - Math.exp(-10 * delta));
+    if (useRpg.getState().interiorId) {
+      tmp.set(seeded.x, seeded.y, seeded.z);
+      const pushed = collide(tmp.x, tmp.z, CAM_R);
+      tmp.x = pushed.x;
+      tmp.z = pushed.z;
+      const camGround = groundAt(tmp.x, tmp.z) + 1.25;
+      if (tmp.y < camGround) tmp.y = camGround;
+      if (snapped) camera.position.copy(tmp);
+      else camera.position.lerp(tmp, 1 - Math.exp(-10 * delta));
+    } else {
+      const extra = useRpg.getState().buildings.map((b) => {
+        const f = footprint(b.kind, b.rotation);
+        return {
+          minX: b.x - f.width / 2,
+          maxX: b.x + f.width / 2,
+          minZ: b.z - f.depth / 2,
+          maxZ: b.z + f.depth / 2,
+        };
+      });
+      const clear = cameraClearance({
+        focus: { x: pos.current.x, y: visualY.current + lookH, z: pos.current.z },
+        desired: seeded,
+        previous: snapped
+          ? undefined
+          : { x: camera.position.x, y: camera.position.y, z: camera.position.z },
+        radius: CAM_R,
+        extra,
+        blend: snapped ? 1 : 1 - Math.exp(-10 * delta),
+      });
+      camera.position.set(clear.x, clear.y, clear.z);
+    }
 
     // Look-ahead: the camera looks slightly into the direction of travel, so
     // running opens up the view the way a good third-person rig does.

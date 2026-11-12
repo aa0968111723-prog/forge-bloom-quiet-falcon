@@ -303,3 +303,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 44 輪（實棟學人宿舍）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。實棟學人宿舍是淺色樓身、南向門廊和兩條窗帶，名牌寫著實棟學人宿舍。沒有松濤那種屋頂量體，也沒有共用窗帶。門廊貼著南牆，寬度小於樓寬。松濤一館到五館仍是宿舍，麗澤仍是國際學舍。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/faculty/house.jpg`。行政大樓留在第 43 輪。沒有新增音效。
+
+## 第 45 輪（宮燈教室轉角鏡頭）— 2026-11-12
+
+`node --test scripts/physics-clock.test.mjs` 通過。`tsc --noEmit` 通過。西廳轉角的目標點在廳內，舊的推出離開視線 2.6 m 以上。新的鏡頭留在視線上，水平距離不夠 2.2 m 就升高。迴廊外側直走的水平距離仍大於 4.8 m。跟隨鏡頭畫面，頁面無錯誤，鏡頭離腳底 3.52 m：`docs/art/evidence/colonnade/corner.jpg`。實棟學人宿舍留在第 44 輪。沒有新增音效。`build:site` 本輪未重跑。

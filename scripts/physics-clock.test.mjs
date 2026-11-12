@@ -8,7 +8,7 @@ import test from "node:test";
 import { resolveCollision } from "../src/game/world-data/colliders.ts";
 import { sampleGroundElevation } from "../src/game/world-data/elevation.ts";
 import { KENAN_LANDING_Z } from "../src/game/world-data/kenan.ts";
-import { SPAWN } from "../src/game/world-data/landmarks.ts";
+import { PALACE, SPAWN, palaceHallZs } from "../src/game/world-data/landmarks.ts";
 import { resolveInterior } from "../src/game/rpg/rules.ts";
 import { WALK } from "../src/game/rpg/move.ts";
 import {
@@ -440,6 +440,58 @@ test("camera clearance stays outside and approaches smoothly", () => {
   assert.ok(gap < 0.2);
   assert.ok(previous.x > block.maxX + 0.35 - 0.05);
   assert.ok(previous.y >= sampleGroundElevation(previous.x, previous.z) + 0.4 - 1e-6);
+});
+
+test("colonnade corner keeps the follow camera on the view line", () => {
+  const z = palaceHallZs()[2];
+  const face = -PALACE.offsetX + PALACE.hallDepth / 2;
+  const focus = { x: face + 0.8, y: 8, z: z + PALACE.hallWidth / 2 + 0.5 };
+  const yaw = -Math.PI * 0.72;
+  const pitch = 0.22;
+  const horizontal = Math.cos(pitch) * 5.15;
+  const desired = {
+    x: focus.x + Math.sin(yaw) * horizontal,
+    y: focus.y + 1.74 + Math.sin(pitch) * 5.15,
+    z: focus.z + Math.cos(yaw) * horizontal,
+  };
+  const clear = cameraClearance({ focus, desired, radius: 0.7, blend: 1 });
+  const hall = {
+    minX: -PALACE.offsetX - PALACE.hallDepth / 2,
+    maxX: face,
+    minZ: z - PALACE.hallWidth / 2,
+    maxZ: z + PALACE.hallWidth / 2,
+  };
+  assert.equal(overlaps(clear.x, clear.z, 0.7, hall), false);
+  const dx = desired.x - focus.x;
+  const dz = desired.z - focus.z;
+  const along = (vx, vz) => {
+    const t = (vx * dx + vz * dz) / (dx * dx + dz * dz);
+    return { t, lat: Math.hypot(vx - t * dx, vz - t * dz) };
+  };
+  const onLine = along(clear.x - focus.x, clear.z - focus.z);
+  assert.ok(onLine.lat < 0.05, `clear left the view line by ${onLine.lat}`);
+  assert.ok(onLine.t > 0 && onLine.t < 1);
+  const range = Math.hypot(clear.x - focus.x, clear.y - focus.y, clear.z - focus.z);
+  assert.ok(range >= 2.15, `camera sat ${range} m from the look point`);
+  const pushed = resolveCollision(desired.x, desired.z, 0.7);
+  const swung = along(pushed.x - focus.x, pushed.z - focus.z);
+  assert.ok(swung.lat > 1, `radial push was only ${swung.lat} m off the view line`);
+  assert.equal(face, -10.5);
+  assert.equal(z, -114);
+  assert.ok(Math.abs(focus.x - -9.7) < 1e-9);
+  assert.ok(Math.abs(focus.z - -99.5) < 1e-9);
+
+  const ground = sampleGroundElevation(face + 1.9, z);
+  const open = { x: face + 1.9, y: ground + 1.32, z };
+  const openDesired = {
+    x: open.x,
+    y: open.y + 0.42 + Math.sin(pitch) * 5.15,
+    z: open.z + horizontal,
+  };
+  const openClear = cameraClearance({ focus: open, desired: openDesired, radius: 0.7, blend: 1 });
+  const openDist = Math.hypot(openClear.x - open.x, openClear.z - open.z);
+  assert.ok(openDist > 4.8, `open colonnade follow distance was ${openDist}`);
+  assert.ok(Math.abs(openClear.y - openDesired.y) < 0.05);
 });
 
 test("crates and barriers push, sleep, and drop once", () => {

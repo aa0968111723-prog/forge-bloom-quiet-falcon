@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T00:50:00Z",
+  "updated": "2026-11-12T01:20:00Z",
   "task_ids": [
-    "ART-068"
+    "ART-062"
   ],
-  "branch": "cursor/faculty-house-1a71",
-  "base": "main@800d43d94fc7",
+  "branch": "cursor/colonnade-camera-1a71",
+  "base": "main@65507cd",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "lesson-marker 1 pass; full suite not re-run this round",
+    "npm_test": "physics-clock 9 pass; full suite not re-run this round",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "not re-run this round",
     "eslint_new_code": "0 errors"
@@ -78,13 +78,12 @@
     "KI-12",
     "KI-13",
     "KI-14",
-    "KI-17",
-    "KI-18"
+    "KI-17"
   ],
   "blocked": {
     "ART-016": "no Blender on host",
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The faculty house is a pale block with a south porch and no roof penthouse. The five Sungtao halls stay student dorms. Reitaku stays the international house. The porch is estimated. The administration building stays a stone office block. The swimming hall stays a pale long hall. The open campus map still writes a two-character lesson label. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The palace-hall corner camera stays on the view line and rises when the horizontal gap is under 2.2 m. A straight walk on the outer colonnade keeps the full follow distance. The faculty house stays a pale block with a south porch. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

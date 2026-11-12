@@ -75,5 +75,17 @@ export function cameraClearance(input: {
     x = pushed.x;
     z = pushed.z;
   }
-  return lift({ x, y, z });
+  const placed = lift({ x, y, z });
+  // A hall corner can leave only a few centimetres of the view line clear.
+  // Raise the camera until it is 2.2 m from the look point so the frame does
+  // not sit inside the character's head.
+  const MIN_RANGE = 2.2;
+  const hx = placed.x - input.focus.x;
+  const hz = placed.z - input.focus.z;
+  const horizontal = Math.hypot(hx, hz);
+  if (horizontal < MIN_RANGE) {
+    const raised = input.focus.y + Math.sqrt(MIN_RANGE * MIN_RANGE - horizontal * horizontal);
+    if (placed.y < raised) placed.y = raised;
+  }
+  return placed;
 }
