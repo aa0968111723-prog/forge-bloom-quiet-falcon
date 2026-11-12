@@ -648,9 +648,11 @@
         "docs/art/evidence/auditorium/hall.jpg",
         "docs/art/evidence/activity/hall.jpg",
         "docs/art/evidence/office/hall.jpg",
-        "docs/art/evidence/garden/house.jpg"
+        "docs/art/evidence/garden/house.jpg",
+        "docs/art/evidence/museum/skirt.jpg",
+        "scripts/museum-skirt.test.mjs"
       ],
-      "notes": "守謙國際會議中心是低寬量體。視聽教育館從坡頂改成深色廳堂加舞台塔。文學館仍是坡頂。海事博物館仍是船型。學生活動中心從綠瓦坡頂改成一層門廳、南向玻璃、遮陽板和退縮的上層，沒有共用窗帶。覺軒仍是坡頂。門廳外形仍是 estimated。行政大樓從教學樓基座改成石色樓身、南向入口玻璃和兩條窗帶。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。入口位置仍待測。濯纓苑／校史館從圖書館外牆改成白牆、木色基座、綠瓦坡頂和南向迴廊。迴廊貼著南牆。外形仍是 estimated。"
+      "notes": "守謙國際會議中心是低寬量體。視聽教育館從坡頂改成深色廳堂加舞台塔。文學館仍是坡頂。海事博物館仍是船型。船身偏了 0.16 rad。裙牆跟著船身轉，西邊空隙約 2.7 m 被補上，南邊入口仍在裙牆外面。裙牆仍是 estimated。學生活動中心從綠瓦坡頂改成一層門廳、南向玻璃、遮陽板和退縮的上層，沒有共用窗帶。覺軒仍是坡頂。門廳外形仍是 estimated。行政大樓從教學樓基座改成石色樓身、南向入口玻璃和兩條窗帶。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。入口位置仍待測。濯纓苑／校史館從圖書館外牆改成白牆、木色基座、綠瓦坡頂和南向迴廊。迴廊貼著南牆。外形仍是 estimated。"
     },
     {
       "id": "ART-067",
