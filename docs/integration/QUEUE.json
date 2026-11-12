@@ -2040,10 +2040,7 @@
       "nextAction": "None. The court lines from 06a75dc are already in this integration. Do not merge PR #135 by itself."
     },
     {
-      "id": "art-garden-pavilion",
-      "line": "art",
-      "scope": "The palace-side garden pavilion is four corner posts and a green roof. The center is walkable and the posts are solid. The other Chueh Hsuan stays a hip roof. Scattered trees stay 6 m outside. The shape is estimated.",
-      "status": "verified",
+      "status": "merged",
       "pr": 145,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/145",
       "integrationBranch": "cursor/integration-garden-pavilion-3395",
@@ -2061,11 +2058,11 @@
         "route": "8149: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/vegetation.ts"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #145 by itself."
+      "merged": true,
+      "mergeSha": "80a8159f46feaf0182650c9d3489b6c4009d6c3e",
+      "integrationPr": 150,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/150",
+      "nextAction": "None. The garden pavilion from 193f29d is already in this integration. Do not merge PR #145 by itself."
     }
   ]
 }
