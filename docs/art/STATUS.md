@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：轉動後的碰撞盒
+
+海事博物館和商管大樓的牆有偏角，碰撞盒以前是正的，牆角可以穿過去。現在盒子包住轉動後的角。海事博物館南邊入口仍站得住。沒有偏角的樓不變。
+
+畫面：`docs/art/evidence/museum/corner.jpg`。測試：`scripts/rotated-collider.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。轉動後的牆角已有碰撞。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

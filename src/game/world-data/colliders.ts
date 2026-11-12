@@ -3,7 +3,7 @@ import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
-import { SECONDARY_STRUCTURES, gatePiers, pavilionPosts } from "./zones/secondary.ts";
+import { SECONDARY_STRUCTURES, gatePiers, pavilionPosts, rotatedFootprint } from "./zones/secondary.ts";
 
 export type AABB = { minX: number; maxX: number; minZ: number; maxZ: number };
 
@@ -87,7 +87,8 @@ function buildColliders(): AABB[] {
       for (const post of pavilionPosts(s)) out.push(box(post.x, post.z, post.w, post.d));
       continue;
     }
-    out.push(box(s.position[0], s.position[1], s.size[0], s.size[2]));
+    const span = rotatedFootprint(s);
+    out.push(box(s.position[0], s.position[1], span.halfW * 2, span.halfD * 2));
   }
 
   return out;
