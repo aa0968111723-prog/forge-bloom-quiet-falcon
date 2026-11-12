@@ -5808,7 +5808,7 @@
     {
       "id": "art-dorm-balcony",
       "title": "Add a south balcony to every upper floor of the Sungtao dorms",
-      "status": "verified",
+      "status": "merged",
       "pr": 180,
       "branch": "cursor/dorm-balcony-1a71",
       "headSha": "346dd73358c2b18c865ec9cba3b7f12271f62beb",
@@ -5823,11 +5823,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User LDC18DaxaNCAN6u8XdEe4RSQZFgLm9o6."
       },
       "conflicts": ["scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "9cc4e7b8bed58bd42cabbf0094559e1baa603d91",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #180 by itself. The next game commit is PR #181 bf9b3973b399, the Chueh Hsuan south veranda."
+      "integrationPr": 354,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/354",
+      "nextAction": "This is on integration PR #354. Do not merge PR #180 by itself. The next game commit is PR #181 bf9b3973b399, the Chueh Hsuan south veranda."
     }
   ]
 }
