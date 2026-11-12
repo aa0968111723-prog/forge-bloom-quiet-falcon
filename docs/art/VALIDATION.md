@@ -318,4 +318,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 48 輪（海事博物館船首）— 2026-11-12
 
-`node --test scripts/ship-bow.test.mjs` 通過。`tsc --noEmit` 通過。船首底邊落在前臉內側 0.08 m，四個角蓋滿前臉的高和寬，尖端在前臉前方、高度在船身中線。定步白天從船首前方看，頁面無錯誤：`docs/art/evidence/museum/bow.jpg`。船首貼著前臉收到尖端。船身長度仍是 estimated。植栽留在第 47 輪。沒有新增音效。`build:site` 本輪未重跑。
+`node --test scripts/ship-bow.test.mjs` 通過。`tsc --noEmit` 通過。船首底邊落在前臉內側 0.08 m，四個角蓋滿前臉的高和寬，尖端在前臉前方、高度在船身中線。四個面的法線朝外：底面向下、頂面向上、南面 +Z、北面 -Z。定步白天從船首前方看，頁面無錯誤：`docs/art/evidence/museum/bow.jpg`。船首外側是實心的，貼著前臉收到尖端。船身長度仍是 estimated。植栽留在第 47 輪。沒有新增音效。`build:site` 本輪未重跑。
