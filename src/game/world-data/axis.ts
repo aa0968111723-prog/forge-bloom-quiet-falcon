@@ -155,7 +155,10 @@ export const MAIN_ROUTE: readonly (readonly [number, number])[] = [
   DOLPHIN_BOLLARD_NORTH,
   SCROLL_LAMP_PASS,
   [0, AXIS.scrollPlazaZ],
-  // Leave 書卷廣場 between the northern pair of scroll blades.
-  [0, AXIS.scrollPlazaZ - 12],
+  // Leave 書卷廣場 between the northern pair of scroll blades, then cross
+  // south of the library planters and finish between two troughs.
+  [0, AXIS.scrollPlazaZ - 10],
+  [11.7, AXIS.scrollPlazaZ - 10],
+  [11.7, AXIS.libraryFrontZ + 6],
   [10, AXIS.libraryFrontZ + 6],
 ];

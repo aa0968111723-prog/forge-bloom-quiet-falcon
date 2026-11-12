@@ -10,7 +10,7 @@ import {
 import { COLLIDERS, registerTrunkBoxes, type AABB } from "./colliders.ts";
 import { SECONDARY_STRUCTURES } from "./zones/secondary.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LANTERN_BASE, LIBRARY, PALACE, lanternPosts, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
+import { LANTERN_BASE, LIBRARY, PALACE, lanternPosts, palaceHallZs, planters, textSignAabb, textSigns } from "./landmarks.ts";
 import { hash2 } from "./math.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 
@@ -162,7 +162,10 @@ function avenuePlanting(): PlantInstance[] {
   for (let z = AXIS.avenueSouthZ - 1.4; z > AXIS.avenueNorthZ; z -= 2.3, i++) {
     for (const s of [-1, 1] as const) {
       out.push(plant("azalea", s * hedgeX, z, 0.82 + (i % 4) * 0.09, 0));
-      if (i % 5 === 2) out.push(plant("groundcover", s * (vergeX + 1.2), z, 1, 0));
+      if (i % 5 === 2) {
+        const outer = Math.abs(planters()[0].x) + 0.4 + 0.45;
+        out.push(plant("groundcover", s * outer, z, 1, 0));
+      }
     }
   }
   const hallZs = palaceHallZs();
@@ -250,7 +253,7 @@ function libraryPlanting(): PlantInstance[] {
     out.push(plant("banyan", x, z, s, x * 0.11));
   }
   for (let k = 0; k < 10; k++) {
-    out.push(plant("flowerbed", -22 + k * 5.2, AXIS.libraryFrontZ + 12.5, 1, 0));
+    out.push(plant("flowerbed", -22 + k * 5.2, AXIS.libraryFrontZ + 17.5, 1, 0));
   }
   return out;
 }

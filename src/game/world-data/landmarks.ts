@@ -282,6 +282,51 @@ export function utilityBoxFootprint(box: { x: number; z: number; rotationY: numb
   };
 }
 
+/** Concrete planter trough. Length runs along Z when rotation is 0. */
+export const PLANTER = { width: 0.8 } as const;
+
+/** Avenue and library planters, in world XZ. The mesh and the collider both use this list. */
+export function planters(): { x: number; z: number; rotationY: number; length: number; zone: string }[] {
+  const beds = [];
+  for (const z of palaceHallZs()) {
+    for (const side of [-1, 1] as const) {
+      beds.push({
+        x: side * (AVENUE_PAVED_WIDTH / 2 + 2.6),
+        z,
+        rotationY: 0,
+        length: 6,
+        zone: "avenue",
+      });
+    }
+  }
+  const rampX = LIBRARY.center[0] - 20;
+  const rampSouth = LIBRARY.center[1] + LIBRARY.length / 2 + 7.4 + 7 + 2.5;
+  for (let k = 0; k < 8; k++) {
+    const x = -18 + k * 5.4;
+    const crossesRamp = Math.abs(x - rampX) < 1.7;
+    beds.push({
+      x,
+      z: crossesRamp ? rampSouth : AXIS.libraryFrontZ + 14,
+      rotationY: 0,
+      length: 4.2,
+      zone: "library",
+    });
+  }
+  return beds;
+}
+
+/** Axis-aligned footprint of a rotated planter. */
+export function planterFootprint(bed: { x: number; z: number; rotationY: number; length: number }) {
+  const along = Math.abs(Math.cos(bed.rotationY));
+  const across = Math.abs(Math.sin(bed.rotationY));
+  return {
+    x: bed.x,
+    z: bed.z,
+    width: PLANTER.width * along + bed.length * across,
+    depth: PLANTER.width * across + bed.length * along,
+  };
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",

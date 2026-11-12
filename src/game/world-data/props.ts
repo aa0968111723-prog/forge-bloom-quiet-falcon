@@ -6,7 +6,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LAMP_POLE, LIBRARY, PALACE, bollards, lanternPosts, noticeboards, palaceHallZs, utilityBoxes } from "./landmarks.ts";
+import { LAMP_POLE, LIBRARY, PALACE, bollards, lanternPosts, noticeboards, palaceHallZs, planters, utilityBoxes } from "./landmarks.ts";
 import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
@@ -156,8 +156,10 @@ function avenueProps(): PropInstance[] {
       out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z - 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));
       out.push(prop("bench", s * (AVENUE_PAVED_WIDTH / 2 + 1.4), z + 9, "avenue", s > 0 ? -Math.PI / 2 : Math.PI / 2));
       out.push(prop("bin", s * (AVENUE_PAVED_WIDTH / 2 + 1.5), z - 11, "avenue"));
-      out.push(prop("planter", s * (AVENUE_PAVED_WIDTH / 2 + 2.6), z, "avenue", 0, 1, 6));
     }
+  }
+  for (const bed of planters()) {
+    if (bed.zone === "avenue") out.push(prop("planter", bed.x, bed.z, bed.zone, bed.rotationY, 1, bed.length));
   }
   for (let k = 0; k < 5; k++) {
     const z = AXIS.avenueSouthZ - 22 - k * 42;
@@ -224,14 +226,8 @@ function northProps(): PropInstance[] {
     if (cabinet.zone === "library") out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
   }
   out.push(prop("hydrant", -6, AXIS.libraryFrontZ + 4, "library"));
-  for (let k = 0; k < 8; k++) {
-    const x = -18 + k * 5.4;
-    // The planter on the ramp's x used to run 2 m up the south end. Sit it south of the lip.
-    const crossesRamp = Math.abs(x - LIBRARY_RAMP.x) < LIBRARY_RAMP.width / 2 + LIBRARY_RAMP.skirt + 0.4;
-    const z = crossesRamp
-      ? LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2 + 2.1 + 0.4
-      : AXIS.libraryFrontZ + 14;
-    out.push(prop("planter", x, z, "library", 0, 1, 4.2));
+  for (const bed of planters()) {
+    if (bed.zone === "library") out.push(prop("planter", bed.x, bed.z, bed.zone, bed.rotationY, 1, bed.length));
   }
   return out;
 }
