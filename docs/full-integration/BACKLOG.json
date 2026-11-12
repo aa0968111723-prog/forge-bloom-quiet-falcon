@@ -109,7 +109,21 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Qiu's turn on the pre-rebuild AdventureApp-BztmqH0m.js at 1280x720. Note and names each moved store xp from 168 to 180 and left notes at 22. The card showed 120/180. Week-1 stayed. The +12 is turn 8 plus studio turn 4. Liang's next line followed earlier flags and was left unpaid."
+      "note": "Two fresh architecture semesters paid Qiu's turn on the pre-rebuild AdventureApp-BztmqH0m.js at 1280x720. Note and names each moved store xp from 168 to 180 and left notes at 22. The card showed 120/180. Week-1 stayed. The +12 is turn 8 plus studio turn 4. Liang's turn choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-LIANG-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Liang's turn on AdventureApp-CJBhF4Kt.js at 1280x720. Split and list each moved store xp from 180 to 188 and left notes at 22. The card showed 128/180. Week-1 stayed. The +8 is the turn stage. Shen's next line followed her earlier flag and was left unpaid."
+    },
+    {
+      "id": "FI-XU-HUI",
+      "status": "wired",
+      "merged": true,
+      "deployed": false,
+      "note": "Xu Hui from main #182 is on this branch at the estimated library post. Quest rewards still use quest-reward. Ground quest loot no longer increments gathered. This line did not click her. docs/quest-play/evidence is the other line's record."
     },
     {
       "id": "FI-COLLECT",
@@ -128,7 +142,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main f317ceb includes the cloud resume via #179. Merged here as acac00a. Do not merge it again. Faculty files were unchanged. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main 1c8f11e includes Xu Hui via #182. Merged here as a1a6fff. Do not merge it again. Faculty dialogue files were unchanged. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",

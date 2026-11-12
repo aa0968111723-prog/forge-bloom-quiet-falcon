@@ -334,3 +334,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 180 減 168 是 12：見習階段 8，加上工作室 `turn` 的 4。筆記沒有加。梁晚的開場看先前的「我們同意」與社團旗標，不看這次的說明或名字旗標。「我們同意」排在社團那句前面，所以說明那一局沒有出現社團那句。
 
 畫面：`/opt/cursor/artifacts/integration-qiu-turn/note-outcome.png`、`note-next.png`、`names-outcome.png`、`names-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 梁晚的兩個分句選項
+
+這段打在 `AdventureApp-CJBhF4Kt.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-Dkr69rSJ.js`。`main` 是 `1c8f11e`（許回，整合 PR #182），合併提交 `a1a6fff`。先重建再打。教職員對話檔沒有改。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-liang-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-turn` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 341 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出 `index-Dkr69rSJ.js` 與 `AdventureApp-CJBhF4Kt.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到邱寧的見習。點分句之前存檔經驗 180、筆記 22。
+
+- 「每個人的句子分開寫，不合併成我們。」存檔經驗 188，筆記 22。結果句「這樣可以貼在表旁邊。」畫面是 2 級、「經驗 128/180」、生命 108/108、專注 100/100。學期仍是第一週。走到沈酌，她說「同組已經看得到」。兩個選項都在。離開不結算，沒有 `quest-faculty-shen-turn`。`quest-faculty-liang-turn` 只有一筆。重載後經驗 188、筆記 22，再交談仍是這一句。
+- 「我的請求留在第一行，其他人的話另行列出。」經驗同樣 180→188，筆記 22。結果句「第一行是你的。」沈酌說「它還在我這裡」。離開不結算。重載後這一句還在。
+
+188 減 180 是 8，也就是分句階段的經驗。筆記沒有加。沈酌的開場看她自己先前的公開或留存，不看這次的分句或分行旗標。
+
+畫面：`/opt/cursor/artifacts/integration-liang-turn/split-outcome.png`、`split-next.png`、`list-outcome.png`、`list-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
