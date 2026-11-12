@@ -2427,7 +2427,6 @@ test("a refused first sync keeps the newer local file", async () => {
   assert.equal(planned.status, "in_sync");
   assert.equal(planned.revision, 1);
 });
-
 test("a signed-out save write stays queued for this account", async () => {
   let rejectPut = true;
   const cloud = fakeCloud();

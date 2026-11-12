@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T10:32:00Z",
+  "updated_at": "2026-11-12T10:42:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "4e6a7df",
+  "base": "f2656a5",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -132,10 +132,14 @@
     "merged main at fe1ed26; the spilled errand notes were already on this branch",
     "confirming an import keeps a living interior floor",
     "merged main at 342e6b2; the lifetime build count and spilled variety rewards were already on this branch",
-    "a direct import keeps a living interior floor"
+    "a direct import keeps a living interior floor",
+    "merged main at 6655b94; legal experience, defeats, and clock were already on this branch",
+    "healing indoors still writes the living floor",
+    "merged main at f2656a5; the direct living interior was already on this branch",
+    "a landmark stamp is in the rpg save before the next move"
   ],
   "verification": {
-    "npm_test": "428 pass, 0 fail; a direct import keeps a living interior floor",
+    "npm_test": "430 pass, 0 fail; a landmark stamp is in the rpg save before the next move",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
@@ -143,5 +147,9 @@
     "build_site": "npm run build:site passed; dist has no cloud-save or DATABASE_URL"
   },
   "next_action": "When a later merge adds a snapshot() field, extend the cloud whitelist and re-run npm test plus the live-save fixture. Do not merge or deploy.",
-  "out_of_scope": ["competitive leaderboard", "production deploy", "art and campus geometry"]
+  "out_of_scope": [
+    "competitive leaderboard",
+    "production deploy",
+    "art and campus geometry"
+  ]
 }

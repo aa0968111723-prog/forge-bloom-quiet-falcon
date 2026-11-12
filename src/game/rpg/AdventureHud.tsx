@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+  type ReactNode,
+} from "react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/react/shallow";
 import {
@@ -42,11 +49,7 @@ import {
   signHost,
   type ChromeTier,
 } from "./chrome";
-import {
-  LANDMARKS,
-  LANDMARK_BY_ID,
-  WORLD_BOUNDS,
-} from "../world";
+import { LANDMARKS, LANDMARK_BY_ID, WORLD_BOUNDS } from "../world";
 import { campusAudio } from "../audio";
 import { GearDock } from "../../features/items-equipment-building/GearDock";
 import { factOf } from "../../features/items-equipment-building/catalog";
@@ -64,10 +67,7 @@ import {
   type Discipline,
 } from "./data";
 import { SKILL_GLYPH } from "./skill-glyph";
-import {
-  CAMPUS_ROADS,
-  CAMPUS_SITES,
-} from "./campus";
+import { CAMPUS_ROADS, CAMPUS_SITES } from "./campus";
 import { canPay, levelForXp } from "./rules";
 import { buildCards } from "./buildcard";
 import { holdLife, holdFocus, holdProgress, type StatusCueId } from "./status";
@@ -75,7 +75,14 @@ import { ZONE_MARK, ZONE_MARK_ORDER, zoneMark, zoneNear } from "./map-zones";
 import { quickbarReadout, type QuickSlotView } from "./quickbar";
 import { promptDecision } from "./prompts";
 import { input, type PointerEndKind, type TouchZone } from "./input";
-import { quickbarPlace, touchLayout, type CssRect, type QuickbarPlacement, type SafeInsets, type TouchLayout } from "./touch-layout";
+import {
+  quickbarPlace,
+  touchLayout,
+  type CssRect,
+  type QuickbarPlacement,
+  type SafeInsets,
+  type TouchLayout,
+} from "./touch-layout";
 import "./mobile/mobile.css";
 import { compactStatus, isMobileViewport, mobileHudLayout, panelClosePlan } from "./mobile";
 import { mapDragDecision } from "./mobile/map-gesture";
@@ -138,9 +145,7 @@ function DepartmentPanel() {
           {readout.prompt ? <span>{readout.prompt}</span> : null}
         </p>
       ) : null}
-      <p className="ad-lead">
-        選擇你的主修，帶著知識探索五虎崗。技能效果為本遊戲的虛構設定。
-      </p>
+      <p className="ad-lead">選擇你的主修，帶著知識探索五虎崗。技能效果為本遊戲的虛構設定。</p>
       <div className="ad-filter">
         <input
           aria-label="搜尋科系"
@@ -148,11 +153,7 @@ function DepartmentPanel() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select
-          aria-label="篩選學院"
-          value={college}
-          onChange={(e) => setCollege(e.target.value)}
-        >
+        <select aria-label="篩選學院" value={college} onChange={(e) => setCollege(e.target.value)}>
           {["全部", ...new Set(DEPARTMENTS.map((d) => d.college))].map((c) => (
             <option key={c}>{c}</option>
           ))}
@@ -163,9 +164,7 @@ function DepartmentPanel() {
           const skill = DISCIPLINES[d.discipline];
           return (
             <button
-              className={
-                "ad-department " + (selected === d.id ? "selected" : "")
-              }
+              className={"ad-department " + (selected === d.id ? "selected" : "")}
               key={d.id}
               disabled={Boolean(selected)}
               onClick={() => {
@@ -173,10 +172,7 @@ function DepartmentPanel() {
                 useRpg.getState().chooseDepartment(d.id);
               }}
             >
-              <span
-                className="ad-dept-mark"
-                style={{ background: skill.color }}
-              >
+              <span className="ad-dept-mark" style={{ background: skill.color }}>
                 <GraduationCap size={22} />
               </span>
               <span>
@@ -191,9 +187,7 @@ function DepartmentPanel() {
           );
         })}
       </div>
-      {list.length === 0 && (
-        <p className="ad-empty">沒有符合的科系，試試其他名稱。</p>
-      )}
+      {list.length === 0 && <p className="ad-empty">沒有符合的科系，試試其他名稱。</p>}
       <p className="ad-footnote">
         科系名單參考淡江學術單位。每個學期選定一個主修，九類專業各有不同技能。
       </p>
@@ -233,9 +227,7 @@ function InventoryPanel() {
       xp: s.xp,
     })),
   );
-  const pose = useGame(
-    useShallow((s) => ({ x: s.playerX, z: s.playerZ, yaw: s.playerYaw })),
-  );
+  const pose = useGame(useShallow((s) => ({ x: s.playerX, z: s.playerZ, yaw: s.playerYaw })));
   const [filter, setFilter] = useState<PackFilter>("all");
   const [sort, setSort] = useState<PackSort>("stored");
   const [pickedId, setPickedId] = useState<string | null>(null);
@@ -249,7 +241,7 @@ function InventoryPanel() {
     equipped: rpg.equipped,
     loadout: rpg.loadout,
   });
-  const pickedItem = pickedId ? ITEMS.find((entry) => entry.id === pickedId) ?? null : null;
+  const pickedItem = pickedId ? (ITEMS.find((entry) => entry.id === pickedId) ?? null) : null;
   const filterCategory =
     filter === "consumable" || filter === "material" || filter === "equipment" || filter === "rare"
       ? filter
@@ -264,7 +256,7 @@ function InventoryPanel() {
         null);
   const shown = pickedRow ?? (pickedVisible ? null : (rows[0] ?? null));
   const item = shown
-    ? ITEMS.find((entry) => entry.id === shown.itemId) ?? null
+    ? (ITEMS.find((entry) => entry.id === shown.itemId) ?? null)
     : pickedVisible
       ? pickedItem
       : null;
@@ -314,22 +306,15 @@ function InventoryPanel() {
       </div>
       <div className="ad-pack-layout">
         {rows.length === 0 ? (
-          <p className="ad-empty">
-            {slots.length === 0 ? "背包是空的。" : "沒有符合的物品。"}
-          </p>
+          <p className="ad-empty">{slots.length === 0 ? "背包是空的。" : "沒有符合的物品。"}</p>
         ) : (
           <div className="ad-slots">
             {rows.map((row) => (
               <button
                 key={row.index}
                 type="button"
-                className={
-                  "ad-slot ad-raise" + (row.index === shown?.index ? " selected" : "")
-                }
-                {...pressAttrs(
-                  "button",
-                  row.index === shown?.index ? "selected" : "ready",
-                )}
+                className={"ad-slot ad-raise" + (row.index === shown?.index ? " selected" : "")}
+                {...pressAttrs("button", row.index === shown?.index ? "selected" : "ready")}
                 onClick={() => {
                   setPickedId(row.itemId);
                   setPickedIndex(row.index);
@@ -422,15 +407,25 @@ function InventoryPanel() {
                 className="ad-primary ad-raise"
                 onClick={() => useRpg.getState().equipItem(item.id)}
               >
-                {factOf(item.id)?.slot && rpg.loadout[factOf(item.id)!.slot!] === item.id ? "卸下" : "裝備"}
+                {factOf(item.id)?.slot && rpg.loadout[factOf(item.id)!.slot!] === item.id
+                  ? "卸下"
+                  : "裝備"}
               </button>
             )}
             {item.id === "repair-wrench" ? (
               <>
-                <button type="button" className="ad-raise" onClick={() => useRpg.getState().repair()}>
+                <button
+                  type="button"
+                  className="ad-raise"
+                  onClick={() => useRpg.getState().repair()}
+                >
                   修復附近設施
                 </button>
-                <button type="button" className="ad-raise" onClick={() => useRpg.getState().serviceWrench()}>
+                <button
+                  type="button"
+                  className="ad-raise"
+                  onClick={() => useRpg.getState().serviceWrench()}
+                >
                   保養扳手
                 </button>
               </>
@@ -438,7 +433,11 @@ function InventoryPanel() {
             {factOf(item.id)?.locked ? (
               <p>任務物品不能丟棄。遺失且不在地上時，可在委託完成後補領。</p>
             ) : item.category !== "equipment" ? null : (
-              <button type="button" className="ad-raise" onClick={() => useRpg.getState().discardItem(item.id)}>
+              <button
+                type="button"
+                className="ad-raise"
+                onClick={() => useRpg.getState().discardItem(item.id)}
+              >
                 丟棄
               </button>
             )}
@@ -447,9 +446,7 @@ function InventoryPanel() {
           <p className="ad-empty">選擇一格查看。</p>
         )}
       </div>
-      <p className="ad-footnote">
-        物品會自動堆疊。滿血／專注全滿時，補給品不會被消耗。
-      </p>
+      <p className="ad-footnote">物品會自動堆疊。滿血／專注全滿時，補給品不會被消耗。</p>
     </>
   );
 }
@@ -478,7 +475,9 @@ function SkillPanel() {
         <p>{skill.label}</p>
       </div>
       <div className="ad-skill-card ad-raise-card" {...pressMark("card", "ready")}>
-        <span className="ad-key ad-raise-key" {...pressMark("key", "ready")}>Q</span>
+        <span className="ad-key ad-raise-key" {...pressMark("key", "ready")}>
+          Q
+        </span>
         <div>
           <h3>
             {skill.skill} <small>階級 {s.skillRank} / 5</small>
@@ -500,11 +499,7 @@ function SkillPanel() {
             ? "disabled"
             : "ready",
         )}
-        disabled={
-          s.skillRank >= 5 ||
-          level < s.skillRank + 1 ||
-          !canPay(cost, inventory.count)
-        }
+        disabled={s.skillRank >= 5 || level < s.skillRank + 1 || !canPay(cost, inventory.count)}
         onClick={() => useRpg.getState().upgrade()}
       >
         {s.skillRank >= 5
@@ -614,8 +609,7 @@ function BuildPanel() {
           {buildings.map((b) => (
             <div key={b.id}>
               <span>
-                {RECIPES.find((r) => r.id === b.kind)?.name}{" "}
-                <small>耐久 {Math.ceil(b.hp)}</small>
+                {RECIPES.find((r) => r.id === b.kind)?.name} <small>耐久 {Math.ceil(b.hp)}</small>
               </span>
               <button type="button" onClick={() => useRpg.getState().beginMove(b.id)}>
                 移動
@@ -628,7 +622,8 @@ function BuildPanel() {
         </div>
       )}
       <p className="ad-footnote">
-        E 放置 · R 旋轉 · Esc 結束。移動不扣材料，取消會放回原處。拆除退回每種材料的一半，不足 1 的不退。校門、主路、入口、任務點與救援點不能堵。
+        E 放置 · R 旋轉 · Esc 結束。移動不扣材料，取消會放回原處。拆除退回每種材料的一半，不足 1
+        的不退。校門、主路、入口、任務點與救援點不能堵。
       </p>
     </>
   );
@@ -647,16 +642,16 @@ function JournalPanel() {
   );
   return (
     <>
-      <p className="ad-lead">還沒做完的會留在這裡。筆記是你帶走的記憶，喝的是提神，報告是另一種負荷。</p>
+      <p className="ad-lead">
+        還沒做完的會留在這裡。筆記是你帶走的記憶，喝的是提神，報告是另一種負荷。
+      </p>
       <div className="ad-missions">
         {MISSIONS.map((m) => {
           const progress = missionProgress(m, s),
             done = s.claimed.includes(m.id);
           return (
             <article key={m.id}>
-              <span className={"ad-mission-check " + (done ? "done" : "")}>
-                {done ? "✓" : "◇"}
-              </span>
+              <span className={"ad-mission-check " + (done ? "done" : "")}>{done ? "✓" : "◇"}</span>
               <div>
                 <h3>{m.name}</h3>
                 <p>{m.description}</p>
@@ -687,8 +682,7 @@ function JournalPanel() {
         <h3>異象觀察紀錄</h3>
         {Object.entries(ENEMY_TYPES).map(([id, e]) => (
           <p key={id}>
-            <strong style={{ color: e.color }}>{e.name}</strong>　{e.hp} 生命 ·{" "}
-            {e.damage} 傷害
+            <strong style={{ color: e.color }}>{e.name}</strong>　{e.hp} 生命 · {e.damage} 傷害
             <br />
             <small>紅色圓環代表攻擊預警；離開範圍或閃避，能避開命中。</small>
           </p>
@@ -735,9 +729,7 @@ function MapGraphic({ compact = false }: { compact?: boolean }) {
       ].map((road, i) => (
         <path
           key={i}
-          d={road
-            .map(([x, z], j) => (j ? "L" : "M") + px(x) + " " + pz(z))
-            .join(" ")}
+          d={road.map(([x, z], j) => (j ? "L" : "M") + px(x) + " " + pz(z)).join(" ")}
           fill="none"
           stroke="#a1b3a1"
           strokeWidth={compact ? 2 : 3}
@@ -754,9 +746,7 @@ function MapGraphic({ compact = false }: { compact?: boolean }) {
             if (compact) return;
             const start = press.current;
             const distance =
-              start && start.id === s.id
-                ? Math.hypot(e.clientX - start.x, e.clientY - start.y)
-                : 0;
+              start && start.id === s.id ? Math.hypot(e.clientX - start.x, e.clientY - start.y) : 0;
             if (mapDragDecision({ intent: "go", distance }).fastTravel)
               useRpg.getState().travel(s.id);
           }}
@@ -793,13 +783,7 @@ function MapGraphic({ compact = false }: { compact?: boolean }) {
         </g>
       ))}
       {LANDMARKS.map((l) => (
-        <circle
-          key={l.id}
-          cx={px(l.x)}
-          cy={pz(l.z)}
-          r={compact ? 3 : 4}
-          fill="#c7775d"
-        />
+        <circle key={l.id} cx={px(l.x)} cy={pz(l.z)} r={compact ? 3 : 4} fill="#c7775d" />
       ))}
       {marker ? (
         <g key={`${lesson}:${lessonAnchor?.x ?? ""}:${lessonAnchor?.z ?? ""}`}>
@@ -825,17 +809,7 @@ function MapGraphic({ compact = false }: { compact?: boolean }) {
           )}
         </g>
       ) : null}
-      <g
-        transform={
-          "translate(" +
-          px(x) +
-          "," +
-          pz(z) +
-          ") rotate(" +
-          (yaw * 180) / Math.PI +
-          ")"
-        }
-      >
+      <g transform={"translate(" + px(x) + "," + pz(z) + ") rotate(" + (yaw * 180) / Math.PI + ")"}>
         <circle r={compact ? 12 : 10} fill="#f4dca4" opacity=".25" />
         <path d="M0 -9 L6 7 L0 3 L-6 7Z" fill="#fff1cf" />
       </g>
@@ -919,8 +893,7 @@ function MapPanel() {
         </div>
       </div>
       <p className="ad-footnote">
-        點擊建築可快速前往入口，靠近後按 E
-        進入。校園配置與室內採遊戲化重建，新增建物位置尚未實測。
+        點擊建築可快速前往入口，靠近後按 E 進入。校園配置與室內採遊戲化重建，新增建物位置尚未實測。
       </p>
     </>
   );
@@ -941,18 +914,10 @@ function SettingsPanel() {
   return (
     <>
       {surface.sections.map((section) => (
-        <section
-          key={section.label}
-          className="ad-settings-section"
-          aria-label={section.label}
-        >
+        <section key={section.label} className="ad-settings-section" aria-label={section.label}>
           <h3 className="ad-primary-label">{section.label}</h3>
-          {section.status ? (
-            <p className="ad-settings-status">{section.status}</p>
-          ) : null}
-          {section.note ? (
-            <p className="ad-settings-note">{section.note}</p>
-          ) : null}
+          {section.status ? <p className="ad-settings-status">{section.status}</p> : null}
+          {section.note ? <p className="ad-settings-note">{section.note}</p> : null}
           {section.choices.length > 0 ? (
             <div className="ad-settings-options">
               {section.choices.map((choice) =>
@@ -974,19 +939,14 @@ function SettingsPanel() {
                     key={choice.action + ":" + choice.id}
                     type="button"
                     className={"ad-raise" + (choice.selected ? " selected" : "")}
-                    {...pressAttrs(
-                      "button",
-                      choice.selected ? "selected" : "ready",
-                    )}
+                    {...pressAttrs("button", choice.selected ? "selected" : "ready")}
                     aria-pressed={choice.selected}
                     data-default={choice.isDefault ? "true" : "false"}
                     onClick={() => applySettings(choice.action, choice.id)}
                   >
                     {choice.action === "export" ? <Download size={16} /> : null}
                     {choice.label}
-                    {choice.isDefault ? (
-                      <span className="ad-default-mark">預設</span>
-                    ) : null}
+                    {choice.isDefault ? <span className="ad-default-mark">預設</span> : null}
                   </button>
                 ),
               )}
@@ -1254,7 +1214,9 @@ function QuickSlot({
       {...(disabled !== undefined ? { disabled } : {})}
       onClick={onFire}
     >
-      <span className="ad-key ad-raise-key" {...keyPress}>{keyMark}</span>
+      <span className="ad-key ad-raise-key" {...keyPress}>
+        {keyMark}
+      </span>
       <span className="ad-quick-icon" aria-hidden="true">
         {icon}
         <i className="ad-quick-meter" style={{ height: slot.progress * 100 + "%" }} />
@@ -1562,18 +1524,47 @@ function TouchControls({ look = true, mobile = false }: { look?: boolean; mobile
   return (
     <>
       {look ? (
-        <div className={mobile ? "ad-look tk-mobile-look" : "ad-look"} style={place(layout.look)} aria-label={CHROME_CONTROLS.look} {...bind("look")} />
+        <div
+          className={mobile ? "ad-look tk-mobile-look" : "ad-look"}
+          style={place(layout.look)}
+          aria-label={CHROME_CONTROLS.look}
+          {...bind("look")}
+        />
       ) : null}
-      <div className="ad-stick" style={place(layout.stick)} aria-label={CHROME_CONTROLS.stick} {...bind("stick")}>
+      <div
+        className="ad-stick"
+        style={place(layout.stick)}
+        aria-label={CHROME_CONTROLS.stick}
+        {...bind("stick")}
+      >
         <div ref={knob} />
       </div>
-      <button type="button" className="ad-touch-run ad-raise" style={place(layout.sprint)} {...pressAttrs("button", "ready")} {...bind("sprint")}>
+      <button
+        type="button"
+        className="ad-touch-run ad-raise"
+        style={place(layout.sprint)}
+        {...pressAttrs("button", "ready")}
+        {...bind("sprint")}
+      >
         {CHROME_CONTROLS.run}
       </button>
-      <button type="button" className="ad-touch-dodge ad-raise" style={place(layout.dodge)} {...pressAttrs("button", "ready")} {...bind("dodge")}>
+      <button
+        type="button"
+        className="ad-touch-dodge ad-raise"
+        style={place(layout.dodge)}
+        {...pressAttrs("button", "ready")}
+        {...bind("dodge")}
+      >
         {CHROME_CONTROLS.dodge}
       </button>
-      <button type="button" className="ad-touch-e ad-raise" style={place(layout.interact)} aria-label={prompt ? prompt.text : "互動"} {...pressAttrs("button", "ready")} {...bind("interact")}>
+      <button
+        type="button"
+        className="ad-touch-e ad-raise"
+        style={place(layout.interact)}
+        aria-label={prompt ? prompt.text : "互動"}
+        {...pressAttrs("button", "ready")}
+        {...bind("interact")}
+      >
         {prompt ? prompt.marker : "互動"}
       </button>
     </>
@@ -1588,7 +1579,9 @@ function Nearby({ coarse }: { coarse: boolean }) {
     <div className="ad-interact ad-raise-overlay" {...pressMark("overlay", "ready")}>
       {choice.kind === "place" ? <Hammer size={18} /> : <BookOpen size={18} />}
       {!coarse && (
-        <span className="ad-key ad-raise-key" {...pressMark("key", "ready")}>E</span>
+        <span className="ad-key ad-raise-key" {...pressMark("key", "ready")}>
+          E
+        </span>
       )}
       <span>{choice.text}</span>
       {choice.kind === "place" ? (
@@ -1653,8 +1646,7 @@ function LessonLayer({
     if (phase !== "playing") return;
     observeSupply();
   }, [phase, playerX, playerZ, lesson]);
-  const showCard =
-    Boolean(readout.step) && (phase !== "title" || panel === "department");
+  const showCard = Boolean(readout.step) && (phase !== "title" || panel === "department");
   const showReview =
     !incomingSave &&
     readout.step === null &&
@@ -1740,16 +1732,14 @@ export function AdventureHud() {
   const titleFile = useRef<HTMLInputElement>(null);
   const settingsOpen = useGame((s) => s.settingsOpen);
   const home = phase === "title" ? readHome() : null;
-  const showSettings =
-    settingsVisible() && (settingsOpen || phase === "paused");
+  const showSettings = settingsVisible() && (settingsOpen || phase === "paused");
   const [coarse, setCoarse] = useState(
       () => typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches,
     ),
     [toast, setToast] = useState(""),
     [reduced, setReduced] = useState(
       () =>
-        typeof matchMedia === "function" &&
-        matchMedia("(prefers-reduced-motion: reduce)").matches,
+        typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches,
     );
   const mobile = coarse && isMobileViewport(viewBox.width, viewBox.height);
   const mobileHud = mobile ? mobileHudLayout(viewBox.width, viewBox.height, viewBox.insets) : null;
@@ -1812,12 +1802,7 @@ export function AdventureHud() {
     >
       {state.incomingSave && (
         <div className="ad-scrim">
-          <section
-            className="ad-dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-label="替換存檔"
-          >
+          <section className="ad-dialog" role="dialog" aria-modal="true" aria-label="替換存檔">
             <div className="ad-depth ad-sheen" aria-hidden="true" />
             <header>
               <div>
@@ -1826,9 +1811,7 @@ export function AdventureHud() {
               </div>
             </header>
             <div className="ad-dialog-body">
-              <p className="ad-lead">
-                匯入會取代目前的進度。請先匯出備份，再確認替換。
-              </p>
+              <p className="ad-lead">匯入會取代目前的進度。請先匯出備份，再確認替換。</p>
               <div className="ad-settings-options">
                 <button
                   type="button"
@@ -1866,18 +1849,18 @@ export function AdventureHud() {
             className="ad-dialog"
             role="dialog"
             aria-modal="true"
-            aria-label="另一分頁已更新存檔"
+            aria-label="存檔已在別處更新"
           >
             <div className="ad-depth ad-sheen" aria-hidden="true" />
             <header>
               <div>
                 <span className="ad-eyebrow">TAMKANG / SAVE</span>
-                <h2 className="ad-primary-label">另一分頁已寫入存檔</h2>
+                <h2 className="ad-primary-label">存檔已在別處更新</h2>
               </div>
             </header>
             <div className="ad-dialog-body">
               <p className="ad-lead">
-                同一份存檔在另一個分頁更新了。保留這一頁的進度，或重新載入對方寫入的進度。
+                這份存檔在別處更新了。保留這一頁正在玩的進度，或改用剛寫入的進度。
               </p>
               <div className="ad-settings-options">
                 <button
@@ -1935,9 +1918,7 @@ export function AdventureHud() {
               </div>
             ) : null}
             {home.fileError ? <p className="ad-home-summary">{home.fileError}</p> : null}
-            {home.storageLimit ? (
-              <p className="ad-home-summary">{home.storageLimit}</p>
-            ) : null}
+            {home.storageLimit ? <p className="ad-home-summary">{home.storageLimit}</p> : null}
             <div className="ad-title-actions">
               <button
                 type="button"
@@ -2026,9 +2007,7 @@ export function AdventureHud() {
                     title={label + " (" + key + ")"}
                     aria-label={label}
                     {...pressAttrs("icon", state.panel === id ? "selected" : "ready")}
-                    onClick={() =>
-                      useRpg.getState().setPanel(state.panel === id ? null : id)
-                    }
+                    onClick={() => useRpg.getState().setPanel(state.panel === id ? null : id)}
                   >
                     <Icon size={19} />
                   </button>
@@ -2045,7 +2024,9 @@ export function AdventureHud() {
               </nav>
               <button
                 className="ad-minimap"
-                aria-label={mapLesson ? `${CHROME_CONTROLS.openMap}，${mapLesson}` : CHROME_CONTROLS.openMap}
+                aria-label={
+                  mapLesson ? `${CHROME_CONTROLS.openMap}，${mapLesson}` : CHROME_CONTROLS.openMap
+                }
                 onClick={() => useRpg.getState().setPanel("map")}
               >
                 <MapGraphic compact />
@@ -2150,10 +2131,7 @@ export function AdventureHud() {
         </Dialog>
       )}
       {plaque && !state.panel && !showSettings && !state.incomingSave && (
-        <Dialog
-          title={plaque.name}
-          onClose={() => useGame.getState().openPlaque(null)}
-        >
+        <Dialog title={plaque.name} onClose={() => useGame.getState().openPlaque(null)}>
           <span className="ad-eyebrow">{plaque.nameEn}</span>
           <p className="ad-lead" data-sign-wording={signHost().wording}>
             {plaque.blurb}
@@ -2188,7 +2166,9 @@ export function AdventureHud() {
       <AdventureCombatHud />
       {toast && (
         <div
-          className={mobile ? "ad-toast ad-raise-overlay tk-mobile-notice" : "ad-toast ad-raise-overlay"}
+          className={
+            mobile ? "ad-toast ad-raise-overlay tk-mobile-notice" : "ad-toast ad-raise-overlay"
+          }
           role="status"
           style={
             mobileHud

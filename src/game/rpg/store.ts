@@ -2,12 +2,7 @@ import { create } from "zustand";
 import { createInventory } from "@overworld-engine/inventory";
 import { Vector3, Vehicle, SeekBehavior } from "yuka";
 import { useGame } from "../store";
-import {
-  calmWindups,
-  registerPlaySettle,
-  safeSlopeStand,
-  settlePlay,
-} from "../activity";
+import { calmWindups, registerPlaySettle, safeSlopeStand, settlePlay } from "../activity";
 import { LANDMARKS, SPAWN, WORLD_BOUNDS, terrainHeight } from "../world";
 import {
   DEPARTMENTS,
@@ -78,7 +73,11 @@ import {
   weightOf,
 } from "../../features/items-equipment-building/catalog.ts";
 import { takeCost } from "../../features/items-equipment-building/commit.ts";
-import { planCraft, planRepair, planWrenchService } from "../../features/items-equipment-building/craft.ts";
+import {
+  planCraft,
+  planRepair,
+  planWrenchService,
+} from "../../features/items-equipment-building/craft.ts";
 import {
   carryCap,
   ensureInstance,
@@ -91,7 +90,12 @@ import {
   readQuarantine,
   withDurability,
 } from "../../features/items-equipment-building/gear.ts";
-import type { GearInstance, GearQuality, Loadout, QuarantineSlot } from "../../features/items-equipment-building/types.ts";
+import type {
+  GearInstance,
+  GearQuality,
+  Loadout,
+  QuarantineSlot,
+} from "../../features/items-equipment-building/types.ts";
 import { loadLocal, saveLocal } from "../save";
 import { coerceTimeOfDay } from "../world-data/lighting";
 import { departmentById } from "../departments";
@@ -99,20 +103,8 @@ import { rpgIdFor } from "../contracts/departments.ts";
 import { errandReward, stampSemester } from "../contracts/semester.ts";
 
 export const RPG_SAVE_KEY = "tamkang-rpg-v2";
-export type LessonMark =
-  | "department"
-  | "move"
-  | "supply"
-  | "attack"
-  | "skill"
-  | "done";
-const LESSON_STEPS = [
-  "department",
-  "move",
-  "supply",
-  "attack",
-  "skill",
-] as const;
+export type LessonMark = "department" | "move" | "supply" | "attack" | "skill" | "done";
+const LESSON_STEPS = ["department", "move", "supply", "attack", "skill"] as const;
 export const inventory = createInventory({ items: ITEMS, capacity: BAG_CAPACITY });
 type Enemy = {
   id: string;
@@ -253,9 +245,7 @@ type RpgState = {
   travel: (id: string) => void;
 };
 const finite = (v: unknown, fallback = 0, max = 1_000_000) =>
-  typeof v === "number" && Number.isFinite(v)
-    ? Math.min(max, Math.max(0, v))
-    : fallback;
+  typeof v === "number" && Number.isFinite(v) ? Math.min(max, Math.max(0, v)) : fallback;
 function knownDepartment(id: unknown) {
   return rpgIdFor(typeof id === "string" ? id : null);
 }
@@ -322,9 +312,7 @@ function loadSave() {
   };
   const oldName = departmentById(legacy.departmentId)?.name;
   const departmentId =
-    DEPARTMENTS.find(
-      (d) => d.name === (oldName ? (names[oldName] ?? oldName) : ""),
-    )?.id ?? null;
+    DEPARTMENTS.find((d) => d.name === (oldName ? (names[oldName] ?? oldName) : ""))?.id ?? null;
   const itemMap: Record<string, string> = {
     notes: "notes",
     pen: "notes",
@@ -344,12 +332,7 @@ function loadSave() {
     })),
     buildings: legacy.buildings.map((b) => ({
       id: b.id,
-      kind:
-        b.kind === "lamp-post"
-          ? "lantern"
-          : b.kind === "banner"
-            ? "barrier"
-            : "desk",
+      kind: b.kind === "lamp-post" ? "lantern" : b.kind === "banner" ? "barrier" : "desk",
       x: b.x,
       z: b.z,
       rotation: 0,
@@ -394,7 +377,10 @@ function restoreInventory(raw: unknown) {
 }
 restoreInventory(saved.slots);
 const openedGear = readGear(saved.gear);
-const openedQuarantineGear = mergeQuarantineGear(readQuarantineGear(saved.quarantineGear), openedGear.dropped);
+const openedQuarantineGear = mergeQuarantineGear(
+  readQuarantineGear(saved.quarantineGear),
+  openedGear.dropped,
+);
 const openedLoadout = readLoadout({
   equipped: saved.equipped,
   loadout: saved.loadout,
@@ -424,21 +410,15 @@ function restoreBuildings(raw: unknown): Building[] {
       )
         continue;
       const rotation =
-        (Math.round(finite(b.rotation, 0, Math.PI * 2) / (Math.PI / 2)) *
-          Math.PI) /
-        2;
-      if (validatePlacement(b.kind, b.x, b.z, rotation, result, undefined, false))
-        continue;
+        (Math.round(finite(b.rotation, 0, Math.PI * 2) / (Math.PI / 2)) * Math.PI) / 2;
+      if (validatePlacement(b.kind, b.x, b.z, rotation, result, undefined, false)) continue;
       result.push({
         id: b.id.slice(0, 80),
         kind: b.kind,
         x: b.x,
         z: b.z,
         rotation,
-        hp: Math.max(
-          1,
-          finite(b.hp, 100, RECIPES.find((r) => r.id === b.kind)!.health),
-        ),
+        hp: Math.max(1, finite(b.hp, 100, RECIPES.find((r) => r.id === b.kind)!.health)),
       });
     }
   return result;
@@ -452,13 +432,10 @@ function absorbHeld(buildings: Building[], held: unknown): Building[] {
 }
 function strings(raw: unknown) {
   return Array.isArray(raw)
-    ? [
-        ...new Set(
-          raw.filter(
-            (s): s is string => typeof s === "string" && s.length < 100,
-          ),
-        ),
-      ].slice(0, 100)
+    ? [...new Set(raw.filter((s): s is string => typeof s === "string" && s.length < 100))].slice(
+        0,
+        100,
+      )
     : [];
 }
 function keepDiscovery(id: string) {
@@ -549,10 +526,9 @@ function restoreLoot(raw: unknown): Loot[] {
     )
     .map((l) => {
       const items = Object.fromEntries(
-        ITEMS.map((i) => [
-          i.id,
-          Math.floor(finite(l.items[i.id], 0, 99)),
-        ]).filter(([, n]) => Number(n) > 0),
+        ITEMS.map((i) => [i.id, Math.floor(finite(l.items[i.id], 0, 99))]).filter(
+          ([, n]) => Number(n) > 0,
+        ),
       );
       const quest = restoreQuest(l.quest, items);
       const id = l.id.slice(0, 80) || crypto.randomUUID();
@@ -582,12 +558,7 @@ function restorePosition(raw: unknown) {
   };
 }
 const BODY_RADIUS = 0.42;
-function standAt(
-  x: number,
-  z: number,
-  yaw: number,
-  buildings: Building[],
-) {
+function standAt(x: number, z: number, yaw: number, buildings: Building[]) {
   const p = resolveBuildings(x, z, BODY_RADIUS, buildings);
   return { x: p.x, z: p.z, yaw };
 }
@@ -617,13 +588,7 @@ const LEGACY_ITEMS: Record<string, string> = {
   "stamp-ink": "notes",
   "first-aid": "coffee",
 };
-type ImportReason =
-  | "json"
-  | "version"
-  | "negative"
-  | "oversize"
-  | "slots"
-  | "buildings";
+type ImportReason = "json" | "version" | "negative" | "oversize" | "slots" | "buildings";
 const IMPORT_NOTICES: Record<ImportReason, string> = {
   json: "匯入失敗：存檔不是有效的 JSON。",
   version: "匯入失敗：無法辨識此存檔版本。",
@@ -677,7 +642,9 @@ function readSlots(
   raw: unknown,
   idKey: "itemId" | "id",
   countKey: "quantity" | "count",
-): { ok: true; slots: SaveSlot[]; quarantine: QuarantineSlot[] } | { ok: false; reason: ImportReason } {
+):
+  | { ok: true; slots: SaveSlot[]; quarantine: QuarantineSlot[] }
+  | { ok: false; reason: ImportReason } {
   if (!Array.isArray(raw)) return { ok: false, reason: "version" };
   if (raw.length > SLOT_LIMIT) return { ok: false, reason: "slots" };
   const slots: SaveSlot[] = [];
@@ -687,14 +654,11 @@ function readSlots(
     const record = slot as Record<string, unknown>;
     const quantity = record[countKey];
     if (negativeNumber(quantity)) return { ok: false, reason: "negative" };
-    if (typeof quantity !== "number" || !Number.isFinite(quantity) || quantity <= 0)
-      continue;
+    if (typeof quantity !== "number" || !Number.isFinite(quantity) || quantity <= 0) continue;
     const mapped = LEGACY_ITEMS[String(record[idKey] ?? "")];
     const itemId =
       mapped ??
-      (ITEMS.some((item) => item.id === record[idKey])
-        ? (record[idKey] as string)
-        : null);
+      (ITEMS.some((item) => item.id === record[idKey]) ? (record[idKey] as string) : null);
     if (!itemId) {
       const unknown = record[idKey];
       if (typeof unknown === "string" && unknown.length > 0 && unknown.length <= 64)
@@ -717,11 +681,7 @@ function readBuildings(
     const record = building as Record<string, unknown>;
     if (!legacy) return building;
     const kind =
-      record.kind === "lamp-post"
-        ? "lantern"
-        : record.kind === "banner"
-          ? "barrier"
-          : "desk";
+      record.kind === "lamp-post" ? "lantern" : record.kind === "banner" ? "barrier" : "desk";
     return { ...record, kind, rotation: 0, hp: record.hp ?? 120 };
   });
   for (const building of mapped) {
@@ -770,10 +730,9 @@ function prepareImport(
     legacy ? "count" : "quantity",
   );
   if (!slots.ok) return slots;
-  const buildings = readBuildings(legacy ? record.buildings ?? [] : record.buildings, legacy);
+  const buildings = readBuildings(legacy ? (record.buildings ?? []) : record.buildings, legacy);
   if (!buildings.ok) return buildings;
-  if (record.loot && lootNegative(record.loot))
-    return { ok: false, reason: "negative" };
+  if (record.loot && lootNegative(record.loot)) return { ok: false, reason: "negative" };
   const xp = optionalNumber(record.xp, 0, 10_000_000);
   const focus = optionalNumber(record.focus, legacy ? 100 : 100, 100);
   const skillRank = optionalNumber(record.skillRank, 1, 5);
@@ -795,7 +754,10 @@ function prepareImport(
   });
   const equipped = migrated.equipped;
   const gearRead = readGear(record.gear);
-  const quarantineGear = mergeQuarantineGear(readQuarantineGear(record.quarantineGear), gearRead.dropped);
+  const quarantineGear = mergeQuarantineGear(
+    readQuarantineGear(record.quarantineGear),
+    gearRead.dropped,
+  );
   const quarantine = readQuarantine(record.quarantine);
   for (const row of slots.quarantine) {
     if (!quarantine.some((entry) => entry.itemId === row.itemId)) quarantine.push(row);
@@ -856,9 +818,7 @@ function prepareImport(
       stand,
       lesson,
       lessonAnchor:
-        lesson === "move"
-          ? readAnchor(record.lessonAnchor) ?? { x: stand.x, z: stand.z }
-          : null,
+        lesson === "move" ? (readAnchor(record.lessonAnchor) ?? { x: stand.x, z: stand.z }) : null,
       pilgrimage: pilgrimage
         ? {
             visited: pilgrimage.visited,
@@ -895,8 +855,7 @@ function freshEnemies(boss = 0): Enemy[] {
 }
 const maxHp = (s: Pick<RpgState, "xp" | "equipped">) => lifeCap(s.xp, s.equipped);
 export { maxHp };
-let previousPhase: "title" | "setup" | "playing" | "paused" | "codex" =
-  "playing";
+let previousPhase: "title" | "setup" | "playing" | "paused" | "codex" = "playing";
 const LOOT_PILES = 100;
 const LOOT_STACK = 99;
 const LOOT_ITEM_KEYS = 16;
@@ -1015,11 +974,7 @@ function grantList(items: Record<string, number>) {
 }
 
 /** One notice. An empty bag or ground group is omitted, not described as received. */
-function intakeNotice(
-  accepted: Record<string, number>,
-  left: Record<string, number>,
-  lead = "",
-) {
+function intakeNotice(accepted: Record<string, number>, left: Record<string, number>, lead = "") {
   const lines: string[] = [];
   if (lead) lines.push(lead);
   const bagged = grantList(accepted);
@@ -1213,9 +1168,7 @@ function xpPatch(s: RpgState, amount: number) {
   const xp = s.xp + amount;
   return {
     xp,
-    ...(levelForXp(xp) > levelForXp(s.xp)
-      ? { hp: maxHp({ ...s, xp }), focus: 100 }
-      : {}),
+    ...(levelForXp(xp) > levelForXp(s.xp) ? { hp: maxHp({ ...s, xp }), focus: 100 } : {}),
   };
 }
 const loadedGathered = restoreCountMap(saved.gathered, GATHERED_ITEMS);
@@ -1284,8 +1237,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     }
     let resume: { id: string; floor: number } | null = null;
     try {
-      const text =
-        typeof source === "string" ? source : localStorage.getItem(RPG_SAVE_KEY);
+      const text = typeof source === "string" ? source : localStorage.getItem(RPG_SAVE_KEY);
       if (text) resume = resumeInterior(decodeSave(text));
     } catch {
       resume = null;
@@ -1333,8 +1285,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       if (previousPhase === "playing") useGame.getState().pause();
       else settlePlay("suspend");
     }
-    if (!panel && get().panel && previousPhase === "playing")
-      useGame.getState().resume();
+    if (!panel && get().panel && previousPhase === "playing") useGame.getState().resume();
     set({ panel, ...(panel ? { buildKind: null } : {}) });
   },
   chooseDepartment: (id) => {
@@ -1345,14 +1296,13 @@ export const useRpg = create<RpgState>((set, get) => ({
     }
     set({ departmentId: id, panel: null, freshStart: false });
     useGame.setState({ phase: "playing", snapCam: true });
-    get().notify(
-      "學期開始。J 普攻、Q 科系技能、空白鍵閃避；先到宮燈大道探索。",
-    );
+    get().notify("學期開始。J 普攻、Q 科系技能、空白鍵閃避；先到宮燈大道探索。");
     noteLesson("department");
   },
   useItem: (id) => {
     const s = get();
-    const usable = id === "coffee" || id === "tea" || id === "mint" || id === "bandage" || id === "lamp-oil";
+    const usable =
+      id === "coffee" || id === "tea" || id === "mint" || id === "bandage" || id === "lamp-oil";
     if (s.hp <= 0 || !usable) return;
     const verdict = itemVerdict({
       id,
@@ -1392,7 +1342,8 @@ export const useRpg = create<RpgState>((set, get) => ({
     }
     if (id === "coffee") set({ hp: Math.min(maxHp(s), s.hp + COFFEE_HEAL) });
     else if (id === "tea") set({ focus: Math.min(FOCUS_CAP, s.focus + TEA_FOCUS) });
-    else if (id === "mint") set({ focus: Math.min(FOCUS_CAP, s.focus + MINT_FOCUS + bonus.mintBonus) });
+    else if (id === "mint")
+      set({ focus: Math.min(FOCUS_CAP, s.focus + MINT_FOCUS + bonus.mintBonus) });
     else set({ hp: Math.min(maxHp(s), s.hp + BANDAGE_HEAL + bonus.bandageBonus) });
     s.notify(
       id === "coffee"
@@ -1489,7 +1440,9 @@ export const useRpg = create<RpgState>((set, get) => ({
       const recipe = RECIPES.find((item) => item.id === building.kind);
       return Boolean(recipe && building.hp < recipe.health);
     };
-    const named = id ? s.buildings.find((building) => building.id === id && hurt(building)) : undefined;
+    const named = id
+      ? s.buildings.find((building) => building.id === id && hurt(building))
+      : undefined;
     let target = named ?? null;
     if (!target) {
       let best = 6;
@@ -1506,7 +1459,10 @@ export const useRpg = create<RpgState>((set, get) => ({
       gear: s.gear,
       owned: owns,
       building: target
-        ? { hp: target.hp, max: RECIPES.find((item) => item.id === target.kind)?.health ?? target.hp }
+        ? {
+            hp: target.hp,
+            max: RECIPES.find((item) => item.id === target.kind)?.health ?? target.hp,
+          }
         : null,
     });
     if (!plan.ok) {
@@ -1567,7 +1523,8 @@ export const useRpg = create<RpgState>((set, get) => ({
     }
     const still = inventory.count(id) > 0;
     const slot = fact.slot;
-    const loadout = slot && s.loadout[slot] === id && !still ? { ...s.loadout, [slot]: null } : s.loadout;
+    const loadout =
+      slot && s.loadout[slot] === id && !still ? { ...s.loadout, [slot]: null } : s.loadout;
     const equipped = loadout.accessory === "badge" && inventory.count("badge") > 0;
     set({
       loadout,
@@ -1697,10 +1654,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       ? legal
       : legal
           .slice()
-          .sort(
-            (a, b) =>
-              Math.hypot(a.x - px, a.z - pz) - Math.hypot(b.x - px, b.z - pz),
-          )
+          .sort((a, b) => Math.hypot(a.x - px, a.z - pz) - Math.hypot(b.x - px, b.z - pz))
           .slice(0, 1);
     const hitIds: string[] = [];
     for (const enemy of targets) {
@@ -1708,10 +1662,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       hitEnemy(enemy, damage);
       if (enemy.hp < before) hitIds.push(enemy.id);
       if (skill && department.discipline === "engineering" && enemy.hp > 0) {
-        const distance = Math.max(
-          0.1,
-          Math.hypot(enemy.x - px, enemy.z - pz),
-        );
+        const distance = Math.max(0.1, Math.hypot(enemy.x - px, enemy.z - pz));
         const next = resolveBuildings(
           enemy.x + ((enemy.x - px) / distance) * 2,
           enemy.z + ((enemy.z - pz) / distance) * 2,
@@ -1724,10 +1675,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     }
     const fx = get().attackFx;
     if (fx) set({ attackFx: { ...fx, hits: hitIds } });
-    if (
-      skill &&
-      ["humanities", "international"].includes(department.discipline)
-    )
+    if (skill && ["humanities", "international"].includes(department.discipline))
       set({ focus: Math.min(100, get().focus + 12) });
     if (skill && ["business", "education"].includes(department.discipline))
       set({ hp: Math.min(maxHp(get()), get().hp + 20) });
@@ -1736,9 +1684,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     if (skill && department.discipline === "health")
       set({ hp: Math.min(maxHp(get()), get().hp + 40) });
     if (skill)
-      s.notify(
-        `${discipline.skill}${hitIds.length ? ` · 命中 ${hitIds.length} 個目標` : ""}`,
-      );
+      s.notify(`${discipline.skill}${hitIds.length ? ` · 命中 ${hitIds.length} 個目標` : ""}`);
     noteLesson(skill ? "skill" : "attack");
   },
   dodge: () => {
@@ -1782,8 +1728,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     });
     get().notify(held ? "已放回原處。" : "結束建造");
   },
-  rotate: () =>
-    set({ rotation: (get().rotation + Math.PI / 2) % (Math.PI * 2) }),
+  rotate: () => set({ rotation: (get().rotation + Math.PI / 2) % (Math.PI * 2) }),
   place: (x, z) => {
     const s = get(),
       g = useGame.getState();
@@ -1840,7 +1785,11 @@ export const useRpg = create<RpgState>((set, get) => ({
         const { accepted, left, ...patch } = settled;
         set(patch);
         s.notify(
-          intakeNotice(accepted, left, `已建造${recipe.name}。這次放置把學期推進到期中，只記一次。`),
+          intakeNotice(
+            accepted,
+            left,
+            `已建造${recipe.name}。這次放置把學期推進到期中，只記一次。`,
+          ),
         );
       } else {
         set({ narrative: stampSemester(get().narrative, get().claimed) });
@@ -1857,7 +1806,11 @@ export const useRpg = create<RpgState>((set, get) => ({
       const { accepted, left, ...patch } = moved;
       set(patch);
       s.notify(
-        intakeNotice(accepted, left, `已移動${recipe.name}，沒有扣除材料。這次放置把學期推進到期中，只記一次。`),
+        intakeNotice(
+          accepted,
+          left,
+          `已移動${recipe.name}，沒有扣除材料。這次放置把學期推進到期中，只記一次。`,
+        ),
       );
     } else {
       set({ narrative: stampSemester(get().narrative, get().claimed) });
@@ -1883,12 +1836,7 @@ export const useRpg = create<RpgState>((set, get) => ({
   },
   interact: () => {
     const choice = promptDecision(promptSnap());
-    if (
-      !choice ||
-      choice.kind === "place" ||
-      choice.kind === "stamp" ||
-      choice.kind === "open"
-    )
+    if (!choice || choice.kind === "place" || choice.kind === "stamp" || choice.kind === "open")
       return false;
     runPrompt(choice);
     return true;
@@ -1973,7 +1921,9 @@ export const useRpg = create<RpgState>((set, get) => ({
       narrativeUi: ui,
     });
     const note = ui.notice ?? ui.outcome ?? "這段對話結束了。";
-    s.notify(Object.keys(paid.accepted).length ? intakeNotice(paid.accepted, paid.left, note) : note);
+    s.notify(
+      Object.keys(paid.accepted).length ? intakeNotice(paid.accepted, paid.left, note) : note,
+    );
   },
   narrativeDismiss: () => {
     const s = get();
@@ -2071,10 +2021,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     const site = CAMPUS_SITES.find((p) => p.id === get().interiorId);
     if (!site) return;
     set({
-      floor: Math.max(
-        1,
-        Math.min(site.floors, get().floor + Math.sign(direction)),
-      ),
+      floor: Math.max(1, Math.min(site.floors, get().floor + Math.sign(direction))),
     });
   },
   travel: (id) => {
@@ -2174,13 +2121,9 @@ export const useRpg = create<RpgState>((set, get) => ({
     };
     const priorVariety = varietySave?.capture();
     const priorStored =
-      typeof localStorage === "undefined"
-        ? null
-        : localStorage.getItem(RPG_SAVE_KEY);
+      typeof localStorage === "undefined" ? null : localStorage.getItem(RPG_SAVE_KEY);
     const priorLegacy =
-      typeof localStorage === "undefined"
-        ? null
-        : localStorage.getItem("tamkang-world-v1");
+      typeof localStorage === "undefined" ? null : localStorage.getItem("tamkang-world-v1");
     const writeBack = (key: string, value: string | null) => {
       if (typeof localStorage === "undefined") return;
       try {
@@ -2236,9 +2179,7 @@ export const useRpg = create<RpgState>((set, get) => ({
         const visited = save.pilgrimage.visited;
         const timeOfDay = save.pilgrimage.timeOfDay ?? current.timeOfDay;
         const muted =
-          typeof save.pilgrimage.muted === "boolean"
-            ? save.pilgrimage.muted
-            : current.muted;
+          typeof save.pilgrimage.muted === "boolean" ? save.pilgrimage.muted : current.muted;
         useGame.setState({ visited, timeOfDay, muted });
         saveLocal({ ...current, visited, timeOfDay, muted });
       }
@@ -2377,7 +2318,8 @@ function runPrompt(choice: PromptChoice) {
         });
     }
     const mergedLeft = { ...left };
-    for (const [id, count] of Object.entries(extra.left)) mergedLeft[id] = (mergedLeft[id] ?? 0) + count;
+    for (const [id, count] of Object.entries(extra.left))
+      mergedLeft[id] = (mergedLeft[id] ?? 0) + count;
     const mergedAccepted = { ...accepted };
     for (const [id, count] of Object.entries(extra.accepted))
       mergedAccepted[id] = (mergedAccepted[id] ?? 0) + count;
@@ -2533,12 +2475,7 @@ export function tickRpg(delta: number) {
   accum = 0;
   const clock = s.clock + dt;
   const cycle = clock % 300,
-    anomaly =
-      cycle > 240
-        ? Math.floor(clock / 300) % 2
-          ? "blackout"
-          : "deadline"
-        : "quiet";
+    anomaly = cycle > 240 ? (Math.floor(clock / 300) % 2 ? "blackout" : "deadline") : "quiet";
   const worn = gearBonus(s.loadout, s.gear, owns);
   let hp = Math.min(maxHp(s), s.hp),
     focus = Math.min(100, s.focus + dt * (3.2 + worn.focusPerSec));
@@ -2581,15 +2518,16 @@ export function tickRpg(delta: number) {
           clock > useRpg.getState().invulnerableUntil &&
           lineOfSight(e.x, e.z, g.playerX, g.playerZ)
         ) {
-          hp = Math.max(0, hp - (worn.mitigation > 0 ? Math.max(1, type.damage - worn.mitigation) : type.damage));
+          hp = Math.max(
+            0,
+            hp - (worn.mitigation > 0 ? Math.max(1, type.damage - worn.mitigation) : type.damage),
+          );
           useRpg.setState({
             invulnerableUntil: clock + 0.7,
             hurtUntil: clock + 0.4,
           });
         }
-        const target = s.buildings.find(
-          (b) => Math.hypot(b.x - e.x, b.z - e.z) < 3.3,
-        );
+        const target = s.buildings.find((b) => Math.hypot(b.x - e.x, b.z - e.z) < 3.3);
         if (target) {
           target.hp -= type.damage * 2;
           structuresDamaged = true;
@@ -2604,12 +2542,9 @@ export function tickRpg(delta: number) {
       if (e.timer <= 0) e.state = "chase";
       continue;
     }
-    const barrier = s.buildings.find(
-      (b) => Math.hypot(b.x - e.x, b.z - e.z) < 3.0,
-    );
+    const barrier = s.buildings.find((b) => Math.hypot(b.x - e.x, b.z - e.z) < 3.0);
     if (
-      (distance < type.radius + 2 &&
-        lineOfSight(e.x, e.z, g.playerX, g.playerZ)) ||
+      (distance < type.radius + 2 && lineOfSight(e.x, e.z, g.playerX, g.playerZ)) ||
       (distance < 24 && barrier)
     ) {
       e.state = "windup";
@@ -2655,12 +2590,7 @@ export function tickRpg(delta: number) {
         targetX: tx,
         targetZ: tz,
         structures: s.buildings.length,
-        path: findWalkablePath(
-          { x: e.x, z: e.z },
-          endpoint,
-          type.radius,
-          s.buildings,
-        ),
+        path: findWalkablePath({ x: e.x, z: e.z }, endpoint, type.radius, s.buildings),
       };
       routes.set(e.id, route);
     }
@@ -2672,15 +2602,8 @@ export function tickRpg(delta: number) {
     const waypoint = route.path[0];
     target.set(waypoint?.[0] ?? e.x, 0, waypoint?.[1] ?? e.z);
     vehicle.update(dt);
-    const next = resolveBuildings(
-      vehicle.position.x,
-      vehicle.position.z,
-      type.radius,
-      s.buildings,
-    );
-    if (
-      Math.abs(terrainHeight(next.x, next.z) - terrainHeight(e.x, e.z)) < 0.7
-    ) {
+    const next = resolveBuildings(vehicle.position.x, vehicle.position.z, type.radius, s.buildings);
+    if (Math.abs(terrainHeight(next.x, next.z) - terrainHeight(e.x, e.z)) < 0.7) {
       e.x = next.x;
       e.z = next.z;
     }
@@ -2689,10 +2612,7 @@ export function tickRpg(delta: number) {
   if (supportAccum > 1) {
     supportAccum = 0;
     for (const b of s.buildings) {
-      if (
-        b.kind === "desk" &&
-        Math.hypot(b.x - g.playerX, b.z - g.playerZ) < 6
-      ) {
+      if (b.kind === "desk" && Math.hypot(b.x - g.playerX, b.z - g.playerZ) < 6) {
         hp = Math.min(maxHp(s), hp + 5);
         focus = Math.min(100, focus + 8);
       }
@@ -2740,9 +2660,7 @@ function resumeInterior(raw: Record<string, unknown> | null | undefined) {
   const site = CAMPUS_SITES.find((p) => p.id === raw.interiorId);
   if (!site || site.form === "court") return null;
   const floor =
-    typeof raw.floor === "number" && Number.isFinite(raw.floor)
-      ? Math.floor(raw.floor)
-      : 1;
+    typeof raw.floor === "number" && Number.isFinite(raw.floor) ? Math.floor(raw.floor) : 1;
   return { id: site.id, floor: Math.max(1, Math.min(site.floors, floor)) };
 }
 function wrapYaw(yaw: number) {
@@ -2834,9 +2752,7 @@ function persistRpgSave() {
   localStorage.setItem(RPG_SAVE_KEY, text);
   lastWritten = text;
 }
-export function noteLesson(
-  reason: "department" | "move" | "supply" | "attack" | "skill",
-) {
+export function noteLesson(reason: "department" | "move" | "supply" | "attack" | "skill") {
   const current = useRpg.getState().lesson;
   if (current !== reason) return;
   const index = LESSON_STEPS.indexOf(current);
@@ -2862,10 +2778,7 @@ export function loadSavedLesson() {
       const lesson = readLesson(record.lesson, departmentId);
       useRpg.setState({
         lesson,
-        lessonAnchor:
-          lesson === "move"
-            ? readAnchor(record.lessonAnchor)
-            : null,
+        lessonAnchor: lesson === "move" ? readAnchor(record.lessonAnchor) : null,
         lessonReview: false,
       });
       return;
@@ -2898,9 +2811,9 @@ export function flushSave() {
 function scheduleSave() {
   dirty = true;
   if (foreignText) return;
-  if (saveTimer) clearTimeout(saveTimer);
-  if (useRpg.getState().saved !== "pending")
-    useRpg.setState({ saved: "pending" });
+  // Keep the first deadline. Continuous healing used to push the write forever.
+  if (saveTimer) return;
+  if (useRpg.getState().saved !== "pending") useRpg.setState({ saved: "pending" });
   saveTimer = setTimeout(flushSave, SAVE_DELAY);
 }
 export function noteCloudSave(text: string): void {
@@ -2965,11 +2878,12 @@ useRpg.subscribe((s, prev) => {
 });
 useGame.subscribe((s, prev) => {
   if (s.phase === "title") return;
-  if (
-    s.playerX === prev.playerX &&
-    s.playerZ === prev.playerZ &&
-    s.playerYaw === prev.playerYaw
-  )
+  // The cloud file is this save. A stamp, mute, or time change has to land before the next step.
+  if (s.visited !== prev.visited || s.timeOfDay !== prev.timeOfDay || s.muted !== prev.muted) {
+    flushSave();
+    return;
+  }
+  if (s.playerX === prev.playerX && s.playerZ === prev.playerZ && s.playerYaw === prev.playerYaw)
     return;
   scheduleSave();
 });
