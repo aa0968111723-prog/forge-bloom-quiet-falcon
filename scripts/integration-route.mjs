@@ -396,6 +396,46 @@ async function playOffline(page) {
     semester: varied.semester,
   });
 
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.evaluate(() => {
+    window.__controlsTest.setPose(294.8, -74.5, Math.PI);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 8));
+  const facultyTalk = page.getByRole("button", { name: "與顧衡交談" });
+  await facultyTalk.waitFor({ state: "visible", timeout: 15000 });
+  await facultyTalk.click();
+  const narrative = page.locator("#narrative-scroll");
+  await narrative.waitFor({ state: "visible", timeout: 15000 });
+  await narrative.getByRole("button", { name: "交談", exact: true }).click();
+  const lineChoice = page.getByRole("button", { name: "我先補剖面，補完再請你看。" });
+  const failChoice = page.getByRole("button", { name: "我帶了失敗的那一版，想先聽你怎麼看。" });
+  await lineChoice.waitFor({ state: "visible", timeout: 15000 });
+  await failChoice.waitFor({ state: "visible", timeout: 15000 });
+  await shot(page, "08-faculty-choices");
+  const beforeFaculty = await readLive(page);
+  await lineChoice.click();
+  const met = await readLive(page);
+  assert.ok(met.claimed.includes("quest-faculty-gu-meet"));
+  assert.ok(met.claimed.includes("quest-faculty-studio-meet"));
+  assert.equal(met.xp, beforeFaculty.xp + 22);
+  assert.equal(met.semester, "midterm");
+  const facultyFlags = await page.evaluate(() => {
+    const flags = window.__rpgQA.rpg.getState().narrative.flags;
+    return { line: flags["fac-gu-meet-line"] === true, fail: flags["fac-gu-meet-fail"] === true };
+  });
+  assert.equal(facultyFlags.line, true);
+  assert.equal(facultyFlags.fail, false);
+  await shot(page, "08b-faculty-line");
+  const leaveFaculty = page.getByRole("button", { name: "繼續自由探索" });
+  await leaveFaculty.click();
+  note("faculty-gu", {
+    choice: "fac-gu-meet-line",
+    otherChoiceVisible: "我帶了失敗的那一版，想先聽你怎麼看。",
+    xp: met.xp,
+    semester: met.semester,
+  });
+
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const savedText = await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2"));
   const saved = JSON.parse(savedText);
@@ -410,10 +450,17 @@ async function playOffline(page) {
   assert.ok(reloaded.claimed.includes("quest-errand-campus-post"));
   assert.ok(reloaded.claimed.includes("semester"));
   assert.ok(reloaded.claimed.includes("quest-gv-night-peace"));
+  assert.ok(reloaded.claimed.includes("quest-faculty-gu-meet"));
+  assert.ok(reloaded.claimed.includes("quest-faculty-studio-meet"));
   assert.equal(reloaded.semester, "midterm");
   assert.equal(reloaded.equipped, true);
   assert.deepEqual(reloaded.buildings, ["lantern"]);
   assert.equal(reloaded.flag, true);
+  const reloadedFaculty = await page.evaluate(() => {
+    const flags = window.__rpgQA.rpg.getState().narrative.flags;
+    return flags["fac-gu-meet-line"] === true && flags["fac-gu-meet-fail"] !== true;
+  });
+  assert.equal(reloadedFaculty, true);
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const reloadedDoc = JSON.parse(await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2")));
   assert.equal(notesOf(reloadedDoc), notesOf(saved));
@@ -580,6 +627,8 @@ async function syncCloud(document) {
     assert.ok(remote.claimed.includes("quest-errand-campus-post"));
     assert.ok(remote.claimed.includes("semester"));
     assert.ok(remote.claimed.includes("quest-gv-night-peace"));
+    assert.ok(remote.claimed.includes("quest-faculty-gu-meet"));
+    assert.equal(remote.narrative.flags["fac-gu-meet-line"], true);
     assert.equal(remote.narrative.semester, "midterm");
     assert.equal(remote.equipped, true);
     assert.equal(remote.buildings.length, 1);

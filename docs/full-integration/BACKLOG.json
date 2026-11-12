@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T01:22:56Z",
+  "updated": "2026-11-12T02:10:00Z",
   "items": [
     {
       "id": "FI-MUTEX",
@@ -56,6 +56,13 @@
       "note": "final-1 is reduced with the existing attack(), cooldown cleared between swings so the clock does not jump. The victory button claims semester and grants the badge. Bag shows 卸下徽章. Reload and the second API client keep equipped and the lantern. Semester stays midterm."
     },
     {
+      "id": "FI-FACULTY",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Source 7f6f3c8 wired at f300327. 1280x720. Both opening choices visible. Played fac-gu-meet-line. xp 512 to 534. Architecture site discover is the extra 12 before the choice. Reload and second client keep the flag and quest-faculty-gu-meet. The fail choice was not clicked in the browser."
+    },
+    {
       "id": "FI-CLOUD",
       "status": "verified",
       "merged": false,
@@ -65,17 +72,17 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "Fetched 2026-11-12. Already on main through language hall, integration PR #120. Still open and not for this line to merge: #107 4dc3786b, #108 6ac2cf30, #110 eee5c917, #111 412b1303, #113 f2750c70, #115 9672ff38, #116 9a3d594e, #118 266e4b73. Re-fetch heads before use. Source PRs that stay open after an integration merge are not a second copy of the feature."
+      "note": "main e1f52fd includes chemistry hall via integration PR #130. This line does not merge art. Re-fetch before use. Open source PRs are not proof the feature is missing from main."
     },
     {
       "id": "FI-OTHER-LINES",
-      "status": "waiting-on-their-branches",
-      "note": "Item, gameplay, and faculty agents were RUNNING with no branch. Do not invent their content and do not block the supply slice on them."
+      "status": "faculty-wired-items-waiting",
+      "note": "Faculty 7f6f3c8 is wired here. Gameplay d82bf00 is wired here. Items PR #129 head 11ddeba is published; their handoff says to whitelist loadout, gear, quarantine, quarantineGear, and heldBuild before merging that line. Do not open a second bag."
     },
     {
       "id": "FI-BROWSER-REST",
       "status": "not-verified-here",
-      "note": "Nine college skills, four monster kinds, and the seven-zone road net were not replayed. One interior, main-gate, was entered and then interiorId returned to null. One quiz enemy went from 65 to 45."
+      "note": "Four monster kinds were hit on this route. One interior, main-gate, was entered and then interiorId returned to null. Eight other college skills and the seven-zone road net were not replayed."
     }
   ]
 }

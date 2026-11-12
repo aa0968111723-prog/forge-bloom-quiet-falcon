@@ -1,16 +1,16 @@
 # 統整線驗證
 
-瀏覽器路線所在遊戲提交：`af7b669`（含玩法線 `d82bf00` 與化學館所在的 `main` `e1f52fd`）。
+瀏覽器路線所在遊戲提交：`f300327cda2b5829c79eaf9aa1a6fddcb1d57230`（含教職員 `7f6f3c8`、玩法線 `d82bf00`、化學館所在的 `main` `e1f52fd`）。
 學期查詢已在 main，整合 PR #125。這次沒有再合。
 
 這些指令是在該工作樹上親自跑的。沒有 CI。沒有 required checks 不算驗收通過。
 
 | 指令 | 結果 |
 | --- | --- |
-| `npx tsc --noEmit` | 通過。在 `90768e4` 的工作樹，放置測試尚未加入，型別沒有再改 |
-| `npm test` | 285 通過、0 失敗 |
-| `npm run build:site` | 通過。`dist/assets` 沒有 `revision_conflict` 或 `cloud-save` |
-| `node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route` | 通過。`pageErrors` 空、離線遊玩時頁面 API 請求空、`ok: true` |
+| `npx tsc --noEmit` | 通過。在 `f300327`，衝突只修了敘事面板的 scroll id |
+| `npm test` | 293 通過、0 失敗 |
+| `npm run build:site` | 通過。2372 個模組。`dist` 沒有 `revision_conflict` 或 `cloud-save` |
+| `node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route` | 通過，exit 0。`pageErrors` 空、離線遊玩時頁面 API 請求空 |
 | `npx eslint` 只掃這次改過的檔 | 1 個既有錯誤：`src/game/rpg/AdventureHud.tsx:639` irregular whitespace，不在這次 diff。1 個既有警告：`store.ts` 的 `dirty` 未使用。不把全庫 lint 說成通過 |
 | `art:validate` | 沒跑。這次沒有改美術輸出 |
 
@@ -43,4 +43,8 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 
 化學系的技能按鈕把 report 從 145 打到 93。exam 從 240 到 211。quiz 與 final 仍是先前那兩下。另外八個學院的技能這輪沒有換科系去打。
 
-固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。
+同一條路線接著把視窗設回 1280×720，站到建築系館南側估計位置 `(294.8, -74.5)`。世界按鈕是「與顧衡交談」。面板裡再按一次「交談」才出現選項。兩個選項都看得到。選「我先補剖面，補完再請你看。」。結果句是「剖面沒到，我不開始評。你問的是線，我就記你問的是線。」`fac-gu-meet-line` 為真，`fac-gu-meet-fail` 為假。`claimed` 增加 `quest-faculty-gu-meet` 與 `quest-faculty-studio-meet`。選項當下經驗從 512 到 534。站上這個崗位時，既有地點發現把 `architecture` 寫進 `discoveries`，那是夜巡後 500 與選項前 512 之間的 12 點。筆記仍是 22。學期仍是期中。重載後這些都還在。第二個 API 客戶端的遠端文件有 `quest-faculty-gu-meet`，而且 `narrative.flags["fac-gu-meet-line"]` 為真。之後的競態仍是 200 與 409，離線佇列後雲端經驗 537，登出 401。測試註冊 id 是 `OjqQ7D5d6cGVr8i0CTggZhLfi5ijYquF`，不是真人。
+
+失敗那一版的選項出現在畫面上，這次沒有點。那個結果句與「選了之後再選另一個不會再發獎」是 `scripts/faculty-story.test.mjs` 的斷言，不是第二次瀏覽器遊玩。
+
+畫面檔：`/opt/cursor/artifacts/integration-route/08-faculty-choices.png`、`08b-faculty-line.png`。裝置是這台雲端主機的 headless Chrome，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。
