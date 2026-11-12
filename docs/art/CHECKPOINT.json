@@ -57,7 +57,7 @@
     "typecheck": "pass",
     "npm_test": "activity-court passes; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-C7V_SmIC.js",
+    "build_site": "AdventureApp-g7Ix0_tH.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [

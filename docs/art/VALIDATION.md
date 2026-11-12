@@ -374,4 +374,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 62 輪（活動室球場）— 2026-11-12
 
-`node --test scripts/activity-court.test.mjs` 通過。`tsc --noEmit` 通過。活動室有 10 條標線：兩條邊線、兩條底線、兩側禁區。底線在籃框 x=7.5 和籃架 x=8 之間。每條線都留在房間裡，高度低於 0.1 m。定步白天在體育館室內俯看，頁面無錯誤：`docs/art/evidence/gym/court.jpg`。看得到木地板、中圈、禁區和兩側籃架。宮燈教室沒有這組線。尺寸仍是 estimated。車阻留在第 61 輪。沒有新增音效。`build:site` 產物 `AdventureApp-C7V_SmIC.js`。
+`node --test scripts/activity-court.test.mjs` 通過。`tsc --noEmit` 通過。活動室地板只畫一組標線：兩條邊線、兩條底線、中線和兩側禁區，共 11 條。舊的 x=±8.5、z=±5.5 那組已拿掉。底線在籃框 x=7.5 和籃架 x=8 之間。每條線都留在房間裡，高度低於 0.1 m。定步白天在體育館室內俯看，頁面無錯誤：`docs/art/evidence/gym/court.jpg`。看得到木地板、中圈、禁區和兩側籃架。宮燈教室沒有這組線。尺寸仍是 estimated。車阻留在第 61 輪。沒有新增音效。`build:site` 產物 `AdventureApp-g7Ix0_tH.js`。
