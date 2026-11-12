@@ -5736,7 +5736,7 @@
     {
       "id": "content-bag-record",
       "title": "Record the bag expansion, barrier cover, and the 36-slot ceiling",
-      "status": "verified",
+      "status": "merged",
       "pr": 129,
       "branch": "cursor/items-equipment-building-15c5",
       "headSha": "731c7c9a4ddb795bd98c4cf305955cc84e4d4f82",
@@ -5751,11 +5751,11 @@
         "route": "not re-run. Last route 8274 still stands: cloudXp 47, revision_conflict, pageErrors empty, ok true. User VOJyD3dq0jx25cln1a3j4m8cllWqnjzF."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "312d03e08209a01c9f4910ba4d5d3e9b78d73c9a",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "None. The items record now points at bd2e531c. It is not on main yet. Do not merge PR #129 by itself. That line has no newer game commit. The next game commit is PR #177 15991ca7e345553dfa5ffb27217a79bb17f6b004."
+      "integrationPr": 351,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/351",
+      "nextAction": "None. The items record now points at bd2e531c. This is on integration PR #351. Do not merge PR #129 by itself. That line has no newer game commit. The next game commit is PR #177 15991ca7e345553dfa5ffb27217a79bb17f6b004."
     }
   ]
 }
