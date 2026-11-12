@@ -474,3 +474,60 @@ test("a narrative clock outside the cloud range still uploads", () => {
   assert.equal(kept.narrative.memory["npc-chen-yu:last"], memory);
   assert.equal(validateRpgDocument(kept).ok, true);
 });
+
+test("a narrative place the cloud cannot name still uploads", () => {
+  const memory = "還在圖書館。";
+  const bad = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    narrative: {
+      version: 1,
+      seed: "campus",
+      rngState: 12,
+      minute: 480,
+      placeId: "Not A Place",
+      departmentId: "x".repeat(90),
+      memory: { "npc-chen-yu:last": memory },
+    },
+  });
+  assert.equal(useRpg.getState().importSave(bad), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.narrative.placeId, null);
+  assert.equal(saved.narrative.departmentId, null);
+  assert.equal(saved.narrative.memory["npc-chen-yu:last"], memory);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.narrative.placeId, null);
+  assert.equal(reloaded.narrative.memory["npc-chen-yu:last"], memory);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+
+  const good = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    narrative: {
+      version: 1,
+      seed: "campus",
+      rngState: 12,
+      minute: 480,
+      placeId: "library",
+      departmentId: "math",
+      memory: { "npc-chen-yu:last": memory },
+    },
+  });
+  assert.equal(useRpg.getState().importSave(good), true);
+  const kept = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(kept.narrative.placeId, "library");
+  assert.equal(kept.narrative.departmentId, "math");
+  assert.equal(kept.narrative.memory["npc-chen-yu:last"], memory);
+  assert.equal(validateRpgDocument(kept).ok, true);
+});

@@ -83,6 +83,7 @@ function numberMap(value: unknown): Record<string, number> {
 }
 
 const NARRATIVE_MINUTE_MAX = 1_000_000;
+const CLOUD_PLACE_ID = /^[a-z0-9:_-]{1,64}$/;
 
 /** Fold the saved clock into the range the cloud save accepts. In-range values stay put. */
 export function fitNarrativeClock<T extends { rngState: number; minute: number }>(session: T): T {
@@ -94,6 +95,20 @@ export function fitNarrativeClock<T extends { rngState: number; minute: number }
   return { ...session, rngState, minute };
 }
 
+/** Drop a place or department the cloud would reject. Names already allowed stay put. */
+export function fitNarrativeIdentity<
+  T extends { placeId: string | null; departmentId: string | null },
+>(session: T): T {
+  const placeId =
+    typeof session.placeId === "string" && CLOUD_PLACE_ID.test(session.placeId) ? session.placeId : null;
+  const departmentId =
+    typeof session.departmentId === "string" && session.departmentId.length <= 80
+      ? session.departmentId
+      : null;
+  if (placeId === session.placeId && departmentId === session.departmentId) return session;
+  return { ...session, placeId, departmentId };
+}
+
 /** Keep a saved narrative session. A broken object starts a fresh campus session. */
 export function readNarrativeSession(raw: unknown): NarrativeSession {
   const blank = createSession("campus");
@@ -103,7 +118,7 @@ export function readNarrativeSession(raw: unknown): NarrativeSession {
   const weather = record.weather;
   const timeOfDay = record.timeOfDay;
   const semester = record.semester;
-  return fitNarrativeClock({
+  return fitNarrativeIdentity(fitNarrativeClock({
     ...blank,
     seed: typeof record.seed === "string" && record.seed.length < 64 ? record.seed : blank.seed,
     rngState:
@@ -135,7 +150,7 @@ export function readNarrativeSession(raw: unknown): NarrativeSession {
     resolved: stringList(record.resolved, NARRATIVE_SAVE_LIMIT),
     activeEventId: null,
     mode: "exploring",
-  });
+  }));
 }
 
 export function liveGrowth(input: {
