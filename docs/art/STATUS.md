@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：書卷矮牆（ART-084 的一部分）
+
+書卷廣場西側的矮牆會擋住半徑 0.42 m 的身體。從廣場走向西側會停在牆的東面。廣場中心、牆端外側和三條巡禮折線仍走得過。牆位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/scroll/wall.jpg`。測試：`scripts/scroll-wall.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。書卷矮牆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

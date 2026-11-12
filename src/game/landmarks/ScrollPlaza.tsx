@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
-import { AXIS, SCROLL_PLAZA_SIZE } from "../world-data/axis.ts";
+import { AXIS, SCROLL_PLAZA_SIZE, SCROLL_WEST_WALL } from "../world-data/axis.ts";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { useCampusSigns } from "../world/labels";
 
@@ -92,8 +92,8 @@ export function ScrollPlaza({ wetness }: { wetness: number }) {
       </mesh>
 
       {/* Low retaining edge where the plaza meets the meadow to the west. */}
-      <mesh position={[-SCROLL_PLAZA_SIZE[0] / 2 - 0.2, 0.2, 0]} castShadow receiveShadow>
-        <boxGeometry args={[0.4, 0.55, SCROLL_PLAZA_SIZE[1]]} />
+      <mesh position={[SCROLL_WEST_WALL.x, 0.2, SCROLL_WEST_WALL.z - AXIS.scrollPlazaZ]} castShadow receiveShadow>
+        <boxGeometry args={[SCROLL_WEST_WALL.width, 0.55, SCROLL_WEST_WALL.depth]} />
         <meshStandardMaterial {...surface(mats["lantern/kerb"], { wetness })} />
       </mesh>
     </group>
