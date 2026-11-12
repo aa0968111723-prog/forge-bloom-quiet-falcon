@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T10:14:08Z",
+  "updated_at": "2026-11-12T10:32:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "4e6a7df",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -130,10 +130,12 @@
     "merged main at de1d7c1; the quest-mark merge was already on this branch",
     "experience, defeats, and the game clock inside the cloud cap survive import",
     "merged main at fe1ed26; the spilled errand notes were already on this branch",
-    "confirming an import keeps a living interior floor"
+    "confirming an import keeps a living interior floor",
+    "merged main at 342e6b2; the lifetime build count and spilled variety rewards were already on this branch",
+    "a direct import keeps a living interior floor"
   ],
   "verification": {
-    "npm_test": "426 pass, 0 fail; confirming an import keeps a living interior floor",
+    "npm_test": "428 pass, 0 fail; a direct import keeps a living interior floor",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

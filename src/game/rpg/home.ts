@@ -132,13 +132,18 @@ export function stageImport(text: string): "confirm" | "direct" {
   return "direct";
 }
 
+/** Apply a chosen file. A living save continues from that same text, so an indoor floor survives. */
+export function importChosenSave(text: string): boolean {
+  const ok = useRpg.getState().importSave(text);
+  if (ok && useRpg.getState().hp > 0) useRpg.getState().continueGame(text);
+  return ok;
+}
+
 export function confirmImport(): boolean {
   const text = useRpg.getState().incomingSave;
   useRpg.setState({ incomingSave: null });
   if (text === null) return false;
-  const ok = useRpg.getState().importSave(text);
-  if (ok && useRpg.getState().hp > 0) useRpg.getState().continueGame(text);
-  return ok;
+  return importChosenSave(text);
 }
 
 export function cancelImport() {

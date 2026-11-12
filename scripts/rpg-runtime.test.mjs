@@ -485,7 +485,7 @@ test("validated import applies one snapshot and leaves the previous save untouch
   );
   assert.match(hud, /匯入存檔/);
   assert.match(hud, /type="file"/);
-  assert.match(hud, /importSave\(/);
+  assert.match(hud, /importChosenSave\(/);
   assert.match(hud, /input\.value = ""/);
   assert.equal(RPG_SAVE_KEY, "tamkang-rpg-v2");
 
@@ -3436,7 +3436,7 @@ test("pressface shares one raised language across controls", () => {
   assert.match(hud, /file\.current\?\.click\(\)/);
   assert.match(hud, /type="file"/);
   assert.match(hud, /f\.size > 1_000_000/);
-  assert.match(hud, /importSave\(await f\.text\(\)\)/);
+  assert.match(hud, /importChosenSave\(text\)/);
   assert.match(hud, /pressAttrs\("button", "ready", "confirm"\)/);
   assert.match(hud, /保留現有進度/);
   assert.match(hud, /keepProgress\(\)/);

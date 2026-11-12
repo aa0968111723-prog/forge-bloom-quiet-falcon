@@ -1555,3 +1555,68 @@ test("confirming an import of a dead save stays outside", async () => {
   assert.equal(useRpg.getState().interiorId, null);
   assert.equal(validateRpgDocument(saved).ok, true);
 });
+
+test("a direct import keeps a living interior floor", async () => {
+  const { importChosenSave, stageImport } = await import("../src/game/rpg/home.ts");
+  localStorage.removeItem(RPG_SAVE_KEY);
+  const file = JSON.stringify({
+    version: 2,
+    hp: 40,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    interiorId: "library",
+    floor: 3,
+  });
+  useGame.setState({ phase: "title" });
+  useRpg.setState({
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+    floor: 1,
+    freshStart: false,
+  });
+  assert.equal(stageImport(file), "direct");
+  assert.equal(importChosenSave(file), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.interiorId, "library");
+  assert.equal(saved.floor, 3);
+  assert.equal(useRpg.getState().interiorId, "library");
+  assert.equal(useRpg.getState().floor, 3);
+  assert.equal(useGame.getState().playerX, 0);
+  assert.equal(useGame.getState().playerZ, 4);
+  assert.equal(validateRpgDocument(saved).ok, true);
+});
+
+test("a direct import of a dead save stays outside", async () => {
+  const { importChosenSave, stageImport } = await import("../src/game/rpg/home.ts");
+  localStorage.removeItem(RPG_SAVE_KEY);
+  const file = JSON.stringify({
+    version: 2,
+    hp: 0,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    interiorId: "library",
+    floor: 3,
+  });
+  useGame.setState({ phase: "title" });
+  useRpg.setState({
+    hp: 80,
+    departmentId: "math",
+    interiorId: "library",
+    floor: 3,
+    freshStart: false,
+  });
+  assert.equal(stageImport(file), "direct");
+  assert.equal(importChosenSave(file), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.interiorId, null);
+  assert.equal(saved.floor, 1);
+  assert.equal(useRpg.getState().hp, 0);
+  assert.equal(useRpg.getState().interiorId, null);
+  assert.equal(useGame.getState().phase, "title");
+  assert.equal(validateRpgDocument(saved).ok, true);
+});
