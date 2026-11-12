@@ -3780,6 +3780,62 @@
       "integrationPr": 268,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/268",
       "nextAction": "None. The follow-up stop resume from 304001b5 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-pile-split",
+      "line": "backend",
+      "scope": "When the ground already holds 100 piles and one pile has 17 item kinds, two piles that can take each other's items join first. The leftover chunk still lands. Notes stay at 100. The field lamp stays at x 12 z 18 with its quest mark. pile-wide keeps the notes quest mark. hp 80 and station-1 stay. A raw upload with more than 100 piles, or one pile with more than 16 item kinds, is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-pile-split-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "1be6a82c4c0986e44a78bbbf2e2408bd5d6b22d0",
+      "headSha": "eccb47438285e1e17ebee8a386011a50c0acb78d",
+      "dependencies": ["backend-follow-up-stop"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamp and completed tail. Kept 2026-11-12T09:30:42Z, base dd6a7f3, the merge notes at 3b5a11c and dd6a7f3, and the full-pile split line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "417 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DvHwdDRF.js",
+        "browser": "8210. The standing route completed.",
+        "route": "8210: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "1cc55bf7bcebc03a9aff612e8710153fc93f3ad4",
+      "integrationPr": 270,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/270",
+      "nextAction": "None. The full-pile split from eccb4743 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "art-bollard-stop",
+      "line": "art",
+      "scope": "Twelve bollards share one list between the mesh and the 0.22 m boxes. A 0.42 m body on the west gate post is pushed more than 0.2 m off the post. Standing 1.2 m south of that post stays put. The library line and the main route leave the dolphin ring through the north-east gap and return to the centre north of the ring. Route points stay clear, and street lamps stay more than 1.2 m from every post.",
+      "status": "verified",
+      "pr": 227,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/227",
+      "integrationBranch": "cursor/integration-bollard-stop-3395",
+      "sourceBranch": "cursor/bollard-stop-1a71",
+      "baseSha": "d5b89c4cd9cba85ed1628a90a0c5bebcb08c1d49",
+      "headSha": "f5ee0ba2edc334853023902d325711018f5934e7",
+      "dependencies": ["backend-pile-split"],
+      "sharedFiles": ["src/game/world-data/axis.ts", "src/game/world-data/colliders.ts", "src/game/world-data/landmarks.ts", "src/game/world-data/props.ts"],
+      "checks": {
+        "conflicts": "docs/art CHECKPOINT, HANDOFF, SOURCES, STATUS, and VALIDATION. Kept the track infield as round 60 and added the bollards as round 61. Game files applied cleanly. capture-art.mjs auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "418 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-WcRwHzcr.js",
+        "browser": "8211. The standing route completed.",
+        "route": "8211: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "3a24c21fb032441ab0ef66f04510e7da01681f92",
+      "integrationPr": 273,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/273",
+      "nextAction": "None. The bollard stop from f5ee0ba2 is already in this integration. Do not merge PR #227 by itself."
     }
   ]
 }

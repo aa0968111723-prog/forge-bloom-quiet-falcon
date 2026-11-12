@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T09:16:45Z",
+  "updated_at": "2026-11-12T09:30:42Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "1c8f11e",
+  "base": "dd6a7f3",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -114,10 +114,13 @@
     "a refused upload keeps the newer local file on this device's revision",
     "merged main at 6b2c8c1; the full quarantine list was already on this branch",
     "merged main at 67f6cdf; the crowded ground pile split was already on this branch",
-    "a follow-up that is interrupted or refused keeps the newer local file on this device's revision"
+    "a follow-up that is interrupted or refused keeps the newer local file on this device's revision",
+    "merged main at 3b5a11c; the variety overflow join was already on this branch",
+    "merged main at dd6a7f3; the refused upload resume was already on this branch",
+    "a full ground still keeps every kind when one pile must split"
   ],
   "verification": {
-    "npm_test": "416 pass, 0 fail; a follow-up that is interrupted or refused keeps the newer local file on this device's revision",
+    "npm_test": "417 pass, 0 fail; a full ground still keeps every kind when one pile must split",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
