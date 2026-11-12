@@ -5852,6 +5852,30 @@
       "integrationPr": 355,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/355",
       "nextAction": "This is on integration PR #355. Do not merge PR #181 by itself. The next game commit is PR #183 da1881ad1355, the museum downhill skirt."
+    },
+    {
+      "id": "art-museum-skirt",
+      "title": "Fill the downhill gap under the maritime museum",
+      "status": "verified",
+      "pr": 183,
+      "branch": "cursor/museum-skirt-1a71",
+      "headSha": "da1881ad135545728fc9d751f449dc4da7621625",
+      "dependencies": ["art-chueh-veranda"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the Chueh Hsuan shot and the later capture scenes. The skirt is axis-aligned. The rotate follow-up stays unpicked. Art notes kept the later milestones and appended this skirt.",
+        "typecheck": "pass",
+        "npmTest": "485 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-zHNBwpfp.js sha256 36f65ab373404198e6f57be3322733c56fe744e6c59596758b78c46e851072cd. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8279/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User ZN3Tls4wUPGwDTqNTmJRsQYkGu3NT6A0."
+      },
+      "conflicts": ["src/game/world/ContextStructures.tsx", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "08dea534d83c9fdddfcfed78662cd56ae5fd44ce",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #183 by itself. The next game commit is a47283832cca, which rotates the skirt with the hull."
     }
   ]
 }
