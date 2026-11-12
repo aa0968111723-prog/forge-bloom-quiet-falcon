@@ -800,6 +800,7 @@ function prepareImport(
   for (const row of slots.quarantine) {
     if (!quarantine.some((entry) => entry.itemId === row.itemId)) quarantine.push(row);
   }
+  quarantine.splice(24);
   const hp = optionalNumber(
     legacy ? (record.hp ?? 100) : record.hp,
     100,
@@ -2652,7 +2653,7 @@ function snapshot() {
     equipped: s.equipped,
     loadout: s.loadout,
     gear: s.gear,
-    quarantine: s.quarantine,
+    quarantine: s.quarantine.slice(0, 24),
     quarantineGear: s.quarantineGear,
     skillRank: s.skillRank,
     kills: s.kills,
