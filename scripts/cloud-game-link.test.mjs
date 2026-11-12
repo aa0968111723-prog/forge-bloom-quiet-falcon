@@ -28,9 +28,15 @@ await register(
   import.meta.url,
 );
 
-const { RPG_SAVE_KEY, flushSave, noteCloudSave, useRpg } = await import("../src/game/rpg/store.ts");
+const { RPG_SAVE_KEY, flushSave, inventory, noteCloudSave, useRpg } = await import(
+  "../src/game/rpg/store.ts"
+);
+const { useGame } = await import("../src/game/store.ts");
 const { SUPPLY_NODES } = await import("../src/game/rpg/campus.ts");
 const { validateRpgDocument } = await import("../src/features/cloud-save/contract.ts");
+await import("../src/features/gameplay-variety/host.ts");
+const { emptyMemory } = await import("../src/features/gameplay-variety/memory.ts");
+const { claimVariety, replaceMemory } = await import("../src/features/gameplay-variety/runtime.ts");
 
 test("a downloaded cloud save is not overwritten by the running game", () => {
   const cloud = JSON.stringify({
@@ -1019,4 +1025,78 @@ test("a crowded ground pile still uploads every item", () => {
   assert.equal(fitted.loot[0].id, "pile-fit");
   assert.equal(Object.keys(fitted.loot[0].items).length, 16);
   assert.equal(validateRpgDocument(fitted).ok, true);
+});
+
+test("a full ground still keeps a variety overflow on the pile already there", () => {
+  const fillers = [
+    "parts",
+    "coffee",
+    "tea",
+    "credit",
+    "badge",
+    "copper",
+    "glass",
+    "cloth",
+    "herb",
+    "ink",
+    "chalk",
+    "resin",
+    "mint",
+    "bandage",
+    "lamp-oil",
+    "field-lamp",
+    "survey-lens",
+    "repair-wrench",
+    "gather-hook",
+    "focus-charm",
+    "stride-wrap",
+    "ward-pin",
+    "field-pack",
+    "research-satchel",
+  ];
+  inventory.clear();
+  for (const id of fillers) inventory.add(id, 1);
+  assert.equal(inventory.isFull(), true);
+  const building = { id: "station-1", kind: "rest", x: 12, z: -20, rotation: 0, hp: 40 };
+  const loot = [{ id: "pile-feet", x: 12, z: 18, items: { notes: 1 } }];
+  for (let index = 1; index < 100; index += 1) {
+    loot.push({ id: `pile-${index}`, x: 40 + index, z: 8, items: { parts: 1 } });
+  }
+  useGame.setState({ playerX: 12, playerZ: 18, phase: "playing" });
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    claimed: [],
+    discoveries: [],
+    buildings: [building],
+    loot,
+  });
+  const memory = emptyMemory();
+  memory.active = {
+    eventId: "gv-night-patrol",
+    phase: "success",
+    route: "peace",
+    board: null,
+    failReason: null,
+    receipt: "筆記送到了。",
+    tutorial: true,
+    caps: { equipped: false, skillRank: 1, built: 0, collegeId: null, discipline: null },
+  };
+  replaceMemory(memory);
+  const paid = claimVariety();
+  assert.equal(paid.paid, true);
+  assert.equal(paid.notes, 4);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.ok(saved.loot.length <= 100);
+  assert.equal(saved.loot.find((pile) => pile.id === "pile-feet").items.notes, 5);
+  assert.equal(saved.buildings[0].id, "station-1");
+  assert.equal(saved.hp, 80);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.loot.find((pile) => pile.id === "pile-feet").items.notes, 5);
+  assert.equal(reloaded.loot.length <= 100, true);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
 });
