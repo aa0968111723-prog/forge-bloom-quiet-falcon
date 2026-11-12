@@ -192,6 +192,8 @@ const TOP_LEVEL_KEYS = new Set([
   "kills",
   "built",
   "boss",
+  "gathered",
+  "felled",
   "discoveries",
   "claimed",
   "buildings",
@@ -336,6 +338,14 @@ function checkFields(doc: SaveDocument): ValidationResult {
   if ("discoveries" in doc) {
     const discoveries = checkIdList(doc.discoveries, "發現紀錄", 100);
     if (!discoveries.ok) return discoveries;
+  }
+  if ("gathered" in doc) {
+    const gathered = checkCountMap(doc.gathered, ["notes", "parts", "coffee", "tea"], "收集進度");
+    if (!gathered.ok) return gathered;
+  }
+  if ("felled" in doc) {
+    const felled = checkCountMap(doc.felled, ["quiz", "report", "exam", "final"], "擊退紀錄");
+    if (!felled.ok) return felled;
   }
   if ("harvested" in doc) {
     const harvested = checkHarvested(doc.harvested);
@@ -599,6 +609,24 @@ function checkIdList(value: unknown, label: string, limit: number): ValidationRe
   for (const id of value) {
     if (typeof id !== "string" || !ID_PATTERN.test(id)) {
       return { ok: false, code: "invalid_document", message: `${label} id 不正確。` };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkCountMap(value: unknown, keys: readonly string[], label: string): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: `${label}格式不正確。` };
+  }
+  const row = value as Record<string, unknown>;
+  const allowed = new Set(keys);
+  if (Object.keys(row).some((key) => !allowed.has(key))) {
+    return { ok: false, code: "unsafe_content", message: `${label}含有白名單以外的欄位。` };
+  }
+  for (const key of keys) {
+    if (!(key in row)) continue;
+    if (!integerIn(row[key], 0, 10_000_000)) {
+      return { ok: false, code: "invalid_document", message: `${label}不在允許範圍。` };
     }
   }
   return { ok: true, document: {} };

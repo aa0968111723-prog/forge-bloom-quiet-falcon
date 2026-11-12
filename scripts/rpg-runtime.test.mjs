@@ -7902,6 +7902,9 @@ test("collection quests remember supplies and ignore other loads", async () => {
   assert.equal(useRpg.getState().gathered.notes, 12);
   useRpg.getState().claim("gather-notes");
   assert.equal(useRpg.getState().xp, beforeXp + MISSIONS.find((row) => row.id === "gather-notes").xp);
+  useRpg.getState().claim("gather-parts");
+  assert.equal(useRpg.getState().claimed.includes("gather-parts"), true);
+  assert.equal(useRpg.getState().gathered.notes, 12);
   const kills = useRpg.getState().kills;
   r.hitEnemy({ hp: 1, kind: "quiz", x: 0, z: 0, state: "idle", hurt: 0, timer: 0, id: "quiz-test" }, 5);
   assert.equal(useRpg.getState().felled.quiz, 1);
