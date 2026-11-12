@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T02:20:00Z",
+      "updated": "2026-11-12T02:35:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1789,6 +1789,90 @@
       "integrationPr": 133,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/133",
       "nextAction": "None. The gear patches through 11ddebac are already in this integration. Do not merge PR #129 by itself. Next is PR #128 at head d82bf00, then PR #131 at head 1b51027."
+    },
+    {
+      "id": "content-encounters",
+      "line": "content",
+      "scope": "Campus encounters branch past a single fight. Progress stays on the semester save. Rewards use the existing quest settlement and the existing bag, once. New fights stay off the existing enemy spawns. The night-patrol anchor is estimated.",
+      "status": "merged",
+      "pr": 128,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/128",
+      "integrationBranch": "cursor/integration-encounters-3395",
+      "sourceBranch": "cursor/gameplay-variety-fb95",
+      "baseSha": "afb6cbd0a731a68a10ebd4edb2a26571c1ed3205",
+      "headSha": "61f6e6ad1b74387e4b270652ba7768b000dab68e",
+      "dependencies": ["content-items-gear"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx", "src/game/rpg/AdventureApp.tsx"],
+      "checks": {
+        "conflicts": "Imports in AdventureApp and AdventureHud. Gear, semester, and the bag stayed.",
+        "typecheck": "pass",
+        "npmTest": "296 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DIpCPHRg.js",
+        "browser": "8140. 1280x720 opens 宮燈夜巡 and says to match the clues first. 390x780 shows the 宮燈夜巡 button. pageErrors empty.",
+        "route": "8140: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401"
+      },
+      "conflicts": ["src/game/rpg/AdventureApp.tsx", "src/game/rpg/AdventureHud.tsx"],
+      "merged": true,
+      "mergeSha": "d0c9d91a25d27e987a83fdf052b30da3aa3f133d",
+      "integrationPr": 136,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/136",
+      "nextAction": "None. The encounter patches through 61f6e6a are already in this integration. Do not merge PR #128 by itself. Next content is PR #131 at head 246eadf, then re-check PR #122."
+    },
+    {
+      "id": "content-encounter-import",
+      "line": "content",
+      "scope": "A rejected variety write no longer leaves a semester import marked saved. The previous variety key stays. A save without a variety field clears the record and returns to saved.",
+      "status": "merged",
+      "pr": 128,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/128",
+      "integrationBranch": "cursor/integration-encounter-import-3395",
+      "sourceBranch": "cursor/gameplay-variety-fb95",
+      "baseSha": "d8d6d90931323e2cccffb4089f5f543f08f0c398",
+      "headSha": "94c0b8ad9bcc8b0dce9b669d9825dc2f9b51903c",
+      "dependencies": ["content-encounters"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/features/gameplay-variety/host.ts", "src/features/gameplay-variety/runtime.ts"],
+      "checks": {
+        "conflicts": "store.ts auto-merged. Gear, semester, and the bag stayed.",
+        "typecheck": "pass",
+        "npmTest": "296 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DLaW6zbU.js",
+        "probe": "Rejected variety setItem: importSave true, saved error, previous key unchanged, resolved still gv-night-patrol. Save without variety: importSave true, saved saved, resolved empty.",
+        "route": "8141: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 51 because the +7 racer won, logout 401, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "5c7a3350616e5d036333f502f1c57eecc1c8462c",
+      "integrationPr": 137,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/137",
+      "nextAction": "None. The encounter patches through 94c0b8a are already in this integration. Do not merge PR #128 by itself. Next content is PR #131 at head 246eadf, then re-check PR #122 at head 571779."
+    },
+    {
+      "id": "content-faculty-story",
+      "line": "content",
+      "scope": "Twelve fictional faculty and chairs can be talked to at estimated posts. A cross-college choice changes a later line. Rewards use the existing quest settlement once. MAIN_INTEGRATION stays false.",
+      "status": "merged",
+      "pr": 131,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/131",
+      "integrationBranch": "cursor/integration-faculty-story-3395",
+      "sourceBranch": "cursor/faculty-story-75f5",
+      "baseSha": "dca0984bb0956a85b687d6083e2b4d25768990bf",
+      "headSha": "246eadff0bdac585bea28e3e49cd212d0e52f100",
+      "dependencies": ["content-encounter-import"],
+      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/AdventureApp.tsx", "src/game/rpg/store.ts", "src/game/rpg/narrative-bridge.ts"],
+      "checks": {
+        "conflicts": "AdventureHud close and scroll ids. Narrative uses narrative-close and narrative-scroll. Variety stays off the generic panel plan. Gear, semester, the bag, and the failed variety write stayed.",
+        "typecheck": "pass",
+        "npmTest": "305 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BJuLvNHy.js",
+        "browser": "8142. 1280x720 shows Gu Heng's three choices. Choosing the section raises xp from 12 to 34 and claims quest-faculty-gu-meet and quest-faculty-studio-meet. Reload stays at 34. 390x780 scrolls to 離開，不結算. Close button is 44x44. pageErrors empty.",
+        "route": "8142: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["src/game/rpg/AdventureHud.tsx"],
+      "merged": true,
+      "mergeSha": "afa63cc3eaa5e7ed196b8bf6d32b13d2bbf40e10",
+      "integrationPr": 139,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/139",
+      "nextAction": "None. The faculty patches through 246eadf are already in this integration. Do not merge PR #131 by itself. Re-check PR #122 at head 571779 before adding another Gu Heng."
     }
   ]
 }

@@ -593,6 +593,30 @@ Node 開發頁 `http://127.0.0.1:8081/narrative`。樣板進入大門警衛站�
 
 瀏覽器 `http://127.0.0.1:8139/`。1280×720 與 390×780 打開背包，都寫著 4/24 格、負重 80，三個槽是空的。頁面無錯誤。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線佇列 `cloudXp` 47；登出 401。`pageErrors` 空。
 
+## 校園遭遇（本輪）
+
+來源 `6ac14a2`、`d82bf00`、`7a71553`、`7b9bd86`、`4d81bf1`、`61f6e6a` 接到 `afb6cbd`。衝突在畫面的 import。裝備、學期與背包都留著。進度用既有存檔的 `variety` 欄。新戰鬥離開既有敵人出生點。
+
+走到估計錨點會出現遭遇。1280×720 在 (0, -40) 打開宮燈夜巡，寫著先對線索，然後可以護送筆記或留下處理異象。390×780 看得到「宮燈夜巡」。位置仍是 estimated。`npm run typecheck` 通過。`npm test` 296 通過。`npm run build:site` 通過，產物 `AdventureApp-DIpCPHRg.js`。
+
+瀏覽器 `http://127.0.0.1:8140/`。頁面無錯誤。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線佇列 `cloudXp` 47；登出 401。`pageErrors` 空。
+
+## 遭遇寫入失敗（本輪）
+
+來源 `a2bb964` 與 `94c0b8a` 接到 `d8d6d90`。`store.ts` 自動接上。裝備、學期與背包都留著。
+
+把 `tamkang-gameplay-variety-v1` 的 `setItem` 改成丟出例外後再匯入，`importSave` 回傳 true，沒有丟出例外，原鍵的完成紀錄留著，`saved` 是 `error`。拿掉 `variety` 欄再匯入，完成紀錄清成空陣列，`saved` 回到 `saved`。`npm run typecheck` 通過。`npm test` 296 通過。`npm run build:site` 通過，產物 `AdventureApp-DLaW6zbU.js`。這輪沒有新的畫面。
+
+瀏覽器 `http://127.0.0.1:8141/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 51，因為這次 +7 的那一端先寫上（+3 的那一端會是 47），離線加的 1 點沒有寫上去；登出 401。`pageErrors` 空。
+
+## 教師故事（本輪）
+
+來源 `b2a711a`、`7f6f3c8`、`f241aef`、`1b51027`、`e9b8c40`、`246eadf` 接到 `dca0984`。衝突只在對話框的關閉與捲動 id。敘事面板用 `narrative-close` 與 `narrative-scroll`。遭遇面板仍不走一般面板的關閉計畫。裝備、學期、背包和遭遇寫入狀態都留著。
+
+十二名都是虛構角色。崗位是門口外推的估計位置。顧衡在建築系館南側。1280×720 打開三個選項。選「我先補剖面」後經驗 12→34，`claimed` 有 `quest-faculty-gu-meet` 與 `quest-faculty-studio-meet`。重載後經驗仍是 34，句子換成裂縫還在。390×780 對話可以捲動，捲到底看得到「離開，不結算」，關閉鈕 44×44。`MAIN_INTEGRATION` 仍是 false。`npm run typecheck` 通過。`npm test` 305 通過。`npm run build:site` 通過，產物 `AdventureApp-BJuLvNHy.js`。
+
+瀏覽器 `http://127.0.0.1:8142/`。頁面無錯誤。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作

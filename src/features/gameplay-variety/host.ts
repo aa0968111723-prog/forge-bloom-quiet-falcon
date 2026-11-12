@@ -1,10 +1,11 @@
-import { inventory, maxHp, useRpg, flushSave } from "../../game/rpg/store.ts";
+import { inventory, maxHp, registerVarietySave, useRpg, flushSave } from "../../game/rpg/store.ts";
 import { useGame } from "../../game/store.ts";
 import { DEPARTMENTS } from "../../game/rpg/data.ts";
 import { levelForXp } from "../../game/rpg/rules.ts";
 import { collegeOf } from "../../game/rpg/growth/tree.ts";
 import { liveGrowth } from "../../game/rpg/narrative-bridge.ts";
-import { registerVarietyPayer, type PayResult } from "./runtime.ts";
+import { readMemory } from "./memory.ts";
+import { getMemory, registerVarietyPayer, registerVarietySaveFailure, replaceMemory, varietyWriteOk, type PayResult } from "./runtime.ts";
 import { settlementPreview } from "./settle.ts";
 import type { Caps, RewardIntent } from "./types.ts";
 
@@ -98,3 +99,13 @@ function payVariety(intent: RewardIntent): PayResult {
 }
 
 registerVarietyPayer(payVariety);
+registerVarietySaveFailure(() => {
+  useRpg.setState({ saved: "error" });
+});
+registerVarietySave({
+  capture: () => getMemory(),
+  restore: (value) => {
+    replaceMemory(readMemory(value));
+    return varietyWriteOk();
+  },
+});

@@ -2,7 +2,7 @@
 
 這條線做主遊戲裡的多樣遭遇，不另開展示頁。入口是 `AdventureApp` 的場景標記與 HUD 按鈕。面板沿用既有 `setPanel`，打開時暫停、關掉後回到原本的 `playing`。
 
-結算仍走 `grantQuestReward`。任務 id 是 `quest-gv-*`。劇情只在本線記憶寫 `variety.resolved`，不改教授對話旗標。裝備與建造只在開場讀進 `caps`。
+結算仍走 `grantQuestReward`。任務 id 是 `quest-gv-*`。劇情只在本線記憶寫 `variety.resolved`，不改教授對話旗標。裝備與建造只在開場讀進 `caps`。扇形小考、護盾監考、截止日桌子都已從主遊戲打完。學期存檔的匯出與匯入帶著同一份遭遇紀錄；寫入被拒時操作繼續，存檔狀態改成錯誤。
 
 校園座標沿用現有估計布局，不是實測還原。沒有新增外部素材。
 

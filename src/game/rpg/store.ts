@@ -580,6 +580,7 @@ type PreparedSave = {
     timeOfDay: ReturnType<typeof coerceTimeOfDay>;
     muted: boolean | null;
   } | null;
+  variety: unknown;
 };
 function negativeNumber(value: unknown) {
   return typeof value === "number" && Number.isFinite(value) && value < 0;
@@ -775,6 +776,7 @@ function prepareImport(
             muted: pilgrimage.muted,
           }
         : null,
+      variety: "variety" in record ? record.variety : null,
     },
   };
 }
@@ -1880,6 +1882,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       timeOfDay: game.timeOfDay,
       muted: game.muted,
     };
+    const priorVariety = varietySave?.capture();
     const priorStored =
       typeof localStorage === "undefined"
         ? null
@@ -1947,10 +1950,11 @@ export const useRpg = create<RpgState>((set, get) => ({
         saveLocal({ ...current, visited, timeOfDay, muted });
       }
       placeStand(save.stand);
+      const varietyWrote = varietySave?.restore(save.variety);
       clearSaveTimer();
       persistRpgSave();
       noteSaveSettled();
-      set({ saved: "saved" });
+      set({ saved: varietyWrote === false ? "error" : "saved" });
       get().notify("存檔已匯入。");
       return true;
     } catch {
@@ -1958,6 +1962,7 @@ export const useRpg = create<RpgState>((set, get) => ({
         restoreInventory(priorSlots);
         set(priorRpg);
         useGame.setState(priorGame);
+        varietySave?.restore(priorVariety);
         writeBack(RPG_SAVE_KEY, priorStored);
         writeBack("tamkang-world-v1", priorLegacy);
       } finally {
@@ -2102,7 +2107,13 @@ function runPrompt(choice: PromptChoice) {
     return;
   }
   if (choice.kind === "talk") {
+<<<<<<< HEAD
     s.openNarrative(choice.targetId);
+=======
+    if (!s.openNarrative(choice.targetId)) {
+      s.notify("這位現在沒有新的話說。上一件事還沒完成，或這段已經談完。");
+    }
+>>>>>>> origin/main
     return;
   }
   if (choice.kind === "enter" || choice.kind === "arrive") {
@@ -2477,7 +2488,16 @@ function snapshot() {
     interiorId: s.interiorId,
     floor: s.interiorId ? s.floor : 1,
     narrative: s.narrative,
+    ...(varietySave ? { variety: varietySave.capture() } : {}),
   };
+}
+type VarietySaveCodec = {
+  capture: () => unknown;
+  restore: (value: unknown) => boolean | void;
+};
+let varietySave: VarietySaveCodec | null = null;
+export function registerVarietySave(codec: VarietySaveCodec) {
+  varietySave = codec;
 }
 let saveTimer: ReturnType<typeof setTimeout> | undefined;
 let dirty = false;

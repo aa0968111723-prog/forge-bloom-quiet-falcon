@@ -14,7 +14,8 @@ export type BeatSpec = {
   /** Every flag must already be true. Both choices of the earlier beat set it. */
   when?: string[];
   line: string;
-  flagLines?: { flag: string; text: string }[];
+  /** First matching line wins. `flags` means every listed flag is already true. */
+  flagLines?: { flag?: string; flags?: string[]; text: string }[];
   progress: string;
   stage: "meet" | "clash" | "turn" | "after";
   /** Set on the cross-character studio quest, in addition to this person's quest. */
@@ -1238,8 +1239,12 @@ export const FACULTY_BEATS: readonly BeatSpec[] = [
     line: "江照在暫定兩個字底下留白。「教育館若有人已經決定先修或改期，我不會在這裡推翻。你可以把兩邊的句子帶給簡衡，或先在我這裡定一張暫定表。」",
     flagLines: [
       {
-        flag: "fac-he-met",
-        text: "江照看了一眼你從簡禾那裡帶回的說法。「教育館那邊已經有人自己做了決定。我只排教室，不改她的課表。」",
+        flag: "fac-he-prereq",
+        text: "江照看了一眼你從簡禾那裡帶回的說法。「她先留了先修。我排教室，不改她的先修，也不把見習寫進那一門。」",
+      },
+      {
+        flag: "fac-he-fixed",
+        text: "江照看了一眼你從簡禾那裡帶回的說法。「她先佔了不能改期的那一節。見習不要去搶那一節。我只排旁邊的小時。」",
       },
     ],
     choices: [
@@ -1342,6 +1347,24 @@ export const FACULTY_BEATS: readonly BeatSpec[] = [
     when: ["fac-heng-clash", "fac-he-met", "fac-jiang-met"],
     also: ["npc-jian-he", "npc-jiang-zhao"],
     line: "簡衡把兩張紙條壓在行政大樓的窗台上。簡禾和江照人不在這裡。「這是他們自己的句子。我可以維持並列，或建議對調一小時。對調要他們自己點頭，我不會代點。」",
+    flagLines: [
+      {
+        flags: ["fac-he-prereq", "fac-jiang-hear"],
+        text: "簡衡把兩張紙條分開。「簡禾先留了先修。江照先聽了教育學院的見習。兩句我照原詞並列，不把見習寫進她的課。」",
+      },
+      {
+        flags: ["fac-he-prereq", "fac-jiang-class"],
+        text: "簡衡先點商管那一格。「簡禾留了先修。江照先確認商管的課不能借成空教室。先修我不動，課那格也不建議對調。」",
+      },
+      {
+        flags: ["fac-he-fixed", "fac-jiang-hear"],
+        text: "簡衡把不能改期的那一節圈起來。「簡禾先佔了這節。江照聽的是見習。見習可以談旁邊的小時，不能改她已經不能改的課。」",
+      },
+      {
+        flags: ["fac-he-fixed", "fac-jiang-class"],
+        text: "簡衡把兩格都壓住。「簡禾的不能改期，和江照的商管課，都先佔著。我只並列。哪一格我都不拔。」",
+      },
+    ],
     choices: [
       {
         id: "fac-heng-turn-both",

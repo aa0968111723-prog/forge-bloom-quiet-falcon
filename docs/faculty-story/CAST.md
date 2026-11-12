@@ -17,6 +17,6 @@
 | npc-meng-zhao | 孟昭 | 系主任 | science / chemistry | post-meng-zhao，化學館另一側 | quest-faculty-hours | 遲到不能吃掉前一組的時段 |
 | npc-jiang-zhao | 江照 | 系主任 | business / ba | post-jiang-zhao，商管大樓另一側 | quest-faculty-schedule | 不退教育學院的申請 |
 
-跨角色主線是 `quest-faculty-studio`（評圖留白）。簡衡的轉折要等簡禾和江照都已開口；人不到場，紙條放在行政大樓窗台。程晰和衛寧的位置是估計的會合點，這兩個學院沒有獨立的可走建築。
+跨角色主線是 `quest-faculty-studio`（評圖留白）。簡衡的轉折要等簡禾和江照都已開口；人不到場，紙條放在行政大樓窗台。簡禾選先修或不能改期、江照選先聽見習或先確認商管的課，會改簡衡這一節的開場。江照的轉折也會引用簡禾實際選的那一句。程晰和衛寧的位置是估計的會合點，這兩個學院沒有獨立的可走建築。
 
 服裝用既有 `char.npc-kit`。水壺暫代實驗瓶，托特包暫代文件，耳機暫代語言教室耳機。沒有新網格，也沒有生成圖。
