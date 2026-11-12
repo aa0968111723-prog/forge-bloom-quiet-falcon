@@ -5035,9 +5035,11 @@
         "route": "8250 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "748943d726fe4e2ab35806a9b404f076adf98fca",
-      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #249 by itself. The five-tigers stele commit 04fb8bac is still separate."
+      "integrationPr": 325,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/325",
+      "nextAction": "None. The shepherd figure from 622a00ba is already in this integration. Do not merge PR #249 by itself. The five-tigers stele commit 04fb8bac is still separate."
     }
   ]
 }
