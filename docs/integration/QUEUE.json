@@ -2662,7 +2662,7 @@
       "id": "backend-harvest-hold",
       "line": "backend",
       "scope": "A built station's harvest cooldown still inside 180 seconds survives import and a cloud reload. Expired times and ids outside 1 to 80 characters are dropped.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-harvest-hold-3395",
@@ -2680,9 +2680,11 @@
         "route": "8170: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
       "conflicts": ["src/game/rpg/store.ts", "docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "3d60236e0a7ca63066c14c939b6a805ec94bb93a",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 200,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/200",
+      "nextAction": "None. The harvest cooldown hold from 159e09f is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
