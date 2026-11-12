@@ -769,11 +769,19 @@ try {
   } else if (scenario === "business") {
     await hideHud(page);
     await setPose(page, 132, -158, 0);
-    await page.evaluate(() =>
-      window.__controlsTest.setPhoto({ yaw: 0.35, distance: 16, height: 4.5, lookY: 6 }),
-    );
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(118, -182);
+      window.__controlsTest.setPhoto({
+        yaw: 0.4,
+        distance: 36,
+        height: 14,
+        lookY: 4,
+        target: { x: 118, y: y + 12, z: -182 },
+      });
+    });
     await settle(page, { stableFrames: 3 });
-    await shot(page, "mass", "business study podium");
+    await shot(page, "mass", "business glass podium");
   } else if (scenario === "signs") {
     await hideHud(page);
     const stands = [
