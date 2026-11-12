@@ -994,3 +994,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 56 減 46 是 10，也就是交作業階段的經驗。筆記加 1。開場句看的是衝突有沒有標成暫定，不看報告選了哪句。個案線在這裡結束。
 
 畫面：`/opt/cursor/artifacts/integration-sang-after/hand-outcome.png`、`hand-done.png`、`fix-outcome.png`、`fix-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次冷卻與隔離匯入。
+
+## 江照的兩個開場選項
+
+這段打在 `AdventureApp-BjWzmiAr.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-BXr1QvC-.js`。`main` 尖端 `67f6cdf` 註記 PR #260，GitHub 上這份 PR 的狀態是 MERGED。遊戲變更是 `4bb9b35`。合併提交 `811273d`。主遊戲檔 890737 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-jiang-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-jiang-meet` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 409 通過、0 失敗。對象是合併 `811273d` |
+| `npm run build:site` | 產出 `index-BXr1QvC-.js` 與 `AdventureApp-BjWzmiAr.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。點開場之前存檔經驗 12、筆記 18。12 是站在商管大樓發現範圍裡已經記入的地點發現。這一次點選沒有新增校園發現項目。
+
+- 「請你先念教育學院那張。我不先站在商管這邊。」存檔經驗 30，筆記仍是 18。結果句「兩張都還在。」畫面是 1 級、「經驗 30/60」、生命 100/100、專注 100/100。對話卡寫系主任、企業管理學系。學期仍是第一週。再交談，她說「前後各一小時」。兩個衝突選項都在。離開不結算，沒有 `quest-faculty-schedule-clash`。`quest-faculty-schedule-meet` 只有一筆。沒有工作室任務。重載後經驗 30、筆記 18，再交談仍是這一句。
+- 「我想先知道哪一格是商管本來的課。」經驗同樣 12→30，筆記停在 18。結果句「旁邊兩格不是課。」退件仍是「前後各一小時」。離開不結算。重載後這一句還在，生命仍是 100/100。
+
+30 減 12 是 18，也就是開場任務 6 加上崗位探索 12。這一拍不加筆記。退件那一句不看這次是先聽教育學院還是先確認商管的課。
+
+畫面：`/opt/cursor/artifacts/integration-jiang-meet/hear-outcome.png`、`hear-next.png`、`class-outcome.png`、`class-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次地上堆匯入。
