@@ -927,12 +927,13 @@ export function createCloudSaveController(options: {
       writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
       return { status: "uploaded", revision: payload.revision };
     } catch {
+      // The request may already be stored. A later local edit must not reuse this id.
       enqueue({
         id: String(body.requestId),
         userId,
         kind: "put",
         body,
-        attempts: 0,
+        attempts: 1,
         nextAt: now(),
       });
       return { status: "queued" };

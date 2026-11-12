@@ -2009,3 +2009,31 @@ test("a session blip does not settle a reward receipt", async () => {
   assert.equal(storage.getItem("tamkang-cloud-save-receipt:local"), null);
   assert.equal(client.queuedCount("user-a"), 0);
 });
+
+test("a lost upload response continues the newer local file under a new request id", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  cloud.dropNext();
+  assert.equal((await client.uploadLocal()).status, "queued");
+  assert.equal(storage.getItem("tamkang-cloud-save-meta:user-a"), null);
+  client.writeLocal(JSON.stringify(save(4)));
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.notEqual(cloud.puts[0].requestId, cloud.puts[1].requestId);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 2);
+  assert.equal(head.document.xp, 4);
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 2);
+});
