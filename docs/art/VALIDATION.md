@@ -355,3 +355,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 57 輪（圖書館坡道欄杆）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs` 通過。`tsc --noEmit` 通過。圖書館坡道長 14 m，左右各一道同長欄杆，離坡道中線 0.95 m，在 1.6 m 寬的坡面外側。立柱含兩端，至少 8 根。欄杆用現在的坡道位置，不回到舊的南牆座標。克難坡沒有欄杆。定步白天近景，頁面無錯誤：`docs/art/evidence/ramp/rails.jpg`。兩側都看得到橫桿和立柱。欄杆位置仍是 estimated。小地圖課程字留在第 56 輪。沒有新增音效。`build:site` 產物 `AdventureApp-Cl3Ho6pe.js`。390×780 也看得到兩側欄杆：`docs/art/evidence/ramp/rails-narrow.jpg`。
+
+## 第 58 輪（傳播館 Q 裙牆）— 2026-11-12
+
+`node --test scripts/q-skirt.test.mjs` 通過。`tsc --noEmit` 通過。樓身底座在 25.12 m，西北角在 23.41 m，空隙 1.71 m。這棟沒有偏角，裙牆和樓身對齊。南邊入口的局部 z 在裙牆南緣外面。白樓的空隙小於 1.5 m，沒有裙牆。定步白天從西北看，頁面無錯誤：`docs/art/evidence/media/q-skirt.jpg`。看得到淺色裙牆在近角接到草地。裙牆仍是 estimated。坡道欄杆留在第 57 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CDtkU7dD.js`。
