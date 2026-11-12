@@ -194,7 +194,7 @@ type RpgState = {
   interiorId: string | null;
   floor: number;
   checkpoint: { x: number; z: number; yaw: number } | null;
-  continueGame: () => void;
+  continueGame: (source?: string) => void;
   notify: (message: string) => void;
   setPanel: (panel: RpgPanel) => void;
   chooseDepartment: (id: string) => void;
@@ -991,10 +991,10 @@ export const useRpg = create<RpgState>((set, get) => ({
   hurtUntil: 0,
   anomaly: "quiet",
   enemies: freshEnemies(finite(saved.boss, 0, 1)),
-  interiorId: null,
-  floor: 1,
+  interiorId: resumeInterior(saved)?.id ?? null,
+  floor: resumeInterior(saved)?.floor ?? 1,
   checkpoint: restorePosition(saved.position),
-  continueGame: () => {
+  continueGame: (source?: string) => {
     const s = get();
     if (!s.departmentId) {
       s.setPanel("department");
@@ -1002,7 +1002,8 @@ export const useRpg = create<RpgState>((set, get) => ({
     }
     let resume: { id: string; floor: number } | null = null;
     try {
-      const text = localStorage.getItem(RPG_SAVE_KEY);
+      const text =
+        typeof source === "string" ? source : localStorage.getItem(RPG_SAVE_KEY);
       if (text) resume = resumeInterior(decodeSave(text));
     } catch {
       resume = null;
@@ -1023,6 +1024,7 @@ export const useRpg = create<RpgState>((set, get) => ({
         playerZ: 4,
         playerYaw: 0,
       });
+      flushSave();
       return;
     }
     useGame.setState({
@@ -1864,6 +1866,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       invulnerableUntil: rpg.invulnerableUntil,
       checkpoint: rpg.checkpoint ? { ...rpg.checkpoint } : null,
       interiorId: rpg.interiorId,
+      floor: rpg.floor,
       buildKind: rpg.buildKind,
       enemies: rpg.enemies.map((enemy) => ({ ...enemy })),
       lesson: rpg.lesson,
@@ -1934,6 +1937,7 @@ export const useRpg = create<RpgState>((set, get) => ({
         invulnerableUntil: 0,
         checkpoint: save.stand,
         interiorId: null,
+        floor: 1,
         buildKind: null,
         narrative: stampSemester(readNarrativeSession(narrativeField(text)), save.claimed),
         narrativeUi: null,
@@ -2628,7 +2632,9 @@ useRpg.subscribe((s, prev) => {
     s.loot !== prev.loot ||
     s.lesson !== prev.lesson ||
     s.lessonAnchor !== prev.lessonAnchor ||
-    s.narrative !== prev.narrative
+    s.narrative !== prev.narrative ||
+    s.interiorId !== prev.interiorId ||
+    s.floor !== prev.floor
   )
     scheduleSave();
 });

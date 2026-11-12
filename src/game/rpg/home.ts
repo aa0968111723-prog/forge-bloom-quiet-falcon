@@ -101,7 +101,10 @@ export function enterHome() {
     }
     if (text && useRpg.getState().importSave(text)) {
       useRpg.setState({ notice: "", incomingSave: null });
-      useRpg.getState().continueGame();
+      // Import stands an indoor file at the door and rewrites the save.
+      // A living continue still uses the file the player just confirmed.
+      const alive = useRpg.getState().hp > 0;
+      useRpg.getState().continueGame(alive ? text : undefined);
     }
     return;
   }

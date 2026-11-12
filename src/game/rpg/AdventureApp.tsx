@@ -66,7 +66,9 @@ function QaClock() {
 function Scene({ onReady }: { onReady: () => void }) {
   const interior = useRpg((s) => s.interiorId),
     anomaly = useRpg((s) => s.anomaly),
+    phase = useGame((s) => s.phase),
     time = useGame((s) => s.timeOfDay);
+  const inside = Boolean(interior) && phase === "playing";
   const discoveryAcc = useRef(0);
   useFrame((_, dt) => {
     discoveryAcc.current += dt;
@@ -88,7 +90,7 @@ function Scene({ onReady }: { onReady: () => void }) {
   return (
     <>
       <Suspense fallback={null}>
-        {interior ? (
+        {inside ? (
           <Interior />
         ) : (
           <>
