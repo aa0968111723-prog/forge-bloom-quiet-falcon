@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：花台（ART-084 的一部分）
+
+宮燈大道兩側和圖書館前的花台會擋住半徑 0.42 m 的身體。從大道走向西側花台會停在花台東面。教室門口從花台南側繞進，圖書館折線從花台之間的空檔走到館門。地被和圖書館花圃改種在花台外側。花台位置仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/planter.jpg`。測試：`scripts/planter-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。花台已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
