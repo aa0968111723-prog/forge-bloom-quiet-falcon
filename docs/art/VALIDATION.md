@@ -367,3 +367,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 60 輪（田徑場內圈）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
+
+## 第 61 輪（吊飾停住）— 2026-11-12
+
+`node --test scripts/still-charm.test.mjs` 通過。`tsc --noEmit` 通過。減少動態時髮尾和小龜的目標都是 0。吊飾從 0.45 經過阻尼後回到 0.02 以內。普通向前速度仍把髮尾帶離 0。靜止畫面不能證明晃動停了，測試是依據。宮燈教室內、減少動態已開啟、頁面無錯誤：`docs/art/evidence/charm/backpack.jpg`。看得到背包和小龜吊飾。沒有新增音效。`build:site` 產物 `AdventureApp-DeEah8MS.js`。

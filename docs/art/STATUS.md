@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：吊飾停住（ART-020 的一部分）
+
+減少動態時，髮尾和小龜吊飾的彈簧目標是 0。從偏離的姿勢經過阻尼後會回到原位。普通移動仍會讓吊飾跟著身體速度擺。走路、攻擊那些片段仍由真實事件播放。沒有新增音效。田徑場內圈留著。
+
+畫面：`docs/art/evidence/charm/backpack.jpg`。測試：`scripts/still-charm.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。減少動態時吊飾會停。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
