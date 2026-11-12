@@ -105,6 +105,7 @@ import {
   skipLesson,
 } from "./lesson";
 import { lessonMapLabel } from "./lesson-label";
+import { semesterView } from "../contracts/semester.ts";
 
 const PANELS = [
   ["inventory", CHROME_CONTROLS.inventory, Backpack, "I"],
@@ -1106,6 +1107,8 @@ function CompactStatusCard() {
     })),
   );
   const box = useViewportBox();
+  const claimed = useRpg((s) => s.claimed);
+  const term = semesterView(claimed);
   const text = compactStatus({
     life: snap.hp,
     lifeMax: maxHp(snap),
@@ -1119,16 +1122,27 @@ function CompactStatusCard() {
     <div
       className="tk-mobile-status"
       style={place(rect)}
-      aria-label={`${text.ariaLife} ${text.ariaFocus} ${text.ariaLevel} ${text.ariaSave}`}
+      data-semester={term.phase}
+      aria-label={`${text.ariaLife} ${text.ariaFocus} ${text.ariaLevel} ${text.ariaSave} ${term.label}`}
     >
       <span>{text.visibleLife}</span>
       <span>{text.visibleFocus}</span>
       <span>{text.visibleLevel}</span>
       <span>{text.visibleSave}</span>
+      <span className="tk-mobile-semester">{term.short}</span>
       <span className="tk-mobile-sr">
         {text.ariaLife} {text.ariaFocus} {text.ariaLevel} {text.ariaSave}
       </span>
     </div>
+  );
+}
+function SemesterLine() {
+  const claimed = useRpg((s) => s.claimed);
+  const term = semesterView(claimed);
+  return (
+    <small className="ad-semester" data-semester={term.phase}>
+      {term.label} · {term.next}
+    </small>
   );
 }
 function Status() {
@@ -1138,6 +1152,7 @@ function Status() {
       <div className="ad-status-title">
         <StatusName />
         <SaveLine />
+        <SemesterLine />
       </div>
       <LifeMeter />
       <FocusMeter />

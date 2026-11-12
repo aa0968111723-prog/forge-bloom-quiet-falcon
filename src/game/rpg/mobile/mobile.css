@@ -55,13 +55,25 @@
   grid-template-rows: 1fr 1fr;
   align-items: center;
   overflow: hidden;
-  padding: 2px 6px;
+  padding: 2px 6px 14px;
   font-size: 10px;
   line-height: 1.1;
   border-radius: 11px;
   background: var(--tk-plate);
   color: var(--tk-ink);
   border: 1px solid var(--tk-edge);
+}
+
+.tk-mobile .tk-mobile-semester {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 1px;
+  overflow: hidden;
+  font-size: 10px;
+  line-height: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .tk-mobile .tk-mobile-status b,
