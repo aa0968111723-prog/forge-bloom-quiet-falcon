@@ -105,6 +105,9 @@ export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
 }
 
+/** Street-lamp pole diameter, matching the shaft's base radius of 0.09 m. The arm is above head height. */
+export const LAMP_POLE = { diameter: 0.18 } as const;
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",

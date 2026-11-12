@@ -7,8 +7,8 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
-import { COLLIDERS } from "./colliders.ts";
+import { LAMP_POLE, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
@@ -313,6 +313,17 @@ export const PROPS: PropInstance[] = [
   ...roadLamps(),
   ...campusClusterProps(),
 ];
+
+registerPoleBoxes(
+  PROPS.filter((item) => item.kind === "street-lamp").map(
+    (item): AABB => ({
+      minX: item.x - LAMP_POLE.diameter / 2,
+      maxX: item.x + LAMP_POLE.diameter / 2,
+      minZ: item.z - LAMP_POLE.diameter / 2,
+      maxZ: item.z + LAMP_POLE.diameter / 2,
+    }),
+  ),
+);
 
 export function propsOfKind(kind: PropKind): PropInstance[] {
   return PROPS.filter((p) => p.kind === kind);
