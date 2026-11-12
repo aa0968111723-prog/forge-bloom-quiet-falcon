@@ -1,0 +1,39 @@
+{
+  "updated": "2026-11-12T01:22:56Z",
+  "branch": "cursor/integration-full-game-f7e4",
+  "base": "4b88b772d4e21424dd14b502655c1239b1abd8bf",
+  "gameSha": "90768e40afcba821de2650955ee903b06b34cb73",
+  "head": "9c45f10509867c9bde1aa9a95e2e85f167a87e20",
+  "soleMerger": {
+    "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
+    "branch": "cursor/integration-art-m1-3395",
+    "status": "RUNNING",
+    "thisLineMerges": false
+  },
+  "commands": [
+    "npx tsc --noEmit",
+    "npm test",
+    "npm run build:site",
+    "node --test scripts/full-integration-contracts.test.mjs",
+    "node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route"
+  ],
+  "done": [
+    "One department lookup. RPG id is canonical when a row exists.",
+    "Semester phase is a function of claimed. Save key and version 2 stay.",
+    "Gate quest, one supply errand, midterm label, reload, and the existing cloud path on the static main game.",
+    "Legal lantern placement pays the errand once. A placement on the player and cancelBuild do not. Badge equip toggles on the same save."
+  ],
+  "todo": [
+    "Drive legal placement, illegal placement, cancel, and badge equip through the browser main game.",
+    "Play finals only after midterm and mission first.",
+    "When the other three lines publish branches, wire their shared store entry here. Do not open a second bag.",
+    "Leave art PR merges to the running integrator."
+  ],
+  "blocked": [
+    "This line must not merge to main while bc-4054e39b is the writer of main.",
+    "Phone and RTX 3060 are pending-device. This host forces SwiftShader.",
+    "AGENTS.md is absent.",
+    "Faculty, gameplay, and item lines had no branches at 2026-11-12T01:22:56Z."
+  ],
+  "next_action": "Do not merge. Re-fetch origin/main and the running integrator before any later merge decision. The next gap on this branch is the browser path for place, illegal place, cancel, and badge equip. Do not flip MAIN_INTEGRATION. Do not merge art source PRs #107, #108, #110, #111, #113, #115, #116, or #118, and do not merge the already integrated source PRs by themselves. Do not merge PR #32 head 1fc5887."
+}

@@ -1,0 +1,67 @@
+{
+  "updated": "2026-11-12T01:22:56Z",
+  "items": [
+    {
+      "id": "FI-MUTEX",
+      "status": "blocked",
+      "note": "bc-4054e39b on cursor/integration-art-m1-3395 is RUNNING and is the only writer of main. This line stops at a reviewable PR."
+    },
+    {
+      "id": "FI-DEPT",
+      "status": "verified",
+      "merged": false,
+      "deployed": false,
+      "note": "catalogIdFor / rpgIdFor. Chemistry save id maps to chemistry and science. med-info stays catalog-only. Name aliases: 數學系 and 化學系."
+    },
+    {
+      "id": "FI-SEMESTER",
+      "status": "verified",
+      "merged": false,
+      "deployed": false,
+      "note": "week-1 until quest-orient-gate and quest-errand-campus-post are both claimed. finals only after those two and mission first. Browser confirmed week-1 to midterm. Finals is unit-tested only."
+    },
+    {
+      "id": "FI-SUPPLY",
+      "status": "verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Main-game supply at the first crate. xp 44 includes the existing discovery +12 and the errand +12. Claimed once. Reload keeps department, xp 44, notes 21, midterm."
+    },
+    {
+      "id": "FI-PLACE",
+      "status": "store-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "place() on a legal lantern pays once. place() on the player returns false and does not pay. cancelBuild clears buildKind. Not yet clicked in the browser."
+    },
+    {
+      "id": "FI-EQUIP",
+      "status": "store-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Existing badge equip toggles equipped. It is not an errand trigger. Not yet clicked in the browser."
+    },
+    {
+      "id": "FI-CLOUD",
+      "status": "verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Guest local_only, login revision 1, second API client sees midterm, 200+409 revision_conflict, offline queue, logout 401. Static dist has no revision_conflict or cloud-save string."
+    },
+    {
+      "id": "FI-ART-QUEUE",
+      "status": "owned-by-other-integrator",
+      "note": "Fetched 2026-11-12. Already on main through language hall, integration PR #120. Still open and not for this line to merge: #107 4dc3786b, #108 6ac2cf30, #110 eee5c917, #111 412b1303, #113 f2750c70, #115 9672ff38, #116 9a3d594e, #118 266e4b73. Re-fetch heads before use. Source PRs that stay open after an integration merge are not a second copy of the feature."
+    },
+    {
+      "id": "FI-OTHER-LINES",
+      "status": "waiting-on-their-branches",
+      "note": "Item, gameplay, and faculty agents were RUNNING with no branch. Do not invent their content and do not block the supply slice on them."
+    },
+    {
+      "id": "FI-BROWSER-REST",
+      "status": "not-verified-here",
+      "note": "Nine college skills, four monster kinds, and the seven-zone road net were not replayed. One interior, main-gate, was entered and then interiorId returned to null. One quiz enemy went from 65 to 45."
+    }
+  ]
+}
