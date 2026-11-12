@@ -1,7 +1,7 @@
 {
   "owner": "quest-play",
   "branch": "cursor/quest-play-75f5",
-  "head": "c5c489b41bac249ed6d97d9094439ba71845550c",
+  "head": "e8b97ca652f9498e81ea3364d888ee371bbe0906",
   "commands": [
     "node --test scripts/quest-play.test.mjs",
     "node --test scripts/psych-story.test.mjs",
@@ -16,6 +16,7 @@
     "Ten quiz or report patrols stay off doors, buildings, and faculty posts",
     "許回 quotes the chosen attribution and the chosen recovery in a later line",
     "Both paths pay the same xp once, and quest notes do not advance gathered notes",
+    "Quest and dialogue notes that spill onto the ground stay out of gathered after pickup and after save and load",
     "SwiftShader captures at 1280x720 and a 390x780 coarse-pointer dialogue"
   ],
   "todo": [
