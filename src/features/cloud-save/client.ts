@@ -126,10 +126,11 @@ export function createCloudSaveController(options: {
   async function accountGate(userId: string): Promise<"ok" | "offline" | "mismatch"> {
     try {
       const response = await cloudFetch("/api/auth/get-session", { method: "GET" });
-      if (response.status >= 500) return "offline";
+      if (response.status >= 500 || response.status === 401) return "offline";
       if (!response.ok) return "mismatch";
       const body = await response.json().catch(() => null);
       const id = body?.user?.id ?? body?.data?.user?.id;
+      if (typeof id !== "string" || id.length === 0) return "offline";
       return id === userId ? "ok" : "mismatch";
     } catch {
       return "offline";
@@ -544,7 +545,7 @@ export function createCloudSaveController(options: {
         grant();
         return { granted: true };
       }
-      if (response.status < 500) return { granted: false };
+      if (response.status !== 401 && response.status < 500) return { granted: false };
     } catch {
       // The account is signed in, but the server cannot be reached.
     }
@@ -907,6 +908,17 @@ export function createCloudSaveController(options: {
           localText: readLocal() ?? "",
           remote: payload.server as RemoteHead,
         };
+      }
+      if (response.status === 401) {
+        enqueue({
+          id: String(body.requestId),
+          userId,
+          kind: "put",
+          body,
+          attempts: 0,
+          nextAt: now(),
+        });
+        return { status: "queued" };
       }
       if (response.status === 429 || response.status >= 500) {
         // The write was not kept, but a proxy may already have stored this id.
