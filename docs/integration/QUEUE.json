@@ -2265,6 +2265,32 @@
       "integrationPr": 168,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/168",
       "nextAction": "None. The collection-count restart checks from a9afa5c are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-reward-once",
+      "line": "backend",
+      "scope": "A reward is remembered on the device before it is granted. Login copies that receipt onto the current account only. A server receipt that was already recorded does not pay again. If the server cannot be reached, the reward is granted once and queued for that account.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-reward-once-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "997ff0db34a1a7acf38ce916c62cf14751749aa8",
+      "headSha": "0106bb5d2df0eb4b9b9ff94ffb69421a15f8b373",
+      "dependencies": ["backend-cloud-counts"],
+      "sharedFiles": ["src/features/cloud-save/client.ts", "scripts/cloud-upload-choice.test.mjs"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamp only. The client applied cleanly.",
+        "typecheck": "pass",
+        "npmTest": "330 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-YMSPf-td.js unchanged",
+        "browser": "8156. The standing route completed with pageErrors empty.",
+        "route": "8156: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": false,
+      "mergeSha": "f272577a7b7faf5e7477f4919d796a67a1d10b8b",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
