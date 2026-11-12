@@ -630,3 +630,36 @@ test("a quest claim longer than the cloud allows still uploads the others", () =
   assert.deepEqual(reloaded.claimed, ["first", keptQuest, "explorer"]);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("a long pilgrimage list still uploads the rpg save", async () => {
+  const { useGame } = await import("../src/game/store.ts");
+  const longId = "x".repeat(65);
+  const stamps = Array.from({ length: 40 }, (_, index) => `stamp-${index}`);
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+  });
+  useGame.setState({
+    phase: "playing",
+    playerX: 12,
+    playerZ: -20,
+    playerYaw: 0.2,
+    timeOfDay: "day",
+    muted: false,
+    visited: ["kenan", longId, ...stamps],
+  });
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.pilgrimage.visited.includes(longId), false);
+  assert.equal(saved.pilgrimage.visited[0], "kenan");
+  assert.equal(saved.pilgrimage.visited.includes("stamp-0"), true);
+  assert.ok(saved.pilgrimage.visited.length <= 32);
+  assert.equal(saved.pilgrimage.visited.length, 32);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
