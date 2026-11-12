@@ -10,13 +10,15 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 
 ## 版本
 
-| 欄位 | 值 | 意義 |
-| --- | --- | --- |
-| `schemaVersion` | `1` | 這份雲端信封 |
-| `contentVersion` | `2` | RPG 存檔 `document.version` |
-| `revision` | 伺服器整數 | 樂觀鎖。不看裝置時間 |
+| 欄位             | 值         | 意義                        |
+| ---------------- | ---------- | --------------------------- |
+| `schemaVersion`  | `1`        | 這份雲端信封                |
+| `contentVersion` | `2`        | RPG 存檔 `document.version` |
+| `revision`       | 伺服器整數 | 樂觀鎖。不看裝置時間        |
 
-內容效果只允許 `heal`、`focus`、`damage`、`capacity`、`build_range`、`grant_item`，而且只能有 `type`、`amount`、`itemId`。存檔裡的程式文字會被拒。沒有排行榜端點。客戶端送來的經驗、貨幣、分數只是存檔內容，不是可競技成績。
+內容效果只允許 `heal`、`focus`、`damage`、`capacity`、`build_range`、`grant_item`，而且只能有 `type`、`amount`、`itemId`。存檔裡的程式文字會被拒。沒有排行榜端點。客戶端送來的經驗、貨幣、分數只是存檔內容，不是可競技成績。文件頂層若出現 `score` 或其他白名單以外的欄位，整份寫入是 `422 unsafe_content`。
+
+`document` 頂層只接受目前 `snapshot()` 會寫的欄位，加上既有的 `effects`。缺欄位的舊存檔仍可上傳。若帶了 `narrative` 或 `variety`，形狀必須對得上遊戲讀回時保留的工作階段：敘事地圖最多 200 筆、字串短於 80、學院 id 用現有清單；多樣玩法的 `active` 要有階段、路線與能力快照，盤面的 `board` 只能是 `investigate`、`puzzle`、`escort`、`route`、`repair`、`combat`。整份文件的欄位數上限是 `MAX_DOCUMENT_KEYS`（8000），好讓 48 座設施、背包、敘事與一個玩法盤面同時通過，同時擋住無上限的地圖。
 
 ## 端點
 
@@ -29,7 +31,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 `select 1`。資料庫不可用時 `503`：
 
 ```json
-{"ok":false,"error":{"code":"database_unavailable","message":"資料庫無法使用。"}}
+{ "ok": false, "error": { "code": "database_unavailable", "message": "資料庫無法使用。" } }
 ```
 
 ### `GET /api/cloud/content/manifest`
@@ -41,7 +43,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 登入後讀自己的存檔。沒有列時：
 
 ```json
-{"error":{"code":"not_found","message":"尚未有雲端存檔。"},"idempotentReplay":false}
+{ "error": { "code": "not_found", "message": "尚未有雲端存檔。" }, "idempotentReplay": false }
 ```
 
 成功時 `200`，`ETag` 為 `"<revision>"`，`Cache-Control: no-store`：
@@ -51,7 +53,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
   "revision": 1,
   "schemaVersion": 1,
   "contentVersion": 2,
-  "document": {"version": 2, "hp": 80, "xp": 5, "slots": [], "buildings": []},
+  "document": { "version": 2, "hp": 80, "xp": 5, "slots": [], "buildings": [] },
   "etag": "\"1\"",
   "contentHash": "<sha256>",
   "idempotentReplay": false
@@ -67,7 +69,13 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
   "baseRevision": 0,
   "confirmFirstSync": true,
   "requestId": "localreq1abcd",
-  "document": {"version": 2, "hp": 80, "xp": 5, "slots": [{"itemId": "coffee", "quantity": 1}], "buildings": []}
+  "document": {
+    "version": 2,
+    "hp": 80,
+    "xp": 5,
+    "slots": [{ "itemId": "coffee", "quantity": 1 }],
+    "buildings": []
+  }
 }
 ```
 
@@ -87,7 +95,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 ### `POST /api/cloud/saves/rpg/restore`
 
 ```json
-{"baseRevision": 4, "revision": 1, "requestId": "restore-first-01"}
+{ "baseRevision": 4, "revision": 1, "requestId": "restore-first-01" }
 ```
 
 把歷史 revision 複製成新的 head。`baseRevision` 必須是目前 head。找不到歷史版本是 `404 revision_not_found`。同樣使用 `requestId` 冪等。
@@ -95,16 +103,20 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 ### `POST /api/cloud/saves/rpg/receipts`
 
 ```json
-{"eventId": "quest_side", "requestId": "reward-side-0001"}
+{ "eventId": "quest_side", "requestId": "reward-side-0001" }
 ```
 
 ```json
-{"applied": true, "eventId": "quest_side", "idempotentReplay": false}
+{ "applied": true, "eventId": "quest_side", "idempotentReplay": false }
 ```
 
 `applied: false` 表示這個帳號已經記過該事件。重送同一個 `requestId` 會帶回第一次的 body，並把 `idempotentReplay` 設為 `true`。伺服器不發放經驗或貨幣。客戶端必須在本機把事件 id 記下來，重試時不再呼叫發獎函式。
 
 寫入預設每帳號每 60 秒 30 次（`CLOUD_SAVE_RATE_LIMIT`、`CLOUD_SAVE_RATE_WINDOW_MS`）。超過回 `429 rate_limited` 與 `Retry-After`。這是單一程序內的計數。
+
+## 客戶端上傳
+
+面板的「上傳本機」呼叫 `uploadLocal`。沒有雲端列時才送 `confirmFirstSync: true` 與 `baseRevision: 0`。已有 revision 時用本機記下的 revision 續寫，`confirmFirstSync` 為 false。雲端 revision 已經前進時不送寫入，回到衝突選擇。網路失敗的寫入留在該帳號佇列。面板重新載入且本機仍記著該帳號時會再送一次；登入時也只送出目前帳號的佇列。相同 `requestId` 重送不會增加 revision。
 
 ## 客戶端
 
@@ -117,5 +129,6 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 - 本機與雲端不同，且本機記錄的 revision 不等於伺服器：`conflict`。`keepRemoteVersion` / `keepLocalVersion` 才解決。
 - 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。`flush` 只送目前帳號的佇列，沿用原來的 `requestId`，退避 1s、2s、4s，上限 30s。
 - `logout` 只清目前帳號標記，不刪 RPG 存檔，也不把上一個帳號的佇列送給下一個帳號。
+- `restorePrevious` 在玩家按下時，把目前 head 的前一個 revision 複製成新 head，並寫回本機。只有一份雲端版本時不改本機。離線時不把恢復排進佇列。
 
 Node 首頁 `src/routes/index.tsx` 掛了 `CloudSaveDock`。靜態入口沒有引用它。

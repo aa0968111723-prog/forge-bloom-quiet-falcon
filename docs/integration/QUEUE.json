@@ -2153,6 +2153,34 @@
       "integrationPr": 159,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/159",
       "nextAction": "None. The library ramp railings from 1dce114 are already in this integration. Do not merge PR #132 by itself."
+    },
+    {
+      "id": "backend-campus-snapshot",
+      "line": "backend",
+      "scope": "Cloud saves accept the live campus snapshot: narrative, variety, loot, position, interior, and floor. Unknown top-level fields stay rejected. A save without those fields still uploads. Later uploads reuse the stored revision. A previous cloud revision can be written back into the local save.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-cloud-snapshot-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "83fa529a22ce12d60c38c20c318de8b067427d75",
+      "headSha": "7182c6e6e5c3bff98d61e3c6f09290476ec0e7bb",
+      "dependencies": ["backend-gear-contract"],
+      "sharedFiles": ["src/features/cloud-save/contract.ts", "src/features/cloud-save/client.ts", "src/features/cloud-save/CloudSaveDock.tsx"],
+      "checks": {
+        "conflicts": "none. The cloud-save files and backend notes were taken from 7f400ba onto main.",
+        "typecheck": "pass",
+        "npmTest": "321 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Cl3Ho6pe.js unchanged",
+        "browser": "8153. The standing route completed with pageErrors empty.",
+        "route": "8153: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "f7fb45dd8957847f2738e5ca64e6cf928ad152e8",
+      "integrationPr": 162,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/162",
+      "nextAction": "None. The live campus snapshot from 7182c6e is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

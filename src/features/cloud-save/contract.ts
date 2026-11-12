@@ -11,6 +11,8 @@ export const MAX_SAVE_BYTES = 262_144;
 export const SAVE_HISTORY_LIMIT = 8;
 export const MAX_BUILDINGS = 48;
 export const MAX_SLOTS = 24;
+/** A full campus snapshot: facilities, bags, narrative maps, loot, and one variety board. */
+export const MAX_DOCUMENT_KEYS = 8_000;
 
 export const CONTENT_EFFECTS = [
   "heal",
@@ -161,7 +163,7 @@ function walkValue(value: unknown, depth: number, budget: { keys: number }): Val
     const record = value as Record<string, unknown>;
     for (const key of Object.keys(record)) {
       budget.keys += 1;
-      if (budget.keys > 400) {
+      if (budget.keys > MAX_DOCUMENT_KEYS) {
         return { ok: false, code: "invalid_document", message: "存檔欄位過多。" };
       }
       if (UNSAFE_KEY.has(key)) {
@@ -175,9 +177,46 @@ function walkValue(value: unknown, depth: number, budget: { keys: number }): Val
   return { ok: false, code: "invalid_document", message: "存檔含有不允許的資料型別。" };
 }
 
+const TOP_LEVEL_KEYS = new Set([
+  "version",
+  "departmentId",
+  "xp",
+  "hp",
+  "focus",
+  "equipped",
+  "loadout",
+  "gear",
+  "quarantine",
+  "quarantineGear",
+  "skillRank",
+  "kills",
+  "built",
+  "boss",
+  "discoveries",
+  "claimed",
+  "buildings",
+  "heldBuild",
+  "slots",
+  "harvested",
+  "loot",
+  "clock",
+  "position",
+  "pilgrimage",
+  "lesson",
+  "lessonAnchor",
+  "interiorId",
+  "floor",
+  "narrative",
+  "variety",
+  "effects",
+]);
+
 function checkFields(doc: SaveDocument): ValidationResult {
   if (doc.version !== CLOUD_CONTENT_VERSION) {
     return { ok: false, code: "incompatible_content", message: "存檔內容版本不相容。" };
+  }
+  if (Object.keys(doc).some((key) => !TOP_LEVEL_KEYS.has(key))) {
+    return { ok: false, code: "unsafe_content", message: "存檔含有白名單以外的欄位。" };
   }
   if (!finiteIn(doc.hp, 0, 100_000)) {
     return { ok: false, code: "invalid_document", message: "生命值不在允許範圍。" };
@@ -211,6 +250,9 @@ function checkFields(doc: SaveDocument): ValidationResult {
       return { ok: false, code: "invalid_document", message: "背包槽位格式不正確。" };
     }
     const row = slot as Record<string, unknown>;
+    if (Object.keys(row).some((key) => key !== "itemId" && key !== "quantity")) {
+      return { ok: false, code: "unsafe_content", message: "背包槽位含有白名單以外的欄位。" };
+    }
     if (typeof row.itemId !== "string" || !ID_PATTERN.test(row.itemId)) {
       return { ok: false, code: "invalid_document", message: "物品 id 不在允許格式。" };
     }
@@ -226,6 +268,11 @@ function checkFields(doc: SaveDocument): ValidationResult {
       return { ok: false, code: "invalid_document", message: "建築格式不正確。" };
     }
     const row = building as Record<string, unknown>;
+    if (
+      Object.keys(row).some((key) => !BUILDING_KEYS.includes(key as (typeof BUILDING_KEYS)[number]))
+    ) {
+      return { ok: false, code: "unsafe_content", message: "建築含有白名單以外的欄位。" };
+    }
     if (typeof row.id !== "string" || row.id.length < 1 || row.id.length > 80) {
       return { ok: false, code: "invalid_document", message: "建築 id 不正確。" };
     }
@@ -286,18 +333,120 @@ function checkFields(doc: SaveDocument): ValidationResult {
     const pilgrimage = checkPilgrimage(doc.pilgrimage);
     if (!pilgrimage.ok) return pilgrimage;
   }
+  if ("discoveries" in doc) {
+    const discoveries = checkIdList(doc.discoveries, "發現紀錄", 100);
+    if (!discoveries.ok) return discoveries;
+  }
+  if ("harvested" in doc) {
+    const harvested = checkHarvested(doc.harvested);
+    if (!harvested.ok) return harvested;
+  }
+  if ("loot" in doc) {
+    const loot = checkLoot(doc.loot);
+    if (!loot.ok) return loot;
+  }
+  if ("position" in doc && doc.position != null) {
+    const position = checkPosition(doc.position);
+    if (!position.ok) return position;
+  }
+  if ("lessonAnchor" in doc && doc.lessonAnchor != null) {
+    const anchor = checkAnchor(doc.lessonAnchor);
+    if (!anchor.ok) return anchor;
+  }
+  if ("interiorId" in doc && doc.interiorId != null) {
+    if (typeof doc.interiorId !== "string" || !ID_PATTERN.test(doc.interiorId)) {
+      return { ok: false, code: "invalid_document", message: "室內場景 id 不正確。" };
+    }
+  }
+  if ("floor" in doc && !integerIn(doc.floor, 1, 30)) {
+    return { ok: false, code: "invalid_document", message: "樓層不在允許範圍。" };
+  }
+  if ("narrative" in doc && doc.narrative != null) {
+    const narrative = checkNarrative(doc.narrative);
+    if (!narrative.ok) return narrative;
+  }
+  if ("variety" in doc && doc.variety != null) {
+    const variety = checkVariety(doc.variety);
+    if (!variety.ok) return variety;
+  }
   return { ok: true, document: doc };
 }
 
 const LOADOUT_KEYS = ["tool", "accessory", "pack"] as const;
 const GEAR_KEYS = ["id", "itemId", "durability", "quality"] as const;
+const BUILDING_KEYS = ["id", "kind", "x", "z", "rotation", "hp"] as const;
+const NARRATIVE_KEYS = [
+  "version",
+  "seed",
+  "rngState",
+  "minute",
+  "placeId",
+  "weather",
+  "timeOfDay",
+  "semester",
+  "collegeId",
+  "departmentId",
+  "flags",
+  "questNodes",
+  "memory",
+  "cooldowns",
+  "mutexUntil",
+  "mutexHolder",
+  "recent",
+  "fired",
+  "resolved",
+  "activeEventId",
+  "mode",
+] as const;
+const VARIETY_KEYS = [
+  "version",
+  "rng",
+  "recent",
+  "resolved",
+  "claims",
+  "route",
+  "active",
+  "signals",
+  "tutorialSeen",
+] as const;
+const COLLEGE_IDS = new Set([
+  "liberal-arts",
+  "science",
+  "engineering",
+  "business",
+  "foreign-lang",
+  "international",
+  "education",
+  "ai",
+  "precision-health",
+]);
+const NARRATIVE_WEATHER = new Set(["clear", "rain", "dusk"]);
+const NARRATIVE_TIME = new Set(["morning", "afternoon", "evening", "night"]);
+const NARRATIVE_SEMESTER = new Set(["week-1", "midterm", "finals"]);
+const VARIETY_PHASES = new Set([
+  "briefing",
+  "investigate",
+  "puzzle",
+  "fork",
+  "escort",
+  "combat",
+  "route",
+  "repair",
+  "success",
+  "failed",
+  "aborted",
+]);
+const VARIETY_BOARDS = new Set(["investigate", "puzzle", "escort", "route", "repair", "combat"]);
+const VARIETY_ROUTES = new Set(["peace", "combat", "field"]);
 
 function checkLoadout(value: unknown): ValidationResult {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return { ok: false, code: "invalid_document", message: "裝備欄格式不正確。" };
   }
   const row = value as Record<string, unknown>;
-  if (Object.keys(row).some((key) => !LOADOUT_KEYS.includes(key as (typeof LOADOUT_KEYS)[number]))) {
+  if (
+    Object.keys(row).some((key) => !LOADOUT_KEYS.includes(key as (typeof LOADOUT_KEYS)[number]))
+  ) {
     return { ok: false, code: "unsafe_content", message: "裝備欄含有白名單以外的欄位。" };
   }
   for (const key of LOADOUT_KEYS) {
@@ -364,6 +513,11 @@ function checkBuilding(value: unknown): ValidationResult {
     return { ok: false, code: "invalid_document", message: "建築格式不正確。" };
   }
   const row = value as Record<string, unknown>;
+  if (
+    Object.keys(row).some((key) => !BUILDING_KEYS.includes(key as (typeof BUILDING_KEYS)[number]))
+  ) {
+    return { ok: false, code: "unsafe_content", message: "建築含有白名單以外的欄位。" };
+  }
   if (typeof row.id !== "string" || row.id.length < 1 || row.id.length > 80) {
     return { ok: false, code: "invalid_document", message: "建築 id 不正確。" };
   }
@@ -371,7 +525,11 @@ function checkBuilding(value: unknown): ValidationResult {
     return { ok: false, code: "invalid_document", message: "建築種類不在允許格式。" };
   }
   for (const key of ["x", "z", "rotation"] as const) {
-    if (typeof row[key] !== "number" || !Number.isFinite(row[key]) || Math.abs(row[key]) > 100_000) {
+    if (
+      typeof row[key] !== "number" ||
+      !Number.isFinite(row[key]) ||
+      Math.abs(row[key]) > 100_000
+    ) {
       return { ok: false, code: "invalid_document", message: "建築座標不正確。" };
     }
   }
@@ -412,6 +570,9 @@ function checkPilgrimage(value: unknown): ValidationResult {
     return { ok: false, code: "invalid_document", message: "巡禮段落格式不正確。" };
   }
   const row = value as Record<string, unknown>;
+  if (Object.keys(row).some((key) => key !== "visited" && key !== "timeOfDay" && key !== "muted")) {
+    return { ok: false, code: "unsafe_content", message: "巡禮段落含有白名單以外的欄位。" };
+  }
   if ("visited" in row) {
     if (!Array.isArray(row.visited) || row.visited.length > 32) {
       return { ok: false, code: "invalid_document", message: "巡禮地標格式不正確。" };
@@ -427,6 +588,435 @@ function checkPilgrimage(value: unknown): ValidationResult {
   }
   if ("muted" in row && typeof row.muted !== "boolean") {
     return { ok: false, code: "invalid_document", message: "靜音設定必須是布林值。" };
+  }
+  return { ok: true, document: {} };
+}
+
+function checkIdList(value: unknown, label: string, limit: number): ValidationResult {
+  if (!Array.isArray(value) || value.length > limit) {
+    return { ok: false, code: "invalid_document", message: `${label}格式不正確。` };
+  }
+  for (const id of value) {
+    if (typeof id !== "string" || !ID_PATTERN.test(id)) {
+      return { ok: false, code: "invalid_document", message: `${label} id 不正確。` };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkHarvested(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "採集時間格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  const keys = Object.keys(row);
+  if (keys.length > 64) {
+    return { ok: false, code: "invalid_document", message: "採集時間超過上限。" };
+  }
+  for (const key of keys) {
+    if (!ID_PATTERN.test(key) || !finiteIn(row[key], 0, 1e15)) {
+      return { ok: false, code: "invalid_document", message: "採集時間不正確。" };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkLoot(value: unknown): ValidationResult {
+  if (!Array.isArray(value) || value.length > 100) {
+    return { ok: false, code: "invalid_document", message: "掉落物格式不正確。" };
+  }
+  for (const pile of value) {
+    if (!pile || typeof pile !== "object" || Array.isArray(pile)) {
+      return { ok: false, code: "invalid_document", message: "掉落物格式不正確。" };
+    }
+    const row = pile as Record<string, unknown>;
+    if (
+      Object.keys(row).some((key) => key !== "id" && key !== "x" && key !== "z" && key !== "items")
+    ) {
+      return { ok: false, code: "unsafe_content", message: "掉落物含有白名單以外的欄位。" };
+    }
+    if (typeof row.id !== "string" || row.id.length < 1 || row.id.length > 80) {
+      return { ok: false, code: "invalid_document", message: "掉落物 id 不正確。" };
+    }
+    for (const key of ["x", "z"] as const) {
+      if (
+        typeof row[key] !== "number" ||
+        !Number.isFinite(row[key]) ||
+        Math.abs(row[key]) > 100_000
+      ) {
+        return { ok: false, code: "invalid_document", message: "掉落物座標不正確。" };
+      }
+    }
+    if (!row.items || typeof row.items !== "object" || Array.isArray(row.items)) {
+      return { ok: false, code: "invalid_document", message: "掉落物內容格式不正確。" };
+    }
+    const items = row.items as Record<string, unknown>;
+    const itemIds = Object.keys(items);
+    if (itemIds.length > 16) {
+      return { ok: false, code: "invalid_document", message: "掉落物內容超過上限。" };
+    }
+    for (const itemId of itemIds) {
+      if (!ID_PATTERN.test(itemId) || !integerIn(items[itemId], 1, 99)) {
+        return { ok: false, code: "invalid_document", message: "掉落物物品不正確。" };
+      }
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkPosition(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "位置格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  if (Object.keys(row).some((key) => key !== "x" && key !== "z" && key !== "yaw")) {
+    return { ok: false, code: "unsafe_content", message: "位置含有白名單以外的欄位。" };
+  }
+  for (const key of ["x", "z", "yaw"] as const) {
+    if (
+      typeof row[key] !== "number" ||
+      !Number.isFinite(row[key]) ||
+      Math.abs(row[key]) > 100_000
+    ) {
+      return { ok: false, code: "invalid_document", message: "位置座標不正確。" };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkAnchor(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "教學錨點格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  if (Object.keys(row).some((key) => key !== "x" && key !== "z")) {
+    return { ok: false, code: "unsafe_content", message: "教學錨點含有白名單以外的欄位。" };
+  }
+  for (const key of ["x", "z"] as const) {
+    if (
+      typeof row[key] !== "number" ||
+      !Number.isFinite(row[key]) ||
+      Math.abs(row[key]) > 100_000
+    ) {
+      return { ok: false, code: "invalid_document", message: "教學錨點座標不正確。" };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkNarrative(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "敘事進度格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  if (
+    Object.keys(row).some((key) => !NARRATIVE_KEYS.includes(key as (typeof NARRATIVE_KEYS)[number]))
+  ) {
+    return { ok: false, code: "unsafe_content", message: "敘事進度含有白名單以外的欄位。" };
+  }
+  if (row.version !== 1) {
+    return { ok: false, code: "invalid_document", message: "敘事進度版本不相容。" };
+  }
+  if (
+    "seed" in row &&
+    (typeof row.seed !== "string" || row.seed.length < 1 || row.seed.length >= 64)
+  ) {
+    return { ok: false, code: "invalid_document", message: "敘事種子不正確。" };
+  }
+  if ("rngState" in row && !finiteIn(row.rngState, 0, 2 ** 32 - 1)) {
+    return { ok: false, code: "invalid_document", message: "敘事亂數不在允許範圍。" };
+  }
+  if ("minute" in row && !finiteIn(row.minute, 0, 1_000_000)) {
+    return { ok: false, code: "invalid_document", message: "敘事時間不在允許範圍。" };
+  }
+  if (
+    "placeId" in row &&
+    row.placeId != null &&
+    (typeof row.placeId !== "string" || !ID_PATTERN.test(row.placeId))
+  ) {
+    return { ok: false, code: "invalid_document", message: "敘事地點 id 不正確。" };
+  }
+  if ("weather" in row && !NARRATIVE_WEATHER.has(String(row.weather))) {
+    return { ok: false, code: "invalid_document", message: "敘事天氣不在允許清單。" };
+  }
+  if ("timeOfDay" in row && !NARRATIVE_TIME.has(String(row.timeOfDay))) {
+    return { ok: false, code: "invalid_document", message: "敘事時段不在允許清單。" };
+  }
+  if ("semester" in row && !NARRATIVE_SEMESTER.has(String(row.semester))) {
+    return { ok: false, code: "invalid_document", message: "敘事學期不在允許清單。" };
+  }
+  if ("collegeId" in row && row.collegeId != null && !COLLEGE_IDS.has(String(row.collegeId))) {
+    return { ok: false, code: "invalid_document", message: "敘事學院 id 不正確。" };
+  }
+  if ("departmentId" in row && row.departmentId != null) {
+    if (typeof row.departmentId !== "string" || row.departmentId.length > 80) {
+      return { ok: false, code: "invalid_document", message: "敘事科系 id 不正確。" };
+    }
+  }
+  if ("flags" in row) {
+    const flags = checkBoolMap(row.flags, "敘事旗標", 200);
+    if (!flags.ok) return flags;
+  }
+  for (const key of ["questNodes", "memory", "mutexHolder"] as const) {
+    if (!(key in row)) continue;
+    const mapped = checkStringMap(row[key], "敘事紀錄", 200);
+    if (!mapped.ok) return mapped;
+  }
+  for (const key of ["cooldowns", "mutexUntil"] as const) {
+    if (!(key in row)) continue;
+    const mapped = checkNumberMap(row[key], "敘事計時", 200);
+    if (!mapped.ok) return mapped;
+  }
+  if ("recent" in row) {
+    const recent = checkShortStrings(row.recent, "敘事近況", 3);
+    if (!recent.ok) return recent;
+  }
+  for (const key of ["fired", "resolved"] as const) {
+    if (!(key in row)) continue;
+    const list = checkShortStrings(row[key], "敘事事件", 200);
+    if (!list.ok) return list;
+  }
+  if (
+    "activeEventId" in row &&
+    row.activeEventId != null &&
+    (typeof row.activeEventId !== "string" ||
+      row.activeEventId.length < 1 ||
+      row.activeEventId.length > 80)
+  ) {
+    return { ok: false, code: "invalid_document", message: "進行中的敘事事件 id 不正確。" };
+  }
+  if ("mode" in row && row.mode !== "exploring" && row.mode !== "in-event") {
+    return { ok: false, code: "invalid_document", message: "敘事模式不在允許清單。" };
+  }
+  return { ok: true, document: {} };
+}
+
+function checkVariety(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法進度格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  if (
+    Object.keys(row).some((key) => !VARIETY_KEYS.includes(key as (typeof VARIETY_KEYS)[number]))
+  ) {
+    return { ok: false, code: "unsafe_content", message: "多樣玩法進度含有白名單以外的欄位。" };
+  }
+  if (row.version !== 1) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法進度版本不相容。" };
+  }
+  if ("rng" in row && !finiteIn(row.rng, 0, 2 ** 32 - 1)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法亂數不在允許範圍。" };
+  }
+  if ("recent" in row) {
+    const recent = checkShortStrings(row.recent, "多樣玩法近況", 3);
+    if (!recent.ok) return recent;
+  }
+  for (const key of ["resolved", "claims"] as const) {
+    if (!(key in row)) continue;
+    const list = checkShortStrings(row[key], "多樣玩法紀錄", 40);
+    if (!list.ok) return list;
+  }
+  if ("route" in row && row.route != null && row.route !== "peace" && row.route !== "combat") {
+    return { ok: false, code: "invalid_document", message: "多樣玩法路線不在允許清單。" };
+  }
+  if ("tutorialSeen" in row && typeof row.tutorialSeen !== "boolean") {
+    return { ok: false, code: "invalid_document", message: "多樣玩法教學標記必須是布林值。" };
+  }
+  if ("signals" in row) {
+    const signals = checkSignals(row.signals);
+    if (!signals.ok) return signals;
+  }
+  if ("active" in row && row.active != null) {
+    const active = checkVarietyRun(row.active);
+    if (!active.ok) return active;
+  }
+  return { ok: true, document: {} };
+}
+
+function checkVarietyRun(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "進行中的多樣玩法格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  const keys = ["eventId", "phase", "route", "board", "failReason", "receipt", "tutorial", "caps"];
+  if (Object.keys(row).some((key) => !keys.includes(key))) {
+    return { ok: false, code: "unsafe_content", message: "進行中的多樣玩法含有白名單以外的欄位。" };
+  }
+  if (typeof row.eventId !== "string" || row.eventId.length < 1 || row.eventId.length > 80) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法事件 id 不正確。" };
+  }
+  if (typeof row.phase !== "string" || !VARIETY_PHASES.has(row.phase)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法階段不在允許清單。" };
+  }
+  if (row.route != null && (typeof row.route !== "string" || !VARIETY_ROUTES.has(row.route))) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法路線不在允許清單。" };
+  }
+  if (
+    row.failReason != null &&
+    (typeof row.failReason !== "string" || row.failReason.length > 80)
+  ) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法失敗原因不正確。" };
+  }
+  if (row.receipt != null && (typeof row.receipt !== "string" || row.receipt.length > 80)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法回執不正確。" };
+  }
+  if (typeof row.tutorial !== "boolean") {
+    return { ok: false, code: "invalid_document", message: "多樣玩法教學標記必須是布林值。" };
+  }
+  if (row.board != null) {
+    const board = checkBoard(row.board);
+    if (!board.ok) return board;
+  }
+  const caps = checkCaps(row.caps);
+  if (!caps.ok) return caps;
+  return { ok: true, document: {} };
+}
+
+function checkCaps(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法能力快照格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  const keys = ["equipped", "skillRank", "built", "collegeId", "discipline"];
+  if (Object.keys(row).some((key) => !keys.includes(key))) {
+    return { ok: false, code: "unsafe_content", message: "多樣玩法能力快照含有白名單以外的欄位。" };
+  }
+  if (typeof row.equipped !== "boolean") {
+    return { ok: false, code: "invalid_document", message: "多樣玩法能力快照必須包含裝備狀態。" };
+  }
+  if (!integerIn(row.skillRank, 1, 5) || !integerIn(row.built, 0, 48)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法能力快照數值不正確。" };
+  }
+  if (row.collegeId != null && (typeof row.collegeId !== "string" || row.collegeId.length > 80)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法學院 id 不正確。" };
+  }
+  if (
+    row.discipline != null &&
+    (typeof row.discipline !== "string" || row.discipline.length > 80)
+  ) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法學科 id 不正確。" };
+  }
+  return { ok: true, document: {} };
+}
+
+function checkBoard(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法盤面格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  const keys = Object.keys(row);
+  if (keys.length > 48) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法盤面欄位過多。" };
+  }
+  if (typeof row.board !== "string" || !VARIETY_BOARDS.has(row.board)) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法盤面類型不在允許清單。" };
+  }
+  if (
+    row.board === "combat" &&
+    row.combat != null &&
+    row.combat !== "quiz" &&
+    row.combat !== "report" &&
+    row.combat !== "exam" &&
+    row.combat !== "final"
+  ) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法戰鬥類型不在允許清單。" };
+  }
+  return { ok: true, document: {} };
+}
+
+function checkSignals(value: unknown): ValidationResult {
+  if (!Array.isArray(value) || value.length > 20) {
+    return { ok: false, code: "invalid_document", message: "多樣玩法訊號超過上限。" };
+  }
+  for (const signal of value) {
+    if (!signal || typeof signal !== "object" || Array.isArray(signal)) {
+      return { ok: false, code: "invalid_document", message: "多樣玩法訊號格式不正確。" };
+    }
+    const row = signal as Record<string, unknown>;
+    if (
+      Object.keys(row).some(
+        (key) => key !== "type" && key !== "eventId" && key !== "route" && key !== "questId",
+      )
+    ) {
+      return { ok: false, code: "unsafe_content", message: "多樣玩法訊號含有白名單以外的欄位。" };
+    }
+    if (row.type !== "variety.resolved") {
+      return { ok: false, code: "unsafe_content", message: "多樣玩法訊號類型不在白名單。" };
+    }
+    if (typeof row.eventId !== "string" || row.eventId.length < 1 || row.eventId.length > 80) {
+      return { ok: false, code: "invalid_document", message: "多樣玩法訊號事件 id 不正確。" };
+    }
+    if (typeof row.route !== "string" || !VARIETY_ROUTES.has(row.route)) {
+      return { ok: false, code: "invalid_document", message: "多樣玩法訊號路線不在允許清單。" };
+    }
+    if (typeof row.questId !== "string" || !ID_PATTERN.test(row.questId)) {
+      return { ok: false, code: "invalid_document", message: "多樣玩法訊號任務 id 不正確。" };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkBoolMap(value: unknown, label: string, limit: number): ValidationResult {
+  const entries = mapEntries(value, label, limit);
+  if (!entries.ok) return entries;
+  for (const [, entry] of entries.pairs) {
+    if (typeof entry !== "boolean") {
+      return { ok: false, code: "invalid_document", message: `${label}必須是布林值。` };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkStringMap(value: unknown, label: string, limit: number): ValidationResult {
+  const entries = mapEntries(value, label, limit);
+  if (!entries.ok) return entries;
+  for (const [, entry] of entries.pairs) {
+    if (typeof entry !== "string" || entry.length >= 80) {
+      return { ok: false, code: "invalid_document", message: `${label}內容不正確。` };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkNumberMap(value: unknown, label: string, limit: number): ValidationResult {
+  const entries = mapEntries(value, label, limit);
+  if (!entries.ok) return entries;
+  for (const [, entry] of entries.pairs) {
+    if (!finiteIn(entry, -1e12, 1e15)) {
+      return { ok: false, code: "invalid_document", message: `${label}數值不正確。` };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function mapEntries(
+  value: unknown,
+  label: string,
+  limit: number,
+): { ok: true; pairs: [string, unknown][] } | { ok: false; code: string; message: string } {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: `${label}格式不正確。` };
+  }
+  const pairs = Object.entries(value as Record<string, unknown>);
+  if (pairs.length > limit) {
+    return { ok: false, code: "invalid_document", message: `${label}超過上限。` };
+  }
+  for (const [key] of pairs) {
+    if (key.length < 1 || key.length >= 80) {
+      return { ok: false, code: "invalid_document", message: `${label}鍵不正確。` };
+    }
+  }
+  return { ok: true, pairs };
+}
+
+function checkShortStrings(value: unknown, label: string, limit: number): ValidationResult {
+  if (!Array.isArray(value) || value.length > limit) {
+    return { ok: false, code: "invalid_document", message: `${label}格式不正確。` };
+  }
+  for (const item of value) {
+    if (typeof item !== "string" || item.length < 1 || item.length >= 80) {
+      return { ok: false, code: "invalid_document", message: `${label}內容不正確。` };
+    }
   }
   return { ok: true, document: {} };
 }

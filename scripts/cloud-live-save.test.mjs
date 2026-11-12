@@ -1,0 +1,159 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+
+import { MAX_DOCUMENT_KEYS, validateRpgDocument } from "../src/features/cloud-save/contract.ts";
+
+const base = {
+  version: 2,
+  hp: 100,
+  slots: [{ itemId: "notes", quantity: 1 }],
+  buildings: [],
+};
+
+test("a current campus snapshot passes the cloud contract", () => {
+  const flags = Object.fromEntries(
+    Array.from({ length: 50 }, (_, i) => [`flag-${i}`, i % 2 === 0]),
+  );
+  const checked = validateRpgDocument({
+    ...base,
+    departmentId: "engineering-工學院-0",
+    xp: 60,
+    focus: 80,
+    equipped: true,
+    loadout: { tool: "repair-wrench", accessory: null, pack: null },
+    gear: [{ id: "gear-repair-wrench", itemId: "repair-wrench", durability: 40, quality: "plain" }],
+    quarantine: [],
+    quarantineGear: [],
+    skillRank: 1,
+    kills: 3,
+    built: 1,
+    boss: 0,
+    discoveries: ["library", "engineering"],
+    claimed: ["first", "quest-orient-gate"],
+    buildings: Array.from({ length: 48 }, (_, i) => ({
+      id: `desk-${i}`,
+      kind: "desk",
+      x: i,
+      z: i + 1,
+      rotation: 0,
+      hp: 120,
+    })),
+    heldBuild: null,
+    harvested: { library: 1_700_000_000_000 },
+    loot: [{ id: "pile-1", x: 12, z: 18, items: { notes: 1, parts: 2 } }],
+    clock: 90,
+    position: { x: 10, z: 20, yaw: 1.2 },
+    pilgrimage: { visited: ["library"], timeOfDay: "day", muted: false },
+    lesson: "move",
+    lessonAnchor: { x: 10, z: 20 },
+    interiorId: "library",
+    floor: 2,
+    narrative: {
+      version: 1,
+      seed: "campus",
+      rngState: 1,
+      minute: 480,
+      placeId: "library",
+      weather: "clear",
+      timeOfDay: "morning",
+      semester: "week-1",
+      collegeId: "engineering",
+      departmentId: "engineering-工學院-0",
+      flags,
+      questNodes: { "quest-orient-gate": "outline" },
+      memory: {},
+      cooldowns: {},
+      mutexUntil: {},
+      mutexHolder: {},
+      recent: ["evt-gate-orientation"],
+      fired: ["evt-gate-orientation"],
+      resolved: ["evt-gate-orientation"],
+      activeEventId: null,
+      mode: "exploring",
+    },
+    variety: {
+      version: 1,
+      rng: 1,
+      recent: ["variety-gate"],
+      resolved: [],
+      claims: ["quest-orient-gate"],
+      route: "peace",
+      tutorialSeen: true,
+      signals: [
+        {
+          type: "variety.resolved",
+          eventId: "variety-gate",
+          route: "peace",
+          questId: "quest-orient-gate",
+        },
+      ],
+      active: {
+        eventId: "variety-quiz",
+        phase: "combat",
+        route: "field",
+        failReason: null,
+        receipt: null,
+        tutorial: false,
+        caps: {
+          equipped: true,
+          skillRank: 1,
+          built: 1,
+          collegeId: "engineering",
+          discipline: null,
+        },
+        board: {
+          board: "combat",
+          combat: "quiz",
+          player: { x: 0, y: 0 },
+          playerHp: 12,
+          enemy: { x: 2, y: 1 },
+          enemyHp: 8,
+          facing: 1,
+          windup: 0,
+          telegraph: null,
+          commit: 0,
+          laneY: null,
+          stun: 0,
+          step: 1,
+          retargets: 0,
+          desk: null,
+          deskHp: null,
+          nodes: [],
+          lit: [true],
+          guard: false,
+          lastPlayerHit: 0,
+          lastEnemyHit: 0,
+          lastShape: null,
+          outcome: "ongoing",
+          log: "hit",
+        },
+      },
+    },
+  });
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+});
+
+test("cloud saves reject fields outside the live snapshot", () => {
+  const extra = validateRpgDocument({ ...base, score: 99 });
+  assert.equal(extra.ok, false);
+  if (!extra.ok) assert.equal(extra.code, "unsafe_content");
+
+  const narrative = validateRpgDocument({
+    ...base,
+    narrative: { version: 1, flags: {}, script: "run" },
+  });
+  assert.equal(narrative.ok, false);
+  if (!narrative.ok) assert.equal(narrative.code, "unsafe_content");
+
+  const flags = Object.fromEntries(Array.from({ length: 201 }, (_, i) => [`flag-${i}`, true]));
+  const crowded = validateRpgDocument({ ...base, narrative: { version: 1, flags } });
+  assert.equal(crowded.ok, false);
+  if (!crowded.ok) assert.match(crowded.message, /超過上限/);
+
+  const overflow = Object.fromEntries(
+    Array.from({ length: MAX_DOCUMENT_KEYS }, (_, i) => [`flag-${i}`, true]),
+  );
+  const tooWide = validateRpgDocument({ ...base, narrative: { version: 1, flags: overflow } });
+  assert.equal(tooWide.ok, false);
+  if (!tooWide.ok) assert.match(tooWide.message, /欄位過多/);
+});

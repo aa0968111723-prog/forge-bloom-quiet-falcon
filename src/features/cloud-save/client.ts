@@ -176,6 +176,18 @@ export function createCloudSaveController(options: {
     return sendPut(userId, body);
   }
 
+  async function uploadLocal(): Promise<
+    SyncPlan | { status: "uploaded"; revision: number } | { status: "queued" }
+  > {
+    const current = await plan();
+    if (current.status === "need_first_sync") return uploadFirstSync();
+    if (current.status === "local_changes") return pushLocal();
+    if (current.status === "local_only" && current.reason === "offline" && activeUser()) {
+      return readMeta(activeUser() as string) ? pushLocal() : uploadFirstSync();
+    }
+    return current;
+  }
+
   async function downloadCloud(): Promise<SyncPlan | { status: "downloaded"; revision: number }> {
     const remote = await getRemote();
     if (remote.status === "offline") return { status: "local_only", reason: "offline" };
@@ -207,6 +219,62 @@ export function createCloudSaveController(options: {
     SyncPlan | { status: "downloaded"; revision: number }
   > {
     return downloadCloud();
+  }
+
+  async function restorePrevious(): Promise<SyncPlan | { status: "restored"; revision: number }> {
+    const userId = activeUser();
+    if (!userId) return { status: "local_only", reason: "signed_out" };
+    const current = await plan();
+    const base =
+      current.status === "in_sync" || current.status === "local_changes"
+        ? current.revision
+        : current.status === "conflict" || current.status === "need_download"
+          ? current.remote.revision
+          : null;
+    if (base == null) return current;
+    if (base <= 1) {
+      return {
+        status: "error",
+        code: "revision_not_found",
+        message: "沒有更早的雲端版本。",
+      };
+    }
+    try {
+      const response = await cloudFetch("/api/cloud/saves/rpg/restore", {
+        method: "POST",
+        body: JSON.stringify({
+          baseRevision: base,
+          revision: base - 1,
+          requestId: randomId(),
+        }),
+      });
+      const payload = await response.json();
+      if (
+        response.status === 409 &&
+        payload?.error?.code === "revision_conflict" &&
+        payload.server
+      ) {
+        return {
+          status: "conflict",
+          localText: readLocal() ?? "",
+          remote: payload.server as RemoteHead,
+        };
+      }
+      if (!response.ok) {
+        return {
+          status: "error",
+          code: String(payload?.error?.code ?? response.status),
+          message: String(payload?.error?.message ?? "無法恢復上一份雲端版本。"),
+        };
+      }
+      if (payload.document) writeLocal(JSON.stringify(payload.document));
+      if (typeof payload.revision === "number" && typeof payload.contentHash === "string") {
+        writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
+      }
+      return { status: "restored", revision: payload.revision };
+    } catch {
+      return { status: "local_only", reason: "offline" };
+    }
   }
 
   async function keepLocalVersion(): Promise<
@@ -510,9 +578,11 @@ export function createCloudSaveController(options: {
     keepLocalOnly,
     uploadFirstSync,
     pushLocal,
+    uploadLocal,
     downloadCloud,
     keepRemoteVersion,
     keepLocalVersion,
+    restorePrevious,
     noteReward,
     flush,
     loadContent,
