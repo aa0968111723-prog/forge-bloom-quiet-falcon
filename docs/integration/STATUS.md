@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 背包正面在每個片段都留在外套後面。最靠近的是 run，22.0 mm。 | 來源 PR #91 `94e090f`。整合 PR 待開 | `verified` |
+| 美術與場景 | 背包正面在每個片段都留在外套後面。最靠近的是 run，22.0 mm。 | 來源 PR #91 `94e090f`。整合 PR #104 | `merged` |
 | 後端 | 可選 RPG 雲端存檔已在 `main`。未登入只寫本機。第一次上傳要明示。衝突回 `revision_conflict`，由玩家選保留雲端或本機。靜態產物不含這套 API。 | [#9](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/9) 與 [#13](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/13) 已合併 | `merged` |
 | 內容 | `/narrative` 預覽與校園進入點都在 `main`。大門對話的獎勵寫進既有經驗、背包與 `claimed`。 | [#18](https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/18) 已合併 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | 只改背包淨空的量測。科學館、體育館與化學館留著 |
 | 已驗證 | 靜態頁 `http://127.0.0.1:8128/`。可玩區塊與科學館那次相同，沒有新的定步截圖。`npm test` 265 通過。跨系統路線在同一站 |
-| 已合併 | 否。遊戲程式 `6bd8f02`。整合 PR 待開 |
+| 已合併 | 是。遊戲程式 `6bd8f02`。整合 PR #104。`main` 未受保護、沒有必須的 check |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍

@@ -1448,9 +1448,11 @@
         "route": "8128: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art-pipeline.test.mjs"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "6bd8f021cc6a2e61a01ead6d96d5da6e701b9536",
-      "nextAction": "Do not merge PR #91 by itself. Next is PR #93, then PR #96, then PR #97 at head 615c426, then PR #99 at head 15aff8c, then PR #101 at head 5c92b44, then PR #102 at head 3a2b5df."
+      "integrationPr": 104,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/104",
+      "nextAction": "None. The skinned backpack check from 94e090f is already in this integration. Do not merge PR #91 by itself. Next is PR #93, then PR #96, then PR #97 at head 615c426, then PR #99 at head 15aff8c, then PR #101 at head 5c92b44, then PR #102 at head 3a2b5df. Do not rerun the cross-system route unless the game SHA changes."
     }
   ]
 }
