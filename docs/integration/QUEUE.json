@@ -1931,10 +1931,7 @@
       "nextAction": "None. The library ramp through 75128e0 is already in this integration. Do not merge PR #134 by itself. Do not merge PR #122."
     },
     {
-      "id": "backend-gear-contract",
-      "line": "backend",
-      "scope": "The cloud save checks loadout, gear, quarantine, and a held building already stored on tamkang-rpg-v2. Extra keys are rejected. A save without those fields still uploads.",
-      "status": "verified",
+      "status": "merged",
       "pr": 122,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/122",
       "integrationBranch": "cursor/integration-gear-contract-3395",
@@ -1952,11 +1949,11 @@
         "route": "8144 with this worktree's cloud server: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #122 by itself."
+      "merged": true,
+      "mergeSha": "9d37fc9eac8f6e30463c6567d306304c3185a8a7",
+      "integrationPr": 144,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/144",
+      "nextAction": "None. The gear-field checks from a76918e are already in this integration. Do not merge PR #122 by itself."
     }
   ]
 }
