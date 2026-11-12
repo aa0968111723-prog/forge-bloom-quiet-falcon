@@ -1483,3 +1483,75 @@ test("experience, defeats, and the game clock inside the cloud cap survive impor
   assert.equal(reloaded.clock % 300, 1_000_001 % 300);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("confirming an import keeps a living interior floor", async () => {
+  const { confirmImport } = await import("../src/game/rpg/home.ts");
+  localStorage.setItem(
+    RPG_SAVE_KEY,
+    JSON.stringify({
+      version: 2,
+      hp: 80,
+      xp: 1,
+      departmentId: "math",
+      slots: [],
+      buildings: [],
+    }),
+  );
+  const file = JSON.stringify({
+    version: 2,
+    hp: 40,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    interiorId: "library",
+    floor: 3,
+  });
+  useGame.setState({ phase: "title" });
+  useRpg.setState({
+    incomingSave: file,
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+    floor: 1,
+  });
+  assert.equal(confirmImport(), true);
+  assert.equal(useGame.getState().phase, "playing");
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.interiorId, "library");
+  assert.equal(saved.floor, 3);
+  assert.equal(useRpg.getState().interiorId, "library");
+  assert.equal(useRpg.getState().floor, 3);
+  assert.equal(useGame.getState().playerX, 0);
+  assert.equal(useGame.getState().playerZ, 4);
+  assert.equal(validateRpgDocument(saved).ok, true);
+});
+
+test("confirming an import of a dead save stays outside", async () => {
+  const { confirmImport } = await import("../src/game/rpg/home.ts");
+  const file = JSON.stringify({
+    version: 2,
+    hp: 0,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    interiorId: "library",
+    floor: 3,
+  });
+  useGame.setState({ phase: "title" });
+  useRpg.setState({
+    incomingSave: file,
+    hp: 80,
+    departmentId: "math",
+    interiorId: "library",
+    floor: 3,
+  });
+  assert.equal(confirmImport(), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.interiorId, null);
+  assert.equal(saved.floor, 1);
+  assert.equal(useRpg.getState().hp, 0);
+  assert.equal(useRpg.getState().interiorId, null);
+  assert.equal(validateRpgDocument(saved).ok, true);
+});
