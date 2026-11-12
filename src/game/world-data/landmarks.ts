@@ -105,6 +105,13 @@ export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
 }
 
+/** 水源街校門. The beam is overhead, so only the two piers stop a body. */
+export const CAMPUS_GATE = {
+  z: AXIS.gateZ + 6,
+  halfSpan: 4.6,
+  pier: 1.0,
+} as const;
+
 /** Bollard shaft diameter, matching the concrete cylinder's base radius of 0.11 m. */
 export const BOLLARD = { diameter: 0.22 } as const;
 

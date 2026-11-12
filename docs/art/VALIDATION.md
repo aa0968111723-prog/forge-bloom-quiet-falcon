@@ -460,3 +460,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/tree-stop.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/campus-registry.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。134 棵點名的樹有樹幹，底部半徑跟模型同一組數字。灌木沒有樹幹。半徑 0.42 m 站在坡底榕樹樹心會被推開。樹西 1.6 m、主巡禮和三條折線的轉折點不被推開。估計路網的中線也不被樹幹推開。定步白天從西邊走向坡底榕樹，頁面無錯誤，停在 x=-7.938：`docs/art/evidence/planting/trunk.jpg`。樹位仍是 estimated。遠景散佈的樹仍可走過去。路燈燈柱留在第 82 輪。沒有新增音效。(-8.5, -210) 那棵棕櫚，從西面接觸點一次走 1.04 m 會被推到東面；拆成 0.2 m 的小步後停在西面。掃掠穿過這棵樹會撞上，終點留在樹心以西。
 
+## 第 84 輪（校門門柱）— 2026-11-12
+
+`node --test scripts/gate-pier.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。水源街校門兩根門柱寬 1 m，和網格用同一組座標。半徑 0.42 m 站在西側柱心會被推開。門洞中線不被推開。主巡禮和三條折線的轉折點不被推開。80 ms、13 m/s 的閃避拆成 0.2 m 的小步，停在靠近的一側。掃掠也會碰到門柱。定步白天從西邊走向西側門柱，頁面無錯誤：`docs/art/evidence/gates/campus-arch.jpg`。門位仍是 estimated。樹幹留在第 83 輪。沒有新增音效。
+

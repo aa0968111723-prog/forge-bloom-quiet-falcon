@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BOLLARD, LANDMARKS, LIBRARY, PALACE, bollards, palaceHallZs } from "./landmarks.ts";
+import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, PALACE, bollards, palaceHallZs } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -52,6 +52,11 @@ function buildColliders(): AABB[] {
   // 坡底 entrance piers
   out.push(box(-KENAN.bottomApronWidth / 2 - 0.5, AXIS.gateZ, 1.1, 1.1));
   out.push(box(KENAN.bottomApronWidth / 2 + 0.5, AXIS.gateZ, 1.1, 1.1));
+
+  // 水源街校門 piers. The beam stays open overhead.
+  for (const side of [-1, 1] as const) {
+    out.push(box(side * CAMPUS_GATE.halfSpan, CAMPUS_GATE.z, CAMPUS_GATE.pier, CAMPUS_GATE.pier));
+  }
 
   // 驚聲銅像 plinth
   out.push(box(0, 0, 3.2, 3.2));
@@ -131,7 +136,7 @@ export function trunkAabbs(): readonly AABB[] {
   return trunkBoxes;
 }
 
-/** Short enough that a 13 m/s dodge cannot step past a 0.18 m pole or a trunk centre. */
+/** Short enough that a 13 m/s dodge cannot step past a 0.18 m pole, a trunk centre, or a 1 m gate pier. */
 export const COLLISION_SUBSTEP = 0.2;
 
 export function substepCollision(

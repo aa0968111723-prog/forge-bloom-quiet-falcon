@@ -1,6 +1,7 @@
 import type * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { AXIS } from "../world-data/axis.ts";
+import { CAMPUS_GATE } from "../world-data/landmarks.ts";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { KENAN, KENAN_LANDING_Z } from "../world-data/kenan.ts";
 import { useCampusSigns } from "./labels";
@@ -45,20 +46,20 @@ function SignBoard({
 export function Signage({ wetness }: { wetness: number }) {
   const signs = useCampusSigns();
   const mats = useTamkangMaterials();
-  const gateY = sampleGroundElevation(0, AXIS.gateZ + 6);
+  const gateY = sampleGroundElevation(0, CAMPUS_GATE.z);
 
   return (
     <group>
       {/* 校門: gate arch over the entrance walk off 水源街. */}
-      <group position={[0, gateY, AXIS.gateZ + 6]}>
+      <group position={[0, gateY, CAMPUS_GATE.z]}>
         {([-1, 1] as const).map((s) => (
-          <mesh key={s} position={[s * 4.6, 2.6, 0]} castShadow receiveShadow>
-            <boxGeometry args={[1.0, 5.2, 1.0]} />
+          <mesh key={s} position={[s * CAMPUS_GATE.halfSpan, 2.6, 0]} castShadow receiveShadow>
+            <boxGeometry args={[CAMPUS_GATE.pier, 5.2, CAMPUS_GATE.pier]} />
             <meshStandardMaterial {...surface(mats["kenan/old-wall"], { wetness })} />
           </mesh>
         ))}
         <mesh position={[0, 5.5, 0]} castShadow>
-          <boxGeometry args={[10.6, 1.0, 1.2]} />
+          <boxGeometry args={[CAMPUS_GATE.halfSpan * 2 + CAMPUS_GATE.pier + 0.4, 1.0, 1.2]} />
           <meshStandardMaterial {...surface(mats["kenan/retaining-wall"], { wetness })} />
         </mesh>
         <mesh position={[0, 5.5, 0.62]}>

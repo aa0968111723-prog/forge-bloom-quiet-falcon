@@ -922,6 +922,20 @@ try {
     await frames(page, 4);
     await shot(page, "trunk", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x > -7.6) throw new Error(`walked through the trunk ${JSON.stringify(stopped)}`);
+  } else if (scenario === "gate") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, -8, 94, -Math.PI / 2);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 48);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.35, distance: 7, height: 2.4, lookY: 2.2 });
+    });
+    await frames(page, 4);
+    await shot(page, "pier", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.x > -5.2) throw new Error(`walked through the gate pier ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
