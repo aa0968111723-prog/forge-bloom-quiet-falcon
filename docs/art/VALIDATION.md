@@ -326,4 +326,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 50 輪（路燈淨空）— 2026-11-12
 
-`node --test scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。每一盞路燈的中心都在碰撞體外面。商管大樓那盞在南牆外，z 大於 -171。海事博物館那盞在南牆外，z 大於 -242。圖書館名牌朝南，z 在南牆外側。定步白天，頁面無錯誤：`docs/art/evidence/props/business.jpg`、`museum.jpg`。兩盞燈都站在牆前的草地上。位置仍是 estimated。化學館留在第 49 輪。沒有新增音效。`build:site` 本輪未重跑。
+`node --test scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。每一盞路燈的中心都在碰撞體外面。商管大樓那盞在南牆外，z 大於 -171。海事博物館那盞在南牆外，z 大於 -242。圖書館名牌朝南，z 在南牆外側。定步白天，頁面無錯誤：`docs/art/evidence/props/business.jpg`、`museum.jpg`。兩盞燈都站在牆前的草地上。位置仍是 estimated。化學館留在第 49 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CBoDD94C.js`。
