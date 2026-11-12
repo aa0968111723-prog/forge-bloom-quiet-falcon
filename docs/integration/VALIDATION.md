@@ -869,6 +869,14 @@ PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒
 
 瀏覽器 `http://127.0.0.1:8172/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
 
+## 別的帳號的版本衝突留在佇列（本輪）
+
+來源 `a8406d3` 接到 `4f300a7`。後端檢查點自動合併，留下較新的 `2026-11-12T05:58:41Z` 和版本衝突那一項。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+收到 409 或 422 時，採用另一台裝置的存檔或丟掉這筆上傳之前，再對一次帳號。帳號換了或這次確認連不上，這筆上傳留在原帳號佇列，也不把另一個帳號的存檔拿來選擇。同一個帳號、另一台裝置的版本衝突仍會丟掉這筆並提供選擇。直接上傳也一樣：換帳號就回 `account_mismatch`，確認連不上就改成已排入佇列。`npm run typecheck` 通過。`npm test` 366 通過，其中「a revision conflict from another account does not drop the queued upload」、「a revision conflict from another account is not offered as this save」和「a session blip does not drop a queued upload on revision conflict」涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8173/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作

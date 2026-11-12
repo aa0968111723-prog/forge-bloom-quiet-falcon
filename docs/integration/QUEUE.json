@@ -2741,6 +2741,34 @@
       "integrationPr": 203,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/203",
       "nextAction": "None. The upload response confirm from 7291692 and 7b6bcbf is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-conflict-account",
+      "line": "backend",
+      "scope": "A 409 or 422 is checked against the signed-in account before the upload is dropped or another device's save is offered. A session change or a failed confirm leaves that upload queued and does not offer the other account's save.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-conflict-account-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "4f300a725f09f9b83f58dd93d751a44c26dbae9b",
+      "headSha": "a8406d33c9ed4d7533d47984cbca41677aaaacc0",
+      "dependencies": ["backend-upload-account"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json auto-merged. Kept the newer 2026-11-12T05:58:41Z entry and the revision-conflict line.",
+        "typecheck": "pass",
+        "npmTest": "366 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-wsEEgaCK.js unchanged",
+        "browser": "8173. The standing route completed.",
+        "route": "8173: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "02f08826957862b538f06b7034d6f850a8c24fdf",
+      "integrationPr": 205,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/205",
+      "nextAction": "None. The revision-conflict account confirm from a8406d3 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
