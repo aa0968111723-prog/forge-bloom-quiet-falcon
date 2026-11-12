@@ -38,6 +38,33 @@ export function courtMarkings(id: string, size: readonly [number, number, number
   return [];
 }
 
+/** Scooter bays along the north and south edges. Sizes are estimated. */
+export function parkingStalls(id: string, size: readonly [number, number, number]): CourtLine[] {
+  if (id !== "parking") return [];
+  const bayW = 2.4;
+  const bayD = 4;
+  const margin = 2;
+  const count = Math.floor((size[0] - margin * 2) / bayW);
+  if (count < 4 || size[2] < bayD * 2 + margin * 2 + 4) return [];
+  const span = count * bayW;
+  const x0 = -span / 2;
+  const lines: CourtLine[] = [];
+  for (const side of [-1, 1] as const) {
+    const backZ = side * (size[2] / 2 - margin);
+    const frontZ = backZ - side * bayD;
+    lines.push({ x: 0, z: backZ, length: span, axis: "x" });
+    for (let i = 0; i <= count; i++) {
+      lines.push({
+        x: x0 + i * bayW,
+        z: (backZ + frontZ) / 2,
+        length: bayD,
+        axis: "z",
+      });
+    }
+  }
+  return lines;
+}
+
 export function lineInsideCourt(line: CourtLine, size: readonly [number, number, number]) {
   const hx = line.axis === "x" ? line.length / 2 : 0;
   const hz = line.axis === "z" ? line.length / 2 : 0;

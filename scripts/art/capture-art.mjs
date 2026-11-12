@@ -599,6 +599,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "wuhu", "two marked courts on the wuhu field");
+  } else if (scenario === "parking") {
+    await hideHud(page);
+    await setPose(page, 290, -590, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(290, -615);
+      window.__controlsTest.setPhoto({
+        yaw: 0.4,
+        distance: 38,
+        height: 20,
+        lookY: 0,
+        target: { x: 290, y: y + 1, z: -615 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "stalls", "scooter bays on the wuhu parking pad");
   } else if (scenario === "pavilion") {
     await hideHud(page);
     await setPose(page, -46, -96, Math.PI);

@@ -30,7 +30,7 @@ import {
 } from "../world-data/zones/secondary.ts";
 import { type PlaneItem } from "./InstancedPlanes";
 import { makeSignTexture, useCampusSigns, useFontTick } from "./labels";
-import { courtMarkings } from "../world-data/court-lines.ts";
+import { courtMarkings, parkingStalls } from "../world-data/court-lines.ts";
 import { worldUvBox } from "./geometry";
 
 /**
@@ -235,7 +235,7 @@ export function ContextStructures({
                   )}
                 />
               </mesh>
-              {courtMarkings(s.id, s.size).map((line, i) => (
+              {[...courtMarkings(s.id, s.size), ...parkingStalls(s.id, s.size)].map((line, i) => (
                 <group key={`${s.id}-line-${i}`}>
                   <mesh
                     position={[line.x, 0.11, line.z]}
