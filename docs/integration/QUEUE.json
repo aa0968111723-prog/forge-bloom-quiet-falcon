@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T08:29:24Z",
+      "updated": "2026-11-12T08:36:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3472,6 +3472,32 @@
       "integrationPr": 248,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/248",
       "nextAction": "None. The trimmed quest claim from 31a01db5 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-pilgrimage-list",
+      "line": "backend",
+      "scope": "A snapshot drops empty pilgrimage ids, ids longer than 64 characters, and duplicates, then keeps the first 32. A short id such as kenan stays first. A raw upload longer than 32, or with one id longer than 64, is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-pilgrimage-list-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "a91731f643a748f0bd4af693c21b00e10085605c",
+      "headSha": "5d1f25932c8b4998410065c49c974ed82b97671f",
+      "dependencies": ["backend-quest-claim"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json and store.ts auto-merged. Kept 2026-11-12T07:54:01Z and the long pilgrimage line.",
+        "typecheck": "pass",
+        "npmTest": "402 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BTzlvcX5.js",
+        "browser": "8199. The standing route completed.",
+        "route": "8199: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "6be14307712bc7f976695c31463be8c9df5e48a6",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
