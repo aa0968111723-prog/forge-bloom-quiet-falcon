@@ -105,6 +105,31 @@ export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
 }
 
+/** Noticeboard face: 1.9 m across and thick enough that a body cannot step through. */
+export const NOTICEBOARD = { width: 1.9, depth: 0.16 } as const;
+
+/** The four campus noticeboards, in world XZ. The mesh and the collider both use this list. */
+export function noticeboards(): { x: number; z: number; rotationY: number; zone: string }[] {
+  return [
+    { x: 5.1, z: KENAN.bottomZ + 5.6, rotationY: -Math.PI / 2, zone: "kenan" },
+    { x: -SCROLL_PLAZA_SIZE[0] / 2 + 5, z: AXIS.scrollPlazaZ - 6, rotationY: Math.PI / 2, zone: "scroll" },
+    { x: 130, z: -82, rotationY: 0, zone: "east" },
+    { x: -88, z: -24, rotationY: 0, zone: "west-academic" },
+  ];
+}
+
+/** Axis-aligned footprint of a rotated noticeboard. */
+export function noticeboardFootprint(board: { x: number; z: number; rotationY: number }) {
+  const along = Math.abs(Math.cos(board.rotationY));
+  const across = Math.abs(Math.sin(board.rotationY));
+  return {
+    x: board.x,
+    z: board.z,
+    width: NOTICEBOARD.width * along + NOTICEBOARD.depth * across,
+    depth: NOTICEBOARD.width * across + NOTICEBOARD.depth * along,
+  };
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",

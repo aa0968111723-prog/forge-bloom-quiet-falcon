@@ -788,9 +788,11 @@
         "docs/art/evidence/ramp/slope.jpg",
         "scripts/library-ramp.test.mjs",
         "docs/art/evidence/ramp/rails.jpg",
-        "scripts/ramp-rails.test.mjs"
+        "scripts/ramp-rails.test.mjs",
+        "docs/art/evidence/props/noticeboard.jpg",
+        "scripts/notice-stop.test.mjs"
       ],
-      "notes": "宮燈、路燈、長椅、花台、消防栓等以 InstancedMesh 畫在主遊戲 World 上。宮燈大道定步畫面看得到燈柱、花台與鋪面。路燈中心落進實體時會被推到牆外 1.2 m。圖書館名牌改貼南牆外側。圖書館前的坡道從廣場升到台基，北端停在南牆外。坡道左右各有一道欄杆，立柱含兩端，半徑 0.42 m 的身體不能穿過去，坡道中線仍可走。克難坡仍不設欄杆。位置、坡度與欄杆仍是 estimated。"
+      "notes": "宮燈、路燈、長椅、花台、消防栓等以 InstancedMesh 畫在主遊戲 World 上。宮燈大道定步畫面看得到燈柱、花台與鋪面。路燈中心落進實體時會被推到牆外 1.2 m。圖書館名牌改貼南牆外側。圖書館前的坡道從廣場升到台基，北端停在南牆外。坡道左右各有一道欄杆，立柱含兩端，半徑 0.42 m 的身體不能穿過去，坡道中線仍可走。克難坡仍不設欄杆。四塊公告牌寬 1.9 m，也會擋住身體，牌旁和三條巡禮折線仍可走。位置、坡度、欄杆與牌位仍是 estimated。"
     },
     {
       "id": "ART-085",
