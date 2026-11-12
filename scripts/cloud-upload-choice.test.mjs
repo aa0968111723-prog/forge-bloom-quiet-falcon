@@ -1654,3 +1654,258 @@ test("a session blip does not record a continued upload", async () => {
   assert.equal(JSON.parse(storage.getItem("tamkang-cloud-save-meta:user-a")).revision, 1);
   assert.equal(JSON.parse(client.readLocal()).xp, 9);
 });
+
+function foreignConflict(document) {
+  return jsonResponse(409, {
+    error: { code: "revision_conflict", message: "版本衝突。" },
+    server: {
+      revision: 3,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document,
+      etag: '"3"',
+      contentHash: "other-account-hash",
+    },
+  });
+}
+
+test("a revision conflict from another account does not drop the queued upload", async () => {
+  let sessionId = "user-a";
+  let offline = true;
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "PUT") {
+      sessionId = "user-b";
+      return foreignConflict(save(99));
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "conflictacct001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  offline = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.paused, true);
+  assert.equal(flushed.sent, 0);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(storage.getItem("tamkang-cloud-save-meta:user-a"), null);
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+});
+
+test("a revision conflict from another account is not offered as this save", async () => {
+  let sessionId = "user-a";
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "PUT") {
+      sessionId = "user-b";
+      return foreignConflict(save(99));
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "conflictdirect01",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  const uploaded = await client.uploadLocal();
+  assert.equal(uploaded.status, "error");
+  assert.equal(uploaded.code, "account_mismatch");
+  assert.equal(Object.hasOwn(uploaded, "remote"), false);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(storage.getItem("tamkang-cloud-save-meta:user-a"), null);
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+});
+
+test("a session blip does not drop a queued upload on revision conflict", async () => {
+  let sessionReads = 0;
+  let offline = true;
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    if (String(url).includes("/api/auth/get-session")) {
+      sessionReads += 1;
+      if (sessionReads === 3) throw new Error("session blip");
+      return sessionFor("user-a");
+    }
+    if ((init.method ?? "GET") === "PUT") return foreignConflict(save(99));
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "conflictblip001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  offline = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.paused, true);
+  assert.equal(flushed.sent, 0);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(storage.getItem("tamkang-cloud-save-meta:user-a"), null);
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+});
+
+async function cloudHead(document, revision) {
+  return {
+    revision,
+    schemaVersion: 1,
+    contentVersion: 2,
+    document,
+    etag: `"${revision}"`,
+    contentHash: await sha256Hex(canonicalJson(document)),
+  };
+}
+
+test("a revision conflict from another account is not offered as a restored save", async () => {
+  let sessionId = "user-a";
+  const head = await cloudHead(save(1), 2);
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "GET") return jsonResponse(200, head);
+    sessionId = "user-b";
+    return foreignConflict(save(99));
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoreconflict1",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "error");
+  assert.equal(restored.code, "account_mismatch");
+  assert.equal(Object.hasOwn(restored, "remote"), false);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
+
+test("a session blip does not offer a restored revision conflict", async () => {
+  let sessionReads = 0;
+  const head = await cloudHead(save(1), 2);
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      sessionReads += 1;
+      if (sessionReads === 4) throw new Error("session blip");
+      return sessionFor("user-a");
+    }
+    if ((init.method ?? "GET") === "GET") return jsonResponse(200, head);
+    return foreignConflict(save(99));
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoreblip0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "local_only");
+  assert.equal(restored.reason, "offline");
+  assert.equal(Object.hasOwn(restored, "remote"), false);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
+
+test("a same-account restore conflict still offers that cloud save", async () => {
+  const head = await cloudHead(save(1), 2);
+  const server = await cloudHead(save(7), 3);
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    if ((init.method ?? "GET") === "GET") return jsonResponse(200, head);
+    return jsonResponse(409, {
+      error: { code: "revision_conflict", message: "版本衝突。" },
+      server,
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoresame0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "conflict");
+  assert.equal(restored.remote.revision, 3);
+  assert.equal(restored.remote.document.xp, 7);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
+
+test("a dropped upload is not recorded when the landed read belongs to another account", async () => {
+  let sessionId = "user-a";
+  let offline = false;
+  let landed = false;
+  const puts = [];
+  const sent = save(8);
+  const sentHash = await sha256Hex(canonicalJson(sent));
+  const storage = memoryStorage();
+  const key = "tamkang-cloud-save-queue:user-a";
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    const method = init.method ?? "GET";
+    if (method === "PUT") {
+      const body = JSON.parse(init.body);
+      puts.push(body.document.xp);
+      if (body.document.xp === 8) {
+        storage.setItem("tamkang-rpg-v2", JSON.stringify(save(1)));
+        const items = JSON.parse(storage.getItem(key) ?? "[]");
+        storage.setItem(key, JSON.stringify(items.filter((item) => item.kind !== "put")));
+        landed = true;
+        throw new Error("disconnect");
+      }
+      return jsonResponse(200, { revision: 1, contentHash: "first-hash" });
+    }
+    if (method === "GET") {
+      if (!landed) {
+        return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+      }
+      sessionId = "user-b";
+      return jsonResponse(200, {
+        revision: 9,
+        schemaVersion: 1,
+        contentVersion: 2,
+        document: sent,
+        etag: '"9"',
+        contentHash: sentHash,
+      });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "droprepairacct1",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  offline = true;
+  client.writeLocal(JSON.stringify(save(8)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  offline = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.deepEqual(puts, [1, 8]);
+  assert.equal(JSON.parse(storage.getItem("tamkang-cloud-save-meta:user-a")).revision, 1);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+  assert.equal(client.queuedCount("user-a"), 0);
+});

@@ -869,6 +869,30 @@ PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒
 
 瀏覽器 `http://127.0.0.1:8172/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
 
+## 別的帳號的版本衝突留在佇列（本輪）
+
+來源 `a8406d3` 接到 `4f300a7`。後端檢查點自動合併，留下較新的 `2026-11-12T05:58:41Z` 和版本衝突那一項。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+收到 409 或 422 時，採用另一台裝置的存檔或丟掉這筆上傳之前，再對一次帳號。帳號換了或這次確認連不上，這筆上傳留在原帳號佇列，也不把另一個帳號的存檔拿來選擇。同一個帳號、另一台裝置的版本衝突仍會丟掉這筆並提供選擇。直接上傳也一樣：換帳號就回 `account_mismatch`，確認連不上就改成已排入佇列。`npm run typecheck` 通過。`npm test` 366 通過，其中「a revision conflict from another account does not drop the queued upload」、「a revision conflict from another account is not offered as this save」和「a session blip does not drop a queued upload on revision conflict」涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8173/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
+## 指定版本恢復的版本衝突再對一次帳號（本輪）
+
+來源 `10716ae` 接到 `7611148`。後端檢查點只在時間和完成清單上有衝突，留下較新的 `2026-11-12T06:02:37Z` 和恢復衝突那一項。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+指定版本恢復若收到版本衝突，在把那份存檔拿來選擇之前再對一次帳號。帳號換了就不提供選擇，確認連不上就維持本機。同一個帳號的衝突仍會提供選擇。`npm run typecheck` 通過。`npm test` 369 通過，其中「a revision conflict from another account is not offered as a restored save」、「a session blip does not offer a restored revision conflict」和「a same-account restore conflict still offers that cloud save」涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8174/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
+## 斷線上傳的後續讀取再對一次帳號（本輪）
+
+來源 `a899394` 接到 `3530de8`。後端檢查點只在時間和完成清單上有衝突，留下較新的 `2026-11-12T06:06:24Z` 和後續讀取那一項。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+已被拿掉的上傳若讀到同一份內容，在記下版本或寫回本機之前再對一次帳號。這時帳號換成別人，不記下那個版本，也不寫回。確認連不上時，仍把玩家留下的本機存檔寫回。`npm run typecheck` 通過。`npm test` 370 通過，其中「a dropped upload is not recorded when the landed read belongs to another account」涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8175/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
