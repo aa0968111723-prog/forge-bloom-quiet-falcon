@@ -2438,7 +2438,7 @@
       "id": "backend-cloud-flush",
       "line": "backend",
       "scope": "The first flush of a queued upload sends the current local save and keeps the request id. Flush removes only finished items. An upload dropped during the send is not written back unless it still lands and nothing newer is waiting.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-cloud-flush-3395",
@@ -2456,9 +2456,11 @@
         "route": "8162: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "e8e268048ef8e852aefa42b9a6714d10f87dc1aa",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 185,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/185",
+      "nextAction": "None. The flush behavior from 1f6d733, fdc0228, and 7644d81 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
