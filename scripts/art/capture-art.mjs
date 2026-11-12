@@ -1006,6 +1006,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "older engineering workshop");
+  } else if (scenario === "chem") {
+    await hideHud(page);
+    await setPose(page, 312, -228, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(288, -258);
+      window.__controlsTest.setPhoto({
+        yaw: -0.7,
+        distance: 40,
+        height: 12,
+        lookY: 0,
+        target: { x: 288, y: y + 7, z: -258 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "chemistry hall");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

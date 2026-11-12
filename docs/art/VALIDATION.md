@@ -319,3 +319,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 48 輪（肩肘膝）— 2026-11-12
 
 `node --test --test-name-pattern "shoulders, elbows and knees" scripts/art-pipeline.test.mjs` 通過。每個動作片段取 17 個時間點，讀肩、肘、膝的本地旋轉。膝最多彎 94 度，肘最多彎 97 度，肩最多前舉 166 度。膝往後折到 -1.2 rad、肘往反方向折到 1.2 rad、肩再舉到 -3.5 rad，測試都會失敗。沒有新增音效。植栽距離留在第 47 輪。
+
+## 第 49 輪（鍾靈化學館）— 2026-11-12
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。鍾靈化學館是深色基座、淺色館身、南向玻璃和屋頂排氣箱，名牌寫著鍾靈化學館。沒有共用窗帶。玻璃貼著南牆，排氣箱留在屋頂範圍內。科學館仍是東側直玻璃，工學館仍是磚紅基座，工學大樓仍是退縮塔樓。精度仍是 estimated。門口步道測試仍通過。定步白天近景，頁面無錯誤：`docs/art/evidence/chem/hall.jpg`。肩肘膝留在第 48 輪。沒有新增音效。

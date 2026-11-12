@@ -313,6 +313,12 @@
 
 測試：`scripts/art-pipeline.test.mjs`。
 
+## 階段：鍾靈化學館（ART-064 的一部分）
+
+理工區這棟不再是共用的實驗樓方塊。現在是深色基座、淺色館身、南向玻璃和屋頂排氣箱。科學館仍是東側直玻璃，工學館仍是磚紅基座，工學大樓仍是退縮塔樓。外形仍是 estimated。肩肘膝留著。
+
+畫面：`docs/art/evidence/chem/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。肩、肘、膝已有數值範圍。植栽與外國語文大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。化學館已從實驗樓方塊分開。科學館、工學館與工學大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
