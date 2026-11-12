@@ -2293,6 +2293,34 @@
       "integrationPr": 170,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/170",
       "nextAction": "None. The once-only rewards from 0106bb5 are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-account-gate",
+      "line": "backend",
+      "scope": "Cloud reads and writes compare the signed-in session with the account stored on the device. A mismatch does not upload, download, restore, or grant a reward, and the original queue stays until that account's session is back.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-account-gate-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "4fb1fa47085af4e997e62b2d4493c13d61d59b9a",
+      "headSha": "9c6c74457ed5230d886fb685ee2ac7ad65841e2c",
+      "dependencies": ["backend-reward-once"],
+      "sharedFiles": ["src/features/cloud-save/client.ts", "src/features/cloud-save/CloudSaveDock.tsx", "scripts/cloud-upload-choice.test.mjs"],
+      "checks": {
+        "conflicts": "none. The account gate applied onto the once-only reward client.",
+        "typecheck": "pass",
+        "npmTest": "331 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-YMSPf-td.js unchanged",
+        "browser": "8157. The standing route completed with pageErrors empty.",
+        "route": "8157: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "760acd066a560c4a1f3ef5818eee0b27a992bcea",
+      "integrationPr": 172,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/172",
+      "nextAction": "None. The account gate from 9c6c744 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
