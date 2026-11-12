@@ -301,6 +301,27 @@ export function buildingApproachPoint(s: SecondaryStructure): { x: number; z: nu
 /** Side piers of a guard gate. The span between them stays walkable. */
 export const GATE_PIER_WIDTH = 1.5;
 
+export const PAVILION_POST = 0.55;
+export const PAVILION_INSET = 1.15;
+
+/** Corner posts of 覺軒花園. The span between them stays walkable. */
+export function pavilionPosts(s: Pick<SecondaryStructure, "position" | "size">) {
+  const hx = s.size[0] / 2 - PAVILION_INSET;
+  const hz = s.size[2] / 2 - PAVILION_INSET;
+  const posts = [];
+  for (const sx of [-1, 1] as const) {
+    for (const sz of [-1, 1] as const) {
+      posts.push({
+        x: s.position[0] + sx * hx,
+        z: s.position[1] + sz * hz,
+        w: PAVILION_POST,
+        d: PAVILION_POST,
+      });
+    }
+  }
+  return posts;
+}
+
 export function gatePiers(s: Pick<SecondaryStructure, "position" | "size">) {
   const pier = GATE_PIER_WIDTH;
   const offset = (s.size[0] - pier) / 2;

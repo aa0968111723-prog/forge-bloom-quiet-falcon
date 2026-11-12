@@ -349,6 +349,12 @@
 
 畫面：`docs/art/evidence/courts/wuhu.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：覺軒花園（ART-062 的一部分）
+
+宮燈旁的覺軒花園是四根角柱和綠瓦頂，中間可以走，碰撞只在柱子。另一筆覺軒仍是坡頂。亭子周圍 6 m 不種散佈的樹。外形仍是 estimated。球場標線留著。
+
+畫面：`docs/art/evidence/pavilion/open.jpg`。測試：`scripts/garden-pavilion.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。綜合球場已有兩塊標線。雨後場地會變暗。草皮已不種樹。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。覺軒花園已改成可走的亭子。綜合球場已有兩塊標線。雨後場地會變暗。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
