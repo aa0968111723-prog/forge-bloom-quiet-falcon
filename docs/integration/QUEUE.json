@@ -5091,9 +5091,11 @@
         "route": "8252 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "3db5283e4396954be1a26ad990dd9037731ec6a8",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #255 by itself."
+      "integrationPr": 327,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/327",
+      "nextAction": "None. The maritime airframes from 2e07ebe2 are already in this integration. Do not merge PR #255 by itself. The hoop-base commit c3698975 is still separate."
     }
   ]
 }
