@@ -530,14 +530,72 @@ export function createCloudSaveController(options: {
     const retry = new Map<string, QueueItem>();
     const stillQueued = (item: QueueItem) =>
       readQueue(userId).some((current) => current.id === item.id && current.kind === item.kind);
+    const remember = (original: QueueItem, next: QueueItem) => {
+      if (next.id !== original.id) finished.add(original.id);
+      retry.set(next.id, next);
+    };
     const writeRemaining = () => {
-      writeQueue(
-        userId,
-        readQueue(userId).flatMap((current) => {
-          if (finished.has(current.id)) return [];
-          return [retry.get(current.id) ?? current];
-        }),
-      );
+      const remaining = readQueue(userId).flatMap((current) => {
+        if (finished.has(current.id)) return [];
+        return [retry.get(current.id) ?? current];
+      });
+      for (const next of retry.values()) {
+        if (!remaining.some((current) => current.id === next.id)) remaining.push(next);
+      }
+      writeQueue(userId, remaining);
+    };
+    const adoptOwnGhost = async (
+      item: QueueItem,
+      pending: QueueItem,
+      payload: unknown,
+    ): Promise<"sent" | "queued" | "pause" | "drop"> => {
+      if (pending.kind !== "put" || pending.id === item.id) return "drop";
+      const body = payload as {
+        error?: { code?: string };
+        server?: { revision?: unknown; document?: unknown };
+      } | null;
+      if (body?.error?.code !== "revision_conflict") return "drop";
+      const server = body.server;
+      if (!server?.document || typeof server.revision !== "number" || !item.body.document) {
+        return "drop";
+      }
+      try {
+        if (canonicalJson(server.document) !== canonicalJson(item.body.document)) return "drop";
+      } catch {
+        return "drop";
+      }
+      const requestId = randomId();
+      const follow: QueueItem = {
+        ...pending,
+        id: requestId,
+        attempts: 0,
+        body: { ...pending.body, requestId, baseRevision: server.revision },
+      };
+      try {
+        const response = await cloudFetch("/api/cloud/saves/rpg", {
+          method: "PUT",
+          body: JSON.stringify(follow.body),
+          ifMatch: server.revision,
+        });
+        if (response.status === 401) {
+          remember(item, follow);
+          return "pause";
+        }
+        const saved = await response.json().catch(() => null);
+        if (
+          response.ok &&
+          saved &&
+          typeof saved.revision === "number" &&
+          typeof saved.contentHash === "string"
+        ) {
+          writeMeta(userId, { revision: saved.revision, contentHash: saved.contentHash });
+          return "sent";
+        }
+      } catch {
+        remember(item, { ...follow, attempts: 1, nextAt: now() + 1_000 });
+        return "queued";
+      }
+      return "drop";
     };
     for (const item of items) {
       if (item.userId !== userId) continue;
@@ -556,7 +614,7 @@ export function createCloudSaveController(options: {
         );
       } catch {
         const attempts = pending.attempts + 1;
-        retry.set(pending.id, {
+        remember(item, {
           ...pending,
           attempts,
           nextAt: now() + Math.min(30_000, 1_000 * 2 ** (attempts - 1)),
@@ -564,6 +622,7 @@ export function createCloudSaveController(options: {
         continue;
       }
       if (response.status === 401) {
+        if (pending.id !== item.id) remember(item, pending);
         writeRemaining();
         return { sent, paused: true };
       }
@@ -593,11 +652,17 @@ export function createCloudSaveController(options: {
       }
       if (!stillQueued(item)) continue;
       if (response.status === 409 || response.status === 422) {
-        finished.add(item.id);
+        const ghost = await adoptOwnGhost(item, pending, payload);
+        if (ghost === "pause") {
+          writeRemaining();
+          return { sent, paused: true };
+        }
+        if (ghost !== "queued") finished.add(item.id);
+        if (ghost === "sent") sent += 1;
         continue;
       }
       const attempts = pending.attempts + 1;
-      retry.set(pending.id, {
+      remember(item, {
         ...pending,
         attempts,
         nextAt: now() + Math.min(30_000, 1_000 * 2 ** (attempts - 1)),
@@ -773,15 +838,24 @@ export function createCloudSaveController(options: {
   }
 
   function withLatestLocal(item: QueueItem): QueueItem {
-    if (item.kind !== "put" || item.attempts !== 0) return item;
+    if (item.kind !== "put" || !item.body.document) return item;
     const prepared = prepareLocal();
-    if (!prepared.ok || !item.body.document) return item;
+    if (!prepared.ok) return item;
     try {
       if (canonicalJson(item.body.document) === canonicalJson(prepared.document)) return item;
     } catch {
       return item;
     }
-    return { ...item, body: { ...item.body, document: prepared.document } };
+    if (item.attempts === 0) {
+      return { ...item, body: { ...item.body, document: prepared.document } };
+    }
+    const requestId = randomId();
+    return {
+      ...item,
+      id: requestId,
+      attempts: 0,
+      body: { ...item.body, requestId, document: prepared.document },
+    };
   }
 
   function bumpQueuedPutBase(userId: string, revision: number): void {
