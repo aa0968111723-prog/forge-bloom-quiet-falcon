@@ -544,6 +544,31 @@ export function createCloudSaveController(options: {
       }
       writeQueue(userId, remaining);
     };
+    const repairDroppedPut = async (pending: QueueItem) => {
+      if (pending.kind !== "put" || !pending.body.document) return;
+      try {
+        const response = await cloudFetch("/api/cloud/saves/rpg", { method: "GET" });
+        if (!response.ok) return;
+        const payload = await response.json().catch(() => null);
+        if (
+          !payload ||
+          typeof payload.revision !== "number" ||
+          typeof payload.contentHash !== "string" ||
+          !payload.document
+        ) {
+          return;
+        }
+        if (canonicalJson(payload.document) !== canonicalJson(pending.body.document)) return;
+        if (readQueue(userId).some((current) => current.kind === "put")) {
+          bumpQueuedPutBase(userId, payload.revision);
+          writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
+          return;
+        }
+        await restoreChosenSave(userId, payload.revision, payload.contentHash);
+      } catch {
+        // The dropped upload stays dropped. The next check shows a mismatch if it landed.
+      }
+    };
     const adoptOwnGhost = async (
       item: QueueItem,
       pending: QueueItem,
@@ -602,7 +627,10 @@ export function createCloudSaveController(options: {
           return "sent";
         }
       } catch {
-        if (!stillQueued(item)) return "drop";
+        if (!stillQueued(item)) {
+          await repairDroppedPut(follow);
+          return "drop";
+        }
         remember(item, { ...follow, attempts: 1, nextAt: now() + 1_000 });
         return "queued";
       }
@@ -624,6 +652,10 @@ export function createCloudSaveController(options: {
           },
         );
       } catch {
+        if (!stillQueued(item)) {
+          if (item.kind === "put") await repairDroppedPut(pending);
+          continue;
+        }
         const attempts = pending.attempts + 1;
         remember(item, {
           ...pending,
@@ -633,7 +665,7 @@ export function createCloudSaveController(options: {
         continue;
       }
       if (response.status === 401) {
-        if (pending.id !== item.id) remember(item, pending);
+        if (pending.id !== item.id && stillQueued(item)) remember(item, pending);
         writeRemaining();
         return { sent, paused: true };
       }
