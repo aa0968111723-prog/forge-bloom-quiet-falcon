@@ -397,3 +397,52 @@ test("old RPG and pilgrimage files are not uploaded", async () => {
   assert.equal(calls, 2);
   assert.equal(JSON.parse(client.readLocal()).inventory[0].id, "notes");
 });
+
+test("an offline reward is recorded once and stays with its account queue", async () => {
+  const posts = [];
+  let offline = false;
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    const body = init.body ? JSON.parse(init.body) : null;
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      posts.push(body);
+      return jsonResponse(200, { applied: true, eventId: body.eventId });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "rewardreq0001",
+  });
+  let grants = 0;
+  const grant = () => {
+    grants += 1;
+  };
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, true);
+  assert.equal(posts.length, 0);
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, false);
+  client.bindAccount("user-a");
+  assert.equal((await client.flush()).sent, 1);
+  assert.equal(posts.length, 1);
+  assert.equal(posts[0].eventId, "gather-notes");
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, false);
+  client.logout();
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, false);
+  assert.equal(grants, 1);
+
+  offline = true;
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  assert.equal(client.queuedCount("user-a"), 1);
+  offline = false;
+  client.bindAccount("user-b");
+  assert.equal((await client.flush()).sent, 1);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(client.queuedCount("user-b"), 0);
+  assert.equal(posts.length, 2);
+  assert.equal(posts[1].eventId, "gather-notes");
+  assert.equal(grants, 1);
+});

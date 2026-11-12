@@ -95,6 +95,22 @@ export function createCloudSaveController(options: {
 
   function bindAccount(userId: string): void {
     storage.setItem(CLOUD_ACTIVE_USER_KEY, userId);
+    const account = readReceipts(userId);
+    const known = new Set(account.map((item) => item.eventId));
+    for (const item of readReceipts("local")) {
+      if (known.has(item.eventId)) continue;
+      account.push(item);
+      known.add(item.eventId);
+      enqueue({
+        id: item.requestId,
+        userId,
+        kind: "receipt",
+        body: { eventId: item.eventId, requestId: item.requestId },
+        attempts: 0,
+        nextAt: now(),
+      });
+    }
+    writeReceipts(userId, account);
   }
 
   function logout(): void {
@@ -376,29 +392,42 @@ export function createCloudSaveController(options: {
     });
   }
 
-  async function noteReward(eventId: string, grant: () => void): Promise<{ granted: boolean }> {
-    const userId = activeUser() ?? "local";
-    const records = readReceipts(userId);
-    if (records.some((item) => item.eventId === eventId)) return { granted: false };
-    const requestId = `reward-${eventId}`
+  function rewardRequestId(eventId: string): string {
+    return `reward-${eventId}`
       .replace(/:/g, "_")
       .replace(/[^A-Za-z0-9_-]/g, "")
       .slice(0, 80)
       .padEnd(8, "0");
-    records.push({ eventId, requestId });
-    writeReceipts(userId, records);
-    grant();
-    if (activeUser()) {
+  }
+
+  async function noteReward(eventId: string, grant: () => void): Promise<{ granted: boolean }> {
+    const userId = activeUser();
+    const device = readReceipts("local");
+    const account = userId ? readReceipts(userId) : [];
+    if (
+      device.some((item) => item.eventId === eventId) ||
+      account.some((item) => item.eventId === eventId)
+    ) {
+      return { granted: false };
+    }
+    const requestId = rewardRequestId(eventId);
+    const record = { eventId, requestId };
+    device.push(record);
+    writeReceipts("local", device);
+    if (userId) {
+      account.push(record);
+      writeReceipts(userId, account);
       enqueue({
         id: requestId,
-        userId: activeUser() as string,
+        userId,
         kind: "receipt",
         body: { eventId, requestId },
         attempts: 0,
         nextAt: now(),
       });
-      await flush();
     }
+    grant();
+    if (userId) await flush();
     return { granted: true };
   }
 

@@ -134,6 +134,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 - 本機與雲端不同，且本機記錄的 revision 不等於伺服器：`conflict`。`keepRemoteVersion` / `keepLocalVersion` 才解決。
 - 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。`flush` 只送目前帳號的佇列，沿用原來的 `requestId`，退避 1s、2s、4s，上限 30s。
 - `logout` 只清目前帳號標記，不刪 RPG 存檔，也不把上一個帳號的佇列送給下一個帳號。
+- `noteReward` 先把事件記在這台裝置。同一個事件再呼叫、登出後再呼叫，或換帳號登入，都不會再執行發獎函式。登入時只把這台裝置尚未記到該帳號的回執排進該帳號佇列。
 - `restorePrevious` 在玩家按下時，把目前 head 的前一個 revision 複製成新 head，並寫回本機。只有一份雲端版本時不改本機。離線時不把恢復排進佇列。
 - `listRevisions` 只讀目前帳號的版本編號。`restoreRevision` 把玩家選中的那一筆複製成新 head 並寫回本機。找不到、衝突，或選到目前 head 時，不改本機。恢復不寫獎勵回執。
 
