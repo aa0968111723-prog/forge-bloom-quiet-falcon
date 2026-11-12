@@ -4811,9 +4811,11 @@
         "route": "not rerun. Bundle hash unchanged. Last route on 8242 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "64b73fa26152f0b2e8dd94e9633bc0420dc5d41f",
-      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #232 by itself."
+      "integrationPr": 317,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/317",
+      "nextAction": "None. The trunk dodge from 2b50ea05 is already in this integration. Do not merge PR #232 by itself. The gate-pier commit f8696f0c is still separate."
     }
   ]
 }
