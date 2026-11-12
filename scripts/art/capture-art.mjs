@@ -100,16 +100,20 @@ try {
   page.setDefaultTimeout(180000);
   page.on("pageerror", (e) => pageErrors.push(e.message));
   page.on("console", (m) => m.type() === "error" && pageErrors.push("console: " + m.text()));
-  if (scenario === "still-wind" || scenario === "still-water") await page.emulateMedia({ reducedMotion: "reduce" });
+  if (scenario === "still-wind" || scenario === "still-water" || scenario === "still-title") await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(gameUrl(base, { tier }), { waitUntil: "domcontentloaded" });
   await waitForTitle(page);
   const gl = await webglInfo(page);
-  if (scenario === "title") {
+  if (scenario === "title" || scenario === "still-title") {
+    if (scenario === "still-title") {
+      const reduced = await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
+      if (!reduced) throw new Error("reduced motion was not applied");
+    }
     await frames(page, 8);
     await shot(page, "card", "title with card");
     await hideHud(page);
     await frames(page, 4);
-    await shot(page, "world", "title camera without the card");
+    await shot(page, "world", scenario === "still-title" ? "reduced motion, title camera held" : "title camera without the card");
   } else {
     await startSemester(page);
     await page.waitForFunction(() => Boolean(window.__characterTest?.play), undefined, { timeout: 120000 });

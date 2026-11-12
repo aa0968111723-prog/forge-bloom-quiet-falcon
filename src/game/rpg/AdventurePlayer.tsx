@@ -18,8 +18,10 @@ import { landmarkAt, resolveCollision, SPAWN, terrainHeight } from "../world";
 import { substepCollision } from "../world-data/colliders.ts";
 import { pavedAt } from "../world-data/paths.ts";
 import { kenanSection } from "../world-data/kenan.ts";
-import { followCameraSeed, TITLE_ORBIT } from "./follow";
+import { useReducedArtMotion } from "../art/motion";
+import { followCameraSeed } from "./follow";
 import { followPitchUnderCeiling, interiorCameraCap } from "./interior-ceiling";
+import { titleCamera } from "./title-camera.ts";
 
 const tmp = new THREE.Vector3();
 const PLAYER_R = 0.42;
@@ -44,6 +46,7 @@ function dampAngle(
 }
 
 export function AdventurePlayer() {
+  const reducedMotion = useReducedArtMotion();
   const group = useRef<THREE.Group>(null);
   const initial = useRef({ x: useGame.getState().playerX, z: useGame.getState().playerZ, yaw: useGame.getState().playerYaw });
   const pos = useRef(new THREE.Vector3(initial.current.x, useRpg.getState().interiorId ? 0 : terrainHeight(initial.current.x, initial.current.z), initial.current.z));
@@ -176,12 +179,8 @@ export function AdventurePlayer() {
 
     if (phase === "title") {
       // Drift above 驚聲銅像廣場 looking north down 宮燈大道.
-      const t = state.clock.elapsedTime;
-      camera.position.set(
-        TITLE_ORBIT.x + Math.sin(t * 0.1) * 2.2,
-        TITLE_ORBIT.y,
-        TITLE_ORBIT.z + Math.cos(t * 0.08) * 1.8,
-      );
+      const pose = titleCamera(state.clock.elapsedTime, reducedMotion);
+      camera.position.set(pose.x, pose.y, pose.z);
       camera.lookAt(0.5, 20.6, -46);
       return;
     }

@@ -17,8 +17,7 @@ export {
   INTERIOR_CEILING_Y,
 };
 
-/** Title camera center. A rebuilt canvas starts here until the follow rig seeds. */
-export const TITLE_ORBIT = { x: -13, y: 31.5, z: 13 };
+export { TITLE_ORBIT } from "./title-camera.ts";
 
 export const FOLLOW_PITCH = 0.22;
 
