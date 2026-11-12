@@ -29,6 +29,7 @@ import {
   languageHallProfile,
   shipBowTriangles,
   shipProfile,
+  litHallProfile,
   scienceHallProfile,
   studioProfile,
   chemHallProfile,
@@ -255,7 +256,8 @@ export function ContextStructures({
         s.kind === "language-hall" ||
         s.kind === "chem-hall" ||
         s.kind === "seminar-hall" ||
-        s.kind === "business-hall"
+        s.kind === "business-hall" ||
+        s.kind === "lit-hall"
       )
         continue;
       const floors = s.floors ?? 6;
@@ -1468,6 +1470,41 @@ export function ContextStructures({
                 <coneGeometry args={[Math.max(hx, hz) + 1.3, 1.8, 4]} />
                 <meshStandardMaterial {...surface(mats["palace/green-roof-tile"], { wetness })} />
               </mesh>
+            </group>
+          );
+        }
+        if (s.kind === "lit-hall") {
+          const profile = litHallProfile(s.size);
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh position={[0, s.size[1] / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], s.size[1], s.size[2]]} />
+                <meshStandardMaterial color="#f4efe4" roughness={0.84} />
+              </mesh>
+              <mesh position={[0, profile.glassH / 2 + 0.7, profile.glassZ]} castShadow>
+                <boxGeometry args={[profile.glassW, profile.glassH, 0.16]} />
+                <meshStandardMaterial color="#8ea4aa" roughness={0.28} metalness={0.08} />
+              </mesh>
+              {[0.42, 0.72].map((t) => (
+                <mesh key={t} position={[0, s.size[1] * t, s.size[2] / 2 + 0.08]} castShadow>
+                  <boxGeometry args={[profile.bandW, 0.36, 0.12]} />
+                  <meshStandardMaterial color="#8d734c" roughness={0.62} />
+                </mesh>
+              ))}
+              <mesh position={[0, s.size[1] + profile.eaveH / 2, 0]} castShadow>
+                <boxGeometry args={[s.size[0] + profile.eaveOver * 2, profile.eaveH, s.size[2] + profile.eaveOver * 2]} />
+                <meshStandardMaterial {...surface(mats["palace/green-roof-tile"], { wetness })} />
+              </mesh>
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, profile.bayH + 0.8, s.size[2] / 2 + 0.16]}
+                >
+                  <planeGeometry args={[Math.min(9, s.size[0] * 0.4), 1.15]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
             </group>
           );
         }

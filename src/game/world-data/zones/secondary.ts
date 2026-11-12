@@ -59,7 +59,8 @@ export type SecondaryStructure = {
     | "language-hall"
     | "chem-hall"
     | "class-hall"
-    | "seminar-hall";
+    | "seminar-hall"
+    | "lit-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -560,6 +561,23 @@ export function businessHallProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * Reading hall for 文學館. The south window and flat eave are an estimated
+ * silhouette. 覺軒 keeps the hip roof.
+ */
+export function litHallProfile(size: readonly [number, number, number]) {
+  const bayH = Math.min(4.2, Math.max(3.2, size[1] * 0.2));
+  return {
+    bayH,
+    eaveH: 0.42,
+    eaveOver: 1.1,
+    glassW: Math.min(14, size[0] * 0.42),
+    glassH: bayH * 0.55,
+    glassZ: size[2] / 2 + 0.08,
+    bandW: size[0] * 0.68,
+  };
+}
+
+/**
  * Formal office block for 行政大樓. The entrance bay is an estimated
  * silhouette, not a measured elevation. Classroom halls stay study blocks.
  */
@@ -607,7 +625,7 @@ export function memorialProfile(size: readonly [number, number, number]) {
 
 /**
  * Garden house for 濯纓苑／校史館. The veranda and hip roof are an estimated
- * silhouette, not a measured elevation. 文學館 and 覺軒 stay academic hip roofs.
+ * silhouette, not a measured elevation. 覺軒 stays the academic hip roof.
  */
 export function gardenHouseProfile(size: readonly [number, number, number]) {
   const porchD = 1.6;
@@ -831,6 +849,7 @@ function campusKind(site: {
   if (site.id === "education") return "class-hall";
   if (site.id === "chemistry") return "chem-hall";
   if (site.id === "hweiwen") return "seminar-hall";
+  if (site.id === "humanities") return "lit-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.id === "sungtao-2") return "dorm-front";
   if (site.theme === "dorm") return "dorm-block";

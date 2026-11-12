@@ -698,5 +698,11 @@
 
 畫面：`docs/art/evidence/business/tower.jpg`。測試：`scripts/business-hall.test.mjs`。
 
+## 階段：文學館（ART-065 的一部分）
+
+文學館不再和覺軒共用尖坡頂。樓身是淺色，南向有寬窗，屋頂是一圈綠瓦平簷。外形是 estimated，不是實測立面。
+
+畫面：`docs/art/evidence/humanities/hall.jpg`。測試：`scripts/lit-hall.test.mjs`。
+
 ## 下一步
-見 `CHECKPOINT.json`。商管大樓已有深色玻璃底座和退縮的樓身。四座公告牌已寫著校園公告、請沿步道行走。坡底入口已有六條斑馬線。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。文學館已有綠瓦平簷。商管大樓已有深色玻璃底座和退縮的樓身。四座公告牌已寫著校園公告、請沿步道行走。坡底入口已有六條斑馬線。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。>>>>>>> cee451f2 (Give the literature hall a flat eave instead of a hip roof.)

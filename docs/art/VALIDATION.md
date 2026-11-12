@@ -577,3 +577,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 113 輪（商管大樓）— 2026-11-12
 
 `node --test scripts/business-hall.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。`business-building` 是 business-hall，精度 estimated。底座低於樓高的三成，樓身比底座窄也比底座淺，南向玻璃比樓寬的四成還寬。行政大樓仍是 office-block。定步白天南向，頁面無錯誤：`docs/art/evidence/business/tower.jpg`。看得到深色底座、淺色樓身、兩條橫帶和「商管大樓」。外形仍是 estimated。第 112 輪的公告牌留著。沒有新增音效。`build:site` 產物 `AdventureApp-Bh01Fzf9.js`。
+
+## 第 114 輪（文學館）— 2026-11-12
+
+`node --test scripts/lit-hall.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。文學館是 lit-hall。覺軒仍是 hip-roof-block。平簷高度小於 1 m。南向窗比 6 m 寬，窗高停在地面層。定步白天南向，頁面無錯誤：`docs/art/evidence/humanities/hall.jpg`。看得到綠瓦平簷、橫帶和「文學館」，沒有尖頂。外形仍是 estimated。第 113 輪的商管大樓留著。沒有新增音效。
