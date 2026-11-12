@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：冷氣室外機（ART-084 的一部分）
+
+宮燈教室背面的 20 台冷氣室外機會擋住半徑 0.42 m 的身體。從西邊走向南端西側那台會停在機面外。大道中線和三條巡禮折線仍走得過。機位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/ac.jpg`。測試：`scripts/ac-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。冷氣室外機已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
