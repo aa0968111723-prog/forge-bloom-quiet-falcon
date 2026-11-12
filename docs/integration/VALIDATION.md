@@ -1397,11 +1397,19 @@ JS 產物的檔名和大小都沒變，跨系統路線沒有重跑，仍是 8231
 
 瀏覽器 `http://127.0.0.1:8237/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；同時上傳時較早落地的那一邊是經驗加 3，所以雲端經驗是 47；斷線的加 1 留在佇列；登出 401。`pageErrors` 空。幀時間是 SwiftShader。靜態產物換了，所以重跑這條路線。
 
-## 傳輸預算已量過（本輪）
+## 傳輸預算已量過
 
 來源 `9a3d594` 接到 `5fa72bd`。美術文件衝突。低畫質路人、司令臺坡面和先前的里程留著。JS 產物仍是 `AdventureApp-7L6j7Fgv.js`。測試數從 441 變成 442。
 
 七個 GLB 的檔名集合被鎖住。node:zlib 量到 raw 4,295,184 bytes、gzip 1,704,638 bytes。主角套組 gzip 459,773，省電 LOD1 gzip 279,457，npc-kit gzip 607,919。決定先不加 meshopt 或 KTX2，因為還沒有真機傳輸紀錄。超標或新增 GLB 會讓測試失敗。`npm run typecheck` 通過。`npm test` 442 通過，其中「committed game-art stays inside the measured transfer budget」涵蓋這項。`dist/assets` 沒有 `cloud-save` 或 `DATABASE_URL`。
+
+JS 產物的檔名和大小都沒變，跨系統路線沒有重跑，仍是 8237 那一次：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；同時上傳時較早落地的那一邊是經驗加 3，所以雲端經驗是 47；斷線的加 1 留在佇列；登出 401。`pageErrors` 空。
+
+## 宮燈大道四時段（本輪）
+
+來源 `266e4b7` 接到 `e95a4d1`。美術文件衝突。傳輸預算、低畫質路人和先前的里程留著。JS 產物仍是 `AdventureApp-7L6j7Fgv.js`。測試數從 442 變成 443。
+
+同一站點 (0, -80) 的晴天路燈滅。夕照從西邊來且路燈亮。夜的太陽強度低於晴天兩成且路燈亮。雨後濕度是 1。不是實測日照。`npm run typecheck` 通過。`npm test` 443 通過，其中「day, sunset, night, and wet are distinct avenue presets」涵蓋這項。`dist/assets` 沒有 `cloud-save` 或 `DATABASE_URL`。
 
 JS 產物的檔名和大小都沒變，跨系統路線沒有重跑，仍是 8237 那一次：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；同時上傳時較早落地的那一邊是經驗加 3，所以雲端經驗是 47；斷線的加 1 留在佇列；登出 401。`pageErrors` 空。
 

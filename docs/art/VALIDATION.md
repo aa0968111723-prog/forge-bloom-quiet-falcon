@@ -442,4 +442,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 79 輪（宮燈大道四時段）— 2026-11-12
 
-`node --test scripts/lighting-times.test.mjs` 通過。`tsc --noEmit` 通過。同一站點 (0, -80)、同一鏡頭的晴天、夕照、夜、雨後在 `docs/art/evidence/lighting/`。晴天路燈滅；夕照從西邊來且路燈亮；夜的太陽強度低於晴天兩成且路燈亮；雨後濕度是 1。不是實測日照。傳輸預算留在第 78 輪。沒有新增音效。
+`node --test scripts/lighting-times.test.mjs` 通過。`tsc --noEmit` 通過。同一站點 (0, -80)、同一鏡頭的晴天、夕照、夜、雨後在 `docs/art/evidence/lighting/`。晴天路燈滅；夕照從西邊來且路燈亮；夜的太陽強度低於晴天兩成且路燈亮；雨後濕度是 1。不是實測日照。傳輸預算留在第 78 輪。沒有新增音效。靜態產物仍是 `AdventureApp-7L6j7Fgv.js`。
