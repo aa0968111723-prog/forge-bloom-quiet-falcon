@@ -347,3 +347,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 55 輪（覺軒花園）— 2026-11-12
 
 `node --test scripts/garden-pavilion.test.mjs` 通過。`tsc --noEmit` 通過。覺軒花園是 pavilion。中心點以半徑 0.42 m 不會被推開。四根角柱會擋住人。另一筆覺軒仍是 hip-roof-block。散佈的樹不落在亭子外緣 4 m 內。定步白天，頁面無錯誤：`docs/art/evidence/pavilion/open.jpg`。看得到綠瓦頂、紅柱和鋪面。外形仍是 estimated。綜合球場標線留在第 54 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DzP7Xkfy.js`。
+
+## 第 56 輪（坡道旁的家具）— 2026-11-12
+
+`node --test scripts/ramp-furniture.test.mjs` 通過。`tsc --noEmit` 通過。六張圖書館長椅的 1.7 m 座椅範圍，坡道高度都是 0。八個花台的整段也是 0。靠坡的那張長椅在 x=-4.8。對準坡道的花台中心在 z=-283.1，比坡道南端更南。定步白天，頁面無錯誤：`docs/art/evidence/ramp/furniture.jpg`。長椅在坡道兩側，長花台在坡道南端外。位置仍是 estimated。覺軒花園留在第 55 輪。沒有新增音效。`build:site` 產物 `AdventureApp-4yTubHo7.js`。

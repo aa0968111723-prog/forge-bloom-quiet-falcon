@@ -355,6 +355,12 @@
 
 畫面：`docs/art/evidence/pavilion/open.jpg`。測試：`scripts/garden-pavilion.test.mjs`。
 
+## 階段：坡道旁的家具（ART-084 的一部分）
+
+圖書館前靠坡的長椅改到西側，整張 1.7 m 座椅都在裙邊外。對準坡道的長花台改到坡道南端外面。其餘長椅和花台留在原排。坡度與位置仍是 estimated。覺軒花園仍是四根角柱。
+
+畫面：`docs/art/evidence/ramp/furniture.jpg`。測試：`scripts/ramp-furniture.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。覺軒花園已改成可走的亭子。綜合球場已有兩塊標線。雨後場地會變暗。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。坡道旁的長椅和花台已讓出坡面。覺軒花園已改成可走的亭子。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
