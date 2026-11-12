@@ -370,4 +370,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 61 輪（籃架底座）— 2026-11-12
 
-`node --test scripts/hoop-base.test.mjs scripts/physics-clock.test.mjs` 通過。`tsc --noEmit` 通過。活動室裡站在東側籃架中心會被推開。教室裡同一點不會被底座推開。南門 (0, 6.4) 不被推開。從西緣往東跨 1.04 m 仍停在中心西側。定步，走進體育館停在 x=6.88，頁面無錯誤：`docs/art/evidence/hoop/stand.jpg`。看得到籃板、籃框和黑色底座。房間仍不是實測。沒有新增音效。`build:site` 產物 `AdventureApp-BA-5Bdik.js`。
+`node --test scripts/hoop-base.test.mjs scripts/physics-clock.test.mjs` 通過。`tsc --noEmit` 通過。活動室裡站在東側籃架中心會被推開。教室裡同一點不會被底座推開。南門 (0, 6.4) 不被推開。從西緣往東跨 1.04 m 仍停在中心西側。定步，走進體育館停在 x=6.88，頁面無錯誤：`docs/art/evidence/hoop/stand.jpg`。看得到籃板、籃框和黑色底座。貼著東牆從 (8.58, 0.26) 撞上底座時，人停在 x=8.58、z=1.12，不會被推到牆外。房間仍不是實測。沒有新增音效。`build:site` 產物 `AdventureApp-BPvwgco_.js`。

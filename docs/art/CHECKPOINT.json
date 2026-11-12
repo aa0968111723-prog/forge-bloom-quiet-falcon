@@ -57,7 +57,7 @@
     "typecheck": "pass",
     "npm_test": "hoop-base and physics-clock pass",
     "art_validate_rebuild": "not re-run; no art pipeline outputs changed",
-    "build_site": "AdventureApp-BA-5Bdik.js",
+    "build_site": "AdventureApp-BPvwgco_.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
