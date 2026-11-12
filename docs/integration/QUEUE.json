@@ -3752,6 +3752,32 @@
       "integrationPr": 265,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/265",
       "nextAction": "None. The refused upload resume from 99d4b2ba is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-follow-up-stop",
+      "line": "backend",
+      "scope": "A continuation from this device's own revision stays queued on 500 or 429. Local xp 9 stays queued with baseRevision 2 and attempts 1. The cloud head stays revision 2 xp 4. The next flush lands revision 3 xp 9. A refused follow-up pauses with attempts at least 1. Later local xp 12 uploads under a new request id with baseRevision 2 and lands as revision 3. A refused empty-cloud first sync pauses the same way, and later local xp 12 lands as revision 1 under a new request id.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-follow-up-stop-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "dd6a7f36f47d1c0bee91c9f5d0dcb63a89ba4127",
+      "headSha": "304001b5eb472753249fcb2e75f074bd4077c334",
+      "dependencies": ["backend-refused-upload"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T09:16:45Z, the merge notes at 6b2c8c1 and 67f6cdf, and the follow-up stop line. client.ts applied cleanly.",
+        "typecheck": "pass",
+        "npmTest": "416 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CCnWZOWf.js unchanged",
+        "browser": "8209. The standing route completed.",
+        "route": "8209: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the route server imports the changed cloud client."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "69afbe4d907c4acf40e88bb314edd38f5177ce55",
+      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
