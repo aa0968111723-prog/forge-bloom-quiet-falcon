@@ -269,8 +269,6 @@
 
 畫面：`docs/art/evidence/workshop/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
-## 下一步
-
 ## 階段：課程地圖標記（ART-090 的一部分）
 
 展開的校園地圖在課程金圈上方寫兩個字。進行中的步驟是選系、移動、補給、普攻、技能。小地圖仍只畫金圈。工學館仍是磚紅基座和屋頂小間。
