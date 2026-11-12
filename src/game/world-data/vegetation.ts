@@ -51,6 +51,13 @@ const plant = (
   rotationY = 0,
 ): PlantInstance => ({ species, x, z, scale, rotationY });
 
+function blockedByOpenPavilion(x: number, z: number, margin: number): boolean {
+  return SECONDARY_STRUCTURES.some((s) => {
+    if (s.kind !== "pavilion") return false;
+    return Math.abs(x - s.position[0]) < s.size[0] / 2 + margin && Math.abs(z - s.position[1]) < s.size[2] / 2 + margin;
+  });
+}
+
 function blockedByBuilding(x: number, z: number, margin: number): boolean {
   return COLLIDERS.some(
     (b) => x > b.minX - margin && x < b.maxX + margin && z > b.minZ - margin && z < b.maxZ + margin,
@@ -249,6 +256,7 @@ export function scatterPlants(density: number): PlantInstance[] {
       if (jx < -100 && jz < -260 && jz > -340) continue;
       if (blockedByBuilding(jx, jz, 5)) continue;
       if (blockedByCourt(jx, jz, 3)) continue;
+      if (blockedByOpenPavilion(jx, jz, 6)) continue;
       // Density falls off with distance from the corridor so the far edges
       // stay cheap, and the caller's density knob scales the whole hill.
       const falloff = margin > 130 ? 0.55 : 1;
