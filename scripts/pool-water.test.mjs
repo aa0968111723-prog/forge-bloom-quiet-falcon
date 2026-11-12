@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { SWIMMING_POOL, poolBlockPositions, poolLaneOffsets } from "../src/game/rpg/interior-layout.ts";
+import { stepInterior } from "../src/game/rpg/physics/interior.ts";
 import { resolveInterior } from "../src/game/rpg/rules.ts";
 
 const radius = 0.42;
@@ -38,4 +39,15 @@ test("the swimming hall keeps a body on the deck", () => {
   assert.ok(beside.x > SWIMMING_POOL.halfX);
   assert.ok(beside.x <= 9 - radius);
   assert.equal(beside.z, 0);
+
+  let walked = { x: 0, z: 5.6 };
+  for (let i = 0; i < 40; i++) {
+    walked = stepInterior(walked.x, walked.z, 0, -0.18, radius, false, false, false, false, true);
+  }
+  assert.equal(walked.x, 0);
+  assert.ok(walked.z > 4.3 && walked.z < 4.7, `walked into the water ${walked.z}`);
+
+  const gymWalk = stepInterior(0, 1, 0, -0.2, radius, false, true, false, false, false);
+  assert.equal(gymWalk.x, 0);
+  assert.ok(gymWalk.z < 1);
 });
