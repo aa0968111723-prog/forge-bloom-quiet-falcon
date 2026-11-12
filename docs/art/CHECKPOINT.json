@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "470 pass / 0 fail",
+    "npm_test": "471 pass / 0 fail",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-BeLoy1Vt.js",
+    "build_site": "AdventureApp-DaP6TsRc.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
