@@ -2158,7 +2158,7 @@
       "id": "backend-campus-snapshot",
       "line": "backend",
       "scope": "Cloud saves accept the live campus snapshot: narrative, variety, loot, position, interior, and floor. Unknown top-level fields stay rejected. A save without those fields still uploads. Later uploads reuse the stored revision. A previous cloud revision can be written back into the local save.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-cloud-snapshot-3395",
@@ -2176,11 +2176,11 @@
         "route": "8153: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "merged": true,
+      "mergeSha": "f7fb45dd8957847f2738e5ca64e6cf928ad152e8",
+      "integrationPr": 162,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/162",
+      "nextAction": "None. The live campus snapshot from 7182c6e is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
