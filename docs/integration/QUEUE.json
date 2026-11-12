@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T01:50:00Z",
+      "updated": "2026-11-12T02:05:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1733,6 +1733,34 @@
       "integrationPr": 126,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/126",
       "nextAction": "None. The joint measurement from 6ac2cf3 is already in this integration. Do not merge PR #108 by itself. Next is PR #110 at head eee5c91."
+    },
+    {
+      "id": "art-chem-hall",
+      "line": "art",
+      "scope": "Give the chemistry hall its own pale volume, south glass band, and roof stack. The nameplate reads 鍾靈化學館. The science hall, workshop, and engineering tower keep their own masses.",
+      "status": "verified",
+      "pr": 110,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/110",
+      "integrationBranch": "cursor/integration-chem-hall-3395",
+      "sourceBranch": "cursor/chem-hall-1a71",
+      "baseSha": "468a516efb1649d08f0427f586c11f8d2341e12b",
+      "headSha": "eee5c917073dc7d5dc413880b03fea0daf385284",
+      "dependencies": ["art-joint-limits"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campus kind, renderer, and art docs. Administration stays office-block. Hweiwen stays a study block.",
+        "typecheck": "pass",
+        "npmTest": "271 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CdR7Qu81.js",
+        "browser": "8138 at 1280x720 and 390x780. Nameplate 鍾靈化學館. Roof stack stays on the roof. pageErrors empty.",
+        "route": "8138: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401. First attempt died on a browser close after combat; the rerun passed."
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/context-lod.test.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #110 by itself. Next is PR #111 at head 412b130."
     }
   ]
 }
