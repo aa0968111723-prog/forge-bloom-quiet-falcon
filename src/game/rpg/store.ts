@@ -523,9 +523,10 @@ function restoreLoot(raw: unknown): Loot[] {
         ]).filter(([, n]) => Number(n) > 0),
       );
       const quest = restoreQuest(l.quest, items);
+      const id = l.id.slice(0, 80);
       return quest
-        ? { id: l.id, x: l.x, z: l.z, items, quest }
-        : { id: l.id, x: l.x, z: l.z, items };
+        ? { id, x: l.x, z: l.z, items, quest }
+        : { id, x: l.x, z: l.z, items };
     });
 }
 function restorePosition(raw: unknown) {
