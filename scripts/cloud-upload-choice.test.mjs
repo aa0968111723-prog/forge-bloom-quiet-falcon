@@ -1370,3 +1370,90 @@ test("a session blip does not grant a reward the server already recorded", async
   assert.equal(posts, 1);
   assert.equal(client.queuedCount("user-a"), 0);
 });
+
+test("a session change does not apply a restored cloud save", async () => {
+  let sessionId = "user-a";
+  const head = save(1);
+  const other = save(99);
+  const headHash = await sha256Hex(canonicalJson(head));
+  const otherHash = await sha256Hex(canonicalJson(other));
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "GET") {
+      return jsonResponse(200, {
+        revision: 2,
+        schemaVersion: 1,
+        contentVersion: 2,
+        document: head,
+        etag: '"2"',
+        contentHash: headHash,
+      });
+    }
+    sessionId = "user-b";
+    return jsonResponse(200, {
+      revision: 3,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document: other,
+      etag: '"3"',
+      contentHash: otherHash,
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoreacct0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "error");
+  assert.equal(restored.code, "account_mismatch");
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
+
+test("a session blip does not apply a restored cloud save", async () => {
+  let sessionReads = 0;
+  const head = save(1);
+  const older = save(4);
+  const headHash = await sha256Hex(canonicalJson(head));
+  const olderHash = await sha256Hex(canonicalJson(older));
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      sessionReads += 1;
+      if (sessionReads === 4) throw new Error("session blip");
+      return sessionFor("user-a");
+    }
+    if ((init.method ?? "GET") === "GET") {
+      return jsonResponse(200, {
+        revision: 2,
+        schemaVersion: 1,
+        contentVersion: 2,
+        document: head,
+        etag: '"2"',
+        contentHash: headHash,
+      });
+    }
+    return jsonResponse(200, {
+      revision: 3,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document: older,
+      etag: '"3"',
+      contentHash: olderHash,
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoreblip0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "local_only");
+  assert.equal(restored.reason, "offline");
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});

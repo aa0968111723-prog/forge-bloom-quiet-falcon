@@ -426,6 +426,11 @@ export function createCloudSaveController(options: {
         const accepted = await acceptCloudDocument(payload.document, payload.contentHash);
         if (!accepted.ok)
           return { status: "error", code: accepted.code, message: accepted.message };
+        const still = await accountGate(userId);
+        if (still === "offline") return { status: "local_only", reason: "offline" };
+        if (still !== "ok") {
+          return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
+        }
         writeLocal(JSON.stringify(accepted.document));
         if (typeof payload.revision === "number") {
           writeMeta(userId, { revision: payload.revision, contentHash: accepted.hash });
