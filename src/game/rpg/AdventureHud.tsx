@@ -2091,15 +2091,20 @@ export function AdventureHud() {
         <Dialog
           title={title}
           onClose={close}
+          className={state.panel === "narrative" ? "ad-narrative-scrim" : undefined}
           closeId={
-            mobile && state.panel && state.panel !== "narrative"
-              ? panelClosePlan(state.panel).closeId
-              : undefined
+            state.panel === "narrative"
+              ? "narrative-close"
+              : mobile && state.panel
+                ? panelClosePlan(state.panel).closeId
+                : undefined
           }
           scrollId={
-            mobile && state.panel && state.panel !== "narrative"
-              ? panelClosePlan(state.panel).scrollId
-              : undefined
+            state.panel === "narrative"
+              ? "narrative-scroll"
+              : mobile && state.panel
+                ? panelClosePlan(state.panel).scrollId
+                : undefined
           }
         >
           {state.panel === "narrative" ? (

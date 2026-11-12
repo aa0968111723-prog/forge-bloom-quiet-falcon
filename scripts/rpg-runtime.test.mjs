@@ -7751,3 +7751,60 @@ test("placeverdict agrees across flat slope door overlap turn materials and canc
     flushSave();
   }
 });
+
+test("faculty talk with no event shows a notice instead of doing nothing", async () => {
+  const { facultyPosts } = await import("../src/features/faculty-story/posts.ts");
+  const { createPlay } = await import("../src/features/narrative/index.ts");
+  const standAt = (post) => {
+    useGame.setState({
+      phase: "playing",
+      plaqueId: null,
+      playerX: post.x,
+      playerZ: post.z,
+      playerYaw: 0,
+      visited: [],
+    });
+    useRpg.setState({
+      hp: 100,
+      panel: null,
+      interiorId: null,
+      buildKind: null,
+      buildings: [],
+      loot: [],
+      harvested: {},
+      narrativeUi: null,
+    });
+  };
+  const shen = facultyPosts().find((post) => post.id === "npc-shen-zhuo");
+  const gu = facultyPosts().find((post) => post.id === "npc-gu-heng");
+  standAt(shen);
+  useRpg.setState({ narrative: createPlay("talk-shen").session, notice: "" });
+  assert.equal(r.promptDecision(r.promptSnap()).kind, "talk");
+  assert.equal(useRpg.getState().commitPrompt(), "talk");
+  assert.equal(useRpg.getState().panel, null);
+  assert.match(useRpg.getState().notice, /沒有新的話/);
+
+  standAt(gu);
+  useRpg.setState({
+    narrative: createPlay("talk-gu").session,
+    notice: "舊提示",
+    panel: null,
+    narrativeUi: null,
+  });
+  assert.equal(useRpg.getState().commitPrompt(), "talk");
+  assert.equal(useRpg.getState().panel, "narrative");
+  assert.equal(useRpg.getState().notice, "舊提示");
+
+  const finished = createPlay("talk-done").session;
+  finished.resolved = [
+    "evt-faculty-gu-meet",
+    "evt-faculty-gu-clash",
+    "evt-faculty-gu-turn",
+    "evt-faculty-gu-after",
+  ];
+  standAt(gu);
+  useRpg.setState({ narrative: finished, notice: "", panel: null, narrativeUi: null });
+  assert.equal(useRpg.getState().commitPrompt(), "talk");
+  assert.equal(useRpg.getState().panel, null);
+  assert.match(useRpg.getState().notice, /已經談完/);
+});

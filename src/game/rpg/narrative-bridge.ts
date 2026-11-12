@@ -47,6 +47,9 @@ export function narrativeClock(time: TimeOfDay): {
   }
 }
 
+/** Fired, resolved, and flag maps. Recent stays at 3. Forty dropped later faculty consequences. */
+export const NARRATIVE_SAVE_LIMIT = 200;
+
 function stringList(value: unknown, limit: number): string[] {
   if (!Array.isArray(value)) return [];
   return value.filter((item): item is string => typeof item === "string" && item.length < 80).slice(0, limit);
@@ -55,7 +58,7 @@ function stringList(value: unknown, limit: number): string[] {
 function boolMap(value: unknown): Record<string, boolean> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const out: Record<string, boolean> = {};
-  for (const [key, entry] of Object.entries(value).slice(0, 40)) {
+  for (const [key, entry] of Object.entries(value).slice(0, NARRATIVE_SAVE_LIMIT)) {
     if (typeof entry === "boolean" && key.length < 80) out[key] = entry;
   }
   return out;
@@ -64,7 +67,7 @@ function boolMap(value: unknown): Record<string, boolean> {
 function stringMap(value: unknown): Record<string, string> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const out: Record<string, string> = {};
-  for (const [key, entry] of Object.entries(value).slice(0, 40)) {
+  for (const [key, entry] of Object.entries(value).slice(0, NARRATIVE_SAVE_LIMIT)) {
     if (typeof entry === "string" && key.length < 80 && entry.length < 80) out[key] = entry;
   }
   return out;
@@ -73,7 +76,7 @@ function stringMap(value: unknown): Record<string, string> {
 function numberMap(value: unknown): Record<string, number> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const out: Record<string, number> = {};
-  for (const [key, entry] of Object.entries(value).slice(0, 40)) {
+  for (const [key, entry] of Object.entries(value).slice(0, NARRATIVE_SAVE_LIMIT)) {
     if (typeof entry === "number" && Number.isFinite(entry) && key.length < 80) out[key] = entry;
   }
   return out;
@@ -116,8 +119,8 @@ export function readNarrativeSession(raw: unknown): NarrativeSession {
     mutexUntil: numberMap(record.mutexUntil),
     mutexHolder: stringMap(record.mutexHolder),
     recent: stringList(record.recent, 3),
-    fired: stringList(record.fired, 40),
-    resolved: stringList(record.resolved, 40),
+    fired: stringList(record.fired, NARRATIVE_SAVE_LIMIT),
+    resolved: stringList(record.resolved, NARRATIVE_SAVE_LIMIT),
     activeEventId: null,
     mode: "exploring",
   };

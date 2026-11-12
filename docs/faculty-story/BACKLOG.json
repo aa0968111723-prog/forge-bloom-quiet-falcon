@@ -1,0 +1,47 @@
+{
+  "owner": "faculty-story",
+  "items": [
+    {
+      "id": "FAC-01",
+      "status": "done",
+      "title": "三位教授與一位系主任的四段主線",
+      "detail": "顧衡、沈酌、梁晚、邱寧。quest-faculty-studio。兩條選擇都走到 after，後續台詞不同。"
+    },
+    {
+      "id": "FAC-02",
+      "status": "done",
+      "title": "九學院各一名教授、三位系主任",
+      "detail": "另有簡禾、程晰、衛寧、安澄、桑知、簡衡，以及孟昭、江照。支線目標各不相同。"
+    },
+    {
+      "id": "FAC-03",
+      "status": "done",
+      "title": "主遊戲交談、存檔與不重複發獎",
+      "detail": "走到 post 按交談。離開不結算。讀檔保留旗標，已領的 quest id 不再發。"
+    },
+    {
+      "id": "FAC-04",
+      "status": "blocked",
+      "title": "期中與期末的正式觸發",
+      "detail": "等統整線的學期訊號。本線不自造時鐘。見 ID-REQUEST.md。"
+    },
+    {
+      "id": "FAC-05",
+      "status": "open",
+      "title": "角色組的專用道具",
+      "detail": "水壺、托特包、耳機是暫代。等美術線有授權的新部件再換。不阻塞遊玩。"
+    },
+    {
+      "id": "FAC-07",
+      "status": "done",
+      "title": "跨院選擇改後續開場",
+      "detail": "簡禾的先修或不能改期，配上江照的見習或商管課，改簡衡轉折的開場。江照的轉折引用簡禾實際選的那一句。兩條路都不鎖 after。"
+    },
+    {
+      "id": "FAC-06",
+      "status": "open",
+      "title": "實機時長",
+      "detail": "SwiftShader 上的腳本步行不能當成手機或 RTX 3060。真機 15–25 分鐘仍待裝置。"
+    }
+  ]
+}
