@@ -4,7 +4,7 @@
  * Runs the real validator over the committed outputs, proves a fresh export is
  * byte-identical, feeds the GLB checker broken files to show it catches them,
  * and measures the kit itself: weights, joints, clip targets, loops, facing,
- * backpack clearance and foot slip at the controller's speeds.
+ * backpack clearance, shoulder/elbow/knee bends, and foot slip at the controller's speeds.
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -249,6 +249,76 @@ test("the backpack stays behind the jacket through every clip", () => {
   assert.ok(turned < 0, `a pitched bag still cleared the jacket by ${(turned * 1000).toFixed(1)} mm`);
   console.log(
     `backpack clearance: closest ${worst.name} ${(worst.gap * 1000).toFixed(1)} mm; rest ${(rest * 1000).toFixed(1)} mm; pitched bag ${(turned * 1000).toFixed(1)} mm`,
+  );
+});
+
+/**
+ * Local XYZ limits for the shoulder, elbow, hip and knee. The envelope is the
+ * measured clip range plus a small margin. Flexion follows the rig: knee
+ * lowerLeg.x > 0, elbow lowerArm.x < 0, arm forward upperArm.x < 0.
+ */
+const JOINT_LIMITS = [
+  ["upperArmL", "x", -3.1, 1.15],
+  ["upperArmR", "x", -3.1, 1.15],
+  ["upperArmL", "z", -0.3, 1.55],
+  ["upperArmR", "z", -1.55, 0.8],
+  ["lowerArmL", "x", -1.95, 0.2],
+  ["lowerArmR", "x", -1.95, 0.2],
+  ["upperLegL", "x", -1.4, 0.95],
+  ["upperLegR", "x", -1.4, 0.95],
+  ["lowerLegL", "x", -0.15, 1.9],
+  ["lowerLegR", "x", -0.15, 1.9],
+];
+
+function jointPose(scene) {
+  const euler = new THREE.Euler();
+  const pose = {};
+  for (const [bone] of JOINT_LIMITS) {
+    if (pose[bone]) continue;
+    euler.setFromQuaternion(scene.getObjectByName(bone).quaternion, "XYZ");
+    pose[bone] = { x: euler.x, y: euler.y, z: euler.z };
+  }
+  return pose;
+}
+
+function jointFaults(pose) {
+  const faults = [];
+  for (const [bone, axis, min, max] of JOINT_LIMITS) {
+    const value = pose[bone][axis];
+    if (value < min || value > max) faults.push(`${bone}.${axis}=${value.toFixed(3)}`);
+  }
+  return faults;
+}
+
+test("shoulders, elbows and knees stay inside the measured bend", () => {
+  const euler = new THREE.Euler();
+  let knee = 0;
+  let elbow = 0;
+  let shoulder = 0;
+  for (const clip of kit.clips) {
+    const scene = kit.scene.clone(true);
+    const mixer = new THREE.AnimationMixer(scene);
+    mixer.clipAction(clip).play();
+    for (let i = 0; i <= 16; i++) {
+      mixer.setTime((clip.duration * i) / 16);
+      scene.updateMatrixWorld(true);
+      const pose = jointPose(scene);
+      const faults = jointFaults(pose);
+      assert.deepEqual(faults, [], `${clip.name} t=${i} ${faults.join(", ")}`);
+      knee = Math.max(knee, pose.lowerLegL.x, pose.lowerLegR.x);
+      elbow = Math.min(elbow, pose.lowerArmL.x, pose.lowerArmR.x);
+      shoulder = Math.min(shoulder, pose.upperArmL.x, pose.upperArmR.x);
+    }
+  }
+  const folded = kit.scene.clone(true);
+  folded.getObjectByName("lowerLegL").quaternion.setFromEuler(euler.set(-1.2, 0, 0, "XYZ"));
+  assert.ok(jointFaults(jointPose(folded)).some((fault) => fault.startsWith("lowerLegL.x")));
+  folded.getObjectByName("lowerArmL").quaternion.setFromEuler(euler.set(1.2, 0, 0, "XYZ"));
+  assert.ok(jointFaults(jointPose(folded)).some((fault) => fault.startsWith("lowerArmL.x")));
+  folded.getObjectByName("upperArmL").quaternion.setFromEuler(euler.set(-3.5, 0, 0, "XYZ"));
+  assert.ok(jointFaults(jointPose(folded)).some((fault) => fault.startsWith("upperArmL.x")));
+  console.log(
+    `joint bends: knee ${(knee * 180 / Math.PI).toFixed(0)} deg, elbow ${(Math.abs(elbow) * 180 / Math.PI).toFixed(0)} deg, shoulder raise ${(Math.abs(shoulder) * 180 / Math.PI).toFixed(0)} deg`,
   );
 });
 
