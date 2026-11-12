@@ -572,7 +572,7 @@ export function createCloudSaveController(options: {
     };
     const repairDroppedPut = async (pending: QueueItem) => {
       if (pending.kind !== "put" || !pending.body.document) return;
-      if ((await accountGate(userId)) !== "ok") return;
+      if ((await accountGate(userId)) === "mismatch") return;
       try {
         const response = await cloudFetch("/api/cloud/saves/rpg", { method: "GET" });
         if (!response.ok) return;
@@ -958,7 +958,11 @@ export function createCloudSaveController(options: {
     serverHash: string,
   ): Promise<void> {
     const gate = await accountGate(userId);
-    const prepared = gate === "ok" ? prepareLocal() : { ok: false as const };
+    if (gate === "mismatch") {
+      writeMeta(userId, { revision, contentHash: serverHash });
+      return;
+    }
+    const prepared = prepareLocal();
     if (!prepared.ok) {
       writeMeta(userId, { revision, contentHash: serverHash });
       return;
@@ -968,7 +972,10 @@ export function createCloudSaveController(options: {
       writeMeta(userId, { revision, contentHash: serverHash });
       return;
     }
-    if ((await accountGate(userId)) !== "ok") return;
+    if ((await accountGate(userId)) === "mismatch") {
+      writeMeta(userId, { revision, contentHash: serverHash });
+      return;
+    }
     try {
       const response = await cloudFetch("/api/cloud/saves/rpg", {
         method: "PUT",
