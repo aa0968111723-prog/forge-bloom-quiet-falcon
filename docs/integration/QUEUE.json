@@ -5375,7 +5375,33 @@
       "mergeSha": "1cff5f451dba5849ce76297519ce339fe36c6ecc",
       "integrationPr": 337,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/337",
-      "nextAction": "None. The pool glow from 683baba3 is already in this integration. Do not merge PR #274 by itself. The activity-room court commit 5511da85 is still separate."
+      "nextAction": "None. The pool glow from 683baba3 is already in this integration. Do not merge PR #274 by itself. The activity-room court commit 5511da85 is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-gym-court",
+      "line": "art",
+      "scope": "The activity room paints sidelines, baselines, a centre line, a centre circle and two keys. The marks are flat and do not collide.",
+      "status": "verified",
+      "pr": 276,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/276",
+      "integrationBranch": "cursor/integration-gym-court-3395",
+      "sourceBranch": "cursor/gym-court-1a71",
+      "baseSha": "a70c676c25024a6e822bf9581ab5c21cd9f3fed4",
+      "headSha": "5511da855b31581e3ec0f2558776da64603d01dc",
+      "dependencies": ["art-pool-glow"],
+      "sharedFiles": ["src/game/rpg/interior-layout.ts", "src/game/rpg/AdventureWorld.tsx", "scripts/activity-court.test.mjs"],
+      "checks": {
+        "conflicts": "The hoop bases still stop a body. The painted marks stay under 0.1 m and add no collider. The classroom and reading room do not get the lines.",
+        "typecheck": "pass",
+        "npmTest": "470 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-mX9WK04L.js sha256 dbe31f9f5654f4bf5140c65a0228f9fff143cab81947037e91b5d99145325743. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8263/",
+        "route": "8263 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "c9222b3cad3aa8c9ebe3fe5eb3da8eaeb79664b8",
+      "nextAction": "Open the integration PR. Do not merge PR #276 by itself. The later activity-room line commit f4e9fae3 is still separate."
     }
   ]
 }
