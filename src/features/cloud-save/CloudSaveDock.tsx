@@ -182,6 +182,24 @@ export function CloudSaveDock() {
             >
               保留本機版本
             </button>
+            <button
+              type="button"
+              style={button}
+              onClick={() =>
+                void controller.restorePrevious().then((result) => {
+                  if (result.status === "restored") {
+                    setNote(`已恢復上一份雲端版本。現在是版本 ${result.revision}。`);
+                    return;
+                  }
+                  setPlan(result);
+                  setNote(
+                    result.status === "error" ? result.message : "沒有恢復雲端版本。本機進度仍在。",
+                  );
+                })
+              }
+            >
+              恢復上一份雲端版本
+            </button>
           </div>
           {plan ? <p style={copy}>狀態：{plan.status}</p> : null}
         </div>

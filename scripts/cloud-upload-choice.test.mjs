@@ -189,3 +189,82 @@ test("a reloaded client retries one request id without a second revision", async
   assert.equal(head.revision, 1);
   assert.equal(head.document.xp, 8);
 });
+
+test("restore previous copies the prior cloud save into the local file", async () => {
+  const history = new Map();
+  let remote = null;
+  let revision = 0;
+  let ids = 0;
+  async function head() {
+    return {
+      revision,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document: remote,
+      etag: `"${revision}"`,
+      contentHash: await sha256Hex(canonicalJson(remote)),
+    };
+  }
+  const fetch = async (_url, init = {}) => {
+    const method = init.method ?? "GET";
+    if (method === "GET") {
+      if (!remote)
+        return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+      return jsonResponse(200, await head());
+    }
+    const body = JSON.parse(init.body);
+    if (method === "POST") {
+      if (body.baseRevision !== revision) {
+        return jsonResponse(409, {
+          error: { code: "revision_conflict", message: "版本衝突。" },
+          server: await head(),
+        });
+      }
+      const prior = history.get(body.revision);
+      if (!prior) {
+        return jsonResponse(404, {
+          error: { code: "revision_not_found", message: "找不到要恢復的版本。" },
+        });
+      }
+      remote = prior;
+      revision += 1;
+      history.set(revision, remote);
+      return jsonResponse(200, await head());
+    }
+    if (!remote) {
+      remote = body.document;
+      revision = 1;
+      history.set(1, remote);
+      return jsonResponse(200, await head());
+    }
+    if (body.baseRevision !== revision) {
+      return jsonResponse(409, {
+        error: { code: "revision_conflict", message: "版本衝突。" },
+        server: await head(),
+      });
+    }
+    remote = body.document;
+    revision += 1;
+    history.set(revision, remote);
+    return jsonResponse(200, await head());
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => `restoreq${String(++ids).padStart(4, "0")}`,
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).revision, 1);
+  assert.equal((await client.restorePrevious()).status, "error");
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+
+  client.writeLocal(JSON.stringify(save(2)));
+  assert.equal((await client.uploadLocal()).revision, 2);
+  const restored = await client.restorePrevious();
+  assert.equal(restored.status, "restored");
+  assert.equal(restored.revision, 3);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+  assert.equal((await client.plan()).status, "in_sync");
+});
