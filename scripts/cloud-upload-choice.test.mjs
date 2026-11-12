@@ -2037,3 +2037,58 @@ test("a lost upload response continues the newer local file under a new request 
   assert.equal(planned.status, "in_sync");
   assert.equal(planned.revision, 2);
 });
+
+test("a database outage keeps the upload the player already asked to send", async () => {
+  let databaseUp = false;
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const fetch = async (url, init) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    if (!databaseUp) {
+      return jsonResponse(503, {
+        error: { code: "database_unavailable", message: "資料庫無法使用。" },
+      });
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  const uploaded = await client.uploadLocal();
+  assert.equal(uploaded.status, "queued");
+  assert.equal(client.queuedCount("user-a"), 1);
+  databaseUp = true;
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(flushed.paused, false);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 1);
+  assert.equal(head.document.xp, 4);
+  assert.equal(client.queuedCount("user-a"), 0);
+});
+
+test("a rejected save is not queued after the database answers", async () => {
+  const storage = memoryStorage();
+  const fetch = async (url, init) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    if (init?.method === "PUT") {
+      return jsonResponse(422, { error: { code: "invalid_document", message: "存檔內容不正確。" } });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "沒有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(2)));
+  const uploaded = await client.uploadLocal();
+  assert.equal(uploaded.status, "error");
+  assert.equal(client.queuedCount("user-a"), 0);
+});
