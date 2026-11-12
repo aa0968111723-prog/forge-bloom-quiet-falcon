@@ -119,12 +119,13 @@
         "ART-011",
         "ART-100"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "依量測決定；主角目前 1.1 MB raw / 0.4 MB gzip",
       "evidence": [
-        "scripts/unused-textures.test.mjs"
+        "scripts/unused-textures.test.mjs",
+        "scripts/art-budget.test.mjs"
       ],
-      "notes": "public/textures 的四張未引用 JPG（grass、palace-wall、roof、stone，合計 1,199,761 bytes）已從靜態站移除。meshopt 與 KTX2 仍是 planned。"
+      "notes": "public/textures 的四張未引用 JPG（grass、palace-wall、roof、stone，合計 1,199,761 bytes）已從靜態站移除。2026-11-12 用 node:zlib 量了 7 個 GLB。未壓縮合計 4,295,184 bytes，gzip 合計 1,704,638 bytes。最大是 npc-kit，gzip 607,919 bytes。主角套組 gzip 459,773，省電 LOD1 gzip 279,457。決定先不加 meshopt 或 KTX2：還沒有真機傳輸紀錄，解碼器會在量到瓶頸之前先增加啟動成本。測試把每個檔的 raw 與 gzip 上限定住，新檔或超標才再評估。"
     },
     {
       "id": "ART-016",

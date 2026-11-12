@@ -483,3 +483,13 @@
 ## 下一步
 
 見 `CHECKPOINT.json`。低畫質路人已改用程序學生。游泳館與課程標記留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+
+## 階段：傳輸預算（ART-015）
+
+七個遊戲美術 GLB 的 gzip 合計 1.70 MB。最大是 npc-kit，607,919 bytes。決定先不加 meshopt 或 KTX2。測試把每個檔的 raw 與 gzip 上限定住。真機傳輸仍是 pending-device。行政大樓留著。
+
+測試：`scripts/art-budget.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。傳輸預算已量過，meshopt 與 KTX2 先留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

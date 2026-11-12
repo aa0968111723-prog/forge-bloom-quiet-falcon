@@ -435,3 +435,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 77 輪（路人畫質）— 2026-11-12
 
 `node --test scripts/npc-lod.test.mjs` 通過。`tsc --noEmit` 通過。高畫質路人用角色組，140 m 外不繪製。低畫質改用程序學生，90 m 外不繪製，不載入 npc-kit。定步低畫質站在宮燈大道，頁面無錯誤：`docs/art/evidence/npc/low.jpg`。路上看得到走路的學生。司令臺坡面留在第 76 輪。沒有新增音效。`build:site` 產物 `AdventureApp-7L6j7Fgv.js`。
+
+## 第 78 輪（傳輸預算）— 2026-11-12
+
+`node --test scripts/art-budget.test.mjs` 通過。七個 GLB 的檔名集合被鎖住。node:zlib 量到 raw 4,295,184 bytes、gzip 1,704,638 bytes。主角套組 gzip 459,773，省電 LOD1 gzip 279,457，npc-kit gzip 607,919。決定先不加 meshopt 或 KTX2，因為還沒有真機傳輸紀錄。超標或新增 GLB 會讓測試失敗。沒有新增音效。路人畫質留在第 77 輪。
