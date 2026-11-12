@@ -326,4 +326,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 50 輪（雨後場地）— 2026-11-12
 
-`node --test scripts/wet-surface.test.mjs` 通過。`tsc --noEmit` 通過。晴天的球場草色是 `#5d8a52`，雨後顏色不同且粗糙度較低。停車場和跑道也變暗、變滑。同一鏡頭的五虎崗，頁面無錯誤：`docs/art/evidence/courts/field-day.jpg`、`field-wet.jpg`。雨後草地較深，畫面有雨絲。不是實測日照。化學館留在第 49 輪。沒有新增音效。`build:site` 本輪未重跑。
+`node --test scripts/wet-surface.test.mjs` 通過。`tsc --noEmit` 通過。晴天的球場草色是 `#5d8a52`，雨後線性亮度較低且粗糙度較低。停車場和跑道的亮度也下降、變滑。同一鏡頭的五虎崗，頁面無錯誤：`docs/art/evidence/courts/field-day.jpg`、`field-wet.jpg`。雨後草地較深，畫面有雨絲。不是實測日照。化學館留在第 49 輪。沒有新增音效。`build:site` 本輪未重跑。
