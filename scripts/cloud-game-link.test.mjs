@@ -249,3 +249,41 @@ test("a long ground-loot id still uploads with its items", () => {
   assert.equal(reloaded.loot[0].quest.notes, 1);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("an unusable ground pile still uploads its items", async () => {
+  const { WORLD_BOUNDS } = await import("../src/game/world.ts");
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    loot: [
+      { id: "", x: 200_000, z: -200_000, items: { notes: 3 }, quest: { notes: 2 } },
+      { id: "pile-near", x: 12, z: 18, items: { parts: 1 } },
+    ],
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const far = saved.loot.find((pile) => pile.items.notes === 3);
+  const near = saved.loot.find((pile) => pile.id === "pile-near");
+  assert.ok(far);
+  assert.ok(near);
+  assert.ok(far.id.length >= 1 && far.id.length <= 80);
+  assert.equal(far.items.notes, 3);
+  assert.equal(far.quest.notes, 2);
+  assert.ok(far.x >= WORLD_BOUNDS.minX + 8 && far.x <= WORLD_BOUNDS.maxX - 8);
+  assert.ok(far.z >= WORLD_BOUNDS.minZ + 8 && far.z <= WORLD_BOUNDS.maxZ - 8);
+  assert.equal(near.x, 12);
+  assert.equal(near.z, 18);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const kept = reloaded.loot.find((pile) => pile.items.notes === 3);
+  assert.equal(kept.id, far.id);
+  assert.equal(kept.items.notes, 3);
+  assert.equal(kept.quest.notes, 2);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
