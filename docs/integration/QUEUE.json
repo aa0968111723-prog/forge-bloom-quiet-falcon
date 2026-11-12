@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T07:37:01Z",
+      "updated": "2026-11-12T07:43:03Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3220,6 +3220,34 @@
       "integrationPr": 233,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/233",
       "nextAction": "None. The trimmed ground-loot id from ba24f0cb is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-loot-pile",
+      "line": "backend",
+      "scope": "Import gives an empty ground-loot id a new id, and moves a coordinate whose absolute value passes 100000 into the walkable inset. Nearby piles stay put. Items and the quest mark stay. A raw upload of those values is still rejected.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-loot-pile-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "0f5da63d25f5c5bf3f457628a9d96aa3579c870e",
+      "headSha": "a90f2b37337354e15f3c18f0e5c82d094002f89a",
+      "dependencies": ["backend-loot-id"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:30:24Z entry and the unusable ground pile line. store.ts merged cleanly.",
+        "typecheck": "pass",
+        "npmTest": "393 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DhkxLjTO.js",
+        "browser": "8190. The standing route completed.",
+        "route": "8190: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": true,
+      "mergeSha": "6ac1cb2637e175d92be0281ca043b152ca05691b",
+      "integrationPr": 234,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/234",
+      "nextAction": "None. The repaired ground pile from a90f2b37 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

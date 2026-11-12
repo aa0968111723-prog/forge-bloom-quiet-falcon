@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T07:45:33Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "0f5da63",
+  "base": "6e90df9",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -86,7 +86,8 @@
     "an old piece of gear with a wild durability still uploads",
     "merged main at 0f5da63; the trimmed ground-loot id was already on this branch",
     "a narrative clock outside the cloud range still uploads",
-    "a narrative place the cloud cannot name still uploads"
+    "a narrative place the cloud cannot name still uploads",
+    "merged main at 6e90df9; the repaired ground pile was already on this branch"
   ],
   "verification": {
     "npm_test": "398 pass, 0 fail; a narrative place the cloud cannot name still uploads",
