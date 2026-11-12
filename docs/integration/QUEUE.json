@@ -5732,6 +5732,30 @@
       "integrationPr": 350,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/350",
       "nextAction": "None. The same bag can grow to 36 slots and a nearby barrier adds mitigation once. This is on integration PR #350. Do not merge PR #129 by itself. The next commit on that PR is 731c7c9a4ddb795bd98c4cf305955cc84e4d4f82."
+    },
+    {
+      "id": "content-bag-record",
+      "title": "Record the bag expansion, barrier cover, and the 36-slot ceiling",
+      "status": "verified",
+      "pr": 129,
+      "branch": "cursor/items-equipment-building-15c5",
+      "headSha": "731c7c9a4ddb795bd98c4cf305955cc84e4d4f82",
+      "dependencies": ["content-bag-growth"],
+      "sharedFiles": ["docs/items-equipment-building/CHECKPOINT.json", "docs/items-equipment-building/BALANCE.md"],
+      "checks": {
+        "conflicts": "The cherry-pick applied cleanly. The six save keys were already on the allowlist, so the record no longer lists that as unfinished.",
+        "typecheck": "pass",
+        "npmTest": "480 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CroGWghJ.js sha256 617cfa27b067cad7503826c8619e45cee08bd7359ee8e0dc1fd6fd948e29ff9d. Same hash as integration PR #350. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "not re-run; the bundle hash matches the route on port 8274",
+        "route": "not re-run. Last route 8274 still stands: cloudXp 47, revision_conflict, pageErrors empty, ok true. User VOJyD3dq0jx25cln1a3j4m8cllWqnjzF."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "312d03e08209a01c9f4910ba4d5d3e9b78d73c9a",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "None. The items record now points at bd2e531c. It is not on main yet. Do not merge PR #129 by itself. That line has no newer game commit. The next game commit is PR #177 15991ca7e345553dfa5ffb27217a79bb17f6b004."
     }
   ]
 }
