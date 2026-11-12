@@ -154,8 +154,10 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(gallery.upperSouth + 0.08 < language.size[2] / 2, "upper bands sit on the set-back wall");
   assert.ok(gallery.galleryH < language.size[1] * 0.3, "the gallery stays the ground storey");
   assert.equal(SECONDARY_STRUCTURES.some((item) => item.id === "foreign-lang-hall"), false);
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-building")?.kind, "study-block");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-building")?.accuracy, "estimated");
+  const business = SECONDARY_STRUCTURES.find((item) => item.id === "business-building");
+  assert.equal(business?.kind, "business-hall");
+  assert.equal(business?.accuracy, "estimated");
+  assert.notEqual(business?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "integrated")?.kind, "linked-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-o")?.kind, "media-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-q")?.kind, "media-hall");

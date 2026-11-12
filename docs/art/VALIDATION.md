@@ -574,3 +574,6 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/notice-copy.test.mjs` 通過。`tsc --noEmit` 通過。四座公告牌共用兩行字：校園公告、請沿步道行走。每行 2 到 8 個字。定步白天從西邊看坡底那座，頁面無錯誤：`docs/art/evidence/props/notice.jpg`。兩行都讀得出來。用字仍是 estimated。牌架沒有加碰撞。第 111 輪的斑馬線留著。沒有新增音效。
 
+## 第 113 輪（商管大樓）— 2026-11-12
+
+`node --test scripts/business-hall.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。`business-building` 是 business-hall，精度 estimated。底座低於樓高的三成，樓身比底座窄也比底座淺，南向玻璃比樓寬的四成還寬。行政大樓仍是 office-block。定步白天南向，頁面無錯誤：`docs/art/evidence/business/tower.jpg`。看得到深色底座、淺色樓身、兩條橫帶和「商管大樓」。外形仍是 estimated。第 112 輪的公告牌留著。沒有新增音效。
