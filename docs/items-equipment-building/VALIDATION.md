@@ -1,13 +1,13 @@
 # 驗收
 
-實作提交 `7ffdd018e4cb131355daefbfd311a8c9da0e10a8`。文件提交在它上面，沒有改行為。
+實作提交 `bd2e531c6bf9d4d92165d9eb26640a508db450f6`。文件提交在它上面，沒有改行為。
 
 ## 這次親自跑的
 
 | 檢查 | 結果 |
 | --- | --- |
 | `npx tsc --noEmit` | 通過 |
-| `npm test` | 274 通過、0 失敗。含 `scripts/items-gear.test.mjs` 的八個測試 |
+| `npm test` | 277 通過、0 失敗。含 `scripts/items-gear.test.mjs` 的格子與掩護測試 |
 
 沒有 CI 紀錄。這次通過不是 CI 通過。
 
@@ -44,6 +44,21 @@ Renderer：`ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0D
 7. 拆除。提示「設施已拆除，回收一半材料。已入袋：課堂筆記 ×2、構築零件 ×1」。已建設施回到 0/48。研究桌成本是筆記 4、零件 3，一半無條件捨去後就是 2 與 1。
 
 畫面在 `/opt/cursor/artifacts/`：`items-bag-mobile.png`、`items-detail-mobile.png`、`items-build-mobile.png`、`items-place-mobile.png`、`items-ghost-legal-mobile.png`、`items-built-mobile.png`、`items-craft-mobile.png`、`items-equipped-mobile.png`、`items-refund-mobile.png`。同一輪的錄影是 `items-craft-place-demolish.mp4`。影片審閱子代理這次沒有啟動，所以上面的文字以腳本日誌與這些靜態畫面為準。
+
+## 背包擴充與路障掩護
+
+同一台 headed Chrome、`--use-angle=swiftshader`、viewport 390×844、`deviceScaleFactor` 2。錄影當下的頁面沒有把 `__perfTest.info` 填上。接著另開一次同樣參數的 Chrome，開始學期並選第一個學系後，canvas 448×970、`window.inner` 390×844，`UNMASKED_RENDERER_WEBGL` 是 `ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)`，vendor `Google Inc. (Google)`。這不是手機，也不是 RTX 3060。第二次啟動不在錄影裡。
+
+步驟，在 `http://127.0.0.1:8080/?qa=1` 的學期冒險裡：
+
+1. 開始學期，選第一個學系，打開背包。格數是 `4 / 24 格`，裝備列寫 24 格，有「縫口袋 · 布 2 · 多 4 格」。
+2. 用活著的 `inventory.add` 放入布 ×4 與田野背包 ×1，並在 (45, -32) 放下補給站、在 (45, -33.2) 放下耐久 280 的路障，再用 `setPose(45, -32, 0)` 走過去。
+3. 按下縫口袋。布剩下 2，`pockets` 是 4，格數變成 `6 / 28 格`。提示「縫上口袋，背包多了 4 格。」裝備列改成「路障掩護，受擊再減 4。」
+4. 裝備田野背包。負重 128，格數 `6 / 32 格`。提示「已裝備田野背包。」
+
+畫面：`/opt/cursor/artifacts/bag-slots-before.png`、`bag-slots-sewn.png`、`bag-slots-pack.png`。錄影：`/opt/cursor/artifacts/bag-expand-sew-pack-cover.mp4`。日誌：`bag-expand-walk.log`。
+
+自動化還檢查：沒擴充時零件塞到第 24 格就溢出；穿上田野背包可以到 28 格，卸下不刪那些格子、新物品被拒；補給站旁縫兩次到 8，第三次不扣布；路障掩護在距離外是 0、耐久 280 是 4、耐久 40 是 2；雲端文件 30 格通過、37 格拒絕。本地匯入超過 36 格仍拒絕。
 
 ## 沒有親自跑的
 

@@ -1,6 +1,6 @@
 # 交接
 
-分支 `cursor/items-equipment-building-15c5`。行為提交 `7ffdd018e4cb131355daefbfd311a8c9da0e10a8`，基底是當時的 `main` `5e9dc40`。統整文件裡寫的遊戲 SHA `1463b50` 比這個 checkout 舊；以程式與這個提交為準，沒有為了對文件去 fetch。
+分支 `cursor/items-equipment-building-15c5`。行為提交 `bd2e531c6bf9d4d92165d9eb26640a508db450f6`，基底是當時的 `main` `5e9dc40`。統整文件裡寫的遊戲 SHA `1463b50` 比這個 checkout 舊；以程式與這個提交為準，沒有為了對文件去 fetch。
 
 ## 怎麼接
 
@@ -22,8 +22,10 @@ npm run dev
 
 沒有 `loadout` 時，`equipped: true` 且背包有徽章才會放進配件槽。未知物品進 `quarantine`，未知裝備實例進 `quarantineGear`。負數量拒絕整份。`heldBuild` 若有，而且 ID 不在建物清單裡，匯入時放回原處並結束移動。崩潰若發生在快照寫入之前，那一次移動仍可能丟掉那一座；寫入之後不會。
 
+`pockets` 只會是 0、4 或 8。引擎容量是 36，活的上限由 `slotCap` 決定。匯入先打開到 36 再收緊，避免擴充過的存檔被截斷。卸下田野背包不刪多出來的格子裡的物品。
+
 ## 下一個動作
 
-統整線把 `loadout`、`gear`、`quarantine`、`quarantineGear`、`heldBuild` 放進正式白名單後，雲端回合才算這些欄位耐久。在那之前不要升內容版本，也不要從功能線合併。手機與獨立顯示卡的同一條路線還沒拍。校園位置仍是 estimated。
+統整線把 `loadout`、`gear`、`quarantine`、`quarantineGear`、`heldBuild`、`pockets` 放進正式白名單後，雲端回合才算這些欄位耐久。在那之前不要升內容版本，也不要從功能線合併。手機與獨立顯示卡的同一條路線還沒拍。校園位置仍是 estimated。
 
 開始時沒有 `AGENTS.md`。沒有新的外部素材。

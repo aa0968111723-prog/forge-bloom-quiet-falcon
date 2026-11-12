@@ -6,10 +6,12 @@
     "30 items, 12 equipment, 9 building kinds",
     "three slots, durability, atomic pay, half refund",
     "keep-out with the 0.42 m body radius",
-    "equipped boolean migration and unknown-id quarantine"
+    "equipped boolean migration and unknown-id quarantine",
+    "same-bag slot growth from the field pack and sewn pockets",
+    "barrier cover stacks once with the ward pin"
   ],
   "todo": [
-    "integration whitelist for loadout, gear, quarantine, quarantineGear, heldBuild",
+    "integration whitelist for loadout, gear, quarantine, quarantineGear, heldBuild, pockets",
     "phone and discrete-GPU capture of the same loop",
     "surveyed campus coordinates, if a later line measures them"
   ],
