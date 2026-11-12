@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：公告牌（ART-084 的一部分）
+
+四座公告牌的紙面寫著「校園公告」和「請沿步道行走」。字是這輪的估計用字。牌架沒有改，也沒有加碰撞。車阻留著。
+
+畫面：`docs/art/evidence/props/notice.jpg`。測試：`scripts/notice-copy.test.mjs`。
+
 ## 階段：坡底斑馬線（ART-062 的一部分）
 
 坡底入口鋪面上有六條斑馬線，夾在兩根門柱中間。南緣留在鋪面裡，也離坡底車阻一截。線是平塗，不擋人。間距仍是 estimated。車阻留著。
@@ -687,4 +693,4 @@
 畫面：`docs/art/evidence/track/pit.jpg`。測試：`scripts/court-lines.test.mjs`。
 
 ## 下一步
-見 `CHECKPOINT.json`。坡底入口已有六條斑馬線。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。四座公告牌已寫著校園公告、請沿步道行走。坡底入口已有六條斑馬線。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

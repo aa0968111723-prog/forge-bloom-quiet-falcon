@@ -570,3 +570,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/gate-crosswalk.test.mjs` 通過。`tsc --noEmit` 通過。六條白線在坡底鋪面上。每條都在兩根門柱的內側，南緣不到門口線，也離坡底車阻超過 0.8 m。定步白天從南邊看，頁面無錯誤：`docs/art/evidence/gates/crosswalk.jpg`。白線橫在深色鋪面上，門柱和坡階都在。間距仍是 estimated。車阻留著。第 110 輪的沙坑留著。沒有新增音效。
 
+## 第 112 輪（公告牌）— 2026-11-12
+
+`node --test scripts/notice-copy.test.mjs` 通過。`tsc --noEmit` 通過。四座公告牌共用兩行字：校園公告、請沿步道行走。每行 2 到 8 個字。定步白天從西邊看坡底那座，頁面無錯誤：`docs/art/evidence/props/notice.jpg`。兩行都讀得出來。用字仍是 estimated。牌架沒有加碰撞。第 111 輪的斑馬線留著。沒有新增音效。
+
