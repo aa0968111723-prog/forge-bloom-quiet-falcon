@@ -3892,6 +3892,34 @@
       "integrationPr": 277,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/277",
       "nextAction": "None. The quest-mark merge from 2fbbad82 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-errand-spill",
+      "line": "backend",
+      "scope": "When the bag is already full of notes, a campus errand at a notes supply spills 6 notes: 4 from the supply and 2 marked from the errand. Collection stays 0 until pickup, then only the supply's 4 count. The saved quest mark stays 2 and the document still uploads.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-errand-spill-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "de1d7c13656cc68fef7acc453c69223801ebd234",
+      "headSha": "822b747ccefb03d240a16b48a75865b2b755ea1d",
+      "dependencies": ["backend-merge-marks"],
+      "sharedFiles": ["src/game/rpg/store.ts", "docs/backend/API.md"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json npm_test only. Kept 2026-11-12T09:48:17Z and the spilled-notes line. npm_test set to 421 because main already had the bollard test. store.ts and API.md auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "421 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-D5foKFPP.js",
+        "browser": "8214. The standing route completed.",
+        "route": "8214: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "95f7c5ef35de0c57611b1e8bb1208f1399bd3f97",
+      "integrationPr": 278,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/278",
+      "nextAction": "None. The spilled errand notes from 822b747c are already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
