@@ -573,9 +573,11 @@
         "docs/art/evidence/study/education.jpg",
         "docs/art/evidence/watch/post.jpg",
         "docs/art/evidence/pavilion/open.jpg",
-        "scripts/garden-pavilion.test.mjs"
+        "scripts/garden-pavilion.test.mjs",
+        "scripts/gate-crosswalk.test.mjs",
+        "docs/art/evidence/gates/crosswalk.jpg"
       ],
-      "notes": "大門與大忠警衛站是開口門柱，碰撞只在門柱。勤務監控管制中心是低崗亭、南向窗和屋頂天線，不再是實驗樓的屋頂設備。白樓是白牆平頂，藝文館是灰牆加綠瓦坡頂。宿舍暖色、實驗樓冷灰加屋頂設備、游泳館綠灰、教學樓深色基座加淺色上層。窗帶、名牌、坡頂與教學樓橫樑在高畫質 90 m、省電 48 m 外關掉，量體留著。覺軒花園是四根角柱和綠瓦頂，中間可以走，碰撞只在柱。另一筆覺軒仍是坡頂。精度仍是 estimated。"
+      "notes": "大門與大忠警衛站是開口門柱，碰撞只在門柱。坡底鋪面有六條斑馬線，夾在門柱中間，不壓車阻。勤務監控管制中心是低崗亭、南向窗和屋頂天線，不再是實驗樓的屋頂設備。白樓是白牆平頂，藝文館是灰牆加綠瓦坡頂。宿舍暖色、實驗樓冷灰加屋頂設備、游泳館綠灰、教學樓深色基座加淺色上層。窗帶、名牌、坡頂與教學樓橫樑在高畫質 90 m、省電 48 m 外關掉，量體留著。覺軒花園是四根角柱和綠瓦頂，中間可以走，碰撞只在柱。另一筆覺軒仍是坡頂。精度仍是 estimated。"
     },
     {
       "id": "ART-063",

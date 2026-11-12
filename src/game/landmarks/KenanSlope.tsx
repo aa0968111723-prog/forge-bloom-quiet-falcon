@@ -2,6 +2,7 @@ import { useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { AXIS, PLAZA_ELEVATION } from "../world-data/axis.ts";
+import { gateCrosswalkBars } from "../world-data/crosswalk.ts";
 import { sampleGroundElevation, spineRampElevation } from "../world-data/elevation.ts";
 import {
   KENAN,
@@ -246,6 +247,17 @@ export function KenanSlope({ wetness }: { wetness: number }) {
         >
           <boxGeometry args={[KENAN.wallThickness + 0.1, 0.7, KENAN.landingDepth]} />
           <meshStandardMaterial {...wall} />
+        </mesh>
+      ))}
+
+      {gateCrosswalkBars().map((bar) => (
+        <mesh
+          key={`cross-${bar.x}`}
+          position={[bar.x, sampleGroundElevation(bar.x, bar.z) + 0.09, bar.z]}
+          receiveShadow
+        >
+          <boxGeometry args={[bar.w, 0.02, bar.d]} />
+          <meshBasicMaterial color="#f4efe4" />
         </mesh>
       ))}
 
