@@ -806,3 +806,49 @@ test("a long variety note still uploads the run", async () => {
   assert.deepEqual(dropped.variety.resolved, ["gv-night-patrol"]);
   assert.equal(validateRpgDocument(dropped).ok, true);
 });
+
+test("an empty narrative seed still uploads the campus memory", () => {
+  const memory = "還在圖書館。";
+  const kept = "s".repeat(63);
+  const file = (seed) =>
+    JSON.stringify({
+      version: 2,
+      hp: 80,
+      xp: 12,
+      departmentId: "math",
+      slots: [],
+      buildings: [],
+      narrative: {
+        version: 1,
+        seed,
+        rngState: 12,
+        minute: 480,
+        memory: { "npc-chen-yu:last": memory },
+      },
+    });
+  assert.equal(useRpg.getState().importSave(file("")), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.narrative.seed, "campus");
+  assert.equal(saved.narrative.rngState, 12);
+  assert.equal(saved.narrative.minute, 480);
+  assert.equal(saved.narrative.memory["npc-chen-yu:last"], memory);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.narrative.seed, "campus");
+  assert.equal(reloaded.narrative.memory["npc-chen-yu:last"], memory);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+
+  assert.equal(useRpg.getState().importSave(file(kept)), true);
+  const named = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(named.narrative.seed, kept);
+  assert.equal(named.narrative.rngState, 12);
+  assert.equal(validateRpgDocument(named).ok, true);
+
+  assert.equal(useRpg.getState().importSave(file("t".repeat(64))), true);
+  const folded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(folded.narrative.seed, "campus");
+  assert.equal(folded.narrative.memory["npc-chen-yu:last"], memory);
+  assert.equal(validateRpgDocument(folded).ok, true);
+});
