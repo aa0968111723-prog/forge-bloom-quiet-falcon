@@ -1682,7 +1682,7 @@
       "id": "content-semester-claimed",
       "line": "content",
       "scope": "Semester follows existing claimed quests. The gate quest plus the campus errand is midterm. Those plus the existing combat mission first is finals. The errand pays 12 xp and 2 notes once into the existing bag. Both department catalogs stay. MAIN_INTEGRATION stays false.",
-      "status": "verified",
+      "status": "merged",
       "pr": 122,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/122",
       "integrationBranch": "cursor/integration-semester-claimed-3395",
@@ -1700,11 +1700,11 @@
         "route": "8137: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401"
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #122 by itself. Next art is PR #108 at head 6ac2cf3."
+      "merged": true,
+      "mergeSha": "9c803bb3c3a324b7fd3a66739269bc053d8d20bb",
+      "integrationPr": 125,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/125",
+      "nextAction": "None. The semester patches from 90768e4 and 9c45f10 are already in this integration. Do not merge PR #122 by itself. Next art is PR #108 at head 6ac2cf3, then PR #124 at head 2b45515."
     }
   ]
 }
