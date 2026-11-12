@@ -5832,7 +5832,7 @@
     {
       "id": "art-chueh-veranda",
       "title": "Give Chueh Hsuan a south veranda and a taller hip roof",
-      "status": "verified",
+      "status": "merged",
       "pr": 181,
       "branch": "cursor/chueh-veranda-1a71",
       "headSha": "bf9b3973b39922b3e6816522a975d88a7d794e28",
@@ -5847,11 +5847,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User jN44pmqhTRCi0KCTvgofDV3GhelGYYcE."
       },
       "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "0b432cb89a1c57751d00d856e60e88682b28771f",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #181 by itself. The next game commit is PR #183 da1881ad1355, the museum downhill skirt."
+      "integrationPr": 355,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/355",
+      "nextAction": "This is on integration PR #355. Do not merge PR #181 by itself. The next game commit is PR #183 da1881ad1355, the museum downhill skirt."
     }
   ]
 }
