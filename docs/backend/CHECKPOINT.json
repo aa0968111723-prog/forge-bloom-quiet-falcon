@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T09:56:41Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "b03df4b",
+  "base": "de1d7c1",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -126,7 +126,8 @@
     "merged main at 4e6a7df; the bollard stop was already on main",
     "variety notes that miss the bag stay out of collection",
     "merged main at b03df4b; the stack-room overflow was already on this branch",
-    "a lifetime build count inside the cloud cap survives import"
+    "a lifetime build count inside the cloud cap survives import",
+    "merged main at de1d7c1; the quest-mark merge was already on this branch"
   ],
   "verification": {
     "npm_test": "423 pass, 0 fail; a lifetime build count inside the cloud cap survives import",
