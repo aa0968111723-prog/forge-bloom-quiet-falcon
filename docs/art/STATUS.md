@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：坡底斑馬線（ART-062 的一部分）
+
+坡底入口鋪面上有六條斑馬線，夾在兩根門柱中間。南緣留在鋪面裡，也離坡底車阻一截。線是平塗，不擋人。間距仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/gates/crosswalk.jpg`。測試：`scripts/gate-crosswalk.test.mjs`。
+
 ## 階段：室內天花板（ART-080 的一部分）
 
 公共室內共用的房間不再朝天開。天花板上緣貼著 4.4 m 的牆頂。往下看到 1.12 rad 時，鏡頭停在板底下方 0.35 m，人還在畫面裡。房間尺寸仍是遊戲裡的 20×16 m，不是實測。車阻、田徑場內圈和坡道欄杆留著。
@@ -681,4 +687,4 @@
 畫面：`docs/art/evidence/track/pit.jpg`。測試：`scripts/court-lines.test.mjs`。
 
 ## 下一步
-見 `CHECKPOINT.json`。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。坡底入口已有六條斑馬線。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

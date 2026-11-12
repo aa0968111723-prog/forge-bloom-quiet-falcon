@@ -566,3 +566,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 110 輪（沙坑）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。沙坑在內圈東側，3×8 m。四個角都在跑道內緣橢圓裡，西緣在白線外側。太小的場不畫。內圈仍是 5 條線，南直道終點線留著。來源畫面：`docs/art/evidence/track/pit.jpg`。尺寸仍是 estimated。第 109 輪的終點線留著。沒有新增音效。
+## 第 111 輪（坡底斑馬線）— 2026-11-12
+
+`node --test scripts/gate-crosswalk.test.mjs` 通過。`tsc --noEmit` 通過。六條白線在坡底鋪面上。每條都在兩根門柱的內側，南緣不到門口線，也離坡底車阻超過 0.8 m。定步白天從南邊看，頁面無錯誤：`docs/art/evidence/gates/crosswalk.jpg`。白線橫在深色鋪面上，門柱和坡階都在。間距仍是 estimated。車阻留著。第 110 輪的沙坑留著。沒有新增音效。
+
