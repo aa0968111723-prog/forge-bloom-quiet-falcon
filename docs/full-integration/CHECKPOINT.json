@@ -4,6 +4,7 @@
   "base": "4b88b772d4e21424dd14b502655c1239b1abd8bf",
   "gameSha": "90768e40afcba821de2650955ee903b06b34cb73",
   "head": "9c45f10509867c9bde1aa9a95e2e85f167a87e20",
+  "docsRecord": "2240f84663b2322874a443169c44829f5e351389",
   "soleMerger": {
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "branch": "cursor/integration-art-m1-3395",
