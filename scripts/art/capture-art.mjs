@@ -685,6 +685,22 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "hoop") {
+    await hideHud(page);
+    await enterInterior(page, "gym");
+    await setPose(page, 5.4, 0, -Math.PI / 2);
+    await frames(page, 12);
+    await holdKeys(page, ["KeyW"]);
+    await page.waitForFunction(() => window.__controlsTest.getPosition().x > 6.7);
+    await frames(page, 8);
+    await holdKeys(page, []);
+    await frames(page, 8);
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: -1.1, distance: 6.5, height: 2.2, lookY: 1.6 });
+    });
+    await frames(page, 6);
+    await shot(page, "stand", `gym hoop base, walked east and stopped ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

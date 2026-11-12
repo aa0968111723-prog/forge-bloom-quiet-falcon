@@ -69,6 +69,8 @@ export function AdventurePlayer() {
           radius,
           CAMPUS_SITES.find((s) => s.id === useRpg.getState().interiorId)
             ?.theme !== "sport",
+          CAMPUS_SITES.find((s) => s.id === useRpg.getState().interiorId)
+            ?.theme === "sport",
         )
       : resolveBuildings(x, z, radius, useRpg.getState().buildings);
   const { camera, gl } = useThree();

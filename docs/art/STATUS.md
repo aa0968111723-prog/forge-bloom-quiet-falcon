@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：籃架底座（ART-082 的一部分）
+
+體育館的兩座籃架各有一塊 1.4 m 的底座，會擋住半徑 0.42 m 的身體。從底座中心會被推開。往東跨 1.04 m 仍停在中心西側。教室裡同一點不會被這座底座推開。南門仍站得住。房間仍不是實測。田徑場內圈留著。
+
+畫面：`docs/art/evidence/hoop/stand.jpg`。測試：`scripts/hoop-base.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。體育館籃架底座會擋人。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

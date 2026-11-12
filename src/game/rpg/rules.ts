@@ -5,7 +5,7 @@ import { terrainHeight } from "../world.ts";
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
 import { keepOut } from "../../features/items-equipment-building/keepout.ts";
 import { RECIPES, type BuildKind } from "./data.ts";
-import { ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
+import { HOOP_STANDS, ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
 export type Building = {
   id: string;
   kind: BuildKind;
@@ -304,9 +304,30 @@ export function resolveInterior(
   z: number,
   radius: number,
   furnished = true,
+  stands = false,
 ) {
-  let px = Math.max(-9 + radius, Math.min(9 - radius, x)),
-    pz = Math.max(-7 + radius, Math.min(7 - radius, z));
+  const minX = -9 + radius, maxX = 9 - radius, minZ = -7 + radius, maxZ = 7 - radius;
+  let px = Math.max(minX, Math.min(maxX, x)),
+    pz = Math.max(minZ, Math.min(maxZ, z));
+  if (stands) {
+    for (const stand of HOOP_STANDS) {
+      const half = stand.size / 2 + radius;
+      if (Math.abs(px - stand.x) >= half || Math.abs(pz - stand.z) >= half) continue;
+      const pushX = stand.x + (px >= stand.x ? half : -half);
+      const pushZ = stand.z + (pz >= stand.z ? half : -half);
+      const penX = half - Math.abs(px - stand.x);
+      const penZ = half - Math.abs(pz - stand.z);
+      const xOk = pushX >= minX && pushX <= maxX;
+      const zOk = pushZ >= minZ && pushZ <= maxZ;
+      if (penX < penZ && xOk) px = pushX;
+      else if (zOk) pz = pushZ;
+      else if (xOk) px = pushX;
+      else {
+        px = Math.max(minX, Math.min(maxX, px));
+        pz = Math.max(minZ, Math.min(maxZ, pz));
+      }
+    }
+  }
   if (!furnished) return { x: px, z: pz };
   const hx = ROOM_TABLE_SIZE.width / 2 + radius;
   const hz = ROOM_TABLE_SIZE.depth / 2 + radius;
