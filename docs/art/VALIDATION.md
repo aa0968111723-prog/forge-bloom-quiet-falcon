@@ -367,3 +367,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 60 輪（田徑場內圈）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
+
+## 第 61 輪（書架讓位）— 2026-11-12
+
+`node --test scripts/shelf-clear.test.mjs` 通過。`tsc --noEmit` 通過。層板內緣 9.06、外緣 9.42。書本內緣 9.18、外緣 9.40。身體最外緣 9，牆內面 9.45。定步，人站在 x=8.5 看東側書架，頁面無錯誤：`docs/art/evidence/shelves/east.jpg`。書和人之間有空隙。房間仍不是實測。沒有新增音效。`build:site` 產物 `AdventureApp-DShupGYU.js`。
