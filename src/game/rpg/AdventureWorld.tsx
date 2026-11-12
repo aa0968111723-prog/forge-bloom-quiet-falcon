@@ -451,6 +451,10 @@ export function Interior() {
         <boxGeometry args={[20, 0.24, 16]} />
         <meshStandardMaterial color={finish?.floor ?? "#c8bca2"} roughness={0.85} />
       </mesh>
+      <mesh name="interior-ceiling" position={[0, 4.32, 0]}>
+        <boxGeometry args={[20, 0.16, 16]} />
+        <meshStandardMaterial color="#e7dfd0" roughness={0.9} />
+      </mesh>
       {[-1, 1].map((x) => (
         <mesh key={x} position={[x * 9.6, 2.2, 0]}>
           <boxGeometry args={[0.3, 4.4, 16]} />

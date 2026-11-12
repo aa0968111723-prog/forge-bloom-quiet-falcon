@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：室內天花板（ART-080 的一部分）
+
+公共室內不再是朝天開的盒子。天花板在牆頂，宮燈教室、圖書館和體育館共用這塊頂。房間尺寸仍是遊戲裡的 20×16 m，不是實測。坡道欄杆留著。
+
+畫面：`docs/art/evidence/interior/ceiling.jpg`。測試：`scripts/interior-ceiling.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。公共室內已有天花板。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
