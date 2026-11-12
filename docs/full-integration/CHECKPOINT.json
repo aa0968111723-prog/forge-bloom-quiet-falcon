@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T09:28:00Z",
+  "updated": "2026-11-12T09:37:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "1eb7a3b742aa49997b19c8d0a200bdb9dbe4ff2d",
-  "baseFull": "1eb7a3b is origin/main. It notes integration PR #264. GitHub lists that PR as MERGED. The game change is 1e505cf: a reused request id keeps the newer local save. The variety overflow join is fab5587, noted as PR #262, also MERGED. Merged here as 1777ccccbd50. Dialogue was played on AdventureApp-DEg0qO28.js. Content version stays 2.",
-  "playedBundle": "Jiang Zhao clash: dist/assets/AdventureApp-DEg0qO28.js via index-Cw5n7Dmz.js. Preview http://127.0.0.1:8088/ served that entry. AdventureApp is 890738 bytes. Her opening stays on AdventureApp-BjWzmiAr.js.",
-  "builtAfter": "npm run build:site after #262 and #264 wrote index-Cw5n7Dmz.js and AdventureApp-DEg0qO28.js, 890738 bytes. Jiang Zhao's opening stays on AdventureApp-BjWzmiAr.js. The dist has no literal revision_conflict or DATABASE_URL.",
-  "gameSha": "1777ccccbd50a55f7db24193a62200aef7b352a2",
-  "verifiedHead": "1777ccccbd50a55f7db24193a62200aef7b352a2",
+  "base": "dd6a7f36f47d1c0bee91c9f5d0dcb63a89ba4127",
+  "baseFull": "dd6a7f3 is origin/main. It notes integration PR #265. GitHub lists that PR as MERGED. The game change is ecf5615: a refused upload keeps the newer local save. Merged here as 6c7588512de3. The static adventure chunk stayed AdventureApp-DEg0qO28.js. Content version stays 2.",
+  "playedBundle": "Jiang Zhao schedule: dist/assets/AdventureApp-DEg0qO28.js via index-Cw5n7Dmz.js. Preview http://127.0.0.1:8088/ served that entry. AdventureApp is 890738 bytes. Her clash stays on the same file.",
+  "builtAfter": "npm run build:site after #265 kept index-Cw5n7Dmz.js and AdventureApp-DEg0qO28.js, 890738 bytes. The refused-upload change is in the cloud client. The dist has no literal revision_conflict or DATABASE_URL.",
+  "gameSha": "6c7588512de3a9b1fe53001729e6c5ab86f07bb1",
+  "verifiedHead": "6c7588512de3a9b1fe53001729e6c5ab86f07bb1",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -15,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T09:21:00Z",
+    "checkedAt": "2026-11-12T09:29:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196, session-blip reward check #197, session-blip save write-back #198, station harvest cooldown #200, restore-session confirm #202, upload-account confirm #203, revision-conflict account #205, restore revision-conflict #206, dropped-upload follow-up account #208, harvest cooldown cloud whitelist #210, reward receipt account #211, lost direct upload #213, quarantine item ids #215, database-down upload queue #217, sloped library rails #220, expired-session upload queue #222, variety-run station count #223, track infield pitch #225, empty-cloud queued upload #226, rate-limited reward #228, wrapped look-around yaw #229, 80-character campus memory #231, trimmed ground-loot id #233, repaired ground pile #234, move-lesson anchor #235, filtered campus discoveries #237, clamped quarantine durability #239, folded narrative clock #241, unnamed narrative place #242, narrative timer clamp #245, empty narrative key #247, trimmed quest claim #248, trimmed pilgrimage list #250, empty variety note #251, clipped variety note #253, empty narrative seed #254, trimmed harvest cooldown #256, full quarantine list #258, crowded ground pile #260, variety overflow join #262, reused request id resume #264. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196, session-blip reward check #197, session-blip save write-back #198, station harvest cooldown #200, restore-session confirm #202, upload-account confirm #203, revision-conflict account #205, restore revision-conflict #206, dropped-upload follow-up account #208, harvest cooldown cloud whitelist #210, reward receipt account #211, lost direct upload #213, quarantine item ids #215, database-down upload queue #217, sloped library rails #220, expired-session upload queue #222, variety-run station count #223, track infield pitch #225, empty-cloud queued upload #226, rate-limited reward #228, wrapped look-around yaw #229, 80-character campus memory #231, trimmed ground-loot id #233, repaired ground pile #234, move-lesson anchor #235, filtered campus discoveries #237, clamped quarantine durability #239, folded narrative clock #241, unnamed narrative place #242, narrative timer clamp #245, empty narrative key #247, trimmed quest claim #248, trimmed pilgrimage list #250, empty variety note #251, clipped variety note #253, empty narrative seed #254, trimmed harvest cooldown #256, full quarantine list #258, crowded ground pile #260, variety overflow join #262, reused request id resume #264, refused upload resume #265. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -70,19 +70,21 @@
     "node --experimental-transform-types scripts/integration-sang-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-sang-turn",
     "node --experimental-transform-types scripts/integration-sang-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-sang-after",
     "node --experimental-transform-types scripts/integration-jiang-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-jiang-meet",
-    "node --experimental-transform-types scripts/integration-jiang-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-jiang-clash"
+    "node --experimental-transform-types scripts/integration-jiang-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-jiang-clash",
+    "node --experimental-transform-types scripts/integration-jiang-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-jiang-turn"
   ],
   "done": [
-    "Merged origin/main 1eb7a3b (a reused request id keeps the newer local save, game 1e505cf, GitHub MERGED as PR #264; a variety overflow stays on the pile at the player's feet, game fab5587, GitHub MERGED as PR #262) as 1777ccc. npx tsc --noEmit passed. npm test was 412 pass / 0 fail. build:site wrote AdventureApp-DEg0qO28.js via index-Cw5n7Dmz.js, 890738 bytes. The dist has no revision_conflict or DATABASE_URL.",
-    "Two fresh architecture semesters paid Jiang Zhao's clash choices at the estimated business building, dx 0 dz 12, on that bundle. Shift and corner each moved store xp from 30 to 38 and notes from 18 to 19. The click added no campus discovery. The +8 is the clash stage and the note is the clash reward. No studio main. The card stayed level 1, showed 38/60, hp 100, focus 100, and named 系主任 · 企業管理學系. Semester stayed week-1.",
-    "The turn line did not follow the clash flag. A fresh semester has neither fac-he-prereq nor fac-he-fixed, so both routes reloaded onto the default 暫定表 line. Both turn buttons were visible and unpaid. quest-faculty-schedule-clash stayed at one. quest-faculty-schedule-turn was absent."
+    "Merged origin/main dd6a7f3 (a refused upload keeps the newer local save, game ecf5615, GitHub MERGED as PR #265) as 6c75885. npx tsc --noEmit passed. npm test was 414 pass / 0 fail. build:site kept AdventureApp-DEg0qO28.js via index-Cw5n7Dmz.js, 890738 bytes. The dist has no revision_conflict or DATABASE_URL.",
+    "Two fresh architecture semesters paid Jiang Zhao's schedule choices at the estimated business building, dx 0 dz 12, on that bundle. Carry and temp each moved store xp from 38 to 46 and left notes at 19. The click added no campus discovery. The +8 is the turn stage. This beat adds no note and has no studio main. The card stayed level 1, showed 46/60, hp 100, focus 100, and named 系主任 · 企業管理學系. Semester stayed week-1.",
+    "Neither fac-he-prereq nor fac-he-fixed was set, so both routes opened on the default 暫定表 line. The formal-table line did not follow this choice. Both routes reloaded onto 可以改成正式. Both formal buttons were visible and unpaid. quest-faculty-schedule-turn stayed at one. quest-faculty-schedule-after was absent."
   ],
   "todo": [
-    "Jiang Zhao's turn choices 我把兩邊的原句帶去給簡衡，不在這裡合成一句。 and 先在你這裡定暫定表，兩邊都還留著。 were visible and not clicked. Her turn beat follows fac-he-prereq or fac-he-fixed when those flags exist. A fresh semester opened on the default 暫定表 line. She is the business director at the estimated business building, dx 0 dz 12.",
+    "Jiang Zhao's formal choices 改成正式表。教育學院和商管的時段都留著。 and 正式表留一格空白，等他們自己填。 were visible and not clicked. Her after beat has no flagLines. She is the business director at the estimated business building, dx 0 dz 12.",
+    "Jiang Zhao's turn flagLines for fac-he-prereq and fac-he-fixed were not opened. These fresh semesters had neither flag.",
     "Xu Hui is wired at the estimated library post. This line did not click her. docs/quest-play/evidence screenshots are the other line's record.",
     "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked.",
     "The sloped library rails from #220 are on this branch. This line did not walk them. docs/art/evidence/ramp/slope-rails.jpg is the other integrator's record.",
-    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #264 already merged. Do not merge that branch again.",
+    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #265 already merged. Do not merge that branch again.",
     "Variety tip 3270f9f was the last fetched head. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
@@ -94,5 +96,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Jiang Zhao's turn choices at the estimated business building, dx 0 dz 12, 我把兩邊的原句帶去給簡衡，不在這裡合成一句。 or 先在你這裡定暫定表，兩邊都還留著。. She is the business director. Her turn beat follows fac-he-prereq or fac-he-fixed when those flags exist. A fresh semester opened on the default 暫定表 line. The quest is quest-faculty-schedule. The track infield and the sloped rails were not walked here. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge the variety overflow #262 or the reused request id #264 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Jiang Zhao's formal choices at the estimated business building, dx 0 dz 12, 改成正式表。教育學院和商管的時段都留著。 or 正式表留一格空白，等他們自己填。. She is the business director. Her after beat has no flagLines and requires fac-jiang-turn. The quest is quest-faculty-schedule. Her turn flagLines for fac-he-prereq and fac-he-fixed were not opened on these fresh semesters. The track infield and the sloped rails were not walked here. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge the refused upload #265 again. Do not merge PR #32 head 1fc5887."
 }
