@@ -178,9 +178,15 @@ export function CloudSaveDock() {
               type="button"
               style={button}
               onClick={() =>
-                void controller
-                  .keepRemoteVersion()
-                  .then((result) => setNote(JSON.stringify(result)))
+                void controller.keepRemoteVersion().then((result) => {
+                  if (result.status === "downloaded") {
+                    setNote(`已下載雲端版本 ${result.revision}。`);
+                    return;
+                  }
+                  setNote(
+                    result.status === "error" ? result.message : "沒有下載雲端存檔。本機進度仍在。",
+                  );
+                })
               }
             >
               保留雲端版本
