@@ -774,3 +774,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 38 減 30 是 8，也就是衝突階段的經驗。筆記加 1。欄位那一句不看這次是留括號還是刪掉。
 
 畫面：`/opt/cursor/artifacts/integration-an-clash/bracket-outcome.png`、`bracket-next.png`、`cut-outcome.png`、`cut-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。分組報告在畫面裡，這次沒有打。
+
+## 安澄的兩個欄位選項
+
+這段打在 `AdventureApp-DjCbJVkI.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-Cf89NQE2.js`。`main` 尖端 `6e90df9`（註記 PR #234，GitHub 狀態 MERGED；同一段還有 PR #233，GitHub 狀態 MERGED）。遊戲提交 `79cdcae` 保留過長掉落編號上的物品，`6ac1cb2` 把座標不能用的掉落堆拉回界內。合併提交 `90cfb4b`。主遊戲檔 888429 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-an-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-an-turn` | 通過，exit 0。`pageErrors` 空。前兩次同一指令在口頭那局因輸出管線 EIO 中斷，沒有完整步驟，不採用 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 394 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出是 `index-Cf89NQE2.js` 與 `AdventureApp-DjCbJVkI.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場和對應的衝突。點欄位之前存檔經驗 38、筆記 19。
+
+- 「欄位放譯文，原文附在下面。」之前先請她指出哪一個詞過重，再把猶豫留在括號。存檔經驗 46，筆記 19。結果句「這不是只展示漂亮的那版。」畫面是 1 級、「經驗 46/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「版本可以現在貼」。兩個貼牆選項都在。離開不結算，沒有 `quest-faculty-wording-after`。`quest-faculty-wording-turn` 只有一筆。沒有工作室任務，也沒有加筆記。重載後經驗 46、筆記 19，再交談仍是這一句。
+- 「欄位只放原文，譯文我口頭說明。」之前先讀原文，再刪掉那句。經驗同樣 38→46，筆記停在 19。結果句「口頭的那句你自己負責。」貼牆仍是「版本可以現在貼」。離開不結算。重載後這一句還在。
+
+46 減 38 是 8，也就是欄位階段的經驗。筆記停在 19。貼牆那一句不看這次是上下都貼還是只貼原文。
+
+畫面：`/opt/cursor/artifacts/integration-an-turn/both-outcome.png`、`both-next.png`、`oral-outcome.png`、`oral-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。分組報告在畫面裡，這次沒有打。這條線沒有在地上撿過長編號或界外的掉落堆。
