@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：公告牌（ART-084 的一部分）
+
+坡底、書卷廣場、東側和西側的四塊公告牌會擋住半徑 0.42 m 的身體。從東邊走向坡底那塊會停在牌面外。公告牌旁邊和三條巡禮折線仍走得過。牌位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/noticeboard.jpg`。測試：`scripts/notice-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。公告牌已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
