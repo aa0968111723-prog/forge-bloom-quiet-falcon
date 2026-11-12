@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：黑天鵝（ART-066 的一部分）
+
+海事博物館室內北牆是一座黑天鵝剪影和寫著黑天鵝的台座。人走到台座會停在外面，也留在房間裡。閱讀室沒有這座台座。船型外觀留著。外形仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/museum/swan.jpg`。測試：`scripts/swan-exhibit.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。博物館室內已有會擋人的黑天鵝台座。車阻已會擋人。田徑場內圈已有草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
