@@ -1040,3 +1040,51 @@ test("a retry does not overwrite another device's save", async () => {
   assert.equal(planned.status, "conflict");
   assert.equal(planned.remote.document.xp, 7);
 });
+
+test("dropping a continued upload writes the chosen local file back", async () => {
+  const cloud = fakeCloud();
+  let clock = 1_000;
+  const storage = memoryStorage();
+  const key = "tamkang-cloud-save-queue:user-a";
+  const fetch = async (url, init) => {
+    if ((init?.method ?? "GET") === "PUT" && init.body) {
+      const body = JSON.parse(init.body);
+      if (body.document?.xp === 9 && body.baseRevision === 2) {
+        storage.setItem("tamkang-rpg-v2", JSON.stringify(save(6)));
+        const items = JSON.parse(storage.getItem(key) ?? "[]");
+        storage.setItem(key, JSON.stringify(items.filter((item) => item.kind !== "put")));
+      }
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    now: () => clock,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(6)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  cloud.dropNext();
+  assert.equal((await client.flush()).sent, 0);
+  clock += 60_000;
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(9)));
+  cloud.setOffline(false);
+  await client.flush();
+  assert.deepEqual(
+    cloud.puts.filter((body) => body.document).map((body) => body.document.xp),
+    [1, 6, 9, 9, 6],
+  );
+  assert.equal(cloud.puts.at(-1).baseRevision, 3);
+  assert.equal(JSON.parse(client.readLocal()).xp, 6);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 4);
+});

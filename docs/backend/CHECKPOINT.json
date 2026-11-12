@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:05:00Z",
+  "updated_at": "2026-11-12T05:09:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "2ec9059",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -30,10 +30,11 @@
     "an upload that lands after the player keeps the cloud save is written back from the chosen local file",
     "the first flush of a queued upload sends the current local file when the player kept playing offline",
     "a failed upload retries the newest local file under a new request id, and continues only when the cloud still holds this device's last write",
-    "merged main at 1c8f11e and kept quest marks on ground loot in the cloud document"
+    "merged main at 1c8f11e and kept quest marks on ground loot in the cloud document",
+    "a continued upload that the player drops is written back from the chosen local file"
   ],
   "verification": {
-    "npm_test": "348 pass, 0 fail; quest marks on ground loot stay in the cloud document",
+    "npm_test": "349 pass, 0 fail; a dropped continuation writes the chosen local file back",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
