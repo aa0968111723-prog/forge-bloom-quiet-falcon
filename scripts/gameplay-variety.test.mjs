@@ -361,3 +361,43 @@ test("the night patrol can switch into the report lane and that fight can be won
   memory = reduceVariety(memory, { type: "abort" });
   assert.equal(memory.active, null);
 });
+
+test("encounter memory round-trips and a rejected write does not throw", () => {
+  const memory = {
+    ...emptyMemory("persist"),
+    resolved: ["gv-night-patrol"],
+    claims: ["quest-gv-night-peace"],
+    route: "peace",
+  };
+  let text = "";
+  const store = {
+    getItem() {
+      return text || null;
+    },
+    setItem(_key, value) {
+      text = value;
+    },
+  };
+  assert.equal(saveMemory(store, memory), true);
+  const restored = readMemory(JSON.parse(text));
+  assert.deepEqual(restored.resolved, ["gv-night-patrol"]);
+  assert.deepEqual(restored.claims, ["quest-gv-night-peace"]);
+  assert.equal(restored.route, "peace");
+  const missing = readMemory(undefined);
+  assert.equal(missing.active, null);
+  assert.deepEqual(missing.resolved, []);
+  assert.equal(
+    saveMemory(
+      {
+        getItem() {
+          return null;
+        },
+        setItem() {
+          throw new Error("quota");
+        },
+      },
+      memory,
+    ),
+    false,
+  );
+});
