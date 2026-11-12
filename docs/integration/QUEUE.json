@@ -5068,6 +5068,32 @@
       "integrationPr": 326,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/326",
       "nextAction": "None. The five-tigers stele from 04fb8bac is already in this integration. Do not merge PR #252 by itself. The maritime airframes commit 2e07ebe2 is still separate."
+    },
+    {
+      "id": "art-hull-exhibits",
+      "line": "art",
+      "scope": "The maritime museum airframes sit north of the hull and stop a 0.42 m body. The south door stays open.",
+      "status": "verified",
+      "pr": 255,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/255",
+      "integrationBranch": "cursor/integration-hull-exhibits-3395",
+      "sourceBranch": "cursor/hull-exhibits-1a71",
+      "baseSha": "9afb9e980fcf5f9dd06ae7737156bac610606158",
+      "headSha": "2e07ebe25ef7f39648d1d4e2bd72669e1cc0f471",
+      "dependencies": ["art-tiger-stele"],
+      "sharedFiles": ["src/game/landmarks/MuseumExhibits.tsx", "src/game/world-data/exhibits.ts", "src/game/world-data/colliders.ts", "scripts/museum-exhibits.test.mjs"],
+      "checks": {
+        "conflicts": "The five-tigers stele, shepherd meadow figure, still charm, still title camera, still river, still wind, library plinth, named boards, campus-gate piers, lamp poles, and trunk boxes stay. The airframe footprints now stop a walking body.",
+        "typecheck": "pass",
+        "npmTest": "460 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DtWg8jon.js sha256 93f085c5f453870584b795fa574fc6b2be02b0a9c34e9772cfb99dc27115ec41. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8252/",
+        "route": "8252 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "3db5283e4396954be1a26ad990dd9037731ec6a8",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #255 by itself."
     }
   ]
 }
