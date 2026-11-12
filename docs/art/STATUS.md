@@ -319,6 +319,12 @@
 
 畫面：`docs/art/evidence/chem/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：綜合球場標線（ART-067 的一部分）
+
+五虎崗綜合球場是兩塊有邊線、中線和球網的場。排球場有一圈邊線。標線都在草皮裡面。田徑場仍是跑道環，停車場仍是車格。標線尺寸仍是 estimated。化學館仍是淺色館身和屋頂排氣箱。
+
+畫面：`docs/art/evidence/courts/wuhu.jpg`。測試：`scripts/court-lines.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。化學館已從實驗樓方塊分開。科學館、工學館與工學大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。綜合球場已有兩塊標線。化學館已從實驗樓方塊分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
