@@ -1,0 +1,28 @@
+{
+  "owner": "faculty-story",
+  "branch": "cursor/faculty-story-75f5",
+  "head": "filled-after-commit",
+  "commands": [
+    "node --test scripts/faculty-story.test.mjs",
+    "node --test scripts/content-narrative.test.mjs scripts/narrative-bridge.test.mjs",
+    "npm test",
+    "npm run typecheck",
+    "PW_CHROMIUM_PATH=/usr/bin/google-chrome node scripts/faculty-story-capture.mjs",
+    "PW_CHROMIUM_PATH=/usr/bin/google-chrome node scripts/faculty-story-capture.mjs --timed"
+  ],
+  "done": [
+    "12 fictional faculty, 9 colleges, 3 chairs",
+    "16-beat studio main line, both choice indexes finish",
+    "six side lines plus case and schedule",
+    "main-game talk prompt, save cap 200, reward paid once",
+    "SwiftShader timed play 18.08 min at 1280x720"
+  ],
+  "todo": [
+    "device play on a phone and on a discrete GPU",
+    "replace provisional bottle, tote, and earphone props when art has licensed parts"
+  ],
+  "blockers": [
+    "Semester signal is still week-1. Midterm and finals are not triggered. See ID-REQUEST.md."
+  ],
+  "next_action": "Wait for the integration line's semester signal before gating any beat on midterm or finals."
+}
