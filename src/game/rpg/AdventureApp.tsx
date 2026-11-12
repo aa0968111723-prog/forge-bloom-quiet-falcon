@@ -6,6 +6,7 @@ import { quality, setQualityPreference } from "../quality";
 import { TITLE_ORBIT } from "./follow";
 import { World } from "../world/World";
 import { FacultyCast } from "../../features/faculty-story/FacultyCast";
+import { PsychCast } from "../../features/psych-story/PsychCast";
 import { Npcs } from "../Npcs";
 import { CAMPUS_SITES } from "./campus";
 import { AdventurePlayer } from "./AdventurePlayer";
@@ -102,6 +103,7 @@ function Scene({ onReady }: { onReady: () => void }) {
             <VarietyMarks />
             <Npcs />
             <FacultyCast />
+            <PsychCast />
           </>
         )}
         <AdventureSystems />
