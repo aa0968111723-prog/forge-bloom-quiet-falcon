@@ -4676,6 +4676,34 @@
       "integrationPr": 312,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/312",
       "nextAction": "None. The palace-hall corner camera from 3ce5f17 is already in this integration. Do not merge PR #121 by itself."
+    },
+    {
+      "id": "art-street-lamps",
+      "line": "art",
+      "scope": "Street-lamp heads follow the same lampsOn flag as the palace lanterns. Day heads stay dark and night heads glow. The head offset comes from the model proportions, not a measured lamp.",
+      "status": "verified",
+      "pr": 124,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/124",
+      "integrationBranch": "cursor/integration-street-lamps-3395",
+      "sourceBranch": "cursor/street-glow-1a71",
+      "baseSha": "b14662da016b0e02ed683e2ebf69d51ec0bf6c1d",
+      "headSha": "2b455151408bc67b410d468b543f537781701c9c",
+      "dependencies": ["art-palace-camera"],
+      "sharedFiles": ["src/game/world/Props.tsx", "src/game/world-data/street-lamp.ts"],
+      "checks": {
+        "conflicts": "Library ramp mesh stayed. Outdoor lamp heads now follow lampsOn. Palace camera, avenue frames, and the transfer budget stayed.",
+        "typecheck": "pass",
+        "npmTest": "446 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-50MxVB9u.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8239/",
+        "route": "pass. gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision_conflict, cloudXp 47, logout 401, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #124 by itself."
     }
   ]
 }
