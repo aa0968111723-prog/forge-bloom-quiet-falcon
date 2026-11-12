@@ -426,6 +426,11 @@ export function createCloudSaveController(options: {
         const accepted = await acceptCloudDocument(payload.document, payload.contentHash);
         if (!accepted.ok)
           return { status: "error", code: accepted.code, message: accepted.message };
+        const still = await accountGate(userId);
+        if (still === "offline") return { status: "local_only", reason: "offline" };
+        if (still !== "ok") {
+          return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
+        }
         writeLocal(JSON.stringify(accepted.document));
         if (typeof payload.revision === "number") {
           writeMeta(userId, { revision: payload.revision, contentHash: accepted.hash });
@@ -647,6 +652,16 @@ export function createCloudSaveController(options: {
           typeof saved.revision === "number" &&
           typeof saved.contentHash === "string"
         ) {
+          const confirmed = await accountGate(userId);
+          if (confirmed !== "ok") {
+            if (!stillQueued(item)) return "drop";
+            remember(item, {
+              ...follow,
+              attempts: Math.max(1, follow.attempts),
+              nextAt: now(),
+            });
+            return "pause";
+          }
           if (!stillQueued(item)) {
             if (readQueue(userId).some((current) => current.kind === "put")) {
               bumpQueuedPutBase(userId, saved.revision);
@@ -709,6 +724,18 @@ export function createCloudSaveController(options: {
       }
       const payload = await response.json().catch(() => null);
       if (response.ok) {
+        const confirmed = await accountGate(userId);
+        if (confirmed !== "ok") {
+          if (stillQueued(item)) {
+            remember(item, {
+              ...pending,
+              attempts: Math.max(1, pending.attempts),
+              nextAt: now(),
+            });
+          }
+          writeRemaining();
+          return { sent, paused: true };
+        }
         const revision = payload && typeof payload.revision === "number" ? payload.revision : null;
         const contentHash =
           payload && typeof payload.contentHash === "string" ? payload.contentHash : null;
@@ -850,6 +877,19 @@ export function createCloudSaveController(options: {
           code: String(payload?.error?.code ?? response.status),
           message: String(payload?.error?.message ?? "上傳失敗。"),
         };
+      }
+      const confirmed = await accountGate(userId);
+      if (confirmed !== "ok") {
+        enqueue({
+          id: String(body.requestId),
+          userId,
+          kind: "put",
+          body,
+          attempts: 1,
+          nextAt: now(),
+        });
+        if (confirmed === "offline") return { status: "queued" };
+        return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
       }
       writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
       return { status: "uploaded", revision: payload.revision };

@@ -845,6 +845,30 @@ PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒
 
 瀏覽器 `http://127.0.0.1:8169/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
 
+## 補給站冷卻跟著存檔走（本輪）
+
+來源 `159e09f` 接到 `32a15ad`。存檔還原和後端檢查點有衝突。還原留下這次的 `facility:` 冷卻，學期戳記仍在。檢查點留下較新的 `2026-11-12T05:41:13Z` 和冷卻那一項。靜態產物改成 `AdventureApp-wsEEgaCK.js`。
+
+建成的補給站若冷卻還在 180 秒內，匯入和雲端重載會把它留下。編號長度 1 到 80。已過期或超過 180 秒的時間丟掉。地上補給點仍用同一個窗口。`npm run typecheck` 通過。`npm test` 356 通過，其中「reloading a cloud save keeps a built station's harvest cooldown」和匯入測試涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8170/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
+## 指定版本恢復再對一次帳號（本輪）
+
+來源 `0dac69d` 接到 `987c5a7`。後端檢查點只在時間和完成清單上有衝突，留下較新的 `2026-11-12T05:47:56Z` 和恢復確認那一項。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+指定版本恢復通過白名單和校驗之後，寫入本機前再對一次帳號。帳號換了或這次確認連不上，本機存檔維持原樣。`npm run typecheck` 通過。`npm test` 358 通過，其中「a session change does not apply a restored cloud save」和「a session blip does not apply a restored cloud save」涵蓋這兩項。
+
+瀏覽器 `http://127.0.0.1:8171/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
+## 上傳回應再對一次帳號（本輪）
+
+來源 `7291692`、`7b6bcbf` 接到 `85ecd5d`。後端檢查點只在時間和完成清單上有衝突，留下較新的 `2026-11-12T05:55:36Z` 和兩次上傳確認。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+上傳成功的回應在記下版本之前再對一次帳號。帳號換了或這次確認連不上，這筆上傳留在原帳號佇列，不把那個版本記成這台裝置的寫入。接續上傳也一樣。`npm run typecheck` 通過。`npm test` 363 通過，其中「a queued upload stays when its response arrives for another account」、「an upload is not recorded when the session changes before its response is accepted」、「a session blip does not retire a queued upload」、「a continued upload stays queued when its response arrives for another account」和「a session blip does not record a continued upload」涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8172/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作

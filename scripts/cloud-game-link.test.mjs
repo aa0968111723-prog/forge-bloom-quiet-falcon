@@ -29,6 +29,8 @@ await register(
 );
 
 const { RPG_SAVE_KEY, flushSave, noteCloudSave, useRpg } = await import("../src/game/rpg/store.ts");
+const { SUPPLY_NODES } = await import("../src/game/rpg/campus.ts");
+const { validateRpgDocument } = await import("../src/features/cloud-save/contract.ts");
 
 test("a downloaded cloud save is not overwritten by the running game", () => {
   const cloud = JSON.stringify({
@@ -73,4 +75,35 @@ test("reloading the downloaded cloud save keeps the interior floor", () => {
   assert.equal(useRpg.getState().interiorId, "library");
   assert.equal(useRpg.getState().floor, 3);
   assert.equal(useRpg.getState().saveConflict, false);
+});
+
+test("reloading a cloud save keeps a built station's harvest cooldown", () => {
+  const stationId = "11111111-2222-4333-8444-555555555555";
+  const supply = SUPPLY_NODES[0];
+  const until = Date.now() + 120_000;
+  const cloud = {
+    version: 2,
+    hp: 40,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    harvested: {
+      [`facility:${stationId}`]: until,
+      [supply.id]: until,
+      "facility:cooled-too-far": Date.now() + 999_999,
+    },
+  };
+  const text = JSON.stringify(cloud);
+  assert.equal(validateRpgDocument(cloud).ok, true);
+  localStorage.setItem(RPG_SAVE_KEY, text);
+  noteCloudSave(text);
+  useRpg.getState().reloadProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(useRpg.getState().harvested[`facility:${stationId}`], until);
+  assert.equal(useRpg.getState().harvested[supply.id], until);
+  assert.equal(useRpg.getState().harvested["facility:cooled-too-far"], undefined);
+  assert.equal(saved.harvested[`facility:${stationId}`], until);
+  assert.equal(saved.harvested[supply.id], until);
+  assert.equal(validateRpgDocument(saved).ok, true);
 });

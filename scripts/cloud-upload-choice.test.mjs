@@ -1287,9 +1287,9 @@ test("flush does not send the next upload after the session changes account", as
   assert.equal(posts[0].sessionId, "user-a");
   assert.equal(posts[0].eventId, "gather-notes");
   assert.equal(puts.length, 0);
-  assert.equal(flushed.sent, 1);
+  assert.equal(flushed.sent, 0);
   assert.equal(flushed.paused, true);
-  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(client.queuedCount("user-a"), 2);
   assert.equal(client.queuedCount("user-b"), 0);
   assert.equal(JSON.parse(client.readLocal()).xp, 4);
   assert.equal(grants, 1);
@@ -1369,4 +1369,288 @@ test("a session blip does not grant a reward the server already recorded", async
   assert.equal(grants, 0);
   assert.equal(posts, 1);
   assert.equal(client.queuedCount("user-a"), 0);
+});
+
+test("a session change does not apply a restored cloud save", async () => {
+  let sessionId = "user-a";
+  const head = save(1);
+  const other = save(99);
+  const headHash = await sha256Hex(canonicalJson(head));
+  const otherHash = await sha256Hex(canonicalJson(other));
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "GET") {
+      return jsonResponse(200, {
+        revision: 2,
+        schemaVersion: 1,
+        contentVersion: 2,
+        document: head,
+        etag: '"2"',
+        contentHash: headHash,
+      });
+    }
+    sessionId = "user-b";
+    return jsonResponse(200, {
+      revision: 3,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document: other,
+      etag: '"3"',
+      contentHash: otherHash,
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoreacct0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "error");
+  assert.equal(restored.code, "account_mismatch");
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
+
+test("a session blip does not apply a restored cloud save", async () => {
+  let sessionReads = 0;
+  const head = save(1);
+  const older = save(4);
+  const headHash = await sha256Hex(canonicalJson(head));
+  const olderHash = await sha256Hex(canonicalJson(older));
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      sessionReads += 1;
+      if (sessionReads === 4) throw new Error("session blip");
+      return sessionFor("user-a");
+    }
+    if ((init.method ?? "GET") === "GET") {
+      return jsonResponse(200, {
+        revision: 2,
+        schemaVersion: 1,
+        contentVersion: 2,
+        document: head,
+        etag: '"2"',
+        contentHash: headHash,
+      });
+    }
+    return jsonResponse(200, {
+      revision: 3,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document: older,
+      etag: '"3"',
+      contentHash: olderHash,
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoreblip0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "local_only");
+  assert.equal(restored.reason, "offline");
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
+
+test("a queued upload stays when its response arrives for another account", async () => {
+  let sessionId = "user-a";
+  let offline = true;
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "PUT") {
+      sessionId = "user-b";
+      return jsonResponse(200, {
+        revision: 4,
+        contentHash: "other-account-hash",
+        document: save(9),
+      });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "keepqueue0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(3)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  offline = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.paused, true);
+  assert.equal(flushed.sent, 0);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(storage.getItem("tamkang-cloud-save-meta:user-a"), null);
+  assert.equal(JSON.parse(client.readLocal()).xp, 3);
+});
+
+test("an upload is not recorded when the session changes before its response is accepted", async () => {
+  let sessionId = "user-a";
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "PUT") {
+      sessionId = "user-b";
+      return jsonResponse(200, {
+        revision: 4,
+        contentHash: "other-account-hash",
+        document: save(9),
+      });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "keepdirect0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(3)));
+  const uploaded = await client.uploadLocal();
+  assert.equal(uploaded.status, "error");
+  assert.equal(uploaded.code, "account_mismatch");
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(storage.getItem("tamkang-cloud-save-meta:user-a"), null);
+  assert.equal(JSON.parse(client.readLocal()).xp, 3);
+});
+
+test("a session blip does not retire a queued upload", async () => {
+  let sessionReads = 0;
+  let offline = true;
+  const storage = memoryStorage();
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    if (String(url).includes("/api/auth/get-session")) {
+      sessionReads += 1;
+      if (sessionReads === 3) throw new Error("session blip");
+      return sessionFor("user-a");
+    }
+    if ((init.method ?? "GET") === "PUT") {
+      return jsonResponse(200, {
+        revision: 2,
+        contentHash: "hash-2",
+        document: save(3),
+      });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "keepblip00001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(3)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  offline = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.paused, true);
+  assert.equal(flushed.sent, 0);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(storage.getItem("tamkang-cloud-save-meta:user-a"), null);
+  assert.equal(JSON.parse(client.readLocal()).xp, 3);
+});
+
+test("a continued upload stays queued when its response arrives for another account", async () => {
+  const cloud = fakeCloud();
+  let clock = 1_000;
+  let sessionId = "user-a";
+  let continuations = 0;
+  const storage = memoryStorage();
+  const fetch = async (url, init) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init?.method ?? "GET") === "PUT" && init.body) {
+      const body = JSON.parse(init.body);
+      if (body.document?.xp === 9) {
+        continuations += 1;
+        if (continuations === 2) {
+          sessionId = "user-b";
+          return jsonResponse(200, {
+            revision: 9,
+            contentHash: "other-account-hash",
+            document: save(9),
+          });
+        }
+      }
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    now: () => clock,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(6)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  cloud.dropNext();
+  assert.equal((await client.flush()).sent, 0);
+  clock += 60_000;
+  client.writeLocal(JSON.stringify(save(9)));
+  const flushed = await client.flush();
+  assert.equal(flushed.paused, true);
+  assert.equal(flushed.sent, 0);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(JSON.parse(storage.getItem("tamkang-cloud-save-meta:user-a")).revision, 1);
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+});
+
+test("a session blip does not record a continued upload", async () => {
+  const cloud = fakeCloud();
+  let clock = 1_000;
+  let armed = false;
+  let reads = 0;
+  const storage = memoryStorage();
+  const fetch = async (url, init) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      if (armed) {
+        reads += 1;
+        if (reads === 4) throw new Error("session blip");
+      }
+      return sessionFor("user-a");
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    now: () => clock,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(6)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  cloud.dropNext();
+  assert.equal((await client.flush()).sent, 0);
+  clock += 60_000;
+  client.writeLocal(JSON.stringify(save(9)));
+  armed = true;
+  const flushed = await client.flush();
+  assert.equal(flushed.paused, true);
+  assert.equal(flushed.sent, 0);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(JSON.parse(storage.getItem("tamkang-cloud-save-meta:user-a")).revision, 1);
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
 });
