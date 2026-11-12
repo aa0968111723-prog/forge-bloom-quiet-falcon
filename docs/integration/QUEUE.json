@@ -3780,6 +3780,32 @@
       "integrationPr": 268,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/268",
       "nextAction": "None. The follow-up stop resume from 304001b5 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-pile-split",
+      "line": "backend",
+      "scope": "When the ground already holds 100 piles and one pile has 17 item kinds, two piles that can take each other's items join first. The leftover chunk still lands. Notes stay at 100. The field lamp stays at x 12 z 18 with its quest mark. pile-wide keeps the notes quest mark. hp 80 and station-1 stay. A raw upload with more than 100 piles, or one pile with more than 16 item kinds, is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-pile-split-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "1be6a82c4c0986e44a78bbbf2e2408bd5d6b22d0",
+      "headSha": "eccb47438285e1e17ebee8a386011a50c0acb78d",
+      "dependencies": ["backend-follow-up-stop"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamp and completed tail. Kept 2026-11-12T09:30:42Z, base dd6a7f3, the merge notes at 3b5a11c and dd6a7f3, and the full-pile split line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "417 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DvHwdDRF.js",
+        "browser": "8210. The standing route completed.",
+        "route": "8210: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "1cc55bf7bcebc03a9aff612e8710153fc93f3ad4",
+      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
