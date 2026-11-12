@@ -12,9 +12,12 @@
 - 離線佇列只在原帳號登入後送出。
 - 刪除後依備份列還原，重開程序後同一筆存檔還在。
 - `GET /api/health` 在資料庫連不上時仍是 200，`GET /api/ready` 是 503，`SIGTERM` 結束碼 0。
-- `npm test`：207 通過、0 失敗。`tsc --noEmit` 通過。
-- `npm run build:site` 成功，`dist` 不含 `cloud-save` 或 `DATABASE_URL`。
+- 在 `53ec394` 上重跑：`tsc --noEmit` 通過，`npm test` 315 通過、0 失敗。
+- 目前校園快照（48 座設施、敘事工作階段、多樣玩法盤面、掉落與位置）可以通過雲端驗證。頂層 `score` 與敘事裡的額外欄位會被拒。
+- `npm run build:site` 通過，`dist` 不含 `cloud-save` 或 `DATABASE_URL`。
+- 已併入室內續玩的 `main`（`42b5e59`）。圖書館 3 樓的校園存檔經客戶端首次同步、第二個客戶端下載，並在程序重開後仍讀得到 `interiorId`、`floor`、敘事與多樣玩法。
+- 「上傳本機」會先看雲端：沒有存檔才做首次同步，已有版本則用該 revision 續寫，衝突時不覆寫。離線上傳留在原帳號佇列，換帳號不會送出。重新載入或回到該帳號登入後才送，相同 requestId 不會增加 revision。
 
 沒有合併 `main`，沒有部署。
 
-下一步：內容代理若交出新的 manifest 版本，沿用 `GET /api/cloud/content/manifest` 的欄位，不要在存檔同步裡執行內容檔。美術資產仍用他們的 manifest 與穩定 id。
+下一步：內容或玩法若新增 `snapshot()` 欄位，先補 `src/features/cloud-save/contract.ts` 的白名單再讓存檔上傳。不要在同步路徑執行內容檔。

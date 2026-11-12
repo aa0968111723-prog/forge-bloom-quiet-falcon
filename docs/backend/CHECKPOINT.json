@@ -1,23 +1,29 @@
 {
-  "updated_at": "2026-11-11T15:55:00Z",
-  "branch": "feature/backend-game-services",
-  "base": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
-  "milestone": "rpg-cloud-save-v1",
+  "updated_at": "2026-11-12T03:55:00Z",
+  "branch": "cursor/backend-db-link-6038",
+  "base": "4793fde",
+  "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
-    "inventory of main, open PR #6, local RPG save versus pilgrimage table",
-    "offline local save, explicit first sync, second client read, revision conflict, logout",
-    "authz rejection, idempotency, legacy save, offline queue, reward receipt, backup restore, process restart, database-down ready check"
+    "retested cloud save on main after the RPG cloud merge and later campus commits",
+    "accepted the current snapshot fields: narrative session, variety memory, loot, position, interior",
+    "rejected unknown top-level fields and oversized narrative maps",
+    "raised the document key budget so a 48-building campus save still fits",
+    "merged the living-interior continue and proved library floor 3 survives upload, download, and process restart",
+    "upload control uses first sync only when the cloud is empty, then the stored revision, and flushes only the signed-in account queue",
+    "reloading a signed-in client retries the same request id without bumping revision"
   ],
   "verification": {
-    "flow": "node --experimental-transform-types scripts/cloud-save-flow.mjs",
-    "npm_test": "207 pass, 0 fail",
+    "npm_test": "319 pass, 0 fail",
     "typecheck": "tsc --noEmit passed",
+    "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
+    "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
+    "upload_choice": "scripts/cloud-upload-choice.test.mjs passed, including reload replay",
     "build_site": "npm run build:site passed; dist has no cloud-save or DATABASE_URL"
   },
-  "next_action": "Keep the static build independent. When the content agent publishes a manifest, extend GET /api/cloud/content/manifest without executing content files. Do not merge or deploy.",
+  "next_action": "When a later merge adds a snapshot() field, extend the cloud whitelist and re-run npm test plus the live-save fixture. Do not merge or deploy.",
   "out_of_scope": [
-    "art PR #6",
     "competitive leaderboard",
-    "production deploy"
+    "production deploy",
+    "art and campus geometry"
   ]
 }
