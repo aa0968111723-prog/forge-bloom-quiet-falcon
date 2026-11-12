@@ -362,4 +362,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 59 輪（宮燈燈座）— 2026-11-12
 
-`node --test scripts/lantern-stop.test.mjs scripts/world-data.test.mjs scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。宮燈石燈座直徑 0.8 m，和網格用同一組座標。半徑 0.42 m 站在燈心會被推開。鋪面邊緣、相鄰兩燈中間和巡禮折線各點不被推開。路燈離燈座超過 1.2 m，不會被清出去。杜鵑改種在燈座外側，不再落在碰撞盒裡。定步白天從南邊走向西側第一盞燈，頁面無錯誤，停在 z=−17.18：`docs/art/evidence/avenue/lantern.jpg`。燈位仍是 estimated。欄杆擋人留在第 58 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BrUrk7Tj.js`。
+`node --test scripts/lantern-stop.test.mjs scripts/world-data.test.mjs scripts/prop-clearance.test.mjs scripts/route-walk.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。宮燈石燈座直徑 0.8 m，和網格用同一組座標。半徑 0.42 m 站在燈心會被推開。鋪面邊緣、相鄰兩燈中間和主巡禮中線各點不被推開。到宮燈教室的折線在銅像東側之後先回到大道南端（0, −14），再沿中線走到門口，不再斜切東側燈座（4.17, −24）。到圖書館的折線沿中線走到最後一盞燈以北，再向東繞過海豚基座，不再斜切燈座（4.17, −144）。三條折線都能走到門口。路燈離燈座超過 1.2 m，不會被清出去。杜鵑改種在燈座外側，不再落在碰撞盒裡。定步白天從南邊走向西側第一盞燈，頁面無錯誤，停在 z=−17.18：`docs/art/evidence/avenue/lantern.jpg`。燈位與折線仍是 estimated。欄杆擋人留在第 58 輪。沒有新增音效。`build:site` 產物 `AdventureApp-EiYhJghI.js`。

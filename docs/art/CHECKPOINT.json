@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "lantern-stop, world-data, and prop-clearance pass; full suite re-run on the integration branch",
+    "npm_test": "lantern-stop, route-walk, and campus-registry pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-BrUrk7Tj.js",
+    "build_site": "AdventureApp-EiYhJghI.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "A 0.42 m body on an avenue lantern base is pushed off the base. The paved centre, the gap between lanterns, and the pilgrimage route stay open. Lantern positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "A 0.42 m body on an avenue lantern base is pushed off the base. The paved centre and the gap between lanterns stay open. The palace line returns to the avenue centre, and the library line stays on the centre until north of the last lantern. Lantern positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }
