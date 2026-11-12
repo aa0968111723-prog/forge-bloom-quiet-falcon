@@ -365,3 +365,59 @@ test("a stray discovery still uploads the sites already found", async () => {
   assert.deepEqual(imported.discoveries, ["library", "gym"]);
   assert.equal(validateRpgDocument(imported).ok, true);
 });
+
+test("an old piece of gear with a wild durability still uploads", () => {
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    gear: [
+      {
+        id: "gear-retired-lamp",
+        itemId: "retired-lamp",
+        durability: 150_000,
+        quality: "fine",
+      },
+    ],
+    quarantineGear: [
+      {
+        id: "gear-old-charm",
+        itemId: "old charm",
+        durability: -4,
+        quality: "plain",
+      },
+      {
+        id: "gear-kept-pin",
+        itemId: "kept-pin",
+        durability: 40,
+        quality: "fine",
+      },
+    ],
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const lamp = saved.quarantineGear.find((row) => row.itemId === "retired-lamp");
+  const charm = saved.quarantineGear.find((row) => row.itemId === "old charm");
+  const pin = saved.quarantineGear.find((row) => row.itemId === "kept-pin");
+  assert.ok(lamp);
+  assert.ok(charm);
+  assert.ok(pin);
+  assert.equal(lamp.durability, 100_000);
+  assert.equal(lamp.quality, "fine");
+  assert.equal(charm.durability, 0);
+  assert.equal(pin.durability, 40);
+  assert.equal(pin.quality, "fine");
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(
+    reloaded.quarantineGear.find((row) => row.itemId === "retired-lamp").durability,
+    100_000,
+  );
+  assert.equal(reloaded.quarantineGear.find((row) => row.itemId === "kept-pin").durability, 40);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
