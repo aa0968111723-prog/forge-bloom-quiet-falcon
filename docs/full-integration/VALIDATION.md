@@ -1148,3 +1148,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 106 減 98 是 8，也就是並列階段的經驗。這一拍不加筆記。送回那一句只看有沒有建議對調。先修配商管課、不能改期配見習，這兩句沒有打開。
 
 畫面：`/opt/cursor/artifacts/integration-heng-turn/both-outcome.png`、`both-next.png`、`swap-outcome.png`、`swap-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。十二支車阻柱、田徑場內野和坡道側欄沒有走。這條線沒有另做這次任務標記加總，也沒有另做差事溢出筆記。
+
+## 簡衡的兩個送回選項
+
+這段打在 `AdventureApp-BO6mrBP4.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-CustrFy_.js`。`main` 尖端 `7edd533` 註記 PR #280，GitHub 上這份 PR 的狀態是 MERGED。遊戲變更是 `e154241`。合併提交 `8fd2618`。主遊戲檔 892254 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-heng-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-heng-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 423 通過、0 失敗。對象是合併 `8fd2618` |
+| `npm run build:site` | 產出 `index-CustrFy_.js` 與 `AdventureApp-BO6mrBP4.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先讓簡禾和江照開口，再結算簡衡的開場、對句和並列。點送回之前存檔經驗 106、筆記 19。這一次點選沒有新增校園發現項目。
+
+- 「我把並列的結果送回簡禾和江照。」之前維持並列，沒有建議對調。開場句是「草稿不會變成命令」。存檔經驗 116，筆記 20。結果句「到送達為止」。畫面是 2 級、「經驗 56/180」、生命 108/108、專注 100/100。提示「已入袋：課堂筆記 ×1」。對話卡仍寫教授、外交與國際關係學系。學期仍是第一週。再按「與簡衡交談」，面板關著，通知含「這段已經談完」。`quest-faculty-cross-after` 只有一筆。沒有工作室任務。重載後經驗 116、筆記 20，再按仍是這則通知。
+- 「有人還沒點頭，這份先當草稿。」之前建議對調。開場句是「就送建議」。經驗同樣 106→116，筆記 19→20。結果句「定死」。再按同樣是談完通知。重載後這則通知還在，生命仍是 108/108。
+
+116 減 106 是 10，也就是送回階段的經驗。筆記加 1。兩句並列這條線在這裡結束。
+
+畫面：`/opt/cursor/artifacts/integration-heng-after/return-outcome.png`、`return-done.png`、`draft-outcome.png`、`draft-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。十二支車阻柱、田徑場內野和坡道側欄沒有走。這條線沒有另做這次玩法獎勵溢出。

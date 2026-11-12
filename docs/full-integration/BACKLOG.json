@@ -368,7 +368,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters met Jian He and Jiang Zhao, paid Jian Heng's opening and check, then paid his side-by-side choices at the estimated administration building on AdventureApp-Bw-pCWgi.js at 1280x720. Both and swap each moved store xp from 98 to 106 and left notes at 19. The click added no campus discovery. The card showed level 2, 46/180, hp 108. Week-1 stayed. The +8 is the turn stage. This beat adds no note and has no studio quest. Prereq plus hear opened 先留了先修. Fixed plus class opened 不能改期. Prereq plus class, and fixed plus hear, were not opened. The return line followed fac-heng-swap. Both return choices were left unpaid. npm test was 422 pass / 0 fail on merge ceb3c3d."
+      "note": "Two fresh architecture semesters met Jian He and Jiang Zhao, paid Jian Heng's opening and check, then paid his side-by-side choices at the estimated administration building on AdventureApp-Bw-pCWgi.js at 1280x720. Both and swap each moved store xp from 98 to 106 and left notes at 19. The click added no campus discovery. The card showed level 2, 46/180, hp 108. Week-1 stayed. The +8 is the turn stage. This beat adds no note and has no studio quest. Prereq plus hear opened 先留了先修. Fixed plus class opened 不能改期. Prereq plus class, and fixed plus hear, were not opened. The return line followed fac-heng-swap. Both return choices were later paid in a separate pair of semesters. npm test was 422 pass / 0 fail on merge ceb3c3d."
+    },
+    {
+      "id": "FI-HENG-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian Heng's return at the estimated administration building on AdventureApp-BO6mrBP4.js at 1280x720. Return and draft each moved store xp from 106 to 116 and notes from 19 to 20. The click added no campus discovery. The card showed level 2, 56/180, hp 108, and the notes toast. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. The line followed fac-heng-swap. Talking again showed the nothing-new notice and left the panel closed. Reload kept xp 116, notes 20, and that notice. This cross line ends here. npm test was 423 pass / 0 fail on merge 8fd2618."
     },
     {
       "id": "FI-XU-HUI",
