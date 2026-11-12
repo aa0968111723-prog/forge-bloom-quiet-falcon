@@ -840,3 +840,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 30 減 12 是 18，也就是開場 6 加上崗位發現 12。筆記 18 是新學期背包原有的。衝突不看這次是先問不能借還是先聽兩個時段。
 
 畫面：`/opt/cursor/artifacts/integration-meng-meet/safety-outcome.png`、`safety-next.png`、`both-outcome.png`、`both-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做敘事時鐘或叫不出名字的地點匯入。
+
+## 孟昭的兩個衝突選項
+
+這段打在 `AdventureApp-DyYCDMBl.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-CuYsTjzn.js`。`main` 尖端仍是 `eccee6d`，這次抓取沒有新提交。合併提交 `08de580`。主遊戲檔 888972 bytes。這次沒有重建，也沒有重跑 `npm test`。399 通過、0 失敗屬於那個合併。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-meng-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-meng-clash` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 上一次在合併 `08de580` 通過。這次沒有改遊戲程式，沒有重跑 |
+| `npm test` | 上一次 399 通過、0 失敗。對象是合併 `08de580`。這次沒有重跑 |
+| `npm run build:site` | 上一次產出 `index-CuYsTjzn.js` 與 `AdventureApp-DyYCDMBl.js`。這次沿用那包，沒有重建 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場。點衝突之前存檔經驗 30、筆記 18。
+
+- 「遲到的人用剩下的時段，不往前吃。」之前先請她說哪一段不能借。存檔經驗 38，筆記 19。結果句「沒有人被罰停。」畫面是 1 級、「經驗 38/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。再交談，她說「保養要優先」。兩個保養選項都在。離開不結算，沒有 `quest-faculty-hours-turn`。`quest-faculty-hours-clash` 只有一筆。沒有工作室任務。重載後經驗 38、筆記 19，再交談仍是這一句。
+- 「兩組各讓十五分鐘，請你寫在表上。」之前先聽兩個都能用的時段。經驗同樣 30→38，筆記 18→19。結果句「不是誰遲到誰沒資格。」保養仍是「保養要優先」。離開不結算。重載後這一句還在，生命仍是 100/100。
+
+38 減 30 是 8，也就是衝突階段的經驗。筆記加 1。保養那一句不看這次是用剩下的還是各讓十五分鐘。
+
+畫面：`/opt/cursor/artifacts/integration-meng-clash/rest-outcome.png`、`rest-next.png`、`share-outcome.png`、`share-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。
