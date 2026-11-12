@@ -2354,7 +2354,7 @@
       "id": "backend-cloud-hold",
       "line": "backend",
       "scope": "After a cloud download or restore writes the local RPG file, the running game pauses autosave and asks through the existing save-conflict choice whether to keep the current progress or load that file.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-cloud-hold-3395",
@@ -2372,9 +2372,11 @@
         "route": "8159: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "40aeba883dd04b6e0a5d529c544aa67cca23bf68",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 176,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/176",
+      "nextAction": "None. The cloud-hold behavior from bb86c66 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
