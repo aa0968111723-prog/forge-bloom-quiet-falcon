@@ -1180,3 +1180,107 @@ test("a dropped upload that landed during a disconnect is written back", async (
   assert.equal(planned.status, "in_sync");
   assert.equal(planned.revision, 3);
 });
+
+test("flush does not send the next upload after the session changes account", async () => {
+  let sessionId = "user-a";
+  let offline = true;
+  let clock = 1_000;
+  const posts = [];
+  const puts = [];
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    const body = JSON.parse(init.body);
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      posts.push({ sessionId, eventId: body.eventId });
+      sessionId = "user-b";
+      return jsonResponse(200, { applied: true, eventId: body.eventId });
+    }
+    if ((init.method ?? "GET") === "PUT") {
+      puts.push({ sessionId, xp: body.document?.xp });
+      return jsonResponse(200, {
+        revision: 1,
+        contentHash: "abc",
+        document: body.document,
+      });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    now: () => clock,
+    randomId: () => "flushacct0001",
+  });
+  let grants = 0;
+  client.bindAccount("user-a");
+  assert.equal(
+    (
+      await client.noteReward("gather-notes", () => {
+        grants += 1;
+      })
+    ).granted,
+    true,
+  );
+  clock += 1;
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  assert.equal(client.queuedCount("user-a"), 2);
+  offline = false;
+  const flushed = await client.flush();
+  assert.equal(posts.length, 1);
+  assert.equal(posts[0].sessionId, "user-a");
+  assert.equal(posts[0].eventId, "gather-notes");
+  assert.equal(puts.length, 0);
+  assert.equal(flushed.sent, 1);
+  assert.equal(flushed.paused, true);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(client.queuedCount("user-b"), 0);
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+  assert.equal(grants, 1);
+});
+
+test("a session change is not given the other account's cloud save", async () => {
+  let sessionId = "user-a";
+  let flipped = false;
+  const fetch = async (url) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      const id = sessionId;
+      if (!flipped) {
+        flipped = true;
+        sessionId = "user-b";
+      }
+      return sessionFor(id);
+    }
+    const document = save(sessionId === "user-b" ? 99 : 1);
+    return jsonResponse(200, {
+      revision: 2,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document,
+      etag: '"2"',
+      contentHash: await sha256Hex(canonicalJson(document)),
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "othersave0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const planned = await client.plan();
+  assert.equal(planned.status, "error");
+  assert.equal(planned.code, "account_mismatch");
+  assert.equal(Object.hasOwn(planned, "remote"), false);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+
+  flipped = false;
+  sessionId = "user-a";
+  const downloaded = await client.downloadCloud();
+  assert.equal(downloaded.status, "error");
+  assert.equal(downloaded.code, "account_mismatch");
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});

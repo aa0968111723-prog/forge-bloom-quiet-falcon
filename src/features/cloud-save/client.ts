@@ -150,6 +150,13 @@ export function createCloudSaveController(options: {
       return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
     }
     const remote = await getRemote();
+    if (remote.status === "ready") {
+      const still = await accountGate(userId);
+      if (still === "offline") return { status: "local_only", reason: "offline" };
+      if (still !== "ok") {
+        return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
+      }
+    }
     if (remote.status === "offline") return { status: "local_only", reason: "offline" };
     if (remote.status === "down") return { status: "local_only", reason: "server_unavailable" };
     if (remote.status === "unauthorized")
@@ -259,6 +266,13 @@ export function createCloudSaveController(options: {
     }
     const accepted = await acceptCloudDocument(remote.head.document, remote.head.contentHash);
     if (!accepted.ok) return { status: "error", code: accepted.code, message: accepted.message };
+    if (userId) {
+      const still = await accountGate(userId);
+      if (still === "offline") return { status: "local_only", reason: "offline" };
+      if (still !== "ok") {
+        return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
+      }
+    }
     writeLocal(JSON.stringify(accepted.document));
     if (userId) {
       writeMeta(userId, { revision: remote.head.revision, contentHash: accepted.hash });
@@ -318,6 +332,11 @@ export function createCloudSaveController(options: {
             ];
           })
         : [];
+      const still = await accountGate(userId);
+      if (still === "offline") return { status: "local_only", reason: "offline" };
+      if (still !== "ok") {
+        return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
+      }
       return {
         status: "ready",
         headRevision: typeof payload.headRevision === "number" ? payload.headRevision : null,
@@ -370,6 +389,11 @@ export function createCloudSaveController(options: {
     base: number,
     revision: number,
   ): Promise<SyncPlan | { status: "restored"; revision: number }> {
+    const gate = await accountGate(userId);
+    if (gate === "offline") return { status: "local_only", reason: "offline" };
+    if (gate !== "ok") {
+      return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
+    }
     try {
       const response = await cloudFetch("/api/cloud/saves/rpg/restore", {
         method: "POST",
@@ -473,8 +497,9 @@ export function createCloudSaveController(options: {
       return { granted: true };
     }
     const gate = await accountGate(userId);
-    if (gate === "mismatch") return { granted: false };
-    if (gate === "offline") {
+    const again = gate === "ok" ? await accountGate(userId) : gate;
+    if (again === "mismatch") return { granted: false };
+    if (again === "offline") {
       rememberReward(userId, record);
       enqueue({
         id: requestId,
@@ -546,6 +571,7 @@ export function createCloudSaveController(options: {
     };
     const repairDroppedPut = async (pending: QueueItem) => {
       if (pending.kind !== "put" || !pending.body.document) return;
+      if ((await accountGate(userId)) !== "ok") return;
       try {
         const response = await cloudFetch("/api/cloud/saves/rpg", { method: "GET" });
         if (!response.ok) return;
@@ -588,6 +614,12 @@ export function createCloudSaveController(options: {
         if (canonicalJson(server.document) !== canonicalJson(item.body.document)) return "drop";
       } catch {
         return "drop";
+      }
+      const still = await accountGate(userId);
+      if (still !== "ok") {
+        if (!stillQueued(item)) return "drop";
+        remember(item, pending);
+        return "pause";
       }
       const requestId = randomId();
       const follow: QueueItem = {
@@ -640,6 +672,11 @@ export function createCloudSaveController(options: {
       if (item.userId !== userId) continue;
       if (!stillQueued(item)) continue;
       if (item.nextAt > now()) continue;
+      const still = await accountGate(userId);
+      if (still !== "ok") {
+        writeRemaining();
+        return { sent, paused: true };
+      }
       const pending = withLatestLocal(item);
       let response: Response;
       try {
@@ -773,10 +810,11 @@ export function createCloudSaveController(options: {
     body: Record<string, unknown>,
   ): Promise<SyncPlan | { status: "uploaded"; revision: number } | { status: "queued" }> {
     const gate = await accountGate(userId);
-    if (gate === "mismatch") {
+    const again = gate === "ok" ? await accountGate(userId) : gate;
+    if (again === "mismatch") {
       return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
     }
-    if (gate === "offline") {
+    if (again === "offline") {
       enqueue({
         id: String(body.requestId),
         userId,
@@ -929,6 +967,7 @@ export function createCloudSaveController(options: {
       writeMeta(userId, { revision, contentHash: serverHash });
       return;
     }
+    if ((await accountGate(userId)) !== "ok") return;
     try {
       const response = await cloudFetch("/api/cloud/saves/rpg", {
         method: "PUT",
