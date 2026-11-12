@@ -3668,6 +3668,34 @@
       "integrationPr": 260,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/260",
       "nextAction": "None. The crowded ground pile split from bb21e92b is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-variety-overflow",
+      "line": "backend",
+      "scope": "When the bag is full and the ground already holds 100 piles, leftover variety notes join the pile already at the player's feet. pile-feet notes go from 1 to 5. The pile count stays within 100. A raw upload of a 101st pile is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-variety-overflow-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "67f6cdf962ce012c927f00c1377e75abb029ae16",
+      "headSha": "63740817a17c2e17775fa1acbf01c6779cb94247",
+      "dependencies": ["backend-pile-types"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/features/gameplay-variety/host.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T08:35:57Z, the merge note at 5bc4ad8, and the variety overflow line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "409 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CCnWZOWf.js",
+        "browser": "8206. The standing route completed.",
+        "route": "8206: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "fab55872bcba9cdaf11b5aad5f74ecb861e8c313",
+      "integrationPr": 262,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/262",
+      "nextAction": "None. The variety overflow join from 63740817 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

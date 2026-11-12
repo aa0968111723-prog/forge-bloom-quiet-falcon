@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T09:16:45Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "67f6cdf",
+  "base": "3b5a11c",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -114,7 +114,8 @@
     "a refused upload keeps the newer local file on this device's revision",
     "merged main at 6b2c8c1; the full quarantine list was already on this branch",
     "merged main at 67f6cdf; the crowded ground pile split was already on this branch",
-    "a follow-up that is interrupted or refused keeps the newer local file on this device's revision"
+    "a follow-up that is interrupted or refused keeps the newer local file on this device's revision",
+    "merged main at 3b5a11c; the variety overflow join was already on this branch"
   ],
   "verification": {
     "npm_test": "416 pass, 0 fail; a follow-up that is interrupted or refused keeps the newer local file on this device's revision",
