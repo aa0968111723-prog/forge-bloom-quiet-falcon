@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T05:58:41Z",
+  "updated_at": "2026-11-12T05:59:49Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "987c5a7",
+  "base": "85ecd5d",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -48,7 +48,8 @@
     "an upload response is not recorded when the session changes account or the confirm read blips",
     "merged main at 987c5a7; the built-station harvest cooldown was already on this branch",
     "a continued upload is not recorded when the session changes account or the confirm read blips",
-    "a revision conflict from another account does not drop the queued upload or offer that save"
+    "a revision conflict from another account does not drop the queued upload or offer that save",
+    "merged main at 85ecd5d; the restore session confirm was already on this branch"
   ],
   "verification": {
     "npm_test": "366 pass, 0 fail; a revision conflict from another account does not drop the queued upload",

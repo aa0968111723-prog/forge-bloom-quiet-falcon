@@ -853,6 +853,14 @@ PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒
 
 瀏覽器 `http://127.0.0.1:8170/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
 
+## 指定版本恢復再對一次帳號（本輪）
+
+來源 `0dac69d` 接到 `987c5a7`。後端檢查點只在時間和完成清單上有衝突，留下較新的 `2026-11-12T05:47:56Z` 和恢復確認那一項。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+指定版本恢復通過白名單和校驗之後，寫入本機前再對一次帳號。帳號換了或這次確認連不上，本機存檔維持原樣。`npm run typecheck` 通過。`npm test` 358 通過，其中「a session change does not apply a restored cloud save」和「a session blip does not apply a restored cloud save」涵蓋這兩項。
+
+瀏覽器 `http://127.0.0.1:8171/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
