@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T09:56:41Z",
+  "updated_at": "2026-11-12T09:59:24Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "4e6a7df",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -126,10 +126,12 @@
     "merged main at 4e6a7df; the bollard stop was already on main",
     "variety notes that miss the bag stay out of collection",
     "merged main at b03df4b; the stack-room overflow was already on this branch",
-    "a lifetime build count inside the cloud cap survives import"
+    "a lifetime build count inside the cloud cap survives import",
+    "merged main at de1d7c1; the quest-mark merge was already on this branch",
+    "experience, defeats, and the game clock inside the cloud cap survive import"
   ],
   "verification": {
-    "npm_test": "423 pass, 0 fail; a lifetime build count inside the cloud cap survives import",
+    "npm_test": "424 pass, 0 fail; experience, defeats, and the game clock inside the cloud cap survive import",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
