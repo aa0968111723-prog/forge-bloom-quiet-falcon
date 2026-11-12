@@ -2010,6 +2010,34 @@
       "integrationPr": 147,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/147",
       "nextAction": "None. The wet courts from 41771bb are already in this integration. Do not merge PR #142 by itself."
+    },
+    {
+      "id": "art-court-lines",
+      "line": "art",
+      "scope": "The Wuhu field has two marked courts, each with a boundary, a center line, and a net. The volleyball court has a boundary. Lines stay inside the grass. Sizes are estimated. Wet colours stay on the same surfaces.",
+      "status": "verified",
+      "pr": 135,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/135",
+      "integrationBranch": "cursor/integration-court-lines-3395",
+      "sourceBranch": "cursor/court-lines-1a71",
+      "baseSha": "9dd707e6ce718322391a832af74213ec562b9827",
+      "headSha": "06a75dcb0d4c12e6e58311ac6dfabffd7a1a16da",
+      "dependencies": ["art-wet-courts"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "art docs and capture-art.mjs. Kept rounds 1-53 and the wet, field, slope, and cleared captures. Court lines are round 54. ContextStructures kept wetSurface and the two-court markings.",
+        "typecheck": "pass",
+        "npmTest": "312 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DCYaPlp2.js",
+        "browser": "8148. 1280x720 and 390x780 show two marked courts. Rain still darkens the grass and the lines remain. pageErrors empty.",
+        "route": "8148: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #135 by itself."
     }
   ]
 }

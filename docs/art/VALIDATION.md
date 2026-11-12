@@ -342,4 +342,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 54 輪（綜合球場標線）— 2026-11-12
 
-`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。五虎崗綜合球場有兩塊場，各四條邊線和一條中線，中線上有球網。排球場有一圈邊線。每條線都在草皮範圍內。田徑場和停車場沒有這些線。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/wuhu.jpg`。看得到兩塊白線場。標線尺寸仍是 estimated。雨後場地留在第 53 輪。沒有新增音效。
+`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。五虎崗綜合球場有兩塊場，各四條邊線和一條中線，中線上有球網。排球場有一圈邊線。每條線都在草皮範圍內。田徑場和停車場沒有這些線。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/wuhu.jpg`。看得到兩塊白線場。標線尺寸仍是 estimated。雨後場地留在第 53 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DCYaPlp2.js`。
