@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：長椅（ART-084 的一部分）
+
+47 張長椅會擋住半徑 0.42 m 的身體。從南邊走向廣場東南那張會停在椅面外。巡禮折線從廣場南椅外側回到大道中線，圖書館折線沿中線走到宮燈長椅以北再繞海豚基座。杜鵑改種在長椅靠鋪面的一側。椅位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/bench.jpg`。測試：`scripts/bench-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。長椅已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

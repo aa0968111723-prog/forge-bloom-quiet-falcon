@@ -129,7 +129,7 @@ function avenuePlanting(): PlantInstance[] {
   let i = 0;
   for (let z = AXIS.avenueSouthZ - 1.4; z > AXIS.avenueNorthZ; z -= 2.3, i++) {
     for (const s of [-1, 1] as const) {
-      out.push(plant("azalea", s * vergeX, z, 0.82 + (i % 4) * 0.09, 0));
+      out.push(plant("azalea", s * (AVENUE_PAVED_WIDTH / 2 + 0.7), z, 0.82 + (i % 4) * 0.09, 0));
       if (i % 5 === 2) out.push(plant("groundcover", s * (vergeX + 1.2), z, 1, 0));
     }
   }

@@ -7,7 +7,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LIBRARY, PALACE, benches, palaceHallZs } from "./landmarks.ts";
 import { COLLIDERS } from "./colliders.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
@@ -87,8 +87,9 @@ function kenanProps(): PropInstance[] {
     for (const s of [-1, 1] as const) out.push(prop("drain-grate", s * inner, z, "kenan"));
   }
   // Landing furniture — the place everybody stops to breathe.
-  out.push(prop("bench", -2.7, KENAN_LANDING_Z[0] - 2.2, "kenan", 0));
-  out.push(prop("bench", 2.7, KENAN_LANDING_Z[0] - 2.2, "kenan", Math.PI));
+  for (const seat of benches()) {
+    if (seat.zone === "kenan") out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
+  }
   out.push(prop("bin", 3.3, KENAN_LANDING_Z[1] + 1.2, "kenan"));
   out.push(prop("sign-post", -3.4, KENAN_LANDING_Z[1] + 1.0, "kenan", Math.PI / 2));
   // Bottom entrance.
@@ -116,9 +117,8 @@ function plazaProps(): PropInstance[] {
       prop("street-lamp", Math.sin(t) * (PLAZA_RADIUS + 2.2), Math.cos(t) * (PLAZA_RADIUS + 2.2), "plaza", t),
     );
   }
-  for (let a = 0; a < 6; a++) {
-    const t = Math.PI * 0.55 + (a / 6) * Math.PI * 0.9;
-    out.push(prop("bench", Math.sin(t) * (PLAZA_RADIUS - 2.4), Math.cos(t) * (PLAZA_RADIUS - 2.4), "plaza", t + Math.PI));
+  for (const seat of benches()) {
+    if (seat.zone === "plaza") out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
   }
   out.push(prop("bin", PLAZA_RADIUS - 1.6, -4.2, "plaza"));
   out.push(prop("sign-post", -4.2, -PLAZA_RADIUS + 1.2, "plaza", 0, 1.1));
@@ -144,7 +144,11 @@ function avenueProps(): PropInstance[] {
       out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z - 4.2, "avenue"));
       out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z + 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));
       out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z - 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));
-      out.push(prop("bench", s * (AVENUE_PAVED_WIDTH / 2 + 1.4), z + 9, "avenue", s > 0 ? -Math.PI / 2 : Math.PI / 2));
+      for (const seat of benches()) {
+        if (seat.zone === "avenue" && seat.z === z + 9 && Math.sign(seat.x) === s) {
+          out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
+        }
+      }
       out.push(prop("bin", s * (AVENUE_PAVED_WIDTH / 2 + 1.5), z - 11, "avenue"));
       out.push(prop("planter", s * (AVENUE_PAVED_WIDTH / 2 + 2.6), z, "avenue", 0, 1, 6));
     }
@@ -181,7 +185,11 @@ function northProps(): PropInstance[] {
   for (let k = 0; k < 6; k++) {
     const z = AXIS.scrollPlazaZ + d / 2 - 4 - k * ((d - 8) / 5);
     for (const s of [-1, 1] as const) {
-      out.push(prop("bench", s * (w / 2 - 4.5), z, "scroll", s > 0 ? -Math.PI / 2 : Math.PI / 2));
+      for (const seat of benches()) {
+        if (seat.zone === "scroll" && seat.z === z && Math.sign(seat.x) === s) {
+          out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
+        }
+      }
       out.push(prop("street-lamp", s * (w / 2 - 1.5), z, "scroll", 0, 1.05));
     }
   }
@@ -193,7 +201,11 @@ function northProps(): PropInstance[] {
 
   // Library forecourt: benches (「閱讀的女孩」 sits on one), ramp, tactile route.
   for (let k = 0; k < 6; k++) {
-    out.push(prop("bench", -12 + k * 8.4, AXIS.libraryFrontZ + 6.4, "library", Math.PI));
+    for (const seat of benches()) {
+      if (seat.zone === "library" && seat.x === -12 + k * 8.4) {
+        out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
+      }
+    }
   }
   out.push(prop("ramp", LIBRARY_RAMP.x, LIBRARY_RAMP.z, "library", 0, 1, LIBRARY_RAMP.length));
   for (const side of [-1, 1] as const) {
@@ -273,7 +285,11 @@ function campusClusterProps(): PropInstance[] {
   ];
   for (const [x, z] of eastLamps) {
     out.push(prop("street-lamp", x + 2.2, z, "east", 0));
-    out.push(prop("bench", x - 2.4, z, "east", Math.PI / 2));
+    for (const seat of benches()) {
+      if (seat.zone === "east" && seat.x === x - 2.4 && seat.z === z) {
+        out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
+      }
+    }
   }
   const westLamps: [number, number][] = [
     [-70, 8],
@@ -283,7 +299,11 @@ function campusClusterProps(): PropInstance[] {
   ];
   for (const [x, z] of westLamps) {
     out.push(prop("street-lamp", x + 2.2, z, "west-academic", 0));
-    out.push(prop("bench", x - 2.4, z, "west-academic", Math.PI / 2));
+    for (const seat of benches()) {
+      if (seat.zone === "west-academic" && seat.x === x - 2.4 && seat.z === z) {
+        out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
+      }
+    }
   }
   out.push(prop("noticeboard", 130, -82, "east", 0));
   out.push(prop("noticeboard", -88, -24, "west-academic", 0));

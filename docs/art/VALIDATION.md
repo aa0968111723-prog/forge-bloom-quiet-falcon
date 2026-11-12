@@ -359,3 +359,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 58 輪（欄杆擋人）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs scripts/library-ramp.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 站在坡道中線不被推開。站在東側欄杆 x=-1.05 會被推到 x=-1.530，移開 0.48 m。南端外 1.2 m 的入口也不被推開。估計路網仍是一個相連的格網。克難坡仍沒有欄杆。沒有新增音效。欄杆留在第 57 輪。`build:site` 產物 `AdventureApp-C6frxvLx.js`。
+
+## 第 59 輪（長椅）— 2026-11-12
+
+`node --test scripts/bench-stop.test.mjs scripts/route-walk.test.mjs scripts/campus-registry.test.mjs scripts/world-data.test.mjs` 通過。`tsc --noEmit` 通過。47 張長椅和網格用同一組座標。椅面 1.7 m × 0.5 m，轉向之後取外框。半徑 0.42 m 站在廣場南椅中心會被推開。大道南端（0, −14）、主巡禮和三條折線的轉折點不被推開。折線從（2.2, −4）走到（2.2, −12），避開廣場南椅，再回到大道中線。圖書館折線沿中線走到 z=−200，再向東繞過海豚基座，不再斜切宮燈長椅。杜鵑改種在長椅靠鋪面的一側。定步白天從南邊走向廣場東南的長椅，頁面無錯誤，停在 z=−6.63：`docs/art/evidence/props/bench.jpg`。椅位仍是 estimated。欄杆擋人留在第 58 輪。沒有新增音效。`build:site` 產物 `AdventureApp-B9z0BA5k.js`。

@@ -669,6 +669,20 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "bench") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 3.9, -4.5, 0);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 40);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 1.15, distance: 6, height: 2.1, lookY: 0.7 });
+    });
+    await frames(page, 4);
+    await shot(page, "seat", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.z < -8.5) throw new Error(`walked through the bench ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

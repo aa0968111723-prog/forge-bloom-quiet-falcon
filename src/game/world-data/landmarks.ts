@@ -8,7 +8,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { sampleGroundElevation } from "./elevation.ts";
-import { KENAN, KENAN_LANDING_ELEVATION, KENAN_TOTAL_RISE, KENAN_TOTAL_RUN } from "./kenan.ts";
+import { KENAN, KENAN_LANDING_ELEVATION, KENAN_LANDING_Z, KENAN_TOTAL_RISE, KENAN_TOTAL_RUN } from "./kenan.ts";
 import type { Accuracy, RealCoordinate } from "./origin.ts";
 
 /**
@@ -103,6 +103,85 @@ export const PALACE = {
 
 export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
+}
+
+/** Bench seat: 1.7 m wide and 0.5 m deep before yaw. */
+export const BENCH = { width: 1.7, depth: 0.5 } as const;
+
+/** Every campus bench, in world XZ. The mesh and the collider both use this list. */
+export function benches(): { x: number; z: number; rotationY: number; zone: string }[] {
+  const seats = [
+    { x: -2.7, z: KENAN_LANDING_Z[0] - 2.2, rotationY: 0, zone: "kenan" },
+    { x: 2.7, z: KENAN_LANDING_Z[0] - 2.2, rotationY: Math.PI, zone: "kenan" },
+  ];
+  for (let a = 0; a < 6; a++) {
+    const t = Math.PI * 0.55 + (a / 6) * Math.PI * 0.9;
+    seats.push({
+      x: Math.sin(t) * (PLAZA_RADIUS - 2.4),
+      z: Math.cos(t) * (PLAZA_RADIUS - 2.4),
+      rotationY: t + Math.PI,
+      zone: "plaza",
+    });
+  }
+  for (const z of palaceHallZs()) {
+    for (const side of [-1, 1] as const) {
+      seats.push({
+        x: side * (AVENUE_PAVED_WIDTH / 2 + 1.4),
+        z: z + 9,
+        rotationY: side > 0 ? -Math.PI / 2 : Math.PI / 2,
+        zone: "avenue",
+      });
+    }
+  }
+  const [width, depth] = SCROLL_PLAZA_SIZE;
+  for (let k = 0; k < 6; k++) {
+    const z = AXIS.scrollPlazaZ + depth / 2 - 4 - k * ((depth - 8) / 5);
+    for (const side of [-1, 1] as const) {
+      seats.push({
+        x: side * (width / 2 - 4.5),
+        z,
+        rotationY: side > 0 ? -Math.PI / 2 : Math.PI / 2,
+        zone: "scroll",
+      });
+    }
+  }
+  for (let k = 0; k < 6; k++) {
+    seats.push({
+      x: -12 + k * 8.4,
+      z: AXIS.libraryFrontZ + 6.4,
+      rotationY: Math.PI,
+      zone: "library",
+    });
+  }
+  const clusters = [
+    [64, 8],
+    [64, -40],
+    [80, -90],
+    [130, -90],
+    [166, -90],
+    [180, -160],
+    [180, -210],
+    [-70, 8],
+    [-70, -48],
+    [-70, -160],
+    [-52, -260],
+  ] as const;
+  for (const [x, z] of clusters) {
+    seats.push({ x: x - 2.4, z, rotationY: Math.PI / 2, zone: x > 0 ? "east" : "west-academic" });
+  }
+  return seats;
+}
+
+/** Axis-aligned footprint of a rotated bench. */
+export function benchFootprint(seat: { x: number; z: number; rotationY: number }) {
+  const along = Math.abs(Math.cos(seat.rotationY));
+  const across = Math.abs(Math.sin(seat.rotationY));
+  return {
+    x: seat.x,
+    z: seat.z,
+    width: BENCH.width * along + BENCH.depth * across,
+    depth: BENCH.width * across + BENCH.depth * along,
+  };
 }
 
 export const LANDMARKS: RealityLandmark[] = [

@@ -1057,12 +1057,18 @@ const gymEntrance = siteEntrance(siteById.get("gym")!);
 const routeStart: XZ = [kenan.worldPosition[0], kenan.worldPosition[2]];
 
 const STEP_NOTE =
-  "幾何尚未依現勘重算。克難坡 132 階只是待核對的公開說法；現行 66/66 分段是待測。折線沒有展開階數。銅像與海豚基座從東側繞，體育館從宮燈教室南緣與活動中心、教育館之間的空檔走。";
+  "幾何尚未依現勘重算。克難坡 132 階只是待核對的公開說法；現行 66/66 分段是待測。折線沒有展開階數。銅像從東側繞，再從廣場南椅外側回到大道中線。圖書館折線沿中線走到宮燈長椅以北，再從東側繞過海豚基座。體育館從宮燈教室南緣與活動中心、教育館之間的空檔走。";
 
 /** East of the 驚聲銅像 plinth, the same side the avenue route uses. */
 const STATUE_PASS_X = 5.6;
 /** East of the dolphin plinth, the same side the avenue route uses. */
 const DOLPHIN_PASS_X = 6.6;
+/** North of the avenue benches and south of the dolphin plinth. */
+const PAST_BENCHES_Z = -200;
+const PLAZA_BENCH_PASS: XZ[] = [
+  [2.2, -4],
+  [2.2, -12],
+];
 
 function structureSpanX(id: string): { min: number; max: number } {
   const row = SECONDARY_STRUCTURES.find((structure) => structure.id === id);
@@ -1086,6 +1092,7 @@ export const ROUTE_SPECS = [
       routeStart,
       [0, AXIS.slopeTopZ],
       [STATUE_PASS_X, 0],
+      ...PLAZA_BENCH_PASS,
       [0, palaceEntrance.z],
       [palaceEntrance.x, palaceEntrance.z],
     ] as XZ[],
@@ -1101,7 +1108,10 @@ export const ROUTE_SPECS = [
       routeStart,
       [0, AXIS.slopeTopZ],
       [STATUE_PASS_X, 0],
+      ...PLAZA_BENCH_PASS,
       [0, AXIS.avenueSouthZ],
+      [0, PAST_BENCHES_Z],
+      [DOLPHIN_PASS_X, PAST_BENCHES_Z],
       [DOLPHIN_PASS_X, AXIS.dolphinZ],
       [0, AXIS.scrollPlazaZ],
       [libraryEntrance.x, libraryEntrance.z],
@@ -1118,6 +1128,7 @@ export const ROUTE_SPECS = [
       routeStart,
       [0, AXIS.slopeTopZ],
       [STATUE_PASS_X, 0],
+      ...PLAZA_BENCH_PASS,
       [0, SOUTH_OF_PALACE_Z],
       [GYM_LANE_X, SOUTH_OF_PALACE_Z],
       [GYM_LANE_X, gymEntrance.z],
