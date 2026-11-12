@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T06:54:51Z",
+  "updated_at": "2026-11-12T06:55:07Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "6f75c3e",
+  "base": "df20d53",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -66,7 +66,8 @@
     "an expired session keeps this account's upload and reward",
     "merged main at d12a2d9; the quarantine item ids were already on this branch",
     "merged main at 6f75c3e; the database-down upload queue was already on this branch",
-    "a variety run still uploads after the lifetime station count passes the standing cap of 48"
+    "a variety run still uploads after the lifetime station count passes the standing cap of 48",
+    "merged main at df20d53; the sloped library rails stay outside the save format"
   ],
   "verification": {
     "npm_test": "384 pass, 0 fail; a variety run still uploads after the lifetime station count passes the standing cap of 48",
