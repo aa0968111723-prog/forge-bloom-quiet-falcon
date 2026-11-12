@@ -866,31 +866,71 @@ function lootSliceId(id: string, index: number) {
   return `${id.slice(0, 80 - mark.length)}${mark}`;
 }
 
+function lootChunks(pile: Loot) {
+  const ids = Object.keys(pile.items);
+  const chunks = ids.length > LOOT_ITEM_KEYS ? Math.ceil(ids.length / LOOT_ITEM_KEYS) : 1;
+  const out: Loot[] = [];
+  for (let chunk = 0; chunk < chunks; chunk += 1) {
+    const slice = ids.slice(chunk * LOOT_ITEM_KEYS, (chunk + 1) * LOOT_ITEM_KEYS);
+    if (!slice.length) continue;
+    const items: Record<string, number> = {};
+    const quest: Record<string, number> = {};
+    for (const id of slice) {
+      items[id] = pile.items[id];
+      const marked = pile.quest?.[id];
+      if (marked) quest[id] = marked;
+    }
+    const next: Loot = {
+      id: chunk === 0 ? pile.id : lootSliceId(pile.id, chunk * LOOT_ITEM_KEYS),
+      x: pile.x,
+      z: pile.z,
+      items,
+    };
+    if (Object.keys(quest).length) next.quest = quest;
+    out.push(next);
+  }
+  return out;
+}
+function canAbsorbLoot(into: Loot, from: Loot) {
+  let added = 0;
+  for (const [id, qty] of Object.entries(from.items)) {
+    if ((into.items[id] ?? 0) + qty > LOOT_STACK) return false;
+    if (!(id in into.items)) added += 1;
+  }
+  return Object.keys(into.items).length + added <= LOOT_ITEM_KEYS;
+}
+function absorbLoot(into: Loot, from: Loot) {
+  for (const [id, qty] of Object.entries(from.items)) {
+    into.items[id] = (into.items[id] ?? 0) + qty;
+    const marked = from.quest?.[id];
+    if (!marked) continue;
+    const quest = { ...(into.quest ?? {}) };
+    quest[id] = Math.min(into.items[id], Math.max(quest[id] ?? 0, marked));
+    into.quest = quest;
+  }
+}
+function freeLootSlot(piles: Loot[]) {
+  for (let index = 0; index < piles.length; index += 1) {
+    for (let into = 0; into < piles.length; into += 1) {
+      if (into === index || !canAbsorbLoot(piles[into], piles[index])) continue;
+      absorbLoot(piles[into], piles[index]);
+      piles.splice(index, 1);
+      return true;
+    }
+  }
+  return false;
+}
 function cloudLoot(piles: Loot[]) {
   const out: Loot[] = [];
+  const pending: Loot[] = [];
   for (const pile of piles) {
-    const ids = Object.keys(pile.items);
-    const chunks = ids.length > LOOT_ITEM_KEYS ? Math.ceil(ids.length / LOOT_ITEM_KEYS) : 1;
-    for (let chunk = 0; chunk < chunks; chunk += 1) {
-      const slice = ids.slice(chunk * LOOT_ITEM_KEYS, (chunk + 1) * LOOT_ITEM_KEYS);
-      if (!slice.length) continue;
-      const items: Record<string, number> = {};
-      const quest: Record<string, number> = {};
-      for (const id of slice) {
-        items[id] = pile.items[id];
-        const marked = pile.quest?.[id];
-        if (marked) quest[id] = marked;
-      }
-      const next: Loot = {
-        id: chunk === 0 ? pile.id : lootSliceId(pile.id, chunk * LOOT_ITEM_KEYS),
-        x: pile.x,
-        z: pile.z,
-        items,
-      };
-      if (Object.keys(quest).length) next.quest = quest;
-      out.push(next);
-      if (out.length === LOOT_PILES) return out;
+    for (const chunk of lootChunks(pile)) {
+      if (out.length < LOOT_PILES) out.push(chunk);
+      else pending.push(chunk);
     }
+  }
+  for (const extra of pending) {
+    if (out.length < LOOT_PILES || freeLootSlot(out)) out.push(extra);
   }
   return out;
 }
