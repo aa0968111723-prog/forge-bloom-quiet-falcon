@@ -1850,7 +1850,7 @@
       "id": "content-faculty-story",
       "line": "content",
       "scope": "Twelve fictional faculty and chairs can be talked to at estimated posts. A cross-college choice changes a later line. Rewards use the existing quest settlement once. MAIN_INTEGRATION stays false.",
-      "status": "verified",
+      "status": "merged",
       "pr": 131,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/131",
       "integrationBranch": "cursor/integration-faculty-story-3395",
@@ -1868,11 +1868,11 @@
         "route": "8142: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": ["src/game/rpg/AdventureHud.tsx"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #131 by itself. Re-check PR #122 before adding another Gu Heng."
+      "merged": true,
+      "mergeSha": "afa63cc3eaa5e7ed196b8bf6d32b13d2bbf40e10",
+      "integrationPr": 139,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/139",
+      "nextAction": "None. The faculty patches through 246eadf are already in this integration. Do not merge PR #131 by itself. Re-check PR #122 at head 571779 before adding another Gu Heng."
     }
   ]
 }
