@@ -627,6 +627,10 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/notice-stop.test.mjs` 通過。`tsc --noEmit` 通過。四塊公告牌和網格用同一組座標。牌面寬 1.9 m、厚 0.16 m，轉向之後取外框。半徑 0.42 m 站在牌心會被推開。牌旁、主巡禮各點和三條折線的轉折點不被推開。從東邊走向坡底公告牌時，人停在牌面外。頁面無錯誤：`docs/art/evidence/props/noticeboard.jpg`。牌位仍是 estimated。書卷矮牆留在第 125 輪。沒有新增音效。
 
+## 第 131 輪（冷氣室外機）— 2026-11-13
+
+`node --test scripts/ac-stop.test.mjs` 通過。`tsc --noEmit` 通過。二十台冷氣室外機和網格用同一組座標。機身 0.84 m × 0.32 m，轉向之後取外框。半徑 0.42 m 從背面走向機會被推開。大道中線、主巡禮和三條折線的轉折點不被推開。從西側走向南端那台時，人停在機面外。頁面無錯誤：`docs/art/evidence/props/ac.jpg`。機位仍是 estimated。垃圾桶留在第 130 輪。沒有新增音效。
+
 ## 第 130 輪（垃圾桶）— 2026-11-13
 
 `node --test scripts/bin-stop.test.mjs` 通過。`tsc --noEmit` 通過。十八個垃圾桶和網格用同一組座標，直徑 0.56 m。半徑 0.42 m 站在廣場東側桶心會被推開。大道中線、主巡禮和三條折線的轉折點不被推開。圖書館折線沿中線走到桶列以北，也在最後一盞燈南側，再從東側繞過燈座。從廣場走向東側垃圾桶時，人停在桶外。頁面無錯誤：`docs/art/evidence/props/bin.jpg`。桶位仍是 estimated。長椅留在第 129 輪。沒有新增音效。

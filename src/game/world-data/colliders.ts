@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS, PLAZA_FLAGPOLE, SCROLL_WEST_WALL } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BIN, BOLLARD, CAMPUS_GATE, LANDMARKS, LANTERN_BASE, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, benchFootprint, benches, bins, bollards, lanternPosts, libraryPorchPosts, noticeboardFootprint, noticeboards, palaceColumns, palaceHallZs, planterFootprint, planters, textSignAabb, textSigns, utilityBoxFootprint, utilityBoxes } from "./landmarks.ts";
+import { BIN, BOLLARD, CAMPUS_GATE, LANDMARKS, LANTERN_BASE, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, acUnitFootprint, acUnits, benchFootprint, benches, bins, bollards, lanternPosts, libraryPorchPosts, noticeboardFootprint, noticeboards, palaceColumns, palaceHallZs, planterFootprint, planters, textSignAabb, textSigns, utilityBoxFootprint, utilityBoxes } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -166,6 +166,11 @@ function buildColliders(): AABB[] {
   }
 
   for (const can of bins()) out.push(box(can.x, can.z, BIN.diameter, BIN.diameter));
+
+  for (const unit of acUnits()) {
+    const footprint = acUnitFootprint(unit);
+    out.push(box(footprint.x, footprint.z, footprint.width, footprint.depth));
+  }
 
   // Library ramp rails. The bars are outside the 1.6 m deck; the centre stays open.
   for (const side of [-1, 1] as const) {
