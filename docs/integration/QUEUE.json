@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T02:25:00Z",
+      "updated": "2026-11-12T02:35:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1845,6 +1845,34 @@
       "integrationPr": 137,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/137",
       "nextAction": "None. The encounter patches through 94c0b8a are already in this integration. Do not merge PR #128 by itself. Next content is PR #131 at head 246eadf, then re-check PR #122 at head 571779."
+    },
+    {
+      "id": "content-faculty-story",
+      "line": "content",
+      "scope": "Twelve fictional faculty and chairs can be talked to at estimated posts. A cross-college choice changes a later line. Rewards use the existing quest settlement once. MAIN_INTEGRATION stays false.",
+      "status": "verified",
+      "pr": 131,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/131",
+      "integrationBranch": "cursor/integration-faculty-story-3395",
+      "sourceBranch": "cursor/faculty-story-75f5",
+      "baseSha": "dca0984bb0956a85b687d6083e2b4d25768990bf",
+      "headSha": "246eadff0bdac585bea28e3e49cd212d0e52f100",
+      "dependencies": ["content-encounter-import"],
+      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/AdventureApp.tsx", "src/game/rpg/store.ts", "src/game/rpg/narrative-bridge.ts"],
+      "checks": {
+        "conflicts": "AdventureHud close and scroll ids. Narrative uses narrative-close and narrative-scroll. Variety stays off the generic panel plan. Gear, semester, the bag, and the failed variety write stayed.",
+        "typecheck": "pass",
+        "npmTest": "305 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BJuLvNHy.js",
+        "browser": "8142. 1280x720 shows Gu Heng's three choices. Choosing the section raises xp from 12 to 34 and claims quest-faculty-gu-meet and quest-faculty-studio-meet. Reload stays at 34. 390x780 scrolls to 離開，不結算. Close button is 44x44. pageErrors empty.",
+        "route": "8142: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["src/game/rpg/AdventureHud.tsx"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #131 by itself. Re-check PR #122 before adding another Gu Heng."
     }
   ]
 }
