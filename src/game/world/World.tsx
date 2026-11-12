@@ -8,6 +8,7 @@ import { DolphinMilestone } from "../landmarks/DolphinMilestone";
 import { KenanSlope } from "../landmarks/KenanSlope";
 import { LanternAvenue } from "../landmarks/LanternAvenue";
 import { Library } from "../landmarks/Library";
+import { MuseumExhibits } from "../landmarks/MuseumExhibits";
 import { PalaceClassrooms } from "../landmarks/PalaceClassrooms";
 import { ScrollPlaza } from "../landmarks/ScrollPlaza";
 import { ShepherdMeadow } from "../landmarks/ShepherdMeadow";
@@ -81,6 +82,7 @@ export function World({ timeOfDay, onReady }: { timeOfDay: TimeOfDay; onReady?: 
 
           <ContextStructures wetness={preset.wetness} lampsOn={preset.lampsOn} />
           <TigerStele wetness={preset.wetness} />
+          <MuseumExhibits wetness={preset.wetness} />
           <Signage wetness={preset.wetness} />
           <Vegetation />
           <Props lampsOn={preset.lampsOn} />

@@ -496,3 +496,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/tiger-stele.test.mjs` 通過。`tsc --noEmit` 通過。石座中心會把人推開。蓋章點留在北側草地。一次 1.04 m 的位移不會穿到石座南側。石座不跨過館牆。巡禮折線不經過石座。白天從北邊走向石座會停在外側：`docs/art/evidence/tigers/stele.jpg`。外形與位置仍是 estimated。牧羊草坪的立姿留在第 91 輪。沒有新增音效。
 
+## 第 93 輪（舷側展示機）— 2026-11-12
+
+`node --test scripts/museum-exhibits.test.mjs` 通過。`tsc --noEmit` 通過。兩架展示機的中心都會把人推開。南門仍走得過。一次 1.04 m 的位移不會穿到機身另一側。巡禮折線和點名的樹不踩在機身上。白天從南邊走向戰鬥機會停在外側：`docs/art/evidence/exhibits/jet.jpg`、`heli.jpg`。外形與位置仍是 estimated。旋翼不轉。五虎碑留在第 92 輪。沒有新增音效。
+

@@ -590,6 +590,12 @@
 
 畫面：`docs/art/evidence/tigers/stele.jpg`。測試：`scripts/tiger-stele.test.mjs`。
 
+## 階段：舷側展示機（ART-066 的一部分）
+
+海事博物館北側停了一架戰鬥機和一架直升機，平行於船身。機身連機翼會擋住半徑 0.42 m 的身體。南門留在館外。旋翼不轉。外形與位置仍是 estimated。五虎碑和牧羊草坪的立姿留著。
+
+畫面：`docs/art/evidence/exhibits/jet.jpg`、`heli.jpg`。測試：`scripts/museum-exhibits.test.mjs`。
+
 ## 下一步
 
 見 `CHECKPOINT.json`。路燈燈柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

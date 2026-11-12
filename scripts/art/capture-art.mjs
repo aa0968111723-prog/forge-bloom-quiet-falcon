@@ -1057,6 +1057,33 @@ try {
     });
     await frames(page, 6);
     await shot(page, "north", `five tigers stele, day, walked south and stopped ${JSON.stringify(stopped)}`);
+  } else if (scenario === "exhibits") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 160, -260, 0);
+    await frames(page, 10);
+    await holdKeys(page, ["KeyW"]);
+    await page.waitForFunction(() => window.__controlsTest.getPosition().z < -264.2);
+    await frames(page, 6);
+    await holdKeys(page, []);
+    await frames(page, 8);
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 2.15, distance: 14, height: 3.2, lookY: 1.15 });
+    });
+    await frames(page, 6);
+    await shot(page, "jet", `fighter beside the hull, stopped ${JSON.stringify(stopped)}`);
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({
+        yaw: Math.PI,
+        distance: 12,
+        height: 2.6,
+        lookY: 1.15,
+        target: { x: 136, y: 22, z: -270 },
+      });
+    });
+    await frames(page, 6);
+    await shot(page, "heli", "helicopter beside the hull, rotor still");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
