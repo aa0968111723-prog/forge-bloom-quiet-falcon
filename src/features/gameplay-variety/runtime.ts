@@ -22,6 +22,7 @@ let payer: (intent: RewardIntent) => PayResult = () => ({
   credit: 0,
 });
 let saveFailed: () => void = () => {};
+let lastWrite = true;
 
 function browserStore(): MemoryStore | null {
   if (typeof localStorage === "undefined") return null;
@@ -34,9 +35,13 @@ function emptyFromStore() {
 
 function commit(next: Memory) {
   memory = next;
-  const wrote = saveMemory(browserStore(), memory);
+  lastWrite = saveMemory(browserStore(), memory);
   for (const listener of listeners) listener();
-  if (!wrote) saveFailed();
+  if (!lastWrite) saveFailed();
+}
+
+export function varietyWriteOk() {
+  return lastWrite;
 }
 
 export function getMemory() {
