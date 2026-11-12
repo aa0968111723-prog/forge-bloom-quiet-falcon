@@ -327,3 +327,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 50 輪（路燈淨空）— 2026-11-12
 
 `node --test scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。每一盞路燈的中心都在碰撞體外面。商管大樓那盞在南牆外，z 大於 -171。海事博物館那盞在南牆外，z 大於 -242。圖書館名牌朝南，z 在南牆外側。定步白天，頁面無錯誤：`docs/art/evidence/props/business.jpg`、`museum.jpg`。兩盞燈都站在牆前的草地上。位置仍是 estimated。化學館留在第 49 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CBoDD94C.js`。
+
+## 第 51 輪（覺軒花園）— 2026-11-12
+
+`node --test scripts/garden-pavilion.test.mjs` 通過。`tsc --noEmit` 通過。覺軒花園是 pavilion。中心點以半徑 0.42 m 不會被推開。四根角柱會擋住人。另一筆覺軒仍是 hip-roof-block。散佈的樹不落在亭子外緣 4 m 內。定步白天，頁面無錯誤：`docs/art/evidence/pavilion/open.jpg`。看得到綠瓦頂、紅柱和鋪面。外形仍是 estimated。路燈淨空留在第 50 輪。沒有新增音效。`build:site` 本輪未重跑。

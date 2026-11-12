@@ -11,6 +11,8 @@ import {
   contextShowsDetail,
   engTowerProfile,
   gardenHouseProfile,
+  PAVILION_INSET,
+  PAVILION_POST,
   glazingBand,
   poolHallProfile,
   linkedHallProfile,
@@ -1198,20 +1200,29 @@ export function ContextStructures({
           );
         }
         if (s.kind === "pavilion") {
-          // 覺軒: low garden pavilion with a green tiled roof.
+          const hx = s.size[0] / 2 - PAVILION_INSET;
+          const hz = s.size[2] / 2 - PAVILION_INSET;
           return (
             <group key={s.id} position={[s.position[0], y, s.position[1]]}>
-              <mesh position={[0, 1.7, 0]} castShadow receiveShadow>
-                <boxGeometry args={[s.size[0] * 0.72, 3.4, s.size[2] * 0.72]} />
-                <meshStandardMaterial
-                  {...surface(mats["palace/red-wall"], { wetness })}
-                />
+              <mesh position={[0, 0.06, 0]} receiveShadow>
+                <boxGeometry args={[s.size[0], 0.12, s.size[2]]} />
+                <meshStandardMaterial {...surface(mats["campus/plaza-tile"], { wetness })} />
               </mesh>
-              <mesh position={[0, 3.9, 0]} castShadow>
-                <coneGeometry args={[s.size[0] * 0.58, 1.9, 4]} />
-                <meshStandardMaterial
-                  {...surface(mats["palace/green-roof-tile"], { wetness })}
-                />
+              {[-1, 1].flatMap((sx) =>
+                [-1, 1].map((sz) => (
+                  <mesh key={`${sx}${sz}`} position={[sx * hx, 1.6, sz * hz]} castShadow>
+                    <boxGeometry args={[PAVILION_POST, 3.2, PAVILION_POST]} />
+                    <meshStandardMaterial {...surface(mats["palace/wood-column"], { wetness, tint: "#8d3a32" })} />
+                  </mesh>
+                )),
+              )}
+              <mesh position={[0, 3.35, 0]} castShadow>
+                <boxGeometry args={[hx * 2 + 1.4, 0.28, hz * 2 + 1.4]} />
+                <meshStandardMaterial {...surface(mats["palace/green-roof-tile"], { wetness })} />
+              </mesh>
+              <mesh position={[0, 4.35, 0]} castShadow>
+                <coneGeometry args={[Math.max(hx, hz) + 1.3, 1.8, 4]} />
+                <meshStandardMaterial {...surface(mats["palace/green-roof-tile"], { wetness })} />
               </mesh>
             </group>
           );
