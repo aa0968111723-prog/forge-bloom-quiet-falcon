@@ -2377,6 +2377,32 @@
       "integrationPr": 176,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/176",
       "nextAction": "None. The cloud-hold behavior from bb86c66 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-cloud-resume",
+      "line": "backend",
+      "scope": "Choosing a downloaded cloud save with health remaining continues on that file's public interior floor. A successful download or restore drops that account's unsent save upload. Reward receipts and other accounts stay queued.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-cloud-resume-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "38b6f9f68000874729bbba307a3a7a1e2e3a636a",
+      "headSha": "936ad5b71e067440aa72080fa49df8a705b2b76e",
+      "dependencies": ["backend-cloud-hold"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/features/cloud-save/client.ts", "scripts/cloud-game-link.test.mjs", "scripts/cloud-upload-choice.test.mjs"],
+      "checks": {
+        "conflicts": "none. The interior continue and the queue drop applied onto the cloud-hold client.",
+        "typecheck": "pass",
+        "npmTest": "337 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Crx82lpu.js",
+        "browser": "8160. The standing route completed with pageErrors empty.",
+        "route": "8160: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "9baa36ca66591879555f1351b16088898b9786a3",
+      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
