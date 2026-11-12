@@ -4256,6 +4256,34 @@
       "integrationPr": 297,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/297",
       "nextAction": "None. The Sungtao ground floor from 78ad4ea8 is already in this integration. Do not merge PR #175 by itself."
+    },
+    {
+      "id": "art-ramp-furniture",
+      "line": "art",
+      "scope": "The library bench nearest the ramp sits at x=-4.8, so the 1.7 m seat stays off the skirt. The planter on the ramp's x sits south of the lip. All six library benches and all eight planters have zero ramp lift under their footprints. Positions stay estimated.",
+      "status": "verified",
+      "pr": 152,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/152",
+      "integrationBranch": "cursor/integration-ramp-furniture-3395",
+      "sourceBranch": "cursor/ramp-benches-1a71",
+      "baseSha": "e1af2a309c92f03707c2820493d462725351ac41",
+      "headSha": "30580d3049547e2c4a16c1fd4e9f7165d4ffea97",
+      "dependencies": ["art-sungtao-front"],
+      "sharedFiles": ["src/game/world-data/props.ts", "scripts/ramp-furniture.test.mjs"],
+      "checks": {
+        "conflicts": "docs/art. Kept the furniture move and the Sungtao front, education hall, doorway, ceiling look-down, bollard, infield, and ramp-rail sections. build_site set to AdventureApp-B6lbdES4.js.",
+        "typecheck": "pass",
+        "npmTest": "436 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-B6lbdES4.js",
+        "browser": "8227. The standing route completed.",
+        "route": "8227: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "54d9f9a56dd4d3f6fcf02d4541156a9d805333f2",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #152 by itself."
     }
   ]
 }
