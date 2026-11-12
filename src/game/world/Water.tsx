@@ -1,6 +1,8 @@
 import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useReducedArtMotion } from "../art/motion";
+import { stepWaterTime } from "./scenery-motion.ts";
 import { RIVER_LEVEL } from "../world-data/elevation.ts";
 import { TIME_PRESETS, type TimeOfDay } from "../world-data/lighting.ts";
 import { WORLD_BOUNDS } from "../world-data/origin.ts";
@@ -66,6 +68,7 @@ const FRAG = /* glsl */ `
 
 export function Water({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   const material = useRef<THREE.ShaderMaterial>(null);
+  const reduced = useReducedArtMotion();
   const preset = TIME_PRESETS[timeOfDay];
 
   const uniforms = useMemo(
@@ -84,7 +87,7 @@ export function Water({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   );
 
   useFrame((state, delta) => {
-    uniforms.uTime.value += delta;
+    uniforms.uTime.value = stepWaterTime(uniforms.uTime.value, delta, reduced);
     uniforms.uCamPos.value.copy(state.camera.position);
     const k = 1 - Math.exp(-2.2 * delta);
     (uniforms.uSkyTint.value as THREE.Color).lerp(new THREE.Color(preset.sky), k);

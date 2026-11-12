@@ -476,3 +476,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/wind-motion.test.mjs` 通過。`tsc --noEmit` 通過。風力從 1 開始，減少動態走 40 步後低於 0.02，時鐘停在原值。恢復一般動態後白天風力回到 0.8 以上，時鐘繼續走。定步白天、系統減少動態，宮燈大道頁面無錯誤：`docs/art/evidence/motion/still-avenue.jpg`。雨絲原本就會停。圖書館台基留在第 86 輪。沒有新增音效。
 
+## 第 88 輪（減少動態時河與雲停）— 2026-11-12
+
+`node --test scripts/scenery-motion.test.mjs` 通過。`tsc --noEmit` 通過。減少動態時河面時鐘停在原值，雲的漂移也停住。一般動態時河面時間會加，雲每秒移 1.6 m，到 1600 m 後繞回。陰天、系統減少動態，西邊草地頁面無錯誤：`docs/art/evidence/motion/still-shore.jpg`。天色仍會跟著時段變。樹和草的風停留在第 87 輪。沒有新增音效。
+

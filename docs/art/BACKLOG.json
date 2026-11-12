@@ -898,9 +898,11 @@
         "docs/art/evidence/rain/high.jpg",
         "docs/art/evidence/rain/low.jpg",
         "docs/art/evidence/motion/still-avenue.jpg",
-        "scripts/wind-motion.test.mjs"
+        "docs/art/evidence/motion/still-shore.jpg",
+        "scripts/wind-motion.test.mjs",
+        "scripts/scenery-motion.test.mjs"
       ],
-      "notes": "雨後預設會在戶外鏡頭周圍下雨。高畫質 320 條，低畫質 64 條，室內不畫。減少動態時雨絲停住，樹冠、灌木和草的風力也收到 0，風的時鐘停住。恢復一般動態後白天風力回到 1。鋪面仍用 wetness。真機幀時間仍 pending-device。"
+      "notes": "雨後預設會在戶外鏡頭周圍下雨。高畫質 320 條，低畫質 64 條，室內不畫。減少動態時雨絲停住，樹冠、灌木和草的風力也收到 0，風的時鐘停住。恢復一般動態後白天風力回到 1。河面波紋的時鐘也停住，雲場不再漂移。天色仍會跟著時段變。鋪面仍用 wetness。真機幀時間仍 pending-device。"
     },
     {
       "id": "ART-090",
