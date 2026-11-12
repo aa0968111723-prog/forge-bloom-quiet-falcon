@@ -7,7 +7,7 @@
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | `public/textures` 的四張未引用 JPG 已移出靜態站，合計 1,199,761 bytes。`dist/textures` 不再出現。材質庫仍是 `public/materials/tamkang`。 | 來源 PR #154 `06f41bd`。整合 PR 尚未開 | `verified` |
+| 美術與場景 | `public/textures` 的四張未引用 JPG 已移出靜態站，合計 1,199,761 bytes。`dist/textures` 不再出現。材質庫仍是 `public/materials/tamkang`。 | 來源 PR #154 `06f41bd`。整合 PR #303 | `merged` |
 | 後端 | 蓋下巡禮章、切換靜音或時段時，RPG 存檔立刻寫入。人還沒移動，雲端要上傳的那份檔案也已經有這一章。 | 來源 PR #156 `36c47f0`。整合 PR #293 | `merged` |
 | 內容 | 許回站在圖書館外，複述玩家選的歸因和恢復。兩條都能玩完，獎勵各付一次。地上的委託獎勵不計入收集。 | 來源 PR #160 `c5c489b`、`e8b97ca`。整合 PR #182 | `merged` |
 
@@ -23,7 +23,7 @@
 | --- | --- |
 | 已製作 | 四張未引用的照片貼圖已移出靜態站 |
 | 已驗證 | `npm test` 438 通過。JS 產物仍是 `AdventureApp-BNiW9u13.js`，`dist/textures` 不存在。跨系統路線留在 8231 |
-| 已合併 | 否。遊戲程式 `2714562f`。`main` 未受保護、沒有必須的 check |
+| 已合併 | 是。遊戲程式 `2714562f`。整合 PR #303。`main` 未受保護、沒有必須的 check |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍
