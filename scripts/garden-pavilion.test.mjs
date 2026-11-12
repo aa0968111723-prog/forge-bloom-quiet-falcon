@@ -5,11 +5,11 @@ import { resolveCollision } from "../src/game/world-data/colliders.ts";
 import { scatterPlants } from "../src/game/world-data/vegetation.ts";
 import { SECONDARY_STRUCTURES, pavilionPosts } from "../src/game/world-data/zones/secondary.ts";
 
-test("the garden pavilion is open and the other Chueh Hsuan stays a hip roof", () => {
+test("the garden pavilion is open and Chueh Hsuan is a veranda hall", () => {
   const garden = SECONDARY_STRUCTURES.find((s) => s.id === "juexuan-garden");
   const house = SECONDARY_STRUCTURES.find((s) => s.id === "chuehhsuan");
   assert.equal(garden.kind, "pavilion");
-  assert.equal(house.kind, "hip-roof-block");
+  assert.equal(house.kind, "veranda-hall");
   const center = resolveCollision(garden.position[0], garden.position[1], 0.42);
   assert.ok(Math.hypot(center.x - garden.position[0], center.z - garden.position[1]) < 0.05);
   const posts = pavilionPosts(garden);

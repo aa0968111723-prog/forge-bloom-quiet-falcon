@@ -60,7 +60,8 @@ export type SecondaryStructure = {
     | "chem-hall"
     | "class-hall"
     | "seminar-hall"
-    | "lit-hall";
+    | "lit-hall"
+    | "veranda-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -562,7 +563,7 @@ export function businessHallProfile(size: readonly [number, number, number]) {
 
 /**
  * Reading hall for 文學館. The south window and flat eave are an estimated
- * silhouette. 覺軒 keeps the hip roof.
+ * silhouette. 覺軒 has its own veranda.
  */
 export function litHallProfile(size: readonly [number, number, number]) {
   const bayH = Math.min(4.2, Math.max(3.2, size[1] * 0.2));
@@ -574,6 +575,28 @@ export function litHallProfile(size: readonly [number, number, number]) {
     glassH: bayH * 0.55,
     glassZ: size[2] / 2 + 0.08,
     bandW: size[0] * 0.68,
+  };
+}
+
+/**
+ * Two-storey hall for 覺軒. The veranda and taller hip are an estimated
+ * silhouette. 文學館 keeps its flat eave.
+ */
+export function chuehVerandaProfile(size: readonly [number, number, number]) {
+  const porchD = 2.4;
+  const porchW = Math.min(16, size[0] * 0.62);
+  const porchH = Math.min(3.2, Math.max(2.8, size[1] * 0.36));
+  return {
+    porchD,
+    porchW,
+    porchH,
+    porchZ: size[2] / 2 + porchD / 2,
+    postX: porchW / 2 - 0.22,
+    roofH: Math.min(3.6, Math.max(2.8, size[1] * 0.42)),
+    roofR: Math.max(size[0], size[2]) / 2 + 0.8,
+    glassZ: size[2] / 2 + 0.08,
+    glassW: Math.min(6, size[0] * 0.22),
+    glassH: porchH * 0.55,
   };
 }
 
@@ -644,7 +667,7 @@ export function memorialProfile(size: readonly [number, number, number]) {
 
 /**
  * Garden house for 濯纓苑／校史館. The veranda and hip roof are an estimated
- * silhouette, not a measured elevation. 覺軒 stays the academic hip roof.
+ * silhouette, not a measured elevation. 覺軒 has its own veranda.
  */
 export function gardenHouseProfile(size: readonly [number, number, number]) {
   const porchD = 1.6;
@@ -869,6 +892,7 @@ function campusKind(site: {
   if (site.id === "chemistry") return "chem-hall";
   if (site.id === "hweiwen") return "seminar-hall";
   if (site.id === "humanities") return "lit-hall";
+  if (site.id === "chuehhsuan") return "veranda-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.id === "sungtao-2") return "dorm-front";
   if (site.theme === "dorm") return "dorm-block";

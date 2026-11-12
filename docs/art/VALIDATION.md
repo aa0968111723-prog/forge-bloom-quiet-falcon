@@ -584,3 +584,6 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 115 輪（松濤陽台）— 2026-11-12
 
 `node --test scripts/dorm-balcony.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。松濤一、三、四、五館仍是 dorm-block。松濤二館仍是 dorm-front，上層也有同一條南向陽台。陽台條數比樓層少一。每條都在南牆外，也低於屋頂。實棟不是 dorm-block，麗澤也不是。定步白天看松濤一館，頁面無錯誤：`docs/art/evidence/sungtao/balcony.jpg`。看得到南向橫條和「松濤一館」。陽台仍是 estimated。第 114 輪的文學館留著。沒有新增音效。`build:site` 產物 `AdventureApp-CIKAs1XY.js`。
+## 第 116 輪（覺軒）— 2026-11-12
+
+`node --test scripts/chueh-veranda.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。覺軒是 veranda-hall。文學館仍是 lit-hall。濯纓苑仍是 garden-house。坡頂高於共用的 2.6 m，半徑小於共用扁錐。迴廊接到南牆，也比樓身窄。定步白天南向，頁面無錯誤：`docs/art/evidence/chueh/veranda.jpg`。看得到迴廊、坡頂和「覺軒」。外形仍是 estimated。第 115 輪的松濤陽台留著。沒有新增音效。

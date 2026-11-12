@@ -38,7 +38,7 @@ test("white-hall and chuehhsuan are not the generic slab", () => {
   const hall = SECONDARY_STRUCTURES.find((item) => item.id === "chuehhsuan");
   const humanities = SECONDARY_STRUCTURES.find((item) => item.id === "humanities");
   assert.equal(white?.kind, "white-block");
-  assert.equal(hall?.kind, "hip-roof-block");
+  assert.equal(hall?.kind, "veranda-hall");
   const memorial = SECONDARY_STRUCTURES.find((item) => item.id === "chingsheng-building");
   assert.equal(memorial?.kind, "memorial-tower");
   assert.equal(memorial?.accuracy, "estimated");
@@ -182,7 +182,7 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(lobby.glassZ > activity.size[2] / 2, "activity glass sits on the south face");
   assert.ok(lobby.lobbyH < activity.size[1] * 0.4, "the lobby stays the ground storey");
   assert.ok(lobby.upperW < activity.size[0], "upper floors step back");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chuehhsuan")?.kind, "hip-roof-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "chuehhsuan")?.kind, "veranda-hall");
   const garden = SECONDARY_STRUCTURES.find((item) => item.id === "yingyuan");
   assert.equal(garden?.kind, "garden-house");
   assert.equal(garden?.accuracy, "estimated");
