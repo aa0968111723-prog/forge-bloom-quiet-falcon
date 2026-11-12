@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：宮燈燈座（ART-084 的一部分）
+
+宮燈大道兩側的石燈座會擋住半徑 0.42 m 的身體。從南邊走向西側第一盞燈會停在燈座南面。6 m 鋪面、兩燈之間和巡禮中線仍走得過。原本長在燈座裡的杜鵑改種在燈座外側。燈位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/avenue/lantern.jpg`。測試：`scripts/lantern-stop.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。宮燈燈座已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

@@ -359,3 +359,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 58 輪（欄杆擋人）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs scripts/library-ramp.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 站在坡道中線不被推開。站在東側欄杆 x=-1.05 會被推到 x=-1.530，移開 0.48 m。南端外 1.2 m 的入口也不被推開。估計路網仍是一個相連的格網。克難坡仍沒有欄杆。沒有新增音效。欄杆留在第 57 輪。`build:site` 產物 `AdventureApp-C6frxvLx.js`。
+
+## 第 59 輪（宮燈燈座）— 2026-11-12
+
+`node --test scripts/lantern-stop.test.mjs scripts/world-data.test.mjs scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。宮燈石燈座直徑 0.8 m，和網格用同一組座標。半徑 0.42 m 站在燈心會被推開。鋪面邊緣、相鄰兩燈中間和巡禮折線各點不被推開。路燈離燈座超過 1.2 m，不會被清出去。杜鵑改種在燈座外側，不再落在碰撞盒裡。定步白天從南邊走向西側第一盞燈，頁面無錯誤，停在 z=−17.18：`docs/art/evidence/avenue/lantern.jpg`。燈位仍是 estimated。欄杆擋人留在第 58 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BrUrk7Tj.js`。
