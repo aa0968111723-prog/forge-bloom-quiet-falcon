@@ -52,3 +52,25 @@ test("a downloaded cloud save is not overwritten by the running game", () => {
   assert.equal(localStorage.getItem(RPG_SAVE_KEY), cloud);
   assert.equal(useRpg.getState().xp, 99);
 });
+
+test("reloading the downloaded cloud save keeps the interior floor", () => {
+  const cloud = JSON.stringify({
+    version: 2,
+    hp: 40,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    interiorId: "library",
+    floor: 3,
+  });
+  localStorage.setItem(RPG_SAVE_KEY, cloud);
+  noteCloudSave(cloud);
+  useRpg.getState().reloadProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.interiorId, "library");
+  assert.equal(saved.floor, 3);
+  assert.equal(useRpg.getState().interiorId, "library");
+  assert.equal(useRpg.getState().floor, 3);
+  assert.equal(useRpg.getState().saveConflict, false);
+});

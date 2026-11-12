@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:00:00Z",
+  "updated_at": "2026-11-12T06:10:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "11e350c",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -23,10 +23,11 @@
     "a queued upload is not sent when the browser session belongs to a different account",
     "a cloud document that fails the whitelist or the content hash does not replace the local save",
     "a later offline upload replaces the earlier queued save for that account and flushes once",
-    "a downloaded cloud save is held while the game is running, so the autosave does not replace it"
+    "a downloaded cloud save is held while the game is running, so the autosave does not replace it",
+    "choosing the downloaded save resumes a living interior instead of leaving the player outside and dropping the floor"
   ],
   "verification": {
-    "npm_test": "334 pass, 0 fail; a running game does not overwrite a downloaded cloud save",
+    "npm_test": "335 pass, 0 fail; reloading a living cloud save keeps the interior floor",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

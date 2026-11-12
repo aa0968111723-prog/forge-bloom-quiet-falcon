@@ -2560,6 +2560,7 @@ function acceptForeignSave() {
     return;
   }
   useRpg.setState({ saveConflict: false });
+  if (useRpg.getState().hp > 0) useRpg.getState().continueGame(text);
 }
 function onForeignSave(event: StorageEvent) {
   if (event.key !== RPG_SAVE_KEY || typeof event.newValue !== "string") return;
