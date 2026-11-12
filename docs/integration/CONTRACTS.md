@@ -97,6 +97,8 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 靜態建置不要求伺服器，也不含雲端面板、`/api/cloud` 或敘事預覽頁。雲端信封的 `contentVersion: 2` 是這份 RPG 存檔的 `version`，不是敘事 manifest 的 `revision: 1`。`?qa=1` 才掛上 `window.__rpgQA`，正式遊玩不讀它。
 
+已登入的帳號可以列出自己最多 8 筆版本編號，並指定其中一筆寫回本機。列表不含存檔本體。版本不是 2、但帶有生命、經驗、背包、技能或已領任務的舊 RPG 檔是 `legacy_rpg`，雲端拒絕寫入，也不寫入巡禮表。巡禮檔仍是 `legacy_pilgrimage`。
+
 ## 尚未統一、本輪不刪的兩份科系表
 
 `src/game/departments.ts` 使用 `civil`、`cs` 這類 id。`src/game/rpg/data.ts` 使用 `engineering-工學院-N`。匯入舊檔時 `legacyDepartment` 會試著對名稱。兩份表都還有呼叫端。內容線給出唯一清冊之前，不刪其中一份，也不另做第三份。見 `KNOWN-ISSUES.md` 的 INT-01。
