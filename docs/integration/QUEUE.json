@@ -5633,7 +5633,7 @@
       "id": "art-notice-copy",
       "line": "art",
       "scope": "The four notice boards read 校園公告 and 請沿步道行走. The words are estimated game copy. The frames stay, and the boards do not gain a collider.",
-      "status": "verified",
+      "status": "merged",
       "pr": 290,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/290",
       "integrationBranch": "cursor/integration-notice-copy-3395",
@@ -5651,11 +5651,11 @@
         "route": "8272 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User ycHJlcf7UDBydU1qQ5DXdoLvnG8wJlN9."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Recorded before the integration PR. The notice copy from 9ba62780 is in this branch and is not on main yet. Do not merge PR #290 by itself. No open art pull request is newer than PR #290."
+      "merged": true,
+      "mergeSha": "f747150ba9f904ec54681da2cceb88df542ec9ca",
+      "integrationPr": 347,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/347",
+      "nextAction": "None. The notice copy from 9ba62780 is already in this integration. This is on integration PR #347. Do not merge PR #290 by itself. No open art pull request is newer than PR #290."
     }
   ]
 }
