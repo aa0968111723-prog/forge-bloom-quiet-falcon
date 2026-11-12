@@ -132,7 +132,7 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "study-block");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "study-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "class-hall");
   const language = SECONDARY_STRUCTURES.find((item) => item.id === "foreign");
   assert.equal(language?.kind, "language-hall");
   assert.equal(language?.accuracy, "estimated");
@@ -202,7 +202,8 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(door.bayZ > office.size[2] / 2, "office entrance sits on the south face");
   assert.ok(door.bayW < office.size[0] * 0.35, "the entrance bay stays narrow");
   assert.ok(door.bayH < office.size[1] * 0.3, "the entrance bay stays on the ground");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "study-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "class-hall");
+  assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "foreign")?.kind, "language-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");

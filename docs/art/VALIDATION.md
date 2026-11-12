@@ -379,3 +379,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 63 輪（室內南門）— 2026-11-12
 
 `node --test scripts/interior-door.test.mjs` 通過。`tsc --noEmit` 通過。南門開口半寬 2.5 m。半徑 0.42 m 從房間中央可以走出去；x = 2.8 m 貼著門框則出不去。體育館不擋閱讀桌的位置。不是實測房間。天花板留在第 62 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BvzNIml0.js`。
+
+## 第 64 輪（教育館）— 2026-11-12
+
+`node --test scripts/class-hall.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。教育館是 class-hall。會文館仍是 study-block。外語大樓仍是 language-hall。雨遮高 3.1 m，比樓身窄，伸到南牆外面。樓層遮陽比樓層數少一條。外形仍是 estimated。室內南門留在第 63 輪。沒有新增音效。`build:site` 產物 `AdventureApp-D2jQsO3t.js`。

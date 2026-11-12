@@ -737,6 +737,22 @@ try {
     if (blocked.interiorId !== "palace" || blocked.z > 7 || left.interiorId !== null) {
       throw new Error(`doorway ${JSON.stringify({ blocked, left })}`);
     }
+  } else if (scenario === "classhall") {
+    await hideHud(page);
+    await setPose(page, 224, -55, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(224, -84);
+      window.__controlsTest.setPhoto({
+        yaw: 0.4,
+        distance: 38,
+        height: 12,
+        lookY: 2,
+        target: { x: 224, y: y + 8, z: -84 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "education classroom hall");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

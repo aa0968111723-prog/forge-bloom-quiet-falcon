@@ -403,6 +403,12 @@
 
 畫面：`docs/art/evidence/interior/door-outside.jpg`。測試：`scripts/interior-door.test.mjs`。
 
+## 階段：教育館（ART-065 的一部分）
+
+教育館不再和會文館共用教學樓外觀。南向有雨遮，樓層有遮陽板。位置和入口仍是 estimated，不是實測立面。室內南門、天花板、車阻、田徑場內圈和坡道欄杆留著。
+
+畫面：`docs/art/evidence/education/hall.jpg`。測試：`scripts/class-hall.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。室內南門已可走出。公共室內已有天花板，往下看時鏡頭留在天花下。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。教育館已有雨遮。會文館仍是教學樓。室內南門已可走出。公共室內已有天花板，往下看時鏡頭留在天花下。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
