@@ -4760,6 +4760,32 @@
       "integrationPr": 315,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/315",
       "nextAction": "None. The dodge substeps from 39e2dbb are already in this integration. Do not merge PR #230 by itself. The tree-trunk commit 07379b70 is still separate."
+    },
+    {
+      "id": "art-tree-stop",
+      "line": "art",
+      "scope": "One hundred thirty-four curated trunks use the same base radius as the mesh and push a 0.42 m body off the shaft. Shrubs and backdrop scatter stay walkable.",
+      "status": "verified",
+      "pr": 232,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/232",
+      "integrationBranch": "cursor/integration-tree-stop-3395",
+      "sourceBranch": "cursor/tree-stop-1a71",
+      "baseSha": "9575a5c65e7a49217d977bc598bc8fbce8a8a251",
+      "headSha": "07379b70d61b3c45929e82e4e65a7d57dab33677",
+      "dependencies": ["art-lamp-dodge"],
+      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world-data/vegetation.ts", "src/game/world/Vegetation.tsx"],
+      "checks": {
+        "conflicts": "Lamp poles and 0.2 m dodge substeps stayed. Trunk boxes register beside the pole boxes. Shrubs and backdrop scatter stay walkable.",
+        "typecheck": "pass",
+        "npmTest": "449 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Bd0yGuF3.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8242/",
+        "route": "pass. gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision_conflict, cloudXp 47, logout 401, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "1b27d0089b68c59abcc9f2ce6355a8f6f282c5a3",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #232 by itself. The dodge-through-trunk commit 2b50ea05 stays separate."
     }
   ]
 }
