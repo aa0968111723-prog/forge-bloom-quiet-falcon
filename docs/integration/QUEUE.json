@@ -4396,6 +4396,34 @@
       "integrationPr": 302,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/302",
       "nextAction": "None. The court nets from 3e4bec23 are already in this integration. Do not merge PR #157 by itself."
+    },
+    {
+      "id": "art-unused-textures",
+      "line": "art",
+      "scope": "The four unreferenced JPGs in public/textures are gone: grass, palace-wall, roof, and stone, 1199761 bytes. dist/textures is not emitted. The material library stays public/materials/tamkang. meshopt and KTX2 stay planned.",
+      "status": "verified",
+      "pr": 154,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/154",
+      "integrationBranch": "cursor/integration-unused-textures-3395",
+      "sourceBranch": "cursor/unused-textures-1a71",
+      "baseSha": "af57061b9274ab8f3af7755bf7794aeedbf544c2",
+      "headSha": "06f41bde975eb4aae25f0c820503b82745903b89",
+      "dependencies": ["art-court-nets"],
+      "sharedFiles": ["public/textures", "scripts/unused-textures.test.mjs"],
+      "checks": {
+        "conflicts": "docs/art only. Kept the court-net, parking, and earlier milestone notes, and recorded the texture removal. The JS bundle stayed AdventureApp-BNiW9u13.js.",
+        "typecheck": "pass",
+        "npmTest": "438 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BNiW9u13.js. dist/textures is absent. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "Not rerun. The JS bundle name and size are unchanged.",
+        "route": "Not rerun. The 8231 route still stands because the JS bundle did not change."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "2714562f94a4517ec0b3e9abd992603b31380650",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #154 by itself."
     }
   ]
 }

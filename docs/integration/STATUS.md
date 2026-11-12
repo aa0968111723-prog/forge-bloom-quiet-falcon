@@ -1,13 +1,13 @@
 # 整合狀態
 
-更新：2026-11-12。五虎崗和排球場的中線網改成兩根柱、一條頂帶和細直條。沒有一整面又高又寬的板。靜態產物是 `AdventureApp-BNiW9u13.js`。幀時間仍是 SwiftShader。
+更新：2026-11-12。靜態站不再帶 `public/textures` 的四張未引用 JPG，合計 1,199,761 bytes。`dist/textures` 不再出現。JS 產物仍是 `AdventureApp-BNiW9u13.js`。幀時間仍是 SwiftShader。
 本文件只記實際程式、PR 與本輪驗收。不把 M1 或 M2 當成整款遊戲完成，也不以 PR 或文件數量估算完成率。
 
 ## 三條線
 
 | 線 | 目前成果 | 開放 PR | 狀態 |
 | --- | --- | --- | --- |
-| 美術與場景 | 五虎崗和排球場的中線網是兩根 2.2 m 的柱、一條頂帶和細直條。沒有一整面又高又寬的板。球場仍沒有碰撞。 | 來源 PR #157 `3e4bec2`。整合 PR #302 | `merged` |
+| 美術與場景 | `public/textures` 的四張未引用 JPG 已移出靜態站，合計 1,199,761 bytes。`dist/textures` 不再出現。材質庫仍是 `public/materials/tamkang`。 | 來源 PR #154 `06f41bd`。整合 PR 尚未開 | `verified` |
 | 後端 | 蓋下巡禮章、切換靜音或時段時，RPG 存檔立刻寫入。人還沒移動，雲端要上傳的那份檔案也已經有這一章。 | 來源 PR #156 `36c47f0`。整合 PR #293 | `merged` |
 | 內容 | 許回站在圖書館外，複述玩家選的歸因和恢復。兩條都能玩完，獎勵各付一次。地上的委託獎勵不計入收集。 | 來源 PR #160 `c5c489b`、`e8b97ca`。整合 PR #182 | `merged` |
 
@@ -15,15 +15,15 @@
 
 ## 本輪範圍
 
-五虎崗兩塊場和排球場的中線網改成兩根 2.2 m 的柱、一條頂帶和細直條。沒有一整面又高又寬的板。球場仍沒有碰撞，人仍走得過去。網高仍是 estimated。車道中線仍是拿掉的。靜態產物換成 `AdventureApp-BNiW9u13.js`，所以重跑跨系統路線。
+`public/textures` 的 grass、palace-wall、roof、stone 共 1,199,761 bytes，程式沒有引用，已從靜態站拿掉。`dist/textures` 不再出現。材質庫仍是 `public/materials/tamkang`。meshopt 與 KTX2 仍是 planned。JS 產物仍是 `AdventureApp-BNiW9u13.js`，所以不重跑跨系統路線。
 
 ## 路線
 
 | 項目 | 狀態 |
 | --- | --- |
-| 已製作 | 五虎崗和排球場的中線網是柱子、頂帶和細直條 |
-| 已驗證 | 靜態頁 `http://127.0.0.1:8231/`。`npm test` 437 通過。跨系統路線在同一站，`pageErrors` 空 |
-| 已合併 | 是。遊戲程式 `d804e8b1`。整合 PR #302。`main` 未受保護、沒有必須的 check |
+| 已製作 | 四張未引用的照片貼圖已移出靜態站 |
+| 已驗證 | `npm test` 438 通過。JS 產物仍是 `AdventureApp-BNiW9u13.js`，`dist/textures` 不存在。跨系統路線留在 8231 |
+| 已合併 | 否。遊戲程式 `2714562f`。`main` 未受保護、沒有必須的 check |
 | 已部署 | 否 |
 
 ## 尚未完成的遊戲範圍
