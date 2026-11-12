@@ -311,3 +311,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 46 輪（外國語文大樓）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。外國語文大樓是暖色底層、南向長廊玻璃和退縮的淺色上層，名牌寫著外國語文大樓。上層窗帶貼著退縮的牆，沒有共用窗帶。教育館與會文館仍是教學樓。舊的 foreign-lang-hall 不合併。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/language/hall.jpg`。濯纓苑留在第 45 輪。沒有新增音效。
+
+## 第 47 輪（廣場路燈）— 2026-11-12
+
+`node --test scripts/street-lamp.test.mjs` 通過。`tsc --noEmit` 通過。晴天 `lampsOn` 是 false，路燈發光強度是 0。夜裡 `lampsOn` 是 true，發光強度大於 1。偏航 0 時燈臂在 -X。同一座廣場路燈、同一鏡頭：`docs/art/evidence/lamps/day.jpg` 燈頭不亮，`night.jpg` 燈頭亮。頁面無錯誤。燈頭位置取自模型比例，不是實測燈具。外國語文大樓留在第 46 輪。沒有新增音效。`build:site` 本輪未重跑。
