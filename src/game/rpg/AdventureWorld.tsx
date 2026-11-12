@@ -32,6 +32,7 @@ import { BuildingShape } from "../../features/items-equipment-building/BuildingS
 import { gearBonus, instanceFor } from "../../features/items-equipment-building/gear";
 import { quality } from "../quality";
 import { signHost } from "./chrome";
+import { INTERIOR_CEILING_THICKNESS, INTERIOR_CEILING_Y } from "./interior-ceiling";
 import { detailedRoom, InteriorDetails, roomFinish } from "./InteriorDetails";
 import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
 import { Monster } from "./art/Monster";
@@ -450,6 +451,10 @@ export function Interior() {
       <mesh position={[0, -0.12, 0]} receiveShadow>
         <boxGeometry args={[20, 0.24, 16]} />
         <meshStandardMaterial color={finish?.floor ?? "#c8bca2"} roughness={0.85} />
+      </mesh>
+      <mesh name="interior-ceiling" position={[0, INTERIOR_CEILING_Y, 0]}>
+        <boxGeometry args={[20, INTERIOR_CEILING_THICKNESS, 16]} />
+        <meshStandardMaterial color="#e7dfd0" roughness={0.9} />
       </mesh>
       {[-1, 1].map((x) => (
         <mesh key={x} position={[x * 9.6, 2.2, 0]}>

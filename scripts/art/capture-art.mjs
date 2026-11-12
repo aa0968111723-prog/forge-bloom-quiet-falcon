@@ -669,6 +669,20 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "ceiling") {
+    await enterInterior(page, "palace");
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.4, distance: 6.5, height: 1.2, lookY: 2.6 });
+    });
+    await frames(page, 4);
+    const inside = await page.evaluate(() => window.__rpgQA.rpg.getState().interiorId);
+    await shot(page, "palace", `ceiling interior ${inside}`);
+    await page.evaluate(() => window.__controlsTest.setPhoto(null));
+    await page.evaluate(() => window.__controlsTest.setPitch(1.12));
+    await frames(page, 10);
+    const cam = await page.evaluate(() => window.__controlsTest.getCamera());
+    await shot(page, "lookdown", `follow camera ${JSON.stringify(cam)}`);
+    if (!cam || cam.y >= 4.24) throw new Error(`camera entered the ceiling ${JSON.stringify(cam)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
