@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T08:35:57Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "a91731f",
+  "base": "a0806b6",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -106,7 +106,8 @@
     "a crowded ground pile still uploads every item",
     "merged main at 5bc4ad8; the empty narrative key filter was already on this branch",
     "a full ground still keeps a variety overflow on the pile already there",
-    "merged main at a91731f; the trimmed quest claim was already on this branch"
+    "merged main at a91731f; the trimmed quest claim was already on this branch",
+    "merged main at a0806b6; the trimmed pilgrimage list was already on this branch"
   ],
   "verification": {
     "npm_test": "409 pass, 0 fail; a full ground still keeps a variety overflow on the pile already there",
