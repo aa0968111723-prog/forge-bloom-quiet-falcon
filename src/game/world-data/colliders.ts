@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS, PLAZA_FLAGPOLE, SCROLL_WEST_WALL } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BOLLARD, CAMPUS_GATE, LANDMARKS, LANTERN_BASE, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, lanternPosts, libraryPorchPosts, noticeboardFootprint, noticeboards, palaceColumns, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
+import { BOLLARD, CAMPUS_GATE, LANDMARKS, LANTERN_BASE, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, lanternPosts, libraryPorchPosts, noticeboardFootprint, noticeboards, palaceColumns, palaceHallZs, textSignAabb, textSigns, utilityBoxFootprint, utilityBoxes } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -147,6 +147,11 @@ function buildColliders(): AABB[] {
 
   for (const board of noticeboards()) {
     const footprint = noticeboardFootprint(board);
+    out.push(box(footprint.x, footprint.z, footprint.width, footprint.depth));
+  }
+
+  for (const cabinet of utilityBoxes()) {
+    const footprint = utilityBoxFootprint(cabinet);
     out.push(box(footprint.x, footprint.z, footprint.width, footprint.depth));
   }
 

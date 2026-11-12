@@ -626,3 +626,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 126 輪（公告牌）— 2026-11-12
 
 `node --test scripts/notice-stop.test.mjs` 通過。`tsc --noEmit` 通過。四塊公告牌和網格用同一組座標。牌面寬 1.9 m、厚 0.16 m，轉向之後取外框。半徑 0.42 m 站在牌心會被推開。牌旁、主巡禮各點和三條折線的轉折點不被推開。從東邊走向坡底公告牌時，人停在牌面外。頁面無錯誤：`docs/art/evidence/props/noticeboard.jpg`。牌位仍是 estimated。書卷矮牆留在第 125 輪。沒有新增音效。
+
+## 第 127 輪（電箱）— 2026-11-12
+
+`node --test scripts/utility-stop.test.mjs` 通過。`tsc --noEmit` 通過。七個電箱和網格用同一組座標。箱子 0.9 m × 0.5 m，轉向之後取外框。半徑 0.42 m 站在箱心會被推開。箱旁、主巡禮各點和三條折線的轉折點不被推開。從東邊走向坡底電箱時，人停在箱面外。頁面無錯誤：`docs/art/evidence/props/utility.jpg`。箱位仍是 estimated。公告牌留在第 126 輪。沒有新增音效。

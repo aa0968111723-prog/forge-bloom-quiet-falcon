@@ -6,7 +6,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LAMP_POLE, LIBRARY, PALACE, bollards, lanternPosts, noticeboards, palaceHallZs } from "./landmarks.ts";
+import { LAMP_POLE, LIBRARY, PALACE, bollards, lanternPosts, noticeboards, palaceHallZs, utilityBoxes } from "./landmarks.ts";
 import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
@@ -110,7 +110,9 @@ function kenanProps(): PropInstance[] {
   }
   out.push(prop("tactile-strip", 0, AXIS.gateZ + 2.4, "kenan", 0, 1, 5.2));
   out.push(prop("hydrant", -5.9, AXIS.gateZ + 4.2, "kenan"));
-  out.push(prop("utility-box", 6.2, AXIS.gateZ + 6.4, "kenan", -Math.PI / 2));
+  for (const cabinet of utilityBoxes()) {
+    if (cabinet.zone === "kenan") out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
+  }
   for (const post of bollards()) {
     if (post.zone === "kenan") out.push(prop("bollard", post.x, post.z, post.zone, post.rot));
   }
@@ -162,7 +164,11 @@ function avenueProps(): PropInstance[] {
     out.push(prop("drain-grate", -(AVENUE_PAVED_WIDTH / 2 + 0.18), z, "avenue"));
     out.push(prop("drain-grate", AVENUE_PAVED_WIDTH / 2 + 0.18, z, "avenue"));
     out.push(prop("hydrant", -(AVENUE_PAVED_WIDTH / 2 + 3.9), z - 6, "avenue"));
-    out.push(prop("utility-box", AVENUE_PAVED_WIDTH / 2 + 4.2, z + 8, "avenue", -Math.PI / 2));
+    for (const cabinet of utilityBoxes()) {
+      if (cabinet.zone === "avenue" && cabinet.z === z + 8) {
+        out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
+      }
+    }
     out.push(prop("sign-post", -(AVENUE_PAVED_WIDTH / 2 + 1.1), z + 16, "avenue", 0, 1));
   }
   return out;
@@ -214,7 +220,9 @@ function northProps(): PropInstance[] {
   out.push(prop("name-plate", 10, AXIS.libraryFrontZ + 0.15, "library", Math.PI / 2, 1.6));
   out.push(prop("bin", 20, AXIS.libraryFrontZ + 6, "library"));
   out.push(prop("bin", LIBRARY_RAMP.x - 3.4, LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2 + 1.2, "library"));
-  out.push(prop("utility-box", LIBRARY.center[0] + 26, AXIS.libraryFrontZ + 4, "library", -Math.PI / 2));
+  for (const cabinet of utilityBoxes()) {
+    if (cabinet.zone === "library") out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
+  }
   out.push(prop("hydrant", -6, AXIS.libraryFrontZ + 4, "library"));
   for (let k = 0; k < 8; k++) {
     const x = -18 + k * 5.4;

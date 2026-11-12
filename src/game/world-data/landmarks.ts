@@ -256,6 +256,32 @@ export function noticeboardFootprint(board: { x: number; z: number; rotationY: n
   };
 }
 
+/** Utility cabinet footprint, matching the prop mesh. */
+export const UTILITY_BOX = { width: 0.9, depth: 0.5 } as const;
+
+/** The seven campus utility cabinets, in world XZ. The mesh and the collider both use this list. */
+export function utilityBoxes(): { x: number; z: number; rotationY: number; zone: string }[] {
+  const boxes = [{ x: 6.2, z: AXIS.gateZ + 6.4, rotationY: -Math.PI / 2, zone: "kenan" }];
+  for (let k = 0; k < 5; k++) {
+    const z = AXIS.avenueSouthZ - 22 - k * 42;
+    boxes.push({ x: AVENUE_PAVED_WIDTH / 2 + 4.2, z: z + 8, rotationY: -Math.PI / 2, zone: "avenue" });
+  }
+  boxes.push({ x: LIBRARY.center[0] + 26, z: AXIS.libraryFrontZ + 4, rotationY: -Math.PI / 2, zone: "library" });
+  return boxes;
+}
+
+/** Axis-aligned footprint of a rotated utility cabinet. */
+export function utilityBoxFootprint(box: { x: number; z: number; rotationY: number }) {
+  const along = Math.abs(Math.cos(box.rotationY));
+  const across = Math.abs(Math.sin(box.rotationY));
+  return {
+    x: box.x,
+    z: box.z,
+    width: UTILITY_BOX.width * along + UTILITY_BOX.depth * across,
+    depth: UTILITY_BOX.width * across + UTILITY_BOX.depth * along,
+  };
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",
