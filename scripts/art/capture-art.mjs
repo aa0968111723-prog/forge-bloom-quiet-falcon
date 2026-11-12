@@ -669,6 +669,22 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "foreignskirt") {
+    await hideHud(page);
+    await setPose(page, 120, -370, 0);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(155, -340);
+      window.__controlsTest.setPhoto({
+        yaw: -2.4,
+        distance: 42,
+        height: 8,
+        lookY: 2,
+        target: { x: 155, y: y + 6, z: -340 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "west", "language hall downhill skirt");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

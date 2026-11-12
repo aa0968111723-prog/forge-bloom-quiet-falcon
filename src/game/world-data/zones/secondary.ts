@@ -670,3 +670,32 @@ export const SECONDARY_STRUCTURES: SecondaryStructure[] = [
 export function structureGroundY(s: SecondaryStructure): number {
   return sampleGroundElevation(s.position[0], s.position[1]);
 }
+
+/** Local footprint corner, then the same Y rotation the building group uses. */
+export function footprintCorner(s: SecondaryStructure, dx: number, dz: number) {
+  const cos = Math.cos(s.rotationY);
+  const sin = Math.sin(s.rotationY);
+  return {
+    x: s.position[0] + dx * cos + dz * sin,
+    z: s.position[1] - dx * sin + dz * cos,
+  };
+}
+
+/** How far the placed base sits above the lowest rotated corner. */
+export function foundationSpan(s: SecondaryStructure) {
+  const deck = structureGroundY(s);
+  const hx = s.size[0] / 2;
+  const hz = s.size[2] / 2;
+  let low = deck;
+  for (const [dx, dz] of [
+    [0, 0],
+    [-hx, -hz],
+    [hx, -hz],
+    [-hx, hz],
+    [hx, hz],
+  ] as const) {
+    const corner = footprintCorner(s, dx, dz);
+    low = Math.min(low, sampleGroundElevation(corner.x, corner.z));
+  }
+  return { deck, low, gap: deck - low };
+}
