@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T08:05:19Z",
+      "updated": "2026-11-12T08:10:47Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3360,6 +3360,32 @@
       "integrationPr": 241,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/241",
       "nextAction": "None. The folded narrative clock from aac0f666 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-narrative-place",
+      "line": "backend",
+      "scope": "Import drops a place id the cloud would reject and a department name longer than 80 characters. A library place and a short department stay. The memory stays. A raw upload of a place the cloud cannot name is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-narrative-place-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "f4929b4c978533374617e51e5a4b093afa3d18c4",
+      "headSha": "83a38aa347bc0cdd10a5fa869eff93b948d0a447",
+      "dependencies": ["backend-narrative-clock"],
+      "sharedFiles": ["src/game/rpg/narrative-bridge.ts", "src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json and store.ts auto-merged. Kept 2026-11-12T07:45:33Z and the unnamed-place line.",
+        "typecheck": "pass",
+        "npmTest": "398 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-9Z7wl42P.js",
+        "browser": "8195. The standing route completed.",
+        "route": "8195: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "f90a3c8169846bf1b5377b13f3f9b4859dc57f15",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
