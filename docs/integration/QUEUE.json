@@ -4055,11 +4055,11 @@
         "route": "8219: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "90ffbb93c5e38f728e9906b668842ab528a00de1",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #156 by itself."
+      "integrationPr": 288,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/288",
+      "nextAction": "None. The direct living interior from 92b3440a is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
