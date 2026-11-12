@@ -5544,6 +5544,34 @@
       "integrationPr": 343,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/343",
       "nextAction": "None. The museum swan from e149387c is already in this integration. This is on integration PR #343. Do not merge PR #283 by itself. The next art commit is 7f328f22b539e7e7483fd93e326f7511a83f8f73 on PR #285."
+    },
+    {
+      "id": "art-track-finish",
+      "line": "art",
+      "scope": "The track south straight has one finish stripe. It spans the ring, stays out of the infield oval, and has no net. The infield stays a 24 by 40 m pitch.",
+      "status": "verified",
+      "pr": 285,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/285",
+      "integrationBranch": "cursor/integration-track-finish-3395",
+      "sourceBranch": "cursor/track-finish-1a71",
+      "baseSha": "e947e9bf95062c8f073a1a43b7d9fc592ccfe036",
+      "headSha": "7f328f22b539e7e7483fd93e326f7511a83f8f73",
+      "dependencies": ["art-swan-exhibit"],
+      "sharedFiles": ["src/game/world-data/court-lines.ts", "src/game/world/ContextStructures.tsx", "scripts/court-lines.test.mjs"],
+      "checks": {
+        "conflicts": "The stripe is painted with the existing infield lines. It has no collision and no net. Court nets and parking stalls stay.",
+        "typecheck": "pass",
+        "npmTest": "473 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-2QhLNbtj.js sha256 5a3ffb1bc57a3ad3164e693f6c96b5ae44c90c39e76c263c38f577e63ef08184. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8269/",
+        "route": "8269 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User 0aY8qQpnyVo6Hw6Bu4yBISc5EsqLSvwf."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Recorded before the integration PR. The track finish stripe from 7f328f22 is in this branch and is not on main yet. Do not merge PR #285 by itself. The next art commit is 4310e4c123ee454c282dd5445738ef5570712fdc on PR #287."
     }
   ]
 }
