@@ -6,7 +6,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LAMP_POLE, LIBRARY, PALACE, bollards, lanternPosts, palaceHallZs } from "./landmarks.ts";
+import { LAMP_POLE, LIBRARY, PALACE, bollards, lanternPosts, noticeboards, palaceHallZs } from "./landmarks.ts";
 import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
@@ -105,7 +105,9 @@ function kenanProps(): PropInstance[] {
   out.push(prop("sign-post", -3.4, KENAN_LANDING_Z[1] + 1.0, "kenan", Math.PI / 2));
   // Bottom entrance.
   out.push(prop("sign-post", -4.6, KENAN.bottomZ + 3.4, "kenan", Math.PI / 2, 1.15));
-  out.push(prop("noticeboard", 5.1, KENAN.bottomZ + 5.6, "kenan", -Math.PI / 2));
+  for (const board of noticeboards()) {
+    if (board.zone === "kenan") out.push(prop("noticeboard", board.x, board.z, board.zone, board.rotationY));
+  }
   out.push(prop("tactile-strip", 0, AXIS.gateZ + 2.4, "kenan", 0, 1, 5.2));
   out.push(prop("hydrant", -5.9, AXIS.gateZ + 4.2, "kenan"));
   out.push(prop("utility-box", 6.2, AXIS.gateZ + 6.4, "kenan", -Math.PI / 2));
@@ -192,7 +194,9 @@ function northProps(): PropInstance[] {
   }
   out.push(prop("bin", -w / 2 + 3, AXIS.scrollPlazaZ + d / 2 - 3, "scroll"));
   out.push(prop("bin", w / 2 - 3, AXIS.scrollPlazaZ - d / 2 + 3, "scroll"));
-  out.push(prop("noticeboard", -w / 2 + 5, AXIS.scrollPlazaZ - 6, "scroll", Math.PI / 2));
+  for (const board of noticeboards()) {
+    if (board.zone === "scroll") out.push(prop("noticeboard", board.x, board.z, board.zone, board.rotationY));
+  }
   out.push(prop("drain-grate", 0, AXIS.scrollPlazaZ + 6, "scroll"));
   out.push(prop("drain-grate", 0, AXIS.scrollPlazaZ - 6, "scroll"));
 
@@ -298,8 +302,11 @@ function campusClusterProps(): PropInstance[] {
     out.push(prop("street-lamp", x + 2.2, z, "west-academic", 0));
     out.push(prop("bench", x - 2.4, z, "west-academic", Math.PI / 2));
   }
-  out.push(prop("noticeboard", 130, -82, "east", 0));
-  out.push(prop("noticeboard", -88, -24, "west-academic", 0));
+  for (const board of noticeboards()) {
+    if (board.zone === "east" || board.zone === "west-academic") {
+      out.push(prop("noticeboard", board.x, board.z, board.zone, board.rotationY));
+    }
+  }
   out.push(prop("bin", 128, -84, "east"));
   out.push(prop("bin", -86, -26, "west-academic"));
   return out;

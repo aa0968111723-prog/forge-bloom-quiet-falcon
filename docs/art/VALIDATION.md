@@ -622,3 +622,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 125 輪（書卷矮牆）— 2026-11-12
 
 `node --test scripts/scroll-wall.test.mjs` 通過。`tsc --noEmit` 通過。書卷廣場西側矮牆和網格用同一組座標，厚 0.4 m、長 44 m。半徑 0.42 m 站在牆心會被推開。廣場中心、牆東側、牆端外和三條巡禮折線不會被推開。從廣場走向西側時，人停在牆的東面。頁面無錯誤：`docs/art/evidence/scroll/wall.jpg`。牆位仍是 estimated。宮燈燈座留在第 124 輪。沒有新增音效。
+
+## 第 126 輪（公告牌）— 2026-11-12
+
+`node --test scripts/notice-stop.test.mjs` 通過。`tsc --noEmit` 通過。四塊公告牌和網格用同一組座標。牌面寬 1.9 m、厚 0.16 m，轉向之後取外框。半徑 0.42 m 站在牌心會被推開。牌旁、主巡禮各點和三條折線的轉折點不被推開。從東邊走向坡底公告牌時，人停在牌面外。頁面無錯誤：`docs/art/evidence/props/noticeboard.jpg`。牌位仍是 estimated。書卷矮牆留在第 125 輪。沒有新增音效。

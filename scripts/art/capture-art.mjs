@@ -1504,6 +1504,20 @@ try {
     await frames(page, 4);
     await shot(page, "wall", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x < -24.6) throw new Error(`walked through the scroll wall ${JSON.stringify(stopped)}`);
+  } else if (scenario === "noticeboard") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 7.2, 81.6, Math.PI / 2);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 40);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 1.2, distance: 5.2, height: 3.4, lookY: 1.1 });
+    });
+    await frames(page, 4);
+    await shot(page, "board", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.x < 4.6) throw new Error(`walked through the noticeboard ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
