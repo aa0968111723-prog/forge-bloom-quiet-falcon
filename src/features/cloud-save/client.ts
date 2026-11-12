@@ -658,7 +658,7 @@ export function createCloudSaveController(options: {
         });
         if (response.status === 401) {
           if (!stillQueued(item)) return "drop";
-          remember(item, follow);
+          remember(item, { ...follow, attempts: Math.max(1, follow.attempts), nextAt: now() });
           return "pause";
         }
         const saved = await response.json().catch(() => null);
@@ -689,6 +689,11 @@ export function createCloudSaveController(options: {
           }
           writeMeta(userId, { revision: saved.revision, contentHash: saved.contentHash });
           return "sent";
+        }
+        if (response.status === 429 || response.status >= 500) {
+          if (!stillQueued(item)) return "drop";
+          remember(item, { ...follow, attempts: 1, nextAt: now() + 1_000 });
+          return "queued";
         }
       } catch {
         if (!stillQueued(item)) {
@@ -730,7 +735,7 @@ export function createCloudSaveController(options: {
         });
         if (response.status === 401) {
           if (!stillQueued(item)) return "drop";
-          remember(item, follow);
+          remember(item, { ...follow, attempts: Math.max(1, follow.attempts), nextAt: now() });
           return "pause";
         }
         const saved = await response.json().catch(() => null);

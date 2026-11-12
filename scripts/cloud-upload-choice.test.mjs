@@ -27,6 +27,9 @@ function fakeCloud() {
   let rejectNextPut = false;
   let holdNextPut = false;
   let heldId = "";
+  let failMatchingPut = false;
+  let refuseMatchingPut = false;
+  let refuseFirstSync = false;
   const seen = new Map();
   const puts = [];
   let ids = 0;
@@ -76,6 +79,11 @@ function fakeCloud() {
           server: null,
         });
       }
+      if (refuseFirstSync) {
+        refuseFirstSync = false;
+        heldId = body.requestId;
+        return jsonResponse(401, { error: { code: "unauthorized", message: "請先登入。" } });
+      }
       remote = body.document;
       revision = 1;
       const created = await head();
@@ -91,6 +99,17 @@ function fakeCloud() {
         error: { code: "revision_conflict", message: "版本衝突。" },
         server: await head(),
       });
+    }
+    if (failMatchingPut) {
+      failMatchingPut = false;
+      return jsonResponse(500, {
+        error: { code: "internal", message: "伺服器暫時無法處理這個請求。" },
+      });
+    }
+    if (refuseMatchingPut) {
+      refuseMatchingPut = false;
+      heldId = body.requestId;
+      return jsonResponse(401, { error: { code: "unauthorized", message: "請先登入。" } });
     }
     remote = body.document;
     revision += 1;
@@ -129,6 +148,15 @@ function fakeCloud() {
     },
     holdNext() {
       holdNextPut = true;
+    },
+    failMatching() {
+      failMatchingPut = true;
+    },
+    refuseMatching() {
+      refuseMatchingPut = true;
+    },
+    refuseFirstSync() {
+      refuseFirstSync = true;
     },
     replace(document) {
       remote = document;
@@ -2268,6 +2296,136 @@ test("a refused upload does not overwrite another device's save", async () => {
   const planned = await client.plan();
   assert.equal(planned.status, "conflict");
   assert.equal(planned.remote.document.xp, 7);
+});
+
+test("an interrupted follow-up keeps the newer local file queued", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  let clock = 10_000;
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    now: () => clock,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  client.writeLocal(JSON.stringify(save(4)));
+  cloud.holdNext();
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.replace(save(4));
+  client.writeLocal(JSON.stringify(save(9)));
+  cloud.failMatching();
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.equal(flushed.paused, false);
+  assert.equal(client.queuedCount("user-a"), 1);
+  const queued = JSON.parse(storage.getItem("tamkang-cloud-save-queue:user-a"));
+  assert.equal(queued.length, 1);
+  assert.equal(queued[0].body.document.xp, 9);
+  assert.equal(queued[0].body.baseRevision, 2);
+  assert.equal(queued[0].attempts, 1);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 2);
+  assert.equal(head.document.xp, 4);
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+  clock += 1_000;
+  const again = await client.flush();
+  assert.equal(again.sent, 1);
+  const next = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(next.revision, 3);
+  assert.equal(next.document.xp, 9);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 3);
+});
+
+test("a refused follow-up keeps the newer local file on this device's revision", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  client.writeLocal(JSON.stringify(save(4)));
+  cloud.holdNext();
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.replace(save(4));
+  client.writeLocal(JSON.stringify(save(9)));
+  cloud.refuseMatching();
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.equal(flushed.paused, true);
+  assert.equal(client.queuedCount("user-a"), 1);
+  const held = JSON.parse(storage.getItem("tamkang-cloud-save-queue:user-a"));
+  assert.equal(held[0].body.document.xp, 9);
+  assert.equal(held[0].attempts >= 1, true);
+  const during = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(during.document.xp, 4);
+  client.writeLocal(JSON.stringify(save(12)));
+  const again = await client.flush();
+  assert.equal(again.sent, 1);
+  assert.equal(again.paused, false);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 3);
+  assert.equal(head.document.xp, 12);
+  assert.notEqual(cloud.puts.at(-1).requestId, held[0].body.requestId);
+  assert.equal(cloud.puts.at(-1).baseRevision, 2);
+  assert.equal(JSON.parse(client.readLocal()).xp, 12);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 3);
+});
+
+test("a refused first sync keeps the newer local file", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  cloud.clear();
+  cloud.refuseFirstSync();
+  client.writeLocal(JSON.stringify(save(9)));
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.equal(flushed.paused, true);
+  assert.equal(client.queuedCount("user-a"), 1);
+  const held = JSON.parse(storage.getItem("tamkang-cloud-save-queue:user-a"));
+  assert.equal(held[0].body.confirmFirstSync, true);
+  assert.equal(held[0].body.document.xp, 9);
+  assert.equal(held[0].attempts >= 1, true);
+  client.writeLocal(JSON.stringify(save(12)));
+  const again = await client.flush();
+  assert.equal(again.sent, 1);
+  assert.equal(again.paused, false);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 1);
+  assert.equal(head.document.xp, 12);
+  assert.notEqual(cloud.puts.at(-1).requestId, held[0].body.requestId);
+  assert.equal(JSON.parse(client.readLocal()).xp, 12);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 1);
 });
 
 test("a signed-out save write stays queued for this account", async () => {
