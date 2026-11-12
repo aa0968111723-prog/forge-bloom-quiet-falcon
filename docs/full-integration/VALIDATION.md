@@ -532,3 +532,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 46 減 38 是 8，也就是簽名階段的經驗。這一拍沒有加筆記。簽名的開場不看衝突選了哪句；跟朋友那個旗標改的是收尾。
 
 畫面：`/opt/cursor/artifacts/integration-he-turn/sign-outcome.png`、`sign-next.png`、`switch-outcome.png`、`switch-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 簡禾的兩個收尾選項
+
+這段打在 `AdventureApp-C7szpjke.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-BEExzEd5.js`。`main` 尖端 `9dfcec9`（中斷的直接上傳改從較新的本機檔重試，整合 PR #213，遊戲提交 `66fb335`），合併提交 `a6c70b3`。靜態重建仍是同一組檔名。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-he-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-he-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 376 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出仍是 `index-BEExzEd5.js` 與 `AdventureApp-C7szpjke.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場、對應的衝突和簽名。點收尾之前存檔經驗 46、筆記 19。
+
+- 「把這個決定寫進我自己的課表。」之前選了自己對過先修，再補簽名。存檔經驗 56，筆記 20。結果句「不走找我重說一遍。」畫面是 1 級、「經驗 56/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。她先說「寫進去就依這個走」。再交談沒有打開對話，提示「這段已經談完」。`quest-faculty-course-after` 只有一筆。沒有工作室任務。重載後經驗 56、筆記 20，再交談仍是這句提示。
+- 「課表先寫這個，旁邊留一個可退的備案。」之前選了跟朋友同一門，再改選不撞的那門。經驗同樣 46→56，筆記 19→20。結果句「我沒有把你鎖在這一門。」她先說「你跟了朋友」。再交談同樣是已經談完。重載後這句提示還在。
+
+56 減 46 是 10，也就是收尾階段的經驗。筆記加 1。簡禾這條課表線到這裡結束。
+
+畫面：`/opt/cursor/artifacts/integration-he-after/lock-outcome.png`、`lock-done.png`、`backup-outcome.png`、`backup-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。

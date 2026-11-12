@@ -172,7 +172,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Jian He's signature on AdventureApp-C7szpjke.js at 1280x720. Sign and switch each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. The sign route's after line was 寫進去就依這個走. The switch route's after line was 你跟了朋友. Both closing choices were visible and left unpaid."
+      "note": "Two fresh architecture semesters paid Jian He's signature on AdventureApp-C7szpjke.js at 1280x720. Sign and switch each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. Her closing choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-HE-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian He's closing on AdventureApp-C7szpjke.js at 1280x720. Lock and backup each moved store xp from 46 to 56 and notes from 19 to 20. The card showed level 1, 56/60. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice. Her course line ends here."
     },
     {
       "id": "FI-XU-HUI",
@@ -198,7 +205,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main e878f26 includes the reward receipt account confirm via #211. Merged here as a2a0818. The adventure chunk stayed AdventureApp-C7szpjke.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main 9dfcec9 includes the lost direct-upload retry via #213. Merged here as a6c70b3. The adventure chunk stayed AdventureApp-C7szpjke.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",
