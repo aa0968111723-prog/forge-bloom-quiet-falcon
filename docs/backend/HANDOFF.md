@@ -50,7 +50,7 @@ node --experimental-transform-types scripts/cloud-save-flow.mjs
 
 ## 目前的存檔形狀
 
-`src/features/cloud-save/contract.ts` 的頂層白名單對齊 `snapshot()`。敘事與多樣玩法有各自的欄位上限。盤面只檢查 `board` 類型與欄位數，不執行盤面內容。舊存檔可以省略新欄位。
+`src/features/cloud-save/contract.ts` 的頂層白名單對齊 `snapshot()`。收集進度只收筆記、零件、咖啡、茶；擊退紀錄只收小考、報告、期中、期末。敘事與多樣玩法有各自的欄位上限。盤面只檢查 `board` 類型與欄位數，不執行盤面內容。舊存檔可以省略新欄位。
 
 `scripts/cloud-campus-roundtrip.mjs` 把含 `interiorId` 與 `floor` 的校園存檔走一次真實上傳、第二客戶端下載與程序重開。室內續玩讀的就是這兩個欄位。
 

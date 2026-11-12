@@ -28,6 +28,8 @@ test("a current campus snapshot passes the cloud contract", () => {
     kills: 3,
     built: 1,
     boss: 0,
+    gathered: { notes: 12, parts: 4, coffee: 1, tea: 3 },
+    felled: { quiz: 5, report: 2, exam: 0, final: 0 },
     discoveries: ["library", "engineering"],
     claimed: ["first", "quest-orient-gate"],
     buildings: Array.from({ length: 48 }, (_, i) => ({
@@ -137,6 +139,19 @@ test("cloud saves reject fields outside the live snapshot", () => {
   const extra = validateRpgDocument({ ...base, score: 99 });
   assert.equal(extra.ok, false);
   if (!extra.ok) assert.equal(extra.code, "unsafe_content");
+
+  const supplies = validateRpgDocument({
+    ...base,
+    gathered: { notes: 12, parts: 0, coffee: 0, tea: 0 },
+    felled: { report: 2 },
+  });
+  assert.equal(supplies.ok, true, supplies.ok ? "" : supplies.message);
+  const planted = validateRpgDocument({ ...base, gathered: { notes: 1, badge: 1 } });
+  assert.equal(planted.ok, false);
+  if (!planted.ok) assert.equal(planted.code, "unsafe_content");
+  const negative = validateRpgDocument({ ...base, felled: { quiz: -1 } });
+  assert.equal(negative.ok, false);
+  if (!negative.ok) assert.equal(negative.code, "invalid_document");
 
   const narrative = validateRpgDocument({
     ...base,

@@ -14,11 +14,18 @@ import {
   DISCIPLINES,
   ENCOUNTERS,
   ENEMY_TYPES,
+  GATHERED_ITEMS,
   ITEMS,
   MISSIONS,
   RECIPES,
+  addGathered,
+  emptyFelled,
+  emptyGathered,
+  missionProgress,
   type BuildKind,
   type EnemyKind,
+  type Felled,
+  type Gathered,
 } from "./data.ts";
 import {
   approachStand,
@@ -157,6 +164,10 @@ type RpgState = {
   kills: number;
   built: number;
   boss: number;
+  /** Lifetime items accepted from supplies and drops. Spending does not reduce this. */
+  gathered: Gathered;
+  /** Lifetime defeats by kind. */
+  felled: Felled;
   discoveries: string[];
   claimed: string[];
   /** Narrative event memory. Rewards still land in xp, claimed, and the bag. */
@@ -438,6 +449,23 @@ function strings(raw: unknown) {
       ].slice(0, 100)
     : [];
 }
+function restoreCountMap<T extends string>(
+  raw: unknown,
+  keys: readonly T[],
+): Record<T, number> | "negative" {
+  const next = {} as Record<T, number>;
+  for (const key of keys) next[key] = 0;
+  if (raw === undefined || raw === null) return next;
+  if (typeof raw !== "object" || Array.isArray(raw)) return next;
+  const record = raw as Record<string, unknown>;
+  for (const key of keys) {
+    const value = record[key];
+    if (value === undefined) continue;
+    if (negativeNumber(value)) return "negative";
+    if (typeof value === "number" && Number.isFinite(value)) next[key] = Math.floor(value);
+  }
+  return next;
+}
 function restoreHarvest(raw: unknown): Record<string, number> {
   const result: Record<string, number> = {};
   if (raw && typeof raw === "object")
@@ -565,6 +593,8 @@ type PreparedSave = {
   kills: number;
   built: number;
   boss: number;
+  gathered: Gathered;
+  felled: Felled;
   discoveries: string[];
   claimed: string[];
   buildings: Building[];
@@ -738,6 +768,10 @@ function prepareImport(
   const departmentId = legacyDepartment(record.departmentId);
   const lesson = readLesson(record.lesson, departmentId);
   const stand = importedStand(record.position, buildings.buildings);
+  const gatheredCounts = restoreCountMap(record.gathered, GATHERED_ITEMS);
+  if (gatheredCounts === "negative") return { ok: false, reason: "negative" };
+  const felledCounts = restoreCountMap(record.felled, ["quiz", "report", "exam", "final"] as const);
+  if (felledCounts === "negative") return { ok: false, reason: "negative" };
   return {
     ok: true,
     save: {
@@ -754,6 +788,8 @@ function prepareImport(
       kills: Math.floor(kills.value),
       built: Math.floor(built.value),
       boss: Math.floor(boss.value),
+      gathered: gatheredCounts,
+      felled: felledCounts,
       discoveries: strings(record.discoveries).filter((id) =>
         CAMPUS_SITES.some((site) => site.id === id),
       ),
@@ -940,6 +976,8 @@ function xpPatch(s: RpgState, amount: number) {
       : {}),
   };
 }
+const loadedGathered = restoreCountMap(saved.gathered, GATHERED_ITEMS);
+const loadedFelled = restoreCountMap(saved.felled, ["quiz", "report", "exam", "final"] as const);
 export const useRpg = create<RpgState>((set, get) => ({
   departmentId: legacyDepartment(saved.departmentId),
   xp: finite(saved.xp),
@@ -955,6 +993,8 @@ export const useRpg = create<RpgState>((set, get) => ({
   kills: Math.floor(finite(saved.kills)),
   built: Math.floor(finite(saved.built)),
   boss: Math.floor(finite(saved.boss, 0, 1)),
+  gathered: loadedGathered === "negative" ? emptyGathered() : loadedGathered,
+  felled: loadedFelled === "negative" ? emptyFelled() : loadedFelled,
   discoveries: strings(saved.discoveries),
   claimed: strings(saved.claimed).filter(keepClaim),
   narrative: stampSemester(
@@ -1627,8 +1667,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     const s = get(),
       m = MISSIONS.find((v) => v.id === id);
     if (!m || s.claimed.includes(id)) return;
-    const progress =
-      m.metric === "discoveries" ? s.discoveries.length : s[m.metric];
+    const progress = missionProgress(m, s);
     if (progress < m.target) return;
     const { accepted, left } = give({ ...m.reward });
     const g = useGame.getState();
@@ -1854,6 +1893,8 @@ export const useRpg = create<RpgState>((set, get) => ({
       kills: rpg.kills,
       built: rpg.built,
       boss: rpg.boss,
+      gathered: { ...rpg.gathered },
+      felled: { ...rpg.felled },
       discoveries: [...rpg.discoveries],
       claimed: [...rpg.claimed],
       buildings: rpg.buildings.map((building) => ({ ...building })),
@@ -1924,6 +1965,8 @@ export const useRpg = create<RpgState>((set, get) => ({
         kills: save.kills,
         built: save.built,
         boss: save.boss,
+        gathered: { ...save.gathered },
+        felled: { ...save.felled },
         discoveries: save.discoveries,
         claimed: save.claimed,
         buildings: save.buildings,
@@ -2058,6 +2101,7 @@ function runPrompt(choice: PromptChoice) {
     const { accepted, left } = give(drop.items);
     if (Object.keys(accepted).length > 0) {
       useRpg.setState({
+        gathered: addGathered(s.gathered, accepted),
         loot: Object.keys(left).length
           ? s.loot.map((pile) =>
               pile.id === drop.id ? { ...pile, items: left } : pile,
@@ -2087,9 +2131,11 @@ function runPrompt(choice: PromptChoice) {
     for (const [id, count] of Object.entries(extra.accepted))
       mergedAccepted[id] = (mergedAccepted[id] ?? 0) + count;
     const settled = errandState(useRpg.getState(), node, mergedLeft);
+    const gathered = addGathered(s.gathered, mergedAccepted);
     if (settled) {
       const { accepted: errandNotes, left: spilled, ...patch } = settled;
       useRpg.setState({
+        gathered,
         harvested: { ...s.harvested, [node.id]: Date.now() + 180_000 },
         ...patch,
       });
@@ -2102,6 +2148,7 @@ function runPrompt(choice: PromptChoice) {
       );
     } else {
       useRpg.setState({
+        gathered,
         harvested: { ...s.harvested, [node.id]: Date.now() + 180_000 },
         loot: layRemainder(useRpg.getState().loot, node.x, node.z, mergedLeft),
         narrative: stampSemester(useRpg.getState().narrative, useRpg.getState().claimed),
@@ -2196,6 +2243,7 @@ export function hitEnemy(e: Enemy, damage: number) {
     d = ENEMY_TYPES[e.kind];
   useRpg.setState({
     kills: s.kills + 1,
+    felled: { ...s.felled, [e.kind]: s.felled[e.kind] + 1 },
     boss: e.kind === "final" ? 1 : s.boss,
     ...xpPatch(s, d.xp),
     loot: stash(s.loot, e.x, e.z, { ...d.reward }),
@@ -2473,6 +2521,8 @@ function snapshot() {
     kills: s.kills,
     built: s.built,
     boss: s.boss,
+    gathered: s.gathered,
+    felled: s.felled,
     discoveries: s.discoveries,
     claimed: s.claimed,
     buildings: s.buildings,
