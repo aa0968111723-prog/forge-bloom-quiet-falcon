@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：室內天花板（ART-080 的一部分）
+
+公共室內共用的房間不再朝天開。天花板上緣貼著 4.4 m 的牆頂。房間尺寸仍是遊戲裡的 20×16 m，不是實測。車阻、田徑場內圈和坡道欄杆留著。
+
+畫面：`docs/art/evidence/interior/ceiling.jpg`。測試：`scripts/interior-ceiling.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。公共室內已有天花板。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

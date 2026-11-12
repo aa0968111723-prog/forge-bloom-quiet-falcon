@@ -699,6 +699,14 @@ try {
     await frames(page, 4);
     await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x > -2.4) throw new Error(`walked through the bollard ${JSON.stringify(stopped)}`);
+  } else if (scenario === "ceiling") {
+    await enterInterior(page, "palace");
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.4, distance: 6.5, height: 1.2, lookY: 2.6 });
+    });
+    await frames(page, 4);
+    const inside = await page.evaluate(() => window.__rpgQA.rpg.getState().interiorId);
+    await shot(page, "palace", `ceiling interior ${inside}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
