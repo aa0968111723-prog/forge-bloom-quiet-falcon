@@ -912,16 +912,16 @@ try {
     await shot(page, "hall", "older engineering workshop");
   } else if (scenario === "deck") {
     await hideHud(page);
-    await setPose(page, -75, -418, Math.PI);
+    await setPose(page, -75, -413.4, Math.PI);
     await page.evaluate(() => {
       window.__rpgQA.game.getState().setTime("day");
-      const y = window.__rpgQA.ground(-75, -418);
+      const y = window.__rpgQA.ground(-75, -413.4);
       window.__controlsTest.setPhoto({
-        yaw: 0.35,
-        distance: 9,
-        height: 2.2,
+        yaw: 1.2,
+        distance: 12,
+        height: 3.4,
         lookY: 0,
-        target: { x: -75, y: y + 1.3, z: -418 },
+        target: { x: -75, y: y + 0.4, z: -414 },
       });
     });
     await settle(page, { stableFrames: 4 });

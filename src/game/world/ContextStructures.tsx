@@ -20,6 +20,7 @@ import {
   structureGroundY,
   watchPostProfile,
 } from "../world-data/zones/secondary.ts";
+import { standRampGeometry } from "../world-data/stand-ramp.ts";
 import { type PlaneItem } from "./InstancedPlanes";
 import { makeSignTexture, useCampusSigns, useFontTick } from "./labels";
 import { worldUvBox } from "./geometry";
@@ -78,6 +79,16 @@ function LodGlazing({
     <instancedMesh ref={ref} args={[geometry, undefined, items.length]}>
       {children}
     </instancedMesh>
+  );
+}
+
+function StandRamp({ width, depth }: { width: number; depth: number }) {
+  const geometry = useMemo(() => standRampGeometry(width, depth), [width, depth]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  return (
+    <mesh geometry={geometry} receiveShadow>
+      <meshStandardMaterial color="#b7a78c" roughness={0.94} />
+    </mesh>
   );
 }
 
@@ -430,6 +441,7 @@ export function ContextStructures({
           const roofY = 3.15;
           return (
             <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <StandRamp width={s.size[0]} depth={s.size[2]} />
               <mesh position={[0, deckH / 2, 0]} castShadow receiveShadow>
                 <boxGeometry args={[s.size[0], deckH, s.size[2]]} />
                 <meshStandardMaterial color="#c4b49a" roughness={0.9} />
