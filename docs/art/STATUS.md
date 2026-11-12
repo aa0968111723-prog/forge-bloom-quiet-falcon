@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：減少動態時河與雲停（ART-087 的一部分）
+
+系統要求減少動態時，河面波紋的時鐘停住，雲場也不再漂移。天色仍會跟著時段變。沒有新增音效。田徑場內圈留著。
+
+畫面：`docs/art/evidence/motion/still-shore.jpg`。測試：`scripts/scenery-motion.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。減少動態時河與雲已停。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

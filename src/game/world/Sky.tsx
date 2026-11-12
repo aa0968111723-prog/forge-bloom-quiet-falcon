@@ -1,7 +1,9 @@
 import { useFrame } from "@react-three/fiber";
 import { useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useReducedArtMotion } from "../art/motion";
 import { quality } from "../quality";
+import { stepCloudDrift } from "./scenery-motion.ts";
 import { TIME_PRESETS, type TimeOfDay } from "../world-data/lighting.ts";
 
 /**
@@ -122,6 +124,7 @@ const dummy = new THREE.Object3D();
 export function Clouds({ timeOfDay }: { timeOfDay: TimeOfDay }) {
   const ref = useRef<THREE.InstancedMesh>(null);
   const q = quality();
+  const reduced = useReducedArtMotion();
   const drift = useRef(0);
 
   const puffs = useMemo(() => {
@@ -167,7 +170,7 @@ export function Clouds({ timeOfDay }: { timeOfDay: TimeOfDay }) {
     const mesh = ref.current;
     if (!mesh) return;
     // One slow global drift: move the whole cloud field, wrap at the edge.
-    drift.current = (drift.current + delta * 1.6) % 1600;
+    drift.current = stepCloudDrift(drift.current, delta, reduced);
     mesh.position.x = drift.current > 800 ? drift.current - 1600 : drift.current;
     void state;
   });
