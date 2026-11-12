@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:22:21Z",
+  "updated_at": "2026-11-12T05:25:20Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "90fa4f8",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -34,10 +34,11 @@
     "a continued upload that the player drops is written back from the chosen local file",
     "a dropped upload that disconnects is not retried, and is written back only when that send already landed",
     "quest marks on ground loot, library floor 3, and the content hash survive a database restart and a revision restore",
-    "merged main at 90fa4f8; the continued-upload write-back was already on this branch"
+    "merged main at 90fa4f8; the continued-upload write-back was already on this branch",
+    "a flush stops before the next upload when the session changes account, and that other account's save is not applied locally"
   ],
   "verification": {
-    "npm_test": "351 pass, 0 fail; quest loot and its content hash survive a database restart and revision restore",
+    "npm_test": "353 pass, 0 fail; a session change does not send the next queued upload or replace the local save",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
