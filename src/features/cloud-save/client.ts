@@ -231,7 +231,11 @@ export function createCloudSaveController(options: {
     const current = await plan();
     if (current.status === "need_first_sync") return uploadFirstSync();
     if (current.status === "local_changes") return pushLocal();
-    if (current.status === "local_only" && current.reason === "offline" && activeUser()) {
+    if (
+      current.status === "local_only" &&
+      (current.reason === "offline" || current.reason === "server_unavailable") &&
+      activeUser()
+    ) {
       return readMeta(activeUser() as string) ? pushLocal() : uploadFirstSync();
     }
     return current;
@@ -903,6 +907,18 @@ export function createCloudSaveController(options: {
           localText: readLocal() ?? "",
           remote: payload.server as RemoteHead,
         };
+      }
+      if (response.status === 429 || response.status >= 500) {
+        // The write was not kept, but a proxy may already have stored this id.
+        enqueue({
+          id: String(body.requestId),
+          userId,
+          kind: "put",
+          body,
+          attempts: 1,
+          nextAt: now(),
+        });
+        return { status: "queued" };
       }
       if (!response.ok) {
         return {
