@@ -48,6 +48,10 @@ node --experimental-transform-types scripts/cloud-save-flow.mjs
 - 資產 manifest 沿用美術代理。遊戲 id 不要在這裡重造。
 - 舊的 `pilgrimage` server function 還在，給巡禮蓋章用。不要拿它寫 RPG 存檔。
 
+## 目前的存檔形狀
+
+`src/features/cloud-save/contract.ts` 的頂層白名單對齊 `snapshot()`。敘事與多樣玩法有各自的欄位上限。盤面只檢查 `board` 類型與欄位數，不執行盤面內容。舊存檔可以省略新欄位。
+
 ## 不要做
 
 不要合併 `main`，不要部署公開站，不要對正式資料庫跑這份遷移，除非已經在備份上試過 `scripts/migrate.mjs`。沒有破壞性 SQL。

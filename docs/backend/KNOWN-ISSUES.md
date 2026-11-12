@@ -4,6 +4,8 @@
 - 正式環境的 `scripts/game-services-server.mjs` 沒有 `BETTER_AUTH_SECRET` 會直接結束。開發用密鑰寫在 gitignore 的 `data/dev-auth-secret`，不會印到 log。
 - Better Auth 的 `session_data` cookie 最多可在 300 秒內不查資料庫。整合測試會拿掉這顆 cookie，再把 `session.expiresAt` 設成過去，確認只靠 session token 時過期會 `401`。
 - 限流計數在程序記憶體，多實例不會合併。另外，正式環境的 Better Auth 對 `/sign-in` 與 `/sign-up` 另有每 10 秒 3 次的限制；那是登入套件的行為，不是存檔 API。
+- 遊戲讀回敘事時會把 `activeEventId` 清成空、模式改回探索。雲端仍保存玩家上傳時的進行中事件，另一台載入後會依遊戲既有規則結束該事件。這不是用裝置時間決定覆蓋。
+- 多樣玩法盤面接受已知 `board` 類型裡的巢狀資料，但沒有逐欄複製內容代理的盤面 schema。新的盤面類型要先加進白名單。
 - 沒有競技排行榜，也沒有公開的管理、發獎或列出所有玩家的端點。存檔裡的經驗與貨幣不是伺服器結算的分數。
 - 獎勵回執只保證不重複記帳。客戶端若在回執成功之後當掉、又還沒執行本機發獎，重試不會再發。既有 `grantQuestReward` 仍以任務 id 自己防重。
 - 內容效果白名單檢查結構，不執行內容檔。穩定的任務、物品、技能 id 仍由內容資料定義；這份 API 不另造一套 id。
