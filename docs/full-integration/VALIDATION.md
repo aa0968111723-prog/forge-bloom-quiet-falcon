@@ -229,3 +229,24 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 重建後的新學期打開「學期委託」。四條新委託進度是 0。`gathered` 四項是 0，`felled.report` 是 0，沒有領取。學期仍是第一週，狀態卡 1 級、經驗 0/60。沒有把 12 份收集做完，也沒有走十個巡邏點。對方 `docs/quest-play/evidence/` 的完成畫面是他們的。
 
 畫面：`/opt/cursor/artifacts/integration-journal/journal-collections.png`。
+
+## 先處理分組那一種
+
+這段打在 `AdventureApp-BztmqH0m.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-D1yzos4G.js`。之後 `main` 進到 `997ff0d`（收集計數的雲端重開 #168）。差異在雲端與伺服器，靜態重建的檔名沒有變。沒有改委託結算，所以沒有重打。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-reports.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-reports` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 329 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出仍是 `index-D1yzos4G.js` 與 `AdventureApp-BztmqH0m.js`。字面沒有 `revision_conflict`、`DATABASE_URL` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+新學期從標題選建築學系。擊退 report-1 與 report-2。`felled.report` 是 2。存檔經驗 110。筆記 18、零件 20，都是開局背包。`gathered.notes` 與 `gathered.parts` 是 0。學期仍是第一週。畫面是 2 級、「經驗 50/180」、生命 108/108。
+
+領取之後經驗 160，筆記 22，零件 26。提示「已入袋：課堂筆記 ×4、構築零件 ×6」。`gathered` 仍是 0。按鈕是停用的「已領取」。再領一次，經驗不變。重載後經驗 160、筆記 22、零件 26、`felled.report` 2，按鈕仍是已領取。學期仍是第一週，畫面「經驗 100/180」。
+
+其餘三條收集仍是 0。沒有走十個巡邏點。對方的雲端重開紀錄是他們的。
+
+畫面：`/opt/cursor/artifacts/integration-reports/ready.png`、`claimed.png`、`reloaded.png`。

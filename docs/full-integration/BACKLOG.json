@@ -85,10 +85,10 @@
     },
     {
       "id": "FI-COLLECT",
-      "status": "journal-visible",
+      "status": "browser-verified",
       "merged": true,
       "deployed": false,
-      "note": "Collection quests from main b579dff via #164 are on this branch as 7e2ada5. On AdventureApp-BztmqH0m.js the journal shows the four missions at 0. This line did not finish a collection or walk the patrols. The other line's completion screenshots are theirs. npm test on this tree was 325 pass / 0 fail."
+      "note": "Collection quests from main are on this branch. On AdventureApp-BztmqH0m.js a fresh architecture semester defeated report-1 and report-2, then claimed reports once. Store xp went 110 to 160, notes 18 to 22, parts 20 to 26. gathered stayed 0. Reload kept the receipt and week-1. The other three collection missions stayed at 0. npm test on the #168 merge was 329 pass / 0 fail."
     },
     {
       "id": "FI-CLOUD",
@@ -100,7 +100,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main b579dff includes collection quests via #164. Merged here as 7e2ada5. Do not merge it again. Their completion screenshots are their record. Backend tip 4cdd8d7 is past that and the agent was still RUNNING. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main 997ff0d includes collection counts across a cloud restart via #168. Merged here as 72d1b2c. Do not merge it again. Their restart record is theirs. Backend tip 9c6c744 is past that and the agent was still RUNNING. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",
@@ -124,7 +124,7 @@
     {
       "id": "FI-BROWSER-REST",
       "status": "not-verified-here",
-      "note": "Both Liang clash choices were paid on fresh architecture semesters. Store xp went 114 to 122 and notes 20 to 21. The card showed 62/180. Gu Heng's turn followed the flag and was left unpaid. Week-1 stayed. The four collection missions are visible at 0 on the rebuilt bundle and were not completed here. Variety tip 3270f9f has new encounter files and a stale store.ts. Variety abort is still unplayed."
+      "note": "The reports collection mission was claimed once after two report defeats. Store xp went 110 to 160. gathered stayed 0 and week-1 stayed. The other three collection missions are still at 0. Gu Heng's turn choices are still unpaid. Variety tip 3270f9f has new encounter files and a stale store.ts."
     }
   ]
 }
