@@ -699,6 +699,22 @@ try {
     await frames(page, 4);
     await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x > -2.4) throw new Error(`walked through the bollard ${JSON.stringify(stopped)}`);
+  } else if (scenario === "notice") {
+    await hideHud(page);
+    await setPose(page, 2.2, 81.6, -Math.PI / 2);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(5.1, 81.6);
+      window.__controlsTest.setPhoto({
+        yaw: -Math.PI / 2,
+        distance: 3.4,
+        height: 1.55,
+        lookY: 0.15,
+        target: { x: 5.1, y: y + 1.45, z: 81.6 },
+      });
+    });
+    await frames(page, 8);
+    await shot(page, "board", "notice board at the slope apron");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：公告牌（ART-084 的一部分）
+
+四座公告牌的紙面寫著「校園公告」和「請沿步道行走」。字是這輪的估計用字。牌架沒有改，也沒有加碰撞。車阻留著。
+
+畫面：`docs/art/evidence/props/notice.jpg`。測試：`scripts/notice-copy.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。公告牌已有兩行字。車阻已會擋人。田徑場內圈已有草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
