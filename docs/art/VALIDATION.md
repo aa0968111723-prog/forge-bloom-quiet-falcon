@@ -355,3 +355,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 57 輪（圖書館坡道欄杆）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs` 通過。`tsc --noEmit` 通過。圖書館坡道長 14 m，左右各一道同長欄杆，離坡道中線 0.95 m，在 1.6 m 寬的坡面外側。立柱含兩端，至少 8 根。欄杆用現在的坡道位置，不回到舊的南牆座標。克難坡沒有欄杆。定步白天近景，頁面無錯誤：`docs/art/evidence/ramp/rails.jpg`。兩側都看得到橫桿和立柱。欄杆位置仍是 estimated。小地圖課程字留在第 56 輪。沒有新增音效。`build:site` 產物 `AdventureApp-Cl3Ho6pe.js`。390×780 也看得到兩側欄杆：`docs/art/evidence/ramp/rails-narrow.jpg`。
+
+## 第 58 輪（轉動後的碰撞盒）— 2026-11-12
+
+`node --test scripts/rotated-collider.test.mjs` 通過。`tsc --noEmit` 通過。海事博物館西南角在世界座標約 (128.9, -238.5)，舊的正盒子包不住，新的盒子包住。站在那個點會被推開。南邊入口 (150, -230) 不會被推開。商管大樓的角也一樣。白樓沒有偏角，碰撞盒半寬仍是樓寬的一半。定步從南邊走向船角，人停在 z = -238.04，沒有穿進 z < -241。頁面無錯誤：`docs/art/evidence/museum/corner.jpg`。坡道欄杆留在第 57 輪。沒有新增音效。`build:site` 產物 `AdventureApp-I8yaFB1e.js`。
