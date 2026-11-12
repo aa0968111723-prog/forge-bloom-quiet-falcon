@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { LIBRARY } from "../src/game/world-data/landmarks.ts";
-import { LIBRARY_RAMP, libraryRampLift, libraryRampTriangles } from "../src/game/world-data/library-ramp.ts";
+import { LIBRARY_RAMP, libraryRampLift, libraryRampMeshHeight, libraryRampTriangles } from "../src/game/world-data/library-ramp.ts";
 import { PROPS } from "../src/game/world-data/props.ts";
 import { terrainHeight } from "../src/game/world.ts";
 import { sampleGroundElevation } from "../src/game/world-data/elevation.ts";
@@ -38,4 +38,15 @@ test("the library ramp rises to the plinth and stays outside the wall", () => {
   assert.equal(ramp.z, LIBRARY_RAMP.z);
   const bin = PROPS.find((p) => p.kind === "bin" && p.x < 0 && p.zone === "library");
   assert.equal(libraryRampLift(bin.x, bin.z), 0);
+  const samples = [
+    [LIBRARY_RAMP.x, LIBRARY_RAMP.z - LIBRARY_RAMP.length / 2],
+    [LIBRARY_RAMP.x, LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2],
+    [-3.05, -292.6],
+    [-0.95, -292.6],
+  ];
+  for (const [x, z] of samples) {
+    const mesh = libraryRampMeshHeight(x, z);
+    assert.ok(mesh !== null, `no triangle at ${x}, ${z}`);
+    assert.ok(Math.abs(mesh - terrainHeight(x, z)) < 0.02, `mesh ${mesh} walk ${terrainHeight(x, z)}`);
+  }
 });

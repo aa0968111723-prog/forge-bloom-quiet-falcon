@@ -1,4 +1,4 @@
-import { AXIS } from "./axis.ts";
+import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY } from "./landmarks.ts";
 
 /**
@@ -31,29 +31,51 @@ export function libraryRampLift(x: number, z: number): number {
 
 type Vec3 = [number, number, number];
 
-/** Local triangles. +Z is the low south end, -Z is the high north end. */
+/** World-space samples. Each vertex sits on terrainHeight. */
+export function libraryRampSamples(): Vec3[][] {
+  const { x, z, length, width, skirt } = LIBRARY_RAMP;
+  const halfL = length / 2;
+  const halfW = width / 2;
+  const xs = [x - halfW - skirt, x - halfW - skirt / 2, x - halfW, x, x + halfW, x + halfW + skirt / 2, x + halfW + skirt];
+  const zs: number[] = [];
+  for (let dz = -halfL; dz <= halfL + 1e-6; dz += 1) zs.push(z + dz);
+  return zs.map((wz) =>
+    xs.map((wx): Vec3 => [wx, sampleGroundElevation(wx, wz) + libraryRampLift(wx, wz), wz]),
+  );
+}
+
+/** Triangles of the same surface the player walks. Normals point up. */
 export function libraryRampTriangles(): Vec3[][] {
-  const { width, length, rise, skirt, lip } = LIBRARY_RAMP;
-  const hw = width / 2;
-  const hl = length / 2;
-  const sw: Vec3 = [-hw, lip, hl];
-  const se: Vec3 = [hw, lip, hl];
-  const nw: Vec3 = [-hw, rise, -hl];
-  const ne: Vec3 = [hw, rise, -hl];
-  const osw: Vec3 = [-hw - skirt, 0, hl];
-  const ose: Vec3 = [hw + skirt, 0, hl];
-  const onw: Vec3 = [-hw - skirt, 0, -hl];
-  const one: Vec3 = [hw + skirt, 0, -hl];
-  const floorW: Vec3 = [-hw, 0, -hl];
-  const floorE: Vec3 = [hw, 0, -hl];
-  return [
-    [sw, se, ne],
-    [sw, ne, nw],
-    [osw, sw, nw],
-    [osw, nw, onw],
-    [se, ose, one],
-    [se, one, ne],
-    [nw, ne, floorE],
-    [nw, floorE, floorW],
-  ];
+  const rows = libraryRampSamples();
+  const triangles: Vec3[][] = [];
+  for (let j = 0; j < rows.length - 1; j++) {
+    for (let i = 0; i < rows[j].length - 1; i++) {
+      const p00 = rows[j][i];
+      const p10 = rows[j][i + 1];
+      const p01 = rows[j + 1][i];
+      const p11 = rows[j + 1][i + 1];
+      triangles.push([p00, p01, p11], [p00, p11, p10]);
+    }
+  }
+  return triangles;
+}
+
+/** Height of the rendered triangle that covers this point, if one does. */
+export function libraryRampMeshHeight(x: number, z: number): number | null {
+  for (const [a, b, c] of libraryRampTriangles()) {
+    const v0x = b[0] - a[0];
+    const v0z = b[2] - a[2];
+    const v1x = c[0] - a[0];
+    const v1z = c[2] - a[2];
+    const den = v0x * v1z - v1x * v0z;
+    if (Math.abs(den) < 1e-8) continue;
+    const v2x = x - a[0];
+    const v2z = z - a[2];
+    const bv = (v2x * v1z - v1x * v2z) / den;
+    const bw = (v0x * v2z - v2x * v0z) / den;
+    const bu = 1 - bv - bw;
+    if (bu < -1e-4 || bv < -1e-4 || bw < -1e-4) continue;
+    return bu * a[1] + bv * b[1] + bw * c[1];
+  }
+  return null;
 }

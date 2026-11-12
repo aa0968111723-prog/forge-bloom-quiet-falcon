@@ -326,4 +326,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 50 輪（圖書館坡道）— 2026-11-12
 
-`node --test scripts/library-ramp.test.mjs` 通過。`tsc --noEmit` 通過。坡道北端在圖書館南牆外 0.4 m 以內，高度是 1.05 m。南端貼地。坡道外側 0.5 m 裙邊收到 0。頂面法線朝上。定步白天從南端看，頁面無錯誤：`docs/art/evidence/ramp/slope.jpg`。同一站點量到北端地面 20.74、南端 19.51、坡外 19.59。坡度仍是 estimated。化學館留在第 49 輪。沒有新增音效。`build:site` 本輪未重跑。
+`node --test scripts/library-ramp.test.mjs` 通過。`tsc --noEmit` 通過。坡道北端在圖書館南牆外 0.4 m 以內，高度是 1.05 m。南端貼地。坡道外側 0.5 m 裙邊收到 0。頂面法線朝上。網格頂點用的是走路高度，坡端和裙邊中點的網格與腳底相差小於 2 cm。定步白天從南端看，頁面無錯誤：`docs/art/evidence/ramp/slope.jpg`。同一站點量到北端地面 20.74、南端 19.51、坡外 19.59。坡度仍是 estimated。化學館留在第 49 輪。沒有新增音效。`build:site` 本輪未重跑。
