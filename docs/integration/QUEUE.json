@@ -5828,6 +5828,30 @@
       "integrationPr": 354,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/354",
       "nextAction": "This is on integration PR #354. Do not merge PR #180 by itself. The next game commit is PR #181 bf9b3973b399, the Chueh Hsuan south veranda."
+    },
+    {
+      "id": "art-chueh-veranda",
+      "title": "Give Chueh Hsuan a south veranda and a taller hip roof",
+      "status": "verified",
+      "pr": 181,
+      "branch": "cursor/chueh-veranda-1a71",
+      "headSha": "bf9b3973b39922b3e6816522a975d88a7d794e28",
+      "dependencies": ["art-dorm-balcony"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the literature hall eave and the later capture scenes. The literature hall stays lit-hall. The garden pavilion stays four posts. Art notes kept the later milestones and appended this veranda.",
+        "typecheck": "pass",
+        "npmTest": "484 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-C_T2ORH-.js sha256 7c29e1e04764e8c221002010129db68ad39f76361b36c3a2374f6a77ad28d075. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8278/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User jN44pmqhTRCi0KCTvgofDV3GhelGYYcE."
+      },
+      "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "0b432cb89a1c57751d00d856e60e88682b28771f",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #181 by itself. The next game commit is PR #183 da1881ad1355, the museum downhill skirt."
     }
   ]
 }
