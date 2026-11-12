@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T08:57:02Z",
+  "updated_at": "2026-11-12T09:04:56Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -109,10 +109,12 @@
     "merged main at a91731f; the trimmed quest claim was already on this branch",
     "merged main at a0806b6; the trimmed pilgrimage list was already on this branch",
     "merged main at 95d35d1; the empty variety note, the clipped variety note, and the empty narrative seed were already on this branch",
-    "a reused request id continues the newer local file from this device's save"
+    "a reused request id continues the newer local file from this device's save",
+    "merged main at 459e60e; the trimmed harvest cooldowns were already on this branch",
+    "a refused upload keeps the newer local file on this device's revision"
   ],
   "verification": {
-    "npm_test": "411 pass, 0 fail; a reused request id continues the newer local file from this device's save",
+    "npm_test": "413 pass, 0 fail; a refused upload keeps the newer local file on this device's revision",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

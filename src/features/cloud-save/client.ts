@@ -866,7 +866,10 @@ export function createCloudSaveController(options: {
         continue;
       }
       if (response.status === 401) {
-        if (pending.id !== item.id && stillQueued(item)) remember(item, pending);
+        if (stillQueued(item)) {
+          const kept = pending.id === item.id ? item : pending;
+          remember(item, { ...kept, attempts: Math.max(1, kept.attempts), nextAt: now() });
+        }
         writeRemaining();
         return { sent, paused: true };
       }
@@ -1069,12 +1072,13 @@ export function createCloudSaveController(options: {
         };
       }
       if (response.status === 401) {
+        // The response was refused, but a proxy may already have stored this id.
         enqueue({
           id: String(body.requestId),
           userId,
           kind: "put",
           body,
-          attempts: 0,
+          attempts: 1,
           nextAt: now(),
         });
         return { status: "queued" };
