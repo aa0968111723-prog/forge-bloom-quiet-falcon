@@ -558,6 +558,14 @@ export function arenaProfile(size: readonly [number, number, number]) {
   };
 }
 
+/** South clerestory of the gym. Day stays glass; night picks up the same warm lamp colour as the avenue. */
+export function clerestoryGlow(lampsOn: boolean) {
+  return {
+    emissive: lampsOn ? "#ffe6b4" : "#000000",
+    emissiveIntensity: lampsOn ? 0.55 : 0,
+  };
+}
+
 /**
  * Teaching hall for 外國語文大樓. The ground gallery and south set-back are
  * an estimated silhouette. 教育館 and 會文館 stay classroom blocks. The older
