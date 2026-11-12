@@ -81,6 +81,9 @@ export const LIBRARY = {
   floorHeight: 4.0,
 } as const;
 
+/** The paved plinth sticks out this far past each wall. The mesh is 1.1 m tall, above a step. */
+export const LIBRARY_BASE_MARGIN = 2.5;
+
 /**
  * 宮燈教室 rows: five halls a side, mirrored about the avenue.
  *
