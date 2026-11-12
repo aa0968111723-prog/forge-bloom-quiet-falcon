@@ -2015,7 +2015,7 @@
       "id": "art-court-lines",
       "line": "art",
       "scope": "The Wuhu field has two marked courts, each with a boundary, a center line, and a net. The volleyball court has a boundary. Lines stay inside the grass. Sizes are estimated. Wet colours stay on the same surfaces.",
-      "status": "verified",
+      "status": "merged",
       "pr": 135,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/135",
       "integrationBranch": "cursor/integration-court-lines-3395",
@@ -2033,11 +2033,11 @@
         "route": "8148: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #135 by itself."
+      "merged": true,
+      "mergeSha": "27ceb69e566f849012db9b77fa2f6fcb6da00f3c",
+      "integrationPr": 149,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/149",
+      "nextAction": "None. The court lines from 06a75dc are already in this integration. Do not merge PR #135 by itself."
     }
   ]
 }
