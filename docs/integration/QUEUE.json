@@ -2914,7 +2914,7 @@
       "id": "backend-quarantine-ids",
       "line": "backend",
       "scope": "Quarantine items and quarantine gear keep the item ids the game already kept, including spaces, up to 64 characters. The rest of the save still uploads.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-quarantine-ids-3395",
@@ -2932,9 +2932,11 @@
         "route": "8179: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "371829b5563acdcf666a5a379b7b021288f7317e",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 215,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/215",
+      "nextAction": "None. The quarantine item ids from b1131cb are already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
