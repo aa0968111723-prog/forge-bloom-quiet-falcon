@@ -5287,9 +5287,11 @@
         "route": "8259 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "6dabb15e48b7340dd3f6c2a60d3b5f78a777027c",
-      "nextAction": "Open the integration PR. Do not merge PR #269 by itself. The scroll-words commit 5fe60b19 is still separate."
+      "integrationPr": 334,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/334",
+      "nextAction": "None. The gym clerestory from c3ce7704 is already in this integration. Do not merge PR #269 by itself. The scroll-words commit 5fe60b19 is still separate."
     }
   ]
 }
