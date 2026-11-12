@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T01:06:00Z",
+      "updated": "2026-11-12T01:20:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1621,6 +1621,34 @@
       "integrationPr": 119,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/119",
       "nextAction": "None. The garden-house patches from 3a2b5df and e478b9c are already in this integration. Do not merge PR #102 by itself. Next is PR #105 at head d5a28c8, then PR #107 at head 4dc3786, then PR #108 at head 6ac2cf3, then PR #110 at head eee5c91, then PR #111 at head 412b130, then PR #113 at head f2750c7, then PR #115 at head 9672ff3, then PR #116 at head 9a3d594, then PR #118 at head 266e4b7. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-language-hall",
+      "line": "art",
+      "scope": "The foreign-language hall is a warm ground storey, a south gallery of glass, and a set-back pale upper block with two bands. Education and Hweiwen stay classroom blocks. Shared windows are skipped. The older foreign-lang-hall record stays separate. The gallery shape is estimated.",
+      "status": "verified",
+      "pr": 105,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/105",
+      "integrationBranch": "cursor/integration-language-bay-3395",
+      "sourceBranch": "cursor/language-bay-1a71",
+      "baseSha": "1565a748126293dda110272bc62cd59fa98be29b",
+      "headSha": "d5a28c83b3a1efc2712c6e6a1bb81b4be3d1ab05",
+      "dependencies": ["art-garden-house"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, glazing skip, the language profile, the renderer import, the capture script, the lod test, and the art docs. Kept the earlier kinds and added language-hall after garden-house and before the theme switch. Capture keeps the earlier scenarios and adds language. Education and Hweiwen stay study-block.",
+        "typecheck": "pass",
+        "npmTest": "266 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8135 high. 1280x720 shows the warm ground storey, south gallery, set-back pale upper block, two bands, and nameplate. 390x780 keeps the bands, nameplate, gallery glass, and ground storey. pageErrors empty",
+        "route": "8135: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #105 by itself. Next is PR #107 at head 4dc3786."
     }
   ]
 }
