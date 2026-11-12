@@ -3021,6 +3021,34 @@
       "integrationPr": 222,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/222",
       "nextAction": "None. The expired-session queue from 9a085af is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-variety-built",
+      "line": "backend",
+      "scope": "A variety run stays uploadable after the lifetime station count passes 48. Standing buildings stay capped at 48. The cloud snapshot accepts a built count up to 10000000, and the local read clamps it at 1000000.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-variety-built-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "2925e8a1fbfc481618ede110cb93c6e504711346",
+      "headSha": "d014318b463c2019d40070a61832f808792b29be",
+      "dependencies": ["backend-session-expired"],
+      "sharedFiles": ["src/features/cloud-save/contract.ts", "src/features/gameplay-variety/memory.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:54:51Z entry and the variety-built line.",
+        "typecheck": "pass",
+        "npmTest": "384 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-C8YogH9P.js",
+        "browser": "8183. The standing route completed.",
+        "route": "8183: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": true,
+      "mergeSha": "f490dd3f6e8a0865e1c0ea0be5a0a3a0b110aaa2",
+      "integrationPr": 223,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/223",
+      "nextAction": "None. The variety-run station count from d014318 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

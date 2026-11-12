@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T07:03:19Z",
+  "updated_at": "2026-11-12T07:04:19Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "2925e8a",
+  "base": "873d831",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -69,7 +69,8 @@
     "a variety run still uploads after the lifetime station count passes the standing cap of 48",
     "merged main at df20d53; the sloped library rails stay outside the save format",
     "a queued upload lands as a first sync when this account's cloud row is gone",
-    "merged main at 2925e8a; the expired-session upload queue was already on this branch"
+    "merged main at 2925e8a; the expired-session upload queue was already on this branch",
+    "merged main at 873d831; the variety-run station count was already on this branch"
   ],
   "verification": {
     "npm_test": "386 pass, 0 fail; a queued upload lands as a first sync when this account's cloud row is gone",
