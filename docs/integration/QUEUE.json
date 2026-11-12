@@ -3253,7 +3253,7 @@
       "id": "backend-move-anchor",
       "line": "backend",
       "scope": "When a move lesson anchor is outside the cloud coordinate range, import stands the player at the restored position and keeps the move lesson. An anchor inside the range stays where it was. A raw upload of an anchor past that range is still rejected.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-move-anchor-3395",
@@ -3271,9 +3271,11 @@
         "route": "8191: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "832c66283385bf315d0a74578b52342f813625b7",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 235,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/235",
+      "nextAction": "None. The move-lesson anchor from d4159279 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
