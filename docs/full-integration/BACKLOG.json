@@ -88,7 +88,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Gu's time choices on AdventureApp-BztmqH0m.js at 1280x720. Corridor and defer each moved store xp from 122 to 130 and left notes at 21. The card showed 70/180, hp 108, focus 100. Week-1 stayed. Standing at Qiu discovered commons and added 12, so reload kept xp 142 and the flag-specific opening. Both of Qiu's choices were visible and left unpaid."
+      "note": "Two fresh architecture semesters paid Gu's time choices on AdventureApp-BztmqH0m.js at 1280x720. Corridor and defer each moved store xp from 122 to 130 and left notes at 21. The card showed 70/180, hp 108, focus 100. Week-1 stayed. Standing at Qiu discovered commons and added 12, so reload kept xp 142 and the flag-specific opening. Qiu's opening choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-QIU-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Qiu's opening on the pre-rebuild AdventureApp-BztmqH0m.js at 1280x720. Listen and studio each moved store xp from 142 to 160 and left notes at 21. The card showed 100/180, hp 108, focus 100. Week-1 stayed. The +18 is quest 6 plus discover-place 12. The clash line is the same for both flags and was left unpaid."
     },
     {
       "id": "FI-COLLECT",
@@ -107,7 +114,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 4fb1fa4 includes once-only signed-in rewards via #170. Merged here as 054b79c. Do not merge it again. Faculty files were unchanged. Backend was still RUNNING and this check did not re-read their tip. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main 2f68934 includes cloud integrity via #173. Merged here as 21bb7ba. Do not merge it again. Faculty files were unchanged. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",
