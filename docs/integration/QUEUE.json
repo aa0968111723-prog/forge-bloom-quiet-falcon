@@ -1929,6 +1929,34 @@
       "integrationPr": 143,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/143",
       "nextAction": "None. The library ramp through 75128e0 is already in this integration. Do not merge PR #134 by itself. Do not merge PR #122."
+    },
+    {
+      "id": "backend-gear-contract",
+      "line": "backend",
+      "scope": "The cloud save checks loadout, gear, quarantine, and a held building already stored on tamkang-rpg-v2. Extra keys are rejected. A save without those fields still uploads.",
+      "status": "verified",
+      "pr": 122,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/122",
+      "integrationBranch": "cursor/integration-gear-contract-3395",
+      "sourceBranch": "cursor/integration-full-game-f7e4",
+      "baseSha": "a91b3bda2910a8b4e85cf897ec74ea6202f8b374",
+      "headSha": "a76918e497a5a84ff700fbc6f75bb19a4108a82f",
+      "dependencies": ["content-items-gear"],
+      "sharedFiles": ["src/features/cloud-save/contract.ts"],
+      "checks": {
+        "conflicts": "none. Only contract.ts was taken from a76918e.",
+        "typecheck": "pass",
+        "npmTest": "309 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BLw17Z0-.js unchanged",
+        "browser": "no new pixels. Static bundle unchanged.",
+        "route": "8144 with this worktree's cloud server: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #122 by itself."
     }
   ]
 }
