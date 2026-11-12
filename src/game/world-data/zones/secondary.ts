@@ -35,6 +35,7 @@ export type SecondaryStructure = {
     | "lab-block"
     | "sport-hall"
     | "study-block"
+    | "business-hall"
     | "linked-hall"
     | "forum-hall"
     | "stand"
@@ -88,7 +89,7 @@ const LEGACY_SECONDARY_STRUCTURES: SecondaryStructure[] = [
     size: [34, 30, 22],
     rotationY: 0.1,
     floors: 8,
-    kind: "study-block",
+    kind: "business-hall",
     cluster: "east",
     walkable: true,
     accuracy: "estimated",
@@ -478,6 +479,28 @@ export function engTowerProfile(size: readonly [number, number, number]) {
  * Formal office block for 行政大樓. The entrance bay is an estimated
  * silhouette, not a measured elevation. Classroom halls stay study blocks.
  */
+/**
+ * Office tower for the legacy 商管大樓 silhouette. The glass podium and
+ * set-back shaft are estimated, not a measured elevation. 行政大樓 keeps its
+ * narrow entrance bay.
+ */
+export function businessHallProfile(size: readonly [number, number, number]) {
+  const podiumH = Math.min(6.5, Math.max(4.8, size[1] * 0.2));
+  const shaftD = size[2] - 2;
+  const shaftZ = -0.4;
+  return {
+    podiumH,
+    shaftW: size[0] - 2.4,
+    shaftD,
+    shaftZ,
+    shaftSouth: shaftZ + shaftD / 2,
+    glassW: Math.min(18, size[0] * 0.62),
+    glassH: podiumH * 0.55,
+    glassZ: size[2] / 2 + 0.08,
+    bandW: (size[0] - 2.4) * 0.78,
+  };
+}
+
 export function officeProfile(size: readonly [number, number, number]) {
   const bayH = Math.min(4.2, Math.max(3.2, size[1] * 0.22));
   return {

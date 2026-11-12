@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：商管大樓（ART-065 的一部分）
+
+商管大樓不再用教學樓基座。深色玻璃底座托著退縮的淺色樓身。行政大樓仍是窄入口。外形是 estimated，不是實測立面。
+
+畫面：`docs/art/evidence/business/tower.jpg`。測試：`scripts/business-hall.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。商管大樓已有玻璃底座。文學館仍是坡頂。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
