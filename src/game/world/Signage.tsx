@@ -1,9 +1,7 @@
 import type * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
-import { AXIS } from "../world-data/axis.ts";
-import { CAMPUS_GATE } from "../world-data/landmarks.ts";
+import { CAMPUS_GATE, textSigns } from "../world-data/landmarks.ts";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
-import { KENAN, KENAN_LANDING_Z } from "../world-data/kenan.ts";
 import { useCampusSigns } from "./labels";
 
 /**
@@ -68,43 +66,16 @@ export function Signage({ wetness }: { wetness: number }) {
         </mesh>
       </group>
 
-      {/* 克難坡 name posts: bottom entrance pair + landing marker. */}
-      <SignBoard
-        map={signs.kenan}
-        position={[-5.2, sampleGroundElevation(-5.2, KENAN.bottomZ + 3), KENAN.bottomZ + 3]}
-        rotationY={Math.PI / 8}
-        size={[1.05, 0.42]}
-      />
-      <SignBoard
-        map={signs.kenanSteps}
-        position={[5.2, sampleGroundElevation(5.2, KENAN.bottomZ + 4), KENAN.bottomZ + 4]}
-        rotationY={-Math.PI / 8}
-        size={[1.35, 0.4]}
-      />
-      <SignBoard
-        map={signs.kenan}
-        position={[-5.4, sampleGroundElevation(-5.4, KENAN_LANDING_Z[0] - 3), KENAN_LANDING_Z[0] - 3]}
-        rotationY={Math.PI / 2.4}
-        size={[0.95, 0.38]}
-        postHeight={1.2}
-      />
-
-      {/* 宮燈大道 marker at the avenue's south end. */}
-      <SignBoard
-        map={signs.avenue}
-        position={[-4.4, sampleGroundElevation(-4.4, AXIS.avenueSouthZ - 3), AXIS.avenueSouthZ - 3]}
-        rotationY={Math.PI / 6}
-        size={[1.3, 0.42]}
-      />
-
-      {/* Wayfinding to the library at the north end of the avenue. */}
-      <SignBoard
-        map={signs.wayfinding}
-        position={[5.0, sampleGroundElevation(5.0, AXIS.avenueNorthZ - 4), AXIS.avenueNorthZ - 4]}
-        rotationY={-Math.PI / 7}
-        size={[1.15, 0.42]}
-        postHeight={1.9}
-      />
+      {textSigns().map((sign) => (
+        <SignBoard
+          key={sign.id}
+          map={signs[sign.map]}
+          position={[sign.x, sampleGroundElevation(sign.x, sign.z), sign.z]}
+          rotationY={sign.rot}
+          size={[sign.boardW, sign.boardH]}
+          postHeight={sign.postHeight}
+        />
+      ))}
     </group>
   );
 }

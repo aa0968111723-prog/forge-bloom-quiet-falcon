@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, PALACE, bollards, palaceHallZs } from "./landmarks.ts";
+import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, PALACE, bollards, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -48,6 +48,11 @@ function buildColliders(): AABB[] {
     minZ: stairMinZ,
     maxZ: stairMaxZ,
   });
+
+  for (const sign of textSigns()) {
+    const face = textSignAabb(sign);
+    out.push({ minX: face.minX, maxX: face.maxX, minZ: face.minZ, maxZ: face.maxZ });
+  }
 
   // 坡底 entrance piers
   out.push(box(-KENAN.bottomApronWidth / 2 - 0.5, AXIS.gateZ, 1.1, 1.1));
@@ -136,7 +141,7 @@ export function trunkAabbs(): readonly AABB[] {
   return trunkBoxes;
 }
 
-/** Short enough that a 13 m/s dodge cannot step past a 0.18 m pole, a trunk centre, or a 1 m gate pier. */
+/** Short enough that a 13 m/s dodge cannot step past a 0.18 m pole, a trunk centre, a 1 m gate pier, or a sign board. */
 export const COLLISION_SUBSTEP = 0.2;
 
 export function substepCollision(
