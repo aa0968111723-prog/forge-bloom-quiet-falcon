@@ -9,3 +9,6 @@ export const HOOP_STANDS = [
   { x: -8, z: 0, size: 1.4 },
   { x: 8, z: 0, size: 1.4 },
 ] as const;
+
+/** Front desk in the palace classroom, clear of the student tables and the south door. */
+export const CLASSROOM_DESK = { x: 0, z: -5.51, width: 1.6, depth: 1.3 } as const;

@@ -26,6 +26,7 @@ export function stepInterior(
   radius: number,
   furnished = true,
   stands = false,
+  podium = false,
 ): InteriorStep {
   const slices = Math.max(1, Math.ceil(Math.hypot(dx, dz) / 0.25));
   let cx = x;
@@ -40,7 +41,7 @@ export function stepInterior(
     if (cz > 7 - radius || (inGap && nz > 7 - radius && cz > 4)) {
       if (Math.abs(nx) > INTERIOR_DOOR_HALF - radius && cz <= 7.45) {
         hit = true;
-        const held = resolveInterior(cx, Math.min(cz, 7 - radius), radius, furnished, stands);
+        const held = resolveInterior(cx, Math.min(cz, 7 - radius), radius, furnished, stands, podium);
         cx = held.x;
         cz = held.z;
         continue;
@@ -50,7 +51,7 @@ export function stepInterior(
       if (cz > 7 - radius) exited = true;
       continue;
     }
-    const held = resolveInterior(nx, nz, radius, furnished, stands);
+    const held = resolveInterior(nx, nz, radius, furnished, stands, podium);
     if (Math.hypot(held.x - nx, held.z - nz) > 1e-6) hit = true;
     cx = held.x;
     cz = held.z;
@@ -67,6 +68,7 @@ export function integrateInterior(
   radius: number,
   furnished = true,
   stands = false,
+  podium = false,
 ): InteriorStep {
   let cx = x;
   let cz = z;
@@ -74,7 +76,7 @@ export function integrateInterior(
   let hit = false;
   const count = Math.max(0, Math.floor(steps));
   for (let i = 0; i < count; i++) {
-    const step = stepInterior(cx, cz, vx * FIXED_DT, vz * FIXED_DT, radius, furnished, stands);
+    const step = stepInterior(cx, cz, vx * FIXED_DT, vz * FIXED_DT, radius, furnished, stands, podium);
     cx = step.x;
     cz = step.z;
     exited = exited || step.exited;

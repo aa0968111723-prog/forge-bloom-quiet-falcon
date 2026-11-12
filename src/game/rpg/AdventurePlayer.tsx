@@ -78,6 +78,7 @@ export function AdventurePlayer() {
             ?.theme !== "sport",
           CAMPUS_SITES.find((s) => s.id === useRpg.getState().interiorId)
             ?.theme === "sport",
+          useRpg.getState().interiorId === "palace",
         )
       : resolveBuildings(x, z, radius, useRpg.getState().buildings);
   const { camera, gl } = useThree();
@@ -297,6 +298,7 @@ export function AdventurePlayer() {
           PLAYER_R,
           furnished,
           theme === "sport",
+          interiorId === "palace",
         );
         pos.current.x = step.x;
         pos.current.z = step.z;

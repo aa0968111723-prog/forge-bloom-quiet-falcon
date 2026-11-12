@@ -775,10 +775,12 @@
         "docs/art/evidence/interior/ceiling.jpg",
         "docs/art/evidence/interior/ceiling-lookdown.jpg",
         "docs/art/evidence/interior/door-outside.jpg",
+        "docs/art/evidence/desk/front.jpg",
         "scripts/interior-ceiling.test.mjs",
-        "scripts/interior-door.test.mjs"
+        "scripts/interior-door.test.mjs",
+        "scripts/class-desk.test.mjs"
       ],
-      "notes": "既有遊戲室內，不是實測房間。宮燈教室、圖書館閱讀桌、體育館球場。天花板貼著牆頂，房間不再朝天開。往下看時鏡頭停在板底下方，人仍在畫面裡。南門開口半寬 2.5 m，對準牆的內緣。從開口走出去會回到該棟門外，interiorId 回到 null，hp 與主修保留。貼著門框的位置走不出去。材質庫 ART-084 仍未做。"
+      "notes": "既有遊戲室內，不是實測房間。宮燈教室、圖書館閱讀桌、體育館球場。天花板貼著牆頂，房間不再朝天開。往下看時鏡頭停在板底下方，人仍在畫面裡。南門開口半寬 2.5 m，對準牆的內緣。從開口走出去會回到該棟門外，interiorId 回到 null，hp 與主修保留。貼著門框的位置走不出去。宮燈教室講台在學生桌前方，1.6×1.3 m，會擋住身體。閱讀室同一點沒有這張講台。材質庫 ART-084 仍未做。"
     },
     {
       "id": "ART-081",
