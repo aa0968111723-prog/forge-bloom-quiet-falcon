@@ -524,3 +524,6 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/reading-girl.test.mjs` 通過。`tsc --noEmit` 通過。石座在西側長椅，坡道抬升是 0，坡道中線同一 z 仍抬高。石座中心會把人推開。從南緣往北跨 1.04 m 仍停在中心南側。坡道缺口不被推開。巡禮折線不經過石座。低畫質也畫出石座和人像。白天從南邊走向石座會停在座緣：`docs/art/evidence/girl/south.jpg`。位置仍是 estimated。第 98 輪的書架留著。沒有新增音效。
 
+## 第 100 輪（體育館夜窗）— 2026-11-12
+
+`node --test scripts/gym-glow.test.mjs` 通過。`tsc --noEmit` 通過。路燈關掉時高側窗 emissive 是 `#000000`、強度 0。路燈亮時是 `#ffe6b4`、強度 0.55。定步夜晚，頁面無錯誤：`docs/art/evidence/gym-night/south.jpg`。南面看得到一條暖色高窗。窗位仍是 estimated。沒有新增音效。第 99 輪的前庭石座留著。

@@ -626,6 +626,12 @@
 
 畫面：`docs/art/evidence/girl/south.jpg`。測試：`scripts/reading-girl.test.mjs`。
 
+## 階段：體育館夜窗（ART-067 的一部分）
+
+紹謨紀念體育館南面高側窗在路燈亮時發暖光，顏色和大道夜燈相同。白天不發光。窗位仍是 estimated。前庭石座留著。
+
+畫面：`docs/art/evidence/gym-night/south.jpg`。測試：`scripts/gym-glow.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。路燈燈柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。體育館高側窗夜裡會亮，白天不發光。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

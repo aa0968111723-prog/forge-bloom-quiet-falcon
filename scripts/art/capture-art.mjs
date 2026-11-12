@@ -1159,6 +1159,16 @@ try {
     });
     await frames(page, 6);
     await shot(page, "south", `reading girl on the forecourt, stopped ${JSON.stringify(stopped)}`);
+  } else if (scenario === "gym-night") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("night"));
+    await setPose(page, 166, -88, 0);
+    await frames(page, 16);
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.2, distance: 26, height: 9, lookY: 7 });
+    });
+    await frames(page, 6);
+    await shot(page, "south", "gym clerestory at night, lamps on");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

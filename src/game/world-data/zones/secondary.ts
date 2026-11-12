@@ -612,6 +612,14 @@ export function arenaProfile(size: readonly [number, number, number]) {
   };
 }
 
+/** South clerestory of the gym. Day stays glass; night picks up the same warm lamp colour as the avenue. */
+export function clerestoryGlow(lampsOn: boolean) {
+  return {
+    emissive: lampsOn ? "#ffe6b4" : "#000000",
+    emissiveIntensity: lampsOn ? 0.55 : 0,
+  };
+}
+
 /**
  * Public ground floor for 松濤二館. The site record lists 文錙藝術中心 and 美食廣場.
  * The glass and canopy are an estimated silhouette. The other Sungtao halls stay

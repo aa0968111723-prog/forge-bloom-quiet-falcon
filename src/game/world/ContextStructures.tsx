@@ -10,6 +10,7 @@ import {
   type SecondaryStructure,
   activityProfile,
   arenaProfile,
+  clerestoryGlow,
   contextShowsDetail,
   engTowerProfile,
   gardenHouseProfile,
@@ -743,7 +744,7 @@ export function ContextStructures({
               </mesh>
               <mesh position={[0, profile.clerestoryY, profile.glassZ]} castShadow>
                 <boxGeometry args={[s.size[0] * 0.78, profile.glassH, 0.18]} />
-                <meshStandardMaterial color="#9eb4b8" roughness={0.24} metalness={0.12} />
+                <meshStandardMaterial color="#9eb4b8" roughness={0.24} metalness={0.12} {...clerestoryGlow(lampsOn)} />
               </mesh>
               <mesh position={[0, s.size[1] + 0.18, 0]} castShadow>
                 <boxGeometry args={[s.size[0] + 1.6, 0.28, s.size[2] + 1.6]} />
