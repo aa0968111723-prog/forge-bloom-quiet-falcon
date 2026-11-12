@@ -5203,9 +5203,11 @@
         "route": "8256 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "3c4100a41cac3c2e0a0aea3bd22fb6fe0ee2064a",
-      "nextAction": "Open the integration PR. Do not merge PR #263 by itself. The shelf-clear commit bf82dc53 is still separate."
+      "integrationPr": 331,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/331",
+      "nextAction": "None. The reading-room carrels from 64f336ca are already in this integration. Do not merge PR #263 by itself. The shelf-clear commit bf82dc53 is still separate."
     }
   ]
 }
