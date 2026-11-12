@@ -4732,6 +4732,32 @@
       "integrationPr": 314,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/314",
       "nextAction": "None. The street-lamp poles from 5eb28d7 are already in this integration. Do not merge PR #230 by itself. The dodge commit 39e2dbb is still separate."
+    },
+    {
+      "id": "art-lamp-dodge",
+      "line": "art",
+      "scope": "A 13 m/s dodge takes 0.2 m substeps and stops on the near side of a lamp pole. Sweep casts include the pole boxes.",
+      "status": "verified",
+      "pr": 230,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/230",
+      "integrationBranch": "cursor/integration-lamp-dodge-3395",
+      "sourceBranch": "cursor/lamp-stop-1a71",
+      "baseSha": "142a920e9e0f6996b86331bdd536ea2ac97f7b4b",
+      "headSha": "39e2dbb02a33f3863d9d8ac9ae95f38923e44467",
+      "dependencies": ["art-lamp-stop"],
+      "sharedFiles": ["src/game/rpg/AdventurePlayer.tsx", "src/game/rpg/physics/sweep.ts", "src/game/world-data/colliders.ts"],
+      "checks": {
+        "conflicts": "Indoor room steps stayed. Outdoor dodge movement now uses 0.2 m substeps. Pole boxes stay in sweep casts. Lamp heads, the palace camera, and bollard gaps stayed.",
+        "typecheck": "pass",
+        "npmTest": "448 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Dbbs5cLF.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8241/",
+        "route": "pass. gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision_conflict, cloudXp 47, logout 401, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "867cdde09043375198631fa140fb58e494b1f6b8",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #230 by itself."
     }
   ]
 }
