@@ -100,6 +100,7 @@ try {
   page.setDefaultTimeout(180000);
   page.on("pageerror", (e) => pageErrors.push(e.message));
   page.on("console", (m) => m.type() === "error" && pageErrors.push("console: " + m.text()));
+  if (scenario === "still-water") await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(gameUrl(base, { tier }), { waitUntil: "domcontentloaded" });
   await waitForTitle(page);
   const gl = await webglInfo(page);
@@ -685,6 +686,18 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "still-water") {
+    const reduced = await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
+    if (!reduced) throw new Error("reduced motion was not applied");
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("cloudy"));
+    await setPose(page, -70, -80, Math.PI / 2);
+    await frames(page, 12);
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 1.15, distance: 16, height: 7, lookY: 2 });
+    });
+    await frames(page, 4);
+    await shot(page, "shore", "reduced motion, cloudy, looking toward the river");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
