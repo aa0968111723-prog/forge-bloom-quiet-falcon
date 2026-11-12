@@ -818,3 +818,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 56 減 46 是 10，也就是貼牆階段的經驗。筆記加 1。安澄這條用詞線到這裡結束。
 
 畫面：`/opt/cursor/artifacts/integration-an-after/post-outcome.png`、`post-done.png`、`one-outcome.png`、`one-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做移動教學錨點、多餘發現或裝備耐久的匯入。
+
+## 孟昭的兩個開場選項
+
+這段打在 `AdventureApp-DyYCDMBl.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-CuYsTjzn.js`。`main` 尖端 `eccee6d`（註記 PR #242，GitHub 狀態 MERGED；同一段還有 PR #241，GitHub 狀態 CLOSED，`mergeCommit` 是 null，提交已在 main）。遊戲提交 `264a94c` 讓超出範圍的敘事時鐘仍可上傳，`f90a3c8` 拿掉叫不出名字的敘事地點。合併提交 `08de580`。主遊戲檔 888972 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-meng-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-meng-meet` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 399 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出是 `index-CuYsTjzn.js` 與 `AdventureApp-DyYCDMBl.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，直接站到化學館另一側的估計位置。站上去先發現地點，存檔經驗 12、筆記 18。對話卡寫「虛構角色 · 系主任 · 化學系」。她先說自己和沈酌不是同一個位子。
+
+- 「請你先說，安全上哪一段不能借。」存檔經驗 30，筆記 18。結果句「這是通風，不是誰比較重要。」畫面是 1 級、「經驗 30/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「有人想把前一組的時間吃掉」。兩個衝突選項都在。離開不結算，沒有 `quest-faculty-hours-clash`。`quest-faculty-hours-meet` 只有一筆。沒有工作室任務。重載後經驗 30、筆記 18，再交談仍是這一句。
+- 「我想先聽兩個都能用的時段。」經驗同樣 12→30，筆記停在 18。結果句「兩邊都還有位子。」衝突仍是「有人想把前一組的時間吃掉」。離開不結算。重載後這一句還在。
+
+30 減 12 是 18，也就是開場 6 加上崗位發現 12。筆記 18 是新學期背包原有的。衝突不看這次是先問不能借還是先聽兩個時段。
+
+畫面：`/opt/cursor/artifacts/integration-meng-meet/safety-outcome.png`、`safety-next.png`、`both-outcome.png`、`both-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做敘事時鐘或叫不出名字的地點匯入。
