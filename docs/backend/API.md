@@ -130,10 +130,11 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 - `writeLocal` 只寫 `tamkang-rpg-v2`，不發請求。
 - 未登入時 `plan()` 是 `local_only`。
 - 雲端 404 是 `need_first_sync`。`uploadFirstSync` 才會帶 `confirmFirstSync: true`。`keepLocalOnly` 不上傳。
-- 沒有本機存檔時是 `need_download`，要呼叫 `downloadCloud` 才寫入。雲端空資料不會清本機。
+- 沒有本機存檔時是 `need_download`，要呼叫 `downloadCloud` 才寫入。雲端空資料不會清本機。下載和恢復會先檢查存檔白名單，並核對內容雜湊；對不上就不覆蓋本機。
 - 本機與雲端不同，且本機記錄的 revision 不等於伺服器：`conflict`。`keepRemoteVersion` / `keepLocalVersion` 才解決。
-- 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。`flush` 只送目前帳號的佇列，沿用原來的 `requestId`，退避 1s、2s、4s，上限 30s。
+- 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。同一個帳號只留最後一次上傳。`flush` 只送目前帳號的佇列；重試同一筆時沿用原來的 `requestId`，退避 1s、2s、4s，上限 30s。
 - `logout` 只清目前帳號標記，不刪 RPG 存檔，也不把上一個帳號的佇列送給下一個帳號。
+- 上傳、下載、恢復、列出版本和送出佇列之前，會先讀 `/api/auth/get-session`。session 的使用者必須等於這台裝置記的帳號。不同就回 `account_mismatch`，不讀、不寫另一個帳號的存檔，佇列留在原帳號。連不上 session 時不送出。
 - `noteReward` 先把事件記在這台裝置。同一個事件再呼叫、登出後再呼叫，或換帳號登入，都不會再執行發獎函式。登入時只把這台裝置尚未記到該帳號的回執排進該帳號佇列。已登入且伺服器回 `applied: false` 時不發獎。伺服器連不上時才在本機發一次並把回執留在佇列。
 - `restorePrevious` 在玩家按下時，把目前 head 的前一個 revision 複製成新 head，並寫回本機。只有一份雲端版本時不改本機。離線時不把恢復排進佇列。
 - `listRevisions` 只讀目前帳號的版本編號。`restoreRevision` 把玩家選中的那一筆複製成新 head 並寫回本機。找不到、衝突，或選到目前 head 時，不改本機。恢復不寫獎勵回執。
