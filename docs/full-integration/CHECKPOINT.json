@@ -1,11 +1,12 @@
 {
-  "updated": "2026-11-12T04:02:28Z",
+  "updated": "2026-11-12T04:10:29Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "83fa529a22ce12d60c38c20c318de8b067427d75",
-  "baseFull": "83fa529 is origin/main. Library ramp railings integration PR #159, source PR #132 at 1dce114. Merged here as be9ceb684469. Dialogue files are unchanged, so the Shen routes were not replayed.",
-  "playedBundle": "dist/assets/AdventureApp-B2sSdjRz.js via index-ClUiOG2v.js. Preview http://127.0.0.1:8088/ served that index during the Shen routes.",
+  "base": "e95c137109e10d61e9e77c3b56cf111937b722f3",
+  "baseFull": "e95c137 is origin/main. Live campus snapshot integration PR #162, source PR #156 at 7182c6e. Merged here as 15a21ee6f752. Faculty files are unchanged, so the Liang routes were not replayed after the merge. Content version stays 2.",
+  "playedBundle": "dist/assets/AdventureApp-B2sSdjRz.js via index-ClUiOG2v.js. Preview http://127.0.0.1:8088/ served that index during the Liang routes, before build:site.",
+  "builtAfter": "npm run build:site after the merge wrote index-B0jBbET6.js and AdventureApp-BoDdWjJ4.js. The Liang dialogue was not played on that bundle. The new dist has no literal revision_conflict, cloud-save, or DATABASE_URL.",
   "gameSha": "e2d26ffd200150d99c2237bafc14be2e552af5eb",
-  "verifiedHead": "e2d26ffd200150d99c2237bafc14be2e552af5eb",
+  "verifiedHead": "15a21ee6f7522820235c7d20cfa73d4a52ce2db1",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -14,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T03:57:00Z",
+    "checkedAt": "2026-11-12T04:04:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -29,17 +30,18 @@
     "node --experimental-transform-types scripts/integration-interiors.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-interiors",
     "node --experimental-transform-types scripts/integration-gu-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-clash",
     "node --experimental-transform-types scripts/integration-shen-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-meet",
-    "node --experimental-transform-types scripts/integration-shen-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-clash"
+    "node --experimental-transform-types scripts/integration-shen-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-clash",
+    "node --experimental-transform-types scripts/integration-liang-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-meet"
   ],
   "done": [
-    "Two fresh architecture semesters paid Shen Zhuo's clash choices on AdventureApp-B2sSdjRz.js. Public: store xp 76 to 84, notes 19 to 20, outcome 附錄就是給同組看的. Office: same xp and notes, outcome 可以先放在我這裡. The card stayed level 2 and showed 24/180, hp 108, focus 100. Semester stayed week-1.",
-    "Standing at 梁晚 discovered business-o and added the existing 12, so store xp became 96 and the card showed 36/180. Her opening followed the flag: 附錄, or 沒有把沈酌的名字寫上去. Both of her choices were visible. Leaving unpaid omitted quest-faculty-liang-meet. Reload kept xp 96, notes 20, and that line. quest-faculty-shen-clash stayed at one.",
-    "The browser script exited 0 with an empty pageErrors list. No game source changed, so npm test was not re-run. The last full run remains 316 pass / 0 fail after the railing merge."
+    "Merged origin/main e95c137 (live campus snapshot #162) as 15a21ee. npx tsc --noEmit passed. npm test was 322 pass / 0 fail. build:site wrote AdventureApp-BoDdWjJ4.js. CLOUD_CONTENT_VERSION stayed 2.",
+    "Two fresh architecture semesters paid Liang Wan's opening choices on the pre-rebuild bundle AdventureApp-B2sSdjRz.js. Ours: store xp 96 to 114, notes stayed 20, outcome 先不要。沈酌沒有說她同意. Mine: same xp and notes, outcome 這句我收。名字是你的. The card stayed level 2 and showed 54/180, hp 108, focus 100. Semester stayed week-1.",
+    "The next line followed the flag: 這句還不能用, or 你的請求我留下了. Both clash choices were visible. Leaving unpaid kept the meet claim at one and omitted quest-faculty-liang-clash. Reload kept xp 114, notes 20, and that line. The +18 is quest 6 plus discover-place 12 for post-liang-wan."
   ],
   "todo": [
-    "Liang Wan's opening choices 我寫成我們三個人都同意的句子 and 我只寫我自己的請求 were visible and not clicked.",
-    "Backend branch cursor/backend-db-link-6038 moved from 7f400ba to 4db8bd5 and is not on main. CLOUD_CONTENT_VERSION there is still 2. The new commit replays a campus save after a database restart. Read contract.ts at the then-current head before wiring it. The backend agent was still RUNNING.",
-    "Variety abort was not played in the browser.",
+    "Liang Wan's clash choices 兩份出處並列 and 先貼訪談 were visible and not clicked.",
+    "Backend branch cursor/backend-db-link-6038 is at 82822a6, past the #162 source 7182c6e. The agent was still RUNNING. Read contract.ts at the then-current head before taking another slice. Do not merge that branch again on top of #162.",
+    "Variety tip 3270f9f is not an ancestor. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
   ],
@@ -50,5 +52,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Liang Wan's opening choices, 我寫成我們三個人都同意的句子 or 我只寫我自己的請求. Before wiring cursor/backend-db-link-6038, re-read contract.ts at its then-current head; 4db8bd5 was the tip at this check and the agent was still RUNNING. Do not flip MAIN_INTEGRATION. Do not merge ramp railings #159 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Liang Wan's clash choices, 兩份出處並列 or 先貼訪談. Variety tip 3270f9f needs a store-safe wire of the new encounters; do not take their store.ts. Backend tip 82822a6 was still moving. Do not flip MAIN_INTEGRATION. Do not merge campus snapshot #162 again. Do not merge PR #32 head 1fc5887."
 }

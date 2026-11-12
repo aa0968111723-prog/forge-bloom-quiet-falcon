@@ -180,3 +180,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 84 減 76 是 8，也就是衝突階段的經驗。筆記 +1 走既有 `give`。96 減 84 是既有地點發現 12，不是梁晚的對話獎勵。
 
 畫面：`/opt/cursor/artifacts/integration-shen-clash/public-outcome.png`、`public-liang.png`、`office-outcome.png`、`office-reloaded.png`。固定畫面不能用來宣稱手勢流暢。
+
+## 梁晚的兩個開場選項
+
+這段打在重建前的 `AdventureApp-B2sSdjRz.js`，預覽當時的入口是 `index-ClUiOG2v.js`。之後 `main` 進到 `e95c137`（雲端校園快照 #162）。差異在 `src/features/cloud-save/**` 與雲端測試，沒有改教職員對話，所以沒有重打。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-liang-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-meet` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 322 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出 `index-B0jBbET6.js` 與 `AdventureApp-BoDdWjJ4.js`。字面沒有 `revision_conflict`、`cloud-save`、`DATABASE_URL`。對話沒有打在這包上 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算顧衡、沈酌，再站到梁晚的估計崗位。點下去之前存檔經驗 96、筆記 20。
+
+- 「我寫成我們三個人都同意的句子。」存檔經驗 114，筆記 20。結果句「先不要。沈酌沒有說她同意，顧衡也沒有。」畫面是 2 級、「經驗 54/180」、生命 108/108、專注 100/100。學期仍是第一週。再交談是「這句還不能用。」下一拍兩個選項都在。離開不結算，沒有 `quest-faculty-liang-clash`。重載後經驗 114、筆記 20，再交談仍是這一句。
+- 「我只寫我自己的請求，不代他們發言。」經驗同樣 96→114，筆記 20。結果句「這句我收。名字是你的。」下一句「你的請求我留下了。」離開不結算。重載後這一句還在。
+
+114 減 96 是 18：任務 `quest-faculty-liang-meet` 的 6，加上第一次結算崗位 `post-liang-wan` 的探索 12。那 12 點記在經驗事件，沒有多一筆 `discoveries`。筆記停在 20，因為開場階段不加筆記。
+
+畫面：`/opt/cursor/artifacts/integration-liang-meet/ours-outcome.png`、`ours-next.png`、`mine-outcome.png`、`mine-reloaded.png`。固定畫面不能用來宣稱手勢流暢。對方在 `http://127.0.0.1:8153/` 的雲端快照紀錄是他們的。
