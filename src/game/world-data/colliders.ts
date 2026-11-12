@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { BOLLARD, LANDMARKS, LIBRARY, PALACE, bollards, palaceHallZs } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -58,6 +58,8 @@ function buildColliders(): AABB[] {
 
   // 海豚里程碑 plinth on the roundabout island
   out.push(box(0, AXIS.dolphinZ, 3.4, 3.4));
+
+  for (const post of bollards()) out.push(box(post.x, post.z, BOLLARD.diameter, BOLLARD.diameter));
 
   // 書卷廣場 — four separate blades, walkable between.
   for (const [dx, dz] of [

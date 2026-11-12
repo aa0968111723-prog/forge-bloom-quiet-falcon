@@ -105,6 +105,27 @@ export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
 }
 
+/** Bollard shaft diameter, matching the concrete cylinder's base radius of 0.11 m. */
+export const BOLLARD = { diameter: 0.22 } as const;
+
+/** The twelve kerb bollards, in world XZ. The mesh and the collider both use this list. */
+export function bollards(): { x: number; z: number; rot: number; zone: string }[] {
+  const posts = [
+    { x: -2.2, z: AXIS.gateZ + 1.2, rot: 0, zone: "kenan" },
+    { x: 2.2, z: AXIS.gateZ + 1.2, rot: 0, zone: "kenan" },
+  ];
+  for (let a = 0; a < 10; a++) {
+    const t = (a / 10) * Math.PI * 2;
+    posts.push({
+      x: Math.sin(t) * DOLPHIN_ISLAND_RADIUS,
+      z: AXIS.dolphinZ + Math.cos(t) * DOLPHIN_ISLAND_RADIUS,
+      rot: t,
+      zone: "dolphin",
+    });
+  }
+  return posts;
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",

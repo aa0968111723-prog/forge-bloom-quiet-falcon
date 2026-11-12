@@ -60,6 +60,21 @@ export const AVENUE_PLANTING_WIDTH = 2.6;
 
 /** Radius of the dolphin roundabout island. */
 export const DOLPHIN_ISLAND_RADIUS = 9;
+
+/**
+ * Leave the dolphin ring through the gap between the north-east bollards,
+ * then run north of the ring before turning back to the avenue centre.
+ */
+const DOLPHIN_EXIT_ANGLE = (126 * Math.PI) / 180;
+const DOLPHIN_EXIT_RADIUS = DOLPHIN_ISLAND_RADIUS + 1.5;
+export const DOLPHIN_BOLLARD_EXIT: readonly [number, number] = [
+  Math.sin(DOLPHIN_EXIT_ANGLE) * DOLPHIN_EXIT_RADIUS,
+  AXIS.dolphinZ + Math.cos(DOLPHIN_EXIT_ANGLE) * DOLPHIN_EXIT_RADIUS,
+];
+export const DOLPHIN_BOLLARD_NORTH: readonly [number, number] = [
+  DOLPHIN_BOLLARD_EXIT[0],
+  AXIS.dolphinZ - DOLPHIN_ISLAND_RADIUS - 2,
+];
 /** 書卷廣場 overall paved size (east–west × north–south). */
 export const SCROLL_PLAZA_SIZE: readonly [number, number] = [48, 44];
 
@@ -114,6 +129,8 @@ export const MAIN_ROUTE: readonly (readonly [number, number])[] = [
   [0, AXIS.avenueNorthZ],
   // Round the dolphin island rather than climbing over the plinth.
   [6.6, AXIS.dolphinZ],
+  DOLPHIN_BOLLARD_EXIT,
+  DOLPHIN_BOLLARD_NORTH,
   [0, AXIS.scrollPlazaZ],
   // Leave 書卷廣場 between the northern pair of scroll blades.
   [0, AXIS.scrollPlazaZ - 12],
