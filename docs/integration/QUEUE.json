@@ -2909,6 +2909,32 @@
       "integrationPr": 213,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/213",
       "nextAction": "None. The lost direct upload from df0b23c is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-quarantine-ids",
+      "line": "backend",
+      "scope": "Quarantine items and quarantine gear keep the item ids the game already kept, including spaces, up to 64 characters. The rest of the save still uploads.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-quarantine-ids-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "9dfcec968b7cf9eca5bc6392c9720b2c45f8eb9f",
+      "headSha": "b1131cb236c2ed7f919a3911847e3c49fadfadf7",
+      "dependencies": ["backend-lost-upload"],
+      "sharedFiles": ["src/features/cloud-save/contract.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json auto-merged. No manual conflict.",
+        "typecheck": "pass",
+        "npmTest": "377 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-wsEEgaCK.js unchanged",
+        "browser": "8179. The standing route completed.",
+        "route": "8179: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "371829b5563acdcf666a5a379b7b021288f7317e",
+      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
