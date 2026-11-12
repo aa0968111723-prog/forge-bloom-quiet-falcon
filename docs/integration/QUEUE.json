@@ -5151,7 +5151,33 @@
       "mergeSha": "9e12bb2df2cf6dcfdb0ad38aee9e3117a3188332",
       "integrationPr": 329,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/329",
-      "nextAction": "None. The in-room hoop push from 2ee4ec18 is already in this integration. Do not merge PR #259 by itself. The classroom desk commit e79fbbf0 is still separate."
+      "nextAction": "None. The in-room hoop push from 2ee4ec18 is already in this integration. Do not merge PR #259 by itself. The classroom desk commit e79fbbf0 is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-class-desk",
+      "line": "art",
+      "scope": "The palace classroom desk stops a 0.42 m body. The reading room does not. The south door stays open.",
+      "status": "verified",
+      "pr": 261,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/261",
+      "integrationBranch": "cursor/integration-class-desk-3395",
+      "sourceBranch": "cursor/class-desk-1a71",
+      "baseSha": "bfc80bcd31108a844d6427c1a945d39de4baf4cc",
+      "headSha": "e79fbbf0fa5123177c4628ccc9ffc87a19092138",
+      "dependencies": ["art-hoop-push"],
+      "sharedFiles": ["src/game/rpg/interior-layout.ts", "src/game/rpg/rules.ts", "src/game/rpg/physics/interior.ts", "src/game/rpg/AdventurePlayer.tsx", "src/game/rpg/InteriorDetails.tsx", "scripts/class-desk.test.mjs"],
+      "checks": {
+        "conflicts": "The hoop wall push, airframes, five-tigers stele, and outdoor colliders stay. Indoor steps pass the palace desk only for the palace room.",
+        "typecheck": "pass",
+        "npmTest": "462 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-C3w3A_cl.js sha256 2ee0fbf4bd5f65984bd5d9b22f01d7e24c77275f74c36fcb8b8a77c406c17ea0. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8255/",
+        "route": "8255 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "c63315a8f86b8f9495dfd569bdaf8b7be2077598",
+      "nextAction": "Open the integration PR. Do not merge PR #261 by itself. The reading-room carrel commit 64f336ca is still separate."
     }
   ]
 }
