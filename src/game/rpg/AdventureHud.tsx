@@ -48,6 +48,8 @@ import {
   WORLD_BOUNDS,
 } from "../world";
 import { campusAudio } from "../audio";
+import { GearDock } from "../../features/items-equipment-building/GearDock";
+import { factOf } from "../../features/items-equipment-building/catalog";
 import { inventory, maxHp, promptSnap, useRpg, type RpgPanel } from "./store";
 import { packView, type PackFilter, type PackSort } from "./pack";
 import { itemDetail } from "./itemdetail";
@@ -220,6 +222,7 @@ function InventoryPanel() {
   const rpg = useRpg(
     useShallow((s) => ({
       equipped: s.equipped,
+      loadout: s.loadout,
       hp: s.hp,
       focus: s.focus,
       xp: s.xp,
@@ -239,6 +242,7 @@ function InventoryPanel() {
     maxHp: maxHp(rpg),
     focus: rpg.focus,
     equipped: rpg.equipped,
+    loadout: rpg.loadout,
   });
   const pickedItem = pickedId ? ITEMS.find((entry) => entry.id === pickedId) ?? null : null;
   const filterCategory =
@@ -275,6 +279,7 @@ function InventoryPanel() {
         <h3 className="ad-primary-label">隨身物品</h3>
         <span data-pose={`${pose.x},${pose.z},${pose.yaw}`}>{slots.length} / 24 格</span>
       </div>
+      <GearDock />
       <div className="ad-pack-tools">
         <div role="group" aria-label="背包篩選">
           {PACK_FILTERS.map((entry) => (
@@ -360,6 +365,18 @@ function InventoryPanel() {
                 <dd>{detail.quantity}</dd>
               </div>
               <div>
+                <dt>來源</dt>
+                <dd>{detail.source}</dd>
+              </div>
+              <div>
+                <dt>堆疊</dt>
+                <dd>{detail.stack}</dd>
+              </div>
+              <div>
+                <dt>重量</dt>
+                <dd>{detail.weight}</dd>
+              </div>
+              <div>
                 <dt>取得線索</dt>
                 <dd>{detail.clue}</dd>
               </div>
@@ -392,6 +409,22 @@ function InventoryPanel() {
                 onClick={() => useRpg.getState().equip()}
               >
                 {rpg.equipped ? "卸下徽章" : "裝備徽章"}
+              </button>
+            )}
+            {item.category === "equipment" && item.id !== "badge" && (
+              <button
+                type="button"
+                className="ad-primary ad-raise"
+                onClick={() => useRpg.getState().equipItem(item.id)}
+              >
+                {factOf(item.id)?.slot && rpg.loadout[factOf(item.id)!.slot!] === item.id ? "卸下" : "裝備"}
+              </button>
+            )}
+            {factOf(item.id)?.locked ? (
+              <p>任務物品不能丟棄。遺失且不在地上時，可在委託完成後補領。</p>
+            ) : item.category !== "equipment" ? null : (
+              <button type="button" className="ad-raise" onClick={() => useRpg.getState().discardItem(item.id)}>
+                丟棄
               </button>
             )}
           </article>
@@ -489,7 +522,7 @@ function BuildPanel() {
   return (
     <>
       <p className="ad-lead">
-        把校園的一角變成你的社團基地。選擇設施後，轉動視角調整位置。
+        這些是遊戲裡的臨時設施，放在指定空地，不代表真實校園允許施工。選擇後可預覽、旋轉，取消不會扣材料。
       </p>
       <div className="ad-build-stock" aria-label="建造資源">
         {view.resources.map((item) => (
@@ -569,15 +602,18 @@ function BuildPanel() {
                 {RECIPES.find((r) => r.id === b.kind)?.name}{" "}
                 <small>耐久 {Math.ceil(b.hp)}</small>
               </span>
-              <button onClick={() => useRpg.getState().demolish(b.id)}>
-                拆除 · 回收 50%
+              <button type="button" onClick={() => useRpg.getState().beginMove(b.id)}>
+                移動
+              </button>
+              <button type="button" onClick={() => useRpg.getState().demolish(b.id)}>
+                拆除 · 回收一半
               </button>
             </div>
           ))}
         </div>
       )}
       <p className="ad-footnote">
-        E 放置 · R 旋轉 · Esc 結束。校園建築、陡坡與既有設施會阻擋放置。
+        E 放置 · R 旋轉 · Esc 結束。移動不扣材料，取消會放回原處。拆除退回每種材料的一半，不足 1 的不退。校門、主路、入口、任務點與救援點不能堵。
       </p>
     </>
   );

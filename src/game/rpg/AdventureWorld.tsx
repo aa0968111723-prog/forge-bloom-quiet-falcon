@@ -28,6 +28,8 @@ import {
   clearSight,
   type Building,
 } from "./rules";
+import { BuildingShape } from "../../features/items-equipment-building/BuildingShape";
+import { gearBonus, instanceFor } from "../../features/items-equipment-building/gear";
 import { quality } from "../quality";
 import { signHost } from "./chrome";
 import { detailedRoom, InteriorDetails, roomFinish } from "./InteriorDetails";
@@ -103,63 +105,7 @@ export function BuildingModel({
         <boxGeometry args={[spec.width + 0.3, 0.24, spec.depth + 0.3]} />
         <meshStandardMaterial {...mat} color={ghost ? color : "#405d58"} />
       </mesh>
-      {kind === "desk" ? (
-        <>
-          <mesh position={[0, 1, 0]} castShadow>
-            <boxGeometry args={[2.6, 0.16, 1.6]} />
-            <meshStandardMaterial {...mat} />
-          </mesh>
-          {[-1, 1].map((x) => (
-            <mesh key={x} position={[x, 0.55, 0]}>
-              <boxGeometry args={[0.18, 0.9, 1.1]} />
-              <meshStandardMaterial {...mat} />
-            </mesh>
-          ))}
-          <mesh position={[0, 1.2, 0]}>
-            <boxGeometry args={[0.7, 0.2, 0.5]} />
-            <meshStandardMaterial color="#eee1bd" />
-          </mesh>
-        </>
-      ) : kind === "barrier" ? (
-        <mesh position={[0, 0.9, 0]} castShadow>
-          <boxGeometry args={[3, 1.6, 0.7]} />
-          <meshStandardMaterial {...mat} />
-        </mesh>
-      ) : kind === "lantern" ? (
-        <>
-          <mesh position={[0, 1.5, 0]}>
-            <cylinderGeometry args={[0.08, 0.12, 3, 8]} />
-            <meshStandardMaterial {...mat} />
-          </mesh>
-          <mesh position={[0, 3.1, 0]}>
-            <boxGeometry args={[0.75, 0.7, 0.75]} />
-            <meshStandardMaterial
-              {...mat}
-              emissive={color}
-              emissiveIntensity={1.4}
-            />
-          </mesh>
-          <mesh position={[0, 3.55, 0]}>
-            <coneGeometry args={[0.7, 0.35, 4]} />
-            <meshStandardMaterial {...mat} />
-          </mesh>
-        </>
-      ) : (
-        <>
-          <mesh position={[0, 1, 0]}>
-            <cylinderGeometry args={[0.6, 0.8, 1.7, 8]} />
-            <meshStandardMaterial {...mat} />
-          </mesh>
-          <mesh position={[0, 2.1, -0.25]}>
-            <boxGeometry args={[0.5, 0.5, 1.6]} />
-            <meshStandardMaterial
-              {...mat}
-              emissive={color}
-              emissiveIntensity={0.4}
-            />
-          </mesh>
-        </>
-      )}
+      <BuildingShape kind={kind} color={color} ghost={ghost} />
     </group>
   );
 }
@@ -246,6 +192,7 @@ function BuildGhost() {
       rotation: live.rotation,
       buildings: live.buildings,
       count: (id) => inventory.count(id),
+      paid: live.heldBuild?.kind === live.buildKind,
     });
     group.current.position.set(
       verdict.spot.x,
@@ -643,6 +590,7 @@ function LibraryShelves({ floor }: { floor: number }) {
 }
 function BaseLights() {
   const lights = useRef<(THREE.PointLight | null)[]>([]),
+    lamp = useRef<THREE.PointLight | null>(null),
     acc = useRef(1);
   useFrame((_, dt) => {
     acc.current += dt;
@@ -670,6 +618,13 @@ function BaseLights() {
       l.intensity = on && b ? 5 : 0;
       if (b) l.position.set(b.x, terrainHeight(b.x, b.z) + 3.1, b.z);
     }
+    const bonus = gearBonus(s.loadout, s.gear, (id) => inventory.count(id) > 0);
+    const held = instanceFor(s.gear, "field-lamp");
+    const lampOn = bonus.light > 0 && (held?.durability ?? 0) > 0 && (on || s.anomaly === "blackout");
+    if (lamp.current) {
+      lamp.current.intensity = lampOn ? 4 : 0;
+      lamp.current.position.set(g.playerX, terrainHeight(g.playerX, g.playerZ) + 1.6, g.playerZ);
+    }
   });
   return (
     <group>
@@ -685,6 +640,7 @@ function BaseLights() {
           decay={2}
         />
       ))}
+      <pointLight ref={lamp} color="#f6e2b8" intensity={0} distance={12} decay={2} />
     </group>
   );
 }

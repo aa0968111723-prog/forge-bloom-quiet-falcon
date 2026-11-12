@@ -1,3 +1,5 @@
+import { slotOf } from "../../features/items-equipment-building/catalog";
+import type { Loadout } from "../../features/items-equipment-building/types";
 import { ITEMS } from "./data";
 
 export type PackFilter = "all" | "consumable" | "material" | "equipment" | "rare";
@@ -23,6 +25,7 @@ export type PackViewOptions = {
   maxHp: number;
   focus: number;
   equipped: boolean;
+  loadout?: Loadout;
 };
 
 const FILTER_CATEGORY: Record<Exclude<PackFilter, "all">, string> = {
@@ -47,9 +50,14 @@ function stateLabel(
   id: string,
   category: string,
   usable: boolean,
-  equipped: boolean,
+  options: PackViewOptions,
 ): string {
-  if (id === "badge") return equipped ? "已裝備" : "可裝備";
+  if (id === "badge") return options.equipped ? "已裝備" : "可裝備";
+  if (category === "equipment") {
+    const slot = slotOf(id);
+    if (slot && options.loadout?.[slot] === id) return "已裝備";
+    return "可裝備";
+  }
   if (category === "consumable") return usable ? "可使用" : "不可用";
   return "不可用";
 }
@@ -77,7 +85,7 @@ export function packView(
       quantity: slot.quantity,
       category: item.category,
       usable,
-      state: stateLabel(item.id, item.category, usable, options.equipped),
+      state: stateLabel(item.id, item.category, usable, options),
     });
   });
   if (options.sort === "stored") return rows;

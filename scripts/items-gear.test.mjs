@@ -1,0 +1,330 @@
+/**
+ * Items, equipment, crafting, and placement.
+ * Store cases use the same harness as the adventure runtime.
+ */
+import assert from "node:assert/strict";
+import test from "node:test";
+
+const savedData = new Map();
+globalThis.localStorage = {
+  getItem: (key) => savedData.get(key) ?? null,
+  setItem: (key, value) => savedData.set(key, String(value)),
+  removeItem: (key) => savedData.delete(key),
+};
+globalThis.document = {
+  hidden: false,
+  pointerLockElement: null,
+  addEventListener() {},
+  removeEventListener() {},
+};
+const windowHandlers = {};
+globalThis.window = {
+  addEventListener(name, fn) {
+    windowHandlers[name] = fn;
+  },
+  removeEventListener() {},
+  location: { search: "" },
+};
+
+const { ITEM_FACTS, EXTRA_RECIPES, factOf } = await import(
+  "../src/features/items-equipment-building/catalog.ts"
+);
+const { gearBonus, ensureInstance, readLoadout, readGear } = await import(
+  "../src/features/items-equipment-building/gear.ts"
+);
+const { planCraft } = await import("../src/features/items-equipment-building/craft.ts");
+const { keepOut } = await import("../src/features/items-equipment-building/keepout.ts");
+const { takeCost, refundOf } = await import("../src/features/items-equipment-building/commit.ts");
+const { meshBudget, MESH_PARTS } = await import(
+  "../src/features/items-equipment-building/facilities.ts"
+);
+const { SPAWN } = await import("../src/game/world-data/landmarks.ts");
+const runtime = await import("../work/test-runtime/runtime.mjs");
+
+const { useRpg, useGame, inventory, RECIPES, ITEMS, DEPARTMENTS, validatePlacement, flushSave } = runtime;
+
+function reset() {
+  inventory.clear();
+  useRpg.setState({
+    departmentId: DEPARTMENTS[0].id,
+    hp: 100,
+    focus: 80,
+    xp: 0,
+    equipped: false,
+    loadout: { tool: null, accessory: null, pack: null },
+    gear: [],
+    quarantine: [],
+    quarantineGear: [],
+    heldBuild: null,
+    buildings: [],
+    loot: [],
+    harvested: {},
+    claimed: [],
+    discoveries: [],
+    panel: null,
+    interiorId: null,
+    buildKind: null,
+    built: 0,
+  });
+  useGame.setState({ phase: "playing", plaqueId: null, playerX: 40, playerZ: -40, playerYaw: 0 });
+}
+
+test("catalog has distinct items, equipment, and buildings", () => {
+  assert.ok(ITEM_FACTS.length >= 24);
+  assert.ok(ITEM_FACTS.filter((fact) => fact.slot).length >= 12);
+  assert.ok(RECIPES.length >= 8);
+  const icons = ITEM_FACTS.map((fact) => fact.icon);
+  assert.equal(new Set(icons).size, icons.length);
+  const ids = ITEM_FACTS.map((fact) => fact.id);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const fact of ITEM_FACTS) {
+    assert.ok(fact.source && fact.use && fact.effect);
+    assert.ok(fact.maxStack >= 1);
+    assert.ok(fact.weight >= 0);
+  }
+  for (const recipe of EXTRA_RECIPES) assert.ok(recipe.use && recipe.width > 0);
+  const shapes = new Set(RECIPES.map((recipe) => `${recipe.width}x${recipe.depth}x${recipe.name}`));
+  assert.equal(shapes.size, RECIPES.length);
+});
+
+test("bonuses are computed once and the badge attack stays outside them", () => {
+  const loadout = { tool: "field-lamp", accessory: "badge", pack: "field-pack" };
+  const gear = ensureInstance([], "field-lamp", "plain");
+  const again = ensureInstance(gear, "field-lamp", "fine");
+  assert.equal(again.length, 1);
+  const owned = (id) => ["field-lamp", "badge", "field-pack"].includes(id);
+  const first = gearBonus(loadout, gear, owned);
+  const second = gearBonus(loadout, gear, owned);
+  assert.deepEqual(first, second);
+  assert.equal(first.attack, 0);
+  assert.equal(first.light, 12);
+  assert.equal(first.carry, 80 + 48);
+  const empty = gearBonus({ tool: null, accessory: null, pack: null }, [], () => false);
+  assert.equal(empty.moveScale, 1);
+  assert.equal(empty.attack, 0);
+  assert.equal(empty.light, 0);
+});
+
+test("old equipped boolean maps onto the accessory slot without wiping unknown gear", () => {
+  const withBadge = readLoadout({
+    equipped: true,
+    loadout: undefined,
+    slots: [{ itemId: "badge", quantity: 1 }],
+  });
+  assert.equal(withBadge.equipped, true);
+  assert.equal(withBadge.loadout.accessory, "badge");
+  const missing = readLoadout({
+    equipped: true,
+    loadout: undefined,
+    slots: [{ itemId: "notes", quantity: 1 }],
+  });
+  assert.equal(missing.equipped, false);
+  assert.equal(missing.loadout.accessory, null);
+  const kept = readLoadout({
+    equipped: false,
+    loadout: { tool: "field-lamp", accessory: "badge", pack: null },
+    slots: [
+      { itemId: "field-lamp", quantity: 1 },
+      { itemId: "badge", quantity: 1 },
+    ],
+  });
+  assert.equal(kept.equipped, true);
+  assert.equal(kept.loadout.tool, "field-lamp");
+  const gear = readGear([
+    { id: "gear-field-lamp", itemId: "field-lamp", durability: 10, quality: "plain" },
+    { id: "gear-field-lamp", itemId: "field-lamp", durability: 80, quality: "plain" },
+    { id: "odd", itemId: "not-a-tool", durability: 1, quality: "plain" },
+  ]);
+  assert.equal(gear.gear.length, 1);
+  assert.equal(gear.gear[0].durability, 10);
+  assert.equal(gear.dropped.length, 1);
+  assert.equal(gear.dropped[0].itemId, "not-a-tool");
+});
+
+test("payment rolls back, refunds half, and rejects bad quantities", () => {
+  const slots = [
+    { itemId: "notes", quantity: 4 },
+    { itemId: "parts", quantity: 2 },
+  ];
+  const bag = {
+    slots: () => slots.map((slot) => ({ ...slot })),
+    remove(id, quantity = 1) {
+      const slot = slots.find((entry) => entry.itemId === id);
+      if (!slot || slot.quantity < quantity) return false;
+      slot.quantity -= quantity;
+      return true;
+    },
+    clear() {
+      slots.splice(0, slots.length);
+    },
+    add(id, quantity = 1) {
+      const slot = slots.find((entry) => entry.itemId === id);
+      if (slot) slot.quantity += quantity;
+      else slots.push({ itemId: id, quantity });
+      return { added: quantity };
+    },
+  };
+  const failed = takeCost(bag, { notes: 1, parts: 9 });
+  assert.equal(failed.ok, false);
+  assert.equal(bag.slots().find((slot) => slot.itemId === "notes").quantity, 4);
+  assert.equal(bag.slots().find((slot) => slot.itemId === "parts").quantity, 2);
+  const negative = takeCost(bag, { notes: -1 });
+  assert.equal(negative.ok, false);
+  assert.equal(bag.slots().find((slot) => slot.itemId === "notes").quantity, 4);
+  const zero = takeCost(bag, { notes: 0 });
+  assert.equal(zero.ok, false);
+  const paid = takeCost(bag, { notes: 2 });
+  assert.equal(paid.ok, true);
+  paid.undo();
+  assert.equal(bag.slots().find((slot) => slot.itemId === "notes").quantity, 4);
+  assert.deepEqual(refundOf({ notes: 5, parts: 1, copper: 2 }), { notes: 2, copper: 1 });
+});
+
+test("keep-out uses the body radius on roads, gates, spawns, and rescue", () => {
+  assert.equal(keepOut(SPAWN.x, SPAWN.z, 1, 1), "這會擋住救援位置");
+  assert.equal(keepOut(60, 65, 2, 2), "這會堵住校門");
+  assert.equal(keepOut(50, -24, 2, 2), "這會堵住主路");
+  assert.equal(keepOut(5, -104, 1.2, 1.2), "這會擋住任務出生點");
+  assert.equal(keepOut(45, -32, 2.6, 1.6), null);
+});
+
+test("mesh budget is structural and drops when a building is removed", () => {
+  const full = Array.from({ length: 48 }, (_, index) => ({ kind: RECIPES[index % RECIPES.length].id }));
+  const capped = meshBudget(full);
+  assert.ok(capped > 48);
+  assert.equal(meshBudget(full.slice(0, -1)), capped - MESH_PARTS[full.at(-1).kind]);
+  assert.equal(meshBudget([]), 0);
+});
+
+test("the live bag can craft, equip, place, demolish, and reload one loop", () => {
+  reset();
+  for (const [id, count] of [
+    ["notes", 20],
+    ["parts", 20],
+    ["copper", 4],
+    ["recipe-lamp", 1],
+    ["ridge-page", 1],
+  ])
+    assert.equal(inventory.add(id, count).overflow, 0, id);
+  let spot = null;
+  for (let x = 20; x <= 160 && !spot; x += 5)
+    for (let z = -15; z >= -120 && !spot; z -= 5)
+      if (validatePlacement("research", x, z, 0, [], { x: x + 8, z }) == null) spot = { x, z };
+  assert.ok(spot);
+  useGame.setState({ playerX: spot.x + 8, playerZ: spot.z });
+  useRpg.getState().chooseBuild("research");
+  assert.equal(useRpg.getState().place(spot.x, spot.z), true);
+  assert.equal(useRpg.getState().place(spot.x, spot.z), false);
+  const built = useRpg.getState().buildings.length;
+  useGame.setState({ playerX: spot.x + 30, playerZ: spot.z });
+  const before = inventory.count("notes");
+  assert.equal(useRpg.getState().craft("field-lamp"), false);
+  assert.equal(inventory.count("notes"), before);
+  useGame.setState({ playerX: spot.x + 2, playerZ: spot.z });
+  assert.equal(useRpg.getState().craft("field-lamp"), true);
+  assert.ok(inventory.count("notes") < before);
+  assert.equal(useRpg.getState().craft("field-lamp"), false);
+  assert.equal(inventory.count("field-lamp"), 1);
+  useRpg.getState().equipItem("field-lamp");
+  const worn = gearBonus(useRpg.getState().loadout, useRpg.getState().gear, (id) => inventory.count(id) > 0);
+  assert.equal(worn.light, 12);
+  useRpg.getState().equipItem("field-lamp");
+  assert.equal(useRpg.getState().loadout.tool, null);
+  useRpg.getState().equipItem("field-lamp");
+  const building = useRpg.getState().buildings[0];
+  assert.equal(useRpg.getState().beginMove(building.id), true);
+  useRpg.setState({ freshStart: false });
+  flushSave();
+  const moved = JSON.parse(localStorage.getItem("tamkang-rpg-v2"));
+  assert.equal(moved.heldBuild.id, building.id);
+  assert.equal(moved.buildings.some((row) => row.id === building.id), false);
+  assert.equal(useRpg.getState().importSave(localStorage.getItem("tamkang-rpg-v2")), true);
+  assert.equal(useRpg.getState().heldBuild, null);
+  assert.ok(useRpg.getState().buildings.some((row) => row.id === building.id));
+  const parts = inventory.count("parts");
+  useRpg.getState().demolish(building.id);
+  assert.equal(useRpg.getState().buildings.length, built - 1);
+  assert.ok(inventory.count("parts") > parts || useRpg.getState().loot.some((pile) => pile.items.parts));
+  const text = JSON.stringify({
+    ...JSON.parse(JSON.stringify({
+      version: 2,
+      hp: 90,
+      slots: inventory.slots(),
+      buildings: useRpg.getState().buildings,
+      equipped: useRpg.getState().equipped,
+      loadout: useRpg.getState().loadout,
+      gear: useRpg.getState().gear,
+    })),
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  assert.equal(useRpg.getState().loadout.tool, "field-lamp");
+  assert.equal(
+    gearBonus(useRpg.getState().loadout, useRpg.getState().gear, (id) => inventory.count(id) > 0).light,
+    worn.light,
+  );
+});
+
+test("failed use, full bag, unknown id, blocked entrance, and old save stay safe", () => {
+  reset();
+  useRpg.setState({ hp: 100, focus: 100 });
+  inventory.add("bandage", 1);
+  inventory.add("mint", 1);
+  inventory.add("lamp-oil", 1);
+  useRpg.getState().useItem("bandage");
+  useRpg.getState().useItem("mint");
+  useRpg.getState().useItem("lamp-oil");
+  assert.equal(inventory.count("bandage"), 1);
+  assert.equal(inventory.count("mint"), 1);
+  assert.equal(inventory.count("lamp-oil"), 1);
+  inventory.clear();
+  useRpg.setState({ kills: 3, claimed: [] });
+  assert.equal(inventory.add("parts", 99 * 24 + 1).overflow > 0, true);
+  const full = inventory.count("parts");
+  useRpg.getState().claim("first");
+  assert.equal(inventory.count("parts"), full);
+  assert.equal(useRpg.getState().importSave(JSON.stringify({
+    version: 2,
+    hp: 80,
+    slots: [
+      { itemId: "notes", quantity: 2 },
+      { itemId: "unknown-relic", quantity: 3 },
+      { itemId: "coffee", quantity: 0 },
+      { itemId: "parts", quantity: -1 },
+    ],
+    buildings: [],
+  })), false);
+  assert.equal(useRpg.getState().importSave(JSON.stringify({
+    version: 2,
+    hp: 80,
+    equipped: true,
+    slots: [
+      { itemId: "notes", quantity: 2 },
+      { itemId: "unknown-relic", quantity: 3 },
+    ],
+    buildings: [],
+  })), true);
+  assert.equal(inventory.slots().some((slot) => slot.itemId === "unknown-relic"), false);
+  assert.equal(inventory.count("notes"), 2);
+  assert.ok(useRpg.getState().quarantine.some((row) => row.itemId === "unknown-relic"));
+  assert.equal(useRpg.getState().equipped, false);
+  const wornTool = useRpg.getState().loadout.tool;
+  windowHandlers.storage?.({ key: "tamkang-rpg-v2", newValue: "{\"version\":2,\"hp\":10,\"slots\":[],\"buildings\":[],\"loadout\":{\"tool\":\"ward-pin\"}}" });
+  assert.equal(useRpg.getState().saveConflict, true);
+  assert.equal(useRpg.getState().loadout.tool, wornTool);
+  assert.equal(factOf("ridge-page").locked, true);
+  inventory.add("ridge-page", 1);
+  assert.equal(useRpg.getState().discardItem("ridge-page"), false);
+  assert.equal(inventory.count("ridge-page"), 1);
+  const blocked = validatePlacement("desk", 50, -24, 0, [], { x: 80, z: -24 });
+  assert.equal(blocked, "這會堵住主路");
+  const plan = planCraft({
+    id: "field-lamp",
+    quality: "plain",
+    count: () => 0,
+    loadout: { tool: null, accessory: null, pack: null },
+    nearResearch: false,
+    nearSupply: false,
+  });
+  assert.equal(plan.ok, false);
+  flushSave();
+});

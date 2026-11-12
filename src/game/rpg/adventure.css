@@ -2107,3 +2107,11 @@ button.ad-slot.ad-raise[data-press] {
   background: radial-gradient(circle at 30% 20%, #fcf8ec, #dfdfc6);
   box-shadow: inset 0 0 0 4px #f5edda;
 }
+.ad-gear { display: grid; gap: 8px; margin: 8px 0 12px; }
+.ad-gear-slots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.ad-gear-slot { min-height: 44px; text-align: left; display: grid; gap: 2px; padding: 8px; }
+.ad-gear-slot small, .ad-gear-slot span { font-size: 12px; line-height: 1.35; }
+.ad-gear-note, .ad-gear-craft p { font-size: 13px; line-height: 1.4; }
+.ad-gear-craft { display: grid; gap: 8px; }
+.ad-gear-craft article { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--ad-line, #cfc6b4); }
+.ad-gear-craft button { min-height: 44px; min-width: 44px; }

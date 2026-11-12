@@ -210,9 +210,9 @@ test("construction validates before atomic cost deduction, supports rotation, co
   const before = inventory.count("parts");
   assert.equal(useRpg.getState().place(0, 40), false);
   assert.equal(inventory.count("parts"), before);
-  assert.equal(useRpg.getState().place(45, -25), true);
+  assert.equal(useRpg.getState().place(45, -32), true);
   assert.equal(inventory.count("parts"), before - 4);
-  assert.equal(useRpg.getState().place(45, -25), false);
+  assert.equal(useRpg.getState().place(45, -32), false);
   assert.equal(inventory.count("parts"), before - 4);
   const b = useRpg.getState().buildings[0],
     p = resolveBuildings(b.x, b.z, 0.42, [b]);
@@ -6926,7 +6926,7 @@ test("buildcards match place cost across five states", () => {
 
   assert.deepEqual(
     RECIPES.map((recipe) => recipe.name),
-    ["自習工作臺", "守夜宮燈", "社團路障", "知識投射器"],
+    ["自習工作臺", "守夜宮燈", "社團路障", "知識投射器", "研究桌", "補給站", "線索展示板", "崗上休息點", "異象樁"],
   );
   assert.equal(r.FACILITY_CAP, 48);
   const priorGame = {
