@@ -319,6 +319,12 @@
 
 畫面：`docs/art/evidence/chem/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：圖書館坡道（ART-084 的一部分）
+
+前廣場的坡道從南端貼地升到北端 1.05 m，接到台基前。北端停在南牆外。坡道外側 0.5 m 內高度收到地面。坡度仍是 estimated。化學館仍是淺色館身和屋頂排氣箱。
+
+畫面：`docs/art/evidence/ramp/slope.jpg`。測試：`scripts/library-ramp.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。化學館已從實驗樓方塊分開。科學館、工學館與工學大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。圖書館坡道已升到台基。化學館已從實驗樓方塊分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

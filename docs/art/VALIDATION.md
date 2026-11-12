@@ -323,3 +323,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 49 輪（鍾靈化學館）— 2026-11-12
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。鍾靈化學館是深色基座、淺色館身、南向玻璃和屋頂排氣箱，名牌寫著鍾靈化學館。沒有共用窗帶。玻璃貼著南牆，排氣箱留在屋頂範圍內。科學館仍是東側直玻璃，工學館仍是磚紅基座，工學大樓仍是退縮塔樓。精度仍是 estimated。門口步道測試仍通過。定步白天近景，頁面無錯誤：`docs/art/evidence/chem/hall.jpg`。肩肘膝留在第 48 輪。沒有新增音效。
+
+## 第 50 輪（圖書館坡道）— 2026-11-12
+
+`node --test scripts/library-ramp.test.mjs` 通過。`tsc --noEmit` 通過。坡道北端在圖書館南牆外 0.4 m 以內，高度是 1.05 m。南端貼地。坡道外側 0.5 m 裙邊收到 0。頂面法線朝上。定步白天從南端看，頁面無錯誤：`docs/art/evidence/ramp/slope.jpg`。同一站點量到北端地面 20.74、南端 19.51、坡外 19.59。坡度仍是 estimated。化學館留在第 49 輪。沒有新增音效。`build:site` 本輪未重跑。
