@@ -2,8 +2,7 @@ import { useMemo } from "react";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { AXIS } from "../world-data/axis.ts";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
-import { LIBRARY } from "../world-data/landmarks.ts";
-import { quality } from "../quality";
+import { LIBRARY, READING_GIRL } from "../world-data/landmarks.ts";
 import { worldUvBox } from "../world/geometry";
 import { InstancedPlanes, type PlaneItem } from "../world/InstancedPlanes";
 import { useCampusSigns } from "../world/labels";
@@ -22,7 +21,6 @@ const FLOOR = LIBRARY.floorHeight;
 export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolean }) {
   const mats = useTamkangMaterials();
   const signs = useCampusSigns();
-  const q = quality();
   const ground = useMemo(() => sampleGroundElevation(LIBRARY.center[0], LIBRARY.center[1]), []);
 
   const geos = useMemo(() => {
@@ -116,11 +114,21 @@ export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolea
         <meshStandardMaterial map={signs.library} roughness={0.55} />
       </mesh>
 
-      {q.tier === "high" && (
-        <group position={[-2 - LIBRARY.center[0], 0, AXIS.libraryFrontZ + 6.4 - LIBRARY.center[1]]}>
+      <group
+        position={[
+          READING_GIRL.x - LIBRARY.center[0],
+          sampleGroundElevation(READING_GIRL.x, READING_GIRL.z) - ground,
+          READING_GIRL.z - LIBRARY.center[1],
+        ]}
+      >
+        <mesh position={[0, 0.2, 0]} receiveShadow castShadow>
+          <boxGeometry args={[READING_GIRL.pad, 0.4, READING_GIRL.pad]} />
+          <meshStandardMaterial {...surface(mats["kenan/old-wall"], { wetness })} />
+        </mesh>
+        <group position={[0, 0.4, 0]}>
           <ReadingGirl material={surface(mats["campus/bronze"], { wetness })} />
         </group>
-      )}
+      </group>
     </group>
   );
 }
