@@ -367,3 +367,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 60 輪（田徑場內圈）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
+
+## 第 61 輪（五虎碑）— 2026-11-12
+
+`node --test scripts/tiger-stele.test.mjs scripts/world-data.test.mjs scripts/campus-links.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。石座中心會把人推開。蓋章點 (150, −143.6) 不被推開。從北緣往南跨 1.04 m 仍停在石座中心北側。石座南緣停在體育館北牆外面。點名的樹不種在石座上，巡禮折線不擦到石座。定步白天，從北邊走過去停在 z=−142.02，頁面無錯誤：`docs/art/evidence/tigers/stele.jpg`。看得到石碑、五隻伏姿和「五虎崗傳奇」。位置仍是 estimated。沒有新增音效。`build:site` 產物 `AdventureApp-DJRz4idj.js`。
