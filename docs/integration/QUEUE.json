@@ -3640,6 +3640,34 @@
       "integrationPr": 258,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/258",
       "nextAction": "None. The full quarantine list trim from ea8f79d5 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-pile-types",
+      "line": "backend",
+      "scope": "A snapshot splits a ground pile with more than 16 item types into piles of at most 16. The first pile keeps its id. Later piles get a numbered id. Counts and quest marks stay with their items. A pile of exactly 16 types stays one pile. A raw upload of one pile with more than 16 item types is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-pile-types-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "6b2c8c12cd364424b67fccaf866be12f3290f3ce",
+      "headSha": "bb21e92bdc5eaf6b8e6a44bb63586c6bcd66ef6f",
+      "dependencies": ["backend-quarantine-full"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T08:28:30Z, the merge note at 26828b9, and the crowded ground pile line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "408 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DqnAKwdh.js",
+        "browser": "8205. The standing route completed.",
+        "route": "8205: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "4bb9b3546376295bf022253ec9aedf33b27737e3",
+      "integrationPr": 260,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/260",
+      "nextAction": "None. The crowded ground pile split from bb21e92b is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
