@@ -5784,7 +5784,7 @@
     {
       "id": "art-lit-eave",
       "title": "Give the literature hall a flat eave instead of a hip roof",
-      "status": "verified",
+      "status": "merged",
       "pr": 178,
       "branch": "cursor/lit-hall-1a71",
       "headSha": "cee451f28cf5373dba088c43058b5d1ef32a25ea",
@@ -5799,11 +5799,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User uIlJm4baFKXjcXiGBNaGY982xgVtTgPU."
       },
       "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "e8aa687d77126ae92e0f0125ef106e6b0c4cfd6b",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #178 by itself. The next game commit is PR #180 346dd73358c2, the Sungtao south balconies."
+      "integrationPr": 353,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/353",
+      "nextAction": "This is on integration PR #353. Do not merge PR #178 by itself. The next game commit is PR #180 346dd73358c2, the Sungtao south balconies."
     }
   ]
 }
