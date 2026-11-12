@@ -5459,7 +5459,7 @@
       "mergeSha": "e0c145a5a5c6647d7c012ed2b4056b9fe08da1e3",
       "integrationPr": 340,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/340",
-      "nextAction": "None. The swimming-hall pool from 26a70194 is already in this integration. This is on integration PR #340. Do not merge PR #279 by itself. The pool-deck commit 6ae3b4fb is in the following integration and is not on main yet."
+      "nextAction": "None. The swimming-hall pool from 26a70194 is already in this integration. This is on integration PR #340. Do not merge PR #279 by itself. The pool-deck commit 6ae3b4fb is on integration PR #341."
     },
     {
       "id": "art-pool-deck",
@@ -5483,11 +5483,11 @@
         "route": "8266 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR. It is not on main yet. The next art commit is d74acab2 on PR #281. Do not merge PR #281 or PR #279 by itself."
+      "merged": true,
+      "mergeSha": "44930d450b8108943813911204bbfd4764eb93b3",
+      "integrationPr": 341,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/341",
+      "nextAction": "None. The pool-deck spawn from 6ae3b4fb is already in this integration. This is on integration PR #341. Do not merge PR #279 by itself. The next art commit is d74acab2 on PR #281."
     }
   ]
 }
