@@ -781,9 +781,15 @@
       "depends": [
         "ART-084"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同一風格；LOD",
-      "evidence": []
+      "evidence": [
+        "src/game/world/Vegetation.tsx",
+        "src/game/world-data/vegetation-lod.ts",
+        "scripts/planting-lod.test.mjs",
+        "docs/art/evidence/planting/avenue.jpg"
+      ],
+      "notes": "宮燈大道近處看得到杜鵑、灌木和花圃。樹木與灌木在高畫質 48 m 內用模型，外面改便宜樹冠。杜鵑、花圃、地被和青苔超出距離就不畫。棕櫚超出距離留便宜樹冠。植栽位置仍是 estimated。"
     },
     {
       "id": "ART-086",

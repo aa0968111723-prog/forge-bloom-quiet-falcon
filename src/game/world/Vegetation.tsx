@@ -11,6 +11,7 @@ import {
   type PlantInstance,
   type PlantSpecies,
 } from "../world-data/vegetation.ts";
+import { splitPlants } from "../world-data/vegetation-lod.ts";
 import { VendorModel, type VendorInstance, type VendorTint, type VendorWind } from "./vendor";
 import { applyWind } from "./wind";
 
@@ -148,7 +149,7 @@ type Batch = {
   plants: PlantInstance[];
 };
 
-function batches(density: number, range: number): Batch[] {
+function batches(density: number): Batch[] {
   const all = [...CURATED_PLANTS, ...scatterPlants(density)];
   const bySpecies = new Map<PlantSpecies, PlantInstance[]>();
   for (const p of all) {
@@ -156,7 +157,6 @@ function batches(density: number, range: number): Batch[] {
     list.push(p);
     bySpecies.set(p.species, list);
   }
-  void range;
   return [...bySpecies.entries()].map(([species, plants]) => ({ species, plants }));
 }
 
@@ -281,14 +281,7 @@ function useLodSplit(batch: Batch, range: number, enabled: boolean) {
     const a = anchor.current;
     if (a && Math.hypot(playerX - a.x, playerZ - a.z) < LOD_REBUILD_STEP) return;
     anchor.current = { x: playerX, z: playerZ };
-    const near: PlantInstance[] = [];
-    const far: PlantInstance[] = [];
-    // Hysteresis band: a tree must be clearly inside or outside the range
-    // before it swaps, so a plant sitting on the boundary cannot flicker.
-    for (const p of batch.plants) {
-      (Math.hypot(p.x - playerX, p.z - playerZ) < range ? near : far).push(p);
-    }
-    setSplit({ near, far });
+    setSplit(splitPlants(batch.plants, playerX, playerZ, range));
   });
 
   return split;
@@ -338,10 +331,50 @@ function WoodyBatch({
   );
 }
 
+/** Low beds disappear past the tree range. A palm keeps a cheap canopy. */
+const GROUND_SPECIES = new Set<PlantSpecies>(["azalea", "flowerbed", "groundcover", "moss"]);
+
+function ProceduralBatch({
+  batch,
+  range,
+  simple,
+}: {
+  batch: Batch;
+  range: number;
+  simple: boolean;
+}) {
+  const { near, far } = useLodSplit(batch, range, !simple);
+  const close = simple ? batch : { species: batch.species, plants: near };
+  const distant =
+    !simple && !GROUND_SPECIES.has(batch.species) && far.length > 0
+      ? { species: batch.species, plants: far }
+      : null;
+  const draw = DRAW[batch.species];
+  const layers = simple ? 1 : draw.canopy.length;
+  return (
+    <group>
+      {close.plants.length > 0 && (
+        <group>
+          {draw.trunk && <TrunkLayer batch={close} />}
+          {Array.from({ length: layers }).map((_, layer) => (
+            <CanopyLayer key={layer} batch={close} layer={layer} simple={simple} />
+          ))}
+        </group>
+      )}
+      {distant && (
+        <group>
+          {draw.trunk && <TrunkLayer batch={distant} />}
+          <CanopyLayer batch={distant} layer={0} simple />
+        </group>
+      )}
+    </group>
+  );
+}
+
 export function Vegetation() {
   const q = quality();
   const mats = useTamkangMaterials();
-  const groups = useMemo(() => batches(q.vegetationDensity, q.vegetationRange), [q]);
+  const groups = useMemo(() => batches(q.vegetationDensity), [q.vegetationDensity]);
 
   return (
     <group>
@@ -357,15 +390,13 @@ export function Vegetation() {
             />
           );
         }
-        const draw = DRAW[batch.species];
-        const layers = q.simpleTrees ? 1 : draw.canopy.length;
         return (
-          <group key={batch.species}>
-            {draw.trunk && <TrunkLayer batch={batch} />}
-            {Array.from({ length: layers }).map((_, layer) => (
-              <CanopyLayer key={layer} batch={batch} layer={layer} simple={q.simpleTrees} />
-            ))}
-          </group>
+          <ProceduralBatch
+            key={batch.species}
+            batch={batch}
+            range={q.vegetationRange}
+            simple={q.simpleTrees}
+          />
         );
       })}
       {/* Moss decals along the damp lower flight use the real moss material. */}

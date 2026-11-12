@@ -263,6 +263,12 @@
 
 測試：`scripts/art-pipeline.test.mjs`。
 
+## 階段：植栽距離（ART-085）
+
+宮燈大道近處看得到杜鵑、灌木和花圃。樹木與灌木在高畫質 48 m 內用模型，外面改便宜樹冠。杜鵑、花圃、地被和青苔超出距離就不畫。棕櫚超出距離留便宜樹冠。植栽位置仍是 estimated。背包間隙留著。
+
+畫面：`docs/art/evidence/planting/avenue.jpg`。測試：`scripts/planting-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。背包正面在每個片段都留在外套後面。科學館、學生活動中心與建築系館留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。植栽已按距離分開。背包正面在每個片段都留在外套後面。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
