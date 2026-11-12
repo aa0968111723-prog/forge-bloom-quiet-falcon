@@ -377,6 +377,32 @@ async function main() {
     const legacy = await putJson(jarA, base, saveBody({ visited: ["kenan"], playSeconds: 3 }));
     assert.equal(legacy.status, 422);
     assert.equal((await legacy.json()).error.code, "legacy_pilgrimage");
+    const oldRpg = await putJson(
+      jarA,
+      base,
+      saveBody({
+        version: 1,
+        departmentId: "math",
+        inventory: [{ id: "pen", count: 2 }],
+        buildings: [],
+        visited: ["kenan"],
+      }),
+    );
+    assert.equal(oldRpg.status, 422);
+    assert.equal((await oldRpg.json()).error.code, "legacy_rpg");
+    const worldSave = await putJson(
+      jarA,
+      base,
+      saveBody({
+        version: 2,
+        visited: ["kenan"],
+        inventory: [{ id: "notes", count: 1 }],
+        buildings: [],
+        departmentId: "cs",
+      }),
+    );
+    assert.equal(worldSave.status, 422);
+    assert.equal((await worldSave.json()).error.code, "legacy_pilgrimage");
     const sql = await getSql();
     const pilgrimage = await sql.query("select count(*) as n from pilgrimage");
     assert.equal(Number(pilgrimage[0].n), 0);

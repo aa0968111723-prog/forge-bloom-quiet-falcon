@@ -172,3 +172,32 @@ test("cloud saves reject fields outside the live snapshot", () => {
   assert.equal(tooWide.ok, false);
   if (!tooWide.ok) assert.match(tooWide.message, /欄位過多/);
 });
+
+test("an old RPG import stays out of the pilgrimage bucket", () => {
+  const oldRpg = validateRpgDocument({
+    version: 1,
+    departmentId: "math",
+    inventory: [{ id: "pen", count: 2 }],
+    buildings: [],
+    visited: ["kenan"],
+  });
+  assert.equal(oldRpg.ok, false);
+  if (!oldRpg.ok) assert.equal(oldRpg.code, "legacy_rpg");
+
+  const pilgrimage = validateRpgDocument({ visited: ["kenan"], playSeconds: 3 });
+  assert.equal(pilgrimage.ok, false);
+  if (!pilgrimage.ok) assert.equal(pilgrimage.code, "legacy_pilgrimage");
+
+  const world = validateRpgDocument({
+    version: 2,
+    visited: ["kenan"],
+    inventory: [{ id: "notes", count: 1 }],
+    buildings: [],
+    departmentId: "cs",
+  });
+  assert.equal(world.ok, false);
+  if (!world.ok) assert.equal(world.code, "legacy_pilgrimage");
+
+  const current = validateRpgDocument(base);
+  assert.equal(current.ok, true);
+});

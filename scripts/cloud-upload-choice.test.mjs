@@ -353,3 +353,47 @@ test("a chosen older revision restores locally and a missing one does not", asyn
   assert.equal(chosen.revision, 4);
   assert.equal(JSON.parse(client.readLocal()).xp, 1);
 });
+
+test("old RPG and pilgrimage files are not uploaded", async () => {
+  let calls = 0;
+  const fetch = async () => {
+    calls += 1;
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "oldrpgrequest01",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(
+    JSON.stringify({
+      version: 1,
+      departmentId: "math",
+      inventory: [{ id: "pen", count: 2 }],
+      buildings: [],
+      visited: ["kenan"],
+    }),
+  );
+  const oldRpg = await client.uploadLocal();
+  assert.equal(oldRpg.status, "error");
+  assert.equal(oldRpg.code, "legacy_rpg");
+  assert.equal(calls, 1);
+  assert.equal(JSON.parse(client.readLocal()).version, 1);
+
+  client.writeLocal(
+    JSON.stringify({
+      version: 2,
+      visited: ["kenan"],
+      inventory: [{ id: "notes", count: 1 }],
+      buildings: [],
+      departmentId: "cs",
+    }),
+  );
+  const world = await client.uploadLocal();
+  assert.equal(world.status, "error");
+  assert.equal(world.code, "legacy_pilgrimage");
+  assert.equal(calls, 2);
+  assert.equal(JSON.parse(client.readLocal()).inventory[0].id, "notes");
+});

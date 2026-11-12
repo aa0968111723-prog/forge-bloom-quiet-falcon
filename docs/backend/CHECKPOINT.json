@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T04:30:00Z",
+  "updated_at": "2026-11-12T04:40:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "e95c137",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -14,10 +14,11 @@
     "merged the library ramp railings and proved a restarted database replays the original request id without changing revision or floor",
     "player can restore the previous cloud revision into the local save as a new head",
     "player can list only their own revision numbers and restore a chosen one; pruned revisions and other accounts do not change the local save",
-    "backup of one account restores the save head, history, idempotency rows, and reward receipts without touching another account"
+    "backup of one account restores the save head, history, idempotency rows, and reward receipts without touching another account",
+    "an old RPG import is rejected as legacy_rpg and is not stored as pilgrimage; the world save is still legacy_pilgrimage and neither write changes the RPG row"
   ],
   "verification": {
-    "npm_test": "322 pass, 0 fail; account backup restores history and receipts without touching another account",
+    "npm_test": "324 pass, 0 fail; old RPG import is not stored as pilgrimage",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

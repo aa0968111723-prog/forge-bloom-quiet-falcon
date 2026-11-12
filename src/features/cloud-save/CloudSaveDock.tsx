@@ -154,6 +154,7 @@ export function CloudSaveDock() {
                     setNote("兩邊都有修改。請選擇要保留哪一份。");
                   else if (result.status === "need_download")
                     setNote("雲端有進度。請先選擇下載或保留本機。");
+                  else if (result.status === "error") setNote(result.message);
                   else setNote(JSON.stringify(result));
                 })
               }
