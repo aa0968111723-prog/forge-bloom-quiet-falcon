@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-12T01:40:00Z",
   "branch": "cursor/items-equipment-building-15c5",
-  "head": "7ffdd018e4cb131355daefbfd311a8c9da0e10a8",
+  "head": "21c0ad7ae41b6f3e795506cec4136e8a27120836",
   "base": "5e9dc40",
   "implementation": "7ffdd018e4cb131355daefbfd311a8c9da0e10a8",
   "rerun": ["npx tsc --noEmit", "npm test"],
@@ -10,7 +10,8 @@
     "30 items, 12 equipment, 9 buildings",
     "atomic takeCost, half refund, keep-out at 0.42 m",
     "equipped boolean maps to the accessory slot; unknown ids go to quarantine",
-    "a saved heldBuild is put back on import"
+    "a saved heldBuild is put back on import",
+    "SwiftShader draw calls at 48 research desks: 191, 266, then 200 after demolish"
   ],
   "todo": [
     "integration whitelist for loadout, gear, quarantine, quarantineGear, heldBuild",
