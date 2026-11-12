@@ -669,6 +669,20 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "hydrant") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, -5.9, 95, 0);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 40);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: -0.9, distance: 6, height: 2.2, lookY: 0.8 });
+    });
+    await frames(page, 4);
+    await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.z < 91.6) throw new Error(`walked through the hydrant ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

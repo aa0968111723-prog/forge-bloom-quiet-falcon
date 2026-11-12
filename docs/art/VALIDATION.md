@@ -363,3 +363,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 59 輪（欄杆跟著坡）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs` 通過。`tsc --noEmit` 通過。同一道欄杆的北側柱腳高於南側。連接兩端的桿，本地 +Z 對準這段升高。立柱的 X 仍落在 0.12 m 的碰撞上。克難坡仍沒有欄杆。定步白天，頁面無錯誤：`docs/art/evidence/ramp/slope-rails.jpg`。橫桿沿著坡面上去。位置仍是 estimated。欄杆留在第 57 輪的位置。沒有新增音效。
+
+## 第 60 輪（消防栓）— 2026-11-12
+
+`node --test scripts/hydrant-stop.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs` 通過。`tsc --noEmit` 通過。七個消防栓和網格用同一組座標，直徑 0.3 m。半徑 0.42 m 站在坡底栓心會被推開。栓東 1.2 m、主巡禮和三條折線的轉折點不被推開。折線走完全程仍到得了門口。路燈離栓超過 1.2 m。定步白天從南邊走向坡底消防栓，頁面無錯誤，停在 z=92.77：`docs/art/evidence/props/hydrant.jpg`。栓位仍是 estimated。欄杆跟著坡留在第 59 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DfUs6w45.js`。

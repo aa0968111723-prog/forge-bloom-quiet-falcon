@@ -379,6 +379,12 @@
 
 畫面：`docs/art/evidence/ramp/slope-rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：消防栓（ART-084 的一部分）
+
+坡底、宮燈大道和圖書館前的七個消防栓會擋住半徑 0.42 m 的身體。從南邊走向坡底那個會停在栓面外。大道中線和三條巡禮折線仍走得過。栓位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/hydrant.jpg`。測試：`scripts/hydrant-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。消防栓已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
