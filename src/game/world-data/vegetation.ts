@@ -9,7 +9,7 @@ import {
 } from "./axis.ts";
 import { COLLIDERS } from "./colliders.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LIBRARY, PALACE, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { hash2 } from "./math.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SECONDARY_STRUCTURES } from "./zones/secondary.ts";
@@ -83,7 +83,13 @@ function kenanPlanting(): PlantInstance[] {
       const off = wallOuter + 2.6 + (i % 3) * 1.5;
       const species: PlantSpecies = i % 4 === 0 ? "banyan" : i % 3 === 0 ? "camphor" : "broadleaf";
       out.push(plant(species, s * off, z + (s > 0 ? 1.9 : 0), 0.9 + ((i * 7) % 5) * 0.07, i * 0.7));
-      out.push(plant("shrub", s * (wallOuter + 0.9), z - 2.1, 0.85 + (i % 2) * 0.14, 0));
+      let shrubX = s * (wallOuter + 0.9);
+      let shrubZ = z - 2.1;
+      for (const sign of textSigns()) {
+        const face = textSignAabb(sign);
+        if (shrubX > face.minX && shrubX < face.maxX && shrubZ > face.minZ && shrubZ < face.maxZ) shrubZ = face.minZ - 0.25;
+      }
+      out.push(plant("shrub", shrubX, shrubZ, 0.85 + (i % 2) * 0.14, 0));
     }
   }
   // Damp lower flight: moss on the bank foot and in the drainage channel.

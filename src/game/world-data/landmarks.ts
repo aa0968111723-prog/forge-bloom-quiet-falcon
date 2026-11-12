@@ -8,7 +8,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { sampleGroundElevation } from "./elevation.ts";
-import { KENAN, KENAN_LANDING_ELEVATION, KENAN_TOTAL_RISE, KENAN_TOTAL_RUN } from "./kenan.ts";
+import { KENAN, KENAN_LANDING_ELEVATION, KENAN_LANDING_Z, KENAN_TOTAL_RISE, KENAN_TOTAL_RUN } from "./kenan.ts";
 import type { Accuracy, RealCoordinate } from "./origin.ts";
 
 /**
@@ -103,6 +103,43 @@ export const PALACE = {
 
 export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
+}
+
+/** Painted board depth and the frame added around the text. */
+export const TEXT_SIGN_DEPTH = 0.06;
+export const TEXT_SIGN_FRAME = 0.08;
+
+export type TextSign = {
+  id: string;
+  map: "kenan" | "kenanSteps" | "avenue" | "wayfinding";
+  x: number;
+  z: number;
+  rot: number;
+  boardW: number;
+  boardH: number;
+  postHeight: number;
+};
+
+/** Named boards along the corridor. The mesh and the collider both use this list. */
+export function textSigns(): TextSign[] {
+  return [
+    { id: "kenan-bottom", map: "kenan", x: -5.2, z: KENAN.bottomZ + 3, rot: Math.PI / 8, boardW: 1.05, boardH: 0.42, postHeight: 1.5 },
+    { id: "kenan-steps", map: "kenanSteps", x: 5.2, z: KENAN.bottomZ + 4, rot: -Math.PI / 8, boardW: 1.35, boardH: 0.4, postHeight: 1.5 },
+    { id: "kenan-landing", map: "kenan", x: -5.4, z: KENAN_LANDING_Z[0] - 3, rot: Math.PI / 2.4, boardW: 0.95, boardH: 0.38, postHeight: 1.2 },
+    { id: "avenue", map: "avenue", x: -4.4, z: AXIS.avenueSouthZ - 3, rot: Math.PI / 6, boardW: 1.3, boardH: 0.42, postHeight: 1.5 },
+    { id: "library-way", map: "wayfinding", x: 5.0, z: AXIS.avenueNorthZ - 4, rot: -Math.PI / 7, boardW: 1.15, boardH: 0.42, postHeight: 1.9 },
+  ];
+}
+
+/** Axis-aligned footprint of a yawed board, including its frame. */
+export function textSignAabb(sign: TextSign): { minX: number; maxX: number; minZ: number; maxZ: number } {
+  const w = sign.boardW + TEXT_SIGN_FRAME;
+  const d = TEXT_SIGN_DEPTH;
+  const c = Math.abs(Math.cos(sign.rot));
+  const s = Math.abs(Math.sin(sign.rot));
+  const hx = (w * c + d * s) / 2;
+  const hz = (w * s + d * c) / 2;
+  return { minX: sign.x - hx, maxX: sign.x + hx, minZ: sign.z - hz, maxZ: sign.z + hz };
 }
 
 export const LANDMARKS: RealityLandmark[] = [
