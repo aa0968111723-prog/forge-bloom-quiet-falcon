@@ -3635,9 +3635,11 @@
         "route": "8204: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "d4a1cba0d52bf7c408072e808b97d7d2740013ac",
-      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 258,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/258",
+      "nextAction": "None. The full quarantine list trim from ea8f79d5 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
