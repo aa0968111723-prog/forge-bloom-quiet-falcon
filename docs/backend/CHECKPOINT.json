@@ -1,18 +1,20 @@
 {
-  "updated_at": "2026-11-12T03:50:00Z",
+  "updated_at": "2026-11-12T03:55:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "53ec394fa1acfc055360b7108bcc5e827fe39fa9",
-  "milestone": "live-snapshot-cloud-contract",
+  "base": "4793fde",
+  "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
     "accepted the current snapshot fields: narrative session, variety memory, loot, position, interior",
     "rejected unknown top-level fields and oversized narrative maps",
-    "raised the document key budget so a 48-building campus save still fits"
+    "raised the document key budget so a 48-building campus save still fits",
+    "merged the living-interior continue and proved library floor 3 survives upload, download, and process restart"
   ],
   "verification": {
-    "npm_test": "315 pass, 0 fail on 53ec394 plus this contract",
+    "npm_test": "317 pass, 0 fail after merging 4793fde",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
+    "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
     "build_site": "npm run build:site passed; dist has no cloud-save or DATABASE_URL"
   },
   "next_action": "When a later merge adds a snapshot() field, extend the cloud whitelist and re-run npm test plus the live-save fixture. Do not merge or deploy.",
