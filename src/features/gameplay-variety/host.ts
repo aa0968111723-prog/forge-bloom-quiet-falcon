@@ -1,4 +1,4 @@
-import { inventory, maxHp, registerVarietySave, useRpg, flushSave } from "../../game/rpg/store.ts";
+import { inventory, maxHp, placeLoot, registerVarietySave, useRpg, flushSave } from "../../game/rpg/store.ts";
 import { useGame } from "../../game/store.ts";
 import { DEPARTMENTS } from "../../game/rpg/data.ts";
 import { levelForXp } from "../../game/rpg/rules.ts";
@@ -67,15 +67,7 @@ function payVariety(intent: RewardIntent): PayResult {
   const game = useGame.getState();
   const loot =
     Object.keys(left).length > 0
-      ? [
-          ...rpg.loot,
-          {
-            id: `variety-${intent.questId}`,
-            x: game.playerX,
-            z: game.playerZ,
-            items: left,
-          },
-        ]
+      ? placeLoot(rpg.loot, game.playerX, game.playerZ, left)
       : rpg.loot;
   useRpg.setState({
     xp,
