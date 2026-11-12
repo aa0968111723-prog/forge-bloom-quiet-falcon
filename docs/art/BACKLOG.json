@@ -817,9 +817,12 @@
       "evidence": [
         "src/game/world-data/lighting.ts",
         "src/game/world/Lighting.tsx",
-        "docs/art/evidence/m2/lighting-avenue.jpg"
+        "docs/art/evidence/m2/lighting-avenue.jpg",
+        "docs/art/evidence/courts/field-day.jpg",
+        "docs/art/evidence/courts/field-wet.jpg",
+        "scripts/wet-surface.test.mjs"
       ],
-      "notes": "同一站點 (0,-80) 的晴天、夕照、夜、雨後。夕照與夜路燈亮，雨後鋪面變濕。不是實測日照。"
+      "notes": "同一站點 (0,-80) 的晴天、夕照、夜、雨後。夕照與夜路燈亮，雨後鋪面變濕。球場草皮、停車場和跑道在雨後把原色乘暗、變滑，亮度下降。不是實測日照。"
     },
     {
       "id": "ART-087",

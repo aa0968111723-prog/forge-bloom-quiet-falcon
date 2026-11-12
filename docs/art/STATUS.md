@@ -337,6 +337,12 @@
 
 畫面：`docs/art/evidence/courts/open.jpg`。測試：`scripts/court-clearing.test.mjs`。
 
+## 階段：雨後場地（ART-086 的一部分）
+
+沒有貼圖的球場、停車場和跑道在雨後把顏色乘小，亮度下降、粗糙度下降。晴天顏色維持原來的綠、灰和磚紅。這些顏色比材質庫的濕灰還深，所以不把灰色混進去。不是實測日照。樹仍留在場外。
+
+畫面：`docs/art/evidence/courts/field-day.jpg`、`field-wet.jpg`。測試：`scripts/wet-surface.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。球場草皮已不種樹。圖書館坡道已升到台基。路燈中心已留在牆外。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。球場在雨後會變暗。草皮已不種樹。圖書館坡道已升到台基。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

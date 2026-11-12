@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T04:10:00Z",
+  "updated": "2026-11-12T04:30:00Z",
   "task_ids": [
-    "ART-085"
+    "ART-086"
   ],
-  "branch": "cursor/court-clearing-1a71",
-  "base": "main@d32e714",
+  "branch": "cursor/wet-courts-1a71",
+  "base": "main@7c85a42",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "court-clearing, library-ramp, and prop-clearance pass; full suite re-run on the integration branch",
+    "npm_test": "wet-surface, court-clearing, and library-ramp pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "AdventureApp-D2eWEjyb.js",
     "eslint_new_code": "0 errors"
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Scattered trees stay off the courts, the track, and the parking rows, with a 3 m margin. The Wuhu grass is open and the trees stand outside it. Plant positions stay estimated. The library ramp still rises 1.05 m and the player walks that surface. Street lamps that landed inside a solid stay 1.2 m outside the nearest face. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "Court grass, the parking lot, and the track get darker and smoother in the rain. Their colours are scaled down, because mixing in the library grey would lighten them. Dry colours stay as they were. This is not a measured daylight survey. Scattered trees stay 3 m outside those surfaces. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

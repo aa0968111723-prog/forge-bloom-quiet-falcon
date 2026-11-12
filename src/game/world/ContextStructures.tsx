@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, type ReactNode } from "rea
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
+import { wetSurface } from "../materials/wet";
 import { quality } from "../quality";
 import {
   GATE_PIER_WIDTH,
@@ -223,8 +224,12 @@ export function ContextStructures({
               >
                 <planeGeometry args={[s.size[0], s.size[2]]} />
                 <meshStandardMaterial
-                  color={s.id === "parking" ? "#59666b" : "#5d8a52"}
-                  roughness={0.9}
+                  {...wetSurface(
+                    s.id === "parking" ? "#59666b" : "#5d8a52",
+                    wetness,
+                    s.id === "parking" ? 1 : 0.5,
+                    0.9,
+                  )}
                 />
               </mesh>
               {(s.id === "volleyball-court" || s.id === "wuhu-courts") && (
@@ -241,7 +246,7 @@ export function ContextStructures({
                     scale={[s.size[0] * 0.46, s.size[2] * 0.46, 1]}
                   >
                     <ringGeometry args={[0.76, 1, 72]} />
-                    <meshStandardMaterial color="#b77861" roughness={0.95} />
+                    <meshStandardMaterial {...wetSurface("#b77861", wetness, 0.4, 0.95)} />
                   </mesh>
                   {[0.81, 0.87, 0.93].map((r) => (
                     <mesh
