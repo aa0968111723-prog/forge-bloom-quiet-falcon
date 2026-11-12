@@ -1259,6 +1259,22 @@ try {
     await frames(page, 6);
     await shot(page, "plinth", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.z < -4.3 || stopped.z > -4.0) throw new Error(`walked through the swan ${JSON.stringify(stopped)}`);
+  } else if (scenario === "track-finish") {
+    await hideHud(page);
+    await setPose(page, -40, -470, 0);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(-40, -482);
+      window.__controlsTest.setPhoto({
+        yaw: 0.2,
+        distance: 22,
+        height: 10,
+        lookY: 0.4,
+        target: { x: -40, y, z: -482 },
+      });
+    });
+    await frames(page, 8);
+    await shot(page, "stripe", "finish stripe across the south straight");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

@@ -668,5 +668,11 @@
 
 畫面：`docs/art/evidence/museum/swan.jpg`。測試：`scripts/swan-exhibit.test.mjs`。
 
+## 階段：終點線（ART-067 的一部分）
+
+田徑場南直道有一條白色終點線，從內緣拉到外緣，橫過分道。線在跑道帶上，不進內圈草地。沒有球網，也不擋人。內圈仍是 24×40 m。線寬仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/track/finish.jpg`。測試：`scripts/court-lines.test.mjs`。
+
 ## 下一步
-見 `CHECKPOINT.json`。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

@@ -40,7 +40,7 @@ import {
 import { standRampGeometry } from "../world-data/stand-ramp.ts";
 import { type PlaneItem } from "./InstancedPlanes";
 import { makeSignTexture, useCampusSigns, useFontTick } from "./labels";
-import { courtMarkings, courtNetPieces, parkingStalls, trackInfield } from "../world-data/court-lines.ts";
+import { courtMarkings, courtNetPieces, parkingStalls, trackFinish, trackInfield } from "../world-data/court-lines.ts";
 import { worldUvBox } from "./geometry";
 
 /**
@@ -351,6 +351,16 @@ export function ContextStructures({
                     >
                       <boxGeometry args={[line.length, 0.02, 0.1]} />
                       <meshBasicMaterial color="#f4efe4" />
+                    </mesh>
+                  ))}
+                  {trackFinish(s.size).map((line, i) => (
+                    <mesh
+                      key={`finish-${i}`}
+                      position={[line.x, 0.13, line.z]}
+                      rotation={line.axis === "z" ? [0, Math.PI / 2, 0] : [0, 0, 0]}
+                    >
+                      <boxGeometry args={[line.length, 0.02, 0.4]} />
+                      <meshBasicMaterial color="#f7f7f2" />
                     </mesh>
                   ))}
                 </>

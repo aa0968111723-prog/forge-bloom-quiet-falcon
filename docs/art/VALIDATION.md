@@ -558,3 +558,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 108 輪（黑天鵝）— 2026-11-12
 
 `node --test scripts/swan-exhibit.test.mjs` 通過。`tsc --noEmit` 通過。台座在 (0, -5.3)，邊長 1.4 m。半徑 0.42 m 站在台心會被推到台外，北緣仍在房間裡。南門 (0, 6.4) 不被推開。閱讀室同一點留在原地。走路的一步也停在台座外。台座不跟展櫃重疊。來源畫面：`docs/art/evidence/museum/swan.jpg`。沒有新的清冊編號。外形仍是 estimated。第 107 輪的游泳館甲板留著。沒有新增音效。
+
+## 第 109 輪（終點線）— 2026-11-12
+
+`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。南直道有一條終點線，軸向是 Z，x=0，長度等於跑道內外緣的差。整條線落在跑道帶上，不在內圈橢圓裡，沒有球網。太小的場不畫。內圈仍是 5 條線。來源畫面：`docs/art/evidence/track/finish.jpg`。線寬仍是 estimated。第 108 輪的黑天鵝台座留著。沒有新增音效。

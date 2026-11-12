@@ -122,6 +122,41 @@ export function trackInnerAxes(size: readonly [number, number, number]) {
   return { x: size[0] * 0.46 * 0.76, z: size[2] * 0.46 * 0.76 };
 }
 
+/** Outer edge of the same ring. */
+export function trackOuterAxes(size: readonly [number, number, number]) {
+  return { x: size[0] * 0.46, z: size[2] * 0.46 };
+}
+
+/**
+ * One finish stripe across the south straight. Flat paint, no net.
+ * The length is the ring's width, not a measured lane count.
+ */
+export function trackFinish(size: readonly [number, number, number]): CourtLine[] {
+  const inner = trackInnerAxes(size);
+  const outer = trackOuterAxes(size);
+  const length = outer.z - inner.z;
+  if (length < 2) return [];
+  return [{ x: 0, z: (inner.z + outer.z) / 2, length, axis: "z" }];
+}
+
+/** True when the whole stripe sits in the track band, outside the infield oval. */
+export function lineOnTrackBand(line: CourtLine, size: readonly [number, number, number]) {
+  const inner = trackInnerAxes(size);
+  const outer = trackOuterAxes(size);
+  const hx = line.axis === "x" ? line.length / 2 : 0.2;
+  const hz = line.axis === "z" ? line.length / 2 : 0.2;
+  const samples: [number, number][] = [
+    [line.x - hx, line.z - hz],
+    [line.x + hx, line.z + hz],
+    [line.x, line.z],
+  ];
+  return samples.every(([x, z]) => {
+    const innerR = (x / inner.x) ** 2 + (z / inner.z) ** 2;
+    const outerR = (x / outer.x) ** 2 + (z / outer.z) ** 2;
+    return innerR >= 0.98 && outerR <= 1.02;
+  });
+}
+
 /** A grass pitch inside the track oval. No net: the infield stays open. */
 export function trackInfield(size: readonly [number, number, number]): CourtLine[] {
   const inner = trackInnerAxes(size);
