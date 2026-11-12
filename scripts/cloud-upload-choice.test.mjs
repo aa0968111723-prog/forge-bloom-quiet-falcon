@@ -1847,3 +1847,65 @@ test("a same-account restore conflict still offers that cloud save", async () =>
   assert.equal(restored.remote.document.xp, 7);
   assert.equal(JSON.parse(client.readLocal()).xp, 1);
 });
+
+test("a dropped upload is not recorded when the landed read belongs to another account", async () => {
+  let sessionId = "user-a";
+  let offline = false;
+  let landed = false;
+  const puts = [];
+  const sent = save(8);
+  const sentHash = await sha256Hex(canonicalJson(sent));
+  const storage = memoryStorage();
+  const key = "tamkang-cloud-save-queue:user-a";
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    const method = init.method ?? "GET";
+    if (method === "PUT") {
+      const body = JSON.parse(init.body);
+      puts.push(body.document.xp);
+      if (body.document.xp === 8) {
+        storage.setItem("tamkang-rpg-v2", JSON.stringify(save(1)));
+        const items = JSON.parse(storage.getItem(key) ?? "[]");
+        storage.setItem(key, JSON.stringify(items.filter((item) => item.kind !== "put")));
+        landed = true;
+        throw new Error("disconnect");
+      }
+      return jsonResponse(200, { revision: 1, contentHash: "first-hash" });
+    }
+    if (method === "GET") {
+      if (!landed) {
+        return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+      }
+      sessionId = "user-b";
+      return jsonResponse(200, {
+        revision: 9,
+        schemaVersion: 1,
+        contentVersion: 2,
+        document: sent,
+        etag: '"9"',
+        contentHash: sentHash,
+      });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => "droprepairacct1",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  offline = true;
+  client.writeLocal(JSON.stringify(save(8)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  offline = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.deepEqual(puts, [1, 8]);
+  assert.equal(JSON.parse(storage.getItem("tamkang-cloud-save-meta:user-a")).revision, 1);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+  assert.equal(client.queuedCount("user-a"), 0);
+});
