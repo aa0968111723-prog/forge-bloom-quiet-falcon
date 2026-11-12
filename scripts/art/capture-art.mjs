@@ -1387,6 +1387,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "west", "museum downhill skirt");
+  } else if (scenario === "gymskirt") {
+    await hideHud(page);
+    await setPose(page, 130, -150, 0);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(166, -122);
+      window.__controlsTest.setPhoto({
+        yaw: -2.4,
+        distance: 42,
+        height: 8,
+        lookY: 2,
+        target: { x: 166, y: y + 6, z: -122 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "west", "gym downhill skirt");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

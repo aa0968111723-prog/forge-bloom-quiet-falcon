@@ -590,3 +590,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 117 輪（海事博物館裙牆）— 2026-11-12
 
 `node --test scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。船身有 0.16 rad 的偏角。裙牆跟著這個偏角轉，西南角落在裙牆裡面。不轉的話那個角落會伸出南緣。南邊入口在轉動後的裙牆外面。白樓的空隙小於 1.5 m，沒有裙牆。定步白天從西邊看，頁面無錯誤：`docs/art/evidence/museum/skirt.jpg`。看得到樓底的深色裙牆接到草地。裙牆仍是 estimated。第 116 輪的覺軒留著。沒有新增音效。`build:site` 產物 `AdventureApp-B-ChdU8U.js`。
+
+## 第 118 輪（體育館裙牆）— 2026-11-12
+
+`node --test scripts/gym-skirt.test.mjs scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。館身底座高於足跡最低角，空隙大於 2 m。裙牆頂貼著樓底。南邊入口在裙牆南緣外面。白樓的空隙小於 1.5 m，沒有裙牆。海事博物館的裙牆仍跟著船身轉。定步白天從西北看，頁面無錯誤：`docs/art/evidence/gym/skirt.jpg`。看得到深色裙牆在西北角接到草地。裙牆仍是 estimated。第 117 輪的海事博物館裙牆留著。沒有新增音效。
