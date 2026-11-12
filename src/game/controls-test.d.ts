@@ -24,6 +24,10 @@ declare global {
      */
     /** QA: where each roster walker is (`?qa=1` only). */
     __npcQA?: { walkers: { id: string; x: number; y: number; z: number; yaw: number }[] };
+    /** QA: faculty gesture and the right-arm pose (`?qa=1` only). */
+    __facultyQA?: {
+      people: Record<string, { gesture: string; action: string | null; armX: number | null }>;
+    };
     __rpgQA?: {
       rpg: typeof import("./rpg/store").useRpg;
       game: typeof import("./store").useGame;

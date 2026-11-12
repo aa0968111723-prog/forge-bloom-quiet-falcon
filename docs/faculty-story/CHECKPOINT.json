@@ -9,7 +9,8 @@
     "npm run typecheck",
     "PW_CHROMIUM_PATH=/usr/bin/google-chrome node scripts/faculty-story-capture.mjs",
     "PW_CHROMIUM_PATH=/usr/bin/google-chrome node scripts/faculty-story-capture.mjs --timed",
-    "PW_CHROMIUM_PATH=/usr/bin/google-chrome node scripts/faculty-cross-capture.mjs"
+    "PW_CHROMIUM_PATH=/usr/bin/google-chrome node scripts/faculty-cross-capture.mjs",
+    "PW_CHROMIUM_PATH=/usr/bin/google-chrome node scripts/faculty-gesture-capture.mjs"
   ],
   "done": [
     "12 fictional faculty, 9 colleges, 3 chairs",
@@ -18,7 +19,8 @@
     "main-game talk prompt, save cap 200, reward paid once",
     "SwiftShader timed play 18.08 min at 1280x720",
     "Jian He and Jiang Zhao's meet choices change Jian Heng's turn line in the main game",
-    "Talking to a faculty member with no event shows a notice"
+    "Talking to a faculty member with no event shows a notice",
+    "Idle, talk, and deliver poses measured on 顧衡 in the main game"
   ],
   "todo": [
     "device play on a phone and on a discrete GPU",

@@ -12,6 +12,7 @@ import { facultyGesture } from "./gesture";
 import { facultyPosts, type FacultyPost } from "./posts";
 
 const DRAW_RANGE = 48;
+const QA = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("qa") === "1";
 
 function FacultyFigure({ post, gesture }: { post: FacultyPost; gesture: ReturnType<typeof facultyGesture> }) {
   const { root, clips } = useArtModel("char.npc-kit");
@@ -52,7 +53,17 @@ function FacultyFigure({ post, gesture }: { post: FacultyPost; gesture: ReturnTy
   useEffect(() => {
     if (gesture !== "idle") animator.play("interact");
   }, [animator, gesture]);
-  useFrame((_, raw) => animator.update(Math.min(raw, 0.08), 0));
+  useFrame((_, raw) => {
+    animator.update(Math.min(raw, 0.08), 0);
+    if (!QA) return;
+    const arm = root.getObjectByName("upperArmR");
+    const qa = (window.__facultyQA ??= { people: {} });
+    qa.people[post.id] = {
+      gesture,
+      action: animator.current(),
+      armX: arm?.quaternion.x ?? null,
+    };
+  });
   return <primitive object={root} />;
 }
 
