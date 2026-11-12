@@ -5343,9 +5343,11 @@
         "route": "8261 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "9cb2412e2127bb911fccdab4c73f7e0d8ecc62b6",
-      "nextAction": "Open the integration PR. Do not merge PR #272 by itself. The pool-glow commit 683baba3 is still separate."
+      "integrationPr": 336,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/336",
+      "nextAction": "None. The dolphin motto from 5c3589bc is already in this integration. Do not merge PR #272 by itself. The pool-glow commit 683baba3 is still separate."
     }
   ]
 }
