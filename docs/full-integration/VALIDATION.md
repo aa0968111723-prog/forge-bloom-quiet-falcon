@@ -292,3 +292,24 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 160 減 142 是 18：開場任務 6，加上第一次走到崗位的探索 12。筆記沒有加。衝突那句沒有依旗標分叉；分叉寫在衝突結算之後。
 
 畫面：`/opt/cursor/artifacts/integration-qiu-meet/listen-outcome.png`、`listen-next.png`、`studio-outcome.png`、`studio-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 邱寧的兩個衝突選項
+
+這段打在 `AdventureApp-BztmqH0m.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-D1yzos4G.js`。之後 `main` 進到 `38b6f9f`（下載的雲端存檔先詢問，整合 PR #176）。差異在 `noteCloudSave`、雲端面板與測試，沒有改教職員對話，所以對話打在合併前的產物上。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-qiu-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-clash` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 335 通過、0 失敗。對象是合併後的原始碼 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到邱寧的開場。點衝突之前存檔經驗 160、筆記 21。
+
+- 「最好的一小時給社團，評圖用前一小時。」存檔經驗 168，筆記 22。結果句「我沒有把評圖拿掉。」畫面是 2 級、「經驗 108/180」、生命 108/108、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。再交談是「社團的小時我不動」。兩個見習選項都在。離開不結算，沒有 `quest-faculty-qiu-turn`。`quest-faculty-qiu-clash` 只有一筆。重載後經驗 168、筆記 22，再交談仍是這一句。
+- 「最好的一小時給評圖，社團用前一小時。」經驗同樣 160→168，筆記 21→22。結果句「這不是他們讓路。」見習那句是「評圖的小時我不動」。離開不結算。重載後這一句還在。
+
+168 減 160 是 8，也就是衝突階段的經驗。筆記加 1。
+
+畫面：`/opt/cursor/artifacts/integration-qiu-clash/club-outcome.png`、`club-next.png`、`review-outcome.png`、`review-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
