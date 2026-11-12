@@ -2209,6 +2209,62 @@
       "integrationPr": 164,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/164",
       "nextAction": "None. The collection quests from 4628005 are already in this integration. Do not merge PR #160 by itself."
+    },
+    {
+      "id": "backend-cloud-revisions",
+      "line": "backend",
+      "scope": "A signed-in account can list up to 8 of its own cloud revision numbers and copy one back into the local save. A pruned revision does not change the local file or write a reward receipt. An older RPG file is rejected as legacy_rpg and is not written to the pilgrimage table.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-cloud-revisions-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "b579dff364fdcb190323f1ee61b7dd1d4a233e99",
+      "headSha": "1c51c42fe1696bbb824bfbcf077030ea864d7fc3",
+      "dependencies": ["backend-campus-snapshot"],
+      "sharedFiles": ["src/features/cloud-save/client.ts", "src/features/cloud-save/CloudSaveDock.tsx", "src/features/cloud-save/contract.ts", "src/server/cloud/http.ts", "src/server/cloud/service.ts"],
+      "checks": {
+        "conflicts": "none. The three commits applied onto main and kept gathered and felled.",
+        "typecheck": "pass",
+        "npmTest": "327 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-YMSPf-td.js unchanged",
+        "browser": "8155. The standing route completed with pageErrors empty. The cloud dock is not in the static site.",
+        "route": "8155: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "624b1e611edd8415f877f0d84aa76d116be5709c",
+      "integrationPr": 166,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/166",
+      "nextAction": "None. The chosen cloud revisions from 1c51c42 are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-cloud-counts",
+      "line": "backend",
+      "scope": "Gathered supplies, felled reports, the claimed collection quest, and the revision list survive a database restart. A repeated collection receipt with a new request id is not recorded again. Saves that omit gathered and felled still validate.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-cloud-counts-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "f46fe066ed2508d533003056ff3b0bf3657ef1fd",
+      "headSha": "a9afa5cf584ad5ce5666ec241d62d310c9cc4e9a",
+      "dependencies": ["backend-cloud-revisions", "content-collection-quests"],
+      "sharedFiles": ["scripts/cloud-campus-roundtrip.mjs", "scripts/cloud-live-save.test.mjs", "scripts/cloud-save-flow.mjs"],
+      "checks": {
+        "conflicts": "none. The two test commits applied onto the revision integration.",
+        "typecheck": "pass",
+        "npmTest": "328 pass / 0 fail",
+        "buildSite": "not rerun. No runtime file changed. Bundle remains AdventureApp-YMSPf-td.js",
+        "browser": "not rerun. The cloud validator did not change.",
+        "route": "not rerun. Previous 8155 route passed with cloudXp 47 and empty pageErrors."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "2c99a6e15a425d0574584cf12a8542050c26c0a7",
+      "integrationPr": 168,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/168",
+      "nextAction": "None. The collection-count restart checks from a9afa5c are already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

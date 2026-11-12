@@ -8,6 +8,7 @@ import {
 } from "../../features/cloud-save/contract.ts";
 import {
   getRpgSave,
+  listRpgRevisions,
   putRpgSave,
   recordRewardReceipt,
   restoreRpgSave,
@@ -47,6 +48,9 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         ),
       );
     }
+    if (method === "GET" && path === "/api/cloud/saves/rpg/revisions") {
+      return withCors(request, await readRevisions(request, url));
+    }
     if (path === "/api/cloud/saves/rpg" && method === "GET") {
       return withCors(request, await readSave(request, url));
     }
@@ -82,6 +86,18 @@ async function readyResponse(): Promise<Response> {
       ok: false,
       error: { code: "database_unavailable", message: "資料庫無法使用。" },
     });
+  }
+}
+
+async function readRevisions(request: Request, url: URL): Promise<Response> {
+  const user = await requireUser(request);
+  if (user instanceof Response) return user;
+  if (url.searchParams.has("userId")) return forgedUser();
+  try {
+    const result = await listRpgRevisions(await getSql(), user.id);
+    return serviceResponse(result);
+  } catch {
+    return databaseDown();
   }
 }
 

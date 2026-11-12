@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
-import { createCloudSaveController, memoryStorage, type SyncPlan } from "./client";
+import {
+  createCloudSaveController,
+  memoryStorage,
+  type CloudRevision,
+  type SyncPlan,
+} from "./client";
 
 /**
  * Optional cloud-save controls for the Node app.
@@ -11,6 +16,8 @@ export function CloudSaveDock() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("訪客");
   const [plan, setPlan] = useState<SyncPlan | null>(null);
+  const [revisions, setRevisions] = useState<CloudRevision[] | null>(null);
+  const [headRevision, setHeadRevision] = useState<number | null>(null);
   const [note, setNote] = useState("尚未同步。本機進度不會自動上傳。");
   const controller = useMemo(
     () =>
@@ -83,6 +90,8 @@ export function CloudSaveDock() {
     await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" });
     controller.logout();
     setPlan(null);
+    setRevisions(null);
+    setHeadRevision(null);
     setNote("已登出。本機仍可遊玩。");
   }
 
@@ -145,6 +154,7 @@ export function CloudSaveDock() {
                     setNote("兩邊都有修改。請選擇要保留哪一份。");
                   else if (result.status === "need_download")
                     setNote("雲端有進度。請先選擇下載或保留本機。");
+                  else if (result.status === "error") setNote(result.message);
                   else setNote(JSON.stringify(result));
                 })
               }
@@ -200,7 +210,63 @@ export function CloudSaveDock() {
             >
               恢復上一份雲端版本
             </button>
+            <button
+              type="button"
+              style={button}
+              onClick={() =>
+                void controller.listRevisions().then((result) => {
+                  if (result.status !== "ready") {
+                    setRevisions(null);
+                    setNote(
+                      result.status === "error"
+                        ? result.message
+                        : "目前讀不到雲端版本。本機進度仍在。",
+                    );
+                    return;
+                  }
+                  setHeadRevision(result.headRevision);
+                  setRevisions(result.revisions);
+                  setNote(
+                    result.revisions.some((item) => item.revision !== result.headRevision)
+                      ? "可以選擇一份較早的雲端版本。"
+                      : "沒有更早的雲端版本。",
+                  );
+                })
+              }
+            >
+              查看雲端版本
+            </button>
           </div>
+          {revisions ? (
+            <div style={row}>
+              {revisions
+                .filter((item) => item.revision !== headRevision)
+                .map((item) => (
+                  <button
+                    key={item.revision}
+                    type="button"
+                    style={button}
+                    onClick={() =>
+                      void controller.restoreRevision(item.revision).then((result) => {
+                        if (result.status === "restored") {
+                          setNote(`已恢復版本 ${item.revision}。現在是版本 ${result.revision}。`);
+                          setHeadRevision(result.revision);
+                          return;
+                        }
+                        if (result.status !== "local_only") setPlan(result);
+                        setNote(
+                          result.status === "error"
+                            ? result.message
+                            : "沒有恢復雲端版本。本機進度仍在。",
+                        );
+                      })
+                    }
+                  >
+                    恢復版本 {item.revision}
+                  </button>
+                ))}
+            </div>
+          ) : null}
           {plan ? <p style={copy}>狀態：{plan.status}</p> : null}
         </div>
       ) : null}

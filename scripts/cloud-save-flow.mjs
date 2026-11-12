@@ -377,6 +377,32 @@ async function main() {
     const legacy = await putJson(jarA, base, saveBody({ visited: ["kenan"], playSeconds: 3 }));
     assert.equal(legacy.status, 422);
     assert.equal((await legacy.json()).error.code, "legacy_pilgrimage");
+    const oldRpg = await putJson(
+      jarA,
+      base,
+      saveBody({
+        version: 1,
+        departmentId: "math",
+        inventory: [{ id: "pen", count: 2 }],
+        buildings: [],
+        visited: ["kenan"],
+      }),
+    );
+    assert.equal(oldRpg.status, 422);
+    assert.equal((await oldRpg.json()).error.code, "legacy_rpg");
+    const worldSave = await putJson(
+      jarA,
+      base,
+      saveBody({
+        version: 2,
+        visited: ["kenan"],
+        inventory: [{ id: "notes", count: 1 }],
+        buildings: [],
+        departmentId: "cs",
+      }),
+    );
+    assert.equal(worldSave.status, 422);
+    assert.equal((await worldSave.json()).error.code, "legacy_pilgrimage");
     const sql = await getSql();
     const pilgrimage = await sql.query("select count(*) as n from pilgrimage");
     assert.equal(Number(pilgrimage[0].n), 0);
@@ -522,13 +548,42 @@ async function main() {
     const queueAfter = await (await queueJar.fetch(`${base}/api/cloud/saves/rpg`)).json();
     assert.equal(queueAfter.document.xp, 9);
 
-    const [backup] = await sql.query(
+    const queueBefore = await (await queueJar.fetch(`${base}/api/cloud/saves/rpg`)).json();
+    const saveRows = await sql.query(
       `select schema_version, content_version, revision, document, document_bytes, content_hash
        from rpg_saves where user_id = $1`,
       [userA],
     );
+    const revisionRows = await sql.query(
+      `select revision, schema_version, content_version, document, content_hash, created_at
+       from rpg_save_revisions where user_id = $1 order by revision`,
+      [userA],
+    );
+    const requestRows = await sql.query(
+      `select request_id, payload_hash, status_code, response, created_at
+       from rpg_save_requests where user_id = $1`,
+      [userA],
+    );
+    const receiptRowsBackup = await sql.query(
+      `select event_id, created_at from reward_receipts where user_id = $1 order by event_id`,
+      [userA],
+    );
+    const backup = saveRows[0];
+    assert.ok(backup);
+    assert.ok(revisionRows.length >= 1);
+    assert.ok(requestRows.length >= 1);
+    assert.ok(receiptRowsBackup.length >= 1);
+    await sql.query("delete from rpg_save_requests where user_id = $1", [userA]);
+    await sql.query("delete from reward_receipts where user_id = $1", [userA]);
+    await sql.query("delete from rpg_save_revisions where user_id = $1", [userA]);
     await sql.query("delete from rpg_saves where user_id = $1", [userA]);
     assert.equal((await jarA.fetch(`${base}/api/cloud/saves/rpg`)).status, 404);
+    const emptied = await (await jarA.fetch(`${base}/api/cloud/saves/rpg/revisions`)).json();
+    assert.equal(emptied.headRevision, null);
+    assert.deepEqual(emptied.revisions, []);
+    const otherStill = await (await queueJar.fetch(`${base}/api/cloud/saves/rpg`)).json();
+    assert.equal(otherStill.revision, queueBefore.revision);
+    assert.equal(otherStill.document.xp, queueBefore.document.xp);
     await sql.query(
       `insert into rpg_saves (
          user_id, schema_version, content_version, revision, document, document_bytes, content_hash
@@ -543,9 +598,73 @@ async function main() {
         backup.content_hash,
       ],
     );
+    for (const row of revisionRows) {
+      await sql.query(
+        `insert into rpg_save_revisions (
+           user_id, revision, schema_version, content_version, document, content_hash, created_at
+         ) values ($1, $2, $3, $4, $5::jsonb, $6, $7)`,
+        [
+          userA,
+          row.revision,
+          row.schema_version,
+          row.content_version,
+          JSON.stringify(row.document),
+          row.content_hash,
+          row.created_at,
+        ],
+      );
+    }
+    for (const row of requestRows) {
+      await sql.query(
+        `insert into rpg_save_requests (
+           user_id, request_id, payload_hash, status_code, response, created_at
+         ) values ($1, $2, $3, $4, $5::jsonb, $6)`,
+        [
+          userA,
+          row.request_id,
+          row.payload_hash,
+          row.status_code,
+          JSON.stringify(row.response),
+          row.created_at,
+        ],
+      );
+    }
+    for (const row of receiptRowsBackup) {
+      await sql.query(
+        `insert into reward_receipts (user_id, event_id, created_at) values ($1, $2, $3)`,
+        [userA, row.event_id, row.created_at],
+      );
+    }
     const restored = await (await jarA.fetch(`${base}/api/cloud/saves/rpg`)).json();
     assert.equal(restored.revision, Number(backup.revision));
     assert.equal(restored.document.xp, keptXp);
+    const restoredHistory = await (
+      await jarA.fetch(`${base}/api/cloud/saves/rpg/revisions`)
+    ).json();
+    assert.deepEqual(
+      restoredHistory.revisions.map((item) => item.revision).sort((left, right) => left - right),
+      revisionRows.map((row) => Number(row.revision)).sort((left, right) => left - right),
+    );
+    assert.equal(JSON.stringify(restoredHistory).includes('"document"'), false);
+    const receiptAfterBackup = await sql.query(
+      "select count(*) as n from reward_receipts where user_id = $1",
+      [userA],
+    );
+    assert.equal(Number(receiptAfterBackup[0].n), receiptRowsBackup.length);
+    const replayedRequest = await putJson(
+      jarA,
+      base,
+      saveBody(JSON.parse(rpgText(1)), {
+        baseRevision: Number(backup.revision),
+        confirmFirstSync: false,
+        requestId: requestRows[0].request_id,
+      }),
+    );
+    assert.equal(replayedRequest.status, 409);
+    assert.equal((await replayedRequest.json()).error.code, "idempotency_mismatch");
+    const afterMismatch = await (await jarA.fetch(`${base}/api/cloud/saves/rpg`)).json();
+    assert.equal(afterMismatch.revision, Number(backup.revision));
+    assert.equal(afterMismatch.document.xp, keptXp);
 
     const previous = await (
       await jarA.fetch(`${base}/api/cloud/saves/rpg/restore`, {
@@ -560,6 +679,113 @@ async function main() {
     ).json();
     assert.equal(previous.document.xp, 5);
     assert.ok(previous.revision > restored.revision);
+
+    const histJar = createJar(origin);
+    const histUser = await signUp(histJar, base, "player-hist@example.com");
+    let histRevision = 0;
+    for (let xp = 1; xp <= 9; xp += 1) {
+      const response = await putJson(
+        histJar,
+        base,
+        saveBody(JSON.parse(rpgText(xp)), {
+          baseRevision: histRevision,
+          confirmFirstSync: histRevision === 0,
+          requestId: `histreq${String(xp).padStart(4, "0")}`,
+        }),
+      );
+      const uploaded = await response.json();
+      assert.equal(response.status, 200, JSON.stringify(uploaded));
+      histRevision = uploaded.revision;
+      assert.equal(histRevision, xp);
+    }
+    const listedResponse = await histJar.fetch(`${base}/api/cloud/saves/rpg/revisions`);
+    const listed = await listedResponse.json();
+    assert.equal(listedResponse.status, 200);
+    assert.equal(listed.headRevision, 9);
+    assert.equal(listed.revisions.length, 8);
+    assert.equal(listed.revisions[0].revision, 9);
+    assert.equal(typeof listed.revisions[0].createdAt, "string");
+    assert.ok(listed.revisions[0].createdAt.length > 0);
+    assert.equal(
+      listed.revisions.some((item) => item.revision === 1),
+      false,
+    );
+    assert.equal(
+      listed.revisions.some((item) => item.revision === 2),
+      true,
+    );
+    assert.equal(JSON.stringify(listed).includes('"document"'), false);
+    assert.equal(
+      (await histJar.fetch(`${base}/api/cloud/saves/rpg/revisions?userId=${histUser}`)).status,
+      403,
+    );
+    assert.equal(
+      (await createJar(origin).fetch(`${base}/api/cloud/saves/rpg/revisions`)).status,
+      401,
+    );
+    const foreignHistory = await (await jarC.fetch(`${base}/api/cloud/saves/rpg/revisions`)).json();
+    assert.equal(foreignHistory.headRevision, null);
+    assert.deepEqual(foreignHistory.revisions, []);
+    const foreignRestore = await jarC.fetch(`${base}/api/cloud/saves/rpg/restore`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-cloud-save": "1" },
+      body: JSON.stringify({
+        baseRevision: 9,
+        revision: 2,
+        requestId: "foreign-restore-01",
+      }),
+    });
+    assert.equal(foreignRestore.status, 404);
+    const histStorage = memoryStorage();
+    let histIds = 0;
+    const histClient = createCloudSaveController({
+      fetch: (url, init) => histJar.fetch(url, init),
+      baseUrl: base,
+      storage: histStorage,
+      randomId: () => `histclient${String(++histIds).padStart(4, "0")}`,
+    });
+    histClient.bindAccount(histUser);
+    histClient.writeLocal(rpgText(99));
+    const missing = await histClient.restoreRevision(1);
+    assert.equal(missing.status, "error", JSON.stringify(missing));
+    assert.equal(JSON.parse(histClient.readLocal()).xp, 99);
+    const headStill = await (await histJar.fetch(`${base}/api/cloud/saves/rpg`)).json();
+    assert.equal(headStill.revision, 9);
+    assert.equal(headStill.document.xp, 9);
+    const chosenRevision = await histClient.restoreRevision(2);
+    assert.equal(chosenRevision.status, "restored", JSON.stringify(chosenRevision));
+    assert.equal(chosenRevision.revision, 10);
+    assert.equal(JSON.parse(histClient.readLocal()).xp, 2);
+    const afterPrune = await (await histJar.fetch(`${base}/api/cloud/saves/rpg/revisions`)).json();
+    assert.equal(afterPrune.revisions.length, 8);
+    assert.equal(
+      afterPrune.revisions.some((item) => item.revision === 2),
+      false,
+    );
+    const historyReplay = await histJar.fetch(`${base}/api/cloud/saves/rpg/restore`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-cloud-save": "1" },
+      body: JSON.stringify({ baseRevision: 10, revision: 3, requestId: "hist-replay-01" }),
+    });
+    const historyReplayBody = await historyReplay.json();
+    assert.equal(historyReplay.status, 200, JSON.stringify(historyReplayBody));
+    assert.equal(historyReplayBody.revision, 11);
+    assert.equal(historyReplayBody.document.xp, 3);
+    const historyReplayAgain = await histJar.fetch(`${base}/api/cloud/saves/rpg/restore`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-cloud-save": "1" },
+      body: JSON.stringify({ baseRevision: 10, revision: 3, requestId: "hist-replay-01" }),
+    });
+    const replayAgainBody = await historyReplayAgain.json();
+    assert.equal(historyReplayAgain.status, 200);
+    assert.equal(replayAgainBody.idempotentReplay, true);
+    assert.equal(replayAgainBody.revision, 11);
+    assert.equal(replayAgainBody.document.xp, 3);
+    const receipts = await sql.query(
+      "select count(*) as n from reward_receipts where user_id = $1",
+      [histUser],
+    );
+    assert.equal(Number(receipts[0].n), 0);
 
     const pg = await getPglite();
     const migration = readFileSync(join(root, "migrations/0003_rpg_saves.sql"), "utf8");
@@ -601,12 +827,38 @@ async function verifyProcessRestart() {
     const origin = `http://127.0.0.1:${port}`;
     const jar = createJar(origin);
     await signUp(jar, origin, "restart@example.com");
+    const firstDoc = {
+      ...JSON.parse(rpgText(15, ["first", "gather-notes"])),
+      gathered: { notes: 12, parts: 0, coffee: 0, tea: 0 },
+      felled: { quiz: 0, report: 2, exam: 0, final: 0 },
+    };
     const saved = await putJson(
       jar,
       origin,
-      saveBody(JSON.parse(rpgText(15)), { confirmFirstSync: true, requestId: "restart-upload-1" }),
+      saveBody(firstDoc, { confirmFirstSync: true, requestId: "restart-upload-1" }),
     );
-    assert.equal(saved.status, 200, await saved.text());
+    const savedBody = await saved.json();
+    assert.equal(saved.status, 200, JSON.stringify(savedBody));
+    assert.equal(savedBody.revision, 1);
+    const receipt = await jar.fetch(`${origin}/api/cloud/saves/rpg/receipts`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-cloud-save": "1" },
+      body: JSON.stringify({ eventId: "gather-notes", requestId: "restart-reward-01" }),
+    });
+    const receiptBody = await receipt.json();
+    assert.equal(receipt.status, 200, JSON.stringify(receiptBody));
+    assert.equal(receiptBody.applied, true);
+    const updated = await putJson(
+      jar,
+      origin,
+      saveBody(
+        { ...firstDoc, gathered: { ...firstDoc.gathered, notes: 13 } },
+        { baseRevision: 1, confirmFirstSync: false, requestId: "restart-upload-2" },
+      ),
+    );
+    const updatedBody = await updated.json();
+    assert.equal(updated.status, 200, JSON.stringify(updatedBody));
+    assert.equal(updatedBody.revision, 2);
     assert.equal(await stopChild(first.child), 0);
     const second = spawnServices(env);
     try {
@@ -615,7 +867,36 @@ async function verifyProcessRestart() {
       await signIn(jar2, origin, "restart@example.com");
       const loaded = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg`)).json();
       assert.equal(loaded.document.xp, 15);
-      assert.equal(loaded.revision, 1);
+      assert.equal(loaded.revision, 2);
+      assert.equal(loaded.document.gathered.notes, 13);
+      assert.equal(loaded.document.felled.report, 2);
+      assert.equal(loaded.document.claimed.includes("gather-notes"), true);
+      const history = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg/revisions`)).json();
+      assert.deepEqual(
+        history.revisions.map((item) => item.revision).sort((left, right) => left - right),
+        [1, 2],
+      );
+      assert.equal(JSON.stringify(history).includes('"document"'), false);
+      const repeated = await jar2.fetch(`${origin}/api/cloud/saves/rpg/receipts`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-cloud-save": "1" },
+        body: JSON.stringify({ eventId: "gather-notes", requestId: "restart-reward-02" }),
+      });
+      const repeatedBody = await repeated.json();
+      assert.equal(repeated.status, 200, JSON.stringify(repeatedBody));
+      assert.equal(repeatedBody.applied, false);
+      const replayed = await jar2.fetch(`${origin}/api/cloud/saves/rpg/receipts`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-cloud-save": "1" },
+        body: JSON.stringify({ eventId: "gather-notes", requestId: "restart-reward-01" }),
+      });
+      const replayedBody = await replayed.json();
+      assert.equal(replayed.status, 200, JSON.stringify(replayedBody));
+      assert.equal(replayedBody.idempotentReplay, true);
+      assert.equal(replayedBody.applied, true);
+      const still = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg`)).json();
+      assert.equal(still.revision, 2);
+      assert.equal(still.document.gathered.notes, 13);
     } finally {
       await stopChild(second.child);
     }

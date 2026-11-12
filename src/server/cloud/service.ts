@@ -40,6 +40,33 @@ export function etagFor(revision: number): string {
   return `"${revision}"`;
 }
 
+export async function listRpgRevisions(sql: Sql, userId: string): Promise<ServiceResult> {
+  const head = await readHead(sql, userId);
+  const rows = await sql.query<{
+    revision: number | string;
+    content_hash: string;
+    created_at: Date | string;
+  }>(
+    `select revision, content_hash, created_at
+     from rpg_save_revisions
+     where user_id = $1
+     order by revision desc
+     limit $2`,
+    [userId, SAVE_HISTORY_LIMIT],
+  );
+  return {
+    status: 200,
+    body: {
+      headRevision: head ? asRevision(head.revision) : null,
+      revisions: rows.map((row) => ({
+        revision: asRevision(row.revision),
+        contentHash: row.content_hash,
+        createdAt: asTimestamp(row.created_at),
+      })),
+    },
+  };
+}
+
 export async function getRpgSave(sql: Sql, userId: string): Promise<ServiceResult> {
   const row = await readHead(sql, userId);
   if (!row) {
@@ -433,6 +460,12 @@ function conflictResult(row: SaveRow, clientRevision: number): ServiceResult {
 
 async function payloadHash(value: unknown): Promise<string> {
   return sha256Hex(canonicalJson(value));
+}
+
+function asTimestamp(value: Date | string): string {
+  if (value instanceof Date) return value.toISOString();
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? "" : parsed.toISOString();
 }
 
 function asRevision(value: number | string): number {

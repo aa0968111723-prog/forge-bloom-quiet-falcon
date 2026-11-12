@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T04:10:00Z",
+  "updated_at": "2026-11-12T04:55:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "83fa529",
+  "base": "b579dff",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -12,10 +12,15 @@
     "upload control uses first sync only when the cloud is empty, then the stored revision, and flushes only the signed-in account queue",
     "reloading a signed-in client retries the same request id without bumping revision",
     "merged the library ramp railings and proved a restarted database replays the original request id without changing revision or floor",
-    "player can restore the previous cloud revision into the local save as a new head"
+    "player can restore the previous cloud revision into the local save as a new head",
+    "player can list only their own revision numbers and restore a chosen one; pruned revisions and other accounts do not change the local save",
+    "backup of one account restores the save head, history, idempotency rows, and reward receipts without touching another account",
+    "an old RPG import is rejected as legacy_rpg and is not stored as pilgrimage; the world save is still legacy_pilgrimage and neither write changes the RPG row",
+    "merged collection quests at b579dff; gathered and felled survive upload, download, and process restart, and older saves can omit them",
+    "after a database process restart, collection counts, the claimed quest, and the revision list remain, and a new request id does not record the same reward again"
   ],
   "verification": {
-    "npm_test": "321 pass, 0 fail; previous cloud revision restores into the local save",
+    "npm_test": "328 pass, 0 fail; collection counts and reward receipts survive a database restart",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
@@ -23,9 +28,5 @@
     "build_site": "npm run build:site passed; dist has no cloud-save or DATABASE_URL"
   },
   "next_action": "When a later merge adds a snapshot() field, extend the cloud whitelist and re-run npm test plus the live-save fixture. Do not merge or deploy.",
-  "out_of_scope": [
-    "competitive leaderboard",
-    "production deploy",
-    "art and campus geometry"
-  ]
+  "out_of_scope": ["competitive leaderboard", "production deploy", "art and campus geometry"]
 }
