@@ -3,7 +3,8 @@ import { useGame } from "../../game/store";
 import { inventory, useRpg } from "../../game/rpg/store";
 import { factOf } from "./catalog";
 import { craftIds, craftRecipe, planCraft } from "./craft";
-import { gearBonus, instanceFor } from "./gear";
+import { coverBonus } from "./facilities";
+import { gearBonus, instanceFor, slotCap } from "./gear";
 import type { GearQuality, GearSlot } from "./types";
 
 const SLOT_LABEL: Record<GearSlot, string> = {
@@ -18,6 +19,7 @@ const SLOT_LABEL: Record<GearSlot, string> = {
  */
 export function GearDock() {
   const loadout = useRpg((s) => s.loadout);
+  const pockets = useRpg((s) => s.pockets);
   const gear = useRpg((s) => s.gear);
   const buildings = useRpg((s) => s.buildings);
   const playerX = useGame((s) => s.playerX);
@@ -32,11 +34,15 @@ export function GearDock() {
   const nearSupply = near("supply");
   const owned = (id: string) => inventory.count(id) > 0;
   const bonus = gearBonus(loadout, gear, owned);
+  const slots = slotCap(loadout, pockets, owned);
+  const cover = coverBonus(buildings, playerX, playerZ);
   return (
     <section className="ad-gear" aria-label="裝備槽">
       <div className="ad-section-line">
         <h3>裝備</h3>
-        <span>負重 {bonus.carry}</span>
+        <span>
+          負重 {bonus.carry} · {slots} 格
+        </span>
       </div>
       <div className="ad-gear-slots">
         {(["tool", "accessory", "pack"] as const).map((slot) => {
@@ -68,8 +74,15 @@ export function GearDock() {
             ? `調查距離 +${bonus.survey} 公尺。`
             : bonus.gather > 0
               ? "補給時會多取一份筆記。"
-              : "主工具、配件、背包各一件。徽章仍是配件，不加第二次生命。"}
+              : cover > 0
+                ? `路障掩護，受擊再減 ${cover}。和護身別針加在一起，至少仍受到 1 點。`
+                : "主工具、配件、背包各一件。徽章仍是配件，不加第二次生命。"}
       </p>
+      <div className="ad-gear-craft">
+        <button type="button" onClick={() => useRpg.getState().sewPocket()}>
+          縫口袋 · 布 2 · 多 4 格
+        </button>
+      </div>
       {loadout.tool === "repair-wrench" ? (
         <div className="ad-gear-craft">
           <button type="button" onClick={() => useRpg.getState().repair()}>

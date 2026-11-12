@@ -10,7 +10,8 @@ export const CLOUD_ACTIVE_USER_KEY = "tamkang-cloud-save-active-user";
 export const MAX_SAVE_BYTES = 262_144;
 export const SAVE_HISTORY_LIMIT = 8;
 export const MAX_BUILDINGS = 48;
-export const MAX_SLOTS = 24;
+/** Base bag is 24. Sewn pockets and the field pack can raise it to 36. */
+export const MAX_SLOTS = 36;
 
 export const CONTENT_EFFECTS = [
   "heal",

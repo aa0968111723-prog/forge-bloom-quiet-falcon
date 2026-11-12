@@ -566,7 +566,7 @@ test("validated import applies one snapshot and leaves the previous save untouch
     JSON.stringify({
       version: 2,
       hp: 40,
-      slots: Array.from({ length: 25 }, () => ({ itemId: "notes", quantity: 1 })),
+      slots: Array.from({ length: 37 }, () => ({ itemId: "notes", quantity: 1 })),
       buildings: [],
     }),
     /物品槽超過背包容量/,
@@ -5790,7 +5790,8 @@ test("pack keeps stored slot order while the backpack view filters and sorts", (
   assert.match(panel, /稀有/);
   assert.match(panel, /背包是空的。/);
   assert.match(panel, /沒有符合的物品。/);
-  assert.match(panel, /\/ 24 格/);
+  assert.match(panel, /slotCap\(rpg\.loadout, rpg\.pockets/);
+  assert.match(panel, /格/);
   const selectedAt = css.indexOf(".ad-slot.selected {");
   const selectedRule = css.slice(selectedAt, css.indexOf("}", selectedAt));
   const slotAt = css.indexOf(".ad-slot {");
