@@ -5319,7 +5319,33 @@
       "mergeSha": "ed9a2f99693a53449ad289464006091b190f5655",
       "integrationPr": 335,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/335",
-      "nextAction": "None. The scroll letters from 5fe60b19 are already in this integration. Do not merge PR #271 by itself. The dolphin-motto commit 5c3589bc is still separate."
+      "nextAction": "None. The scroll letters from 5fe60b19 are already in this integration. Do not merge PR #271 by itself. The dolphin-motto commit 5c3589bc is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-dolphin-motto",
+      "line": "art",
+      "scope": "The dolphin plinth shows both lines of the motto, including 掌握資訊，開創未來.",
+      "status": "verified",
+      "pr": 272,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/272",
+      "integrationBranch": "cursor/integration-dolphin-motto-3395",
+      "sourceBranch": "cursor/dolphin-motto-1a71",
+      "baseSha": "b514c791a8283fca122e9dc0e1f3ecaa34b8b10a",
+      "headSha": "5c3589bc2d04ba6285d595f43d5057521a9dedc3",
+      "dependencies": ["art-scroll-words"],
+      "sharedFiles": ["src/game/landmarks/DolphinMilestone.tsx", "src/game/world-data/dolphin-motto.ts", "src/game/world/labels.ts", "scripts/dolphin-motto.test.mjs"],
+      "checks": {
+        "conflicts": "The scroll letters and earlier colliders stay. The taller plaque stays on the existing stone and adds no collider.",
+        "typecheck": "pass",
+        "npmTest": "468 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BVZUqW2H.js sha256 da20262f98d8cfd04c2860270bf9b1be6c1083d05fc7850b7fe8599c855e1a47. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8261/",
+        "route": "8261 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "9cb2412e2127bb911fccdab4c73f7e0d8ecc62b6",
+      "nextAction": "Open the integration PR. Do not merge PR #272 by itself. The pool-glow commit 683baba3 is still separate."
     }
   ]
 }
