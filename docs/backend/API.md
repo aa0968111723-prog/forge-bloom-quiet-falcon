@@ -79,7 +79,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 }
 ```
 
-- 尚未有雲端列，且 `confirmFirstSync` 不是 `true` 或 `baseRevision` 不是 `0`：`409 first_sync_required`。不寫入，也不清本機。
+- 尚未有雲端列，且 `confirmFirstSync` 不是 `true` 或 `baseRevision` 不是 `0`：`409 first_sync_required`。不寫入，也不清本機。玩家已經排進這個帳號的上傳，在確認仍是這個帳號後，會用新的 `requestId` 以首次同步寫入目前本機存檔。另一個帳號的 session 不會送出。
 - `baseRevision` 不等於目前 revision：`409 revision_conflict`，body 含 `server`（revision、document、etag、contentHash）與 `clientRevision`。
 - 成功：`200`，revision 加一，舊版本留在 `rpg_save_revisions`（最多 8 筆）。
 - `If-Match` 若存在，必須等於 `baseRevision`，否則 `400 if_match_mismatch`。

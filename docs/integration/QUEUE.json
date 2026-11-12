@@ -3077,6 +3077,34 @@
       "integrationPr": 225,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/225",
       "nextAction": "None. The track infield from 6bf79fe is already in this integration. Do not merge PR #167 by itself."
+    },
+    {
+      "id": "backend-empty-cloud",
+      "line": "backend",
+      "scope": "A queued upload lands as a first sync when this account's cloud row is gone. Another account's session does not send it.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-empty-cloud-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "7c44b1785ca9c21785bbea5bd33c1f6ee51c2de1",
+      "headSha": "320a53601b12f80ec2a6484538a0af208b1ee91b",
+      "dependencies": ["backend-variety-built"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:02:41Z entry and the empty-cloud line.",
+        "typecheck": "pass",
+        "npmTest": "387 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BAll8kZV.js unchanged",
+        "browser": "8185. The standing route completed.",
+        "route": "8185: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": true,
+      "mergeSha": "a488180ee96845a1a3c3018172f55b9183d9eb3e",
+      "integrationPr": 226,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/226",
+      "nextAction": "None. The empty-cloud queued upload from 320a536 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
