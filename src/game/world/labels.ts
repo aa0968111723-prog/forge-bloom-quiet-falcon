@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
+import { dolphinMottoText } from "../world-data/dolphin-motto.ts";
 
 /**
  * Canvas-drawn signage.
@@ -65,6 +66,11 @@ export function makeSignTexture(text: string, style: SignStyle = {}) {
       [...text].forEach((ch, i) => {
         ctx.fillText(ch, w / 2, ((i + 0.5) * h) / text.length);
       });
+    } else if (text.includes("\n")) {
+      const lines = text.split("\n");
+      const size = Math.floor((h / lines.length) * 0.62);
+      ctx.font = `700 ${size}px "Noto Serif TC", "WenQuanYi Zen Hei", serif`;
+      lines.forEach((line, i) => ctx.fillText(line, w / 2, ((i + 0.5) * h) / lines.length));
     } else {
       ctx.font = `700 ${Math.floor(h * 0.46)}px "Noto Serif TC", "WenQuanYi Zen Hei", serif`;
       ctx.fillText(text, w / 2, h / 2 + 4);
@@ -120,7 +126,7 @@ export function useCampusSigns(): Record<CampusSignId, THREE.Texture> {
       avenue: makeSignTexture("宮燈大道", { fg: "#5c1812", bg: "#f3eee4" }),
       statue: makeSignTexture("功在作人", { fg: "#f3eee4", bg: "#3a2c1c", width: 640, height: 160 }),
       gate: makeSignTexture("淡江大學", { fg: "#1a3f6d", bg: "#f3eee4", width: 900, height: 200 }),
-      dolphin: makeSignTexture("立足淡江 放眼世界", { fg: "#1a3f6d", bg: "#d8d3c8", width: 900, height: 160 }),
+      dolphin: makeSignTexture(dolphinMottoText(), { fg: "#1a3f6d", bg: "#d8d3c8", width: 980, height: 360 }),
       library: makeSignTexture("覺生紀念圖書館", { fg: "#f3eee4", bg: "#1a3f6d", width: 980, height: 180 }),
       scroll: makeSignTexture("樸實剛毅", { fg: "#5c4a2c", bg: "#e8e0cc", width: 760, height: 180 }),
       museum: makeSignTexture("海事博物館", { fg: "#f3eee4", bg: "#1a3f6d", width: 900, height: 180 }),

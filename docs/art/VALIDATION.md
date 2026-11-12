@@ -531,3 +531,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 101 輪（書卷四字）— 2026-11-12
 
 `node --test scripts/scroll-words.test.mjs` 通過。`tsc --noEmit` 通過。四片書卷的字依序是樸、實、剛、毅。每張字牌離自己那片書卷的中心不到 1.5 m，也比書卷更靠近廣場中心。定步白天，頁面無錯誤：`docs/art/evidence/scroll-words/southeast.jpg`。東南那片書卷上看得到「實」。字位仍是 estimated。沒有新增音效。第 100 輪的體育館夜窗留著。
+
+## 第 102 輪（海豚勉詞）— 2026-11-12
+
+`node --test scripts/dolphin-motto.test.mjs` 通過。`tsc --noEmit` 通過。兩行是「立足淡江，放眼世界」和「掌握資訊，開創未來」。定步白天，頁面無錯誤：`docs/art/evidence/dolphin-motto/south.jpg`。基座南面兩行都讀得到。字位仍是 estimated。沒有新增音效。第 101 輪的書卷四字留著。

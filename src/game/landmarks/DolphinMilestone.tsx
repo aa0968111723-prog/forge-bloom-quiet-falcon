@@ -39,8 +39,8 @@ export function DolphinMilestone({ wetness }: { wetness: number }) {
         <meshStandardMaterial {...surface(mats["kenan/old-wall"], { wetness })} />
       </mesh>
       {/* Dedication faces south, back down the avenue. */}
-      <mesh position={[0, 0.86, 1.42]}>
-        <planeGeometry args={[2.4, 0.44]} />
+      <mesh position={[0, 0.78, 1.42]}>
+        <planeGeometry args={[2.4, 0.72]} />
         <meshStandardMaterial map={signs.dolphin} roughness={0.6} />
       </mesh>
 
