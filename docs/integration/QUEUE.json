@@ -4956,6 +4956,32 @@
       "integrationPr": 322,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/322",
       "nextAction": "None. The still water from 0dd53a5c is already in this integration. Do not merge PR #244 by itself. The still-title commit 119f5c3f is still separate."
+    },
+    {
+      "id": "art-still-title",
+      "line": "art",
+      "scope": "Reduced motion holds the title camera on the orbit centre. Normal motion still drifts around that centre.",
+      "status": "verified",
+      "pr": 246,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/246",
+      "integrationBranch": "cursor/integration-still-title-3395",
+      "sourceBranch": "cursor/still-title-1a71",
+      "baseSha": "ef475db64b07d9e1ab7c9488d135dc41b1eae6b4",
+      "headSha": "119f5c3ff4daee400dc68a1f9739a16726c6dcd6",
+      "dependencies": ["art-still-water"],
+      "sharedFiles": ["src/game/rpg/title-camera.ts", "src/game/rpg/AdventurePlayer.tsx", "src/game/rpg/follow.ts", "scripts/title-camera.test.mjs"],
+      "checks": {
+        "conflicts": "The interior follow camera, still river, still wind, library plinth, named boards, campus-gate piers, lamp poles, and trunk boxes stay. Reduced motion now holds the title camera on the orbit centre.",
+        "typecheck": "pass",
+        "npmTest": "456 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Bn-oucxD.js sha256 bc22521b42017fcccc68f3187dcf72376bbd80d1fc347ee4421362bdbea4afd7. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8248/",
+        "route": "8248 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "7072bb86d7592be1ee613ec22eb22df1e7f94ed5",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #246 by itself. The still-charm commit 06507f79 is still separate."
     }
   ]
 }
