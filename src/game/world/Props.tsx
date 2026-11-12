@@ -4,6 +4,7 @@ import { quality } from "../quality";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { libraryRampTriangles } from "../world-data/library-ramp.ts";
 import { railingSegmentFrame } from "../world-data/railing-frame.ts";
+import { NOTICE_LINES } from "../world-data/notice-copy.ts";
 import { PROPS, railingPostBases, type PropInstance, type PropKind } from "../world-data/props.ts";
 import { VendorModel, type VendorInstance } from "./vendor";
 
@@ -30,6 +31,8 @@ type Part = {
   /** if true the part's Z scale follows instance.length */
   stretchZ?: boolean;
   castShadow?: boolean;
+  /** Draw the shared notice lines on this face. */
+  paper?: boolean;
 };
 
 function box(w: number, h: number, d: number) {
@@ -117,7 +120,7 @@ function buildParts(kind: PropKind): Part[] {
     case "noticeboard":
       return [
         { geometry: box(1.9, 1.1, 0.08), material: { color: "#4a3a2c", roughness: 0.7 }, offset: [0, 1.45, 0], castShadow: true },
-        { geometry: box(1.7, 0.9, 0.02), material: { color: "#e6e0d0", roughness: 0.6 }, offset: [0, 1.45, 0.05] },
+        { geometry: box(1.7, 0.9, 0.02), material: { color: "#f6f1e4", roughness: 0.6 }, offset: [0, 1.45, 0.05], paper: true },
         { geometry: cyl(0.05, 0.05, 1.0, 6), material: METAL_DARK, offset: [-0.8, 0.5, 0] },
         { geometry: cyl(0.05, 0.05, 1.0, 6), material: METAL_DARK, offset: [0.8, 0.5, 0] },
       ];
@@ -190,8 +193,33 @@ function RailingRun({ instances }: { instances: PropInstance[] }) {
   );
 }
 
+function noticePaperTexture() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 288;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+  ctx.fillStyle = "#f6f1e4";
+  ctx.fillRect(0, 0, 512, 288);
+  ctx.strokeStyle = "#4a3a2c";
+  ctx.lineWidth = 10;
+  ctx.strokeRect(18, 18, 476, 252);
+  ctx.fillStyle = "#2a241c";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  NOTICE_LINES.forEach((line, index) => {
+    ctx.font = index === 0 ? "700 72px 'Microsoft JhengHei', sans-serif" : "500 42px 'Microsoft JhengHei', sans-serif";
+    ctx.fillText(line, 256, index === 0 ? 118 : 196);
+  });
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
 function PartLayer({ part, instances }: { part: Part; instances: PropInstance[] }) {
   const ref = useRef<THREE.InstancedMesh>(null);
+  const paper = useMemo(() => (part.paper ? noticePaperTexture() : null), [part.paper]);
+  useEffect(() => () => paper?.dispose(), [paper]);
   useLayoutEffect(() => {
     const mesh = ref.current;
     if (!mesh) return;
@@ -219,7 +247,7 @@ function PartLayer({ part, instances }: { part: Part; instances: PropInstance[] 
       castShadow={part.castShadow ?? false}
       receiveShadow
     >
-      <meshStandardMaterial {...part.material} />
+      <meshStandardMaterial {...part.material} map={paper ?? undefined} />
     </instancedMesh>
   );
 }
