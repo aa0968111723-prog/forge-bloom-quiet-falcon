@@ -5804,6 +5804,30 @@
       "integrationPr": 353,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/353",
       "nextAction": "This is on integration PR #353. Do not merge PR #178 by itself. The next game commit is PR #180 346dd73358c2, the Sungtao south balconies."
+    },
+    {
+      "id": "art-dorm-balcony",
+      "title": "Add a south balcony to every upper floor of the Sungtao dorms",
+      "status": "verified",
+      "pr": 180,
+      "branch": "cursor/dorm-balcony-1a71",
+      "headSha": "346dd73358c2b18c865ec9cba3b7f12271f62beb",
+      "dependencies": ["art-lit-eave"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the literature hall shot and the later capture scenes. Sungtao 2 stays dorm-front and still draws the upper balcony rows. Art notes kept the later milestones and appended this balcony.",
+        "typecheck": "pass",
+        "npmTest": "483 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CIKAs1XY.js sha256 0b6443c36cd98e30804c332ca2e11124dda8e86b6d7f70b1940e45d051e60bcd. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8277/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User LDC18DaxaNCAN6u8XdEe4RSQZFgLm9o6."
+      },
+      "conflicts": ["scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "9cc4e7b8bed58bd42cabbf0094559e1baa603d91",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #180 by itself. The next game commit is PR #181 bf9b3973b399, the Chueh Hsuan south veranda."
     }
   ]
 }

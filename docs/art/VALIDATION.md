@@ -583,4 +583,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 `node --test scripts/lit-hall.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。文學館是 lit-hall。覺軒仍是 hip-roof-block。平簷高度小於 1 m。南向窗比 6 m 寬，窗高停在地面層。定步白天南向，頁面無錯誤：`docs/art/evidence/humanities/hall.jpg`。看得到綠瓦平簷、橫帶和「文學館」，沒有尖頂。外形仍是 estimated。第 113 輪的商管大樓留著。沒有新增音效。`build:site` 產物 `AdventureApp-yNYaaj66.js`。
 ## 第 115 輪（松濤陽台）— 2026-11-12
 
-`node --test scripts/dorm-balcony.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。松濤一、三、四、五館仍是 dorm-block。松濤二館仍是 dorm-front，上層也有同一條南向陽台。陽台條數比樓層少一。每條都在南牆外，也低於屋頂。實棟不是 dorm-block，麗澤也不是。定步白天看松濤一館，頁面無錯誤：`docs/art/evidence/sungtao/balcony.jpg`。看得到南向橫條和「松濤一館」。陽台仍是 estimated。第 114 輪的文學館留著。沒有新增音效。
+`node --test scripts/dorm-balcony.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。松濤一、三、四、五館仍是 dorm-block。松濤二館仍是 dorm-front，上層也有同一條南向陽台。陽台條數比樓層少一。每條都在南牆外，也低於屋頂。實棟不是 dorm-block，麗澤也不是。定步白天看松濤一館，頁面無錯誤：`docs/art/evidence/sungtao/balcony.jpg`。看得到南向橫條和「松濤一館」。陽台仍是 estimated。第 114 輪的文學館留著。沒有新增音效。`build:site` 產物 `AdventureApp-CIKAs1XY.js`。
