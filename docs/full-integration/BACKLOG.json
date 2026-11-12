@@ -326,7 +326,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Jiang Zhao's opening at the estimated business building, dx 0 dz 12, on AdventureApp-BjWzmiAr.js at 1280x720. She is the business director. Standing was already inside the building discovery radius, so xp was 12 and the click added no campus discovery id. Hear and class each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60, hp 100, and named 系主任 · 企業管理學系. Week-1 stayed. The +18 is meet 6 plus the post explore 12. The post id is not a campus site. No studio quest and no note. The clash line did not follow the opening flag. Both clash buttons stayed unpaid. npm test was 409 pass / 0 fail on merge 811273d."
+      "note": "Two fresh architecture semesters paid Jiang Zhao's opening at the estimated business building, dx 0 dz 12, on AdventureApp-BjWzmiAr.js at 1280x720. She is the business director. Standing was already inside the building discovery radius, so xp was 12 and the click added no campus discovery id. Hear and class each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60, hp 100, and named 系主任 · 企業管理學系. Week-1 stayed. The +18 is meet 6 plus the post explore 12. The post id is not a campus site. No studio quest and no note. The clash line did not follow the opening flag. Both clash choices were later paid in a separate pair of semesters. npm test was 409 pass / 0 fail on merge 811273d."
+    },
+    {
+      "id": "FI-JIANG-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jiang Zhao's clash at the estimated business building, dx 0 dz 12, on AdventureApp-DEg0qO28.js at 1280x720. Shift and corner each moved store xp from 30 to 38 and notes from 18 to 19. The click added no campus discovery. The card showed level 1, 38/60, hp 100, and the notes toast. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. The turn line did not follow the clash flag. A fresh semester has neither fac-he-prereq nor fac-he-fixed, so both routes reloaded onto the default 暫定表 line. Both turn buttons stayed unpaid. npm test was 412 pass / 0 fail on merge 1777ccc."
     },
     {
       "id": "FI-XU-HUI",
