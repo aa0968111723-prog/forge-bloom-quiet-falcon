@@ -73,13 +73,33 @@ function stringMap(value: unknown): Record<string, string> {
   return out;
 }
 
+const NARRATIVE_TIMER_MIN = -1e12;
+const NARRATIVE_TIMER_MAX = 1e15;
+
+function bringTimer(value: number) {
+  return Math.min(NARRATIVE_TIMER_MAX, Math.max(NARRATIVE_TIMER_MIN, value));
+}
+
 function numberMap(value: unknown): Record<string, number> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const out: Record<string, number> = {};
   for (const [key, entry] of Object.entries(value).slice(0, NARRATIVE_SAVE_LIMIT)) {
-    if (typeof entry === "number" && Number.isFinite(entry) && key.length < 80) out[key] = entry;
+    if (typeof entry === "number" && Number.isFinite(entry) && key.length < 80) {
+      out[key] = bringTimer(entry);
+    }
   }
   return out;
+}
+
+function clampTimerMap(map: Record<string, number>) {
+  let changed = false;
+  const next: Record<string, number> = {};
+  for (const [key, value] of Object.entries(map)) {
+    const brought = Number.isFinite(value) ? bringTimer(value) : value;
+    next[key] = brought;
+    if (brought !== value) changed = true;
+  }
+  return changed ? next : map;
 }
 
 const NARRATIVE_MINUTE_MAX = 1_000_000;
@@ -107,6 +127,16 @@ export function fitNarrativeIdentity<
       : null;
   if (placeId === session.placeId && departmentId === session.departmentId) return session;
   return { ...session, placeId, departmentId };
+}
+
+/** Fold cooldown and mutex times into the range the cloud save accepts. */
+export function fitNarrativeTimers<
+  T extends { cooldowns: Record<string, number>; mutexUntil: Record<string, number> },
+>(session: T): T {
+  const cooldowns = clampTimerMap(session.cooldowns);
+  const mutexUntil = clampTimerMap(session.mutexUntil);
+  if (cooldowns === session.cooldowns && mutexUntil === session.mutexUntil) return session;
+  return { ...session, cooldowns, mutexUntil };
 }
 
 /** Keep a saved narrative session. A broken object starts a fresh campus session. */
