@@ -6,7 +6,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LAMP_POLE, LIBRARY, PALACE, benches, bollards, lanternPosts, noticeboards, palaceHallZs, planters, utilityBoxes } from "./landmarks.ts";
+import { LAMP_POLE, LIBRARY, PALACE, benches, bins, bollards, lanternPosts, noticeboards, palaceHallZs, planters, utilityBoxes } from "./landmarks.ts";
 import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
@@ -102,7 +102,9 @@ function kenanProps(): PropInstance[] {
   for (const seat of benches()) {
     if (seat.zone === "kenan") out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
   }
-  out.push(prop("bin", 3.3, KENAN_LANDING_Z[1] + 1.2, "kenan"));
+  for (const can of bins()) {
+    if (can.zone === "kenan") out.push(prop("bin", can.x, can.z, can.zone));
+  }
   out.push(prop("sign-post", -3.4, KENAN_LANDING_Z[1] + 1.0, "kenan", Math.PI / 2));
   // Bottom entrance.
   out.push(prop("sign-post", -4.6, KENAN.bottomZ + 3.4, "kenan", Math.PI / 2, 1.15));
@@ -137,7 +139,9 @@ function plazaProps(): PropInstance[] {
   for (const seat of benches()) {
     if (seat.zone === "plaza") out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
   }
-  out.push(prop("bin", PLAZA_RADIUS - 1.6, -4.2, "plaza"));
+  for (const can of bins()) {
+    if (can.zone === "plaza") out.push(prop("bin", can.x, can.z, can.zone));
+  }
   out.push(prop("sign-post", -4.2, -PLAZA_RADIUS + 1.2, "plaza", 0, 1.1));
   out.push(prop("potted-plant", -2.6, 2.4, "plaza"));
   out.push(prop("potted-plant", 2.6, 2.4, "plaza"));
@@ -159,7 +163,11 @@ function avenueProps(): PropInstance[] {
           out.push(prop("bench", seat.x, seat.z, seat.zone, seat.rotationY));
         }
       }
-      out.push(prop("bin", s * (AVENUE_PAVED_WIDTH / 2 + 1.5), z - 11, "avenue"));
+      for (const can of bins()) {
+        if (can.zone === "avenue" && can.z === z - 11 && Math.sign(can.x) === s) {
+          out.push(prop("bin", can.x, can.z, can.zone));
+        }
+      }
     }
   }
   for (const bed of planters()) {
@@ -208,8 +216,9 @@ function northProps(): PropInstance[] {
       out.push(prop("street-lamp", s * (w / 2 - 1.5), z, "scroll", 0, 1.05));
     }
   }
-  out.push(prop("bin", -w / 2 + 3, AXIS.scrollPlazaZ + d / 2 - 3, "scroll"));
-  out.push(prop("bin", w / 2 - 3, AXIS.scrollPlazaZ - d / 2 + 3, "scroll"));
+  for (const can of bins()) {
+    if (can.zone === "scroll") out.push(prop("bin", can.x, can.z, can.zone));
+  }
   for (const board of noticeboards()) {
     if (board.zone === "scroll") out.push(prop("noticeboard", board.x, board.z, board.zone, board.rotationY));
   }
@@ -226,8 +235,9 @@ function northProps(): PropInstance[] {
   }
   out.push(prop("tactile-strip", 10, AXIS.libraryFrontZ + 9, "library", 0, 1, 16));
   out.push(prop("name-plate", 10, AXIS.libraryFrontZ + 0.15, "library", Math.PI / 2, 1.6));
-  out.push(prop("bin", 20, AXIS.libraryFrontZ + 6, "library"));
-  out.push(prop("bin", LIBRARY_RAMP.x - 3.4, LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2 + 1.2, "library"));
+  for (const can of bins()) {
+    if (can.zone === "library") out.push(prop("bin", can.x, can.z, can.zone));
+  }
   for (const cabinet of utilityBoxes()) {
     if (cabinet.zone === "library") out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
   }
@@ -325,8 +335,9 @@ function campusClusterProps(): PropInstance[] {
       out.push(prop("noticeboard", board.x, board.z, board.zone, board.rotationY));
     }
   }
-  out.push(prop("bin", 128, -84, "east"));
-  out.push(prop("bin", -86, -26, "west-academic"));
+  for (const can of bins()) {
+    if (can.zone === "east" || can.zone === "west-academic") out.push(prop("bin", can.x, can.z, can.zone));
+  }
   return out;
 }
 

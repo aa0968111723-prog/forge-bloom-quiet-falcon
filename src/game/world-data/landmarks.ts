@@ -411,6 +411,36 @@ export function benchFootprint(seat: { x: number; z: number; rotationY: number }
   };
 }
 
+
+/** Trash bin diameter, matching the prop cylinder. */
+export const BIN = { diameter: 0.56 } as const;
+
+/**
+ * Every campus bin, in world XZ. The mesh and the collider both use this list.
+ * The ramp bin uses the same ramp origin as `LIBRARY_RAMP` (centreX-20, south face + 7.4, length 14).
+ */
+export function bins(): { x: number; z: number; zone: string }[] {
+  const cans = [
+    { x: 3.3, z: KENAN_LANDING_Z[1] + 1.2, zone: "kenan" },
+    { x: PLAZA_RADIUS - 1.6, z: -4.2, zone: "plaza" },
+  ];
+  for (const z of palaceHallZs()) {
+    for (const side of [-1, 1] as const) {
+      cans.push({ x: side * (AVENUE_PAVED_WIDTH / 2 + 1.5), z: z - 11, zone: "avenue" });
+    }
+  }
+  const [width, depth] = SCROLL_PLAZA_SIZE;
+  cans.push({ x: -width / 2 + 3, z: AXIS.scrollPlazaZ + depth / 2 - 3, zone: "scroll" });
+  cans.push({ x: width / 2 - 3, z: AXIS.scrollPlazaZ - depth / 2 + 3, zone: "scroll" });
+  cans.push({ x: 20, z: AXIS.libraryFrontZ + 6, zone: "library" });
+  const rampX = LIBRARY.center[0] - 20;
+  const rampZ = LIBRARY.center[1] + LIBRARY.length / 2 + 7.4;
+  cans.push({ x: rampX - 3.4, z: rampZ + 14 / 2 + 1.2, zone: "library" });
+  cans.push({ x: 128, z: -84, zone: "east" });
+  cans.push({ x: -86, z: -26, zone: "west-academic" });
+  return cans;
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",
