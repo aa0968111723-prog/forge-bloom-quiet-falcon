@@ -4895,9 +4895,11 @@
         "route": "8245 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "60dc2401e2571e9c15469e7342a090c86d1fbb3b",
-      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #240 by itself. The still-wind commit 427b2489 is still separate."
+      "integrationPr": 320,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/320",
+      "nextAction": "None. The library plinth from e59376ac is already in this integration. Do not merge PR #240 by itself. The still-wind commit 427b2489 is still separate."
     }
   ]
 }
