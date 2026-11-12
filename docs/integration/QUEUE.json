@@ -4872,6 +4872,32 @@
       "integrationPr": 319,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/319",
       "nextAction": "None. The named boards from 23614a9a are already in this integration. Do not merge PR #238 by itself. The library-plinth commit e59376ac is still separate."
+    },
+    {
+      "id": "art-library-plinth",
+      "line": "art",
+      "scope": "The library plinth sticks out 2.5 m past every wall and is 1.1 m tall. The south edge leaves a gap so the ramp deck stays open.",
+      "status": "verified",
+      "pr": 240,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/240",
+      "integrationBranch": "cursor/integration-library-plinth-3395",
+      "sourceBranch": "cursor/library-plinth-1a71",
+      "baseSha": "0dcab4c46d348336a4854fce5e6646b2159a0f2a",
+      "headSha": "e59376ac26e935218281411f1db0be36ce26cbae",
+      "dependencies": ["art-text-sign"],
+      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world-data/landmarks.ts", "src/game/landmarks/Library.tsx", "scripts/library-plinth.test.mjs"],
+      "checks": {
+        "conflicts": "Named boards, campus-gate piers, bollards, lamp poles, trunk boxes, ramp rails, and the reading-girl seat stayed. The plinth skirt joined COLLIDERS with a south gap for the ramp.",
+        "typecheck": "pass",
+        "npmTest": "453 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DWCTDco5.js sha256 e6cdbf9231070f9df1b129f5e07aa6f89b13395a5a18f8311d5424c43950c636. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8245/",
+        "route": "8245 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "60dc2401e2571e9c15469e7342a090c86d1fbb3b",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #240 by itself. The still-wind commit 427b2489 is still separate."
     }
   ]
 }
