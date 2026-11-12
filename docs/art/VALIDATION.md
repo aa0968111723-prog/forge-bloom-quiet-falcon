@@ -430,4 +430,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 76 輪（司令臺坡面）— 2026-11-12
 
-`node --test scripts/stand-deck.test.mjs` 通過。`tsc --noEmit` 通過。地面網格在台外畫出同一條坡，人站在坡上時腳下有土。台面高度留在第 75 輪。台高仍是 estimated。沒有新增音效。`build:site` 產物 `BUNDLE_AFTER_BUILD`。
+`node --test scripts/stand-deck.test.mjs` 通過。`tsc --noEmit` 通過。地面網格在台外畫出同一條坡，人站在坡上時腳下有土。台面高度留在第 75 輪。台高仍是 estimated。沒有新增音效。`build:site` 產物 `AdventureApp-CAvp3y0D.js`。
