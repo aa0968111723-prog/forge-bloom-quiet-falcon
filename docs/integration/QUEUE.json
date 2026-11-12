@@ -3133,6 +3133,32 @@
       "integrationPr": 228,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/228",
       "nextAction": "None. The rate-limited reward from 0f88ef7 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-look-yaw",
+      "line": "backend",
+      "scope": "A save folds yaw back into one turn, so a long look-around still uploads. Facing and the melee check stay the same.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-look-yaw-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "0e5b7a0f742cccfb5678f2fddbf68963e267689f",
+      "headSha": "a42e4cda038036010a4cc7e436d482613e2ca433",
+      "dependencies": ["backend-reward-limit"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:18:03Z entry and the look-around line. store.ts merged cleanly.",
+        "typecheck": "pass",
+        "npmTest": "390 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-C9_sOs73.js",
+        "browser": "8187. The standing route completed.",
+        "route": "8187: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": false,
+      "mergeSha": "59f8cc49d7efb5c3b13d7f248daeedcb09686458",
+      "nextAction": "Open the integration PR, then fast-forward. Do not merge PR #156 by itself."
     }
   ]
 }
