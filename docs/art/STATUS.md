@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：舷側展示機（ART-066 的一部分）
+
+海事博物館北側停了一架戰鬥機和一架直升機，平行於船身。機身連機翼會擋住半徑 0.42 m 的身體。南門留在館外。旋翼不轉。外形與位置仍是 estimated，不是實測機體。田徑場內圈留著。
+
+畫面：`docs/art/evidence/exhibits/jet.jpg`、`heli.jpg`。測試：`scripts/museum-exhibits.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。海事博物館北側已有兩架展示機。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

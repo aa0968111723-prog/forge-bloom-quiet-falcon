@@ -367,3 +367,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 60 輪（田徑場內圈）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
+
+## 第 61 輪（舷側展示機）— 2026-11-12
+
+`node --test scripts/museum-exhibits.test.mjs scripts/world-data.test.mjs scripts/campus-links.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。兩架展示機的中心都會把人推開。南門 (150, −230) 不被推開。從戰鬥機南緣往北跨 1.04 m 仍停在機身中心南側。展示機不和船體方塊重疊，也不擦到巡禮折線或估計路網。定步白天，走向戰鬥機停在 z=−264.68，頁面無錯誤：`docs/art/evidence/exhibits/jet.jpg`、`heli.jpg`。看得到機身、機翼、旋翼和船體。位置仍是 estimated。旋翼不轉。沒有新增音效。`build:site` 產物 `AdventureApp-P5MLtXjc.js`。
