@@ -2993,6 +2993,32 @@
       "integrationPr": 220,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/220",
       "nextAction": "None. The sloped library rails from c065645 are already in this integration. Do not merge PR #163 by itself."
+    },
+    {
+      "id": "backend-session-expired",
+      "line": "backend",
+      "scope": "A 401 or a session with no user is not another account. This account's upload and reward stay queued. A save write that comes back signed out is queued with the same request id.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-session-expired-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "df20d533330d0c5a1e0c492671441e7ac55e4f91",
+      "headSha": "9a085af967d93b80bca275799daf6f0cf3590d22",
+      "dependencies": ["backend-db-queue"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:43:34Z entry and the expired-session line.",
+        "typecheck": "pass",
+        "npmTest": "382 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CCGkCYhn.js unchanged",
+        "browser": "8182. The standing route completed.",
+        "route": "8182: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": false,
+      "mergeSha": "bf54ca7925d14831063c5a721a0d4206555bee00",
+      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
