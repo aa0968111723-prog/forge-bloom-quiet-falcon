@@ -250,3 +250,24 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 其餘三條收集仍是 0。沒有走十個巡邏點。對方的雲端重開紀錄是他們的。
 
 畫面：`/opt/cursor/artifacts/integration-reports/ready.png`、`claimed.png`、`reloaded.png`。
+
+## 顧衡的兩個時段選項
+
+這段打在 `AdventureApp-BztmqH0m.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-D1yzos4G.js`。之後 `main` 進到 `4fb1fa4`（已登入獎勵只發一次，整合 PR #170）。差異在 `src/features/cloud-save/client.ts` 與雲端測試，沒有改教職員對話，所以沒有重打。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-gu-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-turn` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 331 通過、0 失敗。對象是合併後的原始碼 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到梁晚的出處。點時段之前存檔經驗 122、筆記 21。
+
+- 「我去找主任，評圖改到走廊，教室先給社團。」存檔經驗 130，筆記 21。結果句「走廊可以評。」畫面是 2 級、「經驗 70/180」、生命 108/108、專注 100/100。學期仍是第一週。走到邱寧旁邊發現 `commons`，經驗到 142，畫面「經驗 82/180」。她說「顧衡說你願意把評圖挪到走廊」。兩個選項都在。離開不結算，沒有 `quest-faculty-qiu-meet`。`quest-faculty-gu-turn` 只有一筆。重載後經驗 142、筆記 21，再交談仍是這一句。
+- 「我請社團先用一小時，評圖往後挪。」經驗同樣 122→130，筆記 21。結果句「往後挪也可以。」邱寧說「顧衡說你想把評圖往後挪一小時」。同樣發現 `commons`，經驗到 142。離開不結算。重載後這一句還在。
+
+130 減 122 是 8，也就是時段階段的經驗。筆記沒有加。142 減 130 是既有地點發現 12，不是邱寧的對話獎勵。
+
+畫面：`/opt/cursor/artifacts/integration-gu-turn/corridor-outcome.png`、`corridor-qiu.png`、`defer-outcome.png`、`defer-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。

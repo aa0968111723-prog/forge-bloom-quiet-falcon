@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T04:26:07Z",
+  "updated": "2026-11-12T04:34:45Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "997ff0db34a1a7acf38ce916c62cf14751749aa8",
-  "baseFull": "997ff0d is origin/main. Collection counts survive a cloud restart, integration PR #168. Merged here as 72d1b2c. The static rebuild kept AdventureApp-BztmqH0m.js. Content version stays 2.",
-  "playedBundle": "Reports claim: dist/assets/AdventureApp-BztmqH0m.js via index-D1yzos4G.js. Preview http://127.0.0.1:8088/. The post-merge build emitted the same file names.",
-  "builtAfter": "npm run build:site after #168 wrote the same index-D1yzos4G.js and AdventureApp-BztmqH0m.js. The dist has no literal revision_conflict or DATABASE_URL.",
-  "gameSha": "72d1b2ceff471eb705eac12aec4c4e0fff30340f",
-  "verifiedHead": "72d1b2ceff471eb705eac12aec4c4e0fff30340f",
+  "base": "4fb1fa47085af4e997e62b2d4493c13d61d59b9a",
+  "baseFull": "4fb1fa4 is origin/main. Signed-in rewards stay once-only, integration PR #170. Merged here as 054b79cdb2d7. Faculty files are unchanged. build:site kept AdventureApp-BztmqH0m.js. Content version stays 2.",
+  "playedBundle": "Gu turn: dist/assets/AdventureApp-BztmqH0m.js via index-D1yzos4G.js. Preview http://127.0.0.1:8088/. The post-merge build emitted the same file names.",
+  "builtAfter": "npm run build:site after #170 wrote the same index-D1yzos4G.js and AdventureApp-BztmqH0m.js. The dist has no literal revision_conflict or DATABASE_URL.",
+  "gameSha": "054b79cdb2d739a0b6436257d35063ed5f765bef",
+  "verifiedHead": "054b79cdb2d739a0b6436257d35063ed5f765bef",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -15,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T04:24:00Z",
+    "checkedAt": "2026-11-12T04:28:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -34,18 +34,19 @@
     "node --experimental-transform-types scripts/integration-liang-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-meet",
     "node --experimental-transform-types scripts/integration-liang-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-clash",
     "node --experimental-transform-types scripts/integration-journal.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-journal",
-    "node --experimental-transform-types scripts/integration-reports.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-reports"
+    "node --experimental-transform-types scripts/integration-reports.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-reports",
+    "node --experimental-transform-types scripts/integration-gu-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-turn"
   ],
   "done": [
-    "Merged origin/main 997ff0d (collection counts across cloud restart #168) as 72d1b2c. npx tsc --noEmit passed. npm test was 329 pass / 0 fail. build:site kept AdventureApp-BztmqH0m.js.",
-    "A fresh architecture semester defeated report-1 and report-2 on that bundle. felled.report became 2 and store xp became 110. gathered notes and parts stayed 0. The card showed level 2, 50/180, hp 108. Week-1 stayed.",
-    "Claiming reports once added 50 xp, 4 notes, and 6 parts. Store xp became 160, notes 22, parts 26. gathered stayed 0. The button became disabled 已領取. A second claim left xp unchanged. Reload kept xp 160, the counts, and the receipt. The card showed 100/180."
+    "Merged origin/main 4fb1fa4 (once-only signed-in rewards #170) as 054b79c. npx tsc --noEmit passed. npm test was 331 pass / 0 fail. build:site kept AdventureApp-BztmqH0m.js.",
+    "Two fresh architecture semesters paid Gu Heng's time choices on that bundle. Corridor: store xp 122 to 130, notes stayed 21, outcome 走廊可以評. Defer: same xp and notes, outcome 往後挪也可以. The card stayed level 2 and showed 70/180, hp 108, focus 100. Semester stayed week-1.",
+    "Standing at 邱寧 discovered commons and added the existing 12, so store xp became 142 and the card showed 82/180. Her opening followed the flag: 挪到走廊, or 往後挪一小時. Both of her choices were visible. Leaving unpaid omitted quest-faculty-qiu-meet. Reload kept xp 142, notes 21, and that line. quest-faculty-gu-turn stayed at one."
   ],
   "todo": [
-    "Gu Heng's turn choices 評圖改到走廊 and 評圖往後挪 were visible and not clicked.",
-    "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked. The other line's cloud-restart record is theirs.",
-    "Backend branch cursor/backend-db-link-6038 is at 9c6c744, past #168. The agent was still RUNNING. Read contract.ts at the then-current head before taking another slice.",
-    "Variety tip 3270f9f is not an ancestor. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
+    "Qiu Ning's opening choices 請你把兩個時段都念給我聽 and 我想先確認評圖那一格還在不在 were visible and not clicked.",
+    "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked.",
+    "The backend agent was still RUNNING. This check did not re-read their branch tip. Do not merge that branch on top of #170.",
+    "Variety tip 3270f9f was the last fetched head. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
   ],
@@ -56,5 +57,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Gu Heng's turn choices, 評圖改到走廊 or 評圖往後挪. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Backend tip 9c6c744 was still moving. Do not flip MAIN_INTEGRATION. Do not merge #168 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Qiu Ning's opening choices, 請你把兩個時段都念給我聽 or 我想先確認評圖那一格還在不在. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge once-only rewards #170 again. Do not merge PR #32 head 1fc5887."
 }
