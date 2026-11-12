@@ -107,6 +107,13 @@ function buildColliders(): AABB[] {
 
 export const COLLIDERS: AABB[] = buildColliders();
 
+/** Lamp poles are registered after props clear themselves off these boxes, so they stay out of COLLIDERS. */
+let poleBoxes: AABB[] = [];
+
+export function registerPoleBoxes(boxes: readonly AABB[]) {
+  poleBoxes = boxes.slice();
+}
+
 /** Island kerb of the dolphin roundabout, kept out of COLLIDERS so it is walkable. */
 export const DOLPHIN_ISLAND = {
   center: [0, AXIS.dolphinZ] as const,
@@ -125,7 +132,7 @@ export function resolveCollision(
 ): { x: number; z: number } {
   let px = x;
   let pz = z;
-  const blocks = extra.length ? COLLIDERS.concat(extra as AABB[]) : COLLIDERS;
+  const blocks = extra.length ? COLLIDERS.concat(poleBoxes, extra as AABB[]) : COLLIDERS.concat(poleBoxes);
   for (const b of blocks) {
     const cx = Math.min(Math.max(px, b.minX), b.maxX);
     const cz = Math.min(Math.max(pz, b.minZ), b.maxZ);

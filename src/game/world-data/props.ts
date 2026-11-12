@@ -6,8 +6,8 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LIBRARY, PALACE, bollards, palaceHallZs } from "./landmarks.ts";
-import { COLLIDERS } from "./colliders.ts";
+import { LAMP_POLE, LIBRARY, PALACE, bollards, palaceHallZs } from "./landmarks.ts";
+import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
@@ -320,6 +320,17 @@ export const PROPS: PropInstance[] = [
   ...roadLamps(),
   ...campusClusterProps(),
 ];
+
+registerPoleBoxes(
+  PROPS.filter((item) => item.kind === "street-lamp").map(
+    (item): AABB => ({
+      minX: item.x - LAMP_POLE.diameter / 2,
+      maxX: item.x + LAMP_POLE.diameter / 2,
+      minZ: item.z - LAMP_POLE.diameter / 2,
+      maxZ: item.z + LAMP_POLE.diameter / 2,
+    }),
+  ),
+);
 
 /** West forecourt bench, clear of the library ramp. The statue sits here. */
 export const READING_GIRL_SEAT = { x: -12, z: AXIS.libraryFrontZ + 6.4 } as const;

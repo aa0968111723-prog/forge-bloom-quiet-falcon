@@ -75,6 +75,10 @@ export const DOLPHIN_BOLLARD_NORTH: readonly [number, number] = [
   DOLPHIN_BOLLARD_EXIT[0],
   AXIS.dolphinZ - DOLPHIN_ISLAND_RADIUS - 2,
 ];
+/** Stay on the slope centre until the north plaza lamp is beside the path. */
+export const PAST_PLAZA_LAMP: readonly [number, number] = [0, 16];
+/** East of the road lamp that sits on the dolphin-to-scroll diagonal. */
+export const SCROLL_LAMP_PASS: readonly [number, number] = [6.2, -238];
 /** 書卷廣場 overall paved size (east–west × north–south). */
 export const SCROLL_PLAZA_SIZE: readonly [number, number] = [48, 44];
 
@@ -131,6 +135,7 @@ export const MAIN_ROUTE: readonly (readonly [number, number])[] = [
   [6.6, AXIS.dolphinZ],
   DOLPHIN_BOLLARD_EXIT,
   DOLPHIN_BOLLARD_NORTH,
+  SCROLL_LAMP_PASS,
   [0, AXIS.scrollPlazaZ],
   // Leave 書卷廣場 between the northern pair of scroll blades.
   [0, AXIS.scrollPlazaZ - 12],

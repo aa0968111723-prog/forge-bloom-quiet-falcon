@@ -126,6 +126,9 @@ export function bollards(): { x: number; z: number; rot: number; zone: string }[
   return posts;
 }
 
+/** Street-lamp pole diameter, matching the shaft's base radius of 0.09 m. The arm is above head height. */
+export const LAMP_POLE = { diameter: 0.18 } as const;
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",

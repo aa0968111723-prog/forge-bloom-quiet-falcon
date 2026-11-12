@@ -6,7 +6,7 @@
  * repeats a published figure that the existing references already cap at
  * `mapped`. `surveyed` is not used. y is null when no surveyed elevation exists.
  */
-import { AXIS, DOLPHIN_BOLLARD_EXIT, DOLPHIN_BOLLARD_NORTH } from "../axis.ts";
+import { AXIS, DOLPHIN_BOLLARD_EXIT, DOLPHIN_BOLLARD_NORTH, PAST_PLAZA_LAMP, SCROLL_LAMP_PASS } from "../axis.ts";
 import { LANDMARKS, PALACE, SPAWN } from "../landmarks.ts";
 import {
   AXIS_BEARING_ACCURACY,
@@ -1085,6 +1085,7 @@ export const ROUTE_SPECS = [
     polyline: [
       routeStart,
       [0, AXIS.slopeTopZ],
+      PAST_PLAZA_LAMP,
       [STATUE_PASS_X, 0],
       [0, palaceEntrance.z],
       [palaceEntrance.x, palaceEntrance.z],
@@ -1100,11 +1101,13 @@ export const ROUTE_SPECS = [
     polyline: [
       routeStart,
       [0, AXIS.slopeTopZ],
+      PAST_PLAZA_LAMP,
       [STATUE_PASS_X, 0],
       [0, AXIS.avenueSouthZ],
       [DOLPHIN_PASS_X, AXIS.dolphinZ],
       DOLPHIN_BOLLARD_EXIT,
       DOLPHIN_BOLLARD_NORTH,
+      SCROLL_LAMP_PASS,
       [0, AXIS.scrollPlazaZ],
       [libraryEntrance.x, libraryEntrance.z],
     ] as XZ[],
@@ -1119,6 +1122,7 @@ export const ROUTE_SPECS = [
     polyline: [
       routeStart,
       [0, AXIS.slopeTopZ],
+      PAST_PLAZA_LAMP,
       [STATUE_PASS_X, 0],
       [0, SOUTH_OF_PALACE_Z],
       [GYM_LANE_X, SOUTH_OF_PALACE_Z],
