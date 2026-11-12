@@ -5,9 +5,9 @@
 
 ## 現在停在哪
 
-- 基線 `e5ef99e`。它註記 PR #229。GitHub 上這份 PR 的狀態是 CLOSED。遊戲提交 `59f8cc4` 已在 main，也在這個分支（合併提交 `690840f`）。存檔前把轉很久的視線折回一圈。靜態檔名是 `AdventureApp-D7mo77Od.js`，入口 `index-DHoVAGsS.js`，888275 bytes。
-- 安澄的兩個開場各在一局新學期點過。站在外國語文大樓先發現地點，存檔經驗 12→30，筆記停在 18，畫面是 1 級、經驗 30/60。衝突兩句都在，沒有點。見 VALIDATION.md。
-- 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`。2026-11-12T07:30Z 查看時是 RUNNING，分支是 `cursor/integration-art-m1-3395`。後端當時也在 RUNNING。玩法尖端上次是 `3270f9f`，`store.ts` 落後，不要整支合併。合併仍交給原整合線。許回已接線，這條線沒有點她。田徑場內野和坡道側欄仍沒有走。
+- 基線 `8daa1ef`。它註記 PR #231。GitHub 上這份 PR 的狀態是 MERGED。遊戲提交 `a378b36` 已在 main，也在這個分支（合併提交 `caea18c`）。剛好 80 字的校園記憶會留下。靜態檔名是 `AdventureApp-CuRKjyE6.js`，入口 `index-DJRQWub4.js`，888276 bytes。
+- 安澄的兩個衝突各在一局新學期點過。開場已結算，存檔經驗 30→38，筆記 18→19，畫面是 1 級、經驗 38/60。欄位兩句都在，沒有點。見 VALIDATION.md。
+- 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`。2026-11-12T07:44Z 查看時是 RUNNING，分支是 `cursor/integration-art-m1-3395`。後端當時也在 RUNNING。玩法尖端上次是 `3270f9f`，`store.ts` 落後，不要整支合併。合併仍交給原整合線。許回已接線，這條線沒有點她。田徑場內野和坡道側欄仍沒有走。
 - `docs/integration/**` 是對方的。這條線只寫 `docs/full-integration/**`。
 - `MAIN_INTEGRATION` 保持 false。存檔鍵 `tamkang-rpg-v2`，版本 2。
 
@@ -52,14 +52,15 @@ node --experimental-transform-types scripts/integration-wei-clash.mjs http://127
 node --experimental-transform-types scripts/integration-wei-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-wei-turn
 node --experimental-transform-types scripts/integration-wei-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-wei-after
 node --experimental-transform-types scripts/integration-an-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-an-meet
+node --experimental-transform-types scripts/integration-an-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-an-clash
 ```
 
 預覽是 `npm run preview:site`，埠 8088。路線瀏覽器強制 SwiftShader。390×780 在這台機器上是細指標窄窗。室內這段是在 1280×720 點的。
 
 ## 下一步
 
-1. 重新抓 `origin/main`。視線折回一圈 #229 已經在這個分支，不要再合一次。對方又推了新提交才接。田徑場內野和坡道側欄仍沒有走。
-2. 安澄的開場兩句已各點過一次，重載保留。衝突不看開場選了哪句。「猶豫留在括號，不寫成作者的原話。」和「先刪掉那句，不代作者說。」瀏覽器沒有點。
+1. 重新抓 `origin/main`。80 字校園記憶 #231 已經在這個分支，不要再合一次。對方又推了新提交才接。田徑場內野和坡道側欄仍沒有走。
+2. 安澄的衝突兩句已各點過一次，重載保留。欄位那一句不看衝突選了哪句。「欄位放譯文，原文附在下面。」和「欄位只放原文，譯文我口頭說明。」瀏覽器沒有點。
 3. 許回已接在圖書館估計門口外。對方的畫面是他們的紀錄。這條線還沒點。另外三條收集仍是 0。後端線當時仍在寫，不要把那條分支再合一次。
 4. 玩法尖端 `3270f9f` 的目錄與戰鬥檔和這條線有差。他們的 `store.ts` 落後。要接時只接新遭遇，不要整支合併。
 5. 手勢流暢度要另錄，不要用單張畫面宣稱。

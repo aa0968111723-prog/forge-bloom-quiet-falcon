@@ -752,3 +752,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 30 減 12 是 18，也就是開場 6 加上崗位發現 12。筆記 18 是新學期背包原有的。衝突不看這次是先指詞還是先讀原文。
 
 畫面：`/opt/cursor/artifacts/integration-an-meet/word-outcome.png`、`word-next.png`、`source-outcome.png`、`source-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。分組報告在畫面裡，這次沒有打。
+
+## 安澄的兩個衝突選項
+
+這段打在 `AdventureApp-CuRKjyE6.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-DJRQWub4.js`。`main` 尖端 `8daa1ef`（註記 PR #231，GitHub 狀態 MERGED；遊戲提交 `a378b36`，剛好 80 字的校園記憶會留下），合併提交 `caea18c`。主遊戲檔 888276 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-an-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-an-clash` | 通過，exit 0。`pageErrors` 空。前一次同一指令因輸出管線 EIO 中斷，那次沒有步驟紀錄，不採用 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 392 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出是 `index-DJRQWub4.js` 與 `AdventureApp-CuRKjyE6.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場。點衝突之前存檔經驗 30、筆記 18。
+
+- 「猶豫留在括號，不寫成作者的原話。」之前先請她指出哪一個詞過重。存檔經驗 38，筆記 19。結果句「括號外面才是原文。」畫面是 1 級、「經驗 38/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。再交談，她說「欄位只有一個」。兩個欄位選項都在。離開不結算，沒有 `quest-faculty-wording-turn`。`quest-faculty-wording-clash` 只有一筆。沒有工作室任務。重載後經驗 38、筆記 19，再交談仍是這一句。
+- 「先刪掉那句，不代作者說。」之前先讀原文。經驗同樣 30→38，筆記 18→19。結果句「不要用你的猜測填。」欄位仍是「欄位只有一個」。離開不結算。重載後這一句還在。
+
+38 減 30 是 8，也就是衝突階段的經驗。筆記加 1。欄位那一句不看這次是留括號還是刪掉。
+
+畫面：`/opt/cursor/artifacts/integration-an-clash/bracket-outcome.png`、`bracket-next.png`、`cut-outcome.png`、`cut-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。分組報告在畫面裡，這次沒有打。
