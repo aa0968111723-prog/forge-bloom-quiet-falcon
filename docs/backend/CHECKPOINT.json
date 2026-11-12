@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T07:18:36Z",
+  "updated_at": "2026-11-12T07:24:56Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "fff4452",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -74,10 +74,11 @@
     "a rate-limited reward is granted once and stays on this account's queue",
     "merged main at 7c44b17; the track infield pitch stays outside the save format",
     "a long look-around still uploads the same facing",
-    "merged main at fff4452; the empty-cloud queued upload was already on this branch"
+    "merged main at fff4452; the empty-cloud queued upload was already on this branch",
+    "a full-length campus memory still uploads"
   ],
   "verification": {
-    "npm_test": "390 pass, 0 fail; a long look-around still uploads the same facing",
+    "npm_test": "391 pass, 0 fail; a full-length campus memory still uploads",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

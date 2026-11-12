@@ -182,3 +182,42 @@ test("a long look-around still uploads the same facing", async () => {
     assert.ok(reloaded.position.yaw >= 0 && reloaded.position.yaw < Math.PI * 2);
   }
 });
+
+test("a full-length campus memory still uploads", async () => {
+  const { useGame } = await import("../src/game/store.ts");
+  const { applyEffects } = await import("../src/features/narrative/effects.ts");
+  const { createSession } = await import("../src/features/narrative/play.ts");
+  const line = "記".repeat(80);
+  assert.equal(line.length, 80);
+  const played = applyEffects(
+    { npcs: [{ id: "npc-chen-yu" }] },
+    {},
+    createSession("campus"),
+    [{ type: "remember", npcId: "npc-chen-yu", key: "last", value: line }],
+  );
+  assert.equal(played.ok, true);
+  const key = "npc-chen-yu:last";
+  useGame.setState({ phase: "playing", playerX: 12, playerZ: -20, playerYaw: 0.4 });
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+    checkpoint: null,
+    narrative: played.session,
+  });
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(saved.narrative.memory[key], line);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.narrative.memory[key], line);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+  const tooLong = structuredClone(saved);
+  tooLong.narrative.memory[key] = `${line}。`;
+  assert.equal(tooLong.narrative.memory[key].length, 81);
+  const rejected = validateRpgDocument(tooLong);
+  assert.equal(rejected.ok, false);
+});

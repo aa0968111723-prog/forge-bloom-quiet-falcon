@@ -1059,7 +1059,7 @@ function checkStringMap(value: unknown, label: string, limit: number): Validatio
   const entries = mapEntries(value, label, limit);
   if (!entries.ok) return entries;
   for (const [, entry] of entries.pairs) {
-    if (typeof entry !== "string" || entry.length >= 80) {
+    if (typeof entry !== "string" || entry.length > 80) {
       return { ok: false, code: "invalid_document", message: `${label}內容不正確。` };
     }
   }
