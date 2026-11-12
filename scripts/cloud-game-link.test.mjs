@@ -287,3 +287,137 @@ test("an unusable ground pile still uploads its items", async () => {
   assert.equal(kept.quest.notes, 2);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("a move lesson with an unusable anchor still uploads", () => {
+  const bad = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    lesson: "move",
+    lessonAnchor: { x: 200_000, z: -200_000 },
+    position: { x: 12, z: -20, yaw: 0.2 },
+  });
+  assert.equal(useRpg.getState().importSave(bad), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.lesson, "move");
+  assert.ok(saved.lessonAnchor);
+  assert.ok(Math.abs(saved.lessonAnchor.x) <= 100_000);
+  assert.ok(Math.abs(saved.lessonAnchor.z) <= 100_000);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.lesson, "move");
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+
+  const good = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    lesson: "move",
+    lessonAnchor: { x: 10, z: 20 },
+    position: { x: 12, z: -20, yaw: 0.2 },
+  });
+  assert.equal(useRpg.getState().importSave(good), true);
+  const kept = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(kept.lessonAnchor.x, 10);
+  assert.equal(kept.lessonAnchor.z, 20);
+  assert.equal(validateRpgDocument(kept).ok, true);
+});
+
+test("a stray discovery still uploads the sites already found", async () => {
+  const { useGame } = await import("../src/game/store.ts");
+  useRpg.setState({
+    discoveries: ["library", "Not A Site", "x".repeat(70)],
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+  });
+  useGame.setState({ phase: "playing", playerX: 12, playerZ: -20, playerYaw: 0.2 });
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(saved.discoveries, ["library"]);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(reloaded.discoveries, ["library"]);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+
+  const file = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    discoveries: ["library", "gym", "Not A Site"],
+  });
+  assert.equal(useRpg.getState().importSave(file), true);
+  const imported = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(imported.discoveries, ["library", "gym"]);
+  assert.equal(validateRpgDocument(imported).ok, true);
+});
+
+test("an old piece of gear with a wild durability still uploads", () => {
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    gear: [
+      {
+        id: "gear-retired-lamp",
+        itemId: "retired-lamp",
+        durability: 150_000,
+        quality: "fine",
+      },
+    ],
+    quarantineGear: [
+      {
+        id: "gear-old-charm",
+        itemId: "old charm",
+        durability: -4,
+        quality: "plain",
+      },
+      {
+        id: "gear-kept-pin",
+        itemId: "kept-pin",
+        durability: 40,
+        quality: "fine",
+      },
+    ],
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const lamp = saved.quarantineGear.find((row) => row.itemId === "retired-lamp");
+  const charm = saved.quarantineGear.find((row) => row.itemId === "old charm");
+  const pin = saved.quarantineGear.find((row) => row.itemId === "kept-pin");
+  assert.ok(lamp);
+  assert.ok(charm);
+  assert.ok(pin);
+  assert.equal(lamp.durability, 100_000);
+  assert.equal(lamp.quality, "fine");
+  assert.equal(charm.durability, 0);
+  assert.equal(pin.durability, 40);
+  assert.equal(pin.quality, "fine");
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(
+    reloaded.quarantineGear.find((row) => row.itemId === "retired-lamp").durability,
+    100_000,
+  );
+  assert.equal(reloaded.quarantineGear.find((row) => row.itemId === "kept-pin").durability, 40);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});

@@ -151,6 +151,12 @@ function cleanId(value: unknown) {
   return typeof value === "string" && value.length > 0 && value.length <= 64 ? value : null;
 }
 
+/** Cloud saves reject durability outside 0..100000. Catalog rows still clamp to their own max. */
+function bringDurability(value: unknown) {
+  if (typeof value !== "number" || !Number.isFinite(value)) return 0;
+  return Math.max(0, Math.min(100_000, value));
+}
+
 export function readLoadout(input: {
   equipped: unknown;
   loadout: unknown;
@@ -189,7 +195,7 @@ export function readGear(raw: unknown): { gear: GearInstance[]; dropped: GearIns
         dropped.push({
           id,
           itemId,
-          durability: typeof record.durability === "number" && Number.isFinite(record.durability) ? record.durability : 0,
+          durability: bringDurability(record.durability),
           quality: record.quality === "fine" ? "fine" : "plain",
         });
       continue;
@@ -215,7 +221,7 @@ function gearRow(raw: unknown): GearInstance | null {
   return {
     id,
     itemId,
-    durability: typeof record.durability === "number" && Number.isFinite(record.durability) ? record.durability : 0,
+    durability: bringDurability(record.durability),
     quality: record.quality === "fine" ? "fine" : "plain",
   };
 }
