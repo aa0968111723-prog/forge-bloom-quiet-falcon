@@ -1,0 +1,18 @@
+{
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "idle": {
+    "gesture": "idle",
+    "action": null,
+    "armX": 0
+  },
+  "talking": {
+    "gesture": "talk",
+    "action": "interact",
+    "armX": -0.23866383731365204
+  },
+  "delivering": {
+    "gesture": "deliver",
+    "action": "interact",
+    "armX": -0.23866383731365204
+  }
+}
