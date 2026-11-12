@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { courtMarkings, lineInsideCourt } from "../src/game/world-data/court-lines.ts";
+import { courtMarkings, courtNetPieces, lineInsideCourt } from "../src/game/world-data/court-lines.ts";
 import { SECONDARY_STRUCTURES } from "../src/game/world-data/zones/secondary.ts";
 
 test("open courts keep their painted lines inside the grass", () => {
@@ -17,4 +17,10 @@ test("open courts keep their painted lines inside the grass", () => {
   assert.equal(wuhu.filter((line) => line.net).length, 2);
   assert.equal(courtMarkings("track", [100, 0, 130]).length, 0);
   assert.equal(courtMarkings("parking", [60, 0, 34]).length, 0);
+  const net = wuhu.find((line) => line.net);
+  const pieces = courtNetPieces(net);
+  assert.equal(pieces.filter((piece) => piece.height === 2.2).length, 2);
+  assert.ok(pieces.some((piece) => piece.length === net.length && piece.height < 0.1));
+  assert.ok(pieces.every((piece) => piece.length < 1 || piece.height < 0.2));
+  assert.equal(courtNetPieces(wuhu.find((line) => !line.net)).length, 0);
 });

@@ -361,6 +361,12 @@
 
 畫面：`docs/art/evidence/hud/minimap-desktop.jpg`、`minimap-narrow.jpg`。測試：`scripts/lesson-marker.test.mjs`。
 
+## 階段：球場球網（ART-067 的一部分）
+
+五虎崗兩塊場和排球場的中線不再是一整面白牆。網是兩端的柱、上面一條帶，和中間的細直條，草皮從縫裡看得到。標線仍在草皮裡。尺寸仍是 estimated。小地圖課程字留著。
+
+畫面：`docs/art/evidence/courts/net.jpg`。測試：`scripts/court-lines.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。小地圖已寫課程的兩個字。覺軒花園已改成可走的亭子。綜合球場已有兩塊標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。球網已改成柱子和細帶。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
