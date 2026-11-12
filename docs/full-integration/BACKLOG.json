@@ -165,7 +165,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Jian He's clash on AdventureApp-C7szpjke.js at 1280x720. Own and friend each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her signature line was the same for both flags and was left unpaid. The friend flag changes her later after line."
+      "note": "Two fresh architecture semesters paid Jian He's clash on AdventureApp-C7szpjke.js at 1280x720. Own and friend each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her signature choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-HE-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian He's signature on AdventureApp-C7szpjke.js at 1280x720. Sign and switch each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. The sign route's after line was 寫進去就依這個走. The switch route's after line was 你跟了朋友. Both closing choices were visible and left unpaid."
     },
     {
       "id": "FI-XU-HUI",
@@ -191,7 +198,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main ca2f289 includes the harvest cooldown cloud whitelist via #210. Merged here as ed0d810. The adventure chunk stayed AdventureApp-C7szpjke.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main e878f26 includes the reward receipt account confirm via #211. Merged here as a2a0818. The adventure chunk stayed AdventureApp-C7szpjke.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",

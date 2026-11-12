@@ -510,3 +510,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 38 減 30 是 8，也就是衝突階段的經驗。筆記加 1。簽名不看這次是自己對過還是跟朋友。跟朋友那個旗標要到她更後面的收尾才改詞。
 
 畫面：`/opt/cursor/artifacts/integration-he-clash/own-outcome.png`、`own-next.png`、`friend-outcome.png`、`friend-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 簡禾的兩個簽名選項
+
+這段打在 `AdventureApp-C7szpjke.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-BEExzEd5.js`。`main` 尖端 `e878f26`（別的帳號回傳的領獎回條不會在這裡結算，整合 PR #211，遊戲提交 `e2030bf`），合併提交 `a2a0818`。靜態重建仍是同一組檔名。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-he-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-he-turn` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 375 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出仍是 `index-BEExzEd5.js` 與 `AdventureApp-C7szpjke.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場和對應的衝突。點簽名之前存檔經驗 38、筆記 19。
+
+- 「我現在去補簽名，課表維持這兩門的決定。」之前選了自己對過先修。存檔經驗 46，筆記 19。結果句「我沒有改口。」畫面是 1 級、「經驗 46/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「寫進去就依這個走」。兩個收尾選項都在。離開不結算，沒有 `quest-faculty-course-after`。`quest-faculty-course-turn` 只有一筆。沒有工作室任務。重載後經驗 46、筆記 19，再交談仍是這一句。
+- 「我改選不撞的那門，這張單重寫。」之前選了跟朋友同一門。經驗同樣 38→46，筆記停在 19。結果句「你不是被退選。」再交談，她說「你跟了朋友」。離開不結算。重載後這一句還在。
+
+46 減 38 是 8，也就是簽名階段的經驗。這一拍沒有加筆記。簽名的開場不看衝突選了哪句；跟朋友那個旗標改的是收尾。
+
+畫面：`/opt/cursor/artifacts/integration-he-turn/sign-outcome.png`、`sign-next.png`、`switch-outcome.png`、`switch-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
