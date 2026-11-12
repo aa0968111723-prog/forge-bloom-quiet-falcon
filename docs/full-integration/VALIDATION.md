@@ -142,3 +142,22 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 - 另一局先補剖面，再點「圖先保持乾淨，裂縫另紙附上。」經驗同樣 34→46，筆記 19，結果句「另紙我收。」沈酌開場「顧衡說裂縫在另一張紙上。」離開不結算。重載後經驗 58、筆記 19、另紙旗標還在。
 
 畫面：`/opt/cursor/artifacts/integration-gu-clash/honest-outcome.png`、`honest-shen.png`、`aside-outcome.png`、`aside-shen.png`。固定畫面不能用來宣稱手勢流暢。沒有重測三角形或幀時間。對方在 `http://127.0.0.1:8151/` 的室內續玩紀錄是他們的，不是這次衝突路線。
+
+## 沈酌的兩個開場選項
+
+這段打在 `e2d26ff` 的靜態建置 `AdventureApp-B2sSdjRz.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-ClUiOG2v.js`。之後 main 前進到坡道欄杆 `83fa529`。差異在 `src/game/world/Props.tsx` 與坡道資料，沒有改教職員對話，所以沒有重打。合併後 `npx tsc --noEmit` 通過，`npm test` 316 通過、0 失敗。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-shen-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-meet` | 通過，exit 0。`pageErrors` 空 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。
+
+兩局都從標題選建築學系。先結算顧衡的衝突，再站到化學館南側的估計崗位。點下去之前存檔經驗 58、筆記 19。
+
+- 「這是數據。我把步驟留在紀錄裡。」存檔經驗 76，筆記 19。結果句「那就留在你手邊。」狀態卡是 2 級、「經驗 16/180」、生命 108/108。學期仍是第一週。再交談是「你已經當它是數據。」下一拍兩個選項都在。離開不結算，沒有 `quest-faculty-shen-clash`。重載後經驗 76、筆記 19，再交談仍是這一句。
+- 「我想重做到好看為止。」經驗同樣 58→76，筆記 19。結果句「可以重做。重做之前，舊的那一次還是要在。」下一句「這一頁不能為了重做先消失。」離開不結算。重載後這一句還在。
+
+76 減 58 是 18：任務 `quest-faculty-shen-meet` 的 6，加上第一次走到她崗位的探索 12。那 12 點記在經驗事件，沒有多一筆 `discoveries`。
+
+畫面：`/opt/cursor/artifacts/integration-shen-meet/data-outcome.png`、`data-next.png`、`redo-outcome.png`、`redo-reloaded.png`。固定畫面不能用來宣稱手勢流暢。坡道欄杆的畫面是對方 STATUS 的紀錄。

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T03:43:00Z",
+  "updated": "2026-11-12T03:55:00Z",
   "items": [
     {
       "id": "FI-MUTEX",
@@ -60,7 +60,7 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "The earlier route played fac-gu-meet-line. A fresh architecture major then played fac-gu-meet-fail. Two further fresh semesters paid the clash choices: honest xp 34 to 46 notes 19, aside the same totals. Shen's line followed the flag. Her choices were visible and left unpaid. Reload kept xp 58, notes 19, and the flag."
+      "note": "Two fresh architecture semesters paid Shen's opening after a Gu clash. Data and redo each moved store xp from 58 to 76 and left notes at 19. The card showed level 2, 16/180, hp 108. Week-1 stayed. The next clash line followed the flag and was left unpaid. Reload kept xp 76 and the line."
     },
     {
       "id": "FI-CLOUD",
@@ -72,7 +72,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 4793fde includes the minimap lesson label via #153 and the living interior resume via #155, on top of pavilion #150 and court lines #149. Merged here as 823ce2b. Do not merge them again. Minimap screenshots are the other integrator's record. Re-fetch before the next slice."
+      "note": "main 83fa529 includes library ramp railings via #159. Merged here as be9ceb6. Do not merge it again. Railing screenshots are the other integrator's record. Backend tip 7f400ba on cursor/backend-db-link-6038 is not on main; content version there is still 2. Re-fetch before wiring it."
     },
     {
       "id": "FI-GEAR",
@@ -96,7 +96,7 @@
     {
       "id": "FI-BROWSER-REST",
       "status": "not-verified-here",
-      "note": "Four monster kinds were hit on the earlier route. main-gate was entered earlier. Library floor 2, chemistry, and the gym were entered on AdventureApp-B2sSdjRz.js at 1280x720. Both Gu Heng clash choices were paid on fresh architecture semesters; Shen's matching line was read and her choices left unpaid. Nine college skills are played. Seven estimated road points were walked at 1280 and 390. The follow camera stayed about 5.1 m behind. Not every polyline was walked. The 390 quickbar covers the character's lower body. Variety abort is still unplayed."
+      "note": "Both Gu Heng clash choices and both Shen opening choices were paid on fresh architecture semesters. Shen's clash choices were visible and left unpaid. Store xp for Shen went 58 to 76 while the card showed level 2 and 16/180. Week-1 stayed. Variety abort is still unplayed. The 390 quickbar covers the character's lower body."
     }
   ]
 }
