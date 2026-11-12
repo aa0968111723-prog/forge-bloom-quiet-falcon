@@ -445,6 +445,12 @@
 
 測試：`scripts/unused-textures.test.mjs`。
 
+## 階段：海事博物館船首（ART-066 的一部分）
+
+船首的四個底角蓋住船身前臉，尖端在前臉前方。四個三角面的繞序朝內。船身長度仍是 estimated。未引用貼圖留著。
+
+畫面：`docs/art/evidence/museum/bow.jpg`。測試：`scripts/ship-bow.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。未引用的四張貼圖已移出靜態站。球網已改成柱子和細帶。機車停車場車道不再畫線。閱讀的女孩已離開坡面，坐在西側長椅。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。meshopt 與 KTX2 仍待評估。
+見 `CHECKPOINT.json`。船首已接到前臉。未引用的四張貼圖已移出靜態站。球網已改成柱子和細帶。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

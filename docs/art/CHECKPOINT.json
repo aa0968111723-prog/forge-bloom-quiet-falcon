@@ -1,10 +1,10 @@
 {
   "updated": "2026-11-12T10:30:00Z",
   "task_ids": [
-    "ART-015"
+    "ART-066"
   ],
-  "branch": "cursor/unused-textures-1a71",
-  "base": "main@af57061",
+  "branch": "cursor/museum-bow-1a71",
+  "base": "main@d4d99a5",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "unused-textures and court-lines pass; full suite re-run on the integration branch",
+    "npm_test": "ship-bow and unused-textures pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "AdventureApp-BNiW9u13.js",
     "eslint_new_code": "0 errors"
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The four unreferenced JPGs in public/textures are gone, 1199761 bytes, and dist/textures is no longer emitted. meshopt and KTX2 stay planned. Court nets are two posts, a top tape, and thin verticals. No full-height slab crosses the court. The scooter lot has 23 bays on the north edge and 23 on the south, 2.4 m by 4 m. The twelve centre stripes are gone, so the aisle is unmarked. The reading girl sits on the west library bench at x=-12, where the ramp lift is zero. The ramp centre at that same z is still more than 0.4 m above the plaza. The library bench nearest the ramp sits at x=-4.8, so the 1.7 m seat stays off the skirt. The planter on the ramp's x sits south of the lip. Sungtao 2 has a south glass lobby and canopy. The other Sungtao halls stay the warm dorm block with a penthouse. The education hall has a south canopy and one shade per upper floor. Hweiwen stays the classroom block. The south interior doorway is 2.5 m half-width and matches the wall opening. Walking through it returns the player to that building's door with hp and department kept. A body beside the jamb stays inside. Public interiors have a ceiling whose top meets the 4.4 m wall top. A downward look keeps the follow camera 0.35 m under the slab, and the player stays in view. The rooms stay the existing 20 by 16 m game layouts, not a survey. A 0.42 m body on a bollard is still pushed off the post. The library line still leaves the dolphin ring through the north-east gap. The track infield is still a 24 by 40 m pitch with a centre line and no net. The library ramp rails still follow the deck and still push a 0.42 m body off the rail. Bollard positions and infield sizes stay estimated. The garden pavilion is still four posts. Wet courts still darken by scaling their colours. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The maritime museum bow covers the forward face and comes to a point ahead of it. The four triangles wind inward, so the outside is culled until the next commit flips them. The bow length is estimated. The four unreferenced JPGs in public/textures are gone, 1199761 bytes, and dist/textures is no longer emitted. meshopt and KTX2 stay planned. Court nets are two posts, a top tape, and thin verticals. No full-height slab crosses the court. The scooter lot has 23 bays on the north edge and 23 on the south, 2.4 m by 4 m. The twelve centre stripes are gone, so the aisle is unmarked. The reading girl sits on the west library bench at x=-12, where the ramp lift is zero. The ramp centre at that same z is still more than 0.4 m above the plaza. The library bench nearest the ramp sits at x=-4.8, so the 1.7 m seat stays off the skirt. The planter on the ramp's x sits south of the lip. Sungtao 2 has a south glass lobby and canopy. The other Sungtao halls stay the warm dorm block with a penthouse. The education hall has a south canopy and one shade per upper floor. Hweiwen stays the classroom block. The south interior doorway is 2.5 m half-width and matches the wall opening. Walking through it returns the player to that building's door with hp and department kept. A body beside the jamb stays inside. Public interiors have a ceiling whose top meets the 4.4 m wall top. A downward look keeps the follow camera 0.35 m under the slab, and the player stays in view. The rooms stay the existing 20 by 16 m game layouts, not a survey. A 0.42 m body on a bollard is still pushed off the post. The library line still leaves the dolphin ring through the north-east gap. The track infield is still a 24 by 40 m pitch with a centre line and no net. The library ramp rails still follow the deck and still push a 0.42 m body off the rail. Bollard positions and infield sizes stay estimated. The garden pavilion is still four posts. Wet courts still darken by scaling their colours. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

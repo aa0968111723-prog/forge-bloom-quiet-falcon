@@ -667,6 +667,34 @@ export function glazingBand(
   };
 }
 
+/**
+ * Maritime museum hull and bow. The bow base sits on the hull's forward face.
+ * Length and taper are estimated, not a measured ship.
+ */
+export function shipProfile(size: readonly [number, number, number]) {
+  const hullH = size[1] * 0.56;
+  const hullY = hullH / 2;
+  const faceX = size[0] / 2;
+  const bowLen = Math.min(10, size[0] * 0.22);
+  return { hullH, hullY, faceX, bowLen };
+}
+
+/** Four corners of the hull's forward face, plus the bow tip. */
+export function shipBowCorners(size: readonly [number, number, number]) {
+  const profile = shipProfile(size);
+  const z = size[2] / 2;
+  const seam = profile.faceX - 0.08;
+  return {
+    base: [
+      [seam, 0, -z],
+      [seam, 0, z],
+      [seam, profile.hullH, z],
+      [seam, profile.hullH, -z],
+    ] as const,
+    tip: [profile.faceX + profile.bowLen, profile.hullY, 0] as const,
+  };
+}
+
 function campusKind(site: {
   id: string;
   form?: "court" | "gate";
