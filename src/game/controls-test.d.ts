@@ -46,6 +46,8 @@ declare global {
       getSpeed: () => number;
       setKeys?: (codes: string[]) => void;
       getPosition?: () => { x: number; y: number; z: number };
+      /** Follow-camera position. The game never reads this. */
+      getCamera?: () => { x: number; y: number; z: number };
       setPose?: (x: number, z: number, yaw?: number) => void;
       /** Reality Compare Mode test hooks (F8 equivalent). */
       setBenchmark?: (id: string | null) => void;

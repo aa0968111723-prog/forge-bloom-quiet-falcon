@@ -66,6 +66,23 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 
 站點仍是 `http://127.0.0.1:8088/`。解析度 1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。
 
-九次都從標題的搜尋框選科系。QA hook 負責站位與把專注設成 100。quiz-2 從 65 掉到：結構脈衝 25、共振反應 13、敘事解構 31、資源調度 33、多重詠唱 27、知識領域 37、協議共識 30、模型推演 15、復原領域 43。提示都含技能名。建築學系畫面是「結構脈衝 · 命中 1 個目標」、25/65，狀態卡「第一週 · 先問入口方向」。高齡健康管理學研究所是「復原領域 · 命中 1 個目標」、43/65。七區路網與攝影機這輪沒有重走。
+九次都從標題的搜尋框選科系。QA hook 負責站位與把專注設成 100。quiz-2 從 65 掉到：結構脈衝 25、共振反應 13、敘事解構 31、資源調度 33、多重詠唱 27、知識領域 37、協議共識 30、模型推演 15、復原領域 43。提示都含技能名。建築學系畫面是「結構脈衝 · 命中 1 個目標」、25/65，狀態卡「第一週 · 先問入口方向」。高齡健康管理學研究所是「復原領域 · 命中 1 個目標」、43/65。
+
+## 七區路網與跟隨鏡頭
+
+這段打在球場淨空合併 `15fcc9c` 之後的工作樹上。`getCamera` 讓 QA 讀到跟隨鏡頭的位置。遊戲本身不讀它。
+
+| 指令 | 結果 |
+| --- | --- |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 311 通過、0 失敗。含 `scripts/court-clearing.test.mjs` |
+| `npm run build:site` | 通過。`AdventureApp-LRjQocEU.js`。`dist` 沒有 `revision_conflict` 或 `cloud-save` |
+| `node --experimental-transform-types scripts/integration-roads.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-roads` | 通過，exit 0。`pageErrors` 空 |
+
+站點 `http://127.0.0.1:8088/`。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。1280×720，以及 390×780。390 是細指標，不是粗指標手機 HUD，也不是 RTX 3060。
+
+標題選土木工程學系。校園地圖的圖例有軸線、書圖、理工、教學、文藝、運動、生活。七個估計路點各走 24 幀。桌面移動距離是軸線 1.55、書圖 1.97、理工 1.80、教學 2.12、文藝 2.11、運動 1.92、生活 1.88 公尺。窄窗也全部超過 1.5 公尺。走完後鏡頭水平距離都在 5.09 到 5.12 公尺，高出角色約 2.86 公尺，離標題鏡頭超過 20 公尺。小地圖文字與該區一致。分區是最近建物的區，不是實測界線。這次沒有把每條折線走完。
+
+390×780 的運動區畫面裡，快捷列蓋住角色下半身。小地圖和學期卡的方框沒有跟快捷列重疊。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。
 
 畫面檔：`/opt/cursor/artifacts/integration-route/08-faculty-choices.png`、`08b-faculty-line.png`。裝置是這台雲端主機的 headless Chrome，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。

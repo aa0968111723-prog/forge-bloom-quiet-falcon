@@ -124,6 +124,11 @@ export function AdventurePlayer() {
         y: pos.current.y,
         z: pos.current.z,
       }),
+      getCamera: () => ({
+        x: camera.position.x,
+        y: camera.position.y,
+        z: camera.position.z,
+      }),
       setPose: (x: number, z: number, yaw = 0) => {
         pos.current.set(x, terrainHeight(x, z), z);
         vel.current.set(0, 0, 0);

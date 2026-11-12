@@ -72,7 +72,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main d32e714 includes the library ramp via #143 and the gear-field cloud contract via #144. Both are merged on this branch. Do not merge them again. Re-fetch before the next slice."
+      "note": "main 7c85a42 includes the court clearing via #146. Ramp #143 and gear contract #144 are already on this branch. Do not merge them again. Re-fetch before the next slice."
     },
     {
       "id": "FI-GEAR",
@@ -89,7 +89,7 @@
     {
       "id": "FI-BROWSER-REST",
       "status": "not-verified-here",
-      "note": "Four monster kinds were hit on the earlier route. One interior, main-gate, was entered and then interiorId returned to null. Nine college skills are now played. The seven-zone road net and camera were not replayed on this build."
+      "note": "Four monster kinds were hit on the earlier route. One interior, main-gate, was entered and then interiorId returned to null. Nine college skills are played. Seven estimated road points were walked at 1280 and 390. The follow camera stayed about 5.1 m behind. Not every polyline was walked. The 390 quickbar covers the character's lower body."
     }
   ]
 }
