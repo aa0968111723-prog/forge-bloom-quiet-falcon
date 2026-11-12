@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T04:20:00Z",
+  "updated": "2026-11-12T07:05:00Z",
   "task_ids": [
     "ART-084"
   ],
-  "branch": "cursor/slope-rails-1a71",
-  "base": "main@e95c137",
+  "branch": "cursor/hydrant-stop-1a71",
+  "base": "main@df20d53",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "ramp-rails passes; full suite re-run on the integration branch",
+    "npm_test": "hydrant-stop, route-walk, and world-data pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "rebuilt on the integration branch",
+    "build_site": "AdventureApp-DfUs6w45.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The library ramp rails follow the deck, and each bar aims along that rise. A 0.42 m body on a rail is still pushed off the rail. The ramp centre and the south approach stay open. The 0.12 m colliders stay on the same X as the posts. Kenan stays rail-free. Rail positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "A 0.42 m body on a hydrant is pushed off the post. The avenue centre and the three pilgrimage lines stay open. Hydrant positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }
