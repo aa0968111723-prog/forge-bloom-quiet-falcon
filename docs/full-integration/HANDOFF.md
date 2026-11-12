@@ -5,8 +5,8 @@
 
 ## 現在停在哪
 
-- 基線 `afb6cbd0a731a68a10ebd4edb2a26571c1ed3205`。裝備已在 main，整合 PR #133。不要再合一次。
-- 遊戲提交 `85619e4288e341badee32d5cfe6ce999e28b631c` 把那份背包和顧衡、宮燈夜巡放在同一條分支。雲端白名單在下一個提交。
+- 基線 `f5ac6538072dc5ba303f3de6d5893e5d90f72f2e`。教職員 #139、遭遇 #136、裝備 #133 都在 main。不要再合一次。
+- 遊戲提交 `85c21ba5d829a6c12d16ed5ed857018742e48872`。沈酌沒有新話的提示已在主遊戲路線裡看過。
 - 同一條主遊戲路線在這個建置上點了顧衡的補剖面選項。見 VALIDATION.md。
 - 唯一合併者：`bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395`，查看當下是 RUNNING。合併仍交給那條線。
 - `docs/integration/**` 是對方的。這條線只寫 `docs/full-integration/**`。
@@ -26,7 +26,7 @@ node --experimental-transform-types scripts/integration-route.mjs http://127.0.0
 ## 下一步
 
 1. 重新抓 `origin/main`、`origin/cursor/faculty-story-75f5`、`origin/cursor/items-equipment-building-15c5`。對方又推了新提交才接，不要把同一功能再合一次。
-2. 教職員 `246eadf` 比已接上的 `7f6f3c8` 新。先抓遠端再接手勢和後續選項，不要重做開場。
-3. 期末只在期中且任務 `first` 已領取之後出現。另外八個學院的技能還沒換科系打過。
+2. 期末只在期中且任務 `first` 已領取之後出現。另外八個學院的技能還沒換科系打過。
+3. 手勢流暢度要另錄，不要用單張畫面宣稱。
 4. 顧衡的另一個選項這次只出現在畫面上，瀏覽器沒有點。失敗版的結果句在 `scripts/faculty-story.test.mjs`。
 5. 條件仍不符時，只更新這條線的 PR，不合 `main`。

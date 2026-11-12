@@ -84,7 +84,7 @@
     {
       "id": "FI-OTHER-LINES",
       "status": "faculty-followup-open",
-      "note": "Faculty 7f6f3c8 and gameplay d82bf00 are wired. Faculty tip 246eadf is not. Do not merge gear again."
+      "note": "Faculty through PR #139 and encounters through PR #136 are on main and on this branch. Do not merge them again. Eight college skills and mission first are still unplayed."
     },
     {
       "id": "FI-BROWSER-REST",

@@ -411,6 +411,26 @@ async function playOffline(page) {
 
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.evaluate(() => {
+    window.__controlsTest.setPose(297.8, -243.5, Math.PI);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null, notice: "" });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 6));
+  const shenTalk = page.getByRole("button", { name: "與沈酌交談" });
+  await shenTalk.waitFor({ state: "visible", timeout: 15000 });
+  const xpBeforeShen = (await readLive(page)).xp;
+  await shenTalk.click();
+  const shen = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg.getState();
+    return { panel: rpg.panel, notice: rpg.notice, xp: rpg.xp };
+  });
+  assert.equal(shen.panel, null);
+  assert.match(shen.notice, /沒有新的話/);
+  assert.equal(shen.xp, xpBeforeShen);
+  assert.equal(shen.notice.includes("quest-faculty-shen"), false);
+  await shot(page, "08c-shen-quiet");
+  note("faculty-quiet", { notice: shen.notice, xp: shen.xp });
+
+  await page.evaluate(() => {
     window.__controlsTest.setPose(294.8, -74.5, Math.PI);
     window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
   });
