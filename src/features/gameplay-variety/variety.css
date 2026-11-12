@@ -1,0 +1,73 @@
+.gv-dock {
+  position: absolute;
+  left: max(12px, var(--sal));
+  bottom: calc(188px + var(--sab));
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: min(280px, calc(100% - 24px));
+  pointer-events: none;
+}
+.gv-dock button,
+.gv-panel button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #9a7340;
+  background: #f4efe2;
+  color: #102e32;
+  font: inherit;
+  text-align: left;
+}
+.gv-dock button {
+  pointer-events: auto;
+}
+.gv-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #102e32;
+}
+.gv-panel p,
+.gv-panel li {
+  margin: 0;
+  line-height: 1.45;
+}
+.gv-row,
+.gv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.gv-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 44px);
+  gap: 6px;
+}
+.gv-cell {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid #9a7340;
+  background: #f4efe2;
+  color: #102e32;
+}
+.gv-cell[data-shape="arc"] {
+  background: repeating-linear-gradient(45deg, #f4efe2, #f4efe2 4px, #e7b3ad 4px, #e7b3ad 8px);
+}
+.gv-cell[data-shape="rect"] {
+  background: repeating-linear-gradient(90deg, #f4efe2, #f4efe2 4px, #e3c58c 4px, #e3c58c 8px);
+}
+.gv-on {
+  outline: 2px solid #102e32;
+}
+.gv-note {
+  font-size: 14px;
+}
+.gv-panel[data-motion="reduce"] .gv-cell {
+  background-attachment: scroll;
+}

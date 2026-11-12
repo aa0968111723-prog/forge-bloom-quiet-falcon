@@ -1,0 +1,10 @@
+export { VARIETY_EVENTS, eventById, kindCoverage } from "./catalog.ts";
+export { selectVariety } from "./select.ts";
+export { reduceVariety, startRun, claimIntent, markClaim } from "./play.ts";
+export { settlementPreview } from "./settle.ts";
+export { readMemory, saveMemory, loadMemory, emptyMemory, VARIETY_SAVE_KEY } from "./memory.ts";
+export { shapeContains, damageInShape, telegraphLabel, circleContains } from "./shapes.ts";
+export { stepCombat, createCombat, withCombat } from "./combat.ts";
+export { VarietyDock, VarietyPanel, VarietyMarks } from "./VarietyChrome.tsx";
+export { readCaps } from "./host.ts";
+export { varietyHeading, readStorySignals } from "./runtime.ts";
