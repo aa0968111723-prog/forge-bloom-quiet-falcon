@@ -2107,13 +2107,9 @@ function runPrompt(choice: PromptChoice) {
     return;
   }
   if (choice.kind === "talk") {
-<<<<<<< HEAD
-    s.openNarrative(choice.targetId);
-=======
     if (!s.openNarrative(choice.targetId)) {
       s.notify("這位現在沒有新的話說。上一件事還沒完成，或這段已經談完。");
     }
->>>>>>> origin/main
     return;
   }
   if (choice.kind === "enter" || choice.kind === "arrive") {
