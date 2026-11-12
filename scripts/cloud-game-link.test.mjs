@@ -330,3 +330,38 @@ test("a move lesson with an unusable anchor still uploads", () => {
   assert.equal(kept.lessonAnchor.z, 20);
   assert.equal(validateRpgDocument(kept).ok, true);
 });
+
+test("a stray discovery still uploads the sites already found", async () => {
+  const { useGame } = await import("../src/game/store.ts");
+  useRpg.setState({
+    discoveries: ["library", "Not A Site", "x".repeat(70)],
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+  });
+  useGame.setState({ phase: "playing", playerX: 12, playerZ: -20, playerYaw: 0.2 });
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(saved.discoveries, ["library"]);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(reloaded.discoveries, ["library"]);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+
+  const file = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    discoveries: ["library", "gym", "Not A Site"],
+  });
+  assert.equal(useRpg.getState().importSave(file), true);
+  const imported = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(imported.discoveries, ["library", "gym"]);
+  assert.equal(validateRpgDocument(imported).ok, true);
+});

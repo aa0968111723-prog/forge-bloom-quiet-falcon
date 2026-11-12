@@ -430,6 +430,9 @@ function strings(raw: unknown) {
       )
     : [];
 }
+function keepDiscovery(id: string) {
+  return CAMPUS_SITES.some((site) => site.id === id);
+}
 function restoreCountMap<T extends string>(
   raw: unknown,
   keys: readonly T[],
@@ -781,9 +784,7 @@ function prepareImport(
       boss: Math.floor(boss.value),
       gathered: gatheredCounts,
       felled: felledCounts,
-      discoveries: strings(record.discoveries).filter((id) =>
-        CAMPUS_SITES.some((site) => site.id === id),
-      ),
+      discoveries: strings(record.discoveries).filter(keepDiscovery),
       claimed: strings(record.claimed).filter(keepClaim),
       buildings: absorbHeld(buildings.buildings, record.heldBuild),
       slots: slots.slots,
@@ -1036,7 +1037,7 @@ export const useRpg = create<RpgState>((set, get) => ({
   boss: Math.floor(finite(saved.boss, 0, 1)),
   gathered: loadedGathered === "negative" ? emptyGathered() : loadedGathered,
   felled: loadedFelled === "negative" ? emptyFelled() : loadedFelled,
-  discoveries: strings(saved.discoveries),
+  discoveries: strings(saved.discoveries).filter(keepDiscovery),
   claimed: strings(saved.claimed).filter(keepClaim),
   narrative: stampSemester(
     readNarrativeSession(
@@ -2543,7 +2544,7 @@ function snapshot() {
     boss: s.boss,
     gathered: s.gathered,
     felled: s.felled,
-    discoveries: s.discoveries,
+    discoveries: s.discoveries.filter(keepDiscovery),
     claimed: s.claimed,
     buildings: s.buildings,
     heldBuild: s.heldBuild,
