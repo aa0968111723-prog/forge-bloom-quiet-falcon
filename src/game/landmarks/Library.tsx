@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
-import { LIBRARY, LIBRARY_BASE_MARGIN, READING_GIRL } from "../world-data/landmarks.ts";
+import { LIBRARY, LIBRARY_BASE_MARGIN, READING_GIRL, libraryPorchPosts } from "../world-data/landmarks.ts";
 import { worldUvBox } from "../world/geometry";
 import { InstancedPlanes, type PlaneItem } from "../world/InstancedPlanes";
 import { useCampusSigns } from "../world/labels";
@@ -104,8 +104,16 @@ export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolea
           <boxGeometry args={[18, 0.5, 5]} />
           <meshStandardMaterial {...surface(mats["library/facade"], { wetness, tint: "#d6d2c8" })} />
         </mesh>
-        {([-1, 1] as const).map((s) => (
-          <mesh key={s} position={[s * 8, 1.1 + FLOOR * 0.9, 3.4]} castShadow>
+        {libraryPorchPosts().map((post) => (
+          <mesh
+            key={post.x}
+            position={[
+              post.x - LIBRARY.center[0] + 8,
+              1.1 + FLOOR * 0.9,
+              post.z - LIBRARY.center[1] - LIBRARY.length / 2,
+            ]}
+            castShadow
+          >
             <cylinderGeometry args={[0.34, 0.34, FLOOR * 1.8, 12]} />
             <meshStandardMaterial {...surface(mats["library/facade"], { wetness, tint: "#e2ded4" })} />
           </mesh>

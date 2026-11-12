@@ -81,6 +81,14 @@ export const LIBRARY = {
   floorHeight: 4.0,
 } as const;
 
+/** The two porch columns under the library canopy, in world XZ. */
+export function libraryPorchPosts(): { x: number; z: number }[] {
+  return ([-1, 1] as const).map((side) => ({
+    x: LIBRARY.center[0] - 8 + side * 8,
+    z: LIBRARY.center[1] + LIBRARY.length / 2 + 3.4,
+  }));
+}
+
 /** The paved plinth sticks out this far past each wall. The mesh is 1.1 m tall, above a step. */
 export const LIBRARY_BASE_MARGIN = 2.5;
 

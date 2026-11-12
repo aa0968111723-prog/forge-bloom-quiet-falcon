@@ -606,3 +606,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 121 輪（迴廊柱）— 2026-11-12
 
 `node --test scripts/column-stop.test.mjs` 通過。`tsc --noEmit` 通過。十棟各兩排、每排八根。站在柱心會被推開。相鄰兩根的中點，以及大道中線，半徑 0.42 m 不會被推開。從大道走向柱子時，人停在柱子近側。頁面無錯誤：`docs/art/evidence/palace/column.jpg`。看得到人停在紅柱旁邊。活動中心裙牆留在第 120 輪。沒有新增音效。柱距仍是 estimated。
+
+## 第 122 輪（圖書館雨遮柱）— 2026-11-12
+
+`node --test scripts/library-posts.test.mjs` 通過。`tsc --noEmit` 通過。雨遮兩根柱子在南牆外。半徑 0.42 m 站在柱心會被推開。兩柱中間和圖書館門口不會被推開。從南邊走向柱子時，人停在柱面外。頁面無錯誤：`docs/art/evidence/library/porch-post.jpg`。柱位仍是 estimated。宮燈迴廊柱留在第 121 輪。沒有新增音效。
