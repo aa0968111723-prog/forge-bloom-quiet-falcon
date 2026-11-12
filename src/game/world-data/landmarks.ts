@@ -512,6 +512,25 @@ export function signFootprint(post: { x: number; z: number; rotationY: number; s
   };
 }
 
+/** Potted plant foliage diameter, matching the prop sphere. */
+export const POT = { diameter: 0.64 } as const;
+
+/** Plaza pair and the pots in front of each 宮燈教室. The mesh and the collider both use this list. */
+export function pottedPlants(): { x: number; z: number; zone: string }[] {
+  const pots = [
+    { x: -2.6, z: 2.4, zone: "plaza" },
+    { x: 2.6, z: 2.4, zone: "plaza" },
+  ];
+  const front = PALACE.offsetX - PALACE.hallDepth / 2 - 1.1;
+  for (const z of palaceHallZs()) {
+    for (const side of [-1, 1] as const) {
+      pots.push({ x: side * front, z: z + 4.2, zone: "avenue" });
+      pots.push({ x: side * front, z: z - 4.2, zone: "avenue" });
+    }
+  }
+  return pots;
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",

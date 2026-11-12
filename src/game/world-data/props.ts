@@ -6,7 +6,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LAMP_POLE, LIBRARY, PALACE, acUnits, benches, bins, bollards, lanternPosts, noticeboards, palaceHallZs, planters, signPosts, utilityBoxes } from "./landmarks.ts";
+import { LAMP_POLE, LIBRARY, PALACE, acUnits, benches, bins, bollards, lanternPosts, noticeboards, palaceHallZs, planters, pottedPlants, signPosts, utilityBoxes } from "./landmarks.ts";
 import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
@@ -145,8 +145,9 @@ function plazaProps(): PropInstance[] {
   for (const post of signPosts()) {
     if (post.zone === "plaza") out.push(prop("sign-post", post.x, post.z, post.zone, post.rotationY, post.scale));
   }
-  out.push(prop("potted-plant", -2.6, 2.4, "plaza"));
-  out.push(prop("potted-plant", 2.6, 2.4, "plaza"));
+  for (const pot of pottedPlants()) {
+    if (pot.zone === "plaza") out.push(prop("potted-plant", pot.x, pot.z, pot.zone));
+  }
   return out;
 }
 
@@ -156,8 +157,11 @@ function avenueProps(): PropInstance[] {
   // Hall-front furniture: name plate, potted plants, AC units on the back wall.
   for (const z of palaceHallZs()) {
     for (const s of [-1, 1] as const) {
-      out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z + 4.2, "avenue"));
-      out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z - 4.2, "avenue"));
+      for (const pot of pottedPlants()) {
+        if (pot.zone === "avenue" && Math.sign(pot.x) === s && (pot.z === z + 4.2 || pot.z === z - 4.2)) {
+          out.push(prop("potted-plant", pot.x, pot.z, pot.zone));
+        }
+      }
       for (const unit of acUnits()) {
         if ((unit.z === z + 6.5 || unit.z === z - 6.5) && Math.sign(unit.x) === s) {
           out.push(prop("ac-unit", unit.x, unit.z, unit.zone, unit.rotationY));
