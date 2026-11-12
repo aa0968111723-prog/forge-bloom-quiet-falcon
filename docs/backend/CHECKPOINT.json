@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:34:34Z",
+  "updated_at": "2026-11-12T06:43:34Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -61,10 +61,12 @@
     "a lost direct upload continues the newer local file under a new request id",
     "an imported unknown item stays in quarantine and can still upload",
     "merged main at e878f26; the harvest whitelist and reward receipt confirm were already on this branch",
-    "a database outage keeps the upload the player already asked to send"
+    "a database outage keeps the upload the player already asked to send",
+    "merged main at 9dfcec9; the lost direct upload was already on this branch",
+    "an expired session keeps this account's upload and reward"
   ],
   "verification": {
-    "npm_test": "379 pass, 0 fail; a database outage keeps the upload the player already asked to send",
+    "npm_test": "382 pass, 0 fail; an expired session keeps this account's upload and reward",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
