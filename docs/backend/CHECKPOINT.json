@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T09:48:17Z",
+  "updated_at": "2026-11-12T09:51:59Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "d5b89c4",
+  "base": "4e6a7df",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -122,10 +122,12 @@
     "a full stack ground still keeps an extra kind that already has room",
     "merged main at d5b89c4; the full-pile split was already on this branch",
     "merging piles on a full ground keeps every quest mark",
-    "an errand that spills notes keeps those notes out of collection"
+    "an errand that spills notes keeps those notes out of collection",
+    "merged main at 4e6a7df; the bollard stop was already on main",
+    "variety notes that miss the bag stay out of collection"
   ],
   "verification": {
-    "npm_test": "420 pass, 0 fail; an errand that spills notes keeps those notes out of collection",
+    "npm_test": "422 pass, 0 fail; variety notes that miss the bag stay out of collection",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

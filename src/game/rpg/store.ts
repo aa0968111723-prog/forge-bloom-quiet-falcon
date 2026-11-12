@@ -1042,6 +1042,20 @@ export function placeLoot(loot: Loot[], x: number, z: number, items: Record<stri
   return layRemainder(loot, x, z, items);
 }
 
+/** Quest rewards use the same bag and ground rules as a mission claim. */
+export function carryReward(
+  items: Record<string, number>,
+  at: { x: number; z: number },
+  fromQuest = false,
+) {
+  const paid = give(items);
+  return {
+    accepted: paid.accepted,
+    left: paid.left,
+    loot: layRemainder(useRpg.getState().loot, at.x, at.z, paid.left, fromQuest),
+  };
+}
+
 function markedCount(pile: Loot, id: string) {
   const have = pile.items[id] ?? 0;
   const marked = Math.floor(pile.quest?.[id] ?? 0);
