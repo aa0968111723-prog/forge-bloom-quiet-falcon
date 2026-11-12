@@ -125,6 +125,18 @@ export function fitNarrativeClock<T extends { rngState: number; minute: number }
   return { ...session, rngState, minute };
 }
 
+const CAMPUS_SEED = "campus";
+
+/** Replace a seed the cloud would reject. A seed of 1 to 63 characters stays put. */
+export function fitNarrativeSeed<T extends { seed: string }>(session: T): T {
+  const seed =
+    typeof session.seed === "string" && session.seed.length >= 1 && session.seed.length < 64
+      ? session.seed
+      : CAMPUS_SEED;
+  if (seed === session.seed) return session;
+  return { ...session, seed };
+}
+
 /** Drop a place or department the cloud would reject. Names already allowed stay put. */
 export function fitNarrativeIdentity<
   T extends { placeId: string | null; departmentId: string | null },
@@ -158,9 +170,9 @@ export function readNarrativeSession(raw: unknown): NarrativeSession {
   const weather = record.weather;
   const timeOfDay = record.timeOfDay;
   const semester = record.semester;
-  return fitNarrativeIdentity(fitNarrativeClock({
+  return fitNarrativeSeed(fitNarrativeIdentity(fitNarrativeClock({
     ...blank,
-    seed: typeof record.seed === "string" && record.seed.length < 64 ? record.seed : blank.seed,
+    seed: typeof record.seed === "string" ? record.seed : blank.seed,
     rngState:
       typeof record.rngState === "number" && Number.isFinite(record.rngState)
         ? record.rngState
@@ -190,7 +202,7 @@ export function readNarrativeSession(raw: unknown): NarrativeSession {
     resolved: stringList(record.resolved, NARRATIVE_SAVE_LIMIT),
     activeEventId: null,
     mode: "exploring",
-  }));
+  })));
 }
 
 export function liveGrowth(input: {

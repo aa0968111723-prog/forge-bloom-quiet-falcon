@@ -55,6 +55,7 @@ import {
   liveGrowth,
   fitNarrativeClock,
   fitNarrativeIdentity,
+  fitNarrativeSeed,
   fitNarrativeTimers,
   readNarrativeSession,
   rewardDelta,
@@ -2576,7 +2577,7 @@ function snapshot() {
     lessonAnchor: s.lesson === "move" ? s.lessonAnchor : null,
     interiorId: s.interiorId,
     floor: s.interiorId ? s.floor : 1,
-    narrative: fitNarrativeTimers(fitNarrativeIdentity(fitNarrativeClock(s.narrative))),
+    narrative: fitNarrativeSeed(fitNarrativeTimers(fitNarrativeIdentity(fitNarrativeClock(s.narrative)))),
     ...(varietySave ? { variety: varietySave.capture() } : {}),
   };
 }
