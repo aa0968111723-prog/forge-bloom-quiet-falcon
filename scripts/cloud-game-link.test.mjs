@@ -160,6 +160,29 @@ test("a variety run still uploads after more stations were placed than can stand
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
 
+test("a lifetime build count inside the cloud cap survives import", async () => {
+  const { readCaps } = await import("../src/features/gameplay-variety/host.ts");
+  const { beginEvent } = await import("../src/features/gameplay-variety/runtime.ts");
+  replaceMemory(emptyMemory());
+  useRpg.setState({ built: 1_000_001, freshStart: false, hp: 80, departmentId: "math" });
+  const caps = readCaps();
+  assert.equal(caps.built, 1_000_001);
+  assert.equal(beginEvent("gv-night-patrol", caps), true);
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.built, 1_000_001);
+  assert.equal(saved.variety.active.caps.built, 1_000_001);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  assert.equal(useRpg.getState().built, 1_000_001);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.built, 1_000_001);
+  assert.equal(reloaded.variety.active.eventId, "gv-night-patrol");
+  assert.equal(reloaded.variety.active.caps.built, 1_000_001);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
+
 test("a long look-around still uploads the same facing", async () => {
   const { useGame } = await import("../src/game/store.ts");
   const { withinAttack } = await import("../src/game/rpg/rules.ts");

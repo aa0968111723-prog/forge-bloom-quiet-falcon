@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T09:51:59Z",
+  "updated_at": "2026-11-12T09:56:41Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "b03df4b",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -125,10 +125,11 @@
     "an errand that spills notes keeps those notes out of collection",
     "merged main at 4e6a7df; the bollard stop was already on main",
     "variety notes that miss the bag stay out of collection",
-    "merged main at b03df4b; the stack-room overflow was already on this branch"
+    "merged main at b03df4b; the stack-room overflow was already on this branch",
+    "a lifetime build count inside the cloud cap survives import"
   ],
   "verification": {
-    "npm_test": "422 pass, 0 fail; variety notes that miss the bag stay out of collection",
+    "npm_test": "423 pass, 0 fail; a lifetime build count inside the cloud cap survives import",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

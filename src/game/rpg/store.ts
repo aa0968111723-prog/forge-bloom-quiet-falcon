@@ -737,7 +737,7 @@ function prepareImport(
   const focus = optionalNumber(record.focus, legacy ? 100 : 100, 100);
   const skillRank = optionalNumber(record.skillRank, 1, 5);
   const kills = optionalNumber(record.kills, 0);
-  const built = optionalNumber(record.built, 0);
+  const built = optionalNumber(record.built, 0, 10_000_000);
   const boss = optionalNumber(record.boss, 0, 1);
   const clock = optionalNumber(record.clock, 0);
   if (!xp.ok) return xp;
@@ -1186,7 +1186,7 @@ export const useRpg = create<RpgState>((set, get) => ({
   heldBuild: null,
   skillRank: Math.max(1, Math.floor(finite(saved.skillRank, 1, 5))),
   kills: Math.floor(finite(saved.kills)),
-  built: Math.floor(finite(saved.built)),
+  built: Math.floor(finite(saved.built, 0, 10_000_000)),
   boss: Math.floor(finite(saved.boss, 0, 1)),
   gathered: loadedGathered === "negative" ? emptyGathered() : loadedGathered,
   felled: loadedFelled === "negative" ? emptyFelled() : loadedFelled,

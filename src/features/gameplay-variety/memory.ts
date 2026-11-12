@@ -111,7 +111,7 @@ function runOf(value: unknown): Run | null {
           : 1,
       built:
         typeof raw.caps?.built === "number" && raw.caps.built > 0
-          ? Math.min(1_000_000, Math.floor(raw.caps.built))
+          ? Math.min(10_000_000, Math.floor(raw.caps.built))
           : 0,
       collegeId: clipLabel(raw.caps?.collegeId),
       discipline: clipLabel(raw.caps?.discipline),
