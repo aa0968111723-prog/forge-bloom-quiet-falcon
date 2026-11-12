@@ -5,7 +5,7 @@ import { terrainHeight } from "../world.ts";
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
 import { keepOut } from "../../features/items-equipment-building/keepout.ts";
 import { RECIPES, type BuildKind } from "./data.ts";
-import { ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
+import { HOOP_STANDS, ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
 export type Building = {
   id: string;
   kind: BuildKind;
@@ -304,9 +304,19 @@ export function resolveInterior(
   z: number,
   radius: number,
   furnished = true,
+  stands = false,
 ) {
   let px = Math.max(-9 + radius, Math.min(9 - radius, x)),
     pz = Math.max(-7 + radius, Math.min(7 - radius, z));
+  if (stands) {
+    for (const stand of HOOP_STANDS) {
+      const half = stand.size / 2 + radius;
+      if (Math.abs(px - stand.x) >= half || Math.abs(pz - stand.z) >= half) continue;
+      if (half - Math.abs(px - stand.x) < half - Math.abs(pz - stand.z))
+        px = stand.x + (px >= stand.x ? half : -half);
+      else pz = stand.z + (pz >= stand.z ? half : -half);
+    }
+  }
   if (!furnished) return { x: px, z: pz };
   const hx = ROOM_TABLE_SIZE.width / 2 + radius;
   const hz = ROOM_TABLE_SIZE.depth / 2 + radius;

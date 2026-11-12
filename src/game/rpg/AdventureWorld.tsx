@@ -522,6 +522,10 @@ export function Interior() {
           </mesh>
           {[-1, 1].map((side) => (
             <group key={side} position={[side * 8, 0, 0]}>
+              <mesh position={[0, 0.2, 0]} receiveShadow>
+                <boxGeometry args={[1.4, 0.4, 1.4]} />
+                <meshStandardMaterial color="#3e4744" />
+              </mesh>
               <mesh position={[0, 2.3, 0]}>
                 <boxGeometry args={[0.1, 4.6, 0.1]} />
                 <meshStandardMaterial color="#607d79" />

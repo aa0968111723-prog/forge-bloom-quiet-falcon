@@ -766,9 +766,11 @@
       "acceptance": "同上",
       "evidence": [
         "src/game/rpg/InteriorDetails.tsx",
-        "docs/art/evidence/m2/public-interiors.jpg"
+        "docs/art/evidence/m2/public-interiors.jpg",
+        "docs/art/evidence/hoop/stand.jpg",
+        "scripts/hoop-base.test.mjs"
       ],
-      "notes": "既有遊戲室內，不是實測房間。宮燈教室、圖書館閱讀桌、體育館球場。進出後 interiorId 回到 null，hp 與主修保留，人站回各棟門外。材質庫 ART-084 仍未做。"
+      "notes": "既有遊戲室內，不是實測房間。宮燈教室、圖書館閱讀桌、體育館球場。球場兩座籃架各有 1.4 m 的底座，會擋住身體。教室裡沒有這兩座底座。進出後 interiorId 回到 null，hp 與主修保留，人站回各棟門外。材質庫 ART-084 仍未做。"
     },
     {
       "id": "ART-084",
