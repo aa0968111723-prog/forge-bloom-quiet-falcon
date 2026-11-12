@@ -1,6 +1,6 @@
-import { useLayoutEffect, useMemo, useRef } from "react";
-import { Color, Matrix4, type InstancedMesh } from "three";
-import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { CanvasTexture, Color, Matrix4, SRGBColorSpace, type InstancedMesh } from "three";
+import { MUSEUM_SWAN, ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
 
 type Point = [number, number, number];
 type Box = { at: Point; size: Point; color: string };
@@ -146,6 +146,57 @@ function museumCases() {
   ]);
 }
 
+function MuseumSwan() {
+  const plaque = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 256;
+    canvas.height = 96;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    ctx.fillStyle = "#f4efe4";
+    ctx.fillRect(0, 0, 256, 96);
+    ctx.fillStyle = "#1c2430";
+    ctx.font = "600 48px 'Microsoft JhengHei', sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("黑天鵝", 128, 50);
+    const texture = new CanvasTexture(canvas);
+    texture.colorSpace = SRGBColorSpace;
+    return texture;
+  }, []);
+  useEffect(() => () => plaque?.dispose(), [plaque]);
+  return (
+    <group position={[MUSEUM_SWAN.x, 0, MUSEUM_SWAN.z]}>
+      <mesh position={[0, 0.16, 0]} castShadow receiveShadow>
+        <boxGeometry args={[MUSEUM_SWAN.size, 0.32, MUSEUM_SWAN.size]} />
+        <meshStandardMaterial color="#d9d3c6" roughness={0.8} />
+      </mesh>
+      <mesh position={[0, 0.58, -0.08]} scale={[0.78, 0.46, 1]} castShadow>
+        <sphereGeometry args={[0.4, 16, 12]} />
+        <meshStandardMaterial color="#1b1e22" roughness={0.42} metalness={0.12} />
+      </mesh>
+      <mesh position={[0, 0.92, 0.22]} rotation={[0.55, 0, 0]} castShadow>
+        <cylinderGeometry args={[0.06, 0.08, 0.52, 8]} />
+        <meshStandardMaterial color="#1b1e22" roughness={0.42} metalness={0.12} />
+      </mesh>
+      <mesh position={[0, 1.16, 0.42]} castShadow>
+        <sphereGeometry args={[0.12, 12, 10]} />
+        <meshStandardMaterial color="#1b1e22" roughness={0.4} metalness={0.12} />
+      </mesh>
+      <mesh position={[0, 1.14, 0.56]}>
+        <boxGeometry args={[0.06, 0.035, 0.16]} />
+        <meshStandardMaterial color="#c6a15a" roughness={0.4} metalness={0.25} />
+      </mesh>
+      {plaque && (
+        <mesh position={[0, 0.4, MUSEUM_SWAN.size / 2 + 0.02]}>
+          <planeGeometry args={[0.86, 0.28]} />
+          <meshStandardMaterial map={plaque} roughness={0.6} />
+        </mesh>
+      )}
+    </group>
+  );
+}
+
 export function InteriorDetails({ room, floor }: { room: DetailedRoom; floor: number }) {
   // These finishes are game art. Layout and entrance dimensions retain the
   // existing game-space measurements until site surveys are available.
@@ -159,6 +210,7 @@ export function InteriorDetails({ room, floor }: { room: DetailedRoom; floor: nu
     <>
       <RoomBoxes items={shell} />
       {furniture.length > 0 && <RoomBoxes items={furniture} shadows />}
+      {room === "museum" && <MuseumSwan />}
     </>
   );
 }

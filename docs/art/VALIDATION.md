@@ -371,3 +371,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 61 輪（車阻）— 2026-11-12
 
 `node --test scripts/bollard-stop.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/campus-registry.test.mjs` 通過。`tsc --noEmit` 通過。十二根車阻和網格用同一組座標，直徑 0.22 m。半徑 0.42 m 站在坡底西側柱心會被推開。柱南 1.2 m、主巡禮和三條折線的轉折點不被推開。圖書館折線從圓環東北側缺口出去，再沿北側回到中線，走完全程仍到得了門口。路燈離柱超過 1.2 m。定步白天從西邊走向坡底車阻，頁面無錯誤，停在 x=-2.73：`docs/art/evidence/props/bollard.jpg`。柱位仍是 estimated。田徑場內圈留在第 60 輪。沒有新增音效。`build:site` 產物 `AdventureApp-WcRwHzcr.js`。
+
+## 第 62 輪（黑天鵝）— 2026-11-12
+
+`node --test scripts/swan-exhibit.test.mjs scripts/physics-clock.test.mjs` 通過。`tsc --noEmit` 通過。台座在 (0, -5.3)，邊長 1.4 m。半徑 0.42 m 站在台心會被推到台外，北緣仍在房間裡。南門 (0, 6.4) 不被推開。閱讀室同一點留在原地。台座不跟展櫃重疊。定步白天從南邊走向台座，頁面無錯誤，停在 z=-4.18：`docs/art/evidence/museum/swan.jpg`。看得到黑剪影和「黑天鵝」台座。沒有新的清冊編號。外形仍是 estimated。車阻留在第 61 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DTV5pEw9.js`。

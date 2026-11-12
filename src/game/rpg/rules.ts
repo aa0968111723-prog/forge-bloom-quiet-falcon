@@ -5,7 +5,7 @@ import { terrainHeight } from "../world.ts";
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
 import { keepOut } from "../../features/items-equipment-building/keepout.ts";
 import { RECIPES, type BuildKind } from "./data.ts";
-import { ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
+import { MUSEUM_SWAN, ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
 export type Building = {
   id: string;
   kind: BuildKind;
@@ -304,17 +304,40 @@ export function resolveInterior(
   z: number,
   radius: number,
   furnished = true,
+  exhibit = false,
 ) {
-  let px = Math.max(-9 + radius, Math.min(9 - radius, x)),
-    pz = Math.max(-7 + radius, Math.min(7 - radius, z));
-  if (!furnished) return { x: px, z: pz };
-  const hx = ROOM_TABLE_SIZE.width / 2 + radius;
-  const hz = ROOM_TABLE_SIZE.depth / 2 + radius;
-  for (const { x: tableX, z: tableZ } of ROOM_TABLES) {
-    if (Math.abs(px - tableX) >= hx || Math.abs(pz - tableZ) >= hz) continue;
-    if (hx - Math.abs(px - tableX) < hz - Math.abs(pz - tableZ))
-      px = tableX + (px >= tableX ? hx : -hx);
-    else pz = tableZ + (pz >= tableZ ? hz : -hz);
+  const minX = -9 + radius;
+  const maxX = 9 - radius;
+  const minZ = -7 + radius;
+  const maxZ = 7 - radius;
+  let px = Math.max(minX, Math.min(maxX, x)),
+    pz = Math.max(minZ, Math.min(maxZ, z));
+  if (furnished) {
+    const hx = ROOM_TABLE_SIZE.width / 2 + radius;
+    const hz = ROOM_TABLE_SIZE.depth / 2 + radius;
+    for (const { x: tableX, z: tableZ } of ROOM_TABLES) {
+      if (Math.abs(px - tableX) >= hx || Math.abs(pz - tableZ) >= hz) continue;
+      if (hx - Math.abs(px - tableX) < hz - Math.abs(pz - tableZ))
+        px = tableX + (px >= tableX ? hx : -hx);
+      else pz = tableZ + (pz >= tableZ ? hz : -hz);
+    }
+  }
+  if (exhibit) {
+    const hx = MUSEUM_SWAN.size / 2 + radius;
+    const hz = hx;
+    const dx = px - MUSEUM_SWAN.x;
+    const dz = pz - MUSEUM_SWAN.z;
+    if (Math.abs(dx) < hx && Math.abs(dz) < hz) {
+      const pushX = MUSEUM_SWAN.x + (dx >= 0 ? hx : -hx);
+      const pushZ = MUSEUM_SWAN.z + (dz >= 0 ? hz : -hz);
+      const xFits = pushX >= minX && pushX <= maxX;
+      const zFits = pushZ >= minZ && pushZ <= maxZ;
+      if (hx - Math.abs(dx) <= hz - Math.abs(dz)) {
+        if (xFits) px = pushX;
+        else if (zFits) pz = pushZ;
+      } else if (zFits) pz = pushZ;
+      else if (xFits) px = pushX;
+    }
   }
   return { x: px, z: pz };
 }
