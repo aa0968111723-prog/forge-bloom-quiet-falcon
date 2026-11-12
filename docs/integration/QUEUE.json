@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T08:19:00Z",
+      "updated": "2026-11-12T08:24:06Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3416,6 +3416,34 @@
       "integrationPr": 245,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/245",
       "nextAction": "None. The clamped narrative timers from 561a3e1b are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-narrative-key",
+      "line": "backend",
+      "scope": "Import drops empty narrative keys and empty event names. Named cooldowns, flags, memories, and events stay. Keys still must be shorter than 80. A raw upload of an empty key is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-narrative-key-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "26828b9914afe399884dccf281c5458e18f40196",
+      "headSha": "7c82d000fe98666abdd2d1ce1e7942f41dbab8f5",
+      "dependencies": ["backend-narrative-timer"],
+      "sharedFiles": ["src/game/rpg/narrative-bridge.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json auto-merged. Kept 2026-11-12T07:49:32Z and the empty-key line.",
+        "typecheck": "pass",
+        "npmTest": "400 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-B5LHfT41.js",
+        "browser": "8197. The standing route completed.",
+        "route": "8197: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "37095572edef18ef50f49051843c0ef892306000",
+      "integrationPr": 247,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/247",
+      "nextAction": "None. The empty narrative key filter from 7c82d000 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T08:28:30Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "26828b9",
+  "base": "5bc4ad8",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -103,7 +103,8 @@
     "merged main at eccee6d; the unnamed narrative place was already on this branch",
     "a full quarantine list still uploads the campus save",
     "merged main at 26828b9; the clamped narrative timers were already on this branch",
-    "a crowded ground pile still uploads every item"
+    "a crowded ground pile still uploads every item",
+    "merged main at 5bc4ad8; the empty narrative key filter was already on this branch"
   ],
   "verification": {
     "npm_test": "408 pass, 0 fail; a crowded ground pile still uploads every item",
