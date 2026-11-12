@@ -4228,6 +4228,34 @@
       "integrationPr": 296,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/296",
       "nextAction": "None. The education hall canopy from 6d41e545 is already in this integration. Do not merge PR #174 by itself."
+    },
+    {
+      "id": "art-sungtao-front",
+      "line": "art",
+      "scope": "Sungtao 2 has a public ground floor: south glass past the wall and a canopy that meets the south wall, with the lobby under a quarter of the building height. The roof penthouse stays. Sungtao 1, 3, 4, and 5 stay warm dorm blocks. Reitaku stays the international dorm. The site record lists the art center and the food court. The front is an estimated silhouette.",
+      "status": "verified",
+      "pr": 175,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/175",
+      "integrationBranch": "cursor/integration-sungtao-front-3395",
+      "sourceBranch": "cursor/dorm-front-1a71",
+      "baseSha": "fbef70100244452d789a8a699db0ce79e39fd7e6",
+      "headSha": "78ad4ea81b9b807a240000cb847fa0d5c3081ec4",
+      "dependencies": ["art-education-hall"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx", "scripts/dorm-front.test.mjs", "scripts/context-lod.test.mjs"],
+      "checks": {
+        "conflicts": "docs/art, capture-art.mjs, and the class-hall import. Kept the Sungtao front and the education hall, doorway, ceiling look-down, bollard, infield, and ramp-rail sections. build_site set to AdventureApp-BMq2a5-L.js.",
+        "typecheck": "pass",
+        "npmTest": "435 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BMq2a5-L.js",
+        "browser": "8226. The standing route completed.",
+        "route": "8226: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "52fd446dc410465476077dc2c5fa82650c876a1c",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #175 by itself."
     }
   ]
 }
