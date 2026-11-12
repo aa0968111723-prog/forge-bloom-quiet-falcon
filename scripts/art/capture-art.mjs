@@ -685,6 +685,23 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "scroll-words") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 0, -272, 0);
+    await frames(page, 16);
+    await page.evaluate(() => {
+      const here = window.__controlsTest.getPosition();
+      window.__controlsTest.setPhoto({
+        yaw: -2.3,
+        distance: 8,
+        height: 2.2,
+        lookY: 3.4,
+        target: { x: 3.3, y: here.y, z: here.z + 3.3 },
+      });
+    });
+    await frames(page, 6);
+    await shot(page, "southeast", "scroll blade with one character of 樸實剛毅, day");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

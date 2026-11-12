@@ -3,7 +3,8 @@ import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { AXIS, SCROLL_PLAZA_SIZE } from "../world-data/axis.ts";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
-import { useCampusSigns } from "../world/labels";
+import { SCROLL_BLADES, scrollPlaque } from "../world-data/scroll-blades.ts";
+import { makeSignTexture, useCampusSigns, useFontTick } from "../world/labels";
 
 /**
  * 書卷廣場 (1986, 林貴榮) — 蛋捲廣場.
@@ -20,6 +21,21 @@ const BLADE_RADIUS = 1.2;
 export function ScrollPlaza({ wetness }: { wetness: number }) {
   const mats = useTamkangMaterials();
   const signs = useCampusSigns();
+  const fontTick = useFontTick();
+  const characters = useMemo(
+    () =>
+      SCROLL_BLADES.map((blade) =>
+        makeSignTexture(blade.character, {
+          fg: "#2c2418",
+          bg: "#f6f1e6",
+          border: "#c4b49a",
+          width: 256,
+          height: 384,
+        }),
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- rebuild after fonts load
+    [fontTick],
+  );
   const ground = useMemo(() => sampleGroundElevation(0, AXIS.scrollPlazaZ), []);
 
   const bladeGeo = useMemo(() => {
@@ -52,20 +68,7 @@ export function ScrollPlaza({ wetness }: { wetness: number }) {
     return g;
   }, []);
 
-  const blades = useMemo(
-    () =>
-      (
-        // Pinwheel: each shell's open mouth swings a quarter-turn from its
-        // neighbour, so from any side at least one curl reads as a scroll.
-        [
-          [-4.6, 4.6, 2.6],
-          [4.6, 4.6, 4.2],
-          [4.6, -4.6, 5.8],
-          [-4.6, -4.6, 1.0],
-        ] as const
-      ).map(([dx, dz, rot]) => ({ dx, dz, rot })),
-    [],
-  );
+  const blades = SCROLL_BLADES;
 
   // The scrolls are pale, near-white concrete shells.
   const concrete = surface(mats["lantern/kerb"], { wetness, tint: "#f6f2e8" });
@@ -77,13 +80,22 @@ export function ScrollPlaza({ wetness }: { wetness: number }) {
         <cylinderGeometry args={[9.6, 9.8, 0.24, 36]} />
         <meshStandardMaterial {...surface(mats["campus/plaza-tile"], { wetness, tint: "#cfc7b4" })} />
       </mesh>
-      {blades.map(({ dx, dz, rot }) => (
-        <group key={`${dx}-${dz}`} position={[dx, 0.24, dz]} rotation={[0, rot, 0]}>
-          <mesh geometry={bladeGeo} castShadow receiveShadow>
-            <meshStandardMaterial {...concrete} side={THREE.DoubleSide} />
-          </mesh>
-        </group>
-      ))}
+      {blades.map((blade, index) => {
+        const plaque = scrollPlaque(blade);
+        return (
+          <group key={blade.character}>
+            <group position={[blade.dx, 0.24, blade.dz]} rotation={[0, blade.rot, 0]}>
+              <mesh geometry={bladeGeo} castShadow receiveShadow>
+                <meshStandardMaterial {...concrete} side={THREE.DoubleSide} />
+              </mesh>
+            </group>
+            <mesh position={[plaque.x, 3.7, plaque.z]} rotation={[0, plaque.yaw, 0]}>
+              <planeGeometry args={[1.15, 1.7]} />
+              <meshStandardMaterial map={characters[index]} roughness={0.62} />
+            </mesh>
+          </group>
+        );
+      })}
 
       {/* Motto plate set into the paving at the centre of the group. */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.09, 0]}>

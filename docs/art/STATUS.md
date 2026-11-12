@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：書卷四字（ART-063 的一部分）
+
+書卷廣場四片書卷朝中心的一面各寫樸、實、剛、毅一字。字牌在既有 3 m 碰撞盒裡面，高度約 3.7 m。沒有新增碰撞。字位仍是 estimated。田徑場內圈留著。
+
+畫面：`docs/art/evidence/scroll-words/southeast.jpg`。測試：`scripts/scroll-words.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。書卷上已有樸實剛毅四個字。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
