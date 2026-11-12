@@ -3049,6 +3049,34 @@
       "integrationPr": 223,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/223",
       "nextAction": "None. The variety-run station count from d014318 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "art-track-infield",
+      "line": "art",
+      "scope": "The track infield is a 24 by 40 m pitch with a centre line and no net. Every end stays inside the inner oval.",
+      "status": "merged",
+      "pr": 167,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/167",
+      "integrationBranch": "cursor/integration-grass-pitch-3395",
+      "sourceBranch": "cursor/track-infield-1a71",
+      "baseSha": "873d8317b3053bb434c7c98bf680e710c4183858",
+      "headSha": "6bf79fe534be7edc98799f4c60596cb0a5764d41",
+      "dependencies": ["art-rail-slope"],
+      "sharedFiles": ["src/game/world-data/court-lines.ts", "src/game/world/ContextStructures.tsx"],
+      "checks": {
+        "conflicts": "Art docs. Kept the slope-rail notes and added the infield as round 60. Game files applied cleanly.",
+        "typecheck": "pass",
+        "npmTest": "385 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BAll8kZV.js",
+        "browser": "8184. The standing route completed.",
+        "route": "8184: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": true,
+      "mergeSha": "ab3d088555c0da0b1d3435cc333ff19972a8454d",
+      "integrationPr": 225,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/225",
+      "nextAction": "None. The track infield from 6bf79fe is already in this integration. Do not merge PR #167 by itself."
     }
   ]
 }

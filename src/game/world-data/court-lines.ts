@@ -46,3 +46,45 @@ export function lineInsideCourt(line: CourtLine, size: readonly [number, number,
     Math.abs(line.z) + hz <= size[2] / 2
   );
 }
+
+/** Inner edge of the painted track ring, in metres. Matches the ring scale in the renderer. */
+export function trackInnerAxes(size: readonly [number, number, number]) {
+  return { x: size[0] * 0.46 * 0.76, z: size[2] * 0.46 * 0.76 };
+}
+
+/** A grass pitch inside the track oval. No net: the infield stays open. */
+export function trackInfield(size: readonly [number, number, number]): CourtLine[] {
+  const inner = trackInnerAxes(size);
+  const margin = 3;
+  const ax = inner.x - margin;
+  const az = inner.z - margin;
+  if (ax < 12 || az < 16) return [];
+  const w = Math.min(24, ax * 1.4);
+  const d = Math.min(40, az * 1.4);
+  const corners: [number, number][] = [
+    [w / 2, d / 2],
+    [w / 2, -d / 2],
+    [-w / 2, d / 2],
+    [-w / 2, -d / 2],
+  ];
+  if (corners.some(([x, z]) => (x / ax) ** 2 + (z / az) ** 2 > 1)) return [];
+  return [
+    { x: 0, z: -d / 2, length: w, axis: "x" },
+    { x: 0, z: d / 2, length: w, axis: "x" },
+    { x: -w / 2, z: 0, length: d, axis: "z" },
+    { x: w / 2, z: 0, length: d, axis: "z" },
+    { x: 0, z: 0, length: w, axis: "x" },
+  ];
+}
+
+export function lineInsideTrackOval(line: CourtLine, size: readonly [number, number, number]) {
+  const inner = trackInnerAxes(size);
+  const hx = line.axis === "x" ? line.length / 2 : 0;
+  const hz = line.axis === "z" ? line.length / 2 : 0;
+  const samples: [number, number][] = [
+    [line.x - hx, line.z - hz],
+    [line.x + hx, line.z + hz],
+    [line.x, line.z],
+  ];
+  return samples.every(([x, z]) => (x / inner.x) ** 2 + (z / inner.z) ** 2 < 1);
+}
