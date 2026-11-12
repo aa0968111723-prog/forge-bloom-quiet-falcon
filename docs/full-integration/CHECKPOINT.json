@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T03:55:00Z",
+  "updated": "2026-11-12T04:02:28Z",
   "branch": "cursor/integration-full-game-f7e4",
   "base": "83fa529a22ce12d60c38c20c318de8b067427d75",
   "baseFull": "83fa529 is origin/main. Library ramp railings integration PR #159, source PR #132 at 1dce114. Merged here as be9ceb684469. Dialogue files are unchanged, so the Shen routes were not replayed.",
@@ -14,7 +14,7 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T03:54:32Z",
+    "checkedAt": "2026-11-12T03:57:00Z",
     "thisLineMerges": false,
     "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159. Do not merge those again."
   },
@@ -28,16 +28,17 @@
     "node --experimental-transform-types scripts/integration-gu-fail.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-fail",
     "node --experimental-transform-types scripts/integration-interiors.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-interiors",
     "node --experimental-transform-types scripts/integration-gu-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-clash",
-    "node --experimental-transform-types scripts/integration-shen-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-meet"
+    "node --experimental-transform-types scripts/integration-shen-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-meet",
+    "node --experimental-transform-types scripts/integration-shen-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-clash"
   ],
   "done": [
-    "Two fresh architecture semesters paid Shen Zhuo's opening choices. Data: store xp 58 to 76, notes stayed 19, outcome 那就留在你手邊. Redo: same xp and notes, outcome 可以重做. The card showed level 2, 16/180, hp 108. Semester stayed week-1.",
-    "The next line followed the flag: 你已經當它是數據, or 這一頁不能為了重做先消失. Both clash choices were visible. Leaving unpaid kept the meet claim at one and omitted quest-faculty-shen-clash. Reload kept xp 76, notes 19, and that line.",
-    "After merging ramp railings #159, npx tsc --noEmit passed and npm test was 316 pass / 0 fail. Dialogue was not replayed because that merge does not change faculty lines."
+    "Two fresh architecture semesters paid Shen Zhuo's clash choices on AdventureApp-B2sSdjRz.js. Public: store xp 76 to 84, notes 19 to 20, outcome 附錄就是給同組看的. Office: same xp and notes, outcome 可以先放在我這裡. The card stayed level 2 and showed 24/180, hp 108, focus 100. Semester stayed week-1.",
+    "Standing at 梁晚 discovered business-o and added the existing 12, so store xp became 96 and the card showed 36/180. Her opening followed the flag: 附錄, or 沒有把沈酌的名字寫上去. Both of her choices were visible. Leaving unpaid omitted quest-faculty-liang-meet. Reload kept xp 96, notes 20, and that line. quest-faculty-shen-clash stayed at one.",
+    "The browser script exited 0 with an empty pageErrors list. No game source changed, so npm test was not re-run. The last full run remains 316 pass / 0 fail after the railing merge."
   ],
   "todo": [
-    "Shen Zhuo's clash choices 失敗那次寫進附錄 and 正文先寫成功的那次 were visible and not clicked.",
-    "Backend branch cursor/backend-db-link-6038 at 7f400ba is not on main. Its cloud whitelist grew and content version stayed 2. Read that contract before wiring it. The backend agent was still RUNNING.",
+    "Liang Wan's opening choices 我寫成我們三個人都同意的句子 and 我只寫我自己的請求 were visible and not clicked.",
+    "Backend branch cursor/backend-db-link-6038 moved from 7f400ba to 4db8bd5 and is not on main. CLOUD_CONTENT_VERSION there is still 2. The new commit replays a campus save after a database restart. Read contract.ts at the then-current head before wiring it. The backend agent was still RUNNING.",
     "Variety abort was not played in the browser.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
@@ -49,5 +50,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Shen Zhuo's clash choices, 失敗那次寫進附錄 or 正文先寫成功的那次. Before wiring cursor/backend-db-link-6038, re-read contract.ts at its then-current head; 7f400ba was the tip at this check and the agent was still RUNNING. Do not flip MAIN_INTEGRATION. Do not merge ramp railings #159 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Liang Wan's opening choices, 我寫成我們三個人都同意的句子 or 我只寫我自己的請求. Before wiring cursor/backend-db-link-6038, re-read contract.ts at its then-current head; 4db8bd5 was the tip at this check and the agent was still RUNNING. Do not flip MAIN_INTEGRATION. Do not merge ramp railings #159 again. Do not merge PR #32 head 1fc5887."
 }

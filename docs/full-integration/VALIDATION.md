@@ -161,3 +161,22 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 76 減 58 是 18：任務 `quest-faculty-shen-meet` 的 6，加上第一次走到她崗位的探索 12。那 12 點記在經驗事件，沒有多一筆 `discoveries`。
 
 畫面：`/opt/cursor/artifacts/integration-shen-meet/data-outcome.png`、`data-next.png`、`redo-outcome.png`、`redo-reloaded.png`。固定畫面不能用來宣稱手勢流暢。坡道欄杆的畫面是對方 STATUS 的紀錄。
+
+## 沈酌的兩個衝突選項
+
+這段打在同一份 `AdventureApp-B2sSdjRz.js`，預覽 `http://127.0.0.1:8088/` 的入口仍是 `index-ClUiOG2v.js`。`main` 仍是 `83fa529`。這次只加腳本，沒有改遊戲程式，沒有重跑 `npm test`。上一輪合併欄杆之後是 316 通過、0 失敗。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-shen-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-clash` | 通過，exit 0。`pageErrors` 空 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。
+
+兩局都從標題選建築學系。先結算顧衡的衝突與沈酌對應的開場。點衝突之前存檔經驗 76、筆記 19。
+
+- 「失敗那次寫進附錄，同組看得到。」存檔經驗 84，筆記 20。結果句「附錄就是給同組看的。我不會替你改成成功。」畫面是 2 級、「經驗 24/180」、生命 108/108、專注 100/100。學期仍是第一週。走到梁晚旁邊發現 `business-o`，經驗到 96，畫面「經驗 36/180」。她說「梁晚已經在條上寫了『附錄』兩個字。」兩個選項都在。離開不結算，沒有 `quest-faculty-liang-meet`。`quest-faculty-shen-clash` 只有一筆。重載後經驗 96、筆記 20，再交談仍是這一句。
+- 「正文先寫成功的那次，失敗先放在你的紀錄。」經驗同樣 76→84，筆記 19→20。結果句「可以先放在我這裡。這不是作弊，也還沒有公開。」梁晚說「梁晚沒有把沈酌的名字寫上去。」同樣發現 `business-o`，經驗到 96。離開不結算。重載後這一句還在。
+
+84 減 76 是 8，也就是衝突階段的經驗。筆記 +1 走既有 `give`。96 減 84 是既有地點發現 12，不是梁晚的對話獎勵。
+
+畫面：`/opt/cursor/artifacts/integration-shen-clash/public-outcome.png`、`public-liang.png`、`office-outcome.png`、`office-reloaded.png`。固定畫面不能用來宣稱手勢流暢。

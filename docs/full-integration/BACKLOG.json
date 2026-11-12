@@ -60,7 +60,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Shen's opening after a Gu clash. Data and redo each moved store xp from 58 to 76 and left notes at 19. The card showed level 2, 16/180, hp 108. Week-1 stayed. The next clash line followed the flag and was left unpaid. Reload kept xp 76 and the line."
+      "note": "Two fresh architecture semesters paid Shen's opening after a Gu clash. Data and redo each moved store xp from 58 to 76 and left notes at 19. The card showed level 2, 16/180, hp 108. Week-1 stayed. The next clash line followed the flag and was later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-SHEN-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Shen's clash on AdventureApp-B2sSdjRz.js at 1280x720. Public and office each moved store xp from 76 to 84 and notes from 19 to 20. The card showed 24/180, hp 108, focus 100. Week-1 stayed. Standing at Liang discovered business-o and added 12, so reload kept xp 96 and the flag-specific opening. Both of Liang's choices were visible and left unpaid."
     },
     {
       "id": "FI-CLOUD",
@@ -72,7 +79,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 83fa529 includes library ramp railings via #159. Merged here as be9ceb6. Do not merge it again. Railing screenshots are the other integrator's record. Backend tip 7f400ba on cursor/backend-db-link-6038 is not on main; content version there is still 2. Re-fetch before wiring it."
+      "note": "main 83fa529 includes library ramp railings via #159. Merged here as be9ceb6. Do not merge it again. Railing screenshots are the other integrator's record. Backend tip 4db8bd5 on cursor/backend-db-link-6038 is not on main; CLOUD_CONTENT_VERSION there is still 2. The agent was still RUNNING. Re-fetch before wiring it."
     },
     {
       "id": "FI-GEAR",
@@ -96,7 +103,7 @@
     {
       "id": "FI-BROWSER-REST",
       "status": "not-verified-here",
-      "note": "Both Gu Heng clash choices and both Shen opening choices were paid on fresh architecture semesters. Shen's clash choices were visible and left unpaid. Store xp for Shen went 58 to 76 while the card showed level 2 and 16/180. Week-1 stayed. Variety abort is still unplayed. The 390 quickbar covers the character's lower body."
+      "note": "Both Shen clash choices were paid on fresh architecture semesters. Store xp went 76 to 84 and notes 19 to 20. Discovering business-o then added 12, so reload kept xp 96. The card showed 36/180. Liang's opening followed the flag and was left unpaid. Week-1 stayed. Variety abort is still unplayed. The 390 quickbar covers the character's lower body."
     }
   ]
 }
