@@ -5688,7 +5688,7 @@
     {
       "id": "content-variety-checkpoint",
       "title": "Point the variety checkpoint at the campus encounter commit",
-      "status": "verified",
+      "status": "merged",
       "pr": 128,
       "branch": "cursor/gameplay-variety-fb95",
       "headSha": "3270f9f8ebb4d08fb37c8a31c6d596c5f4219f69",
@@ -5703,11 +5703,11 @@
         "route": "not re-run. Last route 8273 still stands: cloudXp 47, revision_conflict, pageErrors empty, ok true. User FMYrJ5z82Dj1Kwsr1hjajYcoNElF3Cha."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "d37677879b86c6e66ad42e6bed41c0cb3f82a267",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "None. The variety checkpoint now points at 7c65c1b5. It is not on main yet. Do not merge PR #128 by itself. That line has no newer game commit."
+      "integrationPr": 349,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/349",
+      "nextAction": "None. The variety checkpoint now points at 7c65c1b5. This is on integration PR #349. Do not merge PR #128 by itself. That line has no newer game commit."
     }
   ]
 }
