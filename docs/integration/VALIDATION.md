@@ -813,6 +813,22 @@ PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒
 
 瀏覽器 `http://127.0.0.1:8165/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
 
+## 坡道欄杆的碰撞（本輪）
+
+來源 `002453c` 接到 `b745f27`。靜態產物改成 `AdventureApp-B0KWHzwD.js`。
+
+圖書館坡道兩側各有一道 0.12 m 厚的碰撞。0.42 m 的身體站上欄杆會被推開。坡面中心和南端入口仍停在原位。克難坡仍不設欄杆。`npm run typecheck` 通過。`npm test` 351 通過，其中「the library ramp has a railing on each side」包含這三項。
+
+瀏覽器 `http://127.0.0.1:8166/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
+## 帳號在送出途中換掉（本輪）
+
+來源 `7d115d0` 接到 `269020c`。後端檢查點只在時間和完成清單上有衝突，留下較新的 `2026-11-12T05:25:20Z` 和帳號複核那一項。靜態產物仍是 `AdventureApp-B0KWHzwD.js`。
+
+送出佇列時，每一筆之前再對一次目前登入的帳號。前一筆獎勵送出後帳號換了，下一筆上傳不再送，佇列留在原帳號。雲端讀到的存檔在寫入本機前再對一次帳號，另一個帳號的經驗不會蓋掉本機。`npm run typecheck` 通過。`npm test` 353 通過，其中「flush does not send the next upload after the session changes account」和「a session change is not given the other account's cloud save」涵蓋這兩項。
+
+瀏覽器 `http://127.0.0.1:8167/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
