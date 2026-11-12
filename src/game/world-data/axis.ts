@@ -92,6 +92,14 @@ export const SCROLL_LAMP_PASS: readonly [number, number] = [6.2, -238];
 /** 書卷廣場 overall paved size (east–west × north–south). */
 export const SCROLL_PLAZA_SIZE: readonly [number, number] = [48, 44];
 
+/** Low west edge of 書卷廣場, where the paving meets the meadow. */
+export const SCROLL_WEST_WALL = {
+  x: -SCROLL_PLAZA_SIZE[0] / 2 - 0.2,
+  z: AXIS.scrollPlazaZ,
+  width: 0.4,
+  depth: SCROLL_PLAZA_SIZE[1],
+} as const;
+
 /**
  * Half-width of the flat, walkable corridor at a given Z.
  *

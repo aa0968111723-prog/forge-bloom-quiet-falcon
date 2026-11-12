@@ -1,4 +1,4 @@
-import { AXIS, DOLPHIN_ISLAND_RADIUS, PLAZA_FLAGPOLE } from "./axis.ts";
+import { AXIS, DOLPHIN_ISLAND_RADIUS, PLAZA_FLAGPOLE, SCROLL_WEST_WALL } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { BOLLARD, CAMPUS_GATE, LANDMARKS, LANTERN_BASE, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, lanternPosts, libraryPorchPosts, palaceColumns, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
@@ -108,6 +108,7 @@ function buildColliders(): AABB[] {
   ] as const) {
     out.push(box(dx, AXIS.scrollPlazaZ + dz, 3.0, 3.0));
   }
+  out.push(box(SCROLL_WEST_WALL.x, SCROLL_WEST_WALL.z, SCROLL_WEST_WALL.width, SCROLL_WEST_WALL.depth));
 
   // Near bank of the river vista. The water, far town, and ridges are scenery.
   out.push({
