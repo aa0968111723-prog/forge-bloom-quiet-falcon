@@ -3026,7 +3026,7 @@
       "id": "backend-variety-built",
       "line": "backend",
       "scope": "A variety run stays uploadable after the lifetime station count passes 48. Standing buildings stay capped at 48. The cloud snapshot accepts a built count up to 10000000, and the local read clamps it at 1000000.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-variety-built-3395",
@@ -3044,9 +3044,11 @@
         "route": "8183: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "f490dd3f6e8a0865e1c0ea0be5a0a3a0b110aaa2",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 223,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/223",
+      "nextAction": "None. The variety-run station count from d014318 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
