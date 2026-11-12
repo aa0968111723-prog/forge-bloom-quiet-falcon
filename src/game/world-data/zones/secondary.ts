@@ -511,6 +511,14 @@ export function poolHallProfile(size: readonly [number, number, number]) {
   };
 }
 
+/** South glass of the pool hall. Day stays glass; night picks up a cool water glow, not the avenue's warm lamps. */
+export function poolHallGlow(lampsOn: boolean) {
+  return {
+    emissive: lampsOn ? "#9fd8e2" : "#000000",
+    emissiveIntensity: lampsOn ? 0.62 : 0,
+  };
+}
+
 /**
  * Podium and set-back tower for 工學大樓. The step-back is an estimated
  * silhouette, not a measured elevation.

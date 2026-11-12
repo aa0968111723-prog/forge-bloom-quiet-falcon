@@ -535,3 +535,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 102 輪（海豚勉詞）— 2026-11-12
 
 `node --test scripts/dolphin-motto.test.mjs` 通過。`tsc --noEmit` 通過。兩行是「立足淡江，放眼世界」和「掌握資訊，開創未來」。定步白天，頁面無錯誤：`docs/art/evidence/dolphin-motto/south.jpg`。基座南面兩行都讀得到。字位仍是 estimated。沒有新增音效。第 101 輪的書卷四字留著。
+
+## 第 103 輪（游泳館夜窗）— 2026-11-12
+
+`node --test scripts/pool-glow.test.mjs` 通過。`tsc --noEmit` 通過。白天高窗發光色是 `#000000`、強度 0。路燈亮起時是冷水色 `#9fd8e2`、強度 0.62，不是大道燈的暖色。定步夜晚從館南看，頁面無錯誤：`docs/art/evidence/pool/night.jpg`。高窗是一條冷色橫帶。館身仍是淺色長廳。水道長度仍待測。沒有新增音效。第 102 輪的海豚勉詞留著。體育館暖色高窗留著。

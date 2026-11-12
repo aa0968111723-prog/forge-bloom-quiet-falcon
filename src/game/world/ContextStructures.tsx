@@ -18,6 +18,7 @@ import {
   PAVILION_POST,
   glazingBand,
   poolHallProfile,
+  poolHallGlow,
   linkedHallProfile,
   facultyHouseProfile,
   memorialProfile,
@@ -1005,7 +1006,7 @@ export function ContextStructures({
               </mesh>
               <mesh position={[0, profile.glassY, profile.glassZ]} castShadow>
                 <boxGeometry args={[profile.glassW, profile.glassH, 0.16]} />
-                <meshStandardMaterial color="#8eb8c4" roughness={0.25} metalness={0.12} />
+                <meshStandardMaterial color="#8eb8c4" roughness={0.25} metalness={0.12} {...poolHallGlow(lampsOn)} />
               </mesh>
               <mesh
                 name="context-detail"

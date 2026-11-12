@@ -644,6 +644,12 @@
 
 畫面：`docs/art/evidence/dolphin-motto/south.jpg`。測試：`scripts/dolphin-motto.test.mjs`。
 
+## 階段：游泳館夜窗（ART-067 的一部分）
+
+紹謨紀念游泳館的南向高窗在路燈亮起時發冷水色。白天仍是原來的玻璃色，強度是 0。館身、基座和屋頂長脊留著。體育館的暖色高窗留著。水道長度仍待測。外形仍是 estimated。海豚勉詞留著。
+
+畫面：`docs/art/evidence/pool/night.jpg`。測試：`scripts/pool-glow.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。海豚基座已寫滿四句勉詞。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。游泳館南向高窗在夜裡會亮。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
