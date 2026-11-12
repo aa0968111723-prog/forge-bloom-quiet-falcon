@@ -4592,6 +4592,34 @@
       "integrationPr": 309,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/309",
       "nextAction": "None. The procedural student for low-quality walkers from 9672ff3 is already in this integration. Do not merge PR #115 by itself."
+    },
+    {
+      "id": "art-transfer-budget",
+      "line": "art",
+      "scope": "Seven game-art GLBs gzip to 1,704,638 bytes. Meshopt and KTX2 stay out until a device measurement shows transfer is the limit. The budget test fails if a file exceeds its ceiling or a new GLB appears.",
+      "status": "verified",
+      "pr": 116,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/116",
+      "integrationBranch": "cursor/integration-art-budget-3395",
+      "sourceBranch": "cursor/art-budget-1a71",
+      "baseSha": "5fa72bd5081d781661b9975f9b7889b3ec831719",
+      "headSha": "9a3d594e24f3a340280abc7304e7668c8abced5b",
+      "dependencies": ["art-npc-lod"],
+      "sharedFiles": ["scripts/art-budget.test.mjs"],
+      "checks": {
+        "conflicts": "Art history stayed. The budget note was appended. Unused texture removal stayed in the same backlog item.",
+        "typecheck": "pass",
+        "npmTest": "442 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-7L6j7Fgv.js unchanged. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "not rerun",
+        "route": "not rerun. The static bundle stayed AdventureApp-7L6j7Fgv.js. The last route on 8237 still stands: cloudXp 47, revision_conflict, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "4d78edd2a4cbc445b3430b231d722755c2fdb48b",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #116 by itself."
     }
   ]
 }
