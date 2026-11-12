@@ -5207,7 +5207,33 @@
       "mergeSha": "3c4100a41cac3c2e0a0aea3bd22fb6fe0ee2064a",
       "integrationPr": 331,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/331",
-      "nextAction": "None. The reading-room carrels from 64f336ca are already in this integration. Do not merge PR #263 by itself. The shelf-clear commit bf82dc53 is still separate."
+      "nextAction": "None. The reading-room carrels from 64f336ca are already in this integration. Do not merge PR #263 by itself. The shelf-clear commit bf82dc53 is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-shelf-clear",
+      "line": "art",
+      "scope": "The reading-room shelves sit between the body and the wall. A person at the room limit does not enter the boards or the books.",
+      "status": "verified",
+      "pr": 266,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/266",
+      "integrationBranch": "cursor/integration-shelf-clear-3395",
+      "sourceBranch": "cursor/shelf-clear-1a71",
+      "baseSha": "6c9a21cdbe57fa67a323d3839397aa93e3033602",
+      "headSha": "bf82dc5388a67876433ee919a37c557cb5a65fed",
+      "dependencies": ["art-reading-carrel"],
+      "sharedFiles": ["src/game/rpg/interior-layout.ts", "src/game/rpg/AdventureWorld.tsx", "scripts/shelf-clear.test.mjs"],
+      "checks": {
+        "conflicts": "The reading carrels, palace desk, hoop wall push, and outdoor colliders stay. Shelf boards and books now sit past the body edge and short of the wall.",
+        "typecheck": "pass",
+        "npmTest": "464 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BvroPXjo.js sha256 696d1d7dd1f28e5934b493c489889ac5c64e1dff8860cca936264c358b941eaf. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8257/",
+        "route": "8257 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "0a448897056ba8aececa71c77cd04d9ede2bde46",
+      "nextAction": "Open the integration PR. Do not merge PR #266 by itself. The reading-girl commit 44bf4c9f is still separate."
     }
   ]
 }
