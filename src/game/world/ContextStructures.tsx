@@ -25,6 +25,7 @@ import {
   studioProfile,
   chemHallProfile,
   workshopProfile,
+  foundationSpan,
   structureGroundY,
   watchPostProfile,
 } from "../world-data/zones/secondary.ts";
@@ -216,6 +217,19 @@ export function ContextStructures({
       <LodGlazing items={glazing}>
         <meshStandardMaterial {...glass} />
       </LodGlazing>
+      {items.map(({ s, y }) => {
+        if (s.id !== "business-q") return null;
+        const span = foundationSpan(s);
+        if (span.gap < 1) return null;
+        return (
+          <group key={`${s.id}-skirt`} position={[s.position[0], 0, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+            <mesh position={[0, y - span.gap / 2, 0]} receiveShadow>
+              <boxGeometry args={[s.size[0] + 0.4, span.gap, s.size[2] + 0.4]} />
+              <meshStandardMaterial color="#8a8178" roughness={0.92} />
+            </mesh>
+          </group>
+        );
+      })}
       {items.map(({ s, y, geo }) => {
         if (s.kind === "court") {
           return (
