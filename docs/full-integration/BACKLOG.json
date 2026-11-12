@@ -46,7 +46,7 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "quiz 65 to 45, chemistry skill button report 145 to 93, exam 240 to 211, final defeated. Eight other college skills not played."
+      "note": "quiz, report, exam, and final were hit on the earlier route. All nine college skills were then fired from fresh title picks: engineering 65→25, science 65→13, humanities 65→31, business 65→33, language 65→27, education 65→37, international 65→30, computing 65→15, health 65→43."
     },
     {
       "id": "FI-EQUIP",
@@ -72,7 +72,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main e1f52fd includes chemistry hall via integration PR #130. This line does not merge art. Re-fetch before use. Open source PRs are not proof the feature is missing from main."
+      "note": "main d32e714 includes the library ramp via #143 and the gear-field cloud contract via #144. Both are merged on this branch. Do not merge them again. Re-fetch before the next slice."
     },
     {
       "id": "FI-GEAR",
@@ -84,12 +84,12 @@
     {
       "id": "FI-OTHER-LINES",
       "status": "faculty-followup-open",
-      "note": "Faculty through PR #139 and encounters through PR #136 are on main and on this branch. Do not merge them again. Eight college skills and mission first are still unplayed."
+      "note": "Faculty #139, encounters #136, ramp #143, and gear contract #144 are on main and on this branch. Nine college skills were played from the title picker. Do not merge those lines again."
     },
     {
       "id": "FI-BROWSER-REST",
       "status": "not-verified-here",
-      "note": "Four monster kinds were hit on this route. One interior, main-gate, was entered and then interiorId returned to null. Eight other college skills and the seven-zone road net were not replayed."
+      "note": "Four monster kinds were hit on the earlier route. One interior, main-gate, was entered and then interiorId returned to null. Nine college skills are now played. The seven-zone road net and camera were not replayed on this build."
     }
   ]
 }

@@ -53,4 +53,19 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 
 失敗那一版的選項出現在畫面上，這次沒有點。那個結果句與「選了之後再選另一個不會再發獎」是 `scripts/faculty-story.test.mjs` 的斷言，不是第二次瀏覽器遊玩。
 
+## 九學院技能
+
+這段是另一次瀏覽器執行，不是把上面那條期末路線再跑一遍。
+
+| 指令 | 結果 |
+| --- | --- |
+| `npx tsc --noEmit` | 通過。工作樹是 `fbefee8` 加上尚未提交的 `scripts/integration-colleges.mjs` |
+| `npm test` | 310 通過、0 失敗。含 `scripts/library-ramp.test.mjs` 與 `scripts/cloud-gear-contract.test.mjs` |
+| `npm run build:site` | 通過。在坡道合併 `90f906b` 上建出 `AdventureApp-5c63vhYi.js`。`dist` 沒有 `revision_conflict` 或 `cloud-save` |
+| `node --experimental-transform-types scripts/integration-colleges.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-colleges` | 通過，exit 0。`pageErrors` 空 |
+
+站點仍是 `http://127.0.0.1:8088/`。解析度 1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。
+
+九次都從標題的搜尋框選科系。QA hook 負責站位與把專注設成 100。quiz-2 從 65 掉到：結構脈衝 25、共振反應 13、敘事解構 31、資源調度 33、多重詠唱 27、知識領域 37、協議共識 30、模型推演 15、復原領域 43。提示都含技能名。建築學系畫面是「結構脈衝 · 命中 1 個目標」、25/65，狀態卡「第一週 · 先問入口方向」。高齡健康管理學研究所是「復原領域 · 命中 1 個目標」、43/65。七區路網與攝影機這輪沒有重走。
+
 畫面檔：`/opt/cursor/artifacts/integration-route/08-faculty-choices.png`、`08b-faculty-line.png`。裝置是這台雲端主機的 headless Chrome，啟動參數含 `--enable-unsafe-swiftshader`。沒有讀回 WebGL renderer 字串。這不是手機，也不是 RTX 3060。固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。
