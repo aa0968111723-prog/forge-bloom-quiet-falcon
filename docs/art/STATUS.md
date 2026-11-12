@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：教育館（ART-065 的一部分）
+
+教育館不再和會文館共用教學樓外觀。南向有雨遮，樓層有遮陽板。位置和入口仍是 estimated，不是實測立面。
+
+畫面：`docs/art/evidence/education/hall.jpg`。測試：`scripts/class-hall.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。教育館已有雨遮。會文館仍是教學樓。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
