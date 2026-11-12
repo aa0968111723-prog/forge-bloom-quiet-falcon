@@ -202,3 +202,30 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 114 減 96 是 18：任務 `quest-faculty-liang-meet` 的 6，加上第一次結算崗位 `post-liang-wan` 的探索 12。那 12 點記在經驗事件，沒有多一筆 `discoveries`。筆記停在 20，因為開場階段不加筆記。
 
 畫面：`/opt/cursor/artifacts/integration-liang-meet/ours-outcome.png`、`ours-next.png`、`mine-outcome.png`、`mine-reloaded.png`。固定畫面不能用來宣稱手勢流暢。對方在 `http://127.0.0.1:8153/` 的雲端快照紀錄是他們的。
+
+## 梁晚的兩個出處選項
+
+這段打在 `AdventureApp-BoDdWjJ4.js`，預覽當時的入口是 `index-B0jBbET6.js`。之後 `main` 進到 `b579dff`（收集委託 #164）。差異在委託資料、`gathered`／`felled` 與雲端白名單，沒有改教職員對話，所以沒有重打。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-liang-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-clash` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 325 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出 `index-D1yzos4G.js` 與 `AdventureApp-BztmqH0m.js`。字面沒有 `revision_conflict`、`cloud-save`、`DATABASE_URL` |
+| `node --experimental-transform-types scripts/integration-journal.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-journal` | 通過，exit 0。打在重建後的包。`pageErrors` 空 |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到梁晚的開場。點出處之前存檔經驗 114、筆記 20。
+
+- 「兩份出處並列，註明各自是哪一次的說法。」存檔經驗 122，筆記 21。結果句「並列可以貼。」畫面是 2 級、「經驗 62/180」、生命 108/108、專注 100/100。學期仍是第一週。顧衡說「句子是你的，我收到了。」兩個時段選項都在。離開不結算，沒有 `quest-faculty-gu-turn`。重載後經驗 122、筆記 21，再交談仍是這一句。
+- 「先貼訪談，出處下週補上。」經驗同樣 114→122，筆記 20→21。結果句「下週要補。」顧衡說「海報可以晚。」離開不結算。重載後這一句還在。
+
+122 減 114 是 8，也就是衝突階段的經驗。筆記 +1 走既有入袋。
+
+畫面：`/opt/cursor/artifacts/integration-liang-clash/both-outcome.png`、`both-gu.png`、`later-outcome.png`、`later-reloaded.png`。
+
+重建後的新學期打開「學期委託」。四條新委託進度是 0。`gathered` 四項是 0，`felled.report` 是 0，沒有領取。學期仍是第一週，狀態卡 1 級、經驗 0/60。沒有把 12 份收集做完，也沒有走十個巡邏點。對方 `docs/quest-play/evidence/` 的完成畫面是他們的。
+
+畫面：`/opt/cursor/artifacts/integration-journal/journal-collections.png`。

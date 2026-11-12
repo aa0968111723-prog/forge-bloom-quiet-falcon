@@ -74,7 +74,21 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Liang's opening on the pre-rebuild bundle AdventureApp-B2sSdjRz.js at 1280x720. Ours and mine each moved store xp from 96 to 114 and left notes at 20. The card showed 54/180, hp 108, focus 100. Week-1 stayed. The +18 is quest 6 plus discover-place 12. Her clash line followed the flag and was left unpaid. Reload kept xp 114."
+      "note": "Two fresh architecture semesters paid Liang's opening on the pre-rebuild bundle AdventureApp-B2sSdjRz.js at 1280x720. Ours and mine each moved store xp from 96 to 114 and left notes at 20. The card showed 54/180. Week-1 stayed. The +18 is quest 6 plus discover-place 12. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-LIANG-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Liang's clash on AdventureApp-BoDdWjJ4.js at 1280x720. Both and later each moved store xp from 114 to 122 and notes from 20 to 21. The card showed 62/180, hp 108, focus 100. Week-1 stayed. Gu Heng's turn followed the flag and was left unpaid. Reload kept xp 122."
+    },
+    {
+      "id": "FI-COLLECT",
+      "status": "journal-visible",
+      "merged": true,
+      "deployed": false,
+      "note": "Collection quests from main b579dff via #164 are on this branch as 7e2ada5. On AdventureApp-BztmqH0m.js the journal shows the four missions at 0. This line did not finish a collection or walk the patrols. The other line's completion screenshots are theirs. npm test on this tree was 325 pass / 0 fail."
     },
     {
       "id": "FI-CLOUD",
@@ -86,7 +100,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main e95c137 includes the live campus snapshot via #162. Merged here as 15a21ee. Do not merge it again. Their 8153 screenshots are their record. Backend tip 82822a6 is past that source and the agent was still RUNNING. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main b579dff includes collection quests via #164. Merged here as 7e2ada5. Do not merge it again. Their completion screenshots are their record. Backend tip 4cdd8d7 is past that and the agent was still RUNNING. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",
@@ -110,7 +124,7 @@
     {
       "id": "FI-BROWSER-REST",
       "status": "not-verified-here",
-      "note": "Both Liang opening choices were paid on fresh architecture semesters. Store xp went 96 to 114 and notes stayed 20. The card showed 54/180. Her clash line followed the flag and was left unpaid. Week-1 stayed. Variety tip 3270f9f has new encounter files and a stale store.ts. Variety abort is still unplayed. The 390 quickbar covers the character's lower body."
+      "note": "Both Liang clash choices were paid on fresh architecture semesters. Store xp went 114 to 122 and notes 20 to 21. The card showed 62/180. Gu Heng's turn followed the flag and was left unpaid. Week-1 stayed. The four collection missions are visible at 0 on the rebuilt bundle and were not completed here. Variety tip 3270f9f has new encounter files and a stale store.ts. Variety abort is still unplayed."
     }
   ]
 }
