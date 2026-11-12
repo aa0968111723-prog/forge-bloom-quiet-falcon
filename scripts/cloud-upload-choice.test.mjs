@@ -1759,3 +1759,91 @@ test("a session blip does not drop a queued upload on revision conflict", async 
   assert.equal(storage.getItem("tamkang-cloud-save-meta:user-a"), null);
   assert.equal(JSON.parse(client.readLocal()).xp, 4);
 });
+
+async function cloudHead(document, revision) {
+  return {
+    revision,
+    schemaVersion: 1,
+    contentVersion: 2,
+    document,
+    etag: `"${revision}"`,
+    contentHash: await sha256Hex(canonicalJson(document)),
+  };
+}
+
+test("a revision conflict from another account is not offered as a restored save", async () => {
+  let sessionId = "user-a";
+  const head = await cloudHead(save(1), 2);
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "GET") return jsonResponse(200, head);
+    sessionId = "user-b";
+    return foreignConflict(save(99));
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoreconflict1",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "error");
+  assert.equal(restored.code, "account_mismatch");
+  assert.equal(Object.hasOwn(restored, "remote"), false);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
+
+test("a session blip does not offer a restored revision conflict", async () => {
+  let sessionReads = 0;
+  const head = await cloudHead(save(1), 2);
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      sessionReads += 1;
+      if (sessionReads === 4) throw new Error("session blip");
+      return sessionFor("user-a");
+    }
+    if ((init.method ?? "GET") === "GET") return jsonResponse(200, head);
+    return foreignConflict(save(99));
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoreblip0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "local_only");
+  assert.equal(restored.reason, "offline");
+  assert.equal(Object.hasOwn(restored, "remote"), false);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
+
+test("a same-account restore conflict still offers that cloud save", async () => {
+  const head = await cloudHead(save(1), 2);
+  const server = await cloudHead(save(7), 3);
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    if ((init.method ?? "GET") === "GET") return jsonResponse(200, head);
+    return jsonResponse(409, {
+      error: { code: "revision_conflict", message: "版本衝突。" },
+      server,
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restoresame0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "conflict");
+  assert.equal(restored.remote.revision, 3);
+  assert.equal(restored.remote.document.xp, 7);
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+});
