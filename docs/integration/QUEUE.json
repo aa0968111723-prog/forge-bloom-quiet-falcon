@@ -5880,7 +5880,7 @@
     {
       "id": "art-skirt-rotate",
       "title": "Rotate the museum skirt with the hull",
-      "status": "verified",
+      "status": "merged",
       "pr": 183,
       "branch": "cursor/museum-skirt-1a71",
       "headSha": "a47283832ccac59e97bf57355750687a57c9f310",
@@ -5895,11 +5895,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User 72HkIcXfHIAZn1sgjTAaZwUzmSLrJgeM."
       },
       "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "b29dffb881b9e836a5cb25ffa93c1ed7430ea133",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #183 by itself. The next game commit is 096a480e67ac9630ef7d009b2ebfd8e7e03109e9, the gym downhill skirt."
+      "integrationPr": 357,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/357",
+      "nextAction": "This is on integration PR #357. Do not merge PR #183 by itself. The next game commit is 096a480e67ac9630ef7d009b2ebfd8e7e03109e9, the gym downhill skirt."
     }
   ]
 }
