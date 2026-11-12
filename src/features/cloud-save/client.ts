@@ -409,6 +409,11 @@ export function createCloudSaveController(options: {
         payload?.error?.code === "revision_conflict" &&
         payload.server
       ) {
+        const confirmed = await accountGate(userId);
+        if (confirmed === "offline") return { status: "local_only", reason: "offline" };
+        if (confirmed !== "ok") {
+          return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
+        }
         return {
           status: "conflict",
           localText: readLocal() ?? "",
