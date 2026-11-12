@@ -33,7 +33,9 @@ export function emptyMemory(seed = "tamkang-variety"): Memory {
 
 function strings(value: unknown, limit: number) {
   if (!Array.isArray(value)) return [];
-  return value.filter((item): item is string => typeof item === "string" && item.length < 80).slice(0, limit);
+  return value
+    .filter((item): item is string => typeof item === "string" && item.length >= 1 && item.length < 80)
+    .slice(0, limit);
 }
 
 function boardOf(value: unknown): Board | null {

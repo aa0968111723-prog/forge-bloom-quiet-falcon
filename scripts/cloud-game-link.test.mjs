@@ -663,3 +663,42 @@ test("a long pilgrimage list still uploads the rpg save", async () => {
   const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("an empty variety note still uploads the named beats", async () => {
+  await import("../src/features/gameplay-variety/host.ts");
+  const named = "a".repeat(79);
+  const tooLong = "b".repeat(80);
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    variety: {
+      version: 1,
+      rng: 12,
+      recent: ["", tooLong, named],
+      resolved: ["real-event", ""],
+      claims: ["", "quest-walk"],
+      route: null,
+      active: null,
+      signals: [],
+      tutorialSeen: true,
+    },
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.variety.recent.includes(""), false);
+  assert.equal(saved.variety.recent.includes(tooLong), false);
+  assert.deepEqual(saved.variety.recent, [named]);
+  assert.deepEqual(saved.variety.resolved, ["real-event"]);
+  assert.deepEqual(saved.variety.claims, ["quest-walk"]);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(reloaded.variety.recent, [named]);
+  assert.deepEqual(reloaded.variety.claims, ["quest-walk"]);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
