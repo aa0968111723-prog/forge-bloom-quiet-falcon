@@ -1931,6 +1931,9 @@
       "nextAction": "None. The library ramp through 75128e0 is already in this integration. Do not merge PR #134 by itself. Do not merge PR #122."
     },
     {
+      "id": "backend-gear-contract",
+      "line": "backend",
+      "scope": "The cloud save checks loadout, gear, quarantine, and a held building already stored on tamkang-rpg-v2. Extra keys are rejected. A save without those fields still uploads.",
       "status": "merged",
       "pr": 122,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/122",
@@ -2040,6 +2043,9 @@
       "nextAction": "None. The court lines from 06a75dc are already in this integration. Do not merge PR #135 by itself."
     },
     {
+      "id": "art-garden-pavilion",
+      "line": "art",
+      "scope": "The palace-side garden pavilion is four corner posts and a green roof. The center is walkable and the posts are solid. The other Chueh Hsuan stays a hip roof. Scattered trees stay 6 m outside. The shape is estimated.",
       "status": "merged",
       "pr": 145,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/145",
@@ -2063,6 +2069,34 @@
       "integrationPr": 150,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/150",
       "nextAction": "None. The garden pavilion from 193f29d is already in this integration. Do not merge PR #145 by itself."
+    },
+    {
+      "id": "art-lesson-minimap",
+      "line": "art",
+      "scope": "While a lesson is active, the minimap shows the two-character lesson label. On a narrow window the lesson chip sits under the minimap so the department name stays readable.",
+      "status": "verified",
+      "pr": 148,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/148",
+      "integrationBranch": "cursor/integration-lesson-minimap-3395",
+      "sourceBranch": "cursor/minimap-lesson-1a71",
+      "baseSha": "57fc468db87d0b021a5a46c63483b9ce00dc0578",
+      "headSha": "9f89d1c91c6f8d58cffb450916b8de69e835aa8a",
+      "dependencies": ["art-garden-pavilion"],
+      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/adventure.css", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "art docs. Kept rounds 1-55. The minimap label is round 56. Capture kept the existing hud shots and added the lesson badge.",
+        "typecheck": "pass",
+        "npmTest": "313 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BM0-cuW7.js",
+        "browser": "8150. 1280x720 and 390x780 show 移動 on the minimap. Department name 土木工程學系 stays readable. pageErrors empty.",
+        "route": "8150: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #148 by itself."
     }
   ]
 }

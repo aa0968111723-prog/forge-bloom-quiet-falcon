@@ -350,4 +350,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 56 輪（小地圖課程字）— 2026-11-12
 
-`node --test scripts/lesson-marker.test.mjs` 通過。`tsc --noEmit` 通過。進行中的課程在小地圖左下角寫兩個字。展開地圖仍把同樣的字寫在金圈上方。窄視窗的課程條在小地圖下方。狀態卡仍是短標籤長條。沒有新增音效。覺軒花園留在第 55 輪。
+`node --test scripts/lesson-marker.test.mjs` 通過。`tsc --noEmit` 通過。進行中的課程在小地圖左下角寫兩個字。展開地圖仍把同樣的字寫在金圈上方。窄視窗的課程條在小地圖下方。狀態卡仍是短標籤長條。沒有新增音效。覺軒花園留在第 55 輪。`build:site` 產物 `AdventureApp-BM0-cuW7.js`。
