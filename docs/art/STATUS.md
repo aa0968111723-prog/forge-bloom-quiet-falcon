@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：欄杆擋人（ART-084 的一部分）
+
+圖書館坡道兩側的欄杆會擋住半徑 0.42 m 的身體。站到欄杆中線會被推開 0.48 m。坡道中線和南端外側的入口仍站得住。克難坡仍不設欄杆。位置仍是 estimated。
+
+測試：`scripts/ramp-rails.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

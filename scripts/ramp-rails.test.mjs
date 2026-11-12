@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { resolveCollision } from "../src/game/world-data/colliders.ts";
 import { LIBRARY_RAMP } from "../src/game/world-data/library-ramp.ts";
 import { PROPS, railingPostOffsets, railingPoint } from "../src/game/world-data/props.ts";
 
@@ -29,4 +30,14 @@ test("the library ramp has a railing on each side", () => {
     assert.equal(end.z, rail.z - rail.length / 2);
   }
   assert.equal(PROPS.filter((p) => p.kind === "railing" && p.zone === "kenan").length, 0);
+  const body = 0.42;
+  const centre = resolveCollision(LIBRARY_RAMP.x, LIBRARY_RAMP.z, body);
+  assert.ok(Math.hypot(centre.x - LIBRARY_RAMP.x, centre.z - LIBRARY_RAMP.z) < 0.05);
+  for (const rail of rails) {
+    const blocked = resolveCollision(rail.x, rail.z, body);
+    assert.ok(Math.abs(blocked.x - rail.x) > 0.3, `${rail.x} still on the rail`);
+  }
+  const approach = resolveCollision(LIBRARY_RAMP.x, LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2 + 1.2, body);
+  assert.ok(Math.abs(approach.x - LIBRARY_RAMP.x) < 0.05);
+  assert.ok(Math.abs(approach.z - (LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2 + 1.2)) < 0.05);
 });
