@@ -29,7 +29,8 @@ function fakeCloud() {
   let heldId = "";
   let failMatchingPut = false;
   let refuseMatchingPut = false;
-  let refuseFirstSync = false;  const seen = new Map();
+  let refuseFirstSync = false;
+  const seen = new Map();
   const puts = [];
   let ids = 0;
   let sessionId = "user-a";
@@ -156,7 +157,8 @@ function fakeCloud() {
     },
     refuseFirstSync() {
       refuseFirstSync = true;
-    },    replace(document) {
+    },
+    replace(document) {
       remote = document;
       revision += 1;
     },
