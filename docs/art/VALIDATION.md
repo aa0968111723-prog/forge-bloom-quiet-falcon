@@ -355,3 +355,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 57 輪（圖書館坡道欄杆）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs` 通過。`tsc --noEmit` 通過。圖書館坡道長 14 m，左右各一道同長欄杆，離坡道中線 0.95 m，在 1.6 m 寬的坡面外側。立柱含兩端，至少 8 根。欄杆用現在的坡道位置，不回到舊的南牆座標。克難坡沒有欄杆。定步白天近景，頁面無錯誤：`docs/art/evidence/ramp/rails.jpg`。兩側都看得到橫桿和立柱。欄杆位置仍是 estimated。小地圖課程字留在第 56 輪。沒有新增音效。`build:site` 產物 `AdventureApp-Cl3Ho6pe.js`。390×780 也看得到兩側欄杆：`docs/art/evidence/ramp/rails-narrow.jpg`。
+
+## 第 58 輪（室內南門）— 2026-11-12
+
+`node --test scripts/interior-door.test.mjs` 通過，`scripts/physics-clock.test.mjs` 也通過。`tsc --noEmit` 通過。南門開口半寬 2.5 m。半徑 0.42 m 從房間中央可以走出去；x = 2.8 m 貼著門框則出不去。體育館不擋閱讀桌的位置。定步走進宮燈教室：貼門框時仍在室內，z 停在 6.58；從開口走出後 interiorId 為 null，人在 (-8, -76)，生命 100，主修仍是土木工程學系。頁面無錯誤：`docs/art/evidence/interior/door-outside.jpg`。不是實測房間。坡道欄杆留在第 57 輪。沒有新增音效。`build:site` 產物 `AdventureApp-Drqm_Be7.js`。

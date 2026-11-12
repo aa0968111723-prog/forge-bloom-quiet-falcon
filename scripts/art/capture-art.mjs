@@ -669,6 +669,30 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "door") {
+    await enterInterior(page, "palace");
+    await page.evaluate(() => window.__controlsTest.setPose(2.8, 6.2, Math.PI));
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 20);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const blocked = await page.evaluate(() => ({
+      interiorId: window.__rpgQA.rpg.getState().interiorId,
+      ...window.__controlsTest.getPosition(),
+    }));
+    await shot(page, "jamb", `blocked at the jamb ${JSON.stringify(blocked)}`);
+    await page.evaluate(() => window.__controlsTest.setPose(0, 5.5, Math.PI));
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 50);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    await frames(page, 4);
+    const left = await page.evaluate(() => ({
+      interiorId: window.__rpgQA.rpg.getState().interiorId,
+      ...window.__controlsTest.getPosition(),
+    }));
+    await shot(page, "outside", `walked out ${JSON.stringify(left)}`);
+    if (blocked.interiorId !== "palace" || blocked.z > 7 || left.interiorId !== null) {
+      throw new Error(`doorway ${JSON.stringify({ blocked, left })}`);
+    }
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

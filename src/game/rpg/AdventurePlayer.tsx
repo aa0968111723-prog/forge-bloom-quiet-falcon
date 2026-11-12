@@ -8,6 +8,7 @@ import { input } from "./input";
 import { gearBonus } from "../../features/items-equipment-building/gear";
 import { SPRINT, WALK, moveTargetSpeed } from "./move";
 import { inventory, useRpg } from "./store";
+import { stepInterior } from "./physics";
 import { resolveBuildings, resolveInterior } from "./rules";
 import { CAMPUS_SITES } from "./campus";
 import { useGame } from "../store";
@@ -276,9 +277,42 @@ export function AdventurePlayer() {
     const intended = !frozen && mag > 0.001 ? moveTargetSpeed(actions.moveX, actions.moveY, actions.sprint) * pace : 0;
     strideRef.current = Math.max(sp, intended * 0.45);
     if (sp > 0.4) {
-      const nx = pos.current.x + vel.current.x * delta;
-      const nz = pos.current.z + vel.current.z * delta;
-      const resolved = collide(nx, nz, PLAYER_R);
+      const interiorId = useRpg.getState().interiorId;
+      if (interiorId) {
+        const furnished =
+          CAMPUS_SITES.find((s) => s.id === interiorId)?.theme !== "sport";
+        const step = stepInterior(
+          pos.current.x,
+          pos.current.z,
+          vel.current.x * delta,
+          vel.current.z * delta,
+          PLAYER_R,
+          furnished,
+        );
+        pos.current.x = step.x;
+        pos.current.z = step.z;
+        pos.current.y = 0;
+        if (step.exited) {
+          useRpg.getState().exit();
+          const warp = useGame.getState().warp;
+          if (warp) {
+            pos.current.set(warp.x, terrainHeight(warp.x, warp.z), warp.z);
+            vel.current.set(0, 0, 0);
+            camYaw.current = warp.yaw;
+            faceYaw.current = warp.yaw;
+            faceYawTarget.current = warp.yaw;
+            camPitch.current = 0.22;
+            useGame.getState().clearWarp();
+            useGame.getState().clearSnap();
+            snapped = true;
+          }
+        }
+      }
+      const nx = interiorId ? pos.current.x : pos.current.x + vel.current.x * delta;
+      const nz = interiorId ? pos.current.z : pos.current.z + vel.current.z * delta;
+      const resolved = interiorId
+        ? { x: pos.current.x, z: pos.current.z }
+        : collide(nx, nz, PLAYER_R);
       const ground = groundAt(resolved.x, resolved.z);
       const step = ground - pos.current.y;
       if (step < 0.7) {
