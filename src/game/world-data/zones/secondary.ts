@@ -670,3 +670,22 @@ export const SECONDARY_STRUCTURES: SecondaryStructure[] = [
 export function structureGroundY(s: SecondaryStructure): number {
   return sampleGroundElevation(s.position[0], s.position[1]);
 }
+
+/** How far the placed base sits above the lowest corner of the footprint. */
+export function foundationSpan(s: SecondaryStructure) {
+  const deck = structureGroundY(s);
+  const [cx, cz] = s.position;
+  const hx = s.size[0] / 2;
+  const hz = s.size[2] / 2;
+  let low = deck;
+  for (const [dx, dz] of [
+    [0, 0],
+    [-hx, -hz],
+    [hx, -hz],
+    [-hx, hz],
+    [hx, hz],
+  ] as const) {
+    low = Math.min(low, sampleGroundElevation(cx + dx, cz + dz));
+  }
+  return { deck, low, gap: deck - low };
+}
