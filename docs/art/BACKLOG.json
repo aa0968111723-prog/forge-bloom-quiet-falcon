@@ -624,9 +624,10 @@
       "acceptance": "同上",
       "evidence": [
         "scripts/context-lod.test.mjs",
-        "docs/art/evidence/media/o.jpg"
+        "docs/art/evidence/media/o.jpg",
+        "docs/art/evidence/seminar/hall.jpg"
       ],
-      "notes": "傳播館 O、Q 從坡頂改成深色基座、淺色上層和屋頂天線。文學館仍是坡頂。天線不是實測。精度仍是 estimated。"
+      "notes": "傳播館 O、Q 從坡頂改成深色基座、淺色上層和屋頂天線。文學館仍是坡頂。天線不是實測。精度仍是 estimated。會文館從教學樓基座改成底層柱廊和淺色上層。柱廊貼著南牆。教育館與外國語文大樓仍是教學樓。柱廊外形仍是 estimated。"
     },
     {
       "id": "ART-066",

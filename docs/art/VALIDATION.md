@@ -291,3 +291,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 41 輪（課程地圖標記）— 2026-11-11
 
 `node --test scripts/lesson-marker.test.mjs` 通過。`tsc --noEmit` 通過。五個進行中的課程步驟各對應兩個字：選系、移動、補給、普攻、技能。完成與沒有課程時不寫字。字只畫在展開的校園地圖，小地圖仍是金圈。定步把課程設成移動、標記放在 (0, -80)，打開地圖，頁面無錯誤：`docs/art/evidence/map/lesson.jpg`。金圈上方看得到「移動」。工學館留在第 40 輪。沒有新增音效。
+
+## 第 42 輪（會文館）— 2026-11-12
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。會文館是底層柱廊、淺色上層和木色壓簷，名牌寫著會文館。柱廊貼著南牆，高度留在地面一層。教育館與外國語文大樓仍是教學樓。文學館仍是坡頂。精度仍是 estimated。門口步道測試仍通過。定步白天近景，頁面無錯誤：`docs/art/evidence/seminar/hall.jpg`。課程標記留在第 41 輪。沒有新增音效。
