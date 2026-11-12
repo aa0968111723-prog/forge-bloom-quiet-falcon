@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T08:36:00Z",
+      "updated": "2026-11-12T08:55:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3500,6 +3500,62 @@
       "integrationPr": 250,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/250",
       "nextAction": "None. The trimmed pilgrimage list from 5d1f2593 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-empty-note",
+      "line": "backend",
+      "scope": "Import drops blank variety notes from recent, resolved, and claims. A 79-character named beat stays, and an 80-character note does not. A raw upload of a blank note is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-empty-note-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "a0806b69a7f447bfdac454fbafe5e79cc55ffd37",
+      "headSha": "73a0298e9a3bf281f92b5c678bc2376f183b2de4",
+      "dependencies": ["backend-pilgrimage-list"],
+      "sharedFiles": ["src/features/gameplay-variety/memory.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T07:59:27Z and the empty variety note line. memory.ts applied cleanly.",
+        "typecheck": "pass",
+        "npmTest": "403 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CVNxMBj0.js",
+        "browser": "8200. The standing route completed.",
+        "route": "8200: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "16acb95422e55c2801157eb93e38281a50d5e6df",
+      "integrationPr": 251,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/251",
+      "nextAction": "None. The empty variety note filter from 73a0298e is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-long-note",
+      "line": "backend",
+      "scope": "Import clips a variety fail reason and receipt to 80 characters. A college label longer than 80 becomes null. A run or signal whose event id is longer than 80 is dropped, and a signal whose quest id has a space or a capital letter is dropped. Named beats stay. A raw upload of a fail reason longer than 80 is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-long-note-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "cfa1cbdc85ac3703747b21925eed5b56d4b2e238",
+      "headSha": "7eb68b82f7f47425d1845c3c61a097f1c5468582",
+      "dependencies": ["backend-empty-note"],
+      "sharedFiles": ["src/features/gameplay-variety/memory.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json auto-merged. Kept 2026-11-12T08:03:45Z and the long variety note line.",
+        "typecheck": "pass",
+        "npmTest": "404 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Dt20vlro.js",
+        "browser": "8201. The standing route completed.",
+        "route": "8201: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "e940772fba8c58e08be452be49863ab08b0e44aa",
+      "integrationPr": 253,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/253",
+      "nextAction": "None. The clipped variety note from 7eb68b82 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

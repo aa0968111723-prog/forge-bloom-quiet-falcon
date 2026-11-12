@@ -663,3 +663,146 @@ test("a long pilgrimage list still uploads the rpg save", async () => {
   const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("an empty variety note still uploads the named beats", async () => {
+  await import("../src/features/gameplay-variety/host.ts");
+  const named = "a".repeat(79);
+  const tooLong = "b".repeat(80);
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    variety: {
+      version: 1,
+      rng: 12,
+      recent: ["", tooLong, named],
+      resolved: ["real-event", ""],
+      claims: ["", "quest-walk"],
+      route: null,
+      active: null,
+      signals: [],
+      tutorialSeen: true,
+    },
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.variety.recent.includes(""), false);
+  assert.equal(saved.variety.recent.includes(tooLong), false);
+  assert.deepEqual(saved.variety.recent, [named]);
+  assert.deepEqual(saved.variety.resolved, ["real-event"]);
+  assert.deepEqual(saved.variety.claims, ["quest-walk"]);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(reloaded.variety.recent, [named]);
+  assert.deepEqual(reloaded.variety.claims, ["quest-walk"]);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
+
+test("a long variety note still uploads the run", async () => {
+  await import("../src/features/gameplay-variety/host.ts");
+  const longReason = "過".repeat(90);
+  const longReceipt = "記".repeat(90);
+  const keptReason = "線".repeat(80);
+  const base = {
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+  };
+  const variety = {
+    version: 1,
+    rng: 12,
+    recent: ["gv-night-patrol"],
+    resolved: ["gv-night-patrol"],
+    claims: ["quest-gv-night-peace"],
+    route: "peace",
+    tutorialSeen: true,
+    active: {
+      eventId: "gv-night-patrol",
+      phase: "failed",
+      route: "field",
+      board: null,
+      failReason: longReason,
+      receipt: longReceipt,
+      tutorial: false,
+      caps: {
+        equipped: true,
+        skillRank: 2,
+        built: 3,
+        collegeId: "c".repeat(90),
+        discipline: "lab",
+      },
+    },
+    signals: [
+      {
+        type: "variety.resolved",
+        eventId: "gv-night-patrol",
+        route: "field",
+        questId: "Not A Quest",
+      },
+      {
+        type: "variety.resolved",
+        eventId: "x".repeat(90),
+        route: "peace",
+        questId: "quest-gv-library-clues",
+      },
+      {
+        type: "variety.resolved",
+        eventId: "gv-library-clues",
+        route: "peace",
+        questId: "quest-gv-library-clues",
+      },
+    ],
+  };
+  assert.equal(useRpg.getState().importSave(JSON.stringify({ ...base, variety })), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.variety.active.eventId, "gv-night-patrol");
+  assert.equal(saved.variety.active.phase, "failed");
+  assert.equal(saved.variety.active.failReason, longReason.slice(0, 80));
+  assert.equal(saved.variety.active.receipt, longReceipt.slice(0, 80));
+  assert.equal(saved.variety.active.caps.collegeId, null);
+  assert.equal(saved.variety.active.caps.discipline, "lab");
+  assert.equal(saved.variety.active.caps.equipped, true);
+  assert.equal(saved.variety.active.caps.skillRank, 2);
+  assert.equal(saved.variety.signals.length, 1);
+  assert.equal(saved.variety.signals[0].questId, "quest-gv-library-clues");
+  assert.equal(saved.variety.signals[0].eventId, "gv-library-clues");
+  assert.deepEqual(saved.variety.resolved, ["gv-night-patrol"]);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.variety.active.failReason, longReason.slice(0, 80));
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+
+  const named = {
+    ...variety,
+    active: { ...variety.active, failReason: keptReason, receipt: "筆記送到了。", collegeId: undefined },
+    signals: [variety.signals[2]],
+  };
+  named.active.caps = { ...variety.active.caps, collegeId: "engineering", discipline: "lab" };
+  assert.equal(useRpg.getState().importSave(JSON.stringify({ ...base, variety: named })), true);
+  const kept = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(kept.variety.active.failReason, keptReason);
+  assert.equal(kept.variety.active.receipt, "筆記送到了。");
+  assert.equal(kept.variety.active.caps.collegeId, "engineering");
+  assert.equal(validateRpgDocument(kept).ok, true);
+
+  const unnamed = {
+    ...variety,
+    active: { ...variety.active, eventId: "e".repeat(90), failReason: "線索對不上。" },
+    signals: [variety.signals[2]],
+  };
+  assert.equal(useRpg.getState().importSave(JSON.stringify({ ...base, variety: unnamed })), true);
+  const dropped = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(dropped.variety.active, null);
+  assert.deepEqual(dropped.variety.resolved, ["gv-night-patrol"]);
+  assert.equal(validateRpgDocument(dropped).ok, true);
+});

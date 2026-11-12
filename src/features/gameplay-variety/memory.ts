@@ -2,6 +2,17 @@ import { startRng } from "../narrative/rng.ts";
 import type { Board, Memory, Phase, RouteChoice, Run } from "./types.ts";
 
 export const VARIETY_SAVE_KEY = "tamkang-gameplay-variety-v1";
+const VARIETY_QUEST_ID = /^[a-z0-9:_-]{1,64}$/;
+
+function clipNote(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  return value.length > 80 ? value.slice(0, 80) : value;
+}
+
+function clipLabel(value: unknown): string | null {
+  if (typeof value !== "string" || value.length > 80) return null;
+  return value;
+}
 
 const PHASES = new Set<Phase>([
   "briefing",
@@ -33,7 +44,9 @@ export function emptyMemory(seed = "tamkang-variety"): Memory {
 
 function strings(value: unknown, limit: number) {
   if (!Array.isArray(value)) return [];
-  return value.filter((item): item is string => typeof item === "string" && item.length < 80).slice(0, limit);
+  return value
+    .filter((item): item is string => typeof item === "string" && item.length >= 1 && item.length < 80)
+    .slice(0, limit);
 }
 
 function boardOf(value: unknown): Board | null {
@@ -61,6 +74,7 @@ function readSignals(value: unknown): Memory["signals"] {
     if (row.type !== "variety.resolved" || typeof row.eventId !== "string" || typeof row.questId !== "string") {
       continue;
     }
+    if (row.eventId.length < 1 || row.eventId.length > 80 || !VARIETY_QUEST_ID.test(row.questId)) continue;
     if (row.route !== "peace" && row.route !== "combat" && row.route !== "field") continue;
     signals.push({ type: "variety.resolved", eventId: row.eventId, route: row.route, questId: row.questId });
   }
@@ -70,7 +84,15 @@ function readSignals(value: unknown): Memory["signals"] {
 function runOf(value: unknown): Run | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
   const raw = value as Partial<Run>;
-  if (typeof raw.eventId !== "string" || !raw.phase || !PHASES.has(raw.phase)) return null;
+  if (
+    typeof raw.eventId !== "string" ||
+    raw.eventId.length < 1 ||
+    raw.eventId.length > 80 ||
+    !raw.phase ||
+    !PHASES.has(raw.phase)
+  ) {
+    return null;
+  }
   const route: RouteChoice | null =
     raw.route === "peace" || raw.route === "combat" || raw.route === "field" ? raw.route : null;
   return {
@@ -78,8 +100,8 @@ function runOf(value: unknown): Run | null {
     phase: raw.phase,
     route,
     board: boardOf(raw.board),
-    failReason: typeof raw.failReason === "string" ? raw.failReason : null,
-    receipt: typeof raw.receipt === "string" ? raw.receipt : null,
+    failReason: clipNote(raw.failReason),
+    receipt: clipNote(raw.receipt),
     tutorial: raw.tutorial === true,
     caps: {
       equipped: raw.caps?.equipped === true,
@@ -91,8 +113,8 @@ function runOf(value: unknown): Run | null {
         typeof raw.caps?.built === "number" && raw.caps.built > 0
           ? Math.min(1_000_000, Math.floor(raw.caps.built))
           : 0,
-      collegeId: typeof raw.caps?.collegeId === "string" ? raw.caps.collegeId : null,
-      discipline: typeof raw.caps?.discipline === "string" ? raw.caps.discipline : null,
+      collegeId: clipLabel(raw.caps?.collegeId),
+      discipline: clipLabel(raw.caps?.discipline),
     },
   };
 }
