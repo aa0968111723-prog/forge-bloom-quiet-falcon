@@ -47,4 +47,4 @@
 
 本次沒有取得任何音檔；遊戲音效仍是 `src/game/audio.ts` 的 WebAudio 合成音，沒有新增任何音檔引用（BACKLOG ART-092 blocked）。
 
-巡禮折線沒有新的測繪或官方頁。走法仍是 estimated。建築系館的工作室外形仍是 estimated。學生活動中心的門廳外形仍是 estimated。勤務監控的崗亭外形仍是 estimated。工學大樓的塔樓外形仍是 estimated。路網繞行的位置仍是 estimated。驚聲大樓的樓身外形仍是 estimated。紹謨紀念體育館這一輪也沒有新的測繪或官方頁。館身外形仍是 estimated。騮先紀念科學館這一輪沒有新的測繪或官方頁。館身外形仍是 estimated。
+巡禮折線沒有新的測繪或官方頁。走法仍是 estimated。建築系館的工作室外形仍是 estimated。學生活動中心的門廳外形仍是 estimated。勤務監控的崗亭外形仍是 estimated。工學大樓的塔樓外形仍是 estimated。路網繞行的位置仍是 estimated。驚聲大樓的樓身外形仍是 estimated。紹謨紀念體育館這一輪也沒有新的測繪或官方頁。館身外形仍是 estimated。騮先紀念科學館這一輪沒有新的測繪或官方頁。館身外形仍是 estimated。外國語文大樓這一輪也沒有新的測繪或音檔。長廊外形仍是 estimated。

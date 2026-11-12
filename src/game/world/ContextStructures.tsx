@@ -13,6 +13,7 @@ import {
   glazingBand,
   linkedHallProfile,
   memorialProfile,
+  languageHallProfile,
   scienceHallProfile,
   studioProfile,
   structureGroundY,
@@ -169,7 +170,8 @@ export function ContextStructures({
         s.kind === "eng-tower" ||
         s.kind === "memorial-tower" ||
         s.kind === "arena" ||
-        s.kind === "science-hall"
+        s.kind === "science-hall" ||
+        s.kind === "language-hall"
       )
         continue;
       const floors = s.floors ?? 6;
@@ -690,6 +692,42 @@ export function ContextStructures({
                   name="context-detail"
                   userData={{ x: s.position[0], z: s.position[1] }}
                   position={[0, profile.baseH + 1.4, profile.glassZ + 0.12]}
+                >
+                  <planeGeometry args={[Math.min(10, s.size[0] * 0.4), 1.15]} />
+                  <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />
+                </mesh>
+              )}
+            </group>
+          );
+        }
+        if (s.kind === "language-hall") {
+          const profile = languageHallProfile(s.size);
+          const upperH = Math.max(1, s.size[1] - profile.galleryH);
+          return (
+            <group key={s.id} position={[s.position[0], y, s.position[1]]} rotation={[0, s.rotationY, 0]}>
+              <mesh position={[0, profile.galleryH / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0], profile.galleryH, s.size[2]]} />
+                <meshStandardMaterial color="#6d5a46" roughness={0.88} />
+              </mesh>
+              <mesh position={[0, profile.galleryH + upperH / 2, profile.upperZ]} castShadow receiveShadow>
+                <boxGeometry args={[s.size[0] - 0.4, upperH, profile.upperD]} />
+                <meshStandardMaterial color="#e7dfd2" roughness={0.82} />
+              </mesh>
+              <mesh position={[0, profile.galleryH * 0.55, profile.galleryZ]} castShadow>
+                <boxGeometry args={[profile.galleryW, profile.galleryH * 0.62, 0.16]} />
+                <meshStandardMaterial color="#8ea4aa" roughness={0.28} metalness={0.08} />
+              </mesh>
+              {[0.38, 0.72].map((t) => (
+                <mesh key={t} position={[0, profile.galleryH + upperH * t, profile.upperSouth + 0.08]} castShadow>
+                  <boxGeometry args={[s.size[0] * 0.62, 0.48, 0.14]} />
+                  <meshStandardMaterial color="#9a8b74" roughness={0.5} />
+                </mesh>
+              ))}
+              {nameplates[s.id] && (
+                <mesh
+                  name="context-detail"
+                  userData={{ x: s.position[0], z: s.position[1] }}
+                  position={[0, profile.galleryH + 1.3, s.size[2] / 2 + 0.16]}
                 >
                   <planeGeometry args={[Math.min(10, s.size[0] * 0.4), 1.15]} />
                   <meshStandardMaterial map={nameplates[s.id]} roughness={0.55} />

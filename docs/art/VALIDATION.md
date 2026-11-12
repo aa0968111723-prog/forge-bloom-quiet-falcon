@@ -279,3 +279,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 38 輪（騮先紀念科學館）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。科學館是淺色館身、東側直玻璃和壓簷，名牌寫著騮先紀念科學館。沒有實驗樓的屋頂設備。化學館仍是實驗樓。未匯出的舊剪影沒有合併。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/science/hall.jpg`。體育館留在第 37 輪。
+
+## 第 39 輪（外國語文大樓）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。外國語文大樓是暖色底層、南向長廊玻璃和退縮的淺色上層，名牌寫著外國語文大樓。上層窗帶貼著退縮的牆，沒有共用窗帶。教育館與會文館仍是教學樓。舊的 foreign-lang-hall 不合併。精度仍是 estimated。門口步道測試仍通過。定步白天近景，頁面無錯誤：`docs/art/evidence/language/hall.jpg`。科學館留在第 38 輪。沒有新增音效。
