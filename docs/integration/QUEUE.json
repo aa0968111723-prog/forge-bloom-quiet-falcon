@@ -4923,9 +4923,11 @@
         "route": "8246 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "be4e1d67dcd68c78de49971842829dc77899ce07",
-      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #243 by itself. The still-water commit 0dd53a5c is still separate."
+      "integrationPr": 321,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/321",
+      "nextAction": "None. The still wind from 427b2489 is already in this integration. Do not merge PR #243 by itself. The still-water commit 0dd53a5c is still separate."
     }
   ]
 }
