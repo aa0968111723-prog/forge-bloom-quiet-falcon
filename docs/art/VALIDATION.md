@@ -367,3 +367,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 60 輪（田徑場內圈）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
+
+## 第 61 輪（減少動態時標題鏡頭停）— 2026-11-12
+
+`node --test scripts/title-camera.test.mjs` 通過。`tsc --noEmit` 通過。減少動態時標題鏡頭停在 (-13, 31.5, 13)。時間 0 的一般動態，x 仍是 -13，z 是 14.8。時間 10 的一般動態，x 和 z 都離開中心。系統減少動態的標題頁，頁面無錯誤：`docs/art/evidence/motion/still-title.jpg`。靜態畫面看不出是否還在繞，停住是測試量到的。沒有新增音效。田徑場內圈留在第 60 輪。`build:site` 產物 `AdventureApp-Du_YjI0j.js`。
