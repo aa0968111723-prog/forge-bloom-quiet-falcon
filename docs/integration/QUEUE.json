@@ -2382,7 +2382,7 @@
       "id": "backend-cloud-resume",
       "line": "backend",
       "scope": "Choosing a downloaded cloud save with health remaining continues on that file's public interior floor. A successful download or restore drops that account's unsent save upload. Reward receipts and other accounts stay queued.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-cloud-resume-3395",
@@ -2400,9 +2400,11 @@
         "route": "8160: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "9baa36ca66591879555f1351b16088898b9786a3",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 179,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/179",
+      "nextAction": "None. The cloud resume from 0781e84 and 936ad5b is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
