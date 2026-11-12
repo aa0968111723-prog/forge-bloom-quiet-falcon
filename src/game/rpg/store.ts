@@ -1519,11 +1519,11 @@ export const useRpg = create<RpgState>((set, get) => ({
         saveLocal({ ...current, visited, timeOfDay, muted });
       }
       placeStand(save.stand);
-      varietySave?.restore(save.variety);
+      const varietyWrote = varietySave?.restore(save.variety);
       clearSaveTimer();
       persistRpgSave();
       noteSaveSettled();
-      set({ saved: "saved" });
+      set({ saved: varietyWrote === false ? "error" : "saved" });
       get().notify("存檔已匯入。");
       return true;
     } catch {
@@ -1942,7 +1942,7 @@ function snapshot() {
 }
 type VarietySaveCodec = {
   capture: () => unknown;
-  restore: (value: unknown) => void;
+  restore: (value: unknown) => boolean | void;
 };
 let varietySave: VarietySaveCodec | null = null;
 export function registerVarietySave(codec: VarietySaveCodec) {

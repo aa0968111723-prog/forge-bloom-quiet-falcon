@@ -5,7 +5,7 @@ import { levelForXp } from "../../game/rpg/rules.ts";
 import { collegeOf } from "../../game/rpg/growth/tree.ts";
 import { liveGrowth } from "../../game/rpg/narrative-bridge.ts";
 import { readMemory } from "./memory.ts";
-import { getMemory, registerVarietyPayer, registerVarietySaveFailure, replaceMemory, type PayResult } from "./runtime.ts";
+import { getMemory, registerVarietyPayer, registerVarietySaveFailure, replaceMemory, varietyWriteOk, type PayResult } from "./runtime.ts";
 import { settlementPreview } from "./settle.ts";
 import type { Caps, RewardIntent } from "./types.ts";
 
@@ -104,5 +104,8 @@ registerVarietySaveFailure(() => {
 });
 registerVarietySave({
   capture: () => getMemory(),
-  restore: (value) => replaceMemory(readMemory(value)),
+  restore: (value) => {
+    replaceMemory(readMemory(value));
+    return varietyWriteOk();
+  },
 });
