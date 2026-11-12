@@ -513,3 +513,13 @@
 ## 下一步
 
 見 `CHECKPOINT.json`。轉角鏡頭已留在視線上。實棟學人宿舍已從學生宿舍分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+
+## 階段：廣場路燈（ART-084 的一部分）
+
+路燈頭跟著宮燈用的同一個 `lampsOn`。晴天燈頭不亮，夜裡燈頭亮。燈頭位置取自模型比例，不是實測燈具。外國語文大樓仍是底層長廊和南向退縮的上層。
+
+畫面：`docs/art/evidence/lamps/day.jpg`、`night.jpg`。測試：`scripts/street-lamp.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。路燈頭已跟著夜裡點亮。外國語文大樓已從教學樓分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

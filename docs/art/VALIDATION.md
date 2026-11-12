@@ -447,3 +447,8 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 80 輪（宮燈教室轉角鏡頭）— 2026-11-12
 
 `node --test scripts/physics-clock.test.mjs` 通過。`tsc --noEmit` 通過。西廳轉角的目標點在廳內，舊的推出離開視線 2.6 m 以上。新的鏡頭留在視線上，水平距離不夠 2.2 m 就升高。迴廊外側直走的水平距離仍大於 4.8 m。室內跟隨鏡頭仍停在天花下。四時段留在第 79 輪。沒有新增音效。
+
+## 第 81 輪（廣場路燈）— 2026-11-12
+
+`node --test scripts/street-lamp.test.mjs` 通過。`tsc --noEmit` 通過。晴天 `lampsOn` 是 false，路燈發光強度是 0。夜裡 `lampsOn` 是 true，發光強度大於 1。偏航 0 時燈臂在 -X。同一座廣場路燈、同一鏡頭：`docs/art/evidence/lamps/day.jpg` 燈頭不亮，`night.jpg` 燈頭亮。燈頭位置取自模型比例，不是實測燈具。宮燈教室轉角鏡頭留在第 80 輪。沒有新增音效。
+

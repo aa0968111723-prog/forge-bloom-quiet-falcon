@@ -5,6 +5,7 @@ import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { libraryRampTriangles } from "../world-data/library-ramp.ts";
 import { railingSegmentFrame } from "../world-data/railing-frame.ts";
 import { PROPS, railingPostBases, type PropInstance, type PropKind } from "../world-data/props.ts";
+import { STREET_LAMP_SCALE, streetLampEmissive, streetLampHead } from "../world-data/street-lamp.ts";
 import { VendorModel, type VendorInstance } from "./vendor";
 
 /**
@@ -45,17 +46,23 @@ const WOOD = { color: "#7a5a3a", roughness: 0.82 } as const;
 const CONCRETE = { color: "#b0aca2", roughness: 0.9 } as const;
 
 /** Part list per prop kind. Geometries are shared across instances. */
-function buildParts(kind: PropKind): Part[] {
+function buildParts(kind: PropKind, lampsOn: boolean): Part[] {
   switch (kind) {
     case "lantern-post":
       // Drawn by LanternAvenue with the full material set; skip here.
       return [];
-    case "street-lamp":
+    case "street-lamp": {
+      const glow = streetLampEmissive(lampsOn);
       return [
         { geometry: cyl(0.06, 0.09, 4.6), material: METAL_DARK, offset: [0, 2.3, 0], castShadow: true },
         { geometry: box(0.09, 0.09, 1.0), material: METAL_DARK, offset: [0, 4.58, 0.42] },
-        { geometry: box(0.34, 0.12, 0.62), material: { color: "#e8e4d8", roughness: 0.3, emissive: "#fff2c9", emissiveIntensity: 0 }, offset: [0, 4.5, 0.86] },
+        {
+          geometry: box(0.34, 0.12, 0.62),
+          material: { color: glow.color, roughness: 0.3, emissive: glow.emissive, emissiveIntensity: glow.emissiveIntensity },
+          offset: [0, 4.5, 0.86],
+        },
       ];
+    }
     case "bench":
       return [
         { geometry: box(1.7, 0.07, 0.46), material: WOOD, offset: [0, 0.46, 0], castShadow: true },
@@ -232,10 +239,35 @@ function PartLayer({ part, instances }: { part: Part; instances: PropInstance[] 
 const VENDOR_PROPS: Partial<Record<PropKind, { url: string; scale: number }>> = {
   bench: { url: "/models/vendor/kaykit/bench.gltf", scale: 4.2 },
   hydrant: { url: "/models/vendor/kaykit/firehydrant.gltf", scale: 3.4 },
-  "street-lamp": { url: "/models/vendor/kaykit/streetlight.gltf", scale: 4.7 },
+  "street-lamp": { url: "/models/vendor/kaykit/streetlight.gltf", scale: STREET_LAMP_SCALE },
 };
 
-export function Props({ lampsOn: _lampsOn }: { lampsOn: boolean }) {
+function StreetLampGlow({ instances }: { instances: PropInstance[] }) {
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const glow = streetLampEmissive(true);
+  useLayoutEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    instances.forEach((p, i) => {
+      const head = streetLampHead(p.x, p.z, p.rotationY, sampleGroundElevation(p.x, p.z), STREET_LAMP_SCALE * p.scale);
+      dummy.position.set(head.x, head.y, head.z);
+      dummy.rotation.set(0, 0, 0);
+      dummy.scale.set(1, 1, 1);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.computeBoundingSphere();
+  }, [instances]);
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, instances.length]}>
+      <sphereGeometry args={[0.18, 8, 6]} />
+      <meshStandardMaterial color={glow.color} emissive={glow.emissive} emissiveIntensity={glow.emissiveIntensity} />
+    </instancedMesh>
+  );
+}
+
+export function Props({ lampsOn }: { lampsOn: boolean }) {
   const q = quality();
 
   const byKind = useMemo(() => {
@@ -261,10 +293,15 @@ export function Props({ lampsOn: _lampsOn }: { lampsOn: boolean }) {
             scale: vendor.scale * p.scale,
             rotationY: p.rotationY,
           }));
-          return <VendorModel key={kind} url={vendor.url} instances={vendorInstances} />;
+          return (
+            <group key={kind}>
+              <VendorModel url={vendor.url} instances={vendorInstances} />
+              {kind === "street-lamp" && lampsOn && <StreetLampGlow instances={instances} />}
+            </group>
+          );
         }
         if (kind === "ramp") return <LibraryRampMesh key={kind} />;
-        const parts = buildParts(kind);
+        const parts = buildParts(kind, lampsOn);
         return (
           <group key={kind}>
             {parts.map((part, i) => (

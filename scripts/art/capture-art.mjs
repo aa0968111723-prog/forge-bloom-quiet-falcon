@@ -751,7 +751,29 @@ try {
         range: Math.hypot(dx, dy, dz),
       };
     });
-    await shot(page, "corner", `follow range ${rig.range.toFixed(2)} m at (${rig.player.x.toFixed(1)}, ${rig.player.z.toFixed(1)})`);  } else if (scenario === "interiors") {
+    await shot(page, "corner", `follow range ${rig.range.toFixed(2)} m at (${rig.player.x.toFixed(1)}, ${rig.player.z.toFixed(1)})`);
+  } else if (scenario === "lamp-night") {
+    // First plaza street lamp, outside the statue apron. Night should light
+    // the head; day should leave it dark. Coordinates match street-lamp.test.
+    await hideHud(page);
+    const lamp = { x: 2.622, z: 12.937 };
+    await setPose(page, lamp.x, lamp.z - 6, 0);
+    for (const time of ["day", "night"]) {
+      await page.evaluate((id) => {
+        window.__rpgQA.game.getState().setTime(id);
+        const y = window.__rpgQA.ground(2.622, 12.937);
+        window.__controlsTest.setPhoto({
+          yaw: 0.15,
+          distance: 7.5,
+          height: 2.4,
+          lookY: 3.6,
+          target: { x: 2.622, y, z: 12.937 },        });
+      }, time);
+      await settle(page, { stableFrames: 3 });
+      const live = await page.evaluate(() => window.__rpgQA.game.getState().timeOfDay);
+      await shot(page, time, `timeOfDay=${live} plaza street lamp`);
+    }
+  } else if (scenario === "interiors") {
     // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
     // These are game layouts, not surveyed rooms. Enter, look, exit, and check
     // that the semester (hp, department) survives and the player is back outdoors.
