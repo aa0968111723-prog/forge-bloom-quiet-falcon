@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：活動中心裙牆（ART-066 的一部分）
+
+學生活動中心的樓身仍放在基地中心。西北角低 2.1 m，樓底有一條裙牆接到地面。南邊入口沒有被裙牆擋住。東邊較高的坡仍會埋進樓身下緣。裙牆是 estimated。
+
+畫面：`docs/art/evidence/activity/skirt.jpg`。測試：`scripts/commons-skirt.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。活動中心西北邊樓底已接到坡上。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
