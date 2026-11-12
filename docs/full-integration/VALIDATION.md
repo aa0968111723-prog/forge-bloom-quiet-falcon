@@ -730,3 +730,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 56 減 46 是 10，也就是收尾階段的經驗。筆記加 1。衛寧這條問卷線到這裡結束。
 
 畫面：`/opt/cursor/artifacts/integration-wei-after/submit-outcome.png`、`submit-done.png`、`follow-outcome.png`、`follow-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。
+
+## 安澄的兩個開場選項
+
+這段打在 `AdventureApp-D7mo77Od.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-DHoVAGsS.js`。`main` 尖端 `e5ef99e`（註記 PR #229；GitHub 上這份 PR 的狀態是 CLOSED；遊戲提交 `59f8cc4`，存檔前把轉很久的視線折回一圈），合併提交 `690840f`。主遊戲檔 888275 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-an-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-an-meet` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 391 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出是 `index-DHoVAGsS.js` 與 `AdventureApp-D7mo77Od.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，直接站到外國語文大樓的估計位置。站上去先發現地點，存檔經驗 12、筆記 18。
+
+- 「請你指出哪一個詞過重。」存檔經驗 30，筆記 18。結果句「不說你粗心。」畫面是 1 級、「經驗 30/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「他們把譯者的猶豫寫成作者本來就這麼說」。兩個衝突選項都在。離開不結算，沒有 `quest-faculty-wording-clash`。`quest-faculty-wording-meet` 只有一筆。沒有工作室任務。重載後經驗 30、筆記 18，再交談仍是這一句。
+- 「我先讀原文，再聽你評譯文。」經驗同樣 12→30，筆記停在 18。結果句「評的順序是你定的。」衝突仍是「他們把譯者的猶豫寫成作者本來就這麼說」。離開不結算。重載後這一句還在。
+
+30 減 12 是 18，也就是開場 6 加上崗位發現 12。筆記 18 是新學期背包原有的。衝突不看這次是先指詞還是先讀原文。
+
+畫面：`/opt/cursor/artifacts/integration-an-meet/word-outcome.png`、`word-next.png`、`source-outcome.png`、`source-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。分組報告在畫面裡，這次沒有打。
