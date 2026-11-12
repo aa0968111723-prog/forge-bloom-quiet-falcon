@@ -4699,11 +4699,11 @@
         "route": "pass. gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision_conflict, cloudXp 47, logout 401, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #124 by itself."
+      "merged": true,
+      "mergeSha": "83548e3738b7d3ec1d6f1ac241162b6f6243ef4a",
+      "integrationPr": 313,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/313",
+      "nextAction": "None. The street-lamp heads from 2b45515 are already in this integration. Do not merge PR #124 by itself."
     }
   ]
 }
