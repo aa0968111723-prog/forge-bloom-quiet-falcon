@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T00:55:00Z",
+      "updated": "2026-11-12T01:06:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1593,6 +1593,32 @@
       "integrationPr": 117,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/117",
       "nextAction": "None. The faculty-house patch from 5c92b44 is already in this integration. Do not merge PR #101 by itself. Next is PR #102 at head e478b9c, then PR #105 at head d5a28c8, then PR #107 at head 4dc3786, then PR #108 at head 6ac2cf3, then PR #110 at head eee5c91, then PR #111 at head 412b130, then PR #113 at head f2750c7, then PR #115 at head 9672ff3, then PR #116 at head 9a3d594. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-garden-house",
+      "line": "art",
+      "scope": "Yingyuan is a white garden house with a timber plinth, a tighter green hip roof, and a south veranda. The white wall runs from the plinth to the roof. Humanities and Chueh Hsuan stay academic hip roofs. Shared windows are skipped. The veranda and roof shape are estimated.",
+      "status": "verified",
+      "pr": 102,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/102",
+      "integrationBranch": "cursor/integration-garden-house-3395",
+      "sourceBranch": "cursor/garden-house-1a71",
+      "baseSha": "65507cdc2a25",
+      "headSha": "e478b9ca07041a6197d228c4d4788203051941d9",
+      "dependencies": ["art-faculty-house"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kind union, campusKind, glazing skip, the garden profile, the capture script, and the art docs. Kept the earlier kinds and added garden-house after faculty-house and before the theme switch. The follow-up seats the wall from the plinth to the roof. Capture keeps the earlier scenarios and adds garden. ART-066 keeps the conference, audiovisual, activity, and office notes and adds the Yingyuan sentence.",
+        "typecheck": "pass",
+        "npmTest": "266 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8134 high. 1280x720 shows the white walls, timber plinth, tighter green hip roof, south veranda, and nameplate. 390x780 keeps the plinth, wall, roof, and veranda, with part of the nameplate. pageErrors empty",
+        "route": "8134: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "merged": false,
+      "mergeSha": "c5716878b7c3eabb30feae679cade5e132852898",
+      "nextAction": "Do not merge PR #102 by itself. Next is PR #105 at head d5a28c8, then PR #107 at head 4dc3786, then PR #108 at head 6ac2cf3, then PR #110 at head eee5c91, then PR #111 at head 412b130, then PR #113 at head f2750c7, then PR #115 at head 9672ff3, then PR #116 at head 9a3d594, then PR #118 at head 266e4b7."
     }
   ]
 }
