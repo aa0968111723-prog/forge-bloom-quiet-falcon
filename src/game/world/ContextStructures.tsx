@@ -17,6 +17,7 @@ import {
   glazingBand,
   poolHallProfile,
   linkedHallProfile,
+  dormBalconies,
   facultyHouseProfile,
   memorialProfile,
   officeProfile,
@@ -1127,6 +1128,19 @@ export function ContextStructures({
                   <meshStandardMaterial color="#b08968" roughness={0.84} />
                 </mesh>
               )}
+              {s.kind === "dorm-block" &&
+                dormBalconies(s.size, s.floors ?? 6).map((row) => (
+                  <group key={row.y} position={[0, row.y, row.z]}>
+                    <mesh castShadow>
+                      <boxGeometry args={[row.width, 0.12, row.depth]} />
+                      <meshStandardMaterial color="#c4a27a" roughness={0.8} />
+                    </mesh>
+                    <mesh position={[0, row.railY, row.depth / 2 - 0.04]} castShadow>
+                      <boxGeometry args={[row.width, 0.08, 0.08]} />
+                      <meshStandardMaterial color="#6d5344" roughness={0.7} />
+                    </mesh>
+                  </group>
+                ))}
               {s.kind === "lab-block" && (
                 <mesh
                   name="context-detail"

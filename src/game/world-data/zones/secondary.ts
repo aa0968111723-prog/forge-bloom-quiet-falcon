@@ -490,6 +490,24 @@ export function officeProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * South balconies for the shared dorm block. One row per upper floor, outside
+ * the wall. Estimated, not a measured elevation. The faculty house keeps its porch.
+ */
+export function dormBalconies(size: readonly [number, number, number], floors: number) {
+  const count = Math.max(0, floors - 1);
+  const width = size[0] * 0.72;
+  const depth = 0.7;
+  const z = size[2] / 2 + depth / 2 + 0.06;
+  return Array.from({ length: count }, (_, floor) => ({
+    y: ((floor + 1.15) * size[1]) / floors,
+    z,
+    width,
+    depth,
+    railY: 0.9,
+  }));
+}
+
+/**
  * Faculty house for 實棟學人宿舍. The porch is an estimated silhouette, not a
  * measured elevation. The Sungtao halls stay student dorms.
  */

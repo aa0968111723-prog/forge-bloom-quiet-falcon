@@ -685,9 +685,11 @@
       "evidence": [
         "scripts/context-lod.test.mjs",
         "docs/art/evidence/reitaku/house.jpg",
-        "docs/art/evidence/faculty/house.jpg"
+        "docs/art/evidence/faculty/house.jpg",
+        "docs/art/evidence/sungtao/balcony.jpg",
+        "scripts/dorm-balcony.test.mjs"
       ],
-      "notes": "麗澤國際學舍從暖色宿舍改成淺灰綠牆、底層玻璃門廳和平頂橫樑。松濤仍是暖色宿舍加屋頂量體。實棟學人宿舍從學生宿舍改成淺色樓身、南向門廊，沒有屋頂量體。門廊貼著南牆。精度仍是 estimated。"
+      "notes": "麗澤國際學舍從暖色宿舍改成淺灰綠牆、底層玻璃門廳和平頂橫樑。松濤一館到五館仍是暖色宿舍加屋頂量體，南向每一層上層有一條陽台。實棟學人宿舍從學生宿舍改成淺色樓身、南向門廊，沒有屋頂量體，也沒有這些陽台。門廊貼著南牆。陽台仍是 estimated。"
     },
     {
       "id": "ART-069",
