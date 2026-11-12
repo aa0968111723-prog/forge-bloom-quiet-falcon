@@ -5628,6 +5628,34 @@
       "integrationPr": 346,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/346",
       "nextAction": "None. The zebra crossing from 13baaacf is already in this integration. This is on integration PR #346. Do not merge PR #289 by itself. The next art commit is 9ba627807e8ee240c0b4bc335a046af7604a3150 on PR #290."
+    },
+    {
+      "id": "art-notice-copy",
+      "line": "art",
+      "scope": "The four notice boards read 校園公告 and 請沿步道行走. The words are estimated game copy. The frames stay, and the boards do not gain a collider.",
+      "status": "verified",
+      "pr": 290,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/290",
+      "integrationBranch": "cursor/integration-notice-copy-3395",
+      "sourceBranch": "cursor/notice-copy-1a71",
+      "baseSha": "4d25155e9729996ad5534d43cbbf76e9a692ef06",
+      "headSha": "9ba627807e8ee240c0b4bc335a046af7604a3150",
+      "dependencies": ["art-zebra"],
+      "sharedFiles": ["src/game/world-data/notice-copy.ts", "src/game/world/Props.tsx", "scripts/notice-copy.test.mjs"],
+      "checks": {
+        "conflicts": "The paper texture is drawn on the existing notice face. The frames and their collision stay as they were. The zebra bars stay.",
+        "typecheck": "pass",
+        "npmTest": "476 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CT5hhyI6.js sha256 841f2401a83d3623bab85fadf2fd11b9471d7dd3243f9a6e2a20eff88b09350b. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8272/",
+        "route": "8272 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User ycHJlcf7UDBydU1qQ5DXdoLvnG8wJlN9."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Recorded before the integration PR. The notice copy from 9ba62780 is in this branch and is not on main yet. Do not merge PR #290 by itself. No open art pull request is newer than PR #290."
     }
   ]
 }
