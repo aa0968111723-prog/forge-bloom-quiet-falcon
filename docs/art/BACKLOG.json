@@ -121,7 +121,10 @@
       ],
       "status": "planned",
       "acceptance": "依量測決定；主角目前 1.1 MB raw / 0.4 MB gzip",
-      "evidence": []
+      "evidence": [
+        "scripts/unused-textures.test.mjs"
+      ],
+      "notes": "public/textures 的四張未引用 JPG（grass、palace-wall、roof、stone，合計 1,199,761 bytes）已從靜態站移除。meshopt 與 KTX2 仍是 planned。"
     },
     {
       "id": "ART-016",

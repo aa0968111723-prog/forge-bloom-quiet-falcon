@@ -439,6 +439,12 @@
 
 畫面：`docs/art/evidence/courts/net.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：未引用貼圖（ART-015 的一部分）
+
+`public/textures` 的四張 JPG 沒有任何程式引用，卻會被打進靜態站，合計 1,199,761 bytes。目錄已移除。`dist/textures` 不再存在。材質庫仍是 `public/materials/tamkang`。meshopt 與 KTX2 仍是 planned。沒有新增音效。球場球網留著。
+
+測試：`scripts/unused-textures.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。球網已改成柱子和細帶。機車停車場車道不再畫線，邊上的格子留著。閱讀的女孩已離開坡面，坐在西側長椅。靠坡的長椅和花台已讓出坡面。松濤二館已有公共門面。其他松濤館仍是宿舍。教育館已有雨遮。會文館仍是教學樓。室內南門已可走出。公共室內已有天花板，往下看時鏡頭留在天花下。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。未引用的四張貼圖已移出靜態站。球網已改成柱子和細帶。機車停車場車道不再畫線。閱讀的女孩已離開坡面，坐在西側長椅。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。meshopt 與 KTX2 仍待評估。
