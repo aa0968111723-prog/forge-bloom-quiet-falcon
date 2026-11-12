@@ -5040,6 +5040,32 @@
       "integrationPr": 325,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/325",
       "nextAction": "None. The shepherd figure from 622a00ba is already in this integration. Do not merge PR #249 by itself. The five-tigers stele commit 04fb8bac is still separate."
+    },
+    {
+      "id": "art-tiger-stele",
+      "line": "art",
+      "scope": "The five-tigers stele stands on a 3.2 m pad north of the gym that stops a 0.42 m body. The stamp stays on the grass to the north.",
+      "status": "verified",
+      "pr": 252,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/252",
+      "integrationBranch": "cursor/integration-tiger-stele-3395",
+      "sourceBranch": "cursor/tiger-stele-1a71",
+      "baseSha": "ebcbb29ce84ed0e9949b1c9e57145e123fe62c22",
+      "headSha": "04fb8bac813d0126a89aee87c3904bed1e2c07b0",
+      "dependencies": ["art-sheep-figure"],
+      "sharedFiles": ["src/game/landmarks/TigerStele.tsx", "src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "scripts/tiger-stele.test.mjs"],
+      "checks": {
+        "conflicts": "The shepherd meadow figure, still charm, still title camera, still river, still wind, library plinth, named boards, campus-gate piers, lamp poles, and trunk boxes stay. The stele pad now stops a walking body.",
+        "typecheck": "pass",
+        "npmTest": "459 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-MMYJCgLt.js sha256 789e8fc6e9e309467edd04dbbd6d71ae5098cce78a3fe9be0f4305264c844283. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8251/",
+        "route": "8251 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "93a52000a15afcdfdbc4dc9bcfd5b42f7468f4fd",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #252 by itself."
     }
   ]
 }
