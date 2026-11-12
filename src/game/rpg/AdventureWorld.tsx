@@ -33,7 +33,7 @@ import { gearBonus, instanceFor } from "../../features/items-equipment-building/
 import { quality } from "../quality";
 import { signHost } from "./chrome";
 import { detailedRoom, InteriorDetails, roomFinish } from "./InteriorDetails";
-import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
+import { ROOM_TABLE_SIZE, ROOM_TABLES, SWIMMING_POOL, poolBlockPositions, poolLaneOffsets } from "./interior-layout";
 import { Monster } from "./art/Monster";
 import { SkillEffects } from "./art/SkillEffects";
 import { StructuralPulse } from "../art/vfx/StructuralPulse";
@@ -510,7 +510,7 @@ export function Interior() {
             </group>
         ))}
       {site.id === "library" && <LibraryShelves floor={floor} />}
-      {site.theme === "sport" && (
+      {site.id === "gym" && (
         <>
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}>
             <ringGeometry args={[1.7, 1.77, 40]} />
@@ -540,6 +540,30 @@ export function Interior() {
             </group>
           ))}
         </>
+      )}
+      {site.id === "swimming" && (
+        <group>
+          <mesh position={[0, 0.02, 0]} receiveShadow>
+            <boxGeometry args={[SWIMMING_POOL.halfX * 2 + 0.5, 0.03, SWIMMING_POOL.halfZ * 2 + 0.5]} />
+            <meshStandardMaterial color="#d5ddd8" roughness={0.72} />
+          </mesh>
+          <mesh position={[0, 0.045, 0]}>
+            <boxGeometry args={[SWIMMING_POOL.halfX * 2, 0.04, SWIMMING_POOL.halfZ * 2]} />
+            <meshStandardMaterial color="#1c7390" roughness={0.18} metalness={0.08} />
+          </mesh>
+          {poolLaneOffsets().map((z) => (
+            <mesh key={z} position={[0, 0.07, z]}>
+              <boxGeometry args={[SWIMMING_POOL.halfX * 2 - 0.5, 0.01, 0.06]} />
+              <meshBasicMaterial color="#f4f7f8" />
+            </mesh>
+          ))}
+          {poolBlockPositions().map((block) => (
+            <mesh key={`${block.x}:${block.z}`} position={[block.x, 0.22, block.z]} castShadow>
+              <boxGeometry args={[0.42, 0.44, 0.36]} />
+              <meshStandardMaterial color="#ece7dc" roughness={0.62} />
+            </mesh>
+          ))}
+        </group>
       )}
       <Sign
         text={site.name + " · " + floor + " 樓"}
