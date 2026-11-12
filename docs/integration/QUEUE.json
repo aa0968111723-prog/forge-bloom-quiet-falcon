@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T08:00:01Z",
+      "updated": "2026-11-12T08:05:19Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3332,6 +3332,34 @@
       "integrationPr": 239,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/239",
       "nextAction": "None. The clamped quarantine durability from a6a08251 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-narrative-clock",
+      "line": "backend",
+      "scope": "Import folds a narrative rng into an unsigned 32-bit value and clamps the minute to 0..1000000. Values already inside those bounds stay. The memory stays. A raw upload of a clock outside that range is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-narrative-clock-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "09c7d7c9581e65d8e761a04956757dbf84f47b0f",
+      "headSha": "aac0f666d18f44b330ba33c23cbef8feec69c56d",
+      "dependencies": ["backend-gear-durability"],
+      "sharedFiles": ["src/game/rpg/narrative-bridge.ts", "src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T07:43:29Z and the out-of-range clock line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "397 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CyJIUqME.js",
+        "browser": "8194. The standing route completed.",
+        "route": "8194: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "264a94c5a0524df89437b378a72dc2173c13ad3a",
+      "integrationPr": 241,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/241",
+      "nextAction": "None. The folded narrative clock from aac0f666 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
