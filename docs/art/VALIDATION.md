@@ -359,3 +359,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 58 輪（欄杆擋人）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs scripts/library-ramp.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 站在坡道中線不被推開。站在東側欄杆 x=-1.05 會被推到 x=-1.530，移開 0.48 m。南端外 1.2 m 的入口也不被推開。估計路網仍是一個相連的格網。克難坡仍沒有欄杆。沒有新增音效。欄杆留在第 57 輪。`build:site` 產物 `AdventureApp-C6frxvLx.js`。
+
+## 第 59 輪（冷氣室外機）— 2026-11-12
+
+`node --test scripts/ac-stop.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs` 通過。`tsc --noEmit` 通過。20 台冷氣室外機和網格用同一組座標。機身 0.84 m × 0.32 m，轉向之後取外框。半徑 0.42 m 從西邊走向南端西側那台會被推開。大道中線、主巡禮和三條折線的轉折點不被推開。折線走完全程仍到得了門口。路燈離機超過 1.2 m。定步白天從西邊走去，頁面無錯誤，停在 x=−23.48：`docs/art/evidence/props/ac.jpg`。機位仍是 estimated。欄杆擋人留在第 58 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CgeTZCoC.js`。

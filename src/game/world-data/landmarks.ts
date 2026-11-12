@@ -105,6 +105,35 @@ export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
 }
 
+/** Outdoor AC cabinet, matching the prop box. */
+export const AC_UNIT = { width: 0.84, depth: 0.32 } as const;
+
+/** The twenty cabinets on the back walls of 宮燈教室. The mesh and the collider both use this list. */
+export function acUnits(): { x: number; z: number; rotationY: number; zone: string }[] {
+  const units = [];
+  for (const z of palaceHallZs()) {
+    for (const side of [-1, 1] as const) {
+      const x = side * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4);
+      const rotationY = side > 0 ? Math.PI / 2 : -Math.PI / 2;
+      units.push({ x, z: z + 6.5, rotationY, zone: "avenue" });
+      units.push({ x, z: z - 6.5, rotationY, zone: "avenue" });
+    }
+  }
+  return units;
+}
+
+/** Axis-aligned footprint of a rotated AC cabinet. */
+export function acUnitFootprint(unit: { x: number; z: number; rotationY: number }) {
+  const along = Math.abs(Math.cos(unit.rotationY));
+  const across = Math.abs(Math.sin(unit.rotationY));
+  return {
+    x: unit.x,
+    z: unit.z,
+    width: AC_UNIT.width * along + AC_UNIT.depth * across,
+    depth: AC_UNIT.width * across + AC_UNIT.depth * along,
+  };
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",

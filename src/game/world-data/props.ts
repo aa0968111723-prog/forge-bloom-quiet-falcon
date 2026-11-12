@@ -7,7 +7,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LIBRARY, PALACE, acUnits, palaceHallZs } from "./landmarks.ts";
 import { COLLIDERS } from "./colliders.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
@@ -142,8 +142,11 @@ function avenueProps(): PropInstance[] {
     for (const s of [-1, 1] as const) {
       out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z + 4.2, "avenue"));
       out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z - 4.2, "avenue"));
-      out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z + 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));
-      out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z - 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));
+      for (const unit of acUnits()) {
+        if ((unit.z === z + 6.5 || unit.z === z - 6.5) && Math.sign(unit.x) === s) {
+          out.push(prop("ac-unit", unit.x, unit.z, unit.zone, unit.rotationY));
+        }
+      }
       out.push(prop("bench", s * (AVENUE_PAVED_WIDTH / 2 + 1.4), z + 9, "avenue", s > 0 ? -Math.PI / 2 : Math.PI / 2));
       out.push(prop("bin", s * (AVENUE_PAVED_WIDTH / 2 + 1.5), z - 11, "avenue"));
       out.push(prop("planter", s * (AVENUE_PAVED_WIDTH / 2 + 2.6), z, "avenue", 0, 1, 6));
