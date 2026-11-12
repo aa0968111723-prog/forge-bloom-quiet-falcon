@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：垃圾桶（ART-084 的一部分）
+
+18 個垃圾桶會擋住半徑 0.42 m 的身體。從南邊走向廣場東側那個會停在桶面外。圖書館折線沿中線走到宮燈垃圾桶以北，再向東繞過海豚基座。桶位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/bin.jpg`。測試：`scripts/bin-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。垃圾桶已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
