@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T02:20:00Z",
+      "updated": "2026-11-12T02:40:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1789,6 +1789,34 @@
       "integrationPr": 133,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/133",
       "nextAction": "None. The gear patches through 11ddebac are already in this integration. Do not merge PR #129 by itself. Next is PR #128 at head d82bf00, then PR #131 at head 1b51027."
+    },
+    {
+      "id": "content-encounters",
+      "line": "content",
+      "scope": "Campus encounters branch past a single fight. Progress stays on the semester save. Rewards use the existing quest settlement and the existing bag, once. New fights stay off the existing enemy spawns. The night-patrol anchor is estimated.",
+      "status": "verified",
+      "pr": 128,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/128",
+      "integrationBranch": "cursor/integration-encounters-3395",
+      "sourceBranch": "cursor/gameplay-variety-fb95",
+      "baseSha": "afb6cbd0a731a68a10ebd4edb2a26571c1ed3205",
+      "headSha": "61f6e6ad1b74387e4b270652ba7768b000dab68e",
+      "dependencies": ["content-items-gear"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx", "src/game/rpg/AdventureApp.tsx"],
+      "checks": {
+        "conflicts": "Imports in AdventureApp and AdventureHud. Gear, semester, and the bag stayed.",
+        "typecheck": "pass",
+        "npmTest": "296 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DIpCPHRg.js",
+        "browser": "8140. 1280x720 opens 宮燈夜巡 and says to match the clues first. 390x780 shows the 宮燈夜巡 button. pageErrors empty.",
+        "route": "8140: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401"
+      },
+      "conflicts": ["src/game/rpg/AdventureApp.tsx", "src/game/rpg/AdventureHud.tsx"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #128 by itself. Next content is PR #131 at head 1b51027, then re-check PR #122 at head 571779."
     }
   ]
 }
