@@ -578,6 +578,7 @@ export function createCloudSaveController(options: {
           ifMatch: server.revision,
         });
         if (response.status === 401) {
+          if (!stillQueued(item)) return "drop";
           remember(item, follow);
           return "pause";
         }
@@ -588,10 +589,20 @@ export function createCloudSaveController(options: {
           typeof saved.revision === "number" &&
           typeof saved.contentHash === "string"
         ) {
+          if (!stillQueued(item)) {
+            if (readQueue(userId).some((current) => current.kind === "put")) {
+              bumpQueuedPutBase(userId, saved.revision);
+              writeMeta(userId, { revision: saved.revision, contentHash: saved.contentHash });
+            } else {
+              await restoreChosenSave(userId, saved.revision, saved.contentHash);
+            }
+            return "drop";
+          }
           writeMeta(userId, { revision: saved.revision, contentHash: saved.contentHash });
           return "sent";
         }
       } catch {
+        if (!stillQueued(item)) return "drop";
         remember(item, { ...follow, attempts: 1, nextAt: now() + 1_000 });
         return "queued";
       }
