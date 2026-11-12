@@ -1654,7 +1654,7 @@
       "id": "art-planting-lod",
       "line": "art",
       "scope": "Trees and shrubs stay detailed inside the high-quality 48 m range and switch to a cheap canopy beyond it. Azalea, flowerbeds, groundcover and moss drop out past that range. Palms keep a cheap canopy. A plant at exactly 48 m is far. Positions stay estimated.",
-      "status": "verified",
+      "status": "merged",
       "pr": 107,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/107",
       "integrationBranch": "cursor/integration-planting-lod-3395",
@@ -1672,11 +1672,11 @@
         "route": "8136: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #107 by itself. Next is PR #108 at head 6ac2cf3."
+      "merged": true,
+      "mergeSha": "bb94b5e900d222b33ca5d584cb265d2cb74a16f8",
+      "integrationPr": 123,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/123",
+      "nextAction": "None. The planting patch from 4dc3786 is already in this integration. Do not merge PR #107 by itself. Next art is PR #108 at head 6ac2cf3. PR #122 at head 2649bbb derives the semester from claimed quests; do not merge that source PR by itself."
     }
   ]
 }
