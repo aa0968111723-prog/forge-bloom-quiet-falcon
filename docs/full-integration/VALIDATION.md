@@ -972,3 +972,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 46 減 38 是 8，也就是報告階段的經驗。這一拍不加筆記。交作業那一句看的是衝突有沒有標成暫定，不看報告選了哪句。
 
 畫面：`/opt/cursor/artifacts/integration-sang-turn/own-outcome.png`、`own-next.png`、`half-outcome.png`、`half-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次種子匯入。
+
+## 桑知的兩個交作業選項
+
+這段打在 `AdventureApp-BlcRgD1R.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-QKR4yggq.js`。`main` 尖端 `6b2c8c1` 註記 PR #258，GitHub 上這份 PR 的狀態是 MERGED。遊戲變更是 `d4a1cba`。同一段還有 PR #256，GitHub 狀態也是 MERGED，遊戲變更 `4508308`。合併提交 `b6d6d2d`。主遊戲檔 890166 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-sang-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-sang-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 408 通過、0 失敗。對象是合併 `b6d6d2d` |
+| `npm run build:site` | 產出 `index-QKR4yggq.js` 與 `AdventureApp-BlcRgD1R.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場、衝突和報告。點交作業之前存檔經驗 46、筆記 19。這一次點選沒有新增校園發現項目。
+
+- 「就用現在這個分工交出去。」之前先選對調，衝突選空著等，報告只講自己那段。開場句是「可以交了」。存檔經驗 56，筆記 20。結果句「這份個案到這裡。」畫面是 1 級、「經驗 56/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。對話卡仍寫教授、企業管理學系。學期仍是第一週。再交談，通知是「這段已經談完」，面板關著。`quest-faculty-case-after` 只有一筆。沒有工作室任務。重載後經驗 56、筆記 20，再交談仍是這則通知。
+- 「先補上缺的過程，再把暫定拿掉交。」之前先選一起寫，衝突標成暫定，報告各講一半。開場句改成「它還在」。經驗同樣 46→56，筆記 19→20。結果句「你沒有因為缺一段就被停在門外。」再交談同樣是談完通知。重載後這則通知還在，生命仍是 100/100。
+
+56 減 46 是 10，也就是交作業階段的經驗。筆記加 1。開場句看的是衝突有沒有標成暫定，不看報告選了哪句。個案線在這裡結束。
+
+畫面：`/opt/cursor/artifacts/integration-sang-after/hand-outcome.png`、`hand-done.png`、`fix-outcome.png`、`fix-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次冷卻與隔離匯入。
