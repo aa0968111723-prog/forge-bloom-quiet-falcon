@@ -8,6 +8,7 @@ import {
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
 import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { COLLIDERS } from "./colliders.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
 
 /**
@@ -179,7 +180,7 @@ function northProps(): PropInstance[] {
   }
   out.push(prop("ramp", LIBRARY.center[0] - 20, AXIS.libraryFrontZ + 1.6, "library", 0, 1, 14));
   out.push(prop("tactile-strip", 10, AXIS.libraryFrontZ + 9, "library", 0, 1, 16));
-  out.push(prop("name-plate", 10, AXIS.libraryFrontZ - 0.2, "library", 0, 1.6));
+  out.push(prop("name-plate", 10, AXIS.libraryFrontZ + 0.15, "library", Math.PI / 2, 1.6));
   out.push(prop("bin", 20, AXIS.libraryFrontZ + 6, "library"));
   out.push(prop("bin", -2, AXIS.libraryFrontZ + 6, "library"));
   out.push(prop("utility-box", LIBRARY.center[0] + 26, AXIS.libraryFrontZ + 4, "library", -Math.PI / 2));
@@ -188,6 +189,30 @@ function northProps(): PropInstance[] {
     out.push(prop("planter", -18 + k * 5.4, AXIS.libraryFrontZ + 14, "library", 0, 1, 4.2));
   }
   return out;
+}
+
+/** Slide a point out of every solid, leaving `margin` metres of clear air. */
+export function clearOfSolids(x: number, z: number, margin = 1.2) {
+  let px = x;
+  let pz = z;
+  for (let pass = 0; pass < 6; pass++) {
+    let moved = false;
+    for (const box of COLLIDERS) {
+      if (px <= box.minX - margin || px >= box.maxX + margin || pz <= box.minZ - margin || pz >= box.maxZ + margin) continue;
+      const left = px - (box.minX - margin);
+      const right = box.maxX + margin - px;
+      const down = pz - (box.minZ - margin);
+      const up = box.maxZ + margin - pz;
+      const nearest = Math.min(left, right, down, up);
+      if (nearest === left) px = box.minX - margin;
+      else if (nearest === right) px = box.maxX + margin;
+      else if (nearest === down) pz = box.minZ - margin;
+      else pz = box.maxZ + margin;
+      moved = true;
+    }
+    if (!moved) break;
+  }
+  return { x: px, z: pz };
 }
 
 /** Street lamps along the vehicle roads, derived from the road polylines. */
@@ -207,7 +232,8 @@ function roadLamps(): PropInstance[] {
         const nx = -(bz - az) / len;
         const nz = (bx - ax) / len;
         const off = seg.width / 2 + 1.2;
-        out.push(prop("street-lamp", x + nx * off, z + nz * off, "east", Math.atan2(nx, nz)));
+        const cleared = clearOfSolids(x + nx * off, z + nz * off);
+        out.push(prop("street-lamp", cleared.x, cleared.z, "east", Math.atan2(nx, nz)));
       }
     }
   }

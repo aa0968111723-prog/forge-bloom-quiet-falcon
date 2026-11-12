@@ -496,6 +496,35 @@ try {
       const live = await page.evaluate(() => window.__rpgQA.game.getState().timeOfDay);
       await shot(page, time, `timeOfDay=${live} at (0, -80)`);
     }
+  } else if (scenario === "cleared") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 128, -158, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(128.4, -169.8);
+      window.__controlsTest.setPhoto({
+        yaw: 0.2,
+        distance: 16,
+        height: 3.2,
+        lookY: 2,
+        target: { x: 128.4, y, z: -169.8 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "business", "street lamp south of the business building");
+    await setPose(page, 151, -228, Math.PI);
+    await page.evaluate(() => {
+      const y = window.__rpgQA.ground(150.6, -240.8);
+      window.__controlsTest.setPhoto({
+        yaw: 0.15,
+        distance: 14,
+        height: 3,
+        lookY: 2.2,
+        target: { x: 150.6, y, z: -240.8 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "museum", "street lamp south of the maritime museum");
   } else if (scenario === "interiors") {
     // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
     // These are game layouts, not surveyed rooms. Enter, look, exit, and check
