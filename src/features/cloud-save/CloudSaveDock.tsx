@@ -34,7 +34,9 @@ export function CloudSaveDock() {
     void controller.flush().then(() => {
       if (cancel) return;
       void controller.plan().then((next) => {
-        if (!cancel) setPlan(next);
+        if (cancel) return;
+        setPlan(next);
+        if (next.status === "error" && next.code === "account_mismatch") setNote(next.message);
       });
     });
     return () => {
