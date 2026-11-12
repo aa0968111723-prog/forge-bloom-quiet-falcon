@@ -334,4 +334,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 52 輪（球場不種樹）— 2026-11-12
 
-`node --test scripts/court-clearing.test.mjs` 通過。`tsc --noEmit` 通過。密度 1 的散佈樹沒有一棵落在球場、田徑場或停車場裡面，五虎崗外緣 2.9 m 內也沒有。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/open.jpg`。草皮是空的，樹在場外。植栽位置仍是 estimated。圖書館坡道留在第 51 輪。沒有新增音效。
+`node --test scripts/court-clearing.test.mjs` 通過。`tsc --noEmit` 通過。密度 1 的散佈樹沒有一棵落在球場、田徑場或停車場裡面，五虎崗外緣 2.9 m 內也沒有。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/open.jpg`。草皮是空的，樹在場外。植栽位置仍是 estimated。圖書館坡道留在第 51 輪。沒有新增音效。`build:site` 產物 `AdventureApp-D2eWEjyb.js`。
