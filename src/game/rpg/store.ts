@@ -73,7 +73,9 @@ import {
   ensureInstance,
   gearBonus,
   instanceFor,
+  mergeQuarantineGear,
   readGear,
+  readQuarantineGear,
   readLoadout,
   readQuarantine,
   withDurability,
@@ -197,7 +199,7 @@ type RpgState = {
   equip: () => void;
   equipItem: (id: string) => void;
   craft: (id: string, quality?: GearQuality) => boolean;
-  repair: () => boolean;
+  repair: (id?: string) => boolean;
   serviceWrench: () => boolean;
   discardItem: (id: string) => boolean;
   reclaimItem: (id: string) => boolean;
@@ -366,6 +368,7 @@ function restoreInventory(raw: unknown) {
 }
 restoreInventory(saved.slots);
 const openedGear = readGear(saved.gear);
+const openedQuarantineGear = mergeQuarantineGear(readQuarantineGear(saved.quarantineGear), openedGear.dropped);
 const openedLoadout = readLoadout({
   equipped: saved.equipped,
   loadout: saved.loadout,
@@ -712,6 +715,7 @@ function prepareImport(
   });
   const equipped = migrated.equipped;
   const gearRead = readGear(record.gear);
+  const quarantineGear = mergeQuarantineGear(readQuarantineGear(record.quarantineGear), gearRead.dropped);
   const quarantine = readQuarantine(record.quarantine);
   for (const row of slots.quarantine) {
     if (!quarantine.some((entry) => entry.itemId === row.itemId)) quarantine.push(row);
@@ -754,7 +758,7 @@ function prepareImport(
       loadout: migrated.loadout,
       gear: gearRead.gear,
       quarantine,
-      quarantineGear: gearRead.dropped,
+      quarantineGear,
       skillRank: Math.max(1, Math.floor(skillRank.value)),
       kills: Math.floor(kills.value),
       built: Math.floor(built.value),
@@ -933,7 +937,7 @@ export const useRpg = create<RpgState>((set, get) => ({
   loadout: openedLoadout.loadout,
   gear: openedGear.gear,
   quarantine: openedQuarantine,
-  quarantineGear: openedGear.dropped,
+  quarantineGear: openedQuarantineGear,
   heldBuild: null,
   skillRank: Math.max(1, Math.floor(finite(saved.skillRank, 1, 5))),
   kills: Math.floor(finite(saved.kills)),
@@ -1178,15 +1182,26 @@ export const useRpg = create<RpgState>((set, get) => ({
     s.notify(plan.quality === "fine" ? "精工製作完成。" : "製作完成。");
     return true;
   },
-  repair: () => {
+  repair: (id) => {
     const s = get();
     const g = useGame.getState();
-    const target = s.buildings.find((building) => {
+    const hurt = (building: Building) => {
       if (building.hp <= 0) return false;
       const recipe = RECIPES.find((item) => item.id === building.kind);
-      if (!recipe || building.hp >= recipe.health) return false;
-      return Math.hypot(building.x - g.playerX, building.z - g.playerZ) <= 6;
-    });
+      return Boolean(recipe && building.hp < recipe.health);
+    };
+    const named = id ? s.buildings.find((building) => building.id === id && hurt(building)) : undefined;
+    let target = named ?? null;
+    if (!target) {
+      let best = 6;
+      for (const building of s.buildings) {
+        if (!hurt(building)) continue;
+        const distance = Math.hypot(building.x - g.playerX, building.z - g.playerZ);
+        if (distance > best) continue;
+        target = building;
+        best = distance;
+      }
+    }
     const plan = planRepair({
       loadout: s.loadout,
       gear: s.gear,
@@ -1976,6 +1991,7 @@ export function promptSnap(): PromptSnap {
     count: (id) => inventory.count(id),
     reach: 4 + gearBonus(s.loadout, s.gear, owns).survey,
     relocating: s.heldBuild?.kind === s.buildKind,
+    tool: s.loadout.tool,
   };
 }
 function runPrompt(choice: PromptChoice) {
@@ -2047,6 +2063,10 @@ function runPrompt(choice: PromptChoice) {
   }
   if (choice.kind === "facility") {
     useFacility(choice.targetId);
+    return;
+  }
+  if (choice.kind === "repair") {
+    s.repair(choice.targetId);
     return;
   }
   useGame.getState().openPlaque(choice.targetId);

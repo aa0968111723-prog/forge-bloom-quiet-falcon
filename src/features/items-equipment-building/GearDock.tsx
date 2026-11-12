@@ -70,6 +70,16 @@ export function GearDock() {
               ? "補給時會多取一份筆記。"
               : "主工具、配件、背包各一件。徽章仍是配件，不加第二次生命。"}
       </p>
+      {loadout.tool === "repair-wrench" ? (
+        <div className="ad-gear-craft">
+          <button type="button" onClick={() => useRpg.getState().repair()}>
+            修復附近設施
+          </button>
+          <button type="button" onClick={() => useRpg.getState().serviceWrench()}>
+            保養扳手
+          </button>
+        </div>
+      ) : null}
       <div className="ad-gear-craft" aria-label="製作">
         {craftIds().map((id) => {
           const fact = factOf(id);

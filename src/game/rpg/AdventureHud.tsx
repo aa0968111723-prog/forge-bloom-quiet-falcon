@@ -420,6 +420,16 @@ function InventoryPanel() {
                 {factOf(item.id)?.slot && rpg.loadout[factOf(item.id)!.slot!] === item.id ? "卸下" : "裝備"}
               </button>
             )}
+            {item.id === "repair-wrench" ? (
+              <>
+                <button type="button" className="ad-raise" onClick={() => useRpg.getState().repair()}>
+                  修復附近設施
+                </button>
+                <button type="button" className="ad-raise" onClick={() => useRpg.getState().serviceWrench()}>
+                  保養扳手
+                </button>
+              </>
+            ) : null}
             {factOf(item.id)?.locked ? (
               <p>任務物品不能丟棄。遺失且不在地上時，可在委託完成後補領。</p>
             ) : item.category !== "equipment" ? null : (

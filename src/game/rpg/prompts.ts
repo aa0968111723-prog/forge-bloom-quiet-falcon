@@ -28,7 +28,8 @@ export type PromptKind =
   | "exit"
   | "notes"
   | "place"
-  | "facility";
+  | "facility"
+  | "repair";
 
 export type PromptChoice = {
   kind: PromptKind;
@@ -64,6 +65,8 @@ export type PromptSnap = {
   reach?: number;
   /** Moving an existing facility does not ask for materials again. */
   relocating?: boolean;
+  /** Equipped main tool. Missing means the repair prompt stays hidden. */
+  tool?: string | null;
 };
 
 export type PromptView = {
@@ -428,8 +431,11 @@ export function promptDecision(snap: PromptSnap): PromptChoice | null {
   const landmark = landmarkAt(snap.playerX, snap.playerZ);
   if (!landmark) {
     const facility = nearestFacility(snap.buildings, snap.playerX, snap.playerZ);
-    if (facility && inSight(snap, facility.x, facility.z))
+    if (facility && inSight(snap, facility.x, facility.z, facility.id))
       return choice("facility", facility.verb, facility.verb, facility.id, facility.x, facility.z);
+    const wounded = damagedFacility(snap);
+    if (snap.tool === "repair-wrench" && wounded && inSight(snap, wounded.x, wounded.z, wounded.id))
+      return choice("repair", "修復設施", "修復", wounded.id, wounded.x, wounded.z);
     return null;
   }
   const seen = snap.visited.includes(landmark.id);
@@ -455,9 +461,26 @@ type Draft = {
   sight: boolean;
 };
 
-function inSight(snap: PromptSnap, x: number, z: number) {
-  const buildings = snap.interiorId ? [] : snap.buildings;
+function inSight(snap: PromptSnap, x: number, z: number, ignoreId?: string) {
+  const buildings = snap.interiorId
+    ? []
+    : snap.buildings.filter((building) => building.id !== ignoreId);
   return clearSight(snap.playerX, snap.playerZ, x, z, buildings);
+}
+
+/** Closest damaged building inside the wrench's 6 m reach. */
+function damagedFacility(snap: PromptSnap) {
+  let best: Building | null = null;
+  let bestDistance = 6;
+  for (const building of snap.buildings) {
+    const recipe = RECIPES.find((item) => item.id === building.kind);
+    if (!recipe || building.hp <= 0 || building.hp >= recipe.health) continue;
+    const distance = Math.hypot(building.x - snap.playerX, building.z - snap.playerZ);
+    if (distance > bestDistance) continue;
+    best = building;
+    bestDistance = distance;
+  }
+  return best;
 }
 
 function project(
