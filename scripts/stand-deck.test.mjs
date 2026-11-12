@@ -4,6 +4,7 @@ import test from "node:test";
 import { resolveCollision } from "../src/game/world-data/colliders.ts";
 import { sampleGroundElevation } from "../src/game/world-data/elevation.ts";
 import { terrainHeight } from "../src/game/world.ts";
+import { standRampGeometry, standRampHeight } from "../src/game/world-data/stand-ramp.ts";
 import {
   SECONDARY_STRUCTURES,
   STAND_DECK_H,
@@ -25,4 +26,16 @@ test("the reviewing deck can be stood on and the booth still blocks", () => {
   assert.equal(standDeckLift(stand.position[0], south + 8), 0);
   const rise = terrainHeight(deck.x, deck.z) - sampleGroundElevation(deck.x, deck.z);
   assert.ok(Math.abs(rise - STAND_DECK_H) < 1e-6);
+  const apron = { x: stand.position[0], z: south + 1.6 };
+  assert.ok(Math.abs(standRampHeight(0, stand.size[2] / 2 + 1.6, stand.size[0], stand.size[2]) - standDeckLift(apron.x, apron.z)) < 1e-6);
+  const ramp = standRampGeometry(stand.size[0], stand.size[2]);
+  const position = ramp.getAttribute("position");
+  let closest = Infinity;
+  for (let i = 0; i < position.count; i++) {
+    const dz = Math.abs(position.getZ(i) - (stand.size[2] / 2 + 1.6));
+    const dx = Math.abs(position.getX(i));
+    if (dx < 0.5 && dz < 0.5) closest = Math.min(closest, Math.abs(position.getY(i) - STAND_DECK_H / 2));
+  }
+  assert.ok(closest < 0.2, `ramp mesh does not meet the player height (${closest})`);
+  ramp.dispose();
 });

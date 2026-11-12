@@ -427,3 +427,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 75 輪（司令臺台面）— 2026-11-12
 
 `node --test scripts/stand-deck.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 可以站在司令臺南半台面，不會被推出台外。後方小間仍把人推開。台面比周圍地面高 1.25 m，台緣外 1.6 m 是一半高度，再外 8 m 回到地面。台高仍是 estimated。會文館留在第 74 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CUNQXjpT.js`。
+
+## 第 76 輪（司令臺坡面）— 2026-11-12
+
+`node --test scripts/stand-deck.test.mjs` 通過。`tsc --noEmit` 通過。地面網格在台外畫出同一條坡，人站在坡上時腳下有土。台面高度留在第 75 輪。台高仍是 estimated。沒有新增音效。`build:site` 產物 `BUNDLE_AFTER_BUILD`。
