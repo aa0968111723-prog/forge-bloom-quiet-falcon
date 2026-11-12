@@ -8,13 +8,15 @@
     "accepted the current snapshot fields: narrative session, variety memory, loot, position, interior",
     "rejected unknown top-level fields and oversized narrative maps",
     "raised the document key budget so a 48-building campus save still fits",
-    "merged the living-interior continue and proved library floor 3 survives upload, download, and process restart"
+    "merged the living-interior continue and proved library floor 3 survives upload, download, and process restart",
+    "upload control uses first sync only when the cloud is empty, then the stored revision, and flushes only the signed-in account queue"
   ],
   "verification": {
-    "npm_test": "317 pass, 0 fail after merging 4793fde",
+    "npm_test": "318 pass, 0 fail",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
+    "upload_choice": "scripts/cloud-upload-choice.test.mjs passed",
     "build_site": "npm run build:site passed; dist has no cloud-save or DATABASE_URL"
   },
   "next_action": "When a later merge adds a snapshot() field, extend the cloud whitelist and re-run npm test plus the live-save fixture. Do not merge or deploy.",

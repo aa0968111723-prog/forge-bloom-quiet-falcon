@@ -1,0 +1,139 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+
+import { createCloudSaveController, memoryStorage } from "../src/features/cloud-save/client.ts";
+import { canonicalJson, sha256Hex } from "../src/features/cloud-save/contract.ts";
+
+function save(xp) {
+  return { version: 2, hp: 80, xp, slots: [{ itemId: "notes", quantity: 1 }], buildings: [] };
+}
+
+function jsonResponse(status, body) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "content-type": "application/json" },
+  });
+}
+
+function fakeCloud() {
+  let remote = null;
+  let revision = 0;
+  let offline = false;
+  const puts = [];
+  let ids = 0;
+  const fetch = async (_url, init = {}) => {
+    if (offline) throw new Error("offline");
+    const method = init.method ?? "GET";
+    if (method === "GET") {
+      if (!remote)
+        return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+      return jsonResponse(200, await head());
+    }
+    const body = JSON.parse(init.body);
+    puts.push(body);
+    if (!remote) {
+      if (body.confirmFirstSync !== true || body.baseRevision !== 0) {
+        return jsonResponse(409, {
+          error: { code: "first_sync_required", message: "需要首次同步。" },
+          server: null,
+        });
+      }
+      remote = body.document;
+      revision = 1;
+      return jsonResponse(200, await head());
+    }
+    if (body.baseRevision !== revision) {
+      return jsonResponse(409, {
+        error: { code: "revision_conflict", message: "版本衝突。" },
+        server: await head(),
+      });
+    }
+    remote = body.document;
+    revision += 1;
+    return jsonResponse(200, await head());
+  };
+  async function head() {
+    return {
+      revision,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document: remote,
+      etag: `"${revision}"`,
+      contentHash: await sha256Hex(canonicalJson(remote)),
+    };
+  }
+  return {
+    fetch,
+    puts,
+    setOffline(value) {
+      offline = value;
+    },
+    bump() {
+      revision += 1;
+    },
+    nextId() {
+      ids += 1;
+      return `uploadreq${String(ids).padStart(4, "0")}`;
+    },
+  };
+}
+
+test("upload follows first sync, later revisions, conflict, and the signed-in queue", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  const before = cloud.puts.length;
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal(cloud.puts.length, before);
+  assert.equal((await client.uploadLocal()).status, "local_only");
+
+  client.bindAccount("user-a");
+  const first = await client.uploadLocal();
+  assert.equal(first.status, "uploaded");
+  assert.equal(first.revision, 1);
+  assert.equal(cloud.puts.at(-1).confirmFirstSync, true);
+  assert.equal(cloud.puts.at(-1).baseRevision, 0);
+
+  client.writeLocal(JSON.stringify(save(2)));
+  const second = await client.uploadLocal();
+  assert.equal(second.status, "uploaded");
+  assert.equal(second.revision, 2);
+  assert.equal(cloud.puts.at(-1).confirmFirstSync, false);
+  assert.equal(cloud.puts.at(-1).baseRevision, 1);
+  assert.equal((await client.uploadLocal()).status, "in_sync");
+  assert.equal(cloud.puts.length, 2);
+
+  cloud.bump();
+  client.writeLocal(JSON.stringify(save(3)));
+  const count = cloud.puts.length;
+  const conflict = await client.uploadLocal();
+  assert.equal(conflict.status, "conflict");
+  assert.equal(cloud.puts.length, count);
+
+  const queuedCloud = fakeCloud();
+  queuedCloud.setOffline(true);
+  const queued = createCloudSaveController({
+    fetch: queuedCloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => queuedCloud.nextId(),
+  });
+  queued.writeLocal(JSON.stringify(save(4)));
+  queued.bindAccount("user-a");
+  assert.equal((await queued.uploadLocal()).status, "queued");
+  queued.bindAccount("user-b");
+  assert.equal((await queued.flush()).sent, 0);
+  assert.equal(queued.queuedCount("user-a"), 1);
+  queued.bindAccount("user-a");
+  queuedCloud.setOffline(false);
+  const flushed = await queued.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(queuedCloud.puts.at(-1).confirmFirstSync, true);
+  assert.equal(queued.queuedCount("user-a"), 0);
+  assert.equal(queued.queuedCount("user-b"), 0);
+});

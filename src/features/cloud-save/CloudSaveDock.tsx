@@ -38,7 +38,12 @@ export function CloudSaveDock() {
       return;
     }
     controller.bindAccount(body.user.id);
-    setNote("已登入。請選擇是否第一次上傳。");
+    const flushed = await controller.flush();
+    setNote(
+      flushed.sent > 0
+        ? "已註冊，並送出這個帳號先前排好的上傳。"
+        : "已登入。請選擇是否第一次上傳。",
+    );
     await refresh();
   }
 
@@ -55,7 +60,8 @@ export function CloudSaveDock() {
       return;
     }
     controller.bindAccount(body.user.id);
-    setNote("已登入。");
+    const flushed = await controller.flush();
+    setNote(flushed.sent > 0 ? "已登入，並送出這個帳號先前排好的上傳。" : "已登入。");
     await refresh();
   }
 
@@ -110,7 +116,23 @@ export function CloudSaveDock() {
               type="button"
               style={button}
               onClick={() =>
-                void controller.uploadFirstSync().then((result) => setNote(JSON.stringify(result)))
+                void controller.uploadLocal().then((result) => {
+                  if (result.status === "uploaded") {
+                    setNote(`已上傳。版本 ${result.revision}。`);
+                    return;
+                  }
+                  if (result.status === "queued") {
+                    setNote("目前離線。上傳已排入這個帳號，登入後會再送。");
+                    return;
+                  }
+                  setPlan(result);
+                  if (result.status === "in_sync") setNote("本機與雲端相同。");
+                  else if (result.status === "conflict")
+                    setNote("兩邊都有修改。請選擇要保留哪一份。");
+                  else if (result.status === "need_download")
+                    setNote("雲端有進度。請先選擇下載或保留本機。");
+                  else setNote(JSON.stringify(result));
+                })
               }
             >
               上傳本機

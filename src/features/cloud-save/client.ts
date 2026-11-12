@@ -176,6 +176,18 @@ export function createCloudSaveController(options: {
     return sendPut(userId, body);
   }
 
+  async function uploadLocal(): Promise<
+    SyncPlan | { status: "uploaded"; revision: number } | { status: "queued" }
+  > {
+    const current = await plan();
+    if (current.status === "need_first_sync") return uploadFirstSync();
+    if (current.status === "local_changes") return pushLocal();
+    if (current.status === "local_only" && current.reason === "offline" && activeUser()) {
+      return readMeta(activeUser() as string) ? pushLocal() : uploadFirstSync();
+    }
+    return current;
+  }
+
   async function downloadCloud(): Promise<SyncPlan | { status: "downloaded"; revision: number }> {
     const remote = await getRemote();
     if (remote.status === "offline") return { status: "local_only", reason: "offline" };
@@ -510,6 +522,7 @@ export function createCloudSaveController(options: {
     keepLocalOnly,
     uploadFirstSync,
     pushLocal,
+    uploadLocal,
     downloadCloud,
     keepRemoteVersion,
     keepLocalVersion,
