@@ -3523,9 +3523,11 @@
         "route": "8200: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "16acb95422e55c2801157eb93e38281a50d5e6df",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 251,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/251",
+      "nextAction": "None. The empty variety note filter from 73a0298e is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
