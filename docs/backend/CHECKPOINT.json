@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:18:33Z",
+  "updated_at": "2026-11-12T06:19:51Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "bd69066",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -57,10 +57,11 @@
     "merged main at 7611148; the revision-conflict account confirm was already on this branch",
     "a reward receipt from another account does not settle this device's grant",
     "merged main at 3530de8; the restore revision-conflict confirm was already on this branch",
-    "merged main at bd69066; the dropped-upload follow-up account check was already on this branch"
+    "merged main at bd69066; the dropped-upload follow-up account check was already on this branch",
+    "a lost direct upload continues the newer local file under a new request id"
   ],
   "verification": {
-    "npm_test": "374 pass, 0 fail; a reward receipt from another account does not settle this device's grant",
+    "npm_test": "375 pass, 0 fail; a lost direct upload continues the newer local file under a new request id",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
