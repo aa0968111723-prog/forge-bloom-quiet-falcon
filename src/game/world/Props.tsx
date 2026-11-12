@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, type JSX } from "react";
 import * as THREE from "three";
 import { quality } from "../quality";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
-import { LIBRARY_RAMP, libraryRampTriangles } from "../world-data/library-ramp.ts";
+import { libraryRampTriangles } from "../world-data/library-ramp.ts";
 import { PROPS, type PropInstance, type PropKind } from "../world-data/props.ts";
 import { VendorModel, type VendorInstance } from "./vendor";
 
@@ -135,9 +135,8 @@ function LibraryRampMesh() {
     return geo;
   }, []);
   useEffect(() => () => geometry.dispose(), [geometry]);
-  const y = sampleGroundElevation(LIBRARY_RAMP.x, LIBRARY_RAMP.z);
   return (
-    <mesh geometry={geometry} position={[LIBRARY_RAMP.x, y, LIBRARY_RAMP.z]} receiveShadow>
+    <mesh geometry={geometry} receiveShadow>
       <meshStandardMaterial {...CONCRETE} />
     </mesh>
   );
