@@ -4643,11 +4643,11 @@
         "route": "not rerun. The static bundle stayed AdventureApp-7L6j7Fgv.js. The last route on 8237 still stands: cloudXp 47, revision_conflict, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "3e525a9c02c0bad85701c8add0262c49c9d13699",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #118 by itself."
+      "integrationPr": 311,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/311",
+      "nextAction": "None. The avenue light frames from 266e4b7 are already in this integration. Do not merge PR #118 by itself."
     }
   ]
 }
