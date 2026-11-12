@@ -147,6 +147,9 @@ export const MAIN_ROUTE: readonly (readonly [number, number])[] = [
   [0, AXIS.plazaSouthZ - 1],
   // Round the 驚聲銅像 plinth on the east side, the way the paving does.
   [5.6, AXIS.plazaCenterZ],
+  // East of the south plaza bench, then back to the avenue centre.
+  [2.2, -4],
+  [2.2, -12],
   [0, AXIS.avenueSouthZ],
   [0, AXIS.avenueNorthZ],
   // Round the dolphin island rather than climbing over the plinth.
