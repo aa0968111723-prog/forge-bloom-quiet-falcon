@@ -10,4 +10,6 @@
 
 主線「評圖留白」在 SwiftShader、1280×720 的腳本實測是 18.08 分鐘。這不是手機，也不是 RTX 3060。站點是估計位置。
 
+簡禾與江照的認識選擇會改簡衡轉折的開場。同一台機器、同一解析度下，兩條路的主遊戲對話都已截圖。
+
 細節見 CAST.md、VALIDATION.md、ID-REQUEST.md、CHECKPOINT.json。
