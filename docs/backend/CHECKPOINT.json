@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T08:28:30Z",
+  "updated_at": "2026-11-12T08:35:57Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "5bc4ad8",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -104,10 +104,11 @@
     "a full quarantine list still uploads the campus save",
     "merged main at 26828b9; the clamped narrative timers were already on this branch",
     "a crowded ground pile still uploads every item",
-    "merged main at 5bc4ad8; the empty narrative key filter was already on this branch"
+    "merged main at 5bc4ad8; the empty narrative key filter was already on this branch",
+    "a full ground still keeps a variety overflow on the pile already there"
   ],
   "verification": {
-    "npm_test": "408 pass, 0 fail; a crowded ground pile still uploads every item",
+    "npm_test": "409 pass, 0 fail; a full ground still keeps a variety overflow on the pile already there",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

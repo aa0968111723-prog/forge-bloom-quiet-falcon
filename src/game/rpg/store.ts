@@ -965,6 +965,11 @@ function layRemainder(
   return Object.keys(left).length ? stash(loot, x, z, left, fromQuest) : loot;
 }
 
+/** Ground drops share one cap. A nearby pile with room keeps the items. */
+export function placeLoot(loot: Loot[], x: number, z: number, items: Record<string, number>) {
+  return layRemainder(loot, x, z, items);
+}
+
 function markedCount(pile: Loot, id: string) {
   const have = pile.items[id] ?? 0;
   const marked = Math.floor(pile.quest?.[id] ?? 0);
