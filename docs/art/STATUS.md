@@ -301,6 +301,18 @@
 
 畫面：`docs/art/evidence/language/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：植栽距離（ART-085）
+
+宮燈大道近處看得到杜鵑、灌木和花圃。樹木與灌木在高畫質 48 m 內用模型，外面改便宜樹冠。杜鵑、花圃、地被和青苔超出距離就不畫。棕櫚超出距離留便宜樹冠。植栽位置仍是 estimated。外國語文大樓留著。
+
+畫面：`docs/art/evidence/planting/avenue.jpg`。測試：`scripts/planting-lod.test.mjs`。
+
+## 階段：肩肘膝（ART-034 的一部分）
+
+每個動作片段的肩、肘、膝都留在量到的彎曲範圍。膝最多彎 94 度，肘最多彎 97 度，肩最多前舉 166 度。膝往後折、肘往反方向折、肩再多舉，測試會失敗。植栽距離留著。
+
+測試：`scripts/art-pipeline.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。外國語文大樓已從教學樓分開。教育館、會文館與濯纓苑留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。肩、肘、膝已有數值範圍。植栽與外國語文大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

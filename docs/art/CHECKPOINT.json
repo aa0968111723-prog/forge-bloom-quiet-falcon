@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T01:12:00Z",
+  "updated": "2026-11-12T01:45:00Z",
   "task_ids": [
-    "ART-065"
+    "ART-034"
   ],
-  "branch": "cursor/language-bay-1a71",
-  "base": "main@1565a7481262",
+  "branch": "cursor/joint-limits-1a71",
+  "base": "main@c192152329f7",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The foreign-language hall has a ground gallery and a south set-back. Education and Hweiwen stay classroom blocks. The campus name for Hweiwen is 會文館. The older foreign-lang-hall record stays separate. The gallery is estimated. Yingyuan stays a white garden house. The faculty house stays a pale block with a south porch. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "Every student-kit clip keeps the shoulder, elbow and knee inside the measured bend: knee 94 degrees, elbow 97 degrees, shoulder raise 166 degrees. A knee folded backward, an elbow folded the wrong way, or a shoulder raised further fails the test. Planting still splits at 48 m. The foreign-language hall stays a ground gallery. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

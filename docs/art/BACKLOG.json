@@ -296,8 +296,8 @@
         "ART-020"
       ],
       "status": "needs_review",
-      "acceptance": "腳底滑動已量測（walk 0.0%、run 0.2%）；臉朝 +Z 與靜止背包間隙已測；每個片段的背包正面都留在外套後面",
-      "notes": "每個片段取 17 個時間點，比較背包正面的蒙皮頂點和同一高度的外套背面。最靠近的是 run，間隙 22.0 mm。把背包骨轉 90 度會穿進外套 116.7 mm，測試會失敗。",
+      "acceptance": "腳底滑動已量測（walk 0.0%、run 0.2%）；臉朝 +Z 與靜止背包間隙已測；每個片段的背包正面都留在外套後面；肩、肘、膝留在量到的彎曲範圍",
+      "notes": "每個片段取 17 個時間點，比較背包正面的蒙皮頂點和同一高度的外套背面。最靠近的是 run，間隙 22.0 mm。把背包骨轉 90 度會穿進外套 116.7 mm，測試會失敗。同一批時間點量肩、肘、膝：膝最多彎 94 度，肘最多彎 97 度，肩最多前舉 166 度。膝往後折、肘往反方向折、肩再多舉，測試會失敗。",
       "evidence": [
         "scripts/art-pipeline.test.mjs",
         "docs/art/evidence/m1/protagonist-poses.jpg"
@@ -787,9 +787,15 @@
       "depends": [
         "ART-084"
       ],
-      "status": "planned",
+      "status": "needs_review",
       "acceptance": "同一風格；LOD",
-      "evidence": []
+      "evidence": [
+        "src/game/world/Vegetation.tsx",
+        "src/game/world-data/vegetation-lod.ts",
+        "scripts/planting-lod.test.mjs",
+        "docs/art/evidence/planting/avenue.jpg"
+      ],
+      "notes": "宮燈大道近處看得到杜鵑、灌木和花圃。樹木與灌木在高畫質 48 m 內用模型，外面改便宜樹冠。杜鵑、花圃、地被和青苔超出距離就不畫。棕櫚超出距離留便宜樹冠。植栽位置仍是 estimated。"
     },
     {
       "id": "ART-086",
