@@ -584,6 +584,12 @@
 
 畫面：`docs/art/evidence/meadow/figure.jpg`。測試：`scripts/shepherd-figure.test.mjs`。
 
+## 階段：五虎碑（ART-067 的一部分）
+
+紹謨紀念體育館北側放了一座五虎碑。石座直徑 3.2 m，中央石碑朝北，五隻伏姿銅雕環在座上。石座會擋住半徑 0.42 m 的身體，而且不跨過館牆。蓋章點在石座北邊的草地上。巡禮折線不經過石座。外形與位置仍是 estimated。牧羊草坪的立姿留著。
+
+畫面：`docs/art/evidence/tigers/stele.jpg`。測試：`scripts/tiger-stele.test.mjs`。
+
 ## 下一步
 
 見 `CHECKPOINT.json`。路燈燈柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

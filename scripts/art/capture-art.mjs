@@ -1027,6 +1027,36 @@ try {
     });
     await frames(page, 6);
     await shot(page, "south", `shepherd figure, day, walked north and stopped ${JSON.stringify(stopped)}`);
+  } else if (scenario === "tigers") {
+    await hideHud(page);
+    await page.addStyleTag({ content: ".ad-interact{display:none !important}" });
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await page.evaluate(() => {
+      const rpg = window.__rpgQA.rpg;
+      const enemies = rpg.getState().enemies.map((enemy) => ({
+        ...enemy,
+        x: 400,
+        z: 400,
+        state: "idle",
+      }));
+      rpg.setState({ enemies });
+    });
+    await setPose(page, 150, -146, Math.PI);
+    await frames(page, 10);
+    await holdKeys(page, ["KeyW"]);
+    await page.waitForFunction(() => window.__controlsTest.getPosition().z > -142.15);
+    await frames(page, 8);
+    await holdKeys(page, []);
+    await frames(page, 8);
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      document.querySelectorAll(".ad-interact,.ad-ui").forEach((el) => {
+        el.style.setProperty("display", "none", "important");
+      });
+      window.__controlsTest.setPhoto({ yaw: -2.2, distance: 8, height: 4.8, lookY: 0.6 });
+    });
+    await frames(page, 6);
+    await shot(page, "north", `five tigers stele, day, walked south and stopped ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

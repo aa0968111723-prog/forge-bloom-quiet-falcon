@@ -492,3 +492,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/shepherd-figure.test.mjs` 通過。`tsc --noEmit` 通過。石座中心會把人推開。蓋章點留在草地上。80 ms 的閃避不會穿過去。巡禮折線不經過石座。白天從南邊走向石座會停在外側：`docs/art/evidence/meadow/figure.jpg`。外形與位置仍是 estimated。吊飾停住留在第 90 輪。沒有新增音效。
 
+## 第 92 輪（五虎碑）— 2026-11-12
+
+`node --test scripts/tiger-stele.test.mjs` 通過。`tsc --noEmit` 通過。石座中心會把人推開。蓋章點留在北側草地。一次 1.04 m 的位移不會穿到石座南側。石座不跨過館牆。巡禮折線不經過石座。白天從北邊走向石座會停在外側：`docs/art/evidence/tigers/stele.jpg`。外形與位置仍是 estimated。牧羊草坪的立姿留在第 91 輪。沒有新增音效。
+
