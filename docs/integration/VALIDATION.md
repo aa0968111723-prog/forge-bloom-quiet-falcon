@@ -601,6 +601,14 @@ Node 開發頁 `http://127.0.0.1:8081/narrative`。樣板進入大門警衛站�
 
 瀏覽器 `http://127.0.0.1:8140/`。頁面無錯誤。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線佇列 `cloudXp` 47；登出 401。`pageErrors` 空。
 
+## 遭遇寫入失敗（本輪）
+
+來源 `a2bb964` 與 `94c0b8a` 接到 `d8d6d90`。`store.ts` 自動接上。裝備、學期與背包都留著。
+
+把 `tamkang-gameplay-variety-v1` 的 `setItem` 改成丟出例外後再匯入，`importSave` 回傳 true，沒有丟出例外，原鍵的完成紀錄留著，`saved` 是 `error`。拿掉 `variety` 欄再匯入，完成紀錄清成空陣列，`saved` 回到 `saved`。`npm run typecheck` 通過。`npm test` 296 通過。`npm run build:site` 通過，產物 `AdventureApp-DLaW6zbU.js`。這輪沒有新的畫面。
+
+瀏覽器 `http://127.0.0.1:8141/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 51，因為這次 +7 的那一端先寫上（+3 的那一端會是 47），離線加的 1 點沒有寫上去；登出 401。`pageErrors` 空。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作

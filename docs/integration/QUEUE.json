@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T02:40:00Z",
+      "updated": "2026-11-12T02:25:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1817,6 +1817,34 @@
       "integrationPr": 136,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/136",
       "nextAction": "None. The encounter patches through 61f6e6a are already in this integration. Do not merge PR #128 by itself. Next content is PR #131 at head 246eadf, then re-check PR #122."
+    },
+    {
+      "id": "content-encounter-import",
+      "line": "content",
+      "scope": "A rejected variety write no longer leaves a semester import marked saved. The previous variety key stays. A save without a variety field clears the record and returns to saved.",
+      "status": "verified",
+      "pr": 128,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/128",
+      "integrationBranch": "cursor/integration-encounter-import-3395",
+      "sourceBranch": "cursor/gameplay-variety-fb95",
+      "baseSha": "d8d6d90931323e2cccffb4089f5f543f08f0c398",
+      "headSha": "94c0b8ad9bcc8b0dce9b669d9825dc2f9b51903c",
+      "dependencies": ["content-encounters"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/features/gameplay-variety/host.ts", "src/features/gameplay-variety/runtime.ts"],
+      "checks": {
+        "conflicts": "store.ts auto-merged. Gear, semester, and the bag stayed.",
+        "typecheck": "pass",
+        "npmTest": "296 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DLaW6zbU.js",
+        "probe": "Rejected variety setItem: importSave true, saved error, previous key unchanged, resolved still gv-night-patrol. Save without variety: importSave true, saved saved, resolved empty.",
+        "route": "8141: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 51 because the +7 racer won, logout 401, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #128 by itself. Next content is PR #131 at head 246eadf, then re-check PR #122 at head 571779."
     }
   ]
 }
