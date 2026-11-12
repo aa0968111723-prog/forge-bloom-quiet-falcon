@@ -2074,7 +2074,7 @@
       "id": "art-lesson-minimap",
       "line": "art",
       "scope": "While a lesson is active, the minimap shows the two-character lesson label. On a narrow window the lesson chip sits under the minimap so the department name stays readable.",
-      "status": "verified",
+      "status": "merged",
       "pr": 148,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/148",
       "integrationBranch": "cursor/integration-lesson-minimap-3395",
@@ -2092,11 +2092,11 @@
         "route": "8150: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #148 by itself."
+      "merged": true,
+      "mergeSha": "5dd000cdb77ad3219ecb602c89469d52a1ce9aa8",
+      "integrationPr": 153,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/153",
+      "nextAction": "None. The minimap lesson label from 9f89d1c is already in this integration. Do not merge PR #148 by itself."
     }
   ]
 }
