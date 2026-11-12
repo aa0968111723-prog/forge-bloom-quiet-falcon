@@ -277,8 +277,6 @@
 
 畫面：`docs/art/evidence/pool/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
-## 下一步
-
 ## 階段：行政大樓（ART-066 的一部分）
 
 文藝區這棟現在是石色樓身、深色基座、南向入口玻璃和兩條窗帶。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。入口位置仍待測。外形仍是 estimated。游泳館留著。
