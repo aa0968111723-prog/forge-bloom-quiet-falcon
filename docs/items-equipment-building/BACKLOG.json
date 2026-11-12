@@ -1,0 +1,36 @@
+{
+  "owner": "items-equipment-building",
+  "branch": "cursor/items-equipment-building-15c5",
+  "done": [
+    "gather-craft-equip-place-demolish-save loop on the live bag",
+    "30 items, 12 equipment, 9 building kinds",
+    "three slots, durability, atomic pay, half refund",
+    "keep-out with the 0.42 m body radius",
+    "equipped boolean migration and unknown-id quarantine"
+  ],
+  "todo": [
+    "integration whitelist for loadout, gear, quarantine, quarantineGear, heldBuild",
+    "phone and discrete-GPU capture of the same loop",
+    "surveyed campus coordinates, if a later line measures them"
+  ],
+  "blocked": [
+    {
+      "id": "device",
+      "note": "No phone and no RTX 3060 in this environment. SwiftShader at 390x844 is not that device."
+    },
+    {
+      "id": "schema",
+      "note": "Official cloud whitelist stays with the integration line. Content version was not bumped."
+    },
+    {
+      "id": "campus",
+      "note": "Campus positions remain estimated. Buildings are game-design props."
+    }
+  ],
+  "not_this_line": [
+    "merging into main",
+    "deploying",
+    "rewriting other agents' branches",
+    "a second bag, XP, or currency"
+  ]
+}
