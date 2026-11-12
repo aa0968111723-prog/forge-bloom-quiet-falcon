@@ -1,7 +1,7 @@
 {
   "owner": "faculty-story",
   "branch": "cursor/faculty-story-75f5",
-  "head": "b2a711aa17c7aad8e44c5a55866dcbac9cdc8f20",
+  "head": "f241aef2c30846cb4e8e524628c4229e55e15e20",
   "commands": [
     "node --test scripts/faculty-story.test.mjs",
     "node --test scripts/content-narrative.test.mjs scripts/narrative-bridge.test.mjs",
