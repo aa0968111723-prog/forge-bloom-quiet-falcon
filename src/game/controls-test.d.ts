@@ -52,6 +52,9 @@ declare global {
       getBenchmark?: () => string | null;
       /** Adjust camera yaw without resetting velocity. */
       setYaw?: (yaw: number) => void;
+      /** QA: set the follow pitch. Indoors the rig still stays under the ceiling. */
+      setPitch?: (pitch: number) => void;
+      getCamera?: () => { x: number; y: number; z: number };
       /** QA photo camera orbiting the player; null restores the follow camera. */
       setPhoto?: (p: { distance: number; height: number; yaw: number; lookY: number; target?: { x: number; y: number; z: number } } | null) => void;
     };
