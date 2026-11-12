@@ -5012,6 +5012,32 @@
       "integrationPr": 324,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/324",
       "nextAction": "None. The still charm from 06507f79 is already in this integration. Do not merge PR #257 by itself. The shepherd-figure commit 622a00ba is still separate."
+    },
+    {
+      "id": "art-sheep-figure",
+      "line": "art",
+      "scope": "The shepherd meadow figure stands on a 1.6 m pad that stops a 0.42 m body. The stamp stays on the grass to the south.",
+      "status": "verified",
+      "pr": 249,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/249",
+      "integrationBranch": "cursor/integration-sheep-figure-3395",
+      "sourceBranch": "cursor/sheep-figure-1a71",
+      "baseSha": "9dcf2e375e5c95f59935af6d26f77a92cb6bfdb6",
+      "headSha": "622a00bac8b8f6d6210c4ee44d8687ab73f9bb25",
+      "dependencies": ["art-still-charm"],
+      "sharedFiles": ["src/game/landmarks/ShepherdMeadow.tsx", "src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "scripts/shepherd-figure.test.mjs"],
+      "checks": {
+        "conflicts": "The still charm, still title camera, still river, still wind, library plinth, named boards, campus-gate piers, lamp poles, and trunk boxes stay. The meadow pad now stops a walking body.",
+        "typecheck": "pass",
+        "npmTest": "458 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BxrhL8s3.js sha256 3e76fab6392bd0cbc7b01bb5c3fba9d50503ac24fb0e8acc8f17673de35e43b5. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8250/",
+        "route": "8250 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "748943d726fe4e2ab35806a9b404f076adf98fca",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #249 by itself. The five-tigers stele commit 04fb8bac is still separate."
     }
   ]
 }
