@@ -1060,3 +1060,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 46 減 38 是 8，也就是暫定階段的經驗。這一拍不加筆記。正式表那一句不看這次是帶去還是先定表。先修那句和改期那句這兩局沒有打開。
 
 畫面：`/opt/cursor/artifacts/integration-jiang-turn/carry-outcome.png`、`carry-next.png`、`temp-outcome.png`、`temp-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次被拒上傳。
+
+## 江照的兩個正式表選項
+
+這段打在 `AdventureApp-DEg0qO28.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-Cw5n7Dmz.js`。`main` 尖端 `1be6a82` 註記 PR #268，GitHub 上這份 PR 的狀態是 MERGED。遊戲變更是 `69afbe4`。合併提交 `a06b55c`。主遊戲檔 890738 bytes，和暫定那包相同。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-jiang-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-jiang-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 417 通過、0 失敗。對象是合併 `a06b55c` |
+| `npm run build:site` | 仍是 `index-Cw5n7Dmz.js` 與 `AdventureApp-DEg0qO28.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場、退件和暫定。點正式表之前存檔經驗 46、筆記 19。這一次點選沒有新增校園發現項目。開場句都是「可以改成正式」。
+
+- 「改成正式表。教育學院和商管的時段都留著。」之前先選先聽教育學院，退件改時段，暫定帶去給簡衡。存檔經驗 56，筆記 20。結果句「這張教室的表到這裡。」畫面是 1 級、「經驗 56/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。對話卡仍寫系主任、企業管理學系。學期仍是第一週。再交談，通知是「這段已經談完」，面板關著。`quest-faculty-schedule-after` 只有一筆。沒有工作室任務。重載後經驗 56、筆記 20，再交談仍是這則通知。
+- 「正式表留一格空白，等他們自己填。」之前先選先確認商管的課，退件換討論角，暫定先定表。經驗同樣 46→56，筆記 19→20。結果句「你沒有被這格卡住。」再交談同樣是談完通知。重載後這則通知還在，生命仍是 100/100。
+
+56 減 46 是 10，也就是正式表階段的經驗。筆記加 1。教室表這條線在這裡結束。
+
+畫面：`/opt/cursor/artifacts/integration-jiang-after/final-outcome.png`、`final-done.png`、`blank-outcome.png`、`blank-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次後續上傳。

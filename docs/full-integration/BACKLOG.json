@@ -340,7 +340,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Jiang Zhao's schedule choices at the estimated business building, dx 0 dz 12, on AdventureApp-DEg0qO28.js at 1280x720. Carry and temp each moved store xp from 38 to 46 and left notes at 19. The click added no campus discovery. The card showed level 1, 46/60, hp 100. Week-1 stayed. The +8 is the turn stage. This beat adds no note and has no studio quest. Neither fac-he-prereq nor fac-he-fixed was set, so both routes opened on the default 暫定表 line. The formal-table line did not follow this choice. Both formal buttons stayed unpaid. npm test was 414 pass / 0 fail on merge 6c75885."
+      "note": "Two fresh architecture semesters paid Jiang Zhao's schedule choices at the estimated business building, dx 0 dz 12, on AdventureApp-DEg0qO28.js at 1280x720. Carry and temp each moved store xp from 38 to 46 and left notes at 19. The click added no campus discovery. The card showed level 1, 46/60, hp 100. Week-1 stayed. The +8 is the turn stage. This beat adds no note and has no studio quest. Neither fac-he-prereq nor fac-he-fixed was set, so both routes opened on the default 暫定表 line. The formal-table line did not follow this choice. Both formal choices were later paid in a separate pair of semesters. npm test was 414 pass / 0 fail on merge 6c75885."
+    },
+    {
+      "id": "FI-JIANG-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jiang Zhao's formal-table choices at the estimated business building, dx 0 dz 12, on AdventureApp-DEg0qO28.js at 1280x720. Final and blank each moved store xp from 46 to 56 and notes from 19 to 20. The click added no campus discovery. The card showed level 1, 56/60, hp 100, and the notes toast. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice and left the panel closed. Reload kept xp 56, notes 20, and that notice. Her schedule line ends here. npm test was 417 pass / 0 fail on merge a06b55c."
     },
     {
       "id": "FI-XU-HUI",
