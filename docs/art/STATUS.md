@@ -608,6 +608,12 @@
 
 畫面：`docs/art/evidence/desk/front.jpg`。測試：`scripts/class-desk.test.mjs`。
 
+## 階段：閱覽桌（ART-081 的一部分）
+
+閱讀室北牆有兩座 1.4×1.3 m 的閱覽桌，後面有擋板，會擋住半徑 0.42 m 的身體。中間走道留著。教室同一點不會被推開。南門仍站得住。從南緣往北跨 1.04 m 仍停在中心南側。推出方向若會出房間就改走另一軸。房間仍不是實測。講台留著。
+
+畫面：`docs/art/evidence/carrel/east.jpg`。測試：`scripts/reading-carrel.test.mjs`。
+
 ## 下一步
 
 見 `CHECKPOINT.json`。路燈燈柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

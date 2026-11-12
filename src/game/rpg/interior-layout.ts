@@ -12,3 +12,9 @@ export const HOOP_STANDS = [
 
 /** Front desk in the palace classroom, clear of the student tables and the south door. */
 export const CLASSROOM_DESK = { x: 0, z: -5.51, width: 1.6, depth: 1.3 } as const;
+
+/** Two carrels along the north wall of the reading room. The centre aisle stays open. */
+export const READING_CARRELS = [
+  { x: -4.5, z: -5.4, width: 1.4, depth: 1.3 },
+  { x: 4.5, z: -5.4, width: 1.4, depth: 1.3 },
+] as const;

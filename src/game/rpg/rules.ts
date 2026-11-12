@@ -5,7 +5,7 @@ import { terrainHeight } from "../world.ts";
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
 import { keepOut } from "../../features/items-equipment-building/keepout.ts";
 import { RECIPES, type BuildKind } from "./data.ts";
-import { CLASSROOM_DESK, HOOP_STANDS, ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
+import { CLASSROOM_DESK, HOOP_STANDS, READING_CARRELS, ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
 export type Building = {
   id: string;
   kind: BuildKind;
@@ -306,6 +306,7 @@ export function resolveInterior(
   furnished = true,
   stands = false,
   podium = false,
+  carrels = false,
 ) {
   const minX = -9 + radius, maxX = 9 - radius, minZ = -7 + radius, maxZ = 7 - radius;
   let px = Math.max(minX, Math.min(maxX, x)),
@@ -336,6 +337,26 @@ export function resolveInterior(
       if (hx - Math.abs(px - CLASSROOM_DESK.x) < hz - Math.abs(pz - CLASSROOM_DESK.z))
         px = CLASSROOM_DESK.x + (px >= CLASSROOM_DESK.x ? hx : -hx);
       else pz = CLASSROOM_DESK.z + (pz >= CLASSROOM_DESK.z ? hz : -hz);
+    }
+  }
+  if (carrels) {
+    for (const carrel of READING_CARRELS) {
+      const hx = carrel.width / 2 + radius;
+      const hz = carrel.depth / 2 + radius;
+      if (Math.abs(px - carrel.x) >= hx || Math.abs(pz - carrel.z) >= hz) continue;
+      const pushX = carrel.x + (px >= carrel.x ? hx : -hx);
+      const pushZ = carrel.z + (pz >= carrel.z ? hz : -hz);
+      const penX = hx - Math.abs(px - carrel.x);
+      const penZ = hz - Math.abs(pz - carrel.z);
+      const xOk = pushX >= minX && pushX <= maxX;
+      const zOk = pushZ >= minZ && pushZ <= maxZ;
+      if (penX < penZ && xOk) px = pushX;
+      else if (zOk) pz = pushZ;
+      else if (xOk) px = pushX;
+      else {
+        px = Math.max(minX, Math.min(maxX, px));
+        pz = Math.max(minZ, Math.min(maxZ, pz));
+      }
     }
   }
   if (!furnished) return { x: px, z: pz };
