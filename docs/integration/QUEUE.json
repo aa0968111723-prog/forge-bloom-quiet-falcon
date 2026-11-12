@@ -4116,6 +4116,34 @@
       "integrationPr": 292,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/292",
       "nextAction": "None. The indoor healing save from b17268ca is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-landmark-stamp",
+      "line": "backend",
+      "scope": "A landmark stamp, mute, or time change writes the RPG save before the next move. After stamp kenan, mute, and night at x 10 z 12, the saved file keeps that stamp, muted, night, and the same position. The document still uploads.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-landmark-stamp-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "9962c0489347d680549dd8ef46eb1476a90deff8",
+      "headSha": "36c47f0c96d0879aa0510fd5e05321df438e6b61",
+      "dependencies": ["backend-heal-floor"],
+      "sharedFiles": ["src/game/rpg/store.ts", "scripts/cloud-game-link.test.mjs", "scripts/rpg-runtime.test.mjs", "docs/backend/STATUS.md"],
+      "checks": {
+        "conflicts": "useGame.subscribe and docs/backend/CHECKPOINT.json completed tail. Kept the immediate flush for visited, time, and mute, and the position early return. Kept 2026-11-12T10:42:00Z, the healing line, the merge note at f2656a5, and the landmark line. npm_test set to 431 because the ceiling test is on this tree.",
+        "typecheck": "pass",
+        "npmTest": "431 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-C9EuORbk.js",
+        "browser": "8222. The standing route completed.",
+        "route": "8222: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "7bb75c6a4e7cc4d1902a2ff9769f94cd27ddf9cd",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #156 by itself."
     }
   ]
 }
