@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T05:50:00Z",
+  "updated_at": "2026-11-12T05:05:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "b579dff",
+  "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -22,10 +22,18 @@
     "a signed-in reward asks the server first and does not grant an event the server already recorded",
     "a queued upload is not sent when the browser session belongs to a different account",
     "a cloud document that fails the whitelist or the content hash does not replace the local save",
-    "a later offline upload replaces the earlier queued save for that account and flushes once"
+    "a later offline upload replaces the earlier queued save for that account and flushes once",
+    "a downloaded cloud save is held while the game is running, so the autosave does not replace it",
+    "choosing the downloaded save resumes a living interior instead of leaving the player outside and dropping the floor",
+    "choosing the remote save or restoring a revision drops that account's queued upload and leaves reward receipts and other accounts queued",
+    "flush removes only the items it finished, so a receipt queued during an upload stays and a dropped upload is not sent",
+    "an upload that lands after the player keeps the cloud save is written back from the chosen local file",
+    "the first flush of a queued upload sends the current local file when the player kept playing offline",
+    "a failed upload retries the newest local file under a new request id, and continues only when the cloud still holds this device's last write",
+    "merged main at 1c8f11e and kept quest marks on ground loot in the cloud document"
   ],
   "verification": {
-    "npm_test": "333 pass, 0 fail; a later offline upload replaces the queued save",
+    "npm_test": "348 pass, 0 fail; quest marks on ground loot stay in the cloud document",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

@@ -526,62 +526,149 @@ export function createCloudSaveController(options: {
     if (gate !== "ok") return { sent: 0, paused: true };
     const items = readQueue(userId).sort((a, b) => a.nextAt - b.nextAt);
     let sent = 0;
-    const kept: QueueItem[] = [];
+    const finished = new Set<string>();
+    const retry = new Map<string, QueueItem>();
+    const stillQueued = (item: QueueItem) =>
+      readQueue(userId).some((current) => current.id === item.id && current.kind === item.kind);
+    const remember = (original: QueueItem, next: QueueItem) => {
+      if (next.id !== original.id) finished.add(original.id);
+      retry.set(next.id, next);
+    };
+    const writeRemaining = () => {
+      const remaining = readQueue(userId).flatMap((current) => {
+        if (finished.has(current.id)) return [];
+        return [retry.get(current.id) ?? current];
+      });
+      for (const next of retry.values()) {
+        if (!remaining.some((current) => current.id === next.id)) remaining.push(next);
+      }
+      writeQueue(userId, remaining);
+    };
+    const adoptOwnGhost = async (
+      item: QueueItem,
+      pending: QueueItem,
+      payload: unknown,
+    ): Promise<"sent" | "queued" | "pause" | "drop"> => {
+      if (pending.kind !== "put" || pending.id === item.id) return "drop";
+      const body = payload as {
+        error?: { code?: string };
+        server?: { revision?: unknown; document?: unknown };
+      } | null;
+      if (body?.error?.code !== "revision_conflict") return "drop";
+      const server = body.server;
+      if (!server?.document || typeof server.revision !== "number" || !item.body.document) {
+        return "drop";
+      }
+      try {
+        if (canonicalJson(server.document) !== canonicalJson(item.body.document)) return "drop";
+      } catch {
+        return "drop";
+      }
+      const requestId = randomId();
+      const follow: QueueItem = {
+        ...pending,
+        id: requestId,
+        attempts: 0,
+        body: { ...pending.body, requestId, baseRevision: server.revision },
+      };
+      try {
+        const response = await cloudFetch("/api/cloud/saves/rpg", {
+          method: "PUT",
+          body: JSON.stringify(follow.body),
+          ifMatch: server.revision,
+        });
+        if (response.status === 401) {
+          remember(item, follow);
+          return "pause";
+        }
+        const saved = await response.json().catch(() => null);
+        if (
+          response.ok &&
+          saved &&
+          typeof saved.revision === "number" &&
+          typeof saved.contentHash === "string"
+        ) {
+          writeMeta(userId, { revision: saved.revision, contentHash: saved.contentHash });
+          return "sent";
+        }
+      } catch {
+        remember(item, { ...follow, attempts: 1, nextAt: now() + 1_000 });
+        return "queued";
+      }
+      return "drop";
+    };
     for (const item of items) {
-      if (item.userId !== userId) {
-        kept.push(item);
-        continue;
-      }
-      if (item.nextAt > now()) {
-        kept.push(item);
-        continue;
-      }
+      if (item.userId !== userId) continue;
+      if (!stillQueued(item)) continue;
+      if (item.nextAt > now()) continue;
+      const pending = withLatestLocal(item);
       let response: Response;
       try {
         response = await cloudFetch(
-          item.kind === "put" ? "/api/cloud/saves/rpg" : "/api/cloud/saves/rpg/receipts",
+          pending.kind === "put" ? "/api/cloud/saves/rpg" : "/api/cloud/saves/rpg/receipts",
           {
-            method: item.kind === "put" ? "PUT" : "POST",
-            body: JSON.stringify(item.body),
-            ifMatch: item.kind === "put" ? Number(item.body.baseRevision) : undefined,
+            method: pending.kind === "put" ? "PUT" : "POST",
+            body: JSON.stringify(pending.body),
+            ifMatch: pending.kind === "put" ? Number(pending.body.baseRevision) : undefined,
           },
         );
       } catch {
-        const attempts = item.attempts + 1;
-        kept.push({
-          ...item,
+        const attempts = pending.attempts + 1;
+        remember(item, {
+          ...pending,
           attempts,
           nextAt: now() + Math.min(30_000, 1_000 * 2 ** (attempts - 1)),
         });
         continue;
       }
       if (response.status === 401) {
-        kept.push(item, ...items.slice(items.indexOf(item) + 1));
-        writeQueue(userId, kept);
+        if (pending.id !== item.id) remember(item, pending);
+        writeRemaining();
         return { sent, paused: true };
       }
       const payload = await response.json().catch(() => null);
       if (response.ok) {
-        if (
-          item.kind === "put" &&
-          payload &&
-          typeof payload.revision === "number" &&
-          typeof payload.contentHash === "string"
-        ) {
-          writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
+        const revision = payload && typeof payload.revision === "number" ? payload.revision : null;
+        const contentHash =
+          payload && typeof payload.contentHash === "string" ? payload.contentHash : null;
+        const queued = stillQueued(item);
+        if (item.kind === "put" && revision != null && contentHash != null && !queued) {
+          if (readQueue(userId).some((current) => current.kind === "put")) {
+            bumpQueuedPutBase(userId, revision);
+            writeMeta(userId, { revision, contentHash });
+          } else {
+            await restoreChosenSave(userId, revision, contentHash);
+          }
+          continue;
         }
-        sent += 1;
+        if (revision != null && contentHash != null && item.kind === "put") {
+          writeMeta(userId, { revision, contentHash });
+        }
+        if (queued) {
+          finished.add(item.id);
+          sent += 1;
+        }
         continue;
       }
-      if (response.status === 409 || response.status === 422) continue;
-      const attempts = item.attempts + 1;
-      kept.push({
-        ...item,
+      if (!stillQueued(item)) continue;
+      if (response.status === 409 || response.status === 422) {
+        const ghost = await adoptOwnGhost(item, pending, payload);
+        if (ghost === "pause") {
+          writeRemaining();
+          return { sent, paused: true };
+        }
+        if (ghost !== "queued") finished.add(item.id);
+        if (ghost === "sent") sent += 1;
+        continue;
+      }
+      const attempts = pending.attempts + 1;
+      remember(item, {
+        ...pending,
         attempts,
         nextAt: now() + Math.min(30_000, 1_000 * 2 ** (attempts - 1)),
       });
     }
-    writeQueue(userId, kept);
+    writeRemaining();
     return { sent, paused: false };
   }
 
@@ -748,6 +835,84 @@ export function createCloudSaveController(options: {
       headers.set("if-match", `"${init.ifMatch}"`);
     }
     return options.fetch(`${base}${path}`, { method: init.method, headers, body: init.body });
+  }
+
+  function withLatestLocal(item: QueueItem): QueueItem {
+    if (item.kind !== "put" || !item.body.document) return item;
+    const prepared = prepareLocal();
+    if (!prepared.ok) return item;
+    try {
+      if (canonicalJson(item.body.document) === canonicalJson(prepared.document)) return item;
+    } catch {
+      return item;
+    }
+    if (item.attempts === 0) {
+      return { ...item, body: { ...item.body, document: prepared.document } };
+    }
+    const requestId = randomId();
+    return {
+      ...item,
+      id: requestId,
+      attempts: 0,
+      body: { ...item.body, requestId, document: prepared.document },
+    };
+  }
+
+  function bumpQueuedPutBase(userId: string, revision: number): void {
+    writeQueue(
+      userId,
+      readQueue(userId).map((current) => {
+        if (current.kind !== "put") return current;
+        const base = current.body.baseRevision;
+        if (typeof base !== "number" || base >= revision) return current;
+        return { ...current, body: { ...current.body, baseRevision: revision } };
+      }),
+    );
+  }
+
+  async function restoreChosenSave(
+    userId: string,
+    revision: number,
+    serverHash: string,
+  ): Promise<void> {
+    const gate = await accountGate(userId);
+    const prepared = gate === "ok" ? prepareLocal() : { ok: false as const };
+    if (!prepared.ok) {
+      writeMeta(userId, { revision, contentHash: serverHash });
+      return;
+    }
+    const localHash = await sha256Hex(canonicalJson(prepared.document));
+    if (localHash === serverHash) {
+      writeMeta(userId, { revision, contentHash: serverHash });
+      return;
+    }
+    try {
+      const response = await cloudFetch("/api/cloud/saves/rpg", {
+        method: "PUT",
+        body: JSON.stringify({
+          schemaVersion: CLOUD_SCHEMA_VERSION,
+          contentVersion: CLOUD_CONTENT_VERSION,
+          baseRevision: revision,
+          confirmFirstSync: false,
+          requestId: randomId(),
+          document: prepared.document,
+        }),
+        ifMatch: revision,
+      });
+      const payload = await response.json().catch(() => null);
+      if (
+        response.ok &&
+        payload &&
+        typeof payload.revision === "number" &&
+        typeof payload.contentHash === "string"
+      ) {
+        writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
+        return;
+      }
+    } catch {
+      // The chosen file stays on this device. The next check shows the mismatch.
+    }
+    writeMeta(userId, { revision, contentHash: serverHash });
   }
 
   function dropQueuedPuts(userId: string): void {

@@ -677,7 +677,9 @@ function checkLoot(value: unknown): ValidationResult {
     }
     const row = pile as Record<string, unknown>;
     if (
-      Object.keys(row).some((key) => key !== "id" && key !== "x" && key !== "z" && key !== "items")
+      Object.keys(row).some(
+        (key) => key !== "id" && key !== "x" && key !== "z" && key !== "items" && key !== "quest",
+      )
     ) {
       return { ok: false, code: "unsafe_content", message: "掉落物含有白名單以外的欄位。" };
     }
@@ -704,6 +706,25 @@ function checkLoot(value: unknown): ValidationResult {
     for (const itemId of itemIds) {
       if (!ID_PATTERN.test(itemId) || !integerIn(items[itemId], 1, 99)) {
         return { ok: false, code: "invalid_document", message: "掉落物物品不正確。" };
+      }
+    }
+    if (!("quest" in row)) continue;
+    if (!row.quest || typeof row.quest !== "object" || Array.isArray(row.quest)) {
+      return { ok: false, code: "invalid_document", message: "委託掉落標記格式不正確。" };
+    }
+    const quest = row.quest as Record<string, unknown>;
+    const questIds = Object.keys(quest);
+    if (questIds.length > 16) {
+      return { ok: false, code: "invalid_document", message: "委託掉落標記超過上限。" };
+    }
+    for (const itemId of questIds) {
+      const held = items[itemId];
+      if (
+        !ID_PATTERN.test(itemId) ||
+        typeof held !== "number" ||
+        !integerIn(quest[itemId], 1, held)
+      ) {
+        return { ok: false, code: "invalid_document", message: "委託掉落標記不正確。" };
       }
     }
   }

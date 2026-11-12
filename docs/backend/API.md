@@ -18,7 +18,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 
 內容效果只允許 `heal`、`focus`、`damage`、`capacity`、`build_range`、`grant_item`，而且只能有 `type`、`amount`、`itemId`。存檔裡的程式文字會被拒。沒有排行榜端點。客戶端送來的經驗、貨幣、分數只是存檔內容，不是可競技成績。文件頂層若出現 `score` 或其他白名單以外的欄位，整份寫入是 `422 unsafe_content`。
 
-`document` 頂層只接受目前 `snapshot()` 會寫的欄位，加上既有的 `effects`。缺欄位的舊存檔仍可上傳。若帶了 `narrative` 或 `variety`，形狀必須對得上遊戲讀回時保留的工作階段：敘事地圖最多 200 筆、字串短於 80、學院 id 用現有清單；多樣玩法的 `active` 要有階段、路線與能力快照，盤面的 `board` 只能是 `investigate`、`puzzle`、`escort`、`route`、`repair`、`combat`。整份文件的欄位數上限是 `MAX_DOCUMENT_KEYS`（8000），好讓 48 座設施、背包、敘事與一個玩法盤面同時通過，同時擋住無上限的地圖。
+`document` 頂層只接受目前 `snapshot()` 會寫的欄位，加上既有的 `effects`。缺欄位的舊存檔仍可上傳。地面掉落除了 `id`、`x`、`z`、`items`，可以多帶 `quest`，記下這堆裡有多少來自委託；每個數量必須是整數，而且不能超過該物品在這堆裡的數量。沒有 `quest` 的舊掉落仍可上傳。其他掉落欄位是 `422 unsafe_content`。若帶了 `narrative` 或 `variety`，形狀必須對得上遊戲讀回時保留的工作階段：敘事地圖最多 200 筆、字串短於 80、學院 id 用現有清單；多樣玩法的 `active` 要有階段、路線與能力快照，盤面的 `board` 只能是 `investigate`、`puzzle`、`escort`、`route`、`repair`、`combat`。整份文件的欄位數上限是 `MAX_DOCUMENT_KEYS`（8000），好讓 48 座設施、背包、敘事與一個玩法盤面同時通過，同時擋住無上限的地圖。
 
 ## 端點
 
@@ -132,7 +132,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 - 雲端 404 是 `need_first_sync`。`uploadFirstSync` 才會帶 `confirmFirstSync: true`。`keepLocalOnly` 不上傳。
 - 沒有本機存檔時是 `need_download`，要呼叫 `downloadCloud` 才寫入。雲端空資料不會清本機。下載和恢復會先檢查存檔白名單，並核對內容雜湊；對不上就不覆蓋本機。寫入本機後會告訴進行中的遊戲，自動存檔不會把剛下載的進度蓋掉，玩家再選擇保留現有進度或改用這份。改用這份時，室內樓層會跟著存檔留下。
 - 本機與雲端不同，且本機記錄的 revision 不等於伺服器：`conflict`。`keepRemoteVersion` / `keepLocalVersion` 才解決。
-- 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。同一個帳號只留最後一次上傳。`flush` 只送目前帳號的佇列；重試同一筆時沿用原來的 `requestId`，退避 1s、2s、4s，上限 30s。成功下載或恢復雲端存檔後，會拿掉這個帳號尚未送出的存檔上傳，獎勵回執留著。
+- 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。同一個帳號只留最後一次上傳。`flush` 只送目前帳號的佇列。內容沒變時重試沿用原來的 `requestId`；若失敗後本機又有新進度，改用新的 `requestId` 送本機這份。若這次和雲端衝突，而且雲端內容仍是這台裝置剛才寫入的那份，就從那個版本再寫上新進度。雲端若已是別的內容，則留下衝突，不覆蓋。退避 1s、2s、4s，上限 30s。成功下載或恢復雲端存檔後，會拿掉這個帳號尚未送出的存檔上傳，獎勵回執留著。送出佇列時只移掉這次處理完的項目，途中新排入的回執或被拿掉的上傳都不會被整份佇列蓋掉。若拿掉的上傳仍寫進了伺服器，而佇列裡沒有下一筆上傳，會把玩家留下的本機存檔再寫回去。第一次送出時若本機存檔比佇列裡的快照新，改送本機這份。
 - `logout` 只清目前帳號標記，不刪 RPG 存檔，也不把上一個帳號的佇列送給下一個帳號。
 - 上傳、下載、恢復、列出版本和送出佇列之前，會先讀 `/api/auth/get-session`。session 的使用者必須等於這台裝置記的帳號。不同就回 `account_mismatch`，不讀、不寫另一個帳號的存檔，佇列留在原帳號。連不上 session 時不送出。
 - `noteReward` 先把事件記在這台裝置。同一個事件再呼叫、登出後再呼叫，或換帳號登入，都不會再執行發獎函式。登入時只把這台裝置尚未記到該帳號的回執排進該帳號佇列。已登入且伺服器回 `applied: false` 時不發獎。伺服器連不上時才在本機發一次並把回執留在佇列。
