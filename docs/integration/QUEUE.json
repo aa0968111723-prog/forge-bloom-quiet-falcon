@@ -5347,7 +5347,33 @@
       "mergeSha": "9cb2412e2127bb911fccdab4c73f7e0d8ecc62b6",
       "integrationPr": 336,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/336",
-      "nextAction": "None. The dolphin motto from 5c3589bc is already in this integration. Do not merge PR #272 by itself. The pool-glow commit 683baba3 is still separate."
+      "nextAction": "None. The dolphin motto from 5c3589bc is already in this integration. Do not merge PR #272 by itself. The pool-glow commit 683baba3 is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-pool-glow",
+      "line": "art",
+      "scope": "The pool hall south glass stays dark by day and glows cool #9fd8e2 at intensity 0.62 when the lamps are on.",
+      "status": "verified",
+      "pr": 274,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/274",
+      "integrationBranch": "cursor/integration-pool-glow-3395",
+      "sourceBranch": "cursor/pool-glow-1a71",
+      "baseSha": "b49a0e3db064a3a7a7781560eceaec46bd1a3374",
+      "headSha": "683baba30f9644f5c4de7264f9b8c400b0518c55",
+      "dependencies": ["art-dolphin-motto"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx", "scripts/pool-glow.test.mjs"],
+      "checks": {
+        "conflicts": "The gym clerestory stays the warm lamp colour. The pool hall glass adds no collider.",
+        "typecheck": "pass",
+        "npmTest": "469 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CwdvnRUc.js sha256 45e5a7545c30c0a1f3739c4b88302527b5607ea3d375bf5adadc1bf885583f6c. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8262/",
+        "route": "8262 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "1cff5f451dba5849ce76297519ce339fe36c6ecc",
+      "nextAction": "Open the integration PR. Do not merge PR #274 by itself. The activity-room court commit 5511da85 is still separate."
     }
   ]
 }
