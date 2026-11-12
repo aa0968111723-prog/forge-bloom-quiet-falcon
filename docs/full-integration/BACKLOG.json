@@ -137,7 +137,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Gu's closing on AdventureApp-D3TATbW2.js at 1280x720. Mend and hour each moved store xp from 206 to 216 and notes from 23 to 24. The card showed 156/180. Week-1 stayed. The +10 is the after stage. This beat has no studio main. Shen's short-note choices were visible and left unpaid."
+      "note": "Two fresh architecture semesters paid Gu's closing on AdventureApp-D3TATbW2.js at 1280x720. Mend and hour each moved store xp from 206 to 216 and notes from 23 to 24. The card showed 156/180. Week-1 stayed. The +10 is the after stage. This beat has no studio main. Shen's short-note choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-SHEN-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Shen's short note on AdventureApp-D3TATbW2.js at 1280x720. Note and oral each moved store xp from 216 to 226 and notes from 24 to 25. The card showed 166/180. Week-1 stayed. The +10 is the after stage. This beat has no studio main. Liang's poster choices were visible and left unpaid. The later-source flag is listed before the short-note flag."
     },
     {
       "id": "FI-XU-HUI",
@@ -163,7 +170,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 327520d includes the session-account queue stop via #196 and the ramp rail bodies via #194. Merged here as 91b1c83. The adventure chunk became AdventureApp-D3TATbW2.js. This line did not walk the rails. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main 32a15ad includes the session-blip save write-back via #198 and the reward check via #197. Merged here as b08c638. The adventure chunk stayed AdventureApp-D3TATbW2.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",

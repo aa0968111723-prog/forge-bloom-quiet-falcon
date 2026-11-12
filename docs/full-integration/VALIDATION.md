@@ -422,3 +422,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 216 減 206 是 10，也就是收尾階段的經驗。筆記加 1。這一段沒有 `main`，所以沒有工作室加成。沈酌的短記看先前是帶來評圖還是留在紀錄，不看這次是補進圖面還是用留下的時段。
 
 畫面：`/opt/cursor/artifacts/integration-gu-after/mend-outcome.png`、`mend-next.png`、`hour-outcome.png`、`hour-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 沈酌的兩個短記選項
+
+這段打在 `AdventureApp-D3TATbW2.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-Dl3m_ZgE.js`。`main` 尖端 `32a15ad`（連線閃一下把選中的存檔寫回去，整合 PR #198；先問伺服器再發獎是 `2783f8a`，整合 PR #197），合併提交 `b08c638`。靜態重建仍是同一組檔名。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-shen-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 356 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出仍是 `index-Dl3m_ZgE.js` 與 `AdventureApp-D3TATbW2.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到顧衡的收尾。點短記之前存檔經驗 216、筆記 24。
+
+- 「請你寫一張短記，讓我夾進圖。」存檔經驗 226，筆記 25。結果句「不是成績，也不是成功證明。」畫面是 2 級、「經驗 166/180」、生命 108/108、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。走到梁晚，她說「這張寫的是你的決定」。兩個海報選項都在。離開不結算，沒有 `quest-faculty-liang-after`。`quest-faculty-shen-after` 只有一筆。重載後經驗 226、筆記 25，再交談仍是這一句。
+- 「不用字條。我自己在評圖上說。」經驗同樣 216→226，筆記 24→25。結果句「我這裡不再另寫。」梁晚說「出處還沒齊」。離開不結算。重載後這一句還在。
+
+226 減 216 是 10，也就是收尾階段的經驗。筆記加 1。這一段沒有 `main`，所以沒有工作室加成。梁晚的海報看先前出處有沒有標成下週補；下週補那個旗標排在短記之前。
+
+畫面：`/opt/cursor/artifacts/integration-shen-after/note-outcome.png`、`note-next.png`、`oral-outcome.png`、`oral-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
