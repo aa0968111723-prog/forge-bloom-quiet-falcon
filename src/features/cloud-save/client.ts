@@ -257,9 +257,11 @@ export function createCloudSaveController(options: {
         message: "雲端存檔是空的，不會覆蓋本機進度。",
       };
     }
-    writeLocal(JSON.stringify(remote.head.document));
+    const accepted = await acceptCloudDocument(remote.head.document, remote.head.contentHash);
+    if (!accepted.ok) return { status: "error", code: accepted.code, message: accepted.message };
+    writeLocal(JSON.stringify(accepted.document));
     if (userId) {
-      writeMeta(userId, { revision: remote.head.revision, contentHash: remote.head.contentHash });
+      writeMeta(userId, { revision: remote.head.revision, contentHash: accepted.hash });
     }
     return { status: "downloaded", revision: remote.head.revision };
   }
@@ -395,9 +397,14 @@ export function createCloudSaveController(options: {
           message: String(payload?.error?.message ?? "無法恢復指定的雲端版本。"),
         };
       }
-      if (payload.document) writeLocal(JSON.stringify(payload.document));
-      if (typeof payload.revision === "number" && typeof payload.contentHash === "string") {
-        writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
+      if (payload.document) {
+        const accepted = await acceptCloudDocument(payload.document, payload.contentHash);
+        if (!accepted.ok)
+          return { status: "error", code: accepted.code, message: accepted.message };
+        writeLocal(JSON.stringify(accepted.document));
+        if (typeof payload.revision === "number") {
+          writeMeta(userId, { revision: payload.revision, contentHash: accepted.hash });
+        }
       }
       return { status: "restored", revision: payload.revision };
     } catch {
@@ -601,6 +608,32 @@ export function createCloudSaveController(options: {
         manifest,
       }),
     };
+  }
+
+  async function acceptCloudDocument(
+    document: unknown,
+    contentHash: unknown,
+  ): Promise<
+    | { ok: true; document: SaveDocument; hash: string }
+    | { ok: false; code: string; message: string }
+  > {
+    const validated = validateRpgDocument(document);
+    if (!validated.ok) {
+      return {
+        ok: false,
+        code: validated.code,
+        message: "雲端存檔無法使用，本機進度沒有被覆蓋。",
+      };
+    }
+    const hash = await sha256Hex(canonicalJson(validated.document));
+    if (contentHash !== hash) {
+      return {
+        ok: false,
+        code: "invalid_document",
+        message: "雲端存檔的內容和校驗不一致，本機進度沒有被覆蓋。",
+      };
+    }
+    return { ok: true, document: validated.document, hash };
   }
 
   async function sendPut(

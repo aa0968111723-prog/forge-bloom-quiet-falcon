@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:30:00Z",
+  "updated_at": "2026-11-12T05:40:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "997ff0d",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -20,10 +20,11 @@
     "after a database process restart, collection counts, the claimed quest, and the revision list remain, and a new request id does not record the same reward again",
     "a reward granted while signed out is not granted again after login, logout, or an account switch, and the other account's upload queue stays put",
     "a signed-in reward asks the server first and does not grant an event the server already recorded",
-    "a queued upload is not sent when the browser session belongs to a different account"
+    "a queued upload is not sent when the browser session belongs to a different account",
+    "a cloud document that fails the whitelist or the content hash does not replace the local save"
   ],
   "verification": {
-    "npm_test": "331 pass, 0 fail; a different session cannot receive this account's queued upload",
+    "npm_test": "332 pass, 0 fail; a bad cloud document does not replace the local save",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

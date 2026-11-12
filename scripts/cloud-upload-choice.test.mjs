@@ -563,3 +563,53 @@ test("a queued upload stays put when the session belongs to another account", as
   assert.equal(cloud.puts[0].document.xp, 6);
   assert.equal(client.queuedCount("user-a"), 0);
 });
+
+test("a bad cloud document does not replace the local save", async () => {
+  let mode = "unsafe";
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    const method = init?.method ?? "GET";
+    if (method === "POST") {
+      return jsonResponse(200, {
+        revision: 3,
+        document: { ...save(1), score: 5 },
+        contentHash: "ab",
+      });
+    }
+    const document = mode === "unsafe" ? { ...save(9), score: 1 } : save(9);
+    const contentHash =
+      mode === "mismatch" ? "0".repeat(64) : await sha256Hex(canonicalJson(document));
+    return jsonResponse(200, {
+      revision: 2,
+      schemaVersion: 1,
+      contentVersion: 2,
+      document,
+      etag: '"2"',
+      contentHash,
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "baddocreq0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(4)));
+  const unsafe = await client.downloadCloud();
+  assert.equal(unsafe.status, "error");
+  assert.equal(unsafe.code, "unsafe_content");
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+  mode = "mismatch";
+  const mismatch = await client.downloadCloud();
+  assert.equal(mismatch.status, "error");
+  assert.equal(mismatch.code, "invalid_document");
+  assert.equal(JSON.parse(client.readLocal()).xp, 4);
+  mode = "ok";
+  const downloaded = await client.downloadCloud();
+  assert.equal(downloaded.status, "downloaded");
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "error");
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+});
