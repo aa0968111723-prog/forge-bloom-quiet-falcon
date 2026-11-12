@@ -1244,3 +1244,126 @@ test("a full stack ground still keeps an extra kind that already has room", () =
   assert.equal(reloaded.loot.find((pile) => pile.quest?.["field-lamp"]).quest["field-lamp"], 1);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("merging piles on a full ground keeps every quest mark", () => {
+  const ids = [
+    "notes",
+    "parts",
+    "coffee",
+    "tea",
+    "credit",
+    "badge",
+    "copper",
+    "glass",
+    "cloth",
+    "herb",
+    "ink",
+    "chalk",
+    "resin",
+    "mint",
+    "bandage",
+    "lamp-oil",
+    "field-lamp",
+  ];
+  const wideItems = Object.fromEntries(ids.map((id) => [id, 1]));
+  const building = { id: "station-1", kind: "rest", x: 12, z: -20, rotation: 0, hp: 40 };
+  const loot = [];
+  for (let index = 0; index < 99; index += 1) {
+    const pile = {
+      id: `pile-${index}`,
+      x: 40 + (index % 40),
+      z: 8 + Math.floor(index / 40),
+      items: { notes: 1 },
+    };
+    if (index < 2) pile.quest = { notes: 1 };
+    loot.push(pile);
+  }
+  loot.push({ id: "pile-wide", x: 12, z: 18, items: wideItems, quest: { notes: 1, "field-lamp": 1 } });
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    buildings: [building],
+    loot,
+  });
+  replaceMemory(emptyMemory());
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const questNotes = saved.loot.reduce((sum, pile) => sum + (pile.quest?.notes ?? 0), 0);
+  assert.equal(questNotes, 3);
+  const kept = {};
+  for (const pile of saved.loot) {
+    for (const [id, count] of Object.entries(pile.items)) kept[id] = (kept[id] ?? 0) + count;
+  }
+  assert.equal(kept.notes, 100);
+  assert.equal(kept["field-lamp"], 1);
+  assert.ok(saved.loot.length <= 100);
+  assert.ok(
+    saved.loot.every((pile) =>
+      Object.entries(pile.quest ?? {}).every(([id, marked]) => marked <= (pile.items[id] ?? 0)),
+    ),
+  );
+  assert.equal(saved.buildings[0].id, "station-1");
+  assert.equal(saved.hp, 80);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const again = reloaded.loot.reduce((sum, pile) => sum + (pile.quest?.notes ?? 0), 0);
+  assert.equal(again, 3);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
+
+test("an errand that spills notes keeps those notes out of collection", () => {
+  const node = SUPPLY_NODES.find((entry) => entry.items.notes);
+  inventory.clear();
+  let added = 1;
+  while (added > 0) added = inventory.add("notes", 99).added;
+  useRpg.setState({
+    freshStart: false,
+    hp: 100,
+    xp: 0,
+    claimed: ["quest-orient-gate"],
+    gathered: { notes: 0, parts: 0, coffee: 0, tea: 0 },
+    harvested: {},
+    loot: [],
+    interiorId: null,
+    panel: null,
+    narrativeUi: null,
+    buildKind: null,
+    buildings: [],
+    loadout: { tool: null, accessory: null, pack: null },
+    gear: [],
+    narrative: { ...useRpg.getState().narrative, semester: "week-1" },
+  });
+  useGame.setState({
+    phase: "playing",
+    plaqueId: null,
+    playerX: node.x,
+    playerZ: node.z,
+    playerYaw: 0,
+  });
+  assert.equal(useRpg.getState().commitPrompt(), "supply");
+  const spilled = useRpg.getState();
+  assert.equal(spilled.claimed.includes("quest-errand-campus-post"), true);
+  const pile = spilled.loot.find((entry) => (entry.items.notes ?? 0) > 0);
+  assert.equal(pile.items.notes, node.items.notes + 2);
+  assert.equal(pile.quest?.notes, 2);
+  assert.equal(spilled.gathered.notes, 0);
+  flushSave();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.loot.find((entry) => entry.quest?.notes).quest.notes, 2);
+  assert.equal(validateRpgDocument(saved).ok, true);
+  inventory.clear();
+  useRpg.setState({ panel: null, narrativeUi: null, interiorId: null, buildKind: null });
+  useGame.setState({
+    phase: "playing",
+    plaqueId: null,
+    playerX: node.x,
+    playerZ: node.z,
+    playerYaw: 0,
+  });
+  assert.equal(useRpg.getState().commitPrompt(), "pickup");
+  assert.equal(useRpg.getState().gathered.notes, node.items.notes);
+  assert.equal(useRpg.getState().loot.some((entry) => (entry.items.notes ?? 0) > 0), false);
+});

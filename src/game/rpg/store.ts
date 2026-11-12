@@ -946,7 +946,7 @@ function absorbLoot(into: Loot, from: Loot) {
     const marked = from.quest?.[id];
     if (!marked) continue;
     const quest = { ...(into.quest ?? {}) };
-    quest[id] = Math.min(into.items[id], Math.max(quest[id] ?? 0, marked));
+    quest[id] = Math.min(into.items[id], (quest[id] ?? 0) + marked);
     into.quest = quest;
   }
 }
@@ -1139,11 +1139,12 @@ function errandState(s: RpgState, at: { x: number; z: number }, left: Record<str
   const bonus = give({ notes: offer.notes });
   const claimed = [...s.claimed, offer.id];
   const spilled = mergeCounts(left, bonus.left);
+  const world = layRemainder(s.loot, at.x, at.z, left);
   return {
     claimed,
     ...xpPatch(s, offer.xp),
     narrative: stampSemester(s.narrative, claimed),
-    loot: layRemainder(s.loot, at.x, at.z, spilled),
+    loot: layRemainder(world, at.x, at.z, bonus.left, true),
     accepted: bonus.accepted,
     left: spilled,
   };
