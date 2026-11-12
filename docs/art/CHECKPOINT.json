@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T01:12:00Z",
+  "updated": "2026-11-12T01:25:00Z",
   "task_ids": [
-    "ART-065"
+    "ART-085"
   ],
-  "branch": "cursor/language-bay-1a71",
-  "base": "main@1565a7481262",
+  "branch": "cursor/planting-lod-1a71",
+  "base": "main@4b88b772d4e2",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The foreign-language hall has a ground gallery and a south set-back. Education and Hweiwen stay classroom blocks. The campus name for Hweiwen is 會文館. The older foreign-lang-hall record stays separate. The gallery is estimated. Yingyuan stays a white garden house. The faculty house stays a pale block with a south porch. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "Trees and shrubs use detailed models inside the high-quality 48 m range and a cheap canopy beyond it. Azalea, flowerbeds, groundcover and moss drop out past that range. Palms keep a cheap canopy when far. Plant positions stay estimated. The foreign-language hall stays a ground gallery with a set-back upper block. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

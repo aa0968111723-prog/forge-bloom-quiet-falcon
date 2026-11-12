@@ -897,6 +897,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "foreign language hall");
+  } else if (scenario === "planting") {
+    await hideHud(page);
+    await setPose(page, 0, -80, 0);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(6, -76);
+      window.__controlsTest.setPhoto({
+        yaw: 1.15,
+        distance: 12,
+        height: 2.4,
+        lookY: 0,
+        target: { x: 6, y: y + 0.8, z: -76 },
+      });
+    });
+    await settle(page, { stableFrames: 4 });
+    await shot(page, "avenue", "avenue trees, shrubs and beds");
   } else if (scenario === "roads") {
     await hideHud(page);
     await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
