@@ -5175,9 +5175,11 @@
         "route": "8255 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "c63315a8f86b8f9495dfd569bdaf8b7be2077598",
-      "nextAction": "Open the integration PR. Do not merge PR #261 by itself. The reading-room carrel commit 64f336ca is still separate."
+      "integrationPr": 330,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/330",
+      "nextAction": "None. The palace desk from e79fbbf0 is already in this integration. Do not merge PR #261 by itself. The reading-room carrel commit 64f336ca is still separate."
     }
   ]
 }
