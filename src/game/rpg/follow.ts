@@ -1,12 +1,26 @@
 import { terrainHeight } from "../world";
+import {
+  FOLLOW_DISTANCE,
+  FOLLOW_HEAD,
+  FOLLOW_LOOK,
+  followPitchUnderCeiling,
+  interiorCameraCap,
+  INTERIOR_CEILING_THICKNESS,
+  INTERIOR_CEILING_Y,
+} from "./interior-ceiling";
+
+export {
+  FOLLOW_DISTANCE,
+  followPitchUnderCeiling,
+  interiorCameraCap,
+  INTERIOR_CEILING_THICKNESS,
+  INTERIOR_CEILING_Y,
+};
 
 /** Title camera center. A rebuilt canvas starts here until the follow rig seeds. */
 export const TITLE_ORBIT = { x: -13, y: 31.5, z: 13 };
 
 export const FOLLOW_PITCH = 0.22;
-export const FOLLOW_DISTANCE = 5.15;
-const FOLLOW_LOOK = 1.32;
-const FOLLOW_HEAD = 0.42;
 
 /**
  * Camera pose behind the player. The frame and the graphics rebuild both use

@@ -374,4 +374,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 62 輪（室內天花板）— 2026-11-12
 
-`node --test scripts/interior-ceiling.test.mjs` 通過。`tsc --noEmit` 通過。牆的上緣在 4.4 m，天花板上緣也在 4.4 m。定步進入宮燈教室，頁面無錯誤：`docs/art/evidence/interior/ceiling.jpg`。看得到淺色天花板接到牆。不是實測房間。車阻留在第 61 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BEjfJSKK.js`。
+`node --test scripts/interior-ceiling.test.mjs` 通過。`tsc --noEmit` 通過。牆的上緣在 4.4 m，天花板上緣也在 4.4 m。俯角 0.6 和 1.12 若不限制會高過板底；限制後鏡頭不高於板底下方 0.35 m。定步進入宮燈教室，頁面無錯誤：`docs/art/evidence/interior/ceiling.jpg`。看得到淺色天花板接到牆。把俯角拉到 1.12，鏡頭停在板底下方，人仍在畫面裡：`docs/art/evidence/interior/ceiling-lookdown.jpg`。不是實測房間。車阻留在第 61 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DSjIJXEf.js`。

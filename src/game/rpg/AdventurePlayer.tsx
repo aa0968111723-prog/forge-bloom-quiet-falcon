@@ -16,6 +16,7 @@ import { landmarkAt, resolveCollision, SPAWN, terrainHeight } from "../world";
 import { pavedAt } from "../world-data/paths.ts";
 import { kenanSection } from "../world-data/kenan.ts";
 import { followCameraSeed, TITLE_ORBIT } from "./follow";
+import { followPitchUnderCeiling, interiorCameraCap } from "./interior-ceiling";
 
 const tmp = new THREE.Vector3();
 const PLAYER_R = 0.42;
@@ -108,6 +109,10 @@ export function AdventurePlayer() {
       getSpeed: () => speedRef.current,
       setBenchmark: (id) => useGame.getState().setBenchmark(id),
       getBenchmark: () => useGame.getState().benchmarkId,
+      setPitch: (pitch: number) => {
+        camPitch.current = pitch;
+      },
+      getCamera: () => ({ x: camera.position.x, y: camera.position.y, z: camera.position.z }),
       setYaw: (yaw: number) => {
         // Steer without killing momentum — the traversal harness turns while
         // walking, the way a player does.
@@ -377,12 +382,16 @@ export function AdventurePlayer() {
     }
 
     const lookH = 1.32;
+    const indoors = Boolean(useRpg.getState().interiorId);
+    const pitch = indoors
+      ? Math.min(camPitch.current, followPitchUnderCeiling(visualY.current))
+      : camPitch.current;
     const seeded = followCameraSeed({
       x: pos.current.x,
       y: visualY.current,
       z: pos.current.z,
       yaw: camYaw.current,
-      pitch: camPitch.current,
+      pitch,
     });
     tmp.set(seeded.x, seeded.y, seeded.z);
     const pushed = collide(tmp.x, tmp.z, CAM_R);
@@ -390,8 +399,11 @@ export function AdventurePlayer() {
     tmp.z = pushed.z;
     const camGround = groundAt(tmp.x, tmp.z) + 1.25;
     if (tmp.y < camGround) tmp.y = camGround;
+    const camCap = indoors ? interiorCameraCap(visualY.current) : Infinity;
+    if (tmp.y > camCap) tmp.y = camCap;
     if (snapped) camera.position.copy(tmp);
     else camera.position.lerp(tmp, 1 - Math.exp(-10 * delta));
+    if (camera.position.y > camCap) camera.position.y = camCap;
 
     // Look-ahead: the camera looks slightly into the direction of travel, so
     // running opens up the view the way a good third-person rig does.
