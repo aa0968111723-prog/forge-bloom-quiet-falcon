@@ -458,6 +458,8 @@ function restoreCountMap<T extends string>(
   }
   return next;
 }
+const HARVEST_UNSAFE = new Set(["__proto__", "prototype", "constructor", "script", "eval"]);
+const HARVEST_ID = /^[a-z0-9:_-]{1,64}$/;
 function harvestStillCooling(value: unknown, now: number): number | null {
   if (typeof value !== "number" || !Number.isFinite(value)) return null;
   if (value <= now || value >= now + 180_001) return null;
@@ -475,11 +477,24 @@ function restoreHarvest(raw: unknown): Record<string, number> {
   for (const [key, value] of Object.entries(source)) {
     if (!key.startsWith("facility:")) continue;
     const id = key.slice("facility:".length);
-    if (id.length < 1 || id.length > 80) continue;
+    if (id.length < 1 || id.length > 80 || HARVEST_UNSAFE.has(id)) continue;
     const time = harvestStillCooling(value, now);
     if (time != null) result[key] = time;
   }
   return result;
+}
+function cloudHarvest(raw: Record<string, number>) {
+  const cooled = restoreHarvest(raw);
+  const out: Record<string, number> = {};
+  for (const [key, value] of Object.entries(cooled)) {
+    if (key.startsWith("facility:")) {
+      out[key] = value;
+      continue;
+    }
+    if (HARVEST_UNSAFE.has(key) || !HARVEST_ID.test(key)) continue;
+    out[key] = value;
+  }
+  return out;
 }
 function restoreQuest(raw: unknown, items: Record<string, number>) {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return undefined;
@@ -2568,7 +2583,7 @@ function snapshot() {
     buildings: s.buildings,
     heldBuild: s.heldBuild,
     slots: inventory.slots(),
-    harvested: s.harvested,
+    harvested: cloudHarvest(s.harvested),
     loot: s.loot,
     clock: s.clock,
     position,
