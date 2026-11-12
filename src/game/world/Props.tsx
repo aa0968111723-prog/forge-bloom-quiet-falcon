@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { quality } from "../quality";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { libraryRampTriangles } from "../world-data/library-ramp.ts";
-import { PROPS, type PropInstance, type PropKind } from "../world-data/props.ts";
+import { PROPS, railingPoint, railingPostOffsets, type PropInstance, type PropKind } from "../world-data/props.ts";
 import { VendorModel, type VendorInstance } from "./vendor";
 
 /**
@@ -142,6 +142,37 @@ function LibraryRampMesh() {
   );
 }
 
+function RailingPosts({ instances }: { instances: PropInstance[] }) {
+  const posts = useMemo(
+    () =>
+      instances.flatMap((p) =>
+        railingPostOffsets(p.length ?? 1).map((along) => railingPoint(p.x, p.z, p.rotationY, along)),
+      ),
+    [instances],
+  );
+  const ref = useRef<THREE.InstancedMesh>(null);
+  useLayoutEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    posts.forEach((post, i) => {
+      dummy.position.set(post.x, sampleGroundElevation(post.x, post.z) + 0.51, post.z);
+      dummy.rotation.set(0, 0, 0);
+      dummy.scale.set(1, 1, 1);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.computeBoundingSphere();
+  }, [posts]);
+  if (posts.length === 0) return null;
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, posts.length]} castShadow>
+      <cylinderGeometry args={[0.035, 0.04, 1.02, 6]} />
+      <meshStandardMaterial {...METAL_GREY} />
+    </instancedMesh>
+  );
+}
+
 function PartLayer({ part, instances }: { part: Part; instances: PropInstance[] }) {
   const ref = useRef<THREE.InstancedMesh>(null);
   useLayoutEffect(() => {
@@ -222,6 +253,7 @@ export function Props({ lampsOn: _lampsOn }: { lampsOn: boolean }) {
             {parts.map((part, i) => (
               <PartLayer key={i} part={part} instances={instances} />
             ))}
+            {kind === "railing" && <RailingPosts instances={instances} />}
           </group>
         );
       })}

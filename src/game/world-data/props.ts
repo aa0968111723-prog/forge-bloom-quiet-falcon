@@ -61,12 +61,28 @@ const prop = (
   length?: number,
 ): PropInstance => ({ kind, x, z, rotationY, scale, zone, length });
 
+/** Posts along a railing, local metres from the centre. Both ends are included. */
+export function railingPostOffsets(length: number, spacing = 2) {
+  const span = Math.max(length, 0.4);
+  const count = Math.max(2, Math.round(span / spacing) + 1);
+  const step = span / (count - 1);
+  const half = span / 2;
+  return Array.from({ length: count }, (_, i) => -half + i * step);
+}
+
+/** World XZ of a point `along` metres down a railing's local Z. */
+export function railingPoint(x: number, z: number, rotationY: number, along: number) {
+  return {
+    x: x + along * Math.sin(rotationY),
+    z: z + along * Math.cos(rotationY),
+  };
+}
+
 function kenanProps(): PropInstance[] {
   const out: PropInstance[] = [];
   const inner = KENAN.width / 2 - KENAN.gutterInset;
-  // The stair's own component (landmarks/KenanSlope) draws the drainage
-  // channels and the pitched centre handrails as real geometry following the
-  // flights; only the point-like grates are placed from here.
+  // The stair component draws the drainage channels. The flights stay
+  // rail-free; only the point-like grates are placed from here.
   for (const z of kenanDrainPositions()) {
     for (const s of [-1, 1] as const) out.push(prop("drain-grate", s * inner, z, "kenan"));
   }
@@ -180,6 +196,9 @@ function northProps(): PropInstance[] {
     out.push(prop("bench", -12 + k * 8.4, AXIS.libraryFrontZ + 6.4, "library", Math.PI));
   }
   out.push(prop("ramp", LIBRARY_RAMP.x, LIBRARY_RAMP.z, "library", 0, 1, LIBRARY_RAMP.length));
+  for (const side of [-1, 1] as const) {
+    out.push(prop("railing", LIBRARY_RAMP.x + side * 0.95, LIBRARY_RAMP.z, "library", 0, 1, LIBRARY_RAMP.length));
+  }
   out.push(prop("tactile-strip", 10, AXIS.libraryFrontZ + 9, "library", 0, 1, 16));
   out.push(prop("name-plate", 10, AXIS.libraryFrontZ + 0.15, "library", Math.PI / 2, 1.6));
   out.push(prop("bin", 20, AXIS.libraryFrontZ + 6, "library"));
