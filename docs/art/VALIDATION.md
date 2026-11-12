@@ -347,3 +347,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 55 輪（覺軒花園）— 2026-11-12
 
 `node --test scripts/garden-pavilion.test.mjs` 通過。`tsc --noEmit` 通過。覺軒花園是 pavilion。中心點以半徑 0.42 m 不會被推開。四根角柱會擋住人。另一筆覺軒仍是 hip-roof-block。散佈的樹不落在亭子外緣 4 m 內。定步白天，頁面無錯誤：`docs/art/evidence/pavilion/open.jpg`。看得到綠瓦頂、紅柱和鋪面。外形仍是 estimated。綜合球場標線留在第 54 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DzP7Xkfy.js`。
+
+## 第 56 輪（小地圖課程字）— 2026-11-12
+
+`node --test scripts/lesson-marker.test.mjs` 通過。`tsc --noEmit` 通過。進行中的課程在小地圖左下角寫兩個字。展開地圖仍把同樣的字寫在金圈上方。窄視窗的課程條在小地圖下方。狀態卡仍是短標籤長條。沒有新增音效。覺軒花園留在第 55 輪。`build:site` 產物 `AdventureApp-BM0-cuW7.js`。

@@ -1931,6 +1931,9 @@
       "nextAction": "None. The library ramp through 75128e0 is already in this integration. Do not merge PR #134 by itself. Do not merge PR #122."
     },
     {
+      "id": "backend-gear-contract",
+      "line": "backend",
+      "scope": "The cloud save checks loadout, gear, quarantine, and a held building already stored on tamkang-rpg-v2. Extra keys are rejected. A save without those fields still uploads.",
       "status": "merged",
       "pr": 122,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/122",
@@ -2040,6 +2043,9 @@
       "nextAction": "None. The court lines from 06a75dc are already in this integration. Do not merge PR #135 by itself."
     },
     {
+      "id": "art-garden-pavilion",
+      "line": "art",
+      "scope": "The palace-side garden pavilion is four corner posts and a green roof. The center is walkable and the posts are solid. The other Chueh Hsuan stays a hip roof. Scattered trees stay 6 m outside. The shape is estimated.",
       "status": "merged",
       "pr": 145,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/145",
@@ -2063,6 +2069,62 @@
       "integrationPr": 150,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/150",
       "nextAction": "None. The garden pavilion from 193f29d is already in this integration. Do not merge PR #145 by itself."
+    },
+    {
+      "id": "art-lesson-minimap",
+      "line": "art",
+      "scope": "While a lesson is active, the minimap shows the two-character lesson label. On a narrow window the lesson chip sits under the minimap so the department name stays readable.",
+      "status": "merged",
+      "pr": 148,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/148",
+      "integrationBranch": "cursor/integration-lesson-minimap-3395",
+      "sourceBranch": "cursor/minimap-lesson-1a71",
+      "baseSha": "57fc468db87d0b021a5a46c63483b9ce00dc0578",
+      "headSha": "9f89d1c91c6f8d58cffb450916b8de69e835aa8a",
+      "dependencies": ["art-garden-pavilion"],
+      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/adventure.css", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "art docs. Kept rounds 1-55. The minimap label is round 56. Capture kept the existing hud shots and added the lesson badge.",
+        "typecheck": "pass",
+        "npmTest": "313 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BM0-cuW7.js",
+        "browser": "8150. 1280x720 and 390x780 show 移動 on the minimap. Department name 土木工程學系 stays readable. pageErrors empty.",
+        "route": "8150: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": true,
+      "mergeSha": "5dd000cdb77ad3219ecb602c89469d52a1ce9aa8",
+      "integrationPr": 153,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/153",
+      "nextAction": "None. The minimap lesson label from 9f89d1c is already in this integration. Do not merge PR #148 by itself."
+    },
+    {
+      "id": "content-interior-resume",
+      "line": "content",
+      "scope": "Continuing a living semester returns to the saved public interior and floor. A downed continue and a direct import still stand at the door. The title keeps drawing the campus until play starts. Courts are not resumable interiors.",
+      "status": "merged",
+      "pr": 122,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/122",
+      "integrationBranch": "cursor/integration-interior-resume-3395",
+      "sourceBranch": "cursor/integration-full-game-f7e4",
+      "baseSha": "53ec394fa1acfc055360b7108bcc5e827fe39fa9",
+      "headSha": "e2d26ffd200150d99c2237bafc14be2e552af5eb",
+      "dependencies": ["content-faculty-story"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/home.ts", "src/game/rpg/AdventureApp.tsx"],
+      "checks": {
+        "conflicts": "docs/full-integration were deleted on main and left out. The interiors harness was left out. Game files applied cleanly.",
+        "typecheck": "pass",
+        "npmTest": "314 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CsOGkfs-.js",
+        "browser": "8151. The standing route completed with pageErrors empty.",
+        "route": "8151: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["docs/full-integration/BACKLOG.json", "docs/full-integration/CHECKPOINT.json", "docs/full-integration/HANDOFF.md", "docs/full-integration/STATUS.md", "docs/full-integration/VALIDATION.md"],
+      "merged": true,
+      "mergeSha": "42b5e5922113dac6227167164c5ecdd564d9f66a",
+      "integrationPr": 155,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/155",
+      "nextAction": "None. The living interior resume from e2d26ff is already in this integration. Do not merge PR #122 by itself."
     }
   ]
 }

@@ -402,6 +402,7 @@ textarea:focus-visible,
   background: #305b58;
 }
 .ad-minimap {
+  position: relative;
   width: 119px;
   height: 137px;
   border: 1px solid #c3d1b847;
@@ -409,6 +410,20 @@ textarea:focus-visible,
   background: #1d4849eb;
   border-radius: 9px;
   overflow: hidden;
+}
+.ad-minimap-lesson {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background: #173c40f2;
+  color: #f4e2b8;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  pointer-events: none;
 }
 .ad-minimap-svg {
   width: 100%;
@@ -1502,6 +1517,12 @@ textarea:focus-visible,
     height: 98px;
     padding: 3px;
   }
+  .ad-minimap-lesson {
+    left: 2px;
+    bottom: 2px;
+    padding: 1px 3px;
+    font-size: 11px;
+  }
   .ad-status-title {
     gap: 7px;
   }
@@ -2055,6 +2076,15 @@ button.ad-slot.ad-raise[data-press] {
 .ad-lesson em,
 .ad-lesson-inline span {
   font-style: normal;
+}
+@media (max-width: 700px) {
+  .ad-lesson {
+    top: 268px;
+    left: auto;
+    right: 12px;
+    transform: none;
+    max-width: 11rem;
+  }
 }
 .ad-lesson-review {
   position: absolute;
