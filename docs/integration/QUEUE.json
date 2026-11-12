@@ -3724,6 +3724,32 @@
       "integrationPr": 264,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/264",
       "nextAction": "None. The reused request id resume from 6b90cd68 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-refused-upload",
+      "line": "backend",
+      "scope": "A refused upload counts the request id as already sent. Later local progress retries under a new request id and continues from this device's landed revision. Local xp 9 lands as revision 2 with baseRevision 1. When another device has already changed the cloud save to xp 7, the local xp 9 stays local, the cloud stays at 7, and the plan is a conflict.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-refused-upload-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "1eb7a3b742aa49997b19c8d0a200bdb9dbe4ff2d",
+      "headSha": "99d4b2ba32b8327d447e39fb30407a63a6872f55",
+      "dependencies": ["backend-request-id"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T09:04:56Z, the merge note at 459e60e, and the refused upload line. client.ts applied cleanly.",
+        "typecheck": "pass",
+        "npmTest": "413 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CCnWZOWf.js unchanged",
+        "browser": "8208. The standing route completed.",
+        "route": "8208: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the route server imports the changed cloud client."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "ecf561580a8b98396e4b3ae954a8780367e5d303",
+      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
