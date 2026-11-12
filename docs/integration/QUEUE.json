@@ -5516,6 +5516,34 @@
       "integrationPr": 342,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/342",
       "nextAction": "None. The phone HUD from d74acab2 is already in this integration. This is on integration PR #342. Do not merge PR #281 by itself. The next art commit is e149387c on PR #283."
+    },
+    {
+      "id": "art-swan-exhibit",
+      "line": "art",
+      "scope": "The museum interior has an estimated black-swan silhouette on a 1.4 m plinth at (0, -5.3). A 0.42 m body stops outside the pad and stays inside the room. The reading room does not get the plinth.",
+      "status": "verified",
+      "pr": 283,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/283",
+      "integrationBranch": "cursor/integration-swan-exhibit-3395",
+      "sourceBranch": "cursor/swan-exhibit-1a71",
+      "baseSha": "53f19c107ba49465057a3427f9d8e80abd833d6a",
+      "headSha": "e149387ccbc841400efd670aa6177872818b258d",
+      "dependencies": ["art-phone-hud"],
+      "sharedFiles": ["src/game/rpg/rules.ts", "src/game/rpg/physics/interior.ts", "src/game/rpg/InteriorDetails.tsx", "src/game/rpg/AdventurePlayer.tsx", "src/game/rpg/interior-layout.ts"],
+      "checks": {
+        "conflicts": "The swan pad is the last interior argument, after stands, podium, carrels, and water. Walking uses the same flag. The reading room stays open at that point.",
+        "typecheck": "pass",
+        "npmTest": "472 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DwSeymN1.js sha256 d5c37fbd533e5f23d68f468a0f3583b1b0002413fee1e33af5c9143dd0f28d4a. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8268/",
+        "route": "8268 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User sE9YGkso9z6CwEZMm5rB0ayY4BwJHTk7."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Recorded before the integration PR. The museum swan from e149387c is in this branch and is not on main yet. Do not merge PR #283 by itself. The next art commit is 7f328f22b539e7e7483fd93e326f7511a83f8f73 on PR #285."
     }
   ]
 }
