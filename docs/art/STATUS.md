@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：室內南門（ART-080 的一部分）
+
+公共室內的南門現在走得出去。開口半寬 2.5 m，對準牆的內緣。從宮燈教室開口走出去，人站回宮燈教室門外，生命和主修留著。貼著門框的位置會被牆擋住。房間仍不是實測。
+
+畫面：`docs/art/evidence/interior/door-outside.jpg`。測試：`scripts/interior-door.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。室內南門已可走出。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
