@@ -887,3 +887,32 @@ test("an upload that lands after the player keeps the cloud save is put back", a
   assert.equal(planned.status, "in_sync");
   assert.equal(planned.revision, 3);
 });
+
+test("the first flush sends the newest local file instead of the queued snapshot", async () => {
+  const cloud = fakeCloud();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  client.writeLocal(JSON.stringify(save(9)));
+  cloud.setOffline(false);
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(
+    cloud.puts.some((body) => body.document?.xp === 4),
+    false,
+  );
+  assert.equal(cloud.puts.at(-1).document.xp, 9);
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 2);
+});

@@ -543,20 +543,21 @@ export function createCloudSaveController(options: {
       if (item.userId !== userId) continue;
       if (!stillQueued(item)) continue;
       if (item.nextAt > now()) continue;
+      const pending = withLatestLocal(item);
       let response: Response;
       try {
         response = await cloudFetch(
-          item.kind === "put" ? "/api/cloud/saves/rpg" : "/api/cloud/saves/rpg/receipts",
+          pending.kind === "put" ? "/api/cloud/saves/rpg" : "/api/cloud/saves/rpg/receipts",
           {
-            method: item.kind === "put" ? "PUT" : "POST",
-            body: JSON.stringify(item.body),
-            ifMatch: item.kind === "put" ? Number(item.body.baseRevision) : undefined,
+            method: pending.kind === "put" ? "PUT" : "POST",
+            body: JSON.stringify(pending.body),
+            ifMatch: pending.kind === "put" ? Number(pending.body.baseRevision) : undefined,
           },
         );
       } catch {
-        const attempts = item.attempts + 1;
-        retry.set(item.id, {
-          ...item,
+        const attempts = pending.attempts + 1;
+        retry.set(pending.id, {
+          ...pending,
           attempts,
           nextAt: now() + Math.min(30_000, 1_000 * 2 ** (attempts - 1)),
         });
@@ -595,9 +596,9 @@ export function createCloudSaveController(options: {
         finished.add(item.id);
         continue;
       }
-      const attempts = item.attempts + 1;
-      retry.set(item.id, {
-        ...item,
+      const attempts = pending.attempts + 1;
+      retry.set(pending.id, {
+        ...pending,
         attempts,
         nextAt: now() + Math.min(30_000, 1_000 * 2 ** (attempts - 1)),
       });
@@ -769,6 +770,18 @@ export function createCloudSaveController(options: {
       headers.set("if-match", `"${init.ifMatch}"`);
     }
     return options.fetch(`${base}${path}`, { method: init.method, headers, body: init.body });
+  }
+
+  function withLatestLocal(item: QueueItem): QueueItem {
+    if (item.kind !== "put" || item.attempts !== 0) return item;
+    const prepared = prepareLocal();
+    if (!prepared.ok || !item.body.document) return item;
+    try {
+      if (canonicalJson(item.body.document) === canonicalJson(prepared.document)) return item;
+    } catch {
+      return item;
+    }
+    return { ...item, body: { ...item.body, document: prepared.document } };
   }
 
   function bumpQueuedPutBase(userId: string, revision: number): void {
