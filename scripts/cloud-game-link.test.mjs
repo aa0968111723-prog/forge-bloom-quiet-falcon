@@ -1313,3 +1313,57 @@ test("merging piles on a full ground keeps every quest mark", () => {
   assert.equal(again, 3);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("an errand that spills notes keeps those notes out of collection", () => {
+  const node = SUPPLY_NODES.find((entry) => entry.items.notes);
+  inventory.clear();
+  let added = 1;
+  while (added > 0) added = inventory.add("notes", 99).added;
+  useRpg.setState({
+    freshStart: false,
+    hp: 100,
+    xp: 0,
+    claimed: ["quest-orient-gate"],
+    gathered: { notes: 0, parts: 0, coffee: 0, tea: 0 },
+    harvested: {},
+    loot: [],
+    interiorId: null,
+    panel: null,
+    narrativeUi: null,
+    buildKind: null,
+    buildings: [],
+    loadout: { tool: null, accessory: null, pack: null },
+    gear: [],
+    narrative: { ...useRpg.getState().narrative, semester: "week-1" },
+  });
+  useGame.setState({
+    phase: "playing",
+    plaqueId: null,
+    playerX: node.x,
+    playerZ: node.z,
+    playerYaw: 0,
+  });
+  assert.equal(useRpg.getState().commitPrompt(), "supply");
+  const spilled = useRpg.getState();
+  assert.equal(spilled.claimed.includes("quest-errand-campus-post"), true);
+  const pile = spilled.loot.find((entry) => (entry.items.notes ?? 0) > 0);
+  assert.equal(pile.items.notes, node.items.notes + 2);
+  assert.equal(pile.quest?.notes, 2);
+  assert.equal(spilled.gathered.notes, 0);
+  flushSave();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.loot.find((entry) => entry.quest?.notes).quest.notes, 2);
+  assert.equal(validateRpgDocument(saved).ok, true);
+  inventory.clear();
+  useRpg.setState({ panel: null, narrativeUi: null, interiorId: null, buildKind: null });
+  useGame.setState({
+    phase: "playing",
+    plaqueId: null,
+    playerX: node.x,
+    playerZ: node.z,
+    playerYaw: 0,
+  });
+  assert.equal(useRpg.getState().commitPrompt(), "pickup");
+  assert.equal(useRpg.getState().gathered.notes, node.items.notes);
+  assert.equal(useRpg.getState().loot.some((entry) => (entry.items.notes ?? 0) > 0), false);
+});
