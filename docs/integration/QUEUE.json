@@ -5096,6 +5096,32 @@
       "integrationPr": 327,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/327",
       "nextAction": "None. The maritime airframes from 2e07ebe2 are already in this integration. Do not merge PR #255 by itself. The hoop-base commit c3698975 is still separate."
+    },
+    {
+      "id": "art-hoop-base",
+      "line": "art",
+      "scope": "The activity-room hoop bases stop a 0.42 m body. Classrooms do not grow those bases. The south door stays open.",
+      "status": "verified",
+      "pr": 259,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/259",
+      "integrationBranch": "cursor/integration-hoop-base-3395",
+      "sourceBranch": "cursor/hoop-base-1a71",
+      "baseSha": "caedddb58d637363ee05dc7ccc00ea41f971e086",
+      "headSha": "c3698975bf72c2ac4852ca4ec522007392ac05f9",
+      "dependencies": ["art-hull-exhibits"],
+      "sharedFiles": ["src/game/rpg/interior-layout.ts", "src/game/rpg/rules.ts", "src/game/rpg/physics/interior.ts", "src/game/rpg/AdventurePlayer.tsx", "scripts/hoop-base.test.mjs"],
+      "checks": {
+        "conflicts": "The airframes, five-tigers stele, shepherd meadow figure, still charm, and outdoor colliders stay. Indoor steps pass the sport stand flag. Classrooms still omit it.",
+        "typecheck": "pass",
+        "npmTest": "461 pass / 0 fail",
+        "buildSite": "pass. AdventureApp--EkMv-EO.js sha256 421d75c81daaea4fdfc485429a8bdb35cf9de5882d8b286c9c2dcc9136b05ec9. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8253/",
+        "route": "8253 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "1c9fdf9426cd2247fd7949c0c2c2a2fb1469d636",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #259 by itself. The later hoop commit 2ee4ec18 is still separate."
     }
   ]
 }
