@@ -2853,6 +2853,32 @@
       "integrationPr": 210,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/210",
       "nextAction": "None. The harvest cooldown whitelist from 42a7b3f is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-reward-receipt",
+      "line": "backend",
+      "scope": "A reward receipt response is checked against the signed-in account before it is remembered or granted. A mismatch or a failed confirm leaves the event unsettled. A confirmed applied false still does not grant.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-reward-receipt-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "ca2f2897246af879279af6b416fcb65238d8f6e0",
+      "headSha": "089b9d89cea999cf562669a014a50befc61b9193",
+      "dependencies": ["backend-harvest-keys", "backend-reward-blip"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:12:39Z entry and the reward-receipt line.",
+        "typecheck": "pass",
+        "npmTest": "374 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-wsEEgaCK.js unchanged",
+        "browser": "8177. The standing route completed.",
+        "route": "8177: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": false,
+      "mergeSha": "e2030bf80cd27fe98445323898b56ac4ca838046",
+      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
