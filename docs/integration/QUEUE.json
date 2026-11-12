@@ -5577,7 +5577,7 @@
       "id": "art-sand-pit",
       "line": "art",
       "scope": "The track infield has a 3 by 8 m sand pit east of the pitch, with a takeoff board on its west end. The pit stays inside the oval, clear of the white lines, and is walkable.",
-      "status": "verified",
+      "status": "merged",
       "pr": 287,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/287",
       "integrationBranch": "cursor/integration-sand-pit-3395",
@@ -5595,11 +5595,11 @@
         "route": "8270 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User msVF0AwA9IjSNCBopHQSmxMJUfEhfx0g."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Recorded before the integration PR. The sand pit from 4310e4c1 is in this branch and is not on main yet. Do not merge PR #287 by itself. The next art commit is 13baaacf549ad971be0a3c2b1ff9e1e0bb53df6c on PR #289."
+      "merged": true,
+      "mergeSha": "f238493c3916e688f3457dfe58dd8a620d1db53c",
+      "integrationPr": 345,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/345",
+      "nextAction": "None. The sand pit from 4310e4c1 is already in this integration. This is on integration PR #345. Do not merge PR #287 by itself. The next art commit is 13baaacf549ad971be0a3c2b1ff9e1e0bb53df6c on PR #289."
     }
   ]
 }
