@@ -25,6 +25,8 @@ function fakeCloud() {
   let offline = false;
   let dropNextPut = false;
   let rejectNextPut = false;
+  let holdNextPut = false;
+  let heldId = "";
   const seen = new Map();
   const puts = [];
   let ids = 0;
@@ -46,6 +48,14 @@ function fakeCloud() {
     if (rejectNextPut && method === "PUT") {
       rejectNextPut = false;
       throw new Error("socket closed");
+    }
+    if (method === "PUT" && heldId && body.requestId === heldId) {
+      return jsonResponse(401, { error: { code: "unauthorized", message: "請先登入。" } });
+    }
+    if (holdNextPut && method === "PUT") {
+      holdNextPut = false;
+      heldId = body.requestId;
+      return jsonResponse(401, { error: { code: "unauthorized", message: "請先登入。" } });
     }
     const prior = seen.get(body.requestId);
     if (prior) {
@@ -116,6 +126,9 @@ function fakeCloud() {
     },
     rejectNext() {
       rejectNextPut = true;
+    },
+    holdNext() {
+      holdNextPut = true;
     },
     replace(document) {
       remote = document;
@@ -2189,6 +2202,72 @@ test("a session with no user keeps this account's upload", async () => {
   assert.equal(flushed.sent, 1);
   const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
   assert.equal(head.document.xp, 7);
+});
+
+test("a refused upload keeps the newer local file on this device's revision", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  client.writeLocal(JSON.stringify(save(4)));
+  cloud.holdNext();
+  const refused = await client.uploadLocal();
+  assert.equal(refused.status, "queued");
+  assert.equal(client.queuedCount("user-a"), 1);
+  const held = cloud.puts.at(-1);
+  client.writeLocal(JSON.stringify(save(9)));
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(flushed.paused, false);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 2);
+  assert.equal(head.document.xp, 9);
+  assert.equal(cloud.puts.at(-1).document.xp, 9);
+  assert.equal(cloud.puts.at(-1).baseRevision, 1);
+  assert.notEqual(cloud.puts.at(-1).requestId, held.requestId);
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 2);
+});
+
+test("a refused upload does not overwrite another device's save", async () => {
+  const cloud = fakeCloud();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  client.writeLocal(JSON.stringify(save(4)));
+  cloud.holdNext();
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.replace(save(7));
+  client.writeLocal(JSON.stringify(save(9)));
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.equal(
+    cloud.puts.some((body) => body.document?.xp === 9 && body.baseRevision === 2),
+    false,
+  );
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.document.xp, 7);
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const planned = await client.plan();
+  assert.equal(planned.status, "conflict");
+  assert.equal(planned.remote.document.xp, 7);
 });
 
 test("a signed-out save write stays queued for this account", async () => {
