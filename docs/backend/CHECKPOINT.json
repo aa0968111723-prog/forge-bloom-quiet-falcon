@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T07:25:07Z",
+  "updated_at": "2026-11-12T07:28:10Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "0e5b7a0",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -76,10 +76,11 @@
     "a long look-around still uploads the same facing",
     "merged main at fff4452; the empty-cloud queued upload was already on this branch",
     "a full-length campus memory still uploads",
-    "merged main at 0e5b7a0; the rate-limited reward was already on this branch"
+    "merged main at 0e5b7a0; the rate-limited reward was already on this branch",
+    "a long ground-loot id still uploads with its items"
   ],
   "verification": {
-    "npm_test": "391 pass, 0 fail; a full-length campus memory still uploads",
+    "npm_test": "392 pass, 0 fail; a long ground-loot id still uploads with its items",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

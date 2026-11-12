@@ -221,3 +221,31 @@ test("a full-length campus memory still uploads", async () => {
   const rejected = validateRpgDocument(tooLong);
   assert.equal(rejected.ok, false);
 });
+
+test("a long ground-loot id still uploads with its items", () => {
+  const longId = `pile-${"a".repeat(90)}`;
+  assert.ok(longId.length > 80);
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    loot: [{ id: longId, x: 12, z: 18, items: { notes: 2 }, quest: { notes: 1 } }],
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.loot.length, 1);
+  assert.equal(saved.loot[0].id, longId.slice(0, 80));
+  assert.equal(saved.loot[0].items.notes, 2);
+  assert.equal(saved.loot[0].quest.notes, 1);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.loot[0].id, longId.slice(0, 80));
+  assert.equal(reloaded.loot[0].items.notes, 2);
+  assert.equal(reloaded.loot[0].quest.notes, 1);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
