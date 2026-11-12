@@ -656,6 +656,12 @@
 
 畫面：`docs/art/evidence/gym/court.jpg`。測試：`scripts/activity-court.test.mjs`。
 
+## 階段：游泳館水道（ART-067 的一部分）
+
+紹謨紀念游泳館室內是水面、分道線和西端出發台。人走到池邊會停在水面外。出發台低於踏階，不另設碰撞。體育館仍是籃架、中圈和一組地板標線。水道長度仍待測。外形仍是 estimated。活動室標線留著。
+
+畫面：`docs/art/evidence/pool/lanes.jpg`。測試：`scripts/pool-water.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

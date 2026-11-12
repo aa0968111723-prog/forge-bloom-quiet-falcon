@@ -5,7 +5,14 @@ import { terrainHeight } from "../world.ts";
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
 import { keepOut } from "../../features/items-equipment-building/keepout.ts";
 import { RECIPES, type BuildKind } from "./data.ts";
-import { CLASSROOM_DESK, HOOP_STANDS, READING_CARRELS, ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
+import {
+  CLASSROOM_DESK,
+  HOOP_STANDS,
+  READING_CARRELS,
+  ROOM_TABLES,
+  ROOM_TABLE_SIZE,
+  SWIMMING_POOL,
+} from "./interior-layout.ts";
 export type Building = {
   id: string;
   kind: BuildKind;
@@ -307,6 +314,7 @@ export function resolveInterior(
   stands = false,
   podium = false,
   carrels = false,
+  water = false,
 ) {
   const minX = -9 + radius, maxX = 9 - radius, minZ = -7 + radius, maxZ = 7 - radius;
   let px = Math.max(minX, Math.min(maxX, x)),
@@ -357,6 +365,14 @@ export function resolveInterior(
         px = Math.max(minX, Math.min(maxX, px));
         pz = Math.max(minZ, Math.min(maxZ, pz));
       }
+    }
+  }
+  if (water) {
+    const hx = SWIMMING_POOL.halfX + radius;
+    const hz = SWIMMING_POOL.halfZ + radius;
+    if (Math.abs(px) < hx && Math.abs(pz) < hz) {
+      if (hx - Math.abs(px) < hz - Math.abs(pz)) px = px >= 0 ? hx : -hx;
+      else pz = pz >= 0 ? hz : -hz;
     }
   }
   if (!furnished) return { x: px, z: pz };

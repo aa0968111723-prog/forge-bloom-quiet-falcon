@@ -1222,6 +1222,20 @@ try {
     });
     await frames(page, 8);
     await shot(page, "court", "activity room court lines between the hoops");
+  } else if (scenario === "pool-water") {
+    await hideHud(page);
+    await enterInterior(page, "swimming");
+    await setPose(page, 0, 5.6, 0);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 36);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.45, distance: 12, height: 8.2, lookY: 0.3 });
+    });
+    await frames(page, 6);
+    await shot(page, "lanes", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.z < 4.3 || stopped.z > 4.7) throw new Error(`walked into the water ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
