@@ -5459,7 +5459,35 @@
       "mergeSha": "e0c145a5a5c6647d7c012ed2b4056b9fe08da1e3",
       "integrationPr": 340,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/340",
-      "nextAction": "None. The swimming-hall pool from 26a70194 is already in this integration. This is on integration PR #340. Do not merge PR #279 by itself. The later pool-deck commit 6ae3b4fb stays on that PR."
+      "nextAction": "None. The swimming-hall pool from 26a70194 is already in this integration. This is on integration PR #340. Do not merge PR #279 by itself. The pool-deck commit 6ae3b4fb is in the following integration and is not on main yet."
+    },
+    {
+      "id": "art-pool-deck",
+      "line": "art",
+      "scope": "Entering or resuming the swimming hall stands on the south deck at z=5.2, clear of the water. Other interiors still appear at z=4.",
+      "status": "verified",
+      "pr": 279,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/279",
+      "integrationBranch": "cursor/integration-pool-deck-3395",
+      "sourceBranch": "cursor/pool-water-1a71",
+      "baseSha": "3b36e0a30c2c79293c2c934c3c6f88cfe2dfa030",
+      "headSha": "6ae3b4fbd81026c2e3e38e6d46e2cc05e880463b",
+      "dependencies": ["art-pool-water"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/interior-layout.ts", "scripts/pool-water.test.mjs"],
+      "checks": {
+        "conflicts": "The shared interior arrival now uses interiorSpawn. Swimming stands at z=5.2. Gym and palace stay at z=4. The basin still stops a walking body.",
+        "typecheck": "pass",
+        "npmTest": "471 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-xeUx5bPQ.js sha256 01da4ce292fbe0eb730eb87cced83f9dd67cfead54587c0b072f52e0a3b1fe88. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8266/",
+        "route": "8266 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR. It is not on main yet. The next art commit is d74acab2 on PR #281. Do not merge PR #281 or PR #279 by itself."
     }
   ]
 }
