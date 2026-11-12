@@ -374,4 +374,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 62 輪（游泳館水道）— 2026-11-12
 
-`node --test scripts/pool-water.test.mjs scripts/physics-clock.test.mjs` 通過。`tsc --noEmit` 通過。水面是 12.4×8 m。五條分道線在水面內，六座出發台在西端池邊外。站在水中央會被推到池邊，南邊甲板 z=5.2 和南門 z=6.4 不被推開。體育館中心點在沒有水面時留在原地。定步白天從南邊走向水面，頁面無錯誤，停在 z=4.42：`docs/art/evidence/pool/lanes.jpg`。看得到藍水和分道線，出發台在西端。水道長度仍待測。車阻留在第 61 輪。沒有新增音效。`build:site` 產物 `AdventureApp-lzbofDxR.js`。
+`node --test scripts/pool-water.test.mjs scripts/physics-clock.test.mjs` 通過。`tsc --noEmit` 通過。水面是 12.4×8 m。五條分道線在水面內，六座出發台在西端池邊外。站在水中央會被推到池邊，南邊甲板 z=5.2 和南門 z=6.4 不被推開。進門和讀檔用同一個甲板點，體育館和教室仍是 z=4。體育館中心點在沒有水面時留在原地。定步白天進館出生在 z=5.2，再走向水面停在 z=4.42，頁面無錯誤：`docs/art/evidence/pool/lanes.jpg`。看得到藍水和分道線，出發台在西端。水道長度仍待測。車阻留在第 61 輪。沒有新增音效。`build:site` 產物 `AdventureApp-C-DrXSDv.js`。

@@ -57,7 +57,7 @@
     "typecheck": "pass",
     "npm_test": "pool-water and physics-clock pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-lzbofDxR.js",
+    "build_site": "AdventureApp-C-DrXSDv.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The swimming-hall interior is a 12.4 by 8 m basin with lane lines and six starting blocks. A 0.42 m body walking in from the south stops at z=4.42, outside the water. The gym keeps the hoops. Lane length stays unmeasured. A 0.42 m body on a bollard is still pushed off the post. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The swimming-hall interior is a 12.4 by 8 m basin with lane lines and six starting blocks. Entering or resuming stands on the south deck at z=5.2, clear of the water. A 0.42 m body walking north stops at z=4.42. Other interiors still appear at z=4. The gym keeps the hoops. Lane length stays unmeasured. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

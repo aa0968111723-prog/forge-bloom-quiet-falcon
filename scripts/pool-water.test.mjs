@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { SWIMMING_POOL, poolBlockPositions, poolLaneOffsets } from "../src/game/rpg/interior-layout.ts";
+import { SWIMMING_POOL, interiorSpawn, poolBlockPositions, poolLaneOffsets } from "../src/game/rpg/interior-layout.ts";
 import { resolveInterior } from "../src/game/rpg/rules.ts";
 
 const radius = 0.42;
@@ -37,4 +37,12 @@ test("the swimming hall keeps a body on the deck", () => {
   assert.ok(beside.x > SWIMMING_POOL.halfX);
   assert.ok(beside.x <= 9 - radius);
   assert.equal(beside.z, 0);
+
+  const spawn = interiorSpawn("swimming");
+  assert.ok(spawn.z >= SWIMMING_POOL.halfZ + radius + 0.5);
+  const stood = resolveInterior(spawn.x, spawn.z, radius, false, true);
+  assert.equal(stood.x, spawn.x);
+  assert.equal(stood.z, spawn.z);
+  assert.equal(interiorSpawn("gym").z, 4);
+  assert.equal(interiorSpawn("palace").z, 4);
 });
