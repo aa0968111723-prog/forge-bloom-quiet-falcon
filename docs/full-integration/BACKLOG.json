@@ -144,7 +144,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Shen's short note on AdventureApp-D3TATbW2.js at 1280x720. Note and oral each moved store xp from 216 to 226 and notes from 24 to 25. The card showed 166/180. Week-1 stayed. The +10 is the after stage. This beat has no studio main. Liang's poster choices were visible and left unpaid. The later-source flag is listed before the short-note flag."
+      "note": "Two fresh architecture semesters paid Shen's short note on AdventureApp-D3TATbW2.js at 1280x720. Note and oral each moved store xp from 216 to 226 and notes from 24 to 25. The card showed 166/180. Week-1 stayed. The +10 is the after stage. This beat has no studio main. Liang's poster choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-LIANG-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Liang's poster on AdventureApp-C7szpjke.js at 1280x720. Board and wait each moved store xp from 226 to 240 and notes from 25 to 26. The card showed level 3, 0/300, hp 116/116. Week-1 stayed. The +14 is after 10 plus studio after 4. Talking again showed the nothing-new notice. The four-person main line ends here."
     },
     {
       "id": "FI-XU-HUI",
@@ -170,7 +177,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 32a15ad includes the session-blip save write-back via #198 and the reward check via #197. Merged here as b08c638. The adventure chunk stayed AdventureApp-D3TATbW2.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main 4f300a7 includes the upload-account confirm via #203, the restore-session confirm via #202, and the station harvest cooldown via #200. Merged here as fa86833. The adventure chunk became AdventureApp-C7szpjke.js because store.ts changed. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",

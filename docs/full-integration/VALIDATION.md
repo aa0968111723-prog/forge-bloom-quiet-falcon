@@ -444,3 +444,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 226 減 216 是 10，也就是收尾階段的經驗。筆記加 1。這一段沒有 `main`，所以沒有工作室加成。梁晚的海報看先前出處有沒有標成下週補；下週補那個旗標排在短記之前。
 
 畫面：`/opt/cursor/artifacts/integration-shen-after/note-outcome.png`、`note-next.png`、`oral-outcome.png`、`oral-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 梁晚的兩個海報選項
+
+這段打在 `AdventureApp-C7szpjke.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-BEExzEd5.js`。`main` 尖端 `4f300a7`（別人的帳號回應保持佇列，整合 PR #203；換帳號後不套用還原存檔是 `7535406`，整合 PR #202；建物採收冷卻是 `3d60236`，整合 PR #200），合併提交 `fa86833`。靜態重建換了檔名，因為 `store.ts` 在冒險主程式裡。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-liang-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 364 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出 `index-BEExzEd5.js` 與 `AdventureApp-C7szpjke.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到沈酌的短記。點海報之前存檔經驗 226、筆記 25。
+
+- 「海報只放已經並列、寫了名字的出處。」存檔經驗 240，筆記 26。結果句「沒寫名字的不在牆上。」畫面是 3 級、「經驗 0/300」、生命 116/116、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。再按「與梁晚交談」，提示「這段已經談完」，面板沒有開。`quest-faculty-liang-after` 與 `quest-faculty-studio-after` 各一筆。重載後經驗 240、筆記 26，再交談仍是這句提示。
+- 「出處若還沒齊，海報先拿下，下週再貼。」經驗同樣 226→240，筆記 25→26。結果句「先拿下。」她先說「出處還沒齊」。再交談同樣沒有新的話。重載後這句提示還在。
+
+240 減 226 是 14，也就是收尾 10 加工作室 `after` 的 4。筆記加 1。`levelForXp(240)` 是 3。下一階從 540 起，所以經驗條是 0/300。生命上限是 100 加每個等級 8，3 級是 116。四人主線在這一段結束。
+
+畫面：`/opt/cursor/artifacts/integration-liang-after/board-outcome.png`、`board-done.png`、`wait-outcome.png`、`wait-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
