@@ -133,7 +133,12 @@ export function loadMemory(store: MemoryStore | null): Memory {
 }
 
 export function saveMemory(store: MemoryStore | null, memory: Memory) {
-  if (!store) return;
+  if (!store) return false;
   const signals = memory.signals.slice(-20);
-  store.setItem(VARIETY_SAVE_KEY, JSON.stringify({ ...memory, signals }));
+  try {
+    store.setItem(VARIETY_SAVE_KEY, JSON.stringify({ ...memory, signals }));
+    return true;
+  } catch {
+    return false;
+  }
 }

@@ -4,7 +4,7 @@
 
 擁有 `src/features/gameplay-variety/**`、`docs/gameplay-variety/**`、`scripts/gameplay-variety.test.mjs`。主遊戲只加了面板 token `variety`、HUD 掛載與場景上的地面環。沒有改敵人表、敘事旗標或別人的未提交檔案。
 
-本線存檔鍵是 `tamkang-gameplay-variety-v1`。獎勵由 `host.ts` 的 `grantQuestReward` 寫回既有經驗、筆記與學分。溢位進既有掉落堆。`readStorySignals()` 給統整線，型別是 `variety.resolved`。
+本線仍寫 `tamkang-gameplay-variety-v1`。匯出與匯入學期存檔時，同一份紀錄放在存檔的 `variety` 欄；舊檔沒有這個欄就清空遭遇進度，避免匯入舊角色後仍沿用瀏覽器裡較新的完成紀錄。寫入被拒時操作繼續，存檔狀態改成錯誤。獎勵由 `host.ts` 的 `grantQuestReward` 寫回既有經驗、筆記與學分。溢位進既有掉落堆。`readStorySignals()` 給統整線，型別是 `variety.resolved`。
 
 重跑：`node --test scripts/gameplay-variety.test.mjs`，然後 `npx tsc --noEmit`。主遊戲用 `npm run dev`，`?qa=1` 才有 `window.__rpgQA`。
 
