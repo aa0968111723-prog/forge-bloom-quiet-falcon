@@ -6,7 +6,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LAMP_POLE, LIBRARY, PALACE, bollards, palaceHallZs } from "./landmarks.ts";
+import { LAMP_POLE, LIBRARY, PALACE, bollards, lanternPosts, palaceHallZs } from "./landmarks.ts";
 import { COLLIDERS, registerPoleBoxes, type AABB } from "./colliders.ts";
 import { sampleGroundElevation } from "./elevation.ts";
 import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
@@ -142,14 +142,7 @@ function plazaProps(): PropInstance[] {
 
 function avenueProps(): PropInstance[] {
   const out: PropInstance[] = [];
-  const lampX = AVENUE_PAVED_WIDTH / 2 + AVENUE_PLANTING_WIDTH * 0.45;
-  // 宮燈: the avenue's signature. Even spacing, both sides, staggered by half.
-  const spacing = 12;
-  let i = 0;
-  for (let z = AXIS.avenueSouthZ - 4; z > AXIS.avenueNorthZ + 2; z -= spacing, i++) {
-    out.push(prop("lantern-post", -lampX, z, "avenue", 0));
-    out.push(prop("lantern-post", lampX, z - spacing / 2, "avenue", 0));
-  }
+  for (const post of lanternPosts()) out.push(prop("lantern-post", post.x, post.z, "avenue", 0));
   // Hall-front furniture: name plate, potted plants, AC units on the back wall.
   for (const z of palaceHallZs()) {
     for (const s of [-1, 1] as const) {

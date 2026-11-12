@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS, PLAZA_FLAGPOLE } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, libraryPorchPosts, palaceColumns, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
+import { BOLLARD, CAMPUS_GATE, LANDMARKS, LANTERN_BASE, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, lanternPosts, libraryPorchPosts, palaceColumns, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -140,6 +140,9 @@ function buildColliders(): AABB[] {
     const foot = exhibitFootprint(item);
     out.push(box(foot.x, foot.z, foot.w, foot.d));
   }
+
+  // 宮燈 stone bases. The 6 m paved centre stays open.
+  for (const post of lanternPosts()) out.push(box(post.x, post.z, LANTERN_BASE, LANTERN_BASE));
 
   // Library ramp rails. The bars are outside the 1.6 m deck; the centre stays open.
   for (const side of [-1, 1] as const) {
