@@ -1,0 +1,20 @@
+{
+  "updated": "2026-11-12T01:40:00Z",
+  "items": [
+    {
+      "id": "gv-browser-combat-rest",
+      "status": "open",
+      "note": "扇形小考的按鈕已在主遊戲大道上出現。護盾、保護桌子、解除結界的判定有單元測試，還沒在主遊戲點完一場。"
+    },
+    {
+      "id": "gv-story-adapter",
+      "status": "handoff",
+      "note": "signals 存在 tamkang-gameplay-variety-v1。統整線再決定怎麼接到教授劇情。這條線不寫 narrative.flags。"
+    },
+    {
+      "id": "gv-device",
+      "status": "blocked",
+      "note": "手機與 RTX 3060 仍是 pending-device。SwiftShader 與 390×780 視窗不能代替。"
+    }
+  ]
+}

@@ -108,6 +108,8 @@ import {
 } from "./lesson";
 import { lessonMapLabel } from "./lesson-label";
 import { semesterView } from "../contracts/semester.ts";
+import { VarietyDock, VarietyPanel } from "../../features/gameplay-variety/VarietyChrome";
+import { dismissVariety, varietyHeading } from "../../features/gameplay-variety/runtime";
 
 const PANELS = [
   ["inventory", CHROME_CONTROLS.inventory, Backpack, "I"],
@@ -1775,6 +1777,11 @@ export function AdventureHud() {
       useRpg.getState().narrativeDismiss();
       return;
     }
+    if (panel === "variety") {
+      dismissVariety();
+      useRpg.getState().setPanel(null);
+      return;
+    }
     useRpg.getState().setPanel(null);
     if (!mobile || !panel) return;
     const restore = panelClosePlan(panel).restoreFocusId;
@@ -1787,7 +1794,9 @@ export function AdventureHud() {
       ? "選擇你的主修"
       : state.panel === "narrative"
         ? "校園裡的人"
-        : (PANELS.find((p) => p[0] === state.panel)?.[1] ?? "");
+        : state.panel === "variety"
+          ? varietyHeading()
+          : (PANELS.find((p) => p[0] === state.panel)?.[1] ?? "");
   const tier: ChromeTier =
     graphicsTier === "low" ? "low" : graphicsTier === "high" ? "high" : quality().tier;
   return (
@@ -2000,6 +2009,7 @@ export function AdventureHud() {
       {phase !== "title" && (
         <>
           {mobile && <CompactStatusCard />}
+          <VarietyDock />
           <header className="ad-hud-top">
             {mobile ? null : <Status />}
             <div className="ad-hud-right" style={mobile ? { marginLeft: "auto" } : undefined}>
@@ -2092,18 +2102,20 @@ export function AdventureHud() {
           title={title}
           onClose={close}
           closeId={
-            mobile && state.panel && state.panel !== "narrative"
+            mobile && state.panel && state.panel !== "narrative" && state.panel !== "variety"
               ? panelClosePlan(state.panel).closeId
               : undefined
           }
           scrollId={
-            mobile && state.panel && state.panel !== "narrative"
+            mobile && state.panel && state.panel !== "narrative" && state.panel !== "variety"
               ? panelClosePlan(state.panel).scrollId
               : undefined
           }
         >
           {state.panel === "narrative" ? (
             <NarrativePanel />
+          ) : state.panel === "variety" ? (
+            <VarietyPanel />
           ) : state.panel === "department" ? (
             <DepartmentPanel />
           ) : state.panel === "inventory" ? (

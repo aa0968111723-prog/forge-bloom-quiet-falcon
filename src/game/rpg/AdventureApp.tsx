@@ -10,6 +10,7 @@ import { CAMPUS_SITES } from "./campus";
 import { AdventurePlayer } from "./AdventurePlayer";
 import { AdventureHud } from "./AdventureHud";
 import { AdventureSystems, CampusExtension, Interior, PromptMarks } from "./AdventureWorld";
+import { VarietyMarks } from "../../features/gameplay-variety/VarietyChrome";
 import { inventory, useRpg } from "./store";
 import { terrainHeight } from "../world";
 import { usePerformance } from "./performance";
@@ -95,6 +96,7 @@ function Scene({ onReady }: { onReady: () => void }) {
               timeOfDay={anomaly === "blackout" ? "night" : time}
             />
             <CampusExtension />
+            <VarietyMarks />
             <Npcs />
           </>
         )}
