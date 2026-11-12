@@ -5605,7 +5605,7 @@
       "id": "art-zebra",
       "line": "art",
       "scope": "Six zebra bars sit on the slope apron between the gate piers. Their south edge stays on the apron and clear of the bollards. The paint is flat and walkable.",
-      "status": "verified",
+      "status": "merged",
       "pr": 289,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/289",
       "integrationBranch": "cursor/integration-zebra-3395",
@@ -5623,11 +5623,11 @@
         "route": "8271 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User zbTSfhM21wH4tSmF0s7FUZxUItjFouT2."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Recorded before the integration PR. The zebra crossing from 13baaacf is in this branch and is not on main yet. Do not merge PR #289 by itself. The next art commit is 9ba627807e8ee240c0b4bc335a046af7604a3150 on PR #290."
+      "merged": true,
+      "mergeSha": "9c89e65388b16a7254ef885c76192df3659a1718",
+      "integrationPr": 346,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/346",
+      "nextAction": "None. The zebra crossing from 13baaacf is already in this integration. This is on integration PR #346. Do not merge PR #289 by itself. The next art commit is 9ba627807e8ee240c0b4bc335a046af7604a3150 on PR #290."
     }
   ]
 }
