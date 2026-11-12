@@ -4088,6 +4088,34 @@
       "integrationPr": 291,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/291",
       "nextAction": "None. The public interior ceiling from 01ab365a is already in this integration. Do not merge PR #169 by itself."
+    },
+    {
+      "id": "backend-heal-floor",
+      "line": "backend",
+      "scope": "Continuous healing indoors keeps the first 1.8 s save deadline. After the player enters the library on floor 3 at hp 30, the saved file keeps the library, floor 3, and hp above 30. The document still uploads.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-heal-floor-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "e7869323b7683ae59daceb84cb44a39d0a2ebd2c",
+      "headSha": "b17268ca90594afee93c072a5821c7ed96bca403",
+      "dependencies": ["art-interior-ceiling"],
+      "sharedFiles": ["src/game/rpg/store.ts", "scripts/cloud-game-link.test.mjs", "docs/backend/STATUS.md"],
+      "checks": {
+        "conflicts": "scheduleSave and docs/backend/CHECKPOINT.json completed tail. Kept the first 1.8 s deadline. Kept 2026-11-12T10:36:30Z, the merge note at 6655b94, and the healing line. npm_test set to 430 because the ceiling test is on this tree.",
+        "typecheck": "pass",
+        "npmTest": "430 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DAgUMSO-.js",
+        "browser": "8221. The standing route completed.",
+        "route": "8221: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "ac4da0901d7b3f551aa7afd489b63eb9559b4a88",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #156 by itself."
     }
   ]
 }
