@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：牧羊草坪雕塑（ART-063 的一部分）
+
+牧羊草坪放了一座「唱自己的歌」的立姿剪影，站在 1.6 m 石座上。石座會擋住半徑 0.42 m 的身體。蓋章點在石座南邊 4 m，沒有被推進碰撞。巡禮折線不經過石座。外形與位置仍是 estimated，不是肖像，也不是實測基座。五虎碑仍未放進場景。田徑場內圈留著。
+
+畫面：`docs/art/evidence/meadow/figure.jpg`。測試：`scripts/shepherd-figure.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。牧羊草坪已有立姿剪影。五虎碑還沒有放到場景裡。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

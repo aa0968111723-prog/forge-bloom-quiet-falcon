@@ -296,7 +296,7 @@ export const LANDMARKS: RealityLandmark[] = [
     accuracy: "estimated",
     referenceIds: ["REF_SECONDARY_ZONE_PLACEHOLDER", "REF_CAMPUS_ON_WUHU_HILL"],
     zone: "library",
-    interact: { x: -58, z: -298, radius: 14 },
+    interact: { x: -58, z: -294, radius: 14 },
     mapColor: "#6a9a62",
   },
   {
@@ -333,6 +333,12 @@ export const LANDMARKS: RealityLandmark[] = [
     mapColor: "#8a6a44",
   },
 ];
+
+/**
+ * 唱自己的歌 on 牧羊草坪. North of the stamp so the stamp stays open.
+ * The pad is estimated; it is wide enough that one dodge step cannot cross it.
+ */
+export const SHEPHERD = { x: -58, z: -302, pad: 1.6 } as const;
 
 export const LANDMARK_BY_ID: Record<string, RealityLandmark> = Object.fromEntries(
   LANDMARKS.map((l) => [l.id, l]),
