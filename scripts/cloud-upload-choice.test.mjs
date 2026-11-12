@@ -637,3 +637,95 @@ test("a bad cloud document does not replace the local save", async () => {
   assert.equal(restored.status, "error");
   assert.equal(JSON.parse(client.readLocal()).xp, 9);
 });
+
+test("keeping the remote save drops the queued upload and leaves receipts", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(3)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(8)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  let grants = 0;
+  assert.equal(
+    (
+      await client.noteReward("gather-notes", () => {
+        grants += 1;
+      })
+    ).granted,
+    true,
+  );
+  assert.equal(grants, 1);
+  client.bindAccount("user-b");
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  client.bindAccount("user-a");
+  const kept = await client.keepRemoteVersion();
+  assert.equal(kept.status, "downloaded");
+  assert.equal(JSON.parse(client.readLocal()).xp, 3);
+  assert.equal(client.queuedCount("user-a"), 1);
+  const other = JSON.parse(storage.getItem("tamkang-cloud-save-queue:user-b"));
+  assert.equal(
+    other.some((item) => item.kind === "put" && item.body.document.xp === 4),
+    true,
+  );
+  await client.flush();
+  assert.equal(
+    cloud.puts.some((body) => body.document?.xp === 8),
+    false,
+  );
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 1);
+});
+
+test("restoring a cloud revision drops the queued local upload", async () => {
+  let offline = true;
+  const posts = [];
+  const older = save(1);
+  const head = save(2);
+  const fetch = async (url, init = {}) => {
+    if (offline) throw new Error("offline");
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    if ((init.method ?? "GET") === "GET") {
+      return jsonResponse(200, {
+        revision: 2,
+        schemaVersion: 1,
+        contentVersion: 2,
+        document: head,
+        etag: '"2"',
+        contentHash: await sha256Hex(canonicalJson(head)),
+      });
+    }
+    posts.push(String(url));
+    return jsonResponse(200, {
+      revision: 3,
+      document: older,
+      contentHash: await sha256Hex(canonicalJson(older)),
+    });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "restorereq0001",
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(9)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  assert.equal(client.queuedCount("user-a"), 1);
+  offline = false;
+  const restored = await client.restoreRevision(1);
+  assert.equal(restored.status, "restored");
+  assert.equal(JSON.parse(client.readLocal()).xp, 1);
+  assert.equal(client.queuedCount("user-a"), 0);
+  assert.deepEqual(posts, ["http://127.0.0.1/api/cloud/saves/rpg/restore"]);
+});
