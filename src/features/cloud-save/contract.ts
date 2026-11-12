@@ -340,7 +340,7 @@ function checkFields(doc: SaveDocument): ValidationResult {
     if (!quarantine.ok) return quarantine;
   }
   if ("quarantineGear" in doc) {
-    const quarantineGear = checkGearList(doc.quarantineGear, "隔離裝備");
+    const quarantineGear = checkGearList(doc.quarantineGear, "隔離裝備", "kept");
     if (!quarantineGear.ok) return quarantineGear;
   }
   if ("heldBuild" in doc && doc.heldBuild != null) {
@@ -488,7 +488,15 @@ function checkLoadout(value: unknown): ValidationResult {
   return { ok: true, document: {} };
 }
 
-function checkGearList(value: unknown, label: string): ValidationResult {
+function keptItemId(value: unknown): boolean {
+  return typeof value === "string" && value.length >= 1 && value.length <= 64;
+}
+
+function checkGearList(
+  value: unknown,
+  label: string,
+  itemIds: "catalog" | "kept" = "catalog",
+): ValidationResult {
   if (!Array.isArray(value) || value.length > 24) {
     return { ok: false, code: "invalid_document", message: `${label}格式不正確。` };
   }
@@ -503,7 +511,11 @@ function checkGearList(value: unknown, label: string): ValidationResult {
     if (typeof row.id !== "string" || row.id.length < 1 || row.id.length > 64) {
       return { ok: false, code: "invalid_document", message: `${label} id 不正確。` };
     }
-    if (typeof row.itemId !== "string" || !ID_PATTERN.test(row.itemId)) {
+    const itemOk =
+      itemIds === "kept"
+        ? keptItemId(row.itemId)
+        : typeof row.itemId === "string" && ID_PATTERN.test(row.itemId);
+    if (!itemOk) {
       return { ok: false, code: "invalid_document", message: `${label}物品 id 不正確。` };
     }
     if (!finiteIn(row.durability, 0, 100_000)) {
@@ -528,7 +540,7 @@ function checkQuarantine(value: unknown): ValidationResult {
     if (Object.keys(row).some((key) => key !== "itemId" && key !== "quantity")) {
       return { ok: false, code: "unsafe_content", message: "隔離物品含有白名單以外的欄位。" };
     }
-    if (typeof row.itemId !== "string" || !ID_PATTERN.test(row.itemId)) {
+    if (!keptItemId(row.itemId)) {
       return { ok: false, code: "invalid_document", message: "隔離物品 id 不正確。" };
     }
     if (!integerIn(row.quantity, 1, 99)) {

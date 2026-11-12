@@ -107,3 +107,27 @@ test("reloading a cloud save keeps a built station's harvest cooldown", () => {
   assert.equal(saved.harvested[supply.id], until);
   assert.equal(validateRpgDocument(saved).ok, true);
 });
+
+test("an imported unknown item stays quarantined and can still upload", () => {
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [{ itemId: "Old Badge", quantity: 2 }],
+    gear: [{ id: "kept-lamp", itemId: "Field Lamp", durability: 3, quality: "plain" }],
+    buildings: [],
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(saved.quarantine, [{ itemId: "Old Badge", quantity: 2 }]);
+  assert.deepEqual(saved.quarantineGear, [
+    { id: "kept-lamp", itemId: "Field Lamp", durability: 3, quality: "plain" },
+  ]);
+  assert.equal(
+    saved.slots.some((slot) => slot.itemId === "Old Badge"),
+    false,
+  );
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+});
