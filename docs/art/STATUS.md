@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：圖書館雨遮柱（ART-084 的一部分）
+
+圖書館南向雨遮的兩根柱子會擋住半徑 0.42 m 的身體。從南邊走向東側柱會停在柱面外。兩柱中間和圖書館門口仍站得住。柱位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/library/porch-post.jpg`。測試：`scripts/library-posts.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。圖書館雨遮柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

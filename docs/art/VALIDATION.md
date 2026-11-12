@@ -359,3 +359,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 58 輪（欄杆擋人）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs scripts/library-ramp.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 站在坡道中線不被推開。站在東側欄杆 x=-1.05 會被推到 x=-1.530，移開 0.48 m。南端外 1.2 m 的入口也不被推開。估計路網仍是一個相連的格網。克難坡仍沒有欄杆。沒有新增音效。欄杆留在第 57 輪。`build:site` 產物 `AdventureApp-C6frxvLx.js`。
+
+## 第 59 輪（圖書館雨遮柱）— 2026-11-12
+
+`node --test scripts/library-posts.test.mjs` 通過。`tsc --noEmit` 通過。雨遮兩根柱子在南牆外 3.4 m。半徑 0.42 m 站在柱心會被推開。兩柱中間和圖書館門口（10, −290）不被推開。定步白天從南邊走向東側柱，頁面無錯誤，停在 z=−295.83：`docs/art/evidence/library/porch-post.jpg`。柱位仍是 estimated。欄杆擋人留在第 58 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CdDFAbM7.js`。
