@@ -27,6 +27,8 @@ declare global {
     __rpgQA?: {
       rpg: typeof import("./rpg/store").useRpg;
       game: typeof import("./store").useGame;
+      /** Live bag. Present on `?qa=1` so a capture can grant items without a second store. */
+      inventory?: typeof import("./rpg/store").inventory;
       /** Terrain height at a point (for placing QA cameras). */
       ground?: (x: number, z: number) => number;
       /** Stop the render loop; frames then only advance through `step`. */

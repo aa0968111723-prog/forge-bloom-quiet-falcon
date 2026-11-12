@@ -5,8 +5,9 @@ import { Student } from "../Student";
 import { ArtBoundary } from "../art/ArtBoundary";
 import { Protagonist, type PlayerActions } from "../art/character/Protagonist";
 import { input } from "./input";
+import { gearBonus } from "../../features/items-equipment-building/gear";
 import { SPRINT, WALK, moveTargetSpeed } from "./move";
-import { useRpg } from "./store";
+import { inventory, useRpg } from "./store";
 import { resolveBuildings, resolveInterior } from "./rules";
 import { CAMPUS_SITES } from "./campus";
 import { useGame } from "../store";
@@ -226,7 +227,8 @@ export function AdventurePlayer() {
     }
     const mag = Math.hypot(dx, dz);
     if (mag > 0.001) {
-      const speed = moveTargetSpeed(actions.moveX, actions.moveY, actions.sprint);
+      const pace = gearBonus(rpg.loadout, rpg.gear, (id) => inventory.count(id) > 0).moveScale;
+      const speed = moveTargetSpeed(actions.moveX, actions.moveY, actions.sprint) * pace;
       const scale = speed / mag;
       const tx = dx * scale;
       const tz = dz * scale;
@@ -270,7 +272,8 @@ export function AdventurePlayer() {
     speedRef.current = sp;
     // Pushing against a wall or a too-high step zeroes velocity; keep a slow
     // stride in place instead of an idle stand while the stick is held.
-    const intended = !frozen && mag > 0.001 ? moveTargetSpeed(actions.moveX, actions.moveY, actions.sprint) : 0;
+    const pace = gearBonus(rpg.loadout, rpg.gear, (id) => inventory.count(id) > 0).moveScale;
+    const intended = !frozen && mag > 0.001 ? moveTargetSpeed(actions.moveX, actions.moveY, actions.sprint) * pace : 0;
     strideRef.current = Math.max(sp, intended * 0.45);
     if (sp > 0.4) {
       const nx = pos.current.x + vel.current.x * delta;

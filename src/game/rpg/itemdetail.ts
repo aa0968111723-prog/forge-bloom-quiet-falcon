@@ -2,6 +2,7 @@
  * One readout for the backpack detail and the coffee/tea decision.
  * Life cap and basic attack come from the same functions combat already uses.
  */
+import { BANDAGE_HEAL, factOf, MINT_FOCUS } from "../../features/items-equipment-building/catalog";
 import { CAMPUS_SITES, SUPPLY_NODES } from "./campus";
 import { ENEMY_TYPES, ITEMS, MISSIONS } from "./data";
 import { basicAttackDamage, lifeCap } from "./rules";
@@ -47,6 +48,9 @@ export type ItemDetail = {
   attackFrom: number;
   attackTo: number;
   attackDelta: number;
+  source: string;
+  stack: string;
+  weight: string;
 };
 
 const EMPTY_REASON = "背包裡沒有這個物品。";
@@ -65,14 +69,20 @@ export function itemVerdict(input: {
     if (input.count <= 0) return { allowed: false, reason: BADGE_REASON, mark: "empty" };
     return { allowed: true, reason: "", mark: "ready" };
   }
-  if (input.id !== "coffee" && input.id !== "tea") {
+  const drink =
+    input.id === "coffee" ||
+    input.id === "tea" ||
+    input.id === "mint" ||
+    input.id === "bandage" ||
+    input.id === "lamp-oil";
+  if (!drink) {
     return { allowed: false, reason: "這件物品不能使用。", mark: "empty" };
   }
   if (input.count <= 0) return { allowed: false, reason: EMPTY_REASON, mark: "empty" };
-  if (input.id === "coffee" && input.hp >= input.maxLife) {
+  if ((input.id === "coffee" || input.id === "bandage") && input.hp >= input.maxLife) {
     return { allowed: false, reason: FULL_REASON, mark: "full" };
   }
-  if (input.id === "tea" && input.focus >= FOCUS_CAP) {
+  if ((input.id === "tea" || input.id === "mint") && input.focus >= FOCUS_CAP) {
     return { allowed: false, reason: FULL_REASON, mark: "full" };
   }
   return { allowed: true, reason: "", mark: "ready" };
@@ -139,6 +149,7 @@ export function itemDetail(input: ItemDetailInput): ItemDetail {
     item?.id === "badge"
       ? false
       : item?.category !== "consumable";
+  const fact = item ? factOf(item.id) : undefined;
   const reason = passive ? "這件物品沒有使用或裝備動作。" : verdict.reason;
   const allowed = passive ? false : verdict.allowed;
   let effect = "沒有立即效果。";
@@ -152,6 +163,18 @@ export function itemDetail(input: ItemDetailInput): ItemDetail {
     else effect = `飲用後專注 +${Math.min(TEA_FOCUS, FOCUS_CAP - input.focus)}，目前 ${input.focus} / ${FOCUS_CAP}。`;
   } else if (item?.id === "badge") {
     effect = `生命上限 ${lifeFrom} → ${lifeTo}（${signed(lifeDelta)}）。普攻 ${attackFrom} → ${attackTo}（${signed(attackDelta)}）。`;
+  } else if (item?.id === "mint") {
+    if (input.count <= 0) effect = "沒有薄荷冷茶，專注不會改變。";
+    else if (input.focus >= FOCUS_CAP) effect = "專注已滿，飲用不會消耗薄荷冷茶。";
+    else effect = `飲用後專注 +${Math.min(MINT_FOCUS, FOCUS_CAP - input.focus)}。`;
+  } else if (item?.id === "bandage") {
+    if (input.count <= 0) effect = "沒有布繃帶，生命不會改變。";
+    else if (input.hp >= maxLife) effect = "生命已滿，使用不會消耗布繃帶。";
+    else effect = `使用後生命 +${Math.min(BANDAGE_HEAL, maxLife - input.hp)}。`;
+  } else if (item?.id === "lamp-oil") {
+    effect = input.count <= 0 ? "沒有燈油。" : "有野外燈且未滿時，耐久 +40。否則不消耗。";
+  } else if (item?.category === "equipment" || item?.category === "quest" || item?.category === "recipe") {
+    effect = factOf(item.id)?.effect ?? effect;
   } else if (item?.category === "material") {
     effect = "沒有立即的生命或攻擊效果，可作為建造與技能材料。";
   } else if (item?.category === "rare") {
@@ -176,5 +199,8 @@ export function itemDetail(input: ItemDetailInput): ItemDetail {
     attackFrom,
     attackTo,
     attackDelta,
+    source: fact?.source ?? "沒有來源說明。",
+    stack: fact ? `堆疊上限 ${fact.maxStack}` : "沒有堆疊說明。",
+    weight: fact ? `重量 ${fact.weight}` : "沒有重量說明。",
   };
 }

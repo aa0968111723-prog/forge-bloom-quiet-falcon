@@ -3,6 +3,7 @@ import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { WORLD_BOUNDS } from "../world-data/origin.ts";
 import { terrainHeight } from "../world.ts";
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
+import { keepOut } from "../../features/items-equipment-building/keepout.ts";
 import { RECIPES, type BuildKind } from "./data.ts";
 import { ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
 export type Building = {
@@ -210,6 +211,8 @@ export function validatePlacement(
     [hx, hz],
   ].map(([dx, dz]) => sampleGroundElevation(x + dx, z + dz));
   if (Math.max(...ys) - Math.min(...ys) > 0.7) return "坡度太大，請選平坦地面";
+  const passage = keepOut(x, z, f.width, f.depth);
+  if (passage) return passage;
   if (doors) {
     const door = doorOverlap(kind, x, z, rotation);
     if (door.entrance || door.exit || door.passage)
