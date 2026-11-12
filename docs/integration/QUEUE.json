@@ -2270,7 +2270,7 @@
       "id": "backend-reward-once",
       "line": "backend",
       "scope": "A reward is remembered on the device before it is granted. Login copies that receipt onto the current account only. A server receipt that was already recorded does not pay again. If the server cannot be reached, the reward is granted once and queued for that account.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-reward-once-3395",
@@ -2288,9 +2288,11 @@
         "route": "8156: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "f272577a7b7faf5e7477f4919d796a67a1d10b8b",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 170,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/170",
+      "nextAction": "None. The once-only rewards from 0106bb5 are already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
