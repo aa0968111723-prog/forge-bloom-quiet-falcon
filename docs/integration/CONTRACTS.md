@@ -101,6 +101,8 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 同一件獎勵先記在裝置上，再交給呼叫端的 `grant()`。登入只把回執抄到目前帳號。伺服器已記過就不再發。連不上伺服器時仍先發一次，回執留在該帳號佇列。沒有第二套獎勵帳。
 
+雲端讀寫先對 `/api/auth/get-session` 和這台裝置記的帳號。帳號不同就不上傳、不下載、不恢復、不發獎勵，原來的佇列留到該帳號回來。
+
 ## 尚未統一、本輪不刪的兩份科系表
 
 `src/game/departments.ts` 使用 `civil`、`cs` 這類 id。`src/game/rpg/data.ts` 使用 `engineering-工學院-N`。匯入舊檔時 `legacyDepartment` 會試著對名稱。兩份表都還有呼叫端。內容線給出唯一清冊之前，不刪其中一份，也不另做第三份。見 `KNOWN-ISSUES.md` 的 INT-01。
