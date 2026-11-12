@@ -126,7 +126,12 @@ export function registerTrunkBoxes(boxes: readonly AABB[]) {
   trunkBoxes = boxes.slice();
 }
 
-/** Short enough that a 13 m/s dodge cannot step past the centre of a 0.18 m pole. */
+/** Specimen trunks registered by vegetation. Sweep casts read this; it stays out of COLLIDERS. */
+export function trunkAabbs(): readonly AABB[] {
+  return trunkBoxes;
+}
+
+/** Short enough that a 13 m/s dodge cannot step past a 0.18 m pole or a trunk centre. */
 export const COLLISION_SUBSTEP = 0.2;
 
 export function substepCollision(
