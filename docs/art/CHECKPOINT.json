@@ -57,7 +57,7 @@
     "typecheck": "pass",
     "npm_test": "museum-skirt passes; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-CpjmoAgC.js",
+    "build_site": "AdventureApp-BK0xO0fe.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [

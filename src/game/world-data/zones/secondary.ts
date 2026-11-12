@@ -671,13 +671,22 @@ export function structureGroundY(s: SecondaryStructure): number {
   return sampleGroundElevation(s.position[0], s.position[1]);
 }
 
+/** Local footprint corner, then the same Y rotation the building group uses. */
+export function footprintCorner(s: SecondaryStructure, dx: number, dz: number) {
+  const cos = Math.cos(s.rotationY);
+  const sin = Math.sin(s.rotationY);
+  return {
+    x: s.position[0] + dx * cos + dz * sin,
+    z: s.position[1] - dx * sin + dz * cos,
+  };
+}
+
 /**
- * How far the placed base sits above the lowest corner. A wide footprint on a
- * slope leaves the downhill side in the air. The skirt fills that gap only.
+ * How far the placed base sits above the lowest rotated corner. A wide
+ * footprint on a slope leaves the downhill side in the air.
  */
 export function foundationSpan(s: SecondaryStructure) {
   const deck = structureGroundY(s);
-  const [cx, cz] = s.position;
   const hx = s.size[0] / 2;
   const hz = s.size[2] / 2;
   let low = deck;
@@ -688,7 +697,8 @@ export function foundationSpan(s: SecondaryStructure) {
     [-hx, hz],
     [hx, hz],
   ] as const) {
-    low = Math.min(low, sampleGroundElevation(cx + dx, cz + dz));
+    const corner = footprintCorner(s, dx, dz);
+    low = Math.min(low, sampleGroundElevation(corner.x, corner.z));
   }
   return { deck, low, gap: deck - low };
 }

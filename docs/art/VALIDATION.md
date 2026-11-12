@@ -358,4 +358,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 58 輪（海事博物館裙牆）— 2026-11-12
 
-`node --test scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。船身底座在 23.19 m，足跡最低角在 20.39 m，空隙 2.80 m。裙牆頂貼著樓底，底貼著最低角。南邊入口 z = -230，在裙牆南緣外面。白樓的空隙小於 1.5 m，沒有裙牆。定步白天從西邊看，頁面無錯誤：`docs/art/evidence/museum/skirt.jpg`。看得到樓底的深色裙牆接到草地。裙牆仍是 estimated。坡道欄杆留在第 57 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CpjmoAgC.js`。
+`node --test scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。船身有 0.16 rad 的偏角。裙牆跟著這個偏角轉，西南角落在裙牆裡面；不轉的話那個角落會伸出南緣。南邊入口在轉動後的裙牆外面。白樓的空隙小於 1.5 m，沒有裙牆。定步白天從西邊看，頁面無錯誤：`docs/art/evidence/museum/skirt.jpg`。看得到樓底的深色裙牆接到草地。裙牆仍是 estimated。坡道欄杆留在第 57 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BK0xO0fe.js`。
