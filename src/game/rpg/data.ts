@@ -1,4 +1,5 @@
 /** Game content is fictional. Department names reference https://classic.tku.edu.tw/acad.asp . */
+import { EXTRA_ITEMS, EXTRA_RECIPES } from "../../features/items-equipment-building/catalog.ts";
 import { CAMPUS_SITES, siteEntrance } from "./campus.ts";
 export type Discipline =
   | "engineering"
@@ -213,9 +214,19 @@ export const ITEMS = [
     description: "裝備後最大生命 +25、普攻 +5。",
     maxStack: 1,
   },
+  ...EXTRA_ITEMS,
 ];
 export type ItemId = (typeof ITEMS)[number]["id"];
-export type BuildKind = "desk" | "lantern" | "barrier" | "turret";
+export type BuildKind =
+  | "desk"
+  | "lantern"
+  | "barrier"
+  | "turret"
+  | "research"
+  | "supply"
+  | "board"
+  | "rest"
+  | "anomaly";
 export const RECIPES: {
   id: BuildKind;
   name: string;
@@ -266,6 +277,16 @@ export const RECIPES: {
     health: 160,
     color: "#78bbce",
   },
+  ...EXTRA_RECIPES.map((recipe) => ({
+    id: recipe.id,
+    name: recipe.name,
+    description: recipe.description,
+    cost: { ...recipe.cost },
+    width: recipe.width,
+    depth: recipe.depth,
+    health: recipe.health,
+    color: recipe.color,
+  })),
 ];
 export const ENEMY_TYPES = {
   quiz: {
@@ -277,7 +298,7 @@ export const ENEMY_TYPES = {
     color: "#be637f",
     radius: 0.75,
     windup: 0.9,
-    reward: { notes: 3, parts: 2 },
+    reward: { notes: 3, parts: 2, herb: 1 },
   },
   report: {
     name: "分組報告聚合體",
@@ -299,7 +320,7 @@ export const ENEMY_TYPES = {
     color: "#d9a05a",
     radius: 1.3,
     windup: 1.4,
-    reward: { notes: 8, parts: 5, credit: 2 },
+    reward: { notes: 8, parts: 5, credit: 2, resin: 1 },
   },
   final: {
     name: "期末 · 截止日",
@@ -351,7 +372,7 @@ export const MISSIONS = [
     description: "擊退 3 隻異象",
     target: 3,
     metric: "kills",
-    reward: { coffee: 3, parts: 8 },
+    reward: { coffee: 3, parts: 8, copper: 2, glass: 1, "recipe-lamp": 1, "ridge-page": 1 },
     xp: 60,
   },
   {
@@ -360,7 +381,7 @@ export const MISSIONS = [
     description: "建造 3 座設施",
     target: 3,
     metric: "built",
-    reward: { credit: 2, notes: 10 },
+    reward: { credit: 2, notes: 10, ink: 2, "recipe-lens": 1 },
     xp: 75,
   },
   {
@@ -369,7 +390,7 @@ export const MISSIONS = [
     description: "發現 8 個校園區域",
     target: 8,
     metric: "discoveries",
-    reward: { coffee: 4, tea: 4 },
+    reward: { coffee: 4, tea: 4, "focus-charm": 1 },
     xp: 90,
   },
   {

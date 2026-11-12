@@ -9,6 +9,7 @@ import {
   type Building,
 } from "./rules.ts";
 import { BUILD_NEED_MATERIALS } from "./buildcard.ts";
+import { nearestFacility } from "../../features/items-equipment-building/facilities.ts";
 
 /** Short scene marker. The same words are the DOM action when it is legal. */
 export const PROMPT_MARKER_SCALE = 0.35;
@@ -26,7 +27,8 @@ export type PromptKind =
   | "open"
   | "exit"
   | "notes"
-  | "place";
+  | "place"
+  | "facility";
 
 export type PromptChoice = {
   kind: PromptKind;
@@ -58,6 +60,10 @@ export type PromptSnap = {
   slots: { itemId: string; quantity: number }[];
   capacity: number;
   count: (id: string) => number;
+  /** Survey gear can extend the supply reach. Missing means SUPPLY_REACH. */
+  reach?: number;
+  /** Moving an existing facility does not ask for materials again. */
+  relocating?: boolean;
 };
 
 export type PromptView = {
@@ -136,13 +142,14 @@ export function judgePlacement(
   buildings: Building[],
   player: { x: number; z: number } | undefined,
   count: (id: string) => number,
+  paid = false,
 ): PlaceJudge {
   const box = footprint(kind, rotation);
   const recipe = RECIPES.find((item) => item.id === kind);
   const blocked = validatePlacement(kind, x, z, rotation, buildings, player);
   const reason =
     blocked ??
-    (recipe && canPay(recipe.cost, count) ? null : BUILD_NEED_MATERIALS);
+    (paid || (recipe && canPay(recipe.cost, count)) ? null : BUILD_NEED_MATERIALS);
   const legal = reason == null;
   return {
     reason,
@@ -164,6 +171,7 @@ export function placeVerdict(input: {
   rotation: number;
   buildings: Building[];
   count: (id: string) => number;
+  paid?: boolean;
 }): PlaceVerdict {
   const spot = buildSpot(input.x, input.z, input.yaw);
   return {
@@ -175,6 +183,7 @@ export function placeVerdict(input: {
       input.buildings,
       { x: input.x, z: input.z },
       input.count,
+      input.paid === true,
     ),
     kind: input.kind,
     spot,
@@ -356,6 +365,7 @@ export function promptDecision(snap: PromptSnap): PromptChoice | null {
       rotation: snap.rotation,
       buildings: snap.buildings,
       count: snap.count,
+      paid: snap.relocating === true,
     });
     const words = verdict.legal ? "放置" : verdict.words;
     return choice(
@@ -391,7 +401,7 @@ export function promptDecision(snap: PromptSnap): PromptChoice | null {
   }
   const node = SUPPLY_NODES.find(
     (item) =>
-      Math.hypot(item.x - snap.playerX, item.z - snap.playerZ) < SUPPLY_REACH &&
+      Math.hypot(item.x - snap.playerX, item.z - snap.playerZ) < (snap.reach ?? SUPPLY_REACH) &&
       (snap.harvested[item.id] ?? 0) < snap.now &&
       inSight(snap, item.x, item.z),
   );
@@ -416,7 +426,12 @@ export function promptDecision(snap: PromptSnap): PromptChoice | null {
     );
   }
   const landmark = landmarkAt(snap.playerX, snap.playerZ);
-  if (!landmark) return null;
+  if (!landmark) {
+    const facility = nearestFacility(snap.buildings, snap.playerX, snap.playerZ);
+    if (facility && inSight(snap, facility.x, facility.z))
+      return choice("facility", facility.verb, facility.verb, facility.id, facility.x, facility.z);
+    return null;
+  }
   const seen = snap.visited.includes(landmark.id);
   return choice(
     seen ? "open" : "stamp",

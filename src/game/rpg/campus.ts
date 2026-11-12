@@ -650,7 +650,12 @@ export const SUPPLY_NODES = CAMPUS_SITES.filter((s) => !s.form).map((s, i) => ({
   id: `supply-${s.id}`,
   x: s.x - s.w / 2 - 4,
   z: s.z + s.d / 2 + 3,
-  items: i % 3 === 0 ? { parts: 4, coffee: 1 } : { notes: 4, parts: 2 },
+  items:
+    i % 3 === 0
+      ? { parts: 4, coffee: 1, copper: 1 }
+      : i % 3 === 1
+        ? { notes: 4, parts: 2, herb: 1, chalk: 1 }
+        : { notes: 4, parts: 2, glass: 1, cloth: 1 },
 }));
 export const siteEntrance = (s: CampusSite) => ({
   x: s.entrance?.[0] ?? s.x,

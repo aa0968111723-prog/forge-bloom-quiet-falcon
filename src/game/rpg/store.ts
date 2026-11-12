@@ -57,6 +57,28 @@ import {
 } from "./narrative-bridge.ts";
 import type { NarrativeSession, PlayUi } from "../../features/narrative/types.ts";
 import { COFFEE_HEAL, FOCUS_CAP, itemVerdict, TEA_FOCUS } from "./itemdetail.ts";
+import {
+  BANDAGE_HEAL,
+  factOf,
+  LAMP_DECAY,
+  MINT_FOCUS,
+  OIL_REFILL,
+  REPAIR_HEAL,
+  weightOf,
+} from "../../features/items-equipment-building/catalog.ts";
+import { takeCost } from "../../features/items-equipment-building/commit.ts";
+import { planCraft, planRepair, planWrenchService } from "../../features/items-equipment-building/craft.ts";
+import {
+  carryCap,
+  ensureInstance,
+  gearBonus,
+  instanceFor,
+  readGear,
+  readLoadout,
+  readQuarantine,
+  withDurability,
+} from "../../features/items-equipment-building/gear.ts";
+import type { GearInstance, GearQuality, Loadout, QuarantineSlot } from "../../features/items-equipment-building/types.ts";
 import { loadLocal, saveLocal } from "../save";
 import { coerceTimeOfDay } from "../world-data/lighting";
 import { departmentById } from "../departments";
@@ -123,6 +145,11 @@ type RpgState = {
   hp: number;
   focus: number;
   equipped: boolean;
+  loadout: Loadout;
+  gear: GearInstance[];
+  quarantine: QuarantineSlot[];
+  quarantineGear: GearInstance[];
+  heldBuild: Building | null;
   skillRank: number;
   kills: number;
   built: number;
@@ -170,6 +197,13 @@ type RpgState = {
   chooseDepartment: (id: string) => void;
   useItem: (id: string) => void;
   equip: () => void;
+  equipItem: (id: string) => void;
+  craft: (id: string, quality?: GearQuality) => boolean;
+  repair: () => boolean;
+  serviceWrench: () => boolean;
+  discardItem: (id: string) => boolean;
+  reclaimItem: (id: string) => boolean;
+  beginMove: (id: string) => boolean;
   upgrade: () => void;
   attack: (skill?: boolean) => void;
   dodge: () => boolean;
@@ -333,6 +367,24 @@ function restoreInventory(raw: unknown) {
   }
 }
 restoreInventory(saved.slots);
+const openedGear = readGear(saved.gear);
+const openedLoadout = readLoadout({
+  equipped: saved.equipped,
+  loadout: saved.loadout,
+  slots: inventory.slots(),
+});
+const openedQuarantine = readQuarantine(saved.quarantine);
+if (Array.isArray(saved.slots)) {
+  for (const slot of saved.slots) {
+    if (!slot || typeof slot !== "object") continue;
+    const itemId = (slot as { itemId?: unknown }).itemId;
+    const quantity = (slot as { quantity?: unknown }).quantity;
+    if (typeof itemId !== "string" || ITEMS.some((item) => item.id === itemId)) continue;
+    if (typeof quantity !== "number" || !Number.isFinite(quantity) || quantity <= 0) continue;
+    if (openedQuarantine.some((row) => row.itemId === itemId)) continue;
+    openedQuarantine.push({ itemId, quantity: Math.min(99, Math.floor(quantity)) });
+  }
+}
 function restoreBuildings(raw: unknown): Building[] {
   const result: Building[] = [];
   if (Array.isArray(raw))
@@ -363,6 +415,13 @@ function restoreBuildings(raw: unknown): Building[] {
       });
     }
   return result;
+}
+/** A move that was saved mid-gesture comes back as a placed building. */
+function absorbHeld(buildings: Building[], held: unknown): Building[] {
+  if (!held || typeof held !== "object") return buildings;
+  const id = (held as { id?: unknown }).id;
+  if (typeof id !== "string" || buildings.some((building) => building.id === id)) return buildings;
+  return restoreBuildings([...buildings, held]);
 }
 function strings(raw: unknown) {
   return Array.isArray(raw)
@@ -494,6 +553,10 @@ type PreparedSave = {
   hp: number;
   focus: number;
   equipped: boolean;
+  loadout: Loadout;
+  gear: GearInstance[];
+  quarantine: QuarantineSlot[];
+  quarantineGear: GearInstance[];
   skillRank: number;
   kills: number;
   built: number;
@@ -524,10 +587,11 @@ function readSlots(
   raw: unknown,
   idKey: "itemId" | "id",
   countKey: "quantity" | "count",
-): { ok: true; slots: SaveSlot[] } | { ok: false; reason: ImportReason } {
+): { ok: true; slots: SaveSlot[]; quarantine: QuarantineSlot[] } | { ok: false; reason: ImportReason } {
   if (!Array.isArray(raw)) return { ok: false, reason: "version" };
   if (raw.length > SLOT_LIMIT) return { ok: false, reason: "slots" };
   const slots: SaveSlot[] = [];
+  const quarantine: QuarantineSlot[] = [];
   for (const slot of raw) {
     if (!slot || typeof slot !== "object") continue;
     const record = slot as Record<string, unknown>;
@@ -541,11 +605,16 @@ function readSlots(
       (ITEMS.some((item) => item.id === record[idKey])
         ? (record[idKey] as string)
         : null);
-    if (!itemId) continue;
+    if (!itemId) {
+      const unknown = record[idKey];
+      if (typeof unknown === "string" && unknown.length > 0 && unknown.length <= 64)
+        quarantine.push({ itemId: unknown, quantity: Math.min(99, Math.floor(quantity)) });
+      continue;
+    }
     const max = ITEMS.find((item) => item.id === itemId)?.maxStack ?? 99;
     slots.push({ itemId, quantity: Math.min(max, Math.floor(quantity)) });
   }
-  return { ok: true, slots };
+  return { ok: true, slots, quarantine };
 }
 function readBuildings(
   raw: unknown,
@@ -629,8 +698,17 @@ function prepareImport(
   if (!built.ok) return built;
   if (!boss.ok) return boss;
   if (!clock.ok) return clock;
-  const equipped =
-    record.equipped === true && slots.slots.some((slot) => slot.itemId === "badge");
+  const migrated = readLoadout({
+    equipped: record.equipped,
+    loadout: record.loadout,
+    slots: slots.slots,
+  });
+  const equipped = migrated.equipped;
+  const gearRead = readGear(record.gear);
+  const quarantine = readQuarantine(record.quarantine);
+  for (const row of slots.quarantine) {
+    if (!quarantine.some((entry) => entry.itemId === row.itemId)) quarantine.push(row);
+  }
   const hp = optionalNumber(
     legacy ? (record.hp ?? 100) : record.hp,
     100,
@@ -662,6 +740,10 @@ function prepareImport(
       hp: hp.value,
       focus: focus.value,
       equipped,
+      loadout: migrated.loadout,
+      gear: gearRead.gear,
+      quarantine,
+      quarantineGear: gearRead.dropped,
       skillRank: Math.max(1, Math.floor(skillRank.value)),
       kills: Math.floor(kills.value),
       built: Math.floor(built.value),
@@ -670,7 +752,7 @@ function prepareImport(
         CAMPUS_SITES.some((site) => site.id === id),
       ),
       claimed: strings(record.claimed).filter(keepClaim),
-      buildings: buildings.buildings,
+      buildings: absorbHeld(buildings.buildings, record.heldBuild),
       slots: slots.slots,
       harvested: restoreHarvest(record.harvested),
       loot: restoreLoot(record.loot),
@@ -797,18 +879,50 @@ function errandState(s: RpgState, at: { x: number; z: number }, left: Record<str
   };
 }
 
+function bagWeight() {
+  return inventory.slots().reduce((sum, slot) => sum + weightOf(slot.itemId) * slot.quantity, 0);
+}
 function give(items: { [id: string]: number | undefined }) {
   const accepted: Record<string, number> = {};
   const left: Record<string, number> = {};
+  const cap = carryCap(useRpg.getState().loadout, (id) => inventory.count(id) > 0);
+  const grandfather = bagWeight() > cap + 1e-6;
   for (const [id, amount] of Object.entries(items)) {
     if (typeof amount !== "number") continue;
     const n = Math.floor(amount);
-    if (!Number.isFinite(n) || n <= 0) continue;
-    const result = inventory.add(id, n);
-    if (result.added > 0) accepted[id] = result.added;
-    if (result.overflow > 0) left[id] = result.overflow;
+    if (!Number.isFinite(amount) || n <= 0) continue;
+    const unit = weightOf(id);
+    if (grandfather || unit <= 0) {
+      const result = inventory.add(id, n);
+      if (result.added > 0) accepted[id] = result.added;
+      if (result.overflow > 0) left[id] = result.overflow;
+      continue;
+    }
+    let added = 0;
+    for (let step = 0; step < n; step += 1) {
+      if (bagWeight() + unit > cap + 1e-6) break;
+      const result = inventory.add(id, 1);
+      if (result.added !== 1) break;
+      added += 1;
+    }
+    if (added > 0) accepted[id] = added;
+    if (added < n) left[id] = n - added;
   }
   return { accepted, left };
+}
+function nearBuilding(kind: string, reach = 6) {
+  const g = useGame.getState();
+  return useRpg
+    .getState()
+    .buildings.some(
+      (building) =>
+        building.kind === kind &&
+        building.hp > 0 &&
+        Math.hypot(building.x - g.playerX, building.z - g.playerZ) <= reach,
+    );
+}
+function owns(id: string) {
+  return inventory.count(id) > 0;
 }
 function xpPatch(s: RpgState, amount: number) {
   const xp = s.xp + amount;
@@ -824,7 +938,12 @@ export const useRpg = create<RpgState>((set, get) => ({
   xp: finite(saved.xp),
   hp: finite(saved.hp, 100, 400),
   focus: finite(saved.focus, 100, 100),
-  equipped: saved.equipped === true && inventory.has("badge"),
+  equipped: openedLoadout.equipped,
+  loadout: openedLoadout.loadout,
+  gear: openedGear.gear,
+  quarantine: openedQuarantine,
+  quarantineGear: openedGear.dropped,
+  heldBuild: null,
   skillRank: Math.max(1, Math.floor(finite(saved.skillRank, 1, 5))),
   kills: Math.floor(finite(saved.kills)),
   built: Math.floor(finite(saved.built)),
@@ -838,7 +957,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     strings(saved.claimed).filter(keepClaim),
   ),
   narrativeUi: null,
-  buildings: restoreBuildings(saved.buildings),
+  buildings: absorbHeld(restoreBuildings(saved.buildings), saved.heldBuild),
   harvested: restoreHarvest(saved.harvested),
   loot: restoreLoot(saved.loot),
   panel: null,
@@ -942,7 +1061,8 @@ export const useRpg = create<RpgState>((set, get) => ({
   },
   useItem: (id) => {
     const s = get();
-    if (s.hp <= 0 || (id !== "coffee" && id !== "tea")) return;
+    const usable = id === "coffee" || id === "tea" || id === "mint" || id === "bandage" || id === "lamp-oil";
+    if (s.hp <= 0 || !usable) return;
     const verdict = itemVerdict({
       id,
       count: inventory.count(id),
@@ -955,19 +1075,42 @@ export const useRpg = create<RpgState>((set, get) => ({
       if (verdict.reason) s.notify(verdict.reason);
       return;
     }
+    const bonus = gearBonus(s.loadout, s.gear, owns);
+    if (id === "lamp-oil") {
+      const lamp = instanceFor(s.gear, "field-lamp");
+      if (!lamp || inventory.count("field-lamp") <= 0) {
+        s.notify("沒有野外燈，不消耗燈油。");
+        return;
+      }
+      const cap = lamp.quality === "fine" ? 120 : 80;
+      if (lamp.durability >= cap) {
+        s.notify("野外燈是滿的，不消耗燈油。");
+        return;
+      }
+      if (!inventory.remove(id, 1)) {
+        s.notify("背包裡沒有這個物品。");
+        return;
+      }
+      set({ gear: withDurability(s.gear, "field-lamp", lamp.durability + OIL_REFILL) });
+      s.notify(`燈油補上，野外燈耐久 +${OIL_REFILL}`);
+      return;
+    }
     if (!inventory.remove(id, 1)) {
       s.notify(verdict.reason || "背包裡沒有這個物品。");
       return;
     }
-    set(
-      id === "coffee"
-        ? { hp: Math.min(maxHp(s), s.hp + COFFEE_HEAL) }
-        : { focus: Math.min(FOCUS_CAP, s.focus + TEA_FOCUS) },
-    );
+    if (id === "coffee") set({ hp: Math.min(maxHp(s), s.hp + COFFEE_HEAL) });
+    else if (id === "tea") set({ focus: Math.min(FOCUS_CAP, s.focus + TEA_FOCUS) });
+    else if (id === "mint") set({ focus: Math.min(FOCUS_CAP, s.focus + MINT_FOCUS + bonus.mintBonus) });
+    else set({ hp: Math.min(maxHp(s), s.hp + BANDAGE_HEAL + bonus.bandageBonus) });
     s.notify(
       id === "coffee"
         ? `飲用咖啡，生命 +${COFFEE_HEAL}`
-        : `飲用烏龍茶，專注 +${TEA_FOCUS}`,
+        : id === "tea"
+          ? `飲用烏龍茶，專注 +${TEA_FOCUS}`
+          : id === "mint"
+            ? "飲用薄荷冷茶，專注恢復。"
+            : "使用布繃帶，生命恢復。",
     );
   },
   equip: () => {
@@ -985,7 +1128,200 @@ export const useRpg = create<RpgState>((set, get) => ({
       return;
     }
     const equipped = !s.equipped;
-    set({ equipped, hp: Math.min(s.hp, maxHp({ ...s, equipped })) });
+    const loadout = {
+      ...s.loadout,
+      accessory: equipped ? "badge" : s.loadout.accessory === "badge" ? null : s.loadout.accessory,
+    };
+    set({ equipped, loadout, hp: Math.min(s.hp, maxHp({ ...s, equipped })) });
+  },
+  equipItem: (id) => {
+    if (id === "badge") {
+      get().equip();
+      return;
+    }
+    const fact = factOf(id);
+    const s = get();
+    if (!fact?.slot) {
+      s.notify("這件物品不能裝備。");
+      return;
+    }
+    if (inventory.count(id) <= 0) {
+      s.notify("背包裡沒有這個物品。");
+      return;
+    }
+    const wearing = s.loadout[fact.slot] === id;
+    const loadout = { ...s.loadout, [fact.slot]: wearing ? null : id };
+    const equipped = fact.slot === "accessory" ? loadout.accessory === "badge" : s.equipped;
+    set({
+      loadout,
+      equipped,
+      gear: wearing ? s.gear : ensureInstance(s.gear, id, "plain"),
+      hp: Math.min(s.hp, maxHp({ ...s, equipped })),
+    });
+    s.notify(wearing ? `已卸下${fact.name}。` : `已裝備${fact.name}。`);
+  },
+  craft: (id, quality = "plain") => {
+    const s = get();
+    const plan = planCraft({
+      id,
+      quality,
+      count: (item) => inventory.count(item),
+      loadout: s.loadout,
+      nearResearch: nearBuilding("research"),
+      nearSupply: nearBuilding("supply"),
+    });
+    if (!plan.ok) {
+      s.notify(plan.reason);
+      return false;
+    }
+    const paid = takeCost(inventory, plan.cost);
+    if (!paid.ok) {
+      s.notify(paid.reason);
+      return false;
+    }
+    const added = inventory.add(id, 1);
+    if (added.added !== 1) {
+      if (added.added > 0) inventory.remove(id, added.added);
+      paid.undo();
+      s.notify("背包已滿，材料已退回。");
+      return false;
+    }
+    set({ gear: ensureInstance(s.gear, id, plan.quality) });
+    s.notify(plan.quality === "fine" ? "精工製作完成。" : "製作完成。");
+    return true;
+  },
+  repair: () => {
+    const s = get();
+    const g = useGame.getState();
+    const target = s.buildings.find((building) => {
+      if (building.hp <= 0) return false;
+      const recipe = RECIPES.find((item) => item.id === building.kind);
+      if (!recipe || building.hp >= recipe.health) return false;
+      return Math.hypot(building.x - g.playerX, building.z - g.playerZ) <= 6;
+    });
+    const plan = planRepair({
+      loadout: s.loadout,
+      gear: s.gear,
+      owned: owns,
+      building: target
+        ? { hp: target.hp, max: RECIPES.find((item) => item.id === target.kind)?.health ?? target.hp }
+        : null,
+    });
+    if (!plan.ok) {
+      s.notify(plan.reason);
+      return false;
+    }
+    if (!target) return false;
+    const recipe = RECIPES.find((item) => item.id === target.kind)!;
+    set({
+      gear: withDurability(s.gear, "repair-wrench", plan.next),
+      buildings: s.buildings.map((building) =>
+        building.id === target.id
+          ? { ...building, hp: Math.min(recipe.health, building.hp + REPAIR_HEAL) }
+          : building,
+      ),
+    });
+    s.notify("設施已修復，扳手消耗了耐久。");
+    return true;
+  },
+  serviceWrench: () => {
+    const s = get();
+    if (!nearBuilding("research")) {
+      s.notify("需要站在研究桌旁。");
+      return false;
+    }
+    const plan = planWrenchService(s.gear, inventory.count("parts"));
+    if (!plan.ok) {
+      s.notify(plan.reason);
+      return false;
+    }
+    const paid = takeCost(inventory, { parts: 1 });
+    if (!paid.ok) {
+      s.notify(paid.reason);
+      return false;
+    }
+    set({ gear: withDurability(s.gear, "repair-wrench", plan.next) });
+    s.notify("用一份零件保養了扳手，沒有修到滿。");
+    return true;
+  },
+  discardItem: (id) => {
+    const fact = factOf(id);
+    const s = get();
+    if (!fact) {
+      s.notify("沒有這個物品。");
+      return false;
+    }
+    if (fact.locked) {
+      s.notify("任務物品不能丟棄。");
+      return false;
+    }
+    if (inventory.count(id) <= 0) {
+      s.notify("背包裡沒有這個物品。");
+      return false;
+    }
+    if (!inventory.remove(id, 1)) {
+      s.notify("背包裡沒有這個物品。");
+      return false;
+    }
+    const still = inventory.count(id) > 0;
+    const slot = fact.slot;
+    const loadout = slot && s.loadout[slot] === id && !still ? { ...s.loadout, [slot]: null } : s.loadout;
+    const equipped = loadout.accessory === "badge" && inventory.count("badge") > 0;
+    set({
+      loadout,
+      equipped,
+      gear: still ? s.gear : s.gear.filter((row) => row.itemId !== id),
+      hp: Math.min(s.hp, maxHp({ ...s, equipped })),
+    });
+    s.notify(`已丟棄${fact.name}。`);
+    return true;
+  },
+  reclaimItem: (id) => {
+    const fact = factOf(id);
+    const s = get();
+    if (!fact?.locked || !fact.mission) {
+      s.notify("這件物品不能補領。");
+      return false;
+    }
+    if (!s.claimed.includes(fact.mission)) {
+      s.notify("完成委託後才能補領。");
+      return false;
+    }
+    if (inventory.count(id) > 0) {
+      s.notify("背包裡已經有這件物品。");
+      return false;
+    }
+    if (s.loot.some((pile) => (pile.items[id] ?? 0) > 0)) {
+      s.notify("它在地上，先拾取。");
+      return false;
+    }
+    const { accepted, left } = give({ [id]: 1 });
+    if ((accepted[id] ?? 0) < 1) {
+      const g = useGame.getState();
+      set({ loot: layRemainder(s.loot, g.playerX, g.playerZ, left) });
+      s.notify("背包已滿，補領的物品留在地上。");
+      return false;
+    }
+    s.notify(`已補領${fact.name}。`);
+    return true;
+  },
+  beginMove: (id) => {
+    const s = get();
+    const building = s.buildings.find((entry) => entry.id === id && entry.hp > 0);
+    if (!building) return false;
+    if (s.heldBuild) {
+      s.notify("先放回正在移動的設施。");
+      return false;
+    }
+    set({
+      buildings: s.buildings.filter((entry) => entry.id !== id),
+      heldBuild: building,
+      buildKind: building.kind,
+      panel: null,
+      rotation: building.rotation,
+    });
+    s.notify("移動不扣材料，取消會放回原處。");
+    return true;
   },
   upgrade: () => {
     const s = get(),
@@ -1024,9 +1360,10 @@ export const useRpg = create<RpgState>((set, get) => ({
       return;
     }
     const range = skill ? discipline.range : BASIC_ATTACK_RANGE;
+    const worn = gearBonus(s.loadout, s.gear, owns);
     const damage = skill
       ? discipline.damage + (s.skillRank - 1) * 12
-      : basicAttackDamage(s.xp, s.equipped);
+      : basicAttackDamage(s.xp, s.equipped) + worn.attack;
     set({
       attackUntil: s.clock + 0.46,
       ...(skill
@@ -1114,7 +1451,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     )
       return false;
     set({
-      focus: s.focus - 18,
+      focus: Math.max(0, s.focus - 18 + gearBonus(s.loadout, s.gear, owns).dodgeFocus),
       dodgeUntil: s.clock + 1.25,
       invulnerableUntil: s.clock + 0.45,
     });
@@ -1125,16 +1462,31 @@ export const useRpg = create<RpgState>((set, get) => ({
       get().notify(BUILD_NEED_OUTDOORS);
       return;
     }
+    const held = get().heldBuild;
     get().setPanel(null);
-    set({ buildKind, rotation: 0 });
+    set({
+      buildKind,
+      rotation: 0,
+      heldBuild: null,
+      buildings: held ? [...get().buildings, held] : get().buildings,
+    });
   },
-  cancelBuild: () => set({ buildKind: null }),
+  cancelBuild: () => {
+    const held = get().heldBuild;
+    set({
+      buildKind: null,
+      heldBuild: null,
+      buildings: held ? [...get().buildings, held] : get().buildings,
+    });
+    get().notify(held ? "已放回原處。" : "結束建造");
+  },
   rotate: () =>
     set({ rotation: (get().rotation + Math.PI / 2) % (Math.PI * 2) }),
   place: (x, z) => {
     const s = get(),
       g = useGame.getState();
     if (!s.buildKind || g.phase !== "playing" || s.hp <= 0) return false;
+    const relocating = s.heldBuild?.kind === s.buildKind;
     const judge = judgePlacement(
       s.buildKind,
       x,
@@ -1143,6 +1495,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       s.buildings,
       { x: g.playerX, z: g.playerZ },
       inventory.count,
+      relocating,
     );
     if (judge.reason === BUILD_NEED_MATERIALS) {
       s.notify(BUILD_NEED_MATERIALS);
@@ -1153,31 +1506,60 @@ export const useRpg = create<RpgState>((set, get) => ({
       return false;
     }
     const recipe = RECIPES.find((r) => r.id === s.buildKind)!;
-    Object.entries(judge.cost).forEach(([id, n]) => inventory.remove(id, n));
+    const moving = relocating ? s.heldBuild : null;
+    if (!moving) {
+      const paid = takeCost(inventory, judge.cost);
+      if (!paid.ok) {
+        s.notify(paid.reason);
+        return false;
+      }
+      try {
+        set({
+          buildings: [
+            ...s.buildings,
+            {
+              id: crypto.randomUUID(),
+              kind: s.buildKind,
+              x,
+              z,
+              rotation: s.rotation,
+              hp: recipe.health,
+            },
+          ],
+          built: s.built + 1,
+          heldBuild: null,
+        });
+      } catch (error) {
+        paid.undo();
+        throw error;
+      }
+      const settled = errandState(get(), { x, z }, {});
+      if (settled) {
+        const { accepted, left, ...patch } = settled;
+        set(patch);
+        s.notify(
+          intakeNotice(accepted, left, `已建造${recipe.name}。這次放置把學期推進到期中，只記一次。`),
+        );
+      } else {
+        set({ narrative: stampSemester(get().narrative, get().claimed) });
+        s.notify(`已建造${recipe.name}，可繼續放置或按 Esc 結束。`);
+      }
+      return true;
+    }
     set({
-      buildings: [
-        ...s.buildings,
-        {
-          id: crypto.randomUUID(),
-          kind: s.buildKind,
-          x,
-          z,
-          rotation: s.rotation,
-          hp: recipe.health,
-        },
-      ],
-      built: s.built + 1,
+      buildings: [...s.buildings, { ...moving, x, z, rotation: s.rotation }],
+      heldBuild: null,
     });
-    const settled = errandState(get(), { x, z }, {});
-    if (settled) {
-      const { accepted, left, ...patch } = settled;
+    const moved = errandState(get(), { x, z }, {});
+    if (moved) {
+      const { accepted, left, ...patch } = moved;
       set(patch);
       s.notify(
-        intakeNotice(accepted, left, `已建造${recipe.name}。這次放置把學期推進到期中，只記一次。`),
+        intakeNotice(accepted, left, `已移動${recipe.name}，沒有扣除材料。這次放置把學期推進到期中，只記一次。`),
       );
     } else {
       set({ narrative: stampSemester(get().narrative, get().claimed) });
-      s.notify(`已建造${recipe.name}，可繼續放置或按 Esc 結束。`);
+      s.notify(`已移動${recipe.name}，沒有扣除材料。`);
     }
     return true;
   },
@@ -1441,6 +1823,11 @@ export const useRpg = create<RpgState>((set, get) => ({
       departmentId: rpg.departmentId,
       xp: rpg.xp,
       equipped: rpg.equipped,
+      loadout: { ...rpg.loadout },
+      gear: rpg.gear.map((row) => ({ ...row })),
+      quarantine: rpg.quarantine.map((row) => ({ ...row })),
+      quarantineGear: rpg.quarantineGear.map((row) => ({ ...row })),
+      heldBuild: rpg.heldBuild ? { ...rpg.heldBuild } : null,
       hp: rpg.hp,
       focus: rpg.focus,
       skillRank: rpg.skillRank,
@@ -1504,6 +1891,11 @@ export const useRpg = create<RpgState>((set, get) => ({
         lessonReview: false,
         xp: save.xp,
         equipped: save.equipped,
+        loadout: save.loadout,
+        gear: save.gear,
+        quarantine: save.quarantine,
+        quarantineGear: save.quarantineGear,
+        heldBuild: null,
         hp: save.hp,
         focus: save.focus,
         skillRank: save.skillRank,
@@ -1567,6 +1959,7 @@ registerPlaySettle((kind) => {
   if (kind === "suspend") return;
   const s = useRpg.getState();
   calmWindups(s.enemies);
+  const held = s.heldBuild;
   useRpg.setState({
     attackUntil: 0,
     skillUntil: 0,
@@ -1575,6 +1968,8 @@ registerPlaySettle((kind) => {
     attackFx: null,
     hurtUntil: 0,
     buildKind: null,
+    heldBuild: null,
+    ...(held ? { buildings: [...s.buildings, held] } : {}),
     ...(kind === "downed" ? { panel: null } : {}),
     ...(kind === "relocate" ? { interiorId: null, floor: 1 } : {}),
   });
@@ -1613,6 +2008,8 @@ export function promptSnap(): PromptSnap {
     })),
     capacity: BAG_CAPACITY,
     count: (id) => inventory.count(id),
+    reach: 4 + gearBonus(s.loadout, s.gear, owns).survey,
+    relocating: s.heldBuild?.kind === s.buildKind,
   };
 }
 function runPrompt(choice: PromptChoice) {
@@ -1649,16 +2046,30 @@ function runPrompt(choice: PromptChoice) {
     const node = SUPPLY_NODES.find((item) => item.id === choice.targetId);
     if (!node) return;
     const { accepted, left } = give({ ...node.items });
-    const settled = errandState(s, node, left);
+    const bonus = gearBonus(useRpg.getState().loadout, useRpg.getState().gear, owns);
+    const extra = bonus.gather > 0 ? give({ notes: 1 }) : { accepted: {}, left: {} };
+    if (bonus.gather > 0) {
+      const hook = instanceFor(useRpg.getState().gear, "gather-hook");
+      if (hook)
+        useRpg.setState({
+          gear: withDurability(useRpg.getState().gear, "gather-hook", hook.durability - 1),
+        });
+    }
+    const mergedLeft = { ...left };
+    for (const [id, count] of Object.entries(extra.left)) mergedLeft[id] = (mergedLeft[id] ?? 0) + count;
+    const mergedAccepted = { ...accepted };
+    for (const [id, count] of Object.entries(extra.accepted))
+      mergedAccepted[id] = (mergedAccepted[id] ?? 0) + count;
+    const settled = errandState(useRpg.getState(), node, mergedLeft);
     if (settled) {
-      const { accepted: bonus, left: spilled, ...patch } = settled;
+      const { accepted: errandNotes, left: spilled, ...patch } = settled;
       useRpg.setState({
         harvested: { ...s.harvested, [node.id]: Date.now() + 180_000 },
         ...patch,
       });
       s.notify(
         intakeNotice(
-          mergeCounts(accepted, bonus),
+          mergeCounts(mergedAccepted, errandNotes),
           spilled,
           "找到校園物資。這次補給把學期推進到期中，只記一次。",
         ),
@@ -1666,10 +2077,10 @@ function runPrompt(choice: PromptChoice) {
     } else {
       useRpg.setState({
         harvested: { ...s.harvested, [node.id]: Date.now() + 180_000 },
-        loot: layRemainder(s.loot, node.x, node.z, left),
-        narrative: stampSemester(s.narrative, s.claimed),
+        loot: layRemainder(useRpg.getState().loot, node.x, node.z, mergedLeft),
+        narrative: stampSemester(useRpg.getState().narrative, useRpg.getState().claimed),
       });
-      s.notify(intakeNotice(accepted, left, "找到校園物資"));
+      s.notify(intakeNotice(mergedAccepted, mergedLeft, "找到校園物資"));
     }
     return;
   }
@@ -1685,7 +2096,58 @@ function runPrompt(choice: PromptChoice) {
     useGame.getState().stamp(choice.targetId);
     return;
   }
+  if (choice.kind === "facility") {
+    useFacility(choice.targetId);
+    return;
+  }
   useGame.getState().openPlaque(choice.targetId);
+}
+function useFacility(id: string) {
+  const s = useRpg.getState();
+  const building = s.buildings.find((entry) => entry.id === id && entry.hp > 0);
+  if (!building) return;
+  const g = useGame.getState();
+  if (Math.hypot(building.x - g.playerX, building.z - g.playerZ) > 3.2) return;
+  if (building.kind === "research") {
+    s.notify("研究桌可用。打開背包製作；任務頁不會被消耗。");
+    return;
+  }
+  if (building.kind === "board") {
+    const site = CAMPUS_SITES.find((entry) => !s.discoveries.includes(entry.id));
+    s.notify(site ? `展示板：下一個區域是${site.name}。這不會完成發現。` : "展示板沒有新的線索。");
+    return;
+  }
+  if (building.kind === "rest") {
+    if (s.focus >= 100) {
+      s.notify("專注已滿，沒有消耗物品。");
+      return;
+    }
+    useRpg.setState({ focus: Math.min(100, s.focus + 25) });
+    s.notify("在休息點坐了一下，專注 +25。");
+    return;
+  }
+  if (building.kind === "anomaly") {
+    const label = s.anomaly === "blackout" ? "停電" : s.anomaly === "deadline" ? "截止日" : "平靜";
+    s.notify(`異象樁運作中。目前是${label}，近處異象會變慢。`);
+    return;
+  }
+  const key = `facility:${building.id}`;
+  if ((s.harvested[key] ?? 0) > Date.now()) {
+    s.notify("補給站還沒補貨。");
+    return;
+  }
+  if (inventory.count("coffee") > 0) {
+    s.notify("背包裡還有冰咖啡，先用掉再領。沒有消耗補給。");
+    return;
+  }
+  const { accepted, left } = give({ coffee: 1 });
+  if ((accepted.coffee ?? 0) < 1) {
+    useRpg.setState({ loot: layRemainder(s.loot, building.x, building.z, left) });
+    s.notify("背包已滿，沒有領到冰咖啡，冷卻沒有開始。");
+    return;
+  }
+  useRpg.setState({ harvested: { ...s.harvested, [key]: Date.now() + 180_000 } });
+  s.notify("補給站補了一份冰咖啡。");
 }
 export function hitEnemy(e: Enemy, damage: number) {
   if (e.hp <= 0) return;
@@ -1742,8 +2204,10 @@ export function tickRpg(delta: number) {
           ? "blackout"
           : "deadline"
         : "quiet";
+  const worn = gearBonus(s.loadout, s.gear, owns);
   let hp = Math.min(maxHp(s), s.hp),
-    focus = Math.min(100, s.focus + dt * 3.2);
+    focus = Math.min(100, s.focus + dt * (3.2 + worn.focusPerSec));
+  let nextGear = s.gear;
   let structuresDamaged = false;
   if (s.interiorId) {
     useRpg.setState({ clock, focus, hp: Math.min(maxHp(s), hp + dt * 2) });
@@ -1782,7 +2246,7 @@ export function tickRpg(delta: number) {
           clock > useRpg.getState().invulnerableUntil &&
           lineOfSight(e.x, e.z, g.playerX, g.playerZ)
         ) {
-          hp = Math.max(0, hp - type.damage);
+          hp = Math.max(0, hp - (worn.mitigation > 0 ? Math.max(1, type.damage - worn.mitigation) : type.damage));
           useRpg.setState({
             invulnerableUntil: clock + 0.7,
             hurtUntil: clock + 0.4,
@@ -1833,11 +2297,12 @@ export function tickRpg(delta: number) {
       seekers.set(e.id, seeker);
     }
     const { vehicle, target } = seeker;
-    const slow = s.buildings.some(
-      (b) => b.kind === "lantern" && Math.hypot(b.x - e.x, b.z - e.z) < 12,
-    )
-      ? 0.55
-      : 1;
+    let slow = 1;
+    if (s.buildings.some((b) => b.kind === "lantern" && Math.hypot(b.x - e.x, b.z - e.z) < 12))
+      slow = Math.min(slow, 0.55);
+    if (s.buildings.some((b) => b.kind === "anomaly" && Math.hypot(b.x - e.x, b.z - e.z) < 8))
+      slow = Math.min(slow, 0.45);
+    if (anomaly === "blackout") slow = Math.min(slow, worn.lampSlow, worn.blackoutSlow);
     vehicle.position.set(e.x, 0, e.z);
     vehicle.maxSpeed = type.speed * slow * (anomaly === "deadline" ? 1.4 : 1);
     const tx = chase ? g.playerX : e.anchorX,
@@ -1896,6 +2361,10 @@ export function tickRpg(delta: number) {
         hp = Math.min(maxHp(s), hp + 5);
         focus = Math.min(100, focus + 8);
       }
+      if (b.kind === "rest" && Math.hypot(b.x - g.playerX, b.z - g.playerZ) < 5) {
+        focus = Math.min(100, focus + 4);
+        hp = Math.min(maxHp(s), hp + 1);
+      }
       if (b.kind === "turret") {
         const target = s.enemies.find(
           (e) =>
@@ -1906,6 +2375,11 @@ export function tickRpg(delta: number) {
         if (target) hitEnemy(target, 18);
       }
     }
+    if (anomaly === "blackout" && s.loadout.tool === "field-lamp") {
+      const lamp = instanceFor(nextGear, "field-lamp");
+      if (lamp && lamp.durability > 0)
+        nextGear = withDurability(nextGear, "field-lamp", lamp.durability - LAMP_DECAY);
+    }
   }
   const buildings = s.buildings.filter((b) => b.hp > 0);
   useRpg.setState({
@@ -1913,6 +2387,7 @@ export function tickRpg(delta: number) {
     hp,
     focus,
     anomaly,
+    ...(nextGear !== s.gear ? { gear: nextGear } : {}),
     ...(buildings.length !== s.buildings.length || structuresDamaged
       ? { buildings: [...buildings] }
       : {}),
@@ -1954,6 +2429,10 @@ function snapshot() {
     hp: s.hp,
     focus: s.focus,
     equipped: s.equipped,
+    loadout: s.loadout,
+    gear: s.gear,
+    quarantine: s.quarantine,
+    quarantineGear: s.quarantineGear,
     skillRank: s.skillRank,
     kills: s.kills,
     built: s.built,
@@ -1961,6 +2440,7 @@ function snapshot() {
     discoveries: s.discoveries,
     claimed: s.claimed,
     buildings: s.buildings,
+    heldBuild: s.heldBuild,
     slots: inventory.slots(),
     harvested: s.harvested,
     loot: s.loot,
@@ -2097,6 +2577,11 @@ useRpg.subscribe((s, prev) => {
     s.claimed !== prev.claimed ||
     s.discoveries !== prev.discoveries ||
     s.equipped !== prev.equipped ||
+    s.loadout !== prev.loadout ||
+    s.gear !== prev.gear ||
+    s.quarantine !== prev.quarantine ||
+    s.quarantineGear !== prev.quarantineGear ||
+    s.heldBuild !== prev.heldBuild ||
     s.skillRank !== prev.skillRank ||
     s.harvested !== prev.harvested ||
     s.loot !== prev.loot ||
