@@ -228,7 +228,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Wei Ning's turn on AdventureApp-BWW4JLDV.js at 1280x720. Drop and keep each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. Both after buttons were visible and unpaid. Reload kept xp 46 and notes 19."
+      "note": "Two fresh architecture semesters paid Wei Ning's turn on AdventureApp-BWW4JLDV.js at 1280x720. Drop and keep each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. Her closing choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-WEI-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Wei Ning's closing on AdventureApp-BWW4JLDV.js at 1280x720. Submit and follow each moved store xp from 46 to 56 and notes from 19 to 20. The card showed level 1, 56/60. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice. Her survey line ends here."
     },
     {
       "id": "FI-XU-HUI",
@@ -254,7 +261,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main fff4452 notes empty-cloud queued upload #226. Game commit a488180, merged here as 7ca2b5f. A queued upload lands as a first sync when this account's cloud row is gone. The adventure chunk stayed AdventureApp-BWW4JLDV.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main 0e5b7a0 notes rate-limited reward #228. Game commit e4a1c81, merged here as 8ea6809. A 429 still grants the reward once and keeps it on this account. The adventure chunk stayed AdventureApp-BWW4JLDV.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",
