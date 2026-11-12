@@ -48,6 +48,19 @@ function slotCount(doc, itemId) {
   return slot?.quantity ?? 0;
 }
 
+function legalResearchPose(buildings) {
+  for (let x = -80; x <= 80; x += 4) {
+    for (let z = -80; z <= 40; z += 4) {
+      const player = { x, z: z + 6 };
+      const spot = buildSpot(player.x, player.z, 0);
+      if (validatePlacement("research", spot.x, spot.z, 0, buildings, player) == null) {
+        return { x: player.x, z: player.z, yaw: 0 };
+      }
+    }
+  }
+  return null;
+}
+
 function legalLanternPose() {
   for (let x = -80; x <= 80; x += 4) {
     for (let z = -80; z <= 40; z += 4) {
@@ -436,6 +449,78 @@ async function playOffline(page) {
     semester: met.semester,
   });
 
+  const copperCrate = SUPPLY_NODES[3];
+  await page.evaluate(({ x, z }) => {
+    window.__controlsTest.setPose(x, z, 0);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
+  }, copperCrate);
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 4));
+  const copperButton = page.locator(".ad-interact button");
+  await copperButton.waitFor({ state: "visible", timeout: 15000 });
+  const copperLabel = await copperButton.innerText();
+  assert.match(copperLabel, /銅線圈/);
+  const copperBefore = await page.evaluate(() => window.__rpgQA.inventory.count("copper"));
+  await copperButton.click();
+  const copperAfter = await page.evaluate(() => window.__rpgQA.inventory.count("copper"));
+  assert.equal(copperAfter, copperBefore + 1);
+  assert.ok(copperAfter >= 2, `copper stayed at ${copperAfter}`);
+
+  const standingBuildings = await page.evaluate(() =>
+    window.__rpgQA.rpg.getState().buildings.map((item) => ({
+      id: item.id,
+      kind: item.kind,
+      x: item.x,
+      z: item.z,
+      rotation: item.rotation,
+      hp: item.hp,
+    })),
+  );
+  const researchPose = legalResearchPose(standingBuildings);
+  assert.ok(researchPose);
+  await page.getByRole("button", { name: "建造", exact: true }).click();
+  const researchCard = page.locator("article").filter({
+    has: page.getByRole("heading", { name: "研究桌" }),
+  });
+  await researchCard.getByRole("button", { name: "放置" }).click();
+  await page.evaluate(
+    ({ x, z, yaw }) => window.__controlsTest.setPose(x, z, yaw),
+    researchPose,
+  );
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 2));
+  const researchBar = page.locator(".ad-interact");
+  await researchBar.getByRole("button", { name: "放置" }).click();
+  const researched = await readLive(page);
+  assert.ok(researched.buildings.includes("research"));
+  assert.ok(researched.buildings.includes("lantern"));
+  await researchBar.getByRole("button", { name: "結束建造" }).click();
+  await page.evaluate(() => {
+    const desk = window.__rpgQA.rpg.getState().buildings.find((item) => item.kind === "research");
+    window.__controlsTest.setPose(desk.x, desk.z + 2.2, 0);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 2));
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.getByRole("button", { name: "背包", exact: true }).click();
+  const wrenchCard = page.locator("[aria-label=製作] article").filter({ hasText: "修復扳手" });
+  await wrenchCard.getByRole("button", { name: "製作" }).click();
+  await page.getByRole("button", { name: "修復扳手 1 個" }).click();
+  await page.locator("button.ad-primary").filter({ hasText: /^裝備$/ }).click();
+  const wornGear = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg.getState();
+    const row = rpg.gear.find((item) => item.itemId === "repair-wrench");
+    return {
+      tool: rpg.loadout.tool,
+      accessory: rpg.loadout.accessory,
+      durability: row?.durability ?? null,
+    };
+  });
+  assert.equal(wornGear.tool, "repair-wrench");
+  assert.equal(wornGear.accessory, "badge");
+  assert.ok(wornGear.durability > 0);
+  await shot(page, "09-wrench");
+  await page.getByRole("button", { name: "關閉" }).click();
+  note("craft-wrench", wornGear);
+
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const savedText = await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2"));
   const saved = JSON.parse(savedText);
@@ -454,7 +539,11 @@ async function playOffline(page) {
   assert.ok(reloaded.claimed.includes("quest-faculty-studio-meet"));
   assert.equal(reloaded.semester, "midterm");
   assert.equal(reloaded.equipped, true);
-  assert.deepEqual(reloaded.buildings, ["lantern"]);
+  assert.ok(reloaded.buildings.includes("lantern"));
+  assert.ok(reloaded.buildings.includes("research"));
+  const reloadedGear = await page.evaluate(() => window.__rpgQA.rpg.getState().loadout);
+  assert.equal(reloadedGear.tool, "repair-wrench");
+  assert.equal(reloadedGear.accessory, "badge");
   assert.equal(reloaded.flag, true);
   const reloadedFaculty = await page.evaluate(() => {
     const flags = window.__rpgQA.rpg.getState().narrative.flags;
@@ -631,8 +720,12 @@ async function syncCloud(document) {
     assert.equal(remote.narrative.flags["fac-gu-meet-line"], true);
     assert.equal(remote.narrative.semester, "midterm");
     assert.equal(remote.equipped, true);
-    assert.equal(remote.buildings.length, 1);
-    assert.equal(remote.buildings[0].kind, "lantern");
+    assert.equal(remote.loadout.tool, "repair-wrench");
+    assert.equal(remote.loadout.accessory, "badge");
+    assert.ok(remote.gear.some((row) => row.itemId === "repair-wrench" && row.quality === "plain"));
+    assert.equal(remote.buildings.length, 2);
+    assert.ok(remote.buildings.some((row) => row.kind === "lantern"));
+    assert.ok(remote.buildings.some((row) => row.kind === "research"));
     note("second-client", {
       xp: remote.xp,
       departmentId: remote.departmentId,

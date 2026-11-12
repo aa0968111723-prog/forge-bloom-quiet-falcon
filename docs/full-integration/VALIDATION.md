@@ -8,7 +8,7 @@
 | 指令 | 結果 |
 | --- | --- |
 | `npx tsc --noEmit` | 通過。在 `f300327`，衝突只修了敘事面板的 scroll id |
-| `npm test` | 293 通過、0 失敗 |
+| `npm test` | 304 通過、0 失敗 |
 | `npm run build:site` | 通過。2372 個模組。`dist` 沒有 `revision_conflict` 或 `cloud-save` |
 | `node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route` | 通過，exit 0。`pageErrors` 空、離線遊玩時頁面 API 請求空 |
 | `npx eslint` 只掃這次改過的檔 | 1 個既有錯誤：`src/game/rpg/AdventureHud.tsx:639` irregular whitespace，不在這次 diff。1 個既有警告：`store.ts` 的 `dirty` 未使用。不把全庫 lint 說成通過 |
@@ -44,6 +44,8 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 化學系的技能按鈕把 report 從 145 打到 93。exam 從 240 到 211。quiz 與 final 仍是先前那兩下。另外八個學院的技能這輪沒有換科系去打。
 
 同一條路線接著把視窗設回 1280×720，站到建築系館南側估計位置 `(294.8, -74.5)`。世界按鈕是「與顧衡交談」。面板裡再按一次「交談」才出現選項。兩個選項都看得到。選「我先補剖面，補完再請你看。」。結果句是「剖面沒到，我不開始評。你問的是線，我就記你問的是線。」`fac-gu-meet-line` 為真，`fac-gu-meet-fail` 為假。`claimed` 增加 `quest-faculty-gu-meet` 與 `quest-faculty-studio-meet`。選項當下經驗從 512 到 534。站上這個崗位時，既有地點發現把 `architecture` 寫進 `discoveries`，那是夜巡後 500 與選項前 512 之間的 12 點。筆記仍是 22。學期仍是期中。重載後這些都還在。第二個 API 客戶端的遠端文件有 `quest-faculty-gu-meet`，而且 `narrative.flags["fac-gu-meet-line"]` 為真。之後的競態仍是 200 與 409，離線佇列後雲端經驗 537，登出 401。測試註冊 id 是 `OjqQ7D5d6cGVr8i0CTggZhLfi5ijYquF`，不是真人。
+
+同一條路線接著再拿一箱含銅線圈的補給，放下研究桌，站在桌旁打開背包。製作「修復扳手」普通品質，再按詳情裡的「裝備」。提示是「已裝備修復扳手。」按鈕變成「卸下」。主工具是 `repair-wrench`，耐久 48，配件仍是 `badge`。研究桌花了 4 本筆記，所以筆記從 22 到 18。重載後經驗 546、建物是宮燈和研究桌、兩個槽都還在。第二個 API 客戶端看到同一份 `loadout` 與普通扳手。雲端文件現在會拒絕裝備欄上的額外欄位；沒有這些欄位的舊存檔仍可通過。內容版本仍是 2。
 
 失敗那一版的選項出現在畫面上，這次沒有點。那個結果句與「選了之後再選另一個不會再發獎」是 `scripts/faculty-story.test.mjs` 的斷言，不是第二次瀏覽器遊玩。
 

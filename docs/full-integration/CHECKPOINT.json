@@ -1,18 +1,18 @@
 {
-  "updated": "2026-11-12T02:10:00Z",
+  "updated": "2026-11-12T02:28:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "e1f52fdb6c6095e74daa0aa0ad59dd11b1304051",
-  "gameSha": "f300327cda2b5829c79eaf9aa1a6fddcb1d57230",
+  "base": "afb6cbd0a731a68a10ebd4edb2a26571c1ed3205",
+  "gameSha": "85619e4288e341badee32d5cfe6ce999e28b631c",
   "facultySource": "cursor/faculty-story-75f5@7f6f3c8a4a3e77bad00b4ab28d43bf3b49e48376",
   "varietySource": "cursor/gameplay-variety-fb95@d82bf0056f51b7a4f1bcecf28d1146690fbdc3ab",
-  "verifiedHead": "f300327cda2b5829c79eaf9aa1a6fddcb1d57230",
-  "routeScript": "uncommitted until the docs commit on top of f300327; the client bundle that was played is the f300327 build",
+  "verifiedHead": "85619e4288e341badee32d5cfe6ce999e28b631c",
+  "routeScript": "the wrench route ran on this working tree before the docs commit; the static bundle is the 85619e4 build plus the cloud whitelist in contract.ts",
   "soleMerger": {
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
     "thisLineMerges": false,
-    "alreadyMerged": "Semester lookup is on main via integration PR #125. Chemistry hall is on main via integration PR #130. Do not merge those again."
+    "alreadyMerged": "Semester lookup is on main via integration PR #125. Gear is on main via integration PR #133 at afb6cbd. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -21,24 +21,25 @@
     "node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route"
   ],
   "done": [
-    "Faculty posts from 7f6f3c8 are on this branch. The world prompt 與顧衡交談 opens the existing narrative panel.",
+    "Main afb6cbd is merged. Gear, crafting, and facilities stay on the existing bag. Cloud validation now checks loadout, gear, quarantine, quarantineGear, and heldBuild. Content version stays 2.",
+    "The main route places a research desk, crafts a plain repair wrench from parts and copper, and equips it beside the badge. Durability 48. Reload and the second client keep tool repair-wrench and accessory badge.",
     "Browser route at 1280x720 shows both of 顧衡's opening choices, picks 我先補剖面，補完再請你看。, and keeps fac-gu-meet-line. The other flag stays false.",
     "That choice pays quest-faculty-gu-meet and quest-faculty-studio-meet once. xp goes from 512 to 534. Semester stays midterm. Reload and the second cloud client keep the claims and the flag.",
     "Standing at the architecture post also discovered the existing architecture site, +12, which is why xp is 534 rather than 522.",
-    "npm test 293 pass / 0 fail. tsc passed on f300327. build:site passed. dist has no revision_conflict or cloud-save string."
+    "npm test 304 pass / 0 fail. tsc passed. build:site passed, 2381 modules. dist has no revision_conflict or cloud-save string."
   ],
   "todo": [
     "Play the other 顧衡 choice in a second fresh save. This browser pass only selected the line choice. The fail choice outcome is in scripts/faculty-story.test.mjs.",
     "Play finals only after midterm and mission first.",
     "The other eight college skills are not played yet.",
-    "Items PR #129 at 11ddeba is published. Their handoff says to put loadout, gear, quarantine, quarantineGear, and heldBuild on the cloud whitelist before treating that line as merged. Do not open a second bag.",
+    "Faculty moved to 246eadf after the wired 7f6f3c8. Those gesture and cross-choice commits are not on this branch yet.",
     "Leave further art merges to the running integrator."
   ],
   "blocked": [
     "This line must not merge to main while bc-4054e39b is the writer of main.",
     "Phone and RTX 3060 are pending-device. This host forces SwiftShader.",
     "AGENTS.md is absent.",
-    "Faculty agent bc-8a8789a5 is still RUNNING, so 7f6f3c8 may not be their last commit."
+    "Faculty branch tip is 246eadf. The agent was not in the running list at 2026-11-12T02:28:00Z. Those commits are not wired yet."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main, origin/cursor/faculty-story-75f5, and origin/cursor/items-equipment-building-15c5 before taking a newer head. Next wiring is the items loadout on the existing bag and cloud whitelist, without a second currency. Do not flip MAIN_INTEGRATION. Do not merge already integrated art source PRs, and do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main and origin/cursor/faculty-story-75f5. Next slice is the faculty commits after 7f6f3c8, then eight college skills and mission first. Do not flip MAIN_INTEGRATION. Do not merge the gear feature again. Do not merge PR #32 head 1fc5887."
 }

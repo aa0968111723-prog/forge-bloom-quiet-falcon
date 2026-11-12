@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T02:10:00Z",
+  "updated": "2026-11-12T02:28:00Z",
   "items": [
     {
       "id": "FI-MUTEX",
@@ -75,9 +75,16 @@
       "note": "main e1f52fd includes chemistry hall via integration PR #130. This line does not merge art. Re-fetch before use. Open source PRs are not proof the feature is missing from main."
     },
     {
+      "id": "FI-GEAR",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Gear code is already on main via PR #133. This branch adds cloud checks for loadout, gear, quarantine, quarantineGear, and heldBuild. Route at 1280x720 crafted a plain repair-wrench, durability 48, accessory stayed badge. Reload and second client kept both slots. Notes ended at 18."
+    },
+    {
       "id": "FI-OTHER-LINES",
-      "status": "faculty-wired-items-waiting",
-      "note": "Faculty 7f6f3c8 is wired here. Gameplay d82bf00 is wired here. Items PR #129 head 11ddeba is published; their handoff says to whitelist loadout, gear, quarantine, quarantineGear, and heldBuild before merging that line. Do not open a second bag."
+      "status": "faculty-followup-open",
+      "note": "Faculty 7f6f3c8 and gameplay d82bf00 are wired. Faculty tip 246eadf is not. Do not merge gear again."
     },
     {
       "id": "FI-BROWSER-REST",

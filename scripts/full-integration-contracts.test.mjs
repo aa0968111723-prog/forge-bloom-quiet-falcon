@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { DEPARTMENTS as CATALOG } from "../src/game/departments.ts";
 import { DEPARTMENTS as RPG } from "../src/game/rpg/data.ts";
+import { validateRpgDocument } from "../src/features/cloud-save/contract.ts";
 import { abilityQuery, resolveDepartment } from "../src/game/contracts/departments.ts";
 import { readV2Progress } from "../src/game/rpg/growth/progress.ts";
 import {
@@ -197,7 +198,35 @@ test("a supply pickup settles the errand once on the live save", async () => {
   if (inventory.count("badge") < 1) inventory.add("badge", 1);
   useRpg.getState().equip();
   assert.equal(useRpg.getState().equipped, true);
+  assert.equal(useRpg.getState().loadout.accessory, "badge");
   useRpg.getState().equip();
   assert.equal(useRpg.getState().equipped, false);
+  assert.equal(useRpg.getState().loadout.accessory, null);
   assert.equal(useRpg.getState().claimed.filter((id) => id === CAMPUS_ERRAND_ID).length, 1);
+});
+
+test("cloud saves accept the gear fields and reject a slot outside the whitelist", () => {
+  const base = {
+    version: 2,
+    hp: 100,
+    slots: [{ itemId: "notes", quantity: 1 }],
+    buildings: [],
+  };
+  const accepted = validateRpgDocument({
+    ...base,
+    loadout: { tool: "repair-wrench", accessory: "badge", pack: null },
+    gear: [{ id: "gear-wrench-1", itemId: "repair-wrench", durability: 48, quality: "plain" }],
+    quarantine: [{ itemId: "unknown-coil", quantity: 2 }],
+    quarantineGear: [],
+    heldBuild: null,
+  });
+  assert.equal(accepted.ok, true);
+  const oldSave = validateRpgDocument(base);
+  assert.equal(oldSave.ok, true);
+  const extra = validateRpgDocument({
+    ...base,
+    loadout: { tool: null, accessory: null, pack: null, script: "nope" },
+  });
+  assert.equal(extra.ok, false);
+  if (!extra.ok) assert.equal(extra.code, "unsafe_content");
 });

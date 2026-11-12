@@ -258,6 +258,26 @@ function checkFields(doc: SaveDocument): ValidationResult {
   if ("lesson" in doc && doc.lesson !== null && !LESSONS.has(String(doc.lesson))) {
     return { ok: false, code: "invalid_document", message: "教學進度不在允許清單。" };
   }
+  if ("loadout" in doc) {
+    const loadout = checkLoadout(doc.loadout);
+    if (!loadout.ok) return loadout;
+  }
+  if ("gear" in doc) {
+    const gear = checkGearList(doc.gear, "裝備實例");
+    if (!gear.ok) return gear;
+  }
+  if ("quarantine" in doc) {
+    const quarantine = checkQuarantine(doc.quarantine);
+    if (!quarantine.ok) return quarantine;
+  }
+  if ("quarantineGear" in doc) {
+    const quarantineGear = checkGearList(doc.quarantineGear, "隔離裝備");
+    if (!quarantineGear.ok) return quarantineGear;
+  }
+  if ("heldBuild" in doc && doc.heldBuild != null) {
+    const held = checkBuilding(doc.heldBuild);
+    if (!held.ok) return held;
+  }
   if ("effects" in doc) {
     const effects = checkEffects(doc.effects);
     if (!effects.ok) return effects;
@@ -267,6 +287,98 @@ function checkFields(doc: SaveDocument): ValidationResult {
     if (!pilgrimage.ok) return pilgrimage;
   }
   return { ok: true, document: doc };
+}
+
+const LOADOUT_KEYS = ["tool", "accessory", "pack"] as const;
+const GEAR_KEYS = ["id", "itemId", "durability", "quality"] as const;
+
+function checkLoadout(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "裝備欄格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  if (Object.keys(row).some((key) => !LOADOUT_KEYS.includes(key as (typeof LOADOUT_KEYS)[number]))) {
+    return { ok: false, code: "unsafe_content", message: "裝備欄含有白名單以外的欄位。" };
+  }
+  for (const key of LOADOUT_KEYS) {
+    if (!(key in row) || row[key] === null) continue;
+    if (typeof row[key] !== "string" || !ID_PATTERN.test(row[key])) {
+      return { ok: false, code: "invalid_document", message: "裝備欄物品 id 不正確。" };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkGearList(value: unknown, label: string): ValidationResult {
+  if (!Array.isArray(value) || value.length > 24) {
+    return { ok: false, code: "invalid_document", message: `${label}格式不正確。` };
+  }
+  for (const entry of value) {
+    if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+      return { ok: false, code: "invalid_document", message: `${label}格式不正確。` };
+    }
+    const row = entry as Record<string, unknown>;
+    if (Object.keys(row).some((key) => !GEAR_KEYS.includes(key as (typeof GEAR_KEYS)[number]))) {
+      return { ok: false, code: "unsafe_content", message: `${label}含有白名單以外的欄位。` };
+    }
+    if (typeof row.id !== "string" || row.id.length < 1 || row.id.length > 64) {
+      return { ok: false, code: "invalid_document", message: `${label} id 不正確。` };
+    }
+    if (typeof row.itemId !== "string" || !ID_PATTERN.test(row.itemId)) {
+      return { ok: false, code: "invalid_document", message: `${label}物品 id 不正確。` };
+    }
+    if (!finiteIn(row.durability, 0, 100_000)) {
+      return { ok: false, code: "invalid_document", message: `${label}耐久不在允許範圍。` };
+    }
+    if (row.quality !== "plain" && row.quality !== "fine") {
+      return { ok: false, code: "invalid_document", message: `${label}品質不在允許清單。` };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkQuarantine(value: unknown): ValidationResult {
+  if (!Array.isArray(value) || value.length > 24) {
+    return { ok: false, code: "invalid_document", message: "隔離物品格式不正確。" };
+  }
+  for (const entry of value) {
+    if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+      return { ok: false, code: "invalid_document", message: "隔離物品格式不正確。" };
+    }
+    const row = entry as Record<string, unknown>;
+    if (Object.keys(row).some((key) => key !== "itemId" && key !== "quantity")) {
+      return { ok: false, code: "unsafe_content", message: "隔離物品含有白名單以外的欄位。" };
+    }
+    if (typeof row.itemId !== "string" || !ID_PATTERN.test(row.itemId)) {
+      return { ok: false, code: "invalid_document", message: "隔離物品 id 不正確。" };
+    }
+    if (!integerIn(row.quantity, 1, 99)) {
+      return { ok: false, code: "invalid_document", message: "隔離物品數量不在允許範圍。" };
+    }
+  }
+  return { ok: true, document: {} };
+}
+
+function checkBuilding(value: unknown): ValidationResult {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, code: "invalid_document", message: "建築格式不正確。" };
+  }
+  const row = value as Record<string, unknown>;
+  if (typeof row.id !== "string" || row.id.length < 1 || row.id.length > 80) {
+    return { ok: false, code: "invalid_document", message: "建築 id 不正確。" };
+  }
+  if (typeof row.kind !== "string" || !ID_PATTERN.test(row.kind)) {
+    return { ok: false, code: "invalid_document", message: "建築種類不在允許格式。" };
+  }
+  for (const key of ["x", "z", "rotation"] as const) {
+    if (typeof row[key] !== "number" || !Number.isFinite(row[key]) || Math.abs(row[key]) > 100_000) {
+      return { ok: false, code: "invalid_document", message: "建築座標不正確。" };
+    }
+  }
+  if (!finiteIn(row.hp, 1, 100_000)) {
+    return { ok: false, code: "invalid_document", message: "建築耐久不在允許範圍。" };
+  }
+  return { ok: true, document: {} };
 }
 
 function checkEffects(value: unknown): ValidationResult {
