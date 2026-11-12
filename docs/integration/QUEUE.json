@@ -5427,9 +5427,11 @@
         "route": "8264 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "82912ea4c2edcdbe5656d0e0a61a90a5929be127",
-      "nextAction": "Open the integration PR. Do not merge PR #276 by itself. The swimming-hall pool commit 26a70194 is still separate."
+      "integrationPr": 339,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/339",
+      "nextAction": "None. The single court-line set from f4e9fae3 is already in this integration. Do not merge PR #276 by itself. The swimming-hall pool commit 26a70194 is still separate."
     }
   ]
 }
