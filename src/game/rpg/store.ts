@@ -110,6 +110,8 @@ export type Loot = {
   x: number;
   z: number;
   items: Record<string, number>;
+  /** Counts within items that came from a quest or dialogue reward. */
+  quest?: Record<string, number>;
 };
 export type AttackFx = {
   x: number;
@@ -416,6 +418,17 @@ function restoreHarvest(raw: unknown): Record<string, number> {
     }
   return result;
 }
+function restoreQuest(raw: unknown, items: Record<string, number>) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return undefined;
+  const source = raw as Record<string, unknown>;
+  const next: Record<string, number> = {};
+  for (const item of ITEMS) {
+    if (source[item.id] === undefined) continue;
+    const count = Math.floor(finite(source[item.id], 0, items[item.id] ?? 0));
+    if (count > 0) next[item.id] = count;
+  }
+  return Object.keys(next).length ? next : undefined;
+}
 function restoreLoot(raw: unknown): Loot[] {
   if (!Array.isArray(raw)) return [];
   return raw
@@ -429,17 +442,18 @@ function restoreLoot(raw: unknown): Loot[] {
         l.items &&
         typeof l.items === "object",
     )
-    .map((l) => ({
-      id: l.id,
-      x: l.x,
-      z: l.z,
-      items: Object.fromEntries(
+    .map((l) => {
+      const items = Object.fromEntries(
         ITEMS.map((i) => [
           i.id,
           Math.floor(finite(l.items[i.id], 0, 99)),
         ]).filter(([, n]) => Number(n) > 0),
-      ),
-    }));
+      );
+      const quest = restoreQuest(l.quest, items);
+      return quest
+        ? { id: l.id, x: l.x, z: l.z, items, quest }
+        : { id: l.id, x: l.x, z: l.z, items };
+    });
 }
 function restorePosition(raw: unknown) {
   if (!raw || typeof raw !== "object") return null;
@@ -738,13 +752,16 @@ function prepareImport(
     },
   };
 }
+function bagNegative(raw: unknown) {
+  if (!raw || typeof raw !== "object") return false;
+  return Object.values(raw as Record<string, unknown>).some(negativeNumber);
+}
 function lootNegative(raw: unknown) {
   if (!Array.isArray(raw)) return false;
   return raw.some((entry) => {
     if (!entry || typeof entry !== "object") return false;
-    const items = (entry as { items?: unknown }).items;
-    if (!items || typeof items !== "object") return false;
-    return Object.values(items as Record<string, unknown>).some(negativeNumber);
+    const pile = entry as { items?: unknown; quest?: unknown };
+    return bagNegative(pile.items) || bagNegative(pile.quest);
   });
 }
 function freshEnemies(boss = 0): Enemy[] {
@@ -786,8 +803,18 @@ function intakeNotice(
   return lines.join("。");
 }
 
-function stash(loot: Loot[], x: number, z: number, items: Record<string, number>) {
-  const next = loot.map((pile) => ({ ...pile, items: { ...pile.items } }));
+function stash(
+  loot: Loot[],
+  x: number,
+  z: number,
+  items: Record<string, number>,
+  fromQuest = false,
+) {
+  const next = loot.map((pile) => ({
+    ...pile,
+    items: { ...pile.items },
+    ...(pile.quest ? { quest: { ...pile.quest } } : {}),
+  }));
   for (const [id, raw] of Object.entries(items)) {
     let remaining = Math.floor(raw);
     if (!Number.isFinite(remaining) || remaining <= 0) continue;
@@ -807,6 +834,11 @@ function stash(loot: Loot[], x: number, z: number, items: Record<string, number>
       const room = LOOT_STACK - (pile.items[id] ?? 0);
       const take = Math.min(room, remaining);
       pile.items[id] = (pile.items[id] ?? 0) + take;
+      if (fromQuest) {
+        const quest = pile.quest ?? {};
+        quest[id] = (quest[id] ?? 0) + take;
+        pile.quest = quest;
+      }
       remaining -= take;
     }
   }
@@ -818,8 +850,49 @@ function layRemainder(
   x: number,
   z: number,
   left: Record<string, number>,
+  fromQuest = false,
 ) {
-  return Object.keys(left).length ? stash(loot, x, z, left) : loot;
+  return Object.keys(left).length ? stash(loot, x, z, left, fromQuest) : loot;
+}
+
+function markedCount(pile: Loot, id: string) {
+  const have = pile.items[id] ?? 0;
+  const marked = Math.floor(pile.quest?.[id] ?? 0);
+  if (!Number.isFinite(marked) || marked <= 0) return 0;
+  return Math.min(marked, have);
+}
+
+function takenCount(accepted: Record<string, number>, id: string) {
+  const raw = accepted[id];
+  if (typeof raw !== "number" || !Number.isFinite(raw)) return 0;
+  return Math.max(0, Math.floor(raw));
+}
+
+/** World items fill the bag before quest items, so a short pickup still counts. */
+function worldShare(pile: Loot, accepted: Record<string, number>) {
+  const countable: Record<string, number> = {};
+  for (const id of Object.keys(accepted)) {
+    const taken = takenCount(accepted, id);
+    const fromWorld = Math.min(taken, Math.max(0, (pile.items[id] ?? 0) - markedCount(pile, id)));
+    if (fromWorld > 0) countable[id] = fromWorld;
+  }
+  return countable;
+}
+
+function questRemainder(
+  pile: Loot,
+  accepted: Record<string, number>,
+  left: Record<string, number>,
+) {
+  const next: Record<string, number> = {};
+  for (const id of Object.keys(pile.quest ?? {})) {
+    const marked = markedCount(pile, id);
+    const taken = takenCount(accepted, id);
+    const fromWorld = Math.min(taken, Math.max(0, (pile.items[id] ?? 0) - marked));
+    const stay = Math.min(marked - (taken - fromWorld), Math.max(0, Math.floor(left[id] ?? 0)));
+    if (stay > 0) next[id] = stay;
+  }
+  return Object.keys(next).length ? next : undefined;
 }
 
 function give(items: { [id: string]: number | undefined }) {
@@ -1250,7 +1323,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     set({
       claimed: [...s.claimed, id],
       ...xpPatch(s, m.xp),
-      loot: layRemainder(s.loot, g.playerX, g.playerZ, left),
+      loot: layRemainder(s.loot, g.playerX, g.playerZ, left, true),
     });
     s.notify(intakeNotice(accepted, left, `完成委託：${m.name}`));
   },
@@ -1300,7 +1373,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       ...(delta.xp > 0 ? xpPatch(s, delta.xp) : {}),
       claimed,
       discoveries,
-      loot: layRemainder(s.loot, g.playerX, g.playerZ, paid.left),
+      loot: layRemainder(s.loot, g.playerX, g.playerZ, paid.left, true),
       narrative: result.play.session,
       narrativeUi: ui,
     });
@@ -1468,7 +1541,11 @@ export const useRpg = create<RpgState>((set, get) => ({
       claimed: [...rpg.claimed],
       buildings: rpg.buildings.map((building) => ({ ...building })),
       harvested: { ...rpg.harvested },
-      loot: rpg.loot.map((drop) => ({ ...drop, items: { ...drop.items } })),
+      loot: rpg.loot.map((drop) => ({
+        ...drop,
+        items: { ...drop.items },
+        ...(drop.quest ? { quest: { ...drop.quest } } : {}),
+      })),
       clock: rpg.clock,
       attackUntil: rpg.attackUntil,
       skillUntil: rpg.skillUntil,
@@ -1653,12 +1730,17 @@ function runPrompt(choice: PromptChoice) {
     if (!drop) return;
     const { accepted, left } = give(drop.items);
     if (Object.keys(accepted).length > 0) {
+      const quest = questRemainder(drop, accepted, left);
       useRpg.setState({
-        gathered: addGathered(s.gathered, accepted),
+        gathered: addGathered(s.gathered, worldShare(drop, accepted)),
         loot: Object.keys(left).length
-          ? s.loot.map((pile) =>
-              pile.id === drop.id ? { ...pile, items: left } : pile,
-            )
+          ? s.loot.map((pile) => {
+              if (pile.id !== drop.id) return pile;
+              const next: Loot = { ...pile, items: left };
+              if (quest) next.quest = quest;
+              else delete next.quest;
+              return next;
+            })
           : s.loot.filter((pile) => pile.id !== drop.id),
       });
     }

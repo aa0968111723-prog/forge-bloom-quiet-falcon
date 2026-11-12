@@ -7860,3 +7860,157 @@ test("collection quests remember supplies and ignore other loads", async () => {
   assert.equal(useRpg.getState().felled.report, 1);
   assert.equal(useRpg.getState().kills, kills + 2);
 });
+
+test("quest notes left on the ground stay out of collection", async () => {
+  const { SUPPLY_NODES } = await import("../src/game/rpg/campus.ts");
+  const { MISSIONS, ENEMY_TYPES } = await import("../src/game/rpg/data.ts");
+  const node = SUPPLY_NODES.find((entry) => entry.items.notes);
+  const fillNotes = () => {
+    let added = 1;
+    while (added > 0) added = inventory.add("notes", 99).added;
+  };
+  const stand = () => {
+    useGame.setState({
+      phase: "playing",
+      plaqueId: null,
+      playerX: node.x,
+      playerZ: node.z,
+      playerYaw: 0,
+    });
+  };
+  inventory.clear();
+  for (let slot = 0; slot < 23; slot += 1) inventory.add("parts", 99);
+  inventory.add("notes", 98);
+  useRpg.setState({
+    gathered: { notes: 0, parts: 0, coffee: 0, tea: 0 },
+    felled: { quiz: 0, report: 0, exam: 0, final: 0 },
+    claimed: [],
+    panel: null,
+    narrativeUi: null,
+    interiorId: null,
+    buildKind: null,
+    buildings: [],
+    hp: 100,
+    loot: [
+      {
+        id: "mix",
+        x: node.x,
+        z: node.z,
+        items: { notes: 5 },
+        quest: { notes: 2 },
+      },
+    ],
+    harvested: { [node.id]: Date.now() + 180_000 },
+  });
+  stand();
+  assert.equal(useRpg.getState().commitPrompt(), "pickup");
+  assert.equal(useRpg.getState().gathered.notes, 1);
+  const mixed = useRpg.getState().loot.find((pile) => pile.id === "mix");
+  assert.equal(mixed.items.notes, 4);
+  assert.equal(mixed.quest.notes, 2);
+  inventory.remove("notes", 4);
+  assert.equal(useRpg.getState().commitPrompt(), "pickup");
+  assert.equal(useRpg.getState().gathered.notes, 3);
+  assert.equal(useRpg.getState().loot.some((pile) => pile.id === "mix"), false);
+
+  inventory.clear();
+  useRpg.setState({
+    gathered: { notes: 0, parts: 12, coffee: 0, tea: 0 },
+    claimed: [],
+    xp: 0,
+    panel: null,
+    narrativeUi: null,
+    loot: [],
+    harvested: { [node.id]: Date.now() + 180_000 },
+  });
+  stand();
+  r.hitEnemy(
+    {
+      hp: 1,
+      kind: "quiz",
+      x: node.x,
+      z: node.z,
+      state: "idle",
+      hurt: 0,
+      timer: 0,
+      id: "quiz-ground",
+    },
+    5,
+  );
+  const worldNotes = ENEMY_TYPES.quiz.reward.notes;
+  fillNotes();
+  const notesBefore = useRpg.getState().gathered.notes;
+  useRpg.getState().claim("gather-parts");
+  const reward = MISSIONS.find((row) => row.id === "gather-parts").reward.notes;
+  const piled = useRpg.getState().loot.find((entry) => entry.quest?.notes);
+  assert.equal(piled.items.notes, worldNotes + reward);
+  assert.equal(piled.quest.notes, reward);
+  assert.equal(useRpg.getState().gathered.notes, notesBefore);
+  flushSave();
+  const saved = savedData.get(RPG_SAVE_KEY);
+  const savedPile = JSON.parse(saved).loot.find((entry) => entry.quest?.notes);
+  assert.equal(savedPile.quest.notes, reward);
+  const poisoned = JSON.parse(saved);
+  poisoned.loot.find((entry) => entry.quest).quest.notes = -1;
+  assert.equal(useRpg.getState().importSave(JSON.stringify(poisoned)), false);
+  assert.equal(
+    useRpg.getState().loot.find((entry) => entry.quest?.notes).quest.notes,
+    reward,
+  );
+  assert.equal(useRpg.getState().importSave(saved), true);
+  useRpg.setState({ panel: null, narrativeUi: null, interiorId: null, buildKind: null });
+  stand();
+  inventory.remove("notes", worldNotes + reward);
+  assert.equal(useRpg.getState().commitPrompt(), "pickup");
+  assert.equal(useRpg.getState().gathered.notes, notesBefore + worldNotes);
+  assert.equal(useRpg.getState().loot.some((entry) => (entry.items.notes ?? 0) > 0), false);
+
+  inventory.clear();
+  useRpg.setState({
+    gathered: { notes: 0, parts: 0, coffee: 0, tea: 0 },
+    harvested: {},
+    loot: [],
+    panel: null,
+    narrativeUi: null,
+    interiorId: null,
+    buildKind: null,
+  });
+  fillNotes();
+  stand();
+  assert.equal(useRpg.getState().commitPrompt(), "supply");
+  const spilled = useRpg.getState().loot.find((entry) => entry.items.notes);
+  assert.equal(spilled.quest, undefined);
+  assert.equal(useRpg.getState().gathered.notes, 0);
+  inventory.remove("notes", spilled.items.notes);
+  assert.equal(useRpg.getState().commitPrompt(), "pickup");
+  assert.equal(useRpg.getState().gathered.notes, node.items.notes);
+
+  inventory.clear();
+  fillNotes();
+  useRpg.setState({
+    loot: [],
+    panel: null,
+    narrativeUi: null,
+    gathered: { notes: 0, parts: 0, coffee: 0, tea: 0 },
+  });
+  const speak = (choiceId) => {
+    assert.equal(useRpg.getState().openNarrative("post-xu-hui"), true);
+    useRpg.getState().narrativeTalk();
+    useRpg.getState().narrativeChoose(choiceId);
+    useRpg.getState().narrativeDismiss();
+  };
+  speak("psych-meet-retrieve");
+  speak("psych-turn-pause");
+  assert.equal(useRpg.getState().openNarrative("post-xu-hui"), true);
+  useRpg.getState().narrativeTalk();
+  useRpg.getState().narrativeChoose("psych-after-note");
+  const spoken = useRpg.getState().loot.find((entry) => entry.quest?.notes);
+  assert.equal(spoken.items.notes, 1);
+  assert.equal(spoken.quest.notes, 1);
+  assert.equal(useRpg.getState().gathered.notes, 0);
+  useRpg.getState().narrativeDismiss();
+  inventory.remove("notes", 1);
+  stand();
+  assert.equal(useRpg.getState().commitPrompt(), "pickup");
+  assert.equal(useRpg.getState().gathered.notes, 0);
+});
