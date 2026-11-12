@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T07:20:00Z",
+  "updated": "2026-11-12T13:10:00Z",
   "task_ids": [
     "ART-067"
   ],
-  "branch": "cursor/bollard-stop-1a71",
-  "base": "main@d5b89c4",
+  "branch": "cursor/gym-court-1a71",
+  "base": "main@4e6a7df",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "bollard-stop and court-lines pass; full suite re-run on the integration branch",
+    "npm_test": "activity-court passes; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-Bf9_TEsB.js",
+    "build_site": "AdventureApp-g7Ix0_tH.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "A 0.42 m body on a bollard is pushed off the post. The library line leaves the dolphin ring through the north-east gap and returns to the centre north of the ring. The track infield is a 24 by 40 m pitch with a centre line and no net. The lines stay inside the inner oval. The library ramp rails still follow the deck and still push a 0.42 m body off the rail. Bollard positions and infield sizes stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The gym activity room paints sidelines, baselines, a centre line, a centre circle and two keys. Baselines sit between the rim and the pole. The marks are flat and do not collide. The classroom and reading room do not get them. Sizes stay estimated. A 0.42 m body on a bollard is still pushed off the post. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

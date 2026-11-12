@@ -516,10 +516,12 @@ export function Interior() {
             <ringGeometry args={[1.7, 1.77, 40]} />
             <meshBasicMaterial color="#e9dbb1" />
           </mesh>
-          <mesh position={[0, 0.03, 0]}>
-            <boxGeometry args={[17, 0.02, 0.06]} />
-            <meshBasicMaterial color="#e9dbb1" />
-          </mesh>
+          {site.id !== "gym" && (
+            <mesh position={[0, 0.03, 0]}>
+              <boxGeometry args={[17, 0.02, 0.06]} />
+              <meshBasicMaterial color="#e9dbb1" />
+            </mesh>
+          )}
           {[-1, 1].map((side) => (
             <group key={side} position={[side * 8, 0, 0]}>
               <mesh position={[0, 2.3, 0]}>
