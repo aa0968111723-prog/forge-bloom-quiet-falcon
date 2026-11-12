@@ -602,3 +602,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 120 輪（活動中心裙牆）— 2026-11-12
 
 `node --test scripts/commons-skirt.test.mjs scripts/foreign-skirt.test.mjs scripts/gym-skirt.test.mjs scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。樓身底座高於西北角，空隙大於 2 m。這棟沒有偏角，裙牆和樓身對齊。南邊入口的局部 z 在裙牆南緣外面。白樓的空隙小於 1.5 m，沒有裙牆。外語大樓、體育館和跟著船身轉的海事博物館裙牆留著。定步白天從西北看，頁面無錯誤：`docs/art/evidence/activity/skirt.jpg`。看得到深色裙牆在近角接到草地。裙牆仍是 estimated。第 119 輪的外語大樓裙牆留著。沒有新增音效。
+
+## 第 121 輪（迴廊柱）— 2026-11-12
+
+`node --test scripts/column-stop.test.mjs` 通過。`tsc --noEmit` 通過。十棟各兩排、每排八根。站在柱心會被推開。相鄰兩根的中點，以及大道中線，半徑 0.42 m 不會被推開。從大道走向柱子時，人停在柱子近側。頁面無錯誤：`docs/art/evidence/palace/column.jpg`。看得到人停在紅柱旁邊。活動中心裙牆留在第 120 輪。沒有新增音效。柱距仍是 estimated。

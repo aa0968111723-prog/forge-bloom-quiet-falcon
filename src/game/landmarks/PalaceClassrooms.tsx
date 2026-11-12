@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { surface, useTamkangMaterials, type TamkangMaterialSet } from "../materials/context";
 import { AVENUE_PAVED_WIDTH } from "../world-data/axis.ts";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
-import { PALACE, palaceHallZs } from "../world-data/landmarks.ts";
+import { PALACE, palaceColumns, palaceHallZs } from "../world-data/landmarks.ts";
 import { quality } from "../quality";
 import { hipRoofGeometry, worldUvBox } from "../world/geometry";
 import { InstancedPlanes, type PlaneItem } from "../world/InstancedPlanes";
@@ -153,8 +153,9 @@ export function PalaceClassrooms({ wetness, lampsOn }: { wetness: number; lampsO
           panes.push({ position: [faceX + front * 0.015, y, bz], rotationY: rotY, width: 2.05, height: 1.9 });
         }
         const colX = cx + front * (depth / 2 + 1.55);
-        for (let i = 0; i < 8; i++) {
-          columns.push({ x: colX, y: ground + 0.55 + (WALL_H - 0.3) / 2, z: z - width / 2 + 1.6 + i * ((width - 3.2) / 7) });
+        for (const col of palaceColumns()) {
+          if (Math.abs(col.x - colX) > 0.01 || Math.abs(col.z - z) > width / 2 + 0.1) continue;
+          columns.push({ x: col.x, y: ground + 0.55 + (WALL_H - 0.3) / 2, z: col.z });
         }
       }
     }

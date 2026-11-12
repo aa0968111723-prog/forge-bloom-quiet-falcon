@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
+import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, palaceColumns, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -29,6 +29,7 @@ function buildColliders(): AABB[] {
     out.push(box(-PALACE.offsetX, z, PALACE.hallDepth, PALACE.hallWidth));
     out.push(box(PALACE.offsetX, z, PALACE.hallDepth, PALACE.hallWidth));
   }
+  for (const col of palaceColumns()) out.push(box(col.x, col.z, 0.4, 0.4));
 
   // 覺生紀念圖書館
   out.push(box(LIBRARY.center[0], LIBRARY.center[1], LIBRARY.width, LIBRARY.length));

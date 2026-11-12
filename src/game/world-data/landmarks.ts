@@ -118,6 +118,27 @@ export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
 }
 
+/** Colonnade columns in front of each hall. The collider uses the same points. */
+export function palaceColumns(): { x: number; z: number }[] {
+  const out: { x: number; z: number }[] = [];
+  const width = PALACE.hallWidth;
+  const depth = PALACE.hallDepth;
+  for (const z of palaceHallZs()) {
+    for (const facing of [-1, 1] as const) {
+      const cx = facing * PALACE.offsetX;
+      const front = -facing;
+      const colX = cx + front * (depth / 2 + 1.55);
+      for (let i = 0; i < 8; i++) {
+        out.push({
+          x: colX,
+          z: z - width / 2 + 1.6 + i * ((width - 3.2) / 7),
+        });
+      }
+    }
+  }
+  return out;
+}
+
 /** 水源街校門. The beam is overhead, so only the two piers stop a body. */
 export const CAMPUS_GATE = {
   z: AXIS.gateZ + 6,
