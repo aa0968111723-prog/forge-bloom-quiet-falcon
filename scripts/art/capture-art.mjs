@@ -615,6 +615,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "open", "open garden pavilion");
+  } else if (scenario === "track") {
+    await hideHud(page);
+    await setPose(page, -40, -500, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(-40, -535);
+      window.__controlsTest.setPhoto({
+        yaw: 0.35,
+        distance: 70,
+        height: 36,
+        lookY: 0,
+        target: { x: -40, y: y + 1, z: -535 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "infield", "pitch inside the running track");
   } else if (scenario === "ramp") {
     // Library forecourt ramp. Rails sit just outside the 1.6 m deck.
     await hideHud(page);
