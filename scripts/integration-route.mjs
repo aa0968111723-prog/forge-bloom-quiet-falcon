@@ -317,6 +317,85 @@ async function playOffline(page) {
     buildings: worn.buildings,
   });
 
+  await page.evaluate(() => {
+    const enemy = window.__rpgQA.rpg.getState().enemies.find((item) => item.id === "report-1");
+    window.__controlsTest.setPose(enemy.x, enemy.z + 2.4, 0);
+    window.__rpgQA.rpg.setState({
+      panel: null,
+      buildKind: null,
+      focus: 100,
+      skillUntil: 0,
+      attackUntil: 0,
+    });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 2));
+  const reportBefore = await page.evaluate(
+    () => window.__rpgQA.rpg.getState().enemies.find((item) => item.id === "report-1").hp,
+  );
+  await page.locator(".ad-quickbar").getByRole("button", { name: /^技能/ }).click();
+  const reportAfter = await page.evaluate(
+    () => window.__rpgQA.rpg.getState().enemies.find((item) => item.id === "report-1").hp,
+  );
+  assert.ok(reportAfter < reportBefore, `report-1 stayed at ${reportAfter}`);
+  const exam = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg;
+    const enemy = rpg.getState().enemies.find((item) => item.id === "exam-1");
+    window.__controlsTest.setPose(enemy.x, enemy.z + 2.4, 0);
+    rpg.setState({ panel: null, buildKind: null, attackUntil: 0 });
+    const before = enemy.hp;
+    rpg.getState().attack(false);
+    const after = rpg.getState().enemies.find((item) => item.id === "exam-1")?.hp ?? before;
+    return { before, after, kind: enemy.kind };
+  });
+  assert.ok(exam.after < exam.before, `exam-1 stayed at ${exam.after}`);
+  note("monster-kinds", {
+    quiz: "earlier swing",
+    report: { before: reportBefore, after: reportAfter, via: "skill-button" },
+    exam,
+    final: "defeated earlier",
+  });
+
+  await page.evaluate(() => {
+    window.__controlsTest.setPose(0, -40, 0);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 4));
+  const dock = page.locator("[data-gv=dock]");
+  await dock.waitFor({ state: "visible", timeout: 15000 });
+  await shot(page, "07-variety-dock");
+  const xpBeforeVariety = (await readLive(page)).xp;
+  await dock.click();
+  const panel = page.locator("[data-gv=panel]");
+  await panel.getByRole("button", { name: "開始查看線索" }).click();
+  await panel.getByRole("button", { name: "閉館鈴後有人往圖書館跑。" }).click();
+  await panel.getByRole("button", { name: "送出這組線索" }).click();
+  await panel.getByRole("button", { name: "閉館鈴後有人往圖書館跑。" }).click();
+  await panel.getByRole("button", { name: "第三盞的開關是暖的。" }).click();
+  await panel.getByRole("button", { name: "有人把筆記放在第三盞下面。" }).click();
+  await panel.getByRole("button", { name: "送出這組線索" }).click();
+  await panel.locator("[data-gv=puzzle-0]").click();
+  await panel.locator("[data-gv=puzzle-2]").click();
+  await panel.locator("[data-gv=peace]").click();
+  await panel.getByRole("button", { name: "在原地等一拍" }).click();
+  await panel.getByRole("button", { name: "走到第三盞" }).click();
+  await panel.getByRole("button", { name: "在原地等一拍" }).click();
+  await panel.getByRole("button", { name: "走到傳達桌" }).click();
+  await panel.locator("[data-gv=claim]").click();
+  const varied = await readLive(page);
+  assert.ok(varied.claimed.includes("quest-gv-night-peace"));
+  assert.equal(varied.xp, xpBeforeVariety + 36);
+  assert.equal(varied.semester, "midterm");
+  assert.deepEqual(varied.buildings, ["lantern"]);
+  await panel.locator("[data-gv=claim]").click();
+  assert.equal((await readLive(page)).xp, varied.xp);
+  await shot(page, "07b-variety-claimed");
+  await panel.getByRole("button", { name: "關閉" }).click();
+  note("variety-peace", {
+    xp: varied.xp,
+    claimed: "quest-gv-night-peace",
+    semester: varied.semester,
+  });
+
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const savedText = await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2"));
   const saved = JSON.parse(savedText);
@@ -330,6 +409,7 @@ async function playOffline(page) {
   assert.ok(reloaded.claimed.includes("quest-orient-gate"));
   assert.ok(reloaded.claimed.includes("quest-errand-campus-post"));
   assert.ok(reloaded.claimed.includes("semester"));
+  assert.ok(reloaded.claimed.includes("quest-gv-night-peace"));
   assert.equal(reloaded.semester, "midterm");
   assert.equal(reloaded.equipped, true);
   assert.deepEqual(reloaded.buildings, ["lantern"]);
@@ -499,6 +579,7 @@ async function syncCloud(document) {
     assert.ok(remote.claimed.includes("quest-orient-gate"));
     assert.ok(remote.claimed.includes("quest-errand-campus-post"));
     assert.ok(remote.claimed.includes("semester"));
+    assert.ok(remote.claimed.includes("quest-gv-night-peace"));
     assert.equal(remote.narrative.semester, "midterm");
     assert.equal(remote.equipped, true);
     assert.equal(remote.buildings.length, 1);

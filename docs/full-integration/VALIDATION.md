@@ -1,14 +1,14 @@
 # 統整線驗證
 
-瀏覽器路線所在提交：`8ef6496c3e61ff60c1d956b1d012bd4750704971`。
-基線 `origin/main`：`468a516efb1649d08f0427f586c11f8d2341e12b`。學期查詢已在這條 main 上，整合 PR #125，遊戲程式 `9c803bb`。
+瀏覽器路線所在遊戲提交：`af7b669`（含玩法線 `d82bf00` 與化學館所在的 `main` `e1f52fd`）。
+學期查詢已在 main，整合 PR #125。這次沒有再合。
 
 這些指令是在該工作樹上親自跑的。沒有 CI。沒有 required checks 不算驗收通過。
 
 | 指令 | 結果 |
 | --- | --- |
 | `npx tsc --noEmit` | 通過。在 `90768e4` 的工作樹，放置測試尚未加入，型別沒有再改 |
-| `npm test` | 合併後 271 通過、0 失敗 |
+| `npm test` | 285 通過、0 失敗 |
 | `npm run build:site` | 通過。`dist/assets` 沒有 `revision_conflict` 或 `cloud-save` |
 | `node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route` | 通過。`pageErrors` 空、離線遊玩時頁面 API 請求空、`ok: true` |
 | `npx eslint` 只掃這次改過的檔 | 1 個既有錯誤：`src/game/rpg/AdventureHud.tsx:639` irregular whitespace，不在這次 diff。1 個既有警告：`store.ts` 的 `dirty` 未使用。不把全庫 lint 說成通過 |
@@ -38,5 +38,9 @@
 克難坡上的放置提示寫「請保留克難坡通行空間」。按下放置後沒有建物，經驗仍是 44。結束建造後建造模式清空。換到 `validatePlacement` 允許的位置，放下一盞守夜宮燈；同一格再放一次仍只有一盞，經驗仍是 44，委託 id 仍是一筆。窄窗 390×780 的放置、旋轉、結束建造在快捷列上方。建造中的普攻、技能、閃避寫「場景不可用」。
 
 quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線在每一下之間把攻擊冷卻清掉，沒有把時鐘一次跳 40 秒。勝利對話的「領取獎勵，繼續探索」領取既有的 `semester` 任務，徽章進入背包。背包按鈕是「卸下徽章」。重載後經驗 464、筆記 18（燈花了 3 本筆記）、徽章 1、`equipped` 為真、建物仍是那盞燈、學期仍是 `midterm`。第二個 API 客戶端看到同一份裝備與建物。
+
+同一條路線接著站到估計座標 `(0, -40)`。按鈕「宮燈夜巡」出現，沒有蓋住快捷列。先送錯一組線索，再送對「第三盞的開關是暖的」和「有人把筆記放在第三盞下面」，扳第 1 與第 3 盞燈，護送到傳達桌，按「領取結算」。經驗從 464 到 500，筆記到 22，`claimed` 有 `quest-gv-night-peace`。再按一次經驗不變。學期仍是期中。重載與第二個 API 客戶端都保留這筆。遭遇進行中的記憶鍵是 `tamkang-gameplay-variety-v1`，獎勵寫進 `tamkang-rpg-v2`。
+
+化學系的技能按鈕把 report 從 145 打到 93。exam 從 240 到 211。quiz 與 final 仍是先前那兩下。另外八個學院的技能這輪沒有換科系去打。
 
 固定畫面不能用來宣稱動畫流暢。沒有重測三角形或幀時間。

@@ -35,6 +35,20 @@
       "note": "Main game at 8ef6496. Palace-avenue ghost says 請保留克難坡通行空間 and places nothing. Cancel clears build mode. One lantern places, the same spot does not place a second, xp stays 44, errand id stays once. 1280x720 and 390x780. 390 is a fine pointer."
     },
     {
+      "id": "FI-VARIETY",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Published gameplay head d82bf00 wired on af7b669. Night patrol at estimated (0,-40). Wrong clue, then peace route, claim once. xp 500 notes 22. Session key tamkang-gameplay-variety-v1 is not a second bag."
+    },
+    {
+      "id": "FI-KINDS",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "quiz 65 to 45, chemistry skill button report 145 to 93, exam 240 to 211, final defeated. Eight other college skills not played."
+    },
+    {
       "id": "FI-EQUIP",
       "status": "browser-verified",
       "merged": false,

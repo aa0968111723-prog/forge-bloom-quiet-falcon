@@ -1,9 +1,10 @@
 {
-  "updated": "2026-11-12T01:45:00Z",
+  "updated": "2026-11-12T01:54:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "468a516efb1649d08f0427f586c11f8d2341e12b",
-  "gameSha": "9c803bb",
-  "verifiedHead": "8ef6496c3e61ff60c1d956b1d012bd4750704971",
+  "base": "e1f52fdb6c6095e74daa0aa0ad59dd11b1304051",
+  "gameSha": "af7b669",
+  "varietySource": "cursor/gameplay-variety-fb95@d82bf0056f51b7a4f1bcecf28d1146690fbdc3ab",
+  "verifiedHead": "af7b669",
   "soleMerger": {
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
@@ -19,11 +20,12 @@
     "Semester lookup is on main via the other integrator.",
     "Browser route refuses the palace-avenue lantern ghost, cancels, places one lantern, and does not pay the errand again.",
     "The same route defeats final-1, claims the existing semester badge from the victory button, equips it, and keeps the lantern and badge across reload and the second cloud client.",
-    "Narrow interact bar sits above the quickbar at 390x780."
+    "quiz, report, exam, and final all take a hit. The report hit is the chemistry skill button.",
+    "Night patrol peace path pays quest-gv-night-peace once into the existing bag. xp 500, notes 22, semester stays midterm."
   ],
   "todo": [
     "Play finals only after midterm and mission first.",
-    "Exercise report and exam, and the nine college skills, in the main game.",
+    "The other eight college skills are not played yet.",
     "When the other three lines publish branches, wire their shared store entry here. Do not open a second bag.",
     "Leave further art merges to the running integrator."
   ],
@@ -33,5 +35,5 @@
     "AGENTS.md is absent.",
     "Faculty, gameplay, and item lines still had no branches at 2026-11-12T01:45:00Z."
   ],
-  "next_action": "Do not merge. The reviewable remainder is the browser place, cancel, lantern, and badge path on PR #122. Re-fetch origin/main before another slice. Do not flip MAIN_INTEGRATION. Do not merge art source PRs that are already integrated, and do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. PR #122 now also carries the night patrol and the four anomaly kinds. Re-fetch origin/main and the gameplay branch before taking a newer head. Do not flip MAIN_INTEGRATION. Do not merge already integrated art source PRs, and do not merge PR #32 head 1fc5887."
 }
