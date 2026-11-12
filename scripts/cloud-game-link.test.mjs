@@ -1244,3 +1244,72 @@ test("a full stack ground still keeps an extra kind that already has room", () =
   assert.equal(reloaded.loot.find((pile) => pile.quest?.["field-lamp"]).quest["field-lamp"], 1);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("merging piles on a full ground keeps every quest mark", () => {
+  const ids = [
+    "notes",
+    "parts",
+    "coffee",
+    "tea",
+    "credit",
+    "badge",
+    "copper",
+    "glass",
+    "cloth",
+    "herb",
+    "ink",
+    "chalk",
+    "resin",
+    "mint",
+    "bandage",
+    "lamp-oil",
+    "field-lamp",
+  ];
+  const wideItems = Object.fromEntries(ids.map((id) => [id, 1]));
+  const building = { id: "station-1", kind: "rest", x: 12, z: -20, rotation: 0, hp: 40 };
+  const loot = [];
+  for (let index = 0; index < 99; index += 1) {
+    const pile = {
+      id: `pile-${index}`,
+      x: 40 + (index % 40),
+      z: 8 + Math.floor(index / 40),
+      items: { notes: 1 },
+    };
+    if (index < 2) pile.quest = { notes: 1 };
+    loot.push(pile);
+  }
+  loot.push({ id: "pile-wide", x: 12, z: 18, items: wideItems, quest: { notes: 1, "field-lamp": 1 } });
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    buildings: [building],
+    loot,
+  });
+  replaceMemory(emptyMemory());
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const questNotes = saved.loot.reduce((sum, pile) => sum + (pile.quest?.notes ?? 0), 0);
+  assert.equal(questNotes, 3);
+  const kept = {};
+  for (const pile of saved.loot) {
+    for (const [id, count] of Object.entries(pile.items)) kept[id] = (kept[id] ?? 0) + count;
+  }
+  assert.equal(kept.notes, 100);
+  assert.equal(kept["field-lamp"], 1);
+  assert.ok(saved.loot.length <= 100);
+  assert.ok(
+    saved.loot.every((pile) =>
+      Object.entries(pile.quest ?? {}).every(([id, marked]) => marked <= (pile.items[id] ?? 0)),
+    ),
+  );
+  assert.equal(saved.buildings[0].id, "station-1");
+  assert.equal(saved.hp, 80);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const again = reloaded.loot.reduce((sum, pile) => sum + (pile.quest?.notes ?? 0), 0);
+  assert.equal(again, 3);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});

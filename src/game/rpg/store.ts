@@ -905,7 +905,7 @@ function absorbLoot(into: Loot, from: Loot) {
     const marked = from.quest?.[id];
     if (!marked) continue;
     const quest = { ...(into.quest ?? {}) };
-    quest[id] = Math.min(into.items[id], Math.max(quest[id] ?? 0, marked));
+    quest[id] = Math.min(into.items[id], (quest[id] ?? 0) + marked);
     into.quest = quest;
   }
 }

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T09:39:10Z",
+  "updated_at": "2026-11-12T09:42:39Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "d5b89c4",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -120,10 +120,11 @@
     "a full ground still keeps every kind when one pile must split",
     "merged main at 1be6a82; the follow-up stop resume was already on this branch",
     "a full stack ground still keeps an extra kind that already has room",
-    "merged main at d5b89c4; the full-pile split was already on this branch"
+    "merged main at d5b89c4; the full-pile split was already on this branch",
+    "merging piles on a full ground keeps every quest mark"
   ],
   "verification": {
-    "npm_test": "418 pass, 0 fail; a full stack ground still keeps an extra kind that already has room",
+    "npm_test": "419 pass, 0 fail; merging piles on a full ground keeps every quest mark",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
