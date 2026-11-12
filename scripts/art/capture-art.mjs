@@ -699,6 +699,22 @@ try {
     await frames(page, 4);
     await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x > -2.4) throw new Error(`walked through the bollard ${JSON.stringify(stopped)}`);
+  } else if (scenario === "sand-pit") {
+    await hideHud(page);
+    await setPose(page, -18, -520, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(-18, -535);
+      window.__controlsTest.setPhoto({
+        yaw: 0.4,
+        distance: 28,
+        height: 16,
+        lookY: 0,
+        target: { x: -18, y, z: -535 },
+      });
+    });
+    await frames(page, 8);
+    await shot(page, "pit", "sand pit east of the infield");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
