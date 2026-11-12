@@ -53,7 +53,13 @@ export type SaveDocument = Record<string, unknown>;
 export type ValidationResult =
   { ok: true; document: SaveDocument } | { ok: false; code: string; message: string };
 
-export function classifySaveDocument(input: unknown): "rpg-v2" | "legacy-pilgrimage" | "invalid" {
+function hasRpgProgress(doc: Record<string, unknown>): boolean {
+  return ["hp", "xp", "slots", "inventory", "skillRank", "claimed"].some((key) => key in doc);
+}
+
+export function classifySaveDocument(
+  input: unknown,
+): "rpg-v2" | "legacy-pilgrimage" | "legacy-rpg" | "invalid" {
   if (!input || typeof input !== "object" || Array.isArray(input)) return "invalid";
   const doc = input as Record<string, unknown>;
   if (
@@ -65,8 +71,12 @@ export function classifySaveDocument(input: unknown): "rpg-v2" | "legacy-pilgrim
   ) {
     return "rpg-v2";
   }
-  if (doc.version === 1) return "legacy-pilgrimage";
-  if (Array.isArray(doc.visited) && !("slots" in doc) && !("buildings" in doc)) {
+  if (hasRpgProgress(doc) && doc.version !== CLOUD_CONTENT_VERSION) return "legacy-rpg";
+  if (
+    doc.version === 1 ||
+    "playSeconds" in doc ||
+    (Array.isArray(doc.visited) && !("slots" in doc))
+  ) {
     return "legacy-pilgrimage";
   }
   return "invalid";
@@ -79,6 +89,14 @@ export function validateRpgDocument(input: unknown): ValidationResult {
       ok: false,
       code: "legacy_pilgrimage",
       message: "這是舊巡禮存檔，不會寫入 RPG 雲端存檔。",
+    };
+  }
+  if (kind === "legacy-rpg") {
+    return {
+      ok: false,
+      code: "legacy_rpg",
+      message:
+        "這是舊版 RPG 存檔。請先在遊戲裡匯入，它會轉成現在的存檔，再上傳。雲端不會改寫本機，也不會寫入巡禮表。",
     };
   }
   if (kind !== "rpg-v2") {

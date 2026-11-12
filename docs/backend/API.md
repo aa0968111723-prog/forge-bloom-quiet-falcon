@@ -83,7 +83,8 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 - `baseRevision` 不等於目前 revision：`409 revision_conflict`，body 含 `server`（revision、document、etag、contentHash）與 `clientRevision`。
 - 成功：`200`，revision 加一，舊版本留在 `rpg_save_revisions`（最多 8 筆）。
 - `If-Match` 若存在，必須等於 `baseRevision`，否則 `400 if_match_mismatch`。
-- 舊巡禮形狀（只有 `visited`，或 `version: 1`）：`422 legacy_pilgrimage`。不寫 `pilgrimage` 表，也不寫 RPG 表。
+- 舊巡禮或世界存檔（只有 `visited`、`playSeconds`，或 `version: 2` 但沒有 RPG 的 `hp` 與 `slots`）：`422 legacy_pilgrimage`。不寫 `pilgrimage` 表，也不寫 RPG 表。
+- 遊戲仍可匯入的舊版 RPG（`version: 1` 且含 `inventory`、`hp`、`xp`、`slots`、`skillRank` 或 `claimed`）：`422 legacy_rpg`。不寫入雲端，也不改本機。玩家先在遊戲裡匯入，遊戲會存成現在的 `version: 2`，之後才能上傳。
 - 其他不相容內容：`422 incompatible_content`。
 - 壞 JSON：`400 invalid_json`。超過 256 KiB：`413 payload_too_large`。
 - 未登入：`401 unauthorized`。缺 `x-cloud-save`：`403 csrf`。
