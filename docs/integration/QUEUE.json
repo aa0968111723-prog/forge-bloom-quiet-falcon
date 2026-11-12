@@ -2237,6 +2237,32 @@
       "integrationPr": 166,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/166",
       "nextAction": "None. The chosen cloud revisions from 1c51c42 are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-cloud-counts",
+      "line": "backend",
+      "scope": "Gathered supplies, felled reports, the claimed collection quest, and the revision list survive a database restart. A repeated collection receipt with a new request id is not recorded again. Saves that omit gathered and felled still validate.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-cloud-counts-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "f46fe066ed2508d533003056ff3b0bf3657ef1fd",
+      "headSha": "a9afa5cf584ad5ce5666ec241d62d310c9cc4e9a",
+      "dependencies": ["backend-cloud-revisions", "content-collection-quests"],
+      "sharedFiles": ["scripts/cloud-campus-roundtrip.mjs", "scripts/cloud-live-save.test.mjs", "scripts/cloud-save-flow.mjs"],
+      "checks": {
+        "conflicts": "none. The two test commits applied onto the revision integration.",
+        "typecheck": "pass",
+        "npmTest": "328 pass / 0 fail",
+        "buildSite": "not rerun. No runtime file changed. Bundle remains AdventureApp-YMSPf-td.js",
+        "browser": "not rerun. The cloud validator did not change.",
+        "route": "not rerun. Previous 8155 route passed with cloudXp 47 and empty pageErrors."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "2c99a6e15a425d0574584cf12a8542050c26c0a7",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
