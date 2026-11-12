@@ -80,16 +80,22 @@ import {
 } from "../../features/items-equipment-building/catalog.ts";
 import { takeCost } from "../../features/items-equipment-building/commit.ts";
 import { planCraft, planRepair, planWrenchService } from "../../features/items-equipment-building/craft.ts";
+import { coverBonus } from "../../features/items-equipment-building/facilities.ts";
 import {
   carryCap,
   ensureInstance,
+  ENGINE_SLOTS,
   gearBonus,
   instanceFor,
   mergeQuarantineGear,
+  POCKET_MAX,
+  POCKET_STEP,
   readGear,
+  readPockets,
   readQuarantineGear,
   readLoadout,
   readQuarantine,
+  slotCap,
   withDurability,
 } from "../../features/items-equipment-building/gear.ts";
 import type { GearInstance, GearQuality, Loadout, QuarantineSlot } from "../../features/items-equipment-building/types.ts";
@@ -114,7 +120,34 @@ const LESSON_STEPS = [
   "attack",
   "skill",
 ] as const;
-export const inventory = createInventory({ items: ITEMS, capacity: BAG_CAPACITY });
+export const inventory = createInventory({ items: ITEMS, capacity: ENGINE_SLOTS });
+const engineAdd = inventory.add.bind(inventory);
+let slotGate = ENGINE_SLOTS;
+inventory.add = (itemId: string, quantity = 1) => {
+  if (quantity <= 0) return engineAdd(itemId, quantity);
+  const def = inventory.getDefinition(itemId);
+  if (!def) return engineAdd(itemId, quantity);
+  const maxStack = def.maxStack ?? Number.POSITIVE_INFINITY;
+  let room = 0;
+  for (const slot of inventory.slots()) {
+    if (slot.itemId !== itemId || slot.quantity >= maxStack) continue;
+    room += maxStack - slot.quantity;
+  }
+  room += Math.max(0, slotGate - inventory.slots().length) * maxStack;
+  if (room <= 0) return { success: false, added: 0, overflow: quantity, reason: "inventory-full" };
+  if (room >= quantity) return engineAdd(itemId, quantity);
+  const result = engineAdd(itemId, room);
+  return {
+    success: false,
+    added: result.added,
+    overflow: quantity - result.added,
+    reason: "inventory-full",
+  };
+};
+function syncSlotGate() {
+  const state = useRpg.getState();
+  slotGate = slotCap(state.loadout, state.pockets, (id) => inventory.count(id) > 0);
+}
 type Enemy = {
   id: string;
   kind: EnemyKind;
@@ -166,6 +199,8 @@ type RpgState = {
   gear: GearInstance[];
   quarantine: QuarantineSlot[];
   quarantineGear: GearInstance[];
+  /** Permanent extra slots sewn at a supply station. 0, 4, or 8. */
+  pockets: number;
   heldBuild: Building | null;
   skillRank: number;
   kills: number;
@@ -222,6 +257,7 @@ type RpgState = {
   craft: (id: string, quality?: GearQuality) => boolean;
   repair: (id?: string) => boolean;
   serviceWrench: () => boolean;
+  sewPocket: () => boolean;
   discardItem: (id: string) => boolean;
   reclaimItem: (id: string) => boolean;
   beginMove: (id: string) => boolean;
@@ -607,7 +643,7 @@ function placeStand(stand: { x: number; z: number; yaw: number }) {
   });
 }
 const SAVE_TEXT_LIMIT = 1_000_000;
-const SLOT_LIMIT = 24;
+const SLOT_LIMIT = 36;
 const BUILDING_LIMIT = FACILITY_CAP;
 const LEGACY_ITEMS: Record<string, string> = {
   notes: "notes",
@@ -645,6 +681,7 @@ type PreparedSave = {
   gear: GearInstance[];
   quarantine: QuarantineSlot[];
   quarantineGear: GearInstance[];
+  pockets: number;
   skillRank: number;
   kills: number;
   built: number;
@@ -797,6 +834,7 @@ function prepareImport(
   const equipped = migrated.equipped;
   const gearRead = readGear(record.gear);
   const quarantineGear = mergeQuarantineGear(readQuarantineGear(record.quarantineGear), gearRead.dropped);
+  const pockets = readPockets(record.pockets);
   const quarantine = readQuarantine(record.quarantine);
   for (const row of slots.quarantine) {
     if (!quarantine.some((entry) => entry.itemId === row.itemId)) quarantine.push(row);
@@ -841,6 +879,7 @@ function prepareImport(
       gear: gearRead.gear,
       quarantine,
       quarantineGear,
+      pockets,
       skillRank: Math.max(1, Math.floor(skillRank.value)),
       kills: Math.floor(kills.value),
       built: Math.floor(built.value),
@@ -1242,6 +1281,7 @@ export const useRpg = create<RpgState>((set, get) => ({
   gear: openedGear.gear,
   quarantine: openedQuarantine,
   quarantineGear: openedQuarantineGear,
+  pockets: readPockets(saved.pockets),
   heldBuild: null,
   skillRank: Math.max(1, Math.floor(finite(saved.skillRank, 1, 5))),
   kills: Math.floor(finite(saved.kills, 0, 10_000_000)),
@@ -1553,6 +1593,25 @@ export const useRpg = create<RpgState>((set, get) => ({
     }
     set({ gear: withDurability(s.gear, "repair-wrench", plan.next) });
     s.notify("用一份零件保養了扳手，沒有修到滿。");
+    return true;
+  },
+  sewPocket: () => {
+    const s = get();
+    if (!nearBuilding("supply", 3.2)) {
+      s.notify("需要站在補給站旁。");
+      return false;
+    }
+    if (s.pockets >= POCKET_MAX) {
+      s.notify("口袋已經縫滿，沒有扣除布料。");
+      return false;
+    }
+    const paid = takeCost(inventory, { cloth: POCKET_STEP / 2 });
+    if (!paid.ok) {
+      s.notify(paid.reason);
+      return false;
+    }
+    set({ pockets: s.pockets + POCKET_STEP });
+    s.notify(`縫上口袋，背包多了 ${POCKET_STEP} 格。`);
     return true;
   },
   discardItem: (id) => {
@@ -2134,6 +2193,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       gear: rpg.gear.map((row) => ({ ...row })),
       quarantine: rpg.quarantine.map((row) => ({ ...row })),
       quarantineGear: rpg.quarantineGear.map((row) => ({ ...row })),
+      pockets: rpg.pockets,
       heldBuild: rpg.heldBuild ? { ...rpg.heldBuild } : null,
       hp: rpg.hp,
       focus: rpg.focus,
@@ -2197,6 +2257,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       }
     };
     try {
+      slotGate = ENGINE_SLOTS;
       restoreInventory(save.slots);
       set({
         departmentId: save.departmentId,
@@ -2210,6 +2271,7 @@ export const useRpg = create<RpgState>((set, get) => ({
         gear: save.gear,
         quarantine: save.quarantine,
         quarantineGear: save.quarantineGear,
+        pockets: save.pockets,
         heldBuild: null,
         hp: save.hp,
         focus: save.focus,
@@ -2254,12 +2316,15 @@ export const useRpg = create<RpgState>((set, get) => ({
       persistRpgSave();
       noteSaveSettled();
       set({ saved: varietyWrote === false ? "error" : "saved" });
+      syncSlotGate();
       get().notify("存檔已匯入。");
       return true;
     } catch {
       try {
+        slotGate = ENGINE_SLOTS;
         restoreInventory(priorSlots);
         set(priorRpg);
+        syncSlotGate();
         useGame.setState(priorGame);
         varietySave?.restore(priorVariety);
         writeBack(RPG_SAVE_KEY, priorStored);
@@ -2326,7 +2391,7 @@ export function promptSnap(): PromptSnap {
       itemId: slot.itemId,
       quantity: slot.quantity,
     })),
-    capacity: BAG_CAPACITY,
+    capacity: slotCap(s.loadout, s.pockets, owns),
     count: (id) => inventory.count(id),
     reach: 4 + gearBonus(s.loadout, s.gear, owns).survey,
     relocating: s.heldBuild?.kind === s.buildKind,
@@ -2587,7 +2652,8 @@ export function tickRpg(delta: number) {
           clock > useRpg.getState().invulnerableUntil &&
           lineOfSight(e.x, e.z, g.playerX, g.playerZ)
         ) {
-          hp = Math.max(0, hp - (worn.mitigation > 0 ? Math.max(1, type.damage - worn.mitigation) : type.damage));
+          const guard = worn.mitigation + coverBonus(s.buildings, g.playerX, g.playerZ);
+          hp = Math.max(0, hp - (guard > 0 ? Math.max(1, type.damage - guard) : type.damage));
           useRpg.setState({
             invulnerableUntil: clock + 0.7,
             hurtUntil: clock + 0.4,
@@ -2790,6 +2856,7 @@ function snapshot() {
     gear: s.gear,
     quarantine: s.quarantine.slice(0, 24),
     quarantineGear: s.quarantineGear,
+    pockets: s.pockets,
     skillRank: s.skillRank,
     kills: s.kills,
     built: s.built,
@@ -2946,6 +3013,7 @@ function onForeignSave(event: StorageEvent) {
 }
 inventory.store.subscribe(scheduleSave);
 useRpg.subscribe((s, prev) => {
+  if (s.loadout !== prev.loadout || s.pockets !== prev.pockets) syncSlotGate();
   if (
     s.departmentId !== prev.departmentId ||
     s.xp !== prev.xp ||
@@ -2958,6 +3026,7 @@ useRpg.subscribe((s, prev) => {
     s.gear !== prev.gear ||
     s.quarantine !== prev.quarantine ||
     s.quarantineGear !== prev.quarantineGear ||
+    s.pockets !== prev.pockets ||
     s.heldBuild !== prev.heldBuild ||
     s.skillRank !== prev.skillRank ||
     s.harvested !== prev.harvested ||
@@ -2985,6 +3054,7 @@ useGame.subscribe((s, prev) => {
     return;
   scheduleSave();
 });
+syncSlotGate();
 if (typeof window !== "undefined") {
   window.addEventListener("pagehide", flushSave);
   window.addEventListener("storage", onForeignSave);

@@ -35,9 +35,10 @@ const { gearBonus, ensureInstance, readLoadout, readGear, readQuarantineGear, me
 const { planCraft } = await import("../src/features/items-equipment-building/craft.ts");
 const { keepOut } = await import("../src/features/items-equipment-building/keepout.ts");
 const { takeCost, refundOf } = await import("../src/features/items-equipment-building/commit.ts");
-const { meshBudget, MESH_PARTS } = await import(
+const { meshBudget, MESH_PARTS, coverBonus } = await import(
   "../src/features/items-equipment-building/facilities.ts"
 );
+const { validateRpgDocument, MAX_SLOTS } = await import("../src/features/cloud-save/contract.ts");
 const { SPAWN } = await import("../src/game/world-data/landmarks.ts");
 const runtime = await import("../work/test-runtime/runtime.mjs");
 
@@ -56,6 +57,7 @@ function reset() {
     quarantine: [],
     quarantineGear: [],
     heldBuild: null,
+    pockets: 0,
     buildings: [],
     loot: [],
     harvested: {},
@@ -406,4 +408,53 @@ test("an equipped wrench repairs the damaged facility from the prompt", () => {
     buildings: [{ id: "research-1", kind: "research", x: spot.x, z: spot.z, rotation: 0, hp: 160 }],
   });
   assert.equal(useRpg.getState().serviceWrench(), true);
+});
+
+test("the same bag grows by a worn pack or sewn pockets, and cover stacks once", () => {
+  reset();
+  const stuffed = inventory.add("parts", 99 * 24 + 1);
+  assert.ok(stuffed.overflow > 0);
+  assert.equal(inventory.slots().length, 24);
+  inventory.clear();
+  inventory.add("field-pack", 1);
+  useRpg.setState({ loadout: { tool: null, accessory: null, pack: "field-pack" }, pockets: 0 });
+  const wider = inventory.add("parts", 99 * 28 + 1);
+  assert.equal(inventory.slots().length, 28);
+  assert.ok(wider.overflow > 0);
+  const before = inventory.count("parts");
+  useRpg.setState({ loadout: { tool: null, accessory: null, pack: null } });
+  assert.equal(inventory.slots().length, 28);
+  assert.equal(inventory.count("parts"), before);
+  assert.equal(inventory.add("notes", 1).added, 0);
+  inventory.clear();
+  inventory.add("cloth", 4);
+  useRpg.setState({
+    buildings: [{ id: "sup", kind: "supply", x: 40, z: -40, rotation: 0, hp: 140 }],
+    pockets: 0,
+  });
+  useGame.setState({ playerX: 40, playerZ: -40 });
+  assert.equal(useRpg.getState().sewPocket(), true);
+  assert.equal(useRpg.getState().pockets, 4);
+  assert.equal(inventory.count("cloth"), 2);
+  assert.equal(useRpg.getState().sewPocket(), true);
+  assert.equal(useRpg.getState().pockets, 8);
+  assert.equal(inventory.count("cloth"), 0);
+  assert.equal(useRpg.getState().sewPocket(), false);
+  assert.equal(inventory.count("cloth"), 0);
+  assert.equal(coverBonus([], 0, 0), 0);
+  assert.equal(coverBonus([{ kind: "barrier", x: 0, z: 0, hp: 280 }], 1, 0), 4);
+  assert.equal(coverBonus([{ kind: "barrier", x: 0, z: 0, hp: 40 }], 1, 0), 2);
+  assert.equal(coverBonus([{ kind: "barrier", x: 0, z: 0, hp: 280 }], 10, 0), 0);
+  const slots = Array.from({ length: 30 }, () => ({ itemId: "notes", quantity: 1 }));
+  assert.equal(validateRpgDocument({ version: 2, hp: 10, slots, buildings: [] }).ok, true);
+  assert.equal(
+    validateRpgDocument({
+      version: 2,
+      hp: 10,
+      slots: Array.from({ length: MAX_SLOTS + 1 }, () => ({ itemId: "notes", quantity: 1 })),
+      buildings: [],
+    }).ok,
+    false,
+  );
+  reset();
 });

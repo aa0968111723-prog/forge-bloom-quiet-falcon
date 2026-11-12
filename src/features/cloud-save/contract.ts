@@ -12,7 +12,8 @@ export const SAVE_HISTORY_LIMIT = 8;
 export const MAX_BUILDINGS = 48;
 /** Supply nodes plus one cooldown for every built station. */
 export const MAX_HARVEST_KEYS = MAX_BUILDINGS + 64;
-export const MAX_SLOTS = 24;
+/** Base bag is 24. Sewn pockets and the field pack can raise it to 36. */
+export const MAX_SLOTS = 36;
 /** A full campus snapshot: facilities, bags, narrative maps, loot, and one variety board. */
 export const MAX_DOCUMENT_KEYS = 8_000;
 

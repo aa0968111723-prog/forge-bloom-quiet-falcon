@@ -50,6 +50,7 @@ import {
 import { campusAudio } from "../audio";
 import { GearDock } from "../../features/items-equipment-building/GearDock";
 import { factOf } from "../../features/items-equipment-building/catalog";
+import { slotCap } from "../../features/items-equipment-building/gear";
 import { inventory, maxHp, promptSnap, useRpg, type RpgPanel } from "./store";
 import { packView, type PackFilter, type PackSort } from "./pack";
 import { itemDetail } from "./itemdetail";
@@ -228,6 +229,7 @@ function InventoryPanel() {
     useShallow((s) => ({
       equipped: s.equipped,
       loadout: s.loadout,
+      pockets: s.pockets,
       hp: s.hp,
       focus: s.focus,
       xp: s.xp,
@@ -282,7 +284,9 @@ function InventoryPanel() {
     <>
       <div className="ad-section-line">
         <h3 className="ad-primary-label">隨身物品</h3>
-        <span data-pose={`${pose.x},${pose.z},${pose.yaw}`}>{slots.length} / 24 格</span>
+        <span data-pose={`${pose.x},${pose.z},${pose.yaw}`}>
+          {slots.length} / {slotCap(rpg.loadout, rpg.pockets, (id) => inventory.count(id) > 0)} 格
+        </span>
       </div>
       <GearDock />
       <div className="ad-pack-tools">

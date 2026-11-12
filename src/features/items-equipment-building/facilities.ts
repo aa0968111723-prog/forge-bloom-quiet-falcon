@@ -45,3 +45,23 @@ export const MESH_PARTS: Record<string, number> = {
 export function meshBudget(buildings: readonly { kind: string }[]) {
   return buildings.reduce((sum, building) => sum + (MESH_PARTS[building.kind] ?? 0), 0);
 }
+
+const COVER_REACH = 2.4;
+
+/**
+ * A living barrier between the player and a hit. A healthy wall subtracts 4.
+ * A battered wall subtracts 2. This is added once, beside gear mitigation.
+ */
+export function coverBonus(
+  buildings: readonly { kind: string; x: number; z: number; hp: number }[],
+  x: number,
+  z: number,
+) {
+  let best = 0;
+  for (const building of buildings) {
+    if (building.kind !== "barrier" || building.hp <= 0) continue;
+    if (Math.hypot(building.x - x, building.z - z) > COVER_REACH) continue;
+    best = Math.max(best, building.hp >= 140 ? 4 : 2);
+  }
+  return best;
+}

@@ -1,12 +1,19 @@
 import {
   BASE_CARRY,
+  BASE_SLOTS,
   EMPTY_LOADOUT,
+  ENGINE_SLOTS,
   PACK_CARRY,
+  PACK_SLOTS,
+  POCKET_MAX,
+  POCKET_STEP,
   type GearInstance,
   type GearQuality,
   type Loadout,
   type QuarantineSlot,
 } from "./types.ts";
+
+export { ENGINE_SLOTS, POCKET_MAX, POCKET_STEP };
 import { factOf, slotOf } from "./catalog.ts";
 
 export type Bonus = {
@@ -145,6 +152,24 @@ export function gearBonus(
 
 export function carryCap(loadout: Loadout | null | undefined, owned: (id: string) => boolean) {
   return gearBonus(loadout, [], owned).carry;
+}
+
+export function readPockets(value: unknown) {
+  if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) return 0;
+  const whole = Math.floor(value);
+  const stepped = whole - (whole % POCKET_STEP);
+  return Math.max(0, Math.min(POCKET_MAX, stepped));
+}
+
+/** One reading of the loadout. Wearing the pack twice does not add slots twice. */
+export function slotCap(
+  loadout: Loadout | null | undefined,
+  pockets: number,
+  owned: (id: string) => boolean,
+) {
+  const slots = loadout ?? EMPTY_LOADOUT;
+  const wornPack = slots.pack === "field-pack" && owned("field-pack") ? PACK_SLOTS : 0;
+  return Math.min(ENGINE_SLOTS, BASE_SLOTS + wornPack + readPockets(pockets));
 }
 
 function cleanId(value: unknown) {
