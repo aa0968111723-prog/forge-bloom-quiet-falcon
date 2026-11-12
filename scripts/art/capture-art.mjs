@@ -669,6 +669,22 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "chueh") {
+    await hideHud(page);
+    await setPose(page, 150, -520, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(150, -550);
+      window.__controlsTest.setPhoto({
+        yaw: 0.5,
+        distance: 36,
+        height: 10,
+        lookY: 2,
+        target: { x: 150, y: y + 5, z: -550 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "chueh hsuan veranda");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

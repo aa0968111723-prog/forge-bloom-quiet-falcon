@@ -567,6 +567,8 @@
         "scripts/context-lod.test.mjs",
         "docs/art/evidence/halls/white-hall.jpg",
         "docs/art/evidence/halls/chuehhsuan.jpg",
+        "docs/art/evidence/chueh/veranda.jpg",
+        "scripts/chueh-veranda.test.mjs",
         "docs/art/evidence/themes/sungtao.jpg",
         "docs/art/evidence/themes/chemistry.jpg",
         "docs/art/evidence/themes/swimming.jpg",
@@ -575,7 +577,7 @@
         "docs/art/evidence/pavilion/open.jpg",
         "scripts/garden-pavilion.test.mjs"
       ],
-      "notes": "大門與大忠警衛站是開口門柱，碰撞只在門柱。勤務監控管制中心是低崗亭、南向窗和屋頂天線，不再是實驗樓的屋頂設備。白樓是白牆平頂，藝文館是灰牆加綠瓦坡頂。宿舍暖色、實驗樓冷灰加屋頂設備、游泳館綠灰、教學樓深色基座加淺色上層。窗帶、名牌、坡頂與教學樓橫樑在高畫質 90 m、省電 48 m 外關掉，量體留著。覺軒花園是四根角柱和綠瓦頂，中間可以走，碰撞只在柱。另一筆覺軒仍是坡頂。精度仍是 estimated。"
+      "notes": "大門與大忠警衛站是開口門柱，碰撞只在門柱。勤務監控管制中心是低崗亭、南向窗和屋頂天線，不再是實驗樓的屋頂設備。白樓是白牆平頂，藝文館是灰牆加綠瓦坡頂。宿舍暖色、實驗樓冷灰加屋頂設備、游泳館綠灰、教學樓深色基座加淺色上層。窗帶、名牌、坡頂與教學樓橫樑在高畫質 90 m、省電 48 m 外關掉，量體留著。覺軒花園是四根角柱和綠瓦頂，中間可以走，碰撞只在柱。另一筆覺軒改成南向迴廊和較高的綠瓦坡頂，不再用共用的扁錐。文學館仍是共用坡頂。迴廊仍是 estimated。"
     },
     {
       "id": "ART-063",
@@ -650,7 +652,7 @@
         "docs/art/evidence/office/hall.jpg",
         "docs/art/evidence/garden/house.jpg"
       ],
-      "notes": "守謙國際會議中心是低寬量體。視聽教育館從坡頂改成深色廳堂加舞台塔。文學館仍是坡頂。海事博物館仍是船型。學生活動中心從綠瓦坡頂改成一層門廳、南向玻璃、遮陽板和退縮的上層，沒有共用窗帶。覺軒仍是坡頂。門廳外形仍是 estimated。行政大樓從教學樓基座改成石色樓身、南向入口玻璃和兩條窗帶。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。入口位置仍待測。濯纓苑／校史館從圖書館外牆改成白牆、木色基座、綠瓦坡頂和南向迴廊。迴廊貼著南牆。外形仍是 estimated。"
+      "notes": "守謙國際會議中心是低寬量體。視聽教育館從坡頂改成深色廳堂加舞台塔。文學館仍是坡頂。海事博物館仍是船型。學生活動中心從綠瓦坡頂改成一層門廳、南向玻璃、遮陽板和退縮的上層，沒有共用窗帶。覺軒改成南向迴廊。門廳外形仍是 estimated。行政大樓從教學樓基座改成石色樓身、南向入口玻璃和兩條窗帶。教育館、外語大樓與會文館仍是教學樓。舊的 admin-hall 不合併。入口位置仍待測。濯纓苑／校史館從圖書館外牆改成白牆、木色基座、綠瓦坡頂和南向迴廊。迴廊貼著南牆。外形仍是 estimated。"
     },
     {
       "id": "ART-067",

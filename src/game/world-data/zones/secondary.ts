@@ -55,7 +55,8 @@ export type SecondaryStructure = {
     | "faculty-house"
     | "garden-house"
     | "language-hall"
-    | "chem-hall";
+    | "chem-hall"
+    | "veranda-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -478,6 +479,28 @@ export function engTowerProfile(size: readonly [number, number, number]) {
  * Formal office block for 行政大樓. The entrance bay is an estimated
  * silhouette, not a measured elevation. Classroom halls stay study blocks.
  */
+/**
+ * Two-storey hall for 覺軒. The veranda and taller hip are an estimated
+ * silhouette. 文學館 keeps the shared academic hip roof.
+ */
+export function chuehVerandaProfile(size: readonly [number, number, number]) {
+  const porchD = 2.4;
+  const porchW = Math.min(16, size[0] * 0.62);
+  const porchH = Math.min(3.2, Math.max(2.8, size[1] * 0.36));
+  return {
+    porchD,
+    porchW,
+    porchH,
+    porchZ: size[2] / 2 + porchD / 2,
+    postX: porchW / 2 - 0.22,
+    roofH: Math.min(3.6, Math.max(2.8, size[1] * 0.42)),
+    roofR: Math.max(size[0], size[2]) / 2 + 0.8,
+    glassZ: size[2] / 2 + 0.08,
+    glassW: Math.min(6, size[0] * 0.22),
+    glassH: porchH * 0.55,
+  };
+}
+
 export function officeProfile(size: readonly [number, number, number]) {
   const bayH = Math.min(4.2, Math.max(3.2, size[1] * 0.22));
   return {
@@ -650,6 +673,7 @@ function campusKind(site: {
   if (site.id === "yingyuan") return "garden-house";
   if (site.id === "foreign") return "language-hall";
   if (site.id === "chemistry") return "chem-hall";
+  if (site.id === "chuehhsuan") return "veranda-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";
