@@ -3976,6 +3976,34 @@
       "integrationPr": 282,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/282",
       "nextAction": "None. The lifetime build count from aec6ded1 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-xp-clock",
+      "line": "backend",
+      "scope": "Experience 1000001 and defeats 1000001 stay inside the cloud cap of 10000000 through import and reload. The game clock 1000001 stays under 1e15, and its remainder modulo 300 is unchanged, so the anomaly cycle is not rewound. The document still uploads.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-xp-clock-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "342e6b22b7322c4df213b7a8ea4be6be9df339a7",
+      "headSha": "80c96f3d13ba88c0d98dd001db2f8142b8bedf2c",
+      "dependencies": ["backend-build-count"],
+      "sharedFiles": ["src/game/rpg/store.ts", "scripts/cloud-game-link.test.mjs", "docs/backend/API.md"],
+      "checks": {
+        "conflicts": "store.ts xp cap and docs/backend/CHECKPOINT.json completed tail. Kept the built cap at 10000000 and the incoming xp, kills, and clock caps. Kept 2026-11-12T09:59:24Z, the merge note at de1d7c1, and the experience line. npm_test stayed 424.",
+        "typecheck": "pass",
+        "npmTest": "424 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-0uhEOH1T.js",
+        "browser": "8217. The standing route completed.",
+        "route": "8217: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "05d81a34d07f58c844714876d6d3b2cb5bdd334a",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #156 by itself."
     }
   ]
 }
