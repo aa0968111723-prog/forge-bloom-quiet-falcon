@@ -5,7 +5,7 @@ import { terrainHeight } from "../world.ts";
 import { CAMPUS_ROADS, CAMPUS_SITES, siteEntrance, type CampusSite } from "./campus.ts";
 import { keepOut } from "../../features/items-equipment-building/keepout.ts";
 import { RECIPES, type BuildKind } from "./data.ts";
-import { ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
+import { CLASSROOM_DESK, ROOM_TABLES, ROOM_TABLE_SIZE } from "./interior-layout.ts";
 export type Building = {
   id: string;
   kind: BuildKind;
@@ -304,9 +304,19 @@ export function resolveInterior(
   z: number,
   radius: number,
   furnished = true,
+  podium = false,
 ) {
   let px = Math.max(-9 + radius, Math.min(9 - radius, x)),
     pz = Math.max(-7 + radius, Math.min(7 - radius, z));
+  if (podium) {
+    const hx = CLASSROOM_DESK.width / 2 + radius;
+    const hz = CLASSROOM_DESK.depth / 2 + radius;
+    if (Math.abs(px - CLASSROOM_DESK.x) < hx && Math.abs(pz - CLASSROOM_DESK.z) < hz) {
+      if (hx - Math.abs(px - CLASSROOM_DESK.x) < hz - Math.abs(pz - CLASSROOM_DESK.z))
+        px = CLASSROOM_DESK.x + (px >= CLASSROOM_DESK.x ? hx : -hx);
+      else pz = CLASSROOM_DESK.z + (pz >= CLASSROOM_DESK.z ? hz : -hz);
+    }
+  }
   if (!furnished) return { x: px, z: pz };
   const hx = ROOM_TABLE_SIZE.width / 2 + radius;
   const hz = ROOM_TABLE_SIZE.depth / 2 + radius;
