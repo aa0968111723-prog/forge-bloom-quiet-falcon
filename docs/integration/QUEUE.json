@@ -1901,6 +1901,34 @@
       "integrationPr": 141,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/141",
       "nextAction": "None. The lamp clearance from e092064 is already in this integration. Do not merge PR #138 by itself. Do not merge PR #122."
+    },
+    {
+      "id": "art-library-ramp",
+      "line": "art",
+      "scope": "The library forecourt ramp rises 1.05 m from the plaza to the plinth. The player walks that surface, and the mesh uses the same height. The rise stays estimated. Lamps and the south-facing name plate stay outside the walls.",
+      "status": "verified",
+      "pr": 134,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/134",
+      "integrationBranch": "cursor/integration-library-ramp-3395",
+      "sourceBranch": "cursor/library-slope-1a71",
+      "baseSha": "54dfe86879bb0998cd30a43d3a082c2385cde4e3",
+      "headSha": "75128e0801b42435963d1c673c5784a10fb76748",
+      "dependencies": ["art-prop-clearance"],
+      "sharedFiles": ["src/game/world-data/props.ts", "src/game/world.ts", "src/game/world/Props.tsx", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "art docs, capture-art.mjs, and the props import. Kept clearOfSolids, the south-facing name plate, and the ramp.",
+        "typecheck": "pass",
+        "npmTest": "307 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BLw17Z0-.js",
+        "browser": "8144. 1280x720 and 390x780 show the player on the ramp. north 20.74 south 19.51 off 19.59. pageErrors empty.",
+        "route": "8144: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/props.ts"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #134 by itself."
     }
   ]
 }

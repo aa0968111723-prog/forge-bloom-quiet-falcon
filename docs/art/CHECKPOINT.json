@@ -57,7 +57,7 @@
     "typecheck": "pass",
     "npm_test": "library-ramp and prop-clearance pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "not re-run this round",
+    "build_site": "AdventureApp-BLw17Z0-.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
