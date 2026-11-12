@@ -658,16 +658,17 @@
         "scripts/context-lod.test.mjs",
         "docs/art/evidence/media/o.jpg",
         "docs/art/evidence/language/hall.jpg",
-        "docs/art/evidence/education/hall.jpg",
+       "docs/art/evidence/education/hall.jpg",
         "docs/art/evidence/seminar/hall.jpg",
         "docs/art/evidence/business/tower.jpg",
         "docs/art/evidence/humanities/hall.jpg",
         "scripts/class-hall.test.mjs",
         "scripts/business-hall.test.mjs",
-        "scripts/lit-hall.test.mjs"
+        "scripts/lit-hall.test.mjs",
+        "docs/art/evidence/language/skirt.jpg",
+        "scripts/foreign-skirt.test.mjs"
       ],
-      "notes": "傳播館 O、Q 從坡頂改成深色基座、淺色上層和屋頂天線。天線不是實測。精度仍是 estimated。外國語文大樓從教學樓基座改成底層長廊玻璃和南向退縮的上層。教育館改成灰基座、淺色教室樓身、南向雨遮和樓層遮陽。會文館從教學樓基座改成底層柱廊和淺色上層。柱廊貼著南牆。舊的 foreign-lang-hall 不合併。柱廊外形仍是 estimated。商管大樓從教學樓基座改成深色玻璃底座和退縮的淺色樓身，不畫共用窗帶。行政大樓仍是窄入口。樓身外形仍是 estimated。文學館從尖坡頂改成平簷、南向寬窗和兩條橫帶。覺軒仍是坡頂。簷口外形仍是 estimated。"
-    },
+      "notes": "傳播館 O、Q 從坡頂改成深色基座、淺色上層和屋頂天線。天線不是實測。精度仍是 estimated。外國語文大樓從教學樓基座改成底層長廊玻璃和南向退縮的上層。西南角比樓底低，樓底補了一條裙牆，南邊入口仍在裙牆外面。裙牆仍是 estimated。教育館改成灰基座、淺色教室樓身、南向雨遮和樓層遮陽。會文館從教學樓基座改成底層柱廊和淺色上層。柱廊貼著南牆。舊的 foreign-lang-hall 不合併。柱廊外形仍是 estimated。商管大樓從教學樓基座改成深色玻璃底座和退縮的淺色樓身，不畫共用窗帶。行政大樓仍是窄入口。樓身外形仍是 estimated。文學館從尖坡頂改成平簷、南向寬窗和兩條橫帶。覺軒仍是坡頂。簷口外形仍是 estimated。"    },
     {
       "id": "ART-066",
       "phase": "terrain-zones",
