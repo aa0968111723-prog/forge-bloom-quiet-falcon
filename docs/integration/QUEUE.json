@@ -2209,6 +2209,32 @@
       "integrationPr": 164,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/164",
       "nextAction": "None. The collection quests from 4628005 are already in this integration. Do not merge PR #160 by itself."
+    },
+    {
+      "id": "backend-cloud-revisions",
+      "line": "backend",
+      "scope": "A signed-in account can list up to 8 of its own cloud revision numbers and copy one back into the local save. A pruned revision does not change the local file or write a reward receipt. An older RPG file is rejected as legacy_rpg and is not written to the pilgrimage table.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-cloud-revisions-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "b579dff364fdcb190323f1ee61b7dd1d4a233e99",
+      "headSha": "1c51c42fe1696bbb824bfbcf077030ea864d7fc3",
+      "dependencies": ["backend-campus-snapshot"],
+      "sharedFiles": ["src/features/cloud-save/client.ts", "src/features/cloud-save/CloudSaveDock.tsx", "src/features/cloud-save/contract.ts", "src/server/cloud/http.ts", "src/server/cloud/service.ts"],
+      "checks": {
+        "conflicts": "none. The three commits applied onto main and kept gathered and felled.",
+        "typecheck": "pass",
+        "npmTest": "327 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-YMSPf-td.js unchanged",
+        "browser": "8155. The standing route completed with pageErrors empty. The cloud dock is not in the static site.",
+        "route": "8155: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "624b1e611edd8415f877f0d84aa76d116be5709c",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }

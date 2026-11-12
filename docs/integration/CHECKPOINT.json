@@ -1,21 +1,22 @@
 {
-  "updated": "2026-11-12T04:10:00Z",
-  "branch": "cursor/integration-collection-quests-3395",
-  "mainSha": "e95c137109e10d61e9e77c3b56cf111937b722f3",
-  "gameSha": "f73b76a9abe50fcb43ca93d94366eb95c80f71d8",
-  "activeItem": null,
-  "sourceHead": "4628005319eb91a3f3931eb1088080687111da95",
-  "integrationHead": "f73b76a9abe50fcb43ca93d94366eb95c80f71d8",
+  "updated": "2026-11-12T04:15:00Z",
+  "branch": "cursor/integration-cloud-revisions-3395",
+  "mainSha": "b579dff364fdcb190323f1ee61b7dd1d4a233e99",
+  "gameSha": "624b1e611edd8415f877f0d84aa76d116be5709c",
+  "activeItem": "backend-cloud-revisions",
+  "sourceHead": "1c51c42fe1696bbb824bfbcf077030ea864d7fc3",
+  "integrationHead": "624b1e611edd8415f877f0d84aa76d116be5709c",
   "verified": {
-    "contract": "Collection quests store lifetime notes, parts, coffee, and tea on gathered, and defeats by kind on felled. Spending and quest rewards do not reduce or increase that memory. The cloud whitelist accepts those two objects and rejects unknown keys inside them. Semester still follows the existing claimed quests.",
-    "route": "http://127.0.0.1:8154 passed: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21 department science-理學院-2, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401. pageErrors empty."
+    "contract": "A signed-in account can list up to 8 of its own cloud revision numbers and copy one back into the local save. A pruned revision, another account, or a forged user id does not change the local file or write a reward receipt. An older RPG file is legacy_rpg and is not written to the pilgrimage table. gathered and felled stay on the whitelist.",
+    "route": "http://127.0.0.1:8155 passed: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21 department science-理學院-2, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401. pageErrors empty. Static bundle unchanged."
   },
   "notMerged": [
     "cursor/axis-silhouettes-1a71@1fc58872d019",
-    "cursor/integration-full-game-f7e4@44752af2c1aa391a8956832a6d78f946b4153fd6",
-    "cursor/quest-play-75f5@2aa3244a5ea699941d2d7d59fe46749f020b23eb"
+    "cursor/integration-full-game-f7e4@70779df2d984dda6a00896a7e8bb5b534a376b78",
+    "cursor/quest-play-75f5@2aa3244a5ea699941d2d7d59fe46749f020b23eb",
+    "cursor/backend-db-link-6038@1c51c42fe1696bbb824bfbcf077030ea864d7fc3"
   ],
   "blocked": ["INT-01"],
   "waiting": [],
-  "next_action": "Collection quests are on integration PR #164. Game code is f73b76a9abe50fcb43ca93d94366eb95c80f71d8. Source 4628005 is not an ancestor. Static bundle is AdventureApp-YMSPf-td.js. Re-fetch origin/main. Do not merge PR #160 by itself. Do not merge PR #122 by itself, and do not bring docs/full-integration. PR #122 head is 44752af. Its diff would remove the cloud snapshot contract. Next art is PR #152 (move the library bench and planter off the ramp, head 30580d3), then PR #151 (seat the reading girl beside the ramp, head c44667c), then PR #158 (scooter bays; re-check the head), then PR #157 (court nets as posts and tapes, head 3e4bec2), then PR #154 (drop unreferenced photo textures, head 06f41bd), then PR #127 (maritime museum bow, head d0fd98b), then PR #111 (Hweiwen colonnade, head 412b130; the campus name is 會文館), then PR #113 (let the player stand on the reviewing deck, head f2750c7), then PR #115 (procedural student for low-quality NPC walkers, head 9672ff3), then PR #116 (measured game-art transfer budget, head 9a3d594), then PR #118 (day, sunset, night, and wet on the palace avenue, head 266e4b7), then PR #121 (palace-hall camera on the view line, head 3ce5f17), then PR #124 (light street-lamp heads, head 2b45515). Check each current head before integrating. Do not rerun the cross-system route unless the game SHA changes or the cloud validator changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #156, PR #132, PR #148, PR #145, PR #135, PR #142, PR #140, PR #134, PR #138, PR #131, PR #128, PR #129, PR #110, PR #108, PR #107, PR #105, PR #102, PR #101, PR #99, PR #97, PR #96, PR #93, PR #91, PR #90, PR #88, PR #86, PR #85, PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 stays blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Chosen cloud revisions are on this integration branch. Game code is 624b1e611edd8415f877f0d84aa76d116be5709c. Source 1c51c42 is not an ancestor. Static bundle is unchanged AdventureApp-YMSPf-td.js. Re-fetch origin/main. Do not merge PR #156 by itself. Do not merge PR #160 or PR #122 by themselves. PR #122 head is 70779df. Its new commit is a harness and docs/full-integration; the branch diff still removes the cloud contract and the collection quests. Next art is PR #165 (stop the player walking through the library ramp rails, head 002453c), then PR #163 (follow the ramp with the side rails, head c065645; re-check the collider after that), then PR #152 (move the library bench and planter off the ramp, head 30580d3), then PR #151 (seat the reading girl beside the ramp, head c44667c), then PR #158 (scooter bays, head 1788c30), then PR #157 (court nets as posts and tapes, head 3e4bec2), then PR #154 (drop unreferenced photo textures, head 06f41bd), then PR #127 (maritime museum bow, head d0fd98b), then PR #111 (Hweiwen colonnade, head 412b130; the campus name is 會文館), then PR #113 (let the player stand on the reviewing deck, head f2750c7), then PR #115 (procedural student for low-quality NPC walkers, head 9672ff3), then PR #116 (measured game-art transfer budget, head 9a3d594), then PR #118 (day, sunset, night, and wet on the palace avenue, head 266e4b7), then PR #121 (palace-hall camera on the view line, head 3ce5f17), then PR #124 (light street-lamp heads, head 2b45515). Check each current head before integrating. Do not rerun the cross-system route unless the game SHA changes or the cloud validator changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #164, PR #162, PR #132, PR #148, PR #145, PR #135, PR #142, PR #140, PR #134, PR #138, PR #131, PR #128, PR #129, PR #110, PR #108, PR #107, PR #105, PR #102, PR #101, PR #99, PR #97, PR #96, PR #93, PR #91, PR #90, PR #88, PR #86, PR #85, PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 stays blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
