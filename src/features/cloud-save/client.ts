@@ -652,6 +652,16 @@ export function createCloudSaveController(options: {
           typeof saved.revision === "number" &&
           typeof saved.contentHash === "string"
         ) {
+          const confirmed = await accountGate(userId);
+          if (confirmed !== "ok") {
+            if (!stillQueued(item)) return "drop";
+            remember(item, {
+              ...follow,
+              attempts: Math.max(1, follow.attempts),
+              nextAt: now(),
+            });
+            return "pause";
+          }
           if (!stillQueued(item)) {
             if (readQueue(userId).some((current) => current.kind === "put")) {
               bumpQueuedPutBase(userId, saved.revision);
