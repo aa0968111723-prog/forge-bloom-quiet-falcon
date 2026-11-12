@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：旗杆石座（ART-084 的一部分）
+
+驚聲銅像廣場西側的旗杆石座會擋住半徑 0.42 m 的身體。從南邊走向石座會停在南面。銅像前、石座東側和巡禮中線仍走得過。石座位置仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/plaza/flagpole.jpg`。測試：`scripts/flag-base.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。旗杆石座已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
