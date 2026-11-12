@@ -4144,6 +4144,34 @@
       "integrationPr": 293,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/293",
       "nextAction": "None. The landmark stamp save from 36c47f0c is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "art-follow-camera",
+      "line": "art",
+      "scope": "A downward indoor look keeps the follow camera 0.35 m under the ceiling. Pitches 0.6 and 1.12 would clear the slab underside without the cap. With the cap the eye stays under it and the player stays in view. Outdoor pitch is not capped. The ceiling top still meets the 4.4 m wall top.",
+      "status": "verified",
+      "pr": 169,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/169",
+      "integrationBranch": "cursor/integration-follow-camera-3395",
+      "sourceBranch": "cursor/interior-ceiling-1a71",
+      "baseSha": "709f08ec9044cdf4d10266e28b962e4b12117b09",
+      "headSha": "7ded28e3c5eb6ae419b93a3f7c5483bc184a1272",
+      "dependencies": ["art-interior-ceiling"],
+      "sharedFiles": ["src/game/rpg/AdventurePlayer.tsx", "src/game/rpg/AdventureWorld.tsx", "src/game/rpg/follow.ts", "src/game/rpg/interior-ceiling.ts", "scripts/interior-ceiling.test.mjs"],
+      "checks": {
+        "conflicts": "docs/art CHECKPOINT, HANDOFF, STATUS, and VALIDATION. Kept the downward camera cap and the bollard, infield, and ramp-rail sections. build_site set to AdventureApp-DSjIJXEf.js.",
+        "typecheck": "pass",
+        "npmTest": "432 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DSjIJXEf.js",
+        "browser": "8223. The standing route completed.",
+        "route": "8223: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "2c8d98af340106fc30fc745c413c8e2fae04aa4a",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #169 by itself."
     }
   ]
 }
