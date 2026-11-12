@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T06:12:39Z",
+  "updated_at": "2026-11-12T06:13:15Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "7611148",
+  "base": "3530de8",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -55,7 +55,8 @@
     "a dropped upload is not recorded when the landed read belongs to another account",
     "every supply node and all 48 built stations can cool down in one cloud save",
     "merged main at 7611148; the revision-conflict account confirm was already on this branch",
-    "a reward receipt from another account does not settle this device's grant"
+    "a reward receipt from another account does not settle this device's grant",
+    "merged main at 3530de8; the restore revision-conflict confirm was already on this branch"
   ],
   "verification": {
     "npm_test": "374 pass, 0 fail; a reward receipt from another account does not settle this device's grant",
