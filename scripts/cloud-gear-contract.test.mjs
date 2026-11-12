@@ -71,4 +71,29 @@ test("cloud saves reject gear fields outside the whitelist", () => {
     heldBuild: { id: "held-1", kind: "lantern", x: 1, z: 2, rotation: 0 },
   });
   assert.equal(held.ok, false);
+
+  const worn = validateRpgDocument({
+    ...base,
+    gear: [{ id: "gear-1", itemId: "Field Lamp", durability: 1, quality: "plain" }],
+  });
+  assert.equal(worn.ok, false);
+  if (!worn.ok) assert.equal(worn.code, "invalid_document");
+});
+
+test("quarantine keeps imported item ids the game already kept", () => {
+  const accepted = validateRpgDocument({
+    ...base,
+    quarantine: [
+      { itemId: "Old Badge", quantity: 2 },
+      { itemId: "舊徽章", quantity: 1 },
+    ],
+    quarantineGear: [{ id: "kept-lamp", itemId: "Field Lamp", durability: 3, quality: "plain" }],
+  });
+  assert.equal(accepted.ok, true);
+  const tooLong = validateRpgDocument({
+    ...base,
+    quarantine: [{ itemId: "x".repeat(65), quantity: 1 }],
+  });
+  assert.equal(tooLong.ok, false);
+  if (!tooLong.ok) assert.match(tooLong.message, /隔離物品/);
 });

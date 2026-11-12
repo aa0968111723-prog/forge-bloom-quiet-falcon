@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:19:51Z",
+  "updated_at": "2026-11-12T06:29:37Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -58,10 +58,11 @@
     "a reward receipt from another account does not settle this device's grant",
     "merged main at 3530de8; the restore revision-conflict confirm was already on this branch",
     "merged main at bd69066; the dropped-upload follow-up account check was already on this branch",
-    "a lost direct upload continues the newer local file under a new request id"
+    "a lost direct upload continues the newer local file under a new request id",
+    "an imported unknown item stays in quarantine and can still upload"
   ],
   "verification": {
-    "npm_test": "375 pass, 0 fail; a lost direct upload continues the newer local file under a new request id",
+    "npm_test": "377 pass, 0 fail; an imported unknown item stays in quarantine and can still upload",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
