@@ -796,3 +796,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 46 減 38 是 8，也就是欄位階段的經驗。筆記停在 19。貼牆那一句不看這次是上下都貼還是只貼原文。
 
 畫面：`/opt/cursor/artifacts/integration-an-turn/both-outcome.png`、`both-next.png`、`oral-outcome.png`、`oral-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。分組報告在畫面裡，這次沒有打。這條線沒有在地上撿過長編號或界外的掉落堆。
+
+## 安澄的兩個貼牆選項
+
+這段打在 `AdventureApp-CJXsxJis.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-wRiWWOJd.js`。`main` 尖端 `09c7d7c`（註記 PR #239，GitHub 狀態 MERGED；同一段還有 PR #235 與 #237，GitHub 狀態都是 MERGED）。遊戲提交 `832c662`、`20458c5`、`eb49606`。合併提交 `ad9067c`。主遊戲檔 888485 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-an-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-an-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 397 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出是 `index-wRiWWOJd.js` 與 `AdventureApp-CJXsxJis.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場、對應的衝突和欄位。點貼牆之前存檔經驗 46、筆記 19。
+
+- 「就照這個版本貼上發表牆。」之前先請她指出哪一個詞過重，再把猶豫留在括號，再把譯文放上面、原文放下面。存檔經驗 56，筆記 20。結果句「這次評詞到這裡。」結算當下畫面是 1 級、「經驗 56/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。再交談沒有打開對話，提示「這段已經談完」。這時生命是 84/100。分組報告仍是 145/145，這次沒有打。`quest-faculty-wording-after` 只有一筆。沒有工作室任務。重載後經驗 56、筆記 20，生命仍是 84/100，再交談仍是這句提示。
+- 「我改一個詞再貼，你只看那個詞。」之前先讀原文，再刪掉那句，再只把原文放進欄位。經驗同樣 46→56，筆記 19→20。結果句「不用整篇重評。」再交談同樣是已經談完。重載後這句提示還在，生命也是 84/100。
+
+56 減 46 是 10，也就是貼牆階段的經驗。筆記加 1。安澄這條用詞線到這裡結束。
+
+畫面：`/opt/cursor/artifacts/integration-an-after/post-outcome.png`、`post-done.png`、`one-outcome.png`、`one-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做移動教學錨點、多餘發現或裝備耐久的匯入。
