@@ -1455,3 +1455,31 @@ test("an errand that spills notes keeps those notes out of collection", () => {
   assert.equal(useRpg.getState().gathered.notes, node.items.notes);
   assert.equal(useRpg.getState().loot.some((entry) => (entry.items.notes ?? 0) > 0), false);
 });
+
+test("experience, defeats, and the game clock inside the cloud cap survive import", () => {
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    xp: 1_000_001,
+    kills: 1_000_001,
+    clock: 1_000_001,
+  });
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.xp, 1_000_001);
+  assert.equal(saved.kills, 1_000_001);
+  assert.equal(saved.clock, 1_000_001);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  assert.equal(useRpg.getState().xp, 1_000_001);
+  assert.equal(useRpg.getState().kills, 1_000_001);
+  assert.equal(useRpg.getState().clock, 1_000_001);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.xp, 1_000_001);
+  assert.equal(reloaded.kills, 1_000_001);
+  assert.equal(reloaded.clock, 1_000_001);
+  assert.equal(reloaded.clock % 300, 1_000_001 % 300);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});

@@ -733,13 +733,13 @@ function prepareImport(
   const buildings = readBuildings(legacy ? (record.buildings ?? []) : record.buildings, legacy);
   if (!buildings.ok) return buildings;
   if (record.loot && lootNegative(record.loot)) return { ok: false, reason: "negative" };
-  const xp = optionalNumber(record.xp, 0);
+  const xp = optionalNumber(record.xp, 0, 10_000_000);
   const focus = optionalNumber(record.focus, legacy ? 100 : 100, 100);
   const skillRank = optionalNumber(record.skillRank, 1, 5);
-  const kills = optionalNumber(record.kills, 0);
+  const kills = optionalNumber(record.kills, 0, 10_000_000);
   const built = optionalNumber(record.built, 0, 10_000_000);
   const boss = optionalNumber(record.boss, 0, 1);
-  const clock = optionalNumber(record.clock, 0);
+  const clock = optionalNumber(record.clock, 0, 1e15);
   if (!xp.ok) return xp;
   if (!focus.ok) return focus;
   if (!skillRank.ok) return skillRank;
@@ -1175,7 +1175,7 @@ const loadedGathered = restoreCountMap(saved.gathered, GATHERED_ITEMS);
 const loadedFelled = restoreCountMap(saved.felled, ["quiz", "report", "exam", "final"] as const);
 export const useRpg = create<RpgState>((set, get) => ({
   departmentId: legacyDepartment(saved.departmentId),
-  xp: finite(saved.xp),
+  xp: finite(saved.xp, 0, 10_000_000),
   hp: finite(saved.hp, 100, 400),
   focus: finite(saved.focus, 100, 100),
   equipped: openedLoadout.equipped,
@@ -1185,7 +1185,7 @@ export const useRpg = create<RpgState>((set, get) => ({
   quarantineGear: openedQuarantineGear,
   heldBuild: null,
   skillRank: Math.max(1, Math.floor(finite(saved.skillRank, 1, 5))),
-  kills: Math.floor(finite(saved.kills)),
+  kills: Math.floor(finite(saved.kills, 0, 10_000_000)),
   built: Math.floor(finite(saved.built, 0, 10_000_000)),
   boss: Math.floor(finite(saved.boss, 0, 1)),
   gathered: loadedGathered === "negative" ? emptyGathered() : loadedGathered,
@@ -1217,7 +1217,7 @@ export const useRpg = create<RpgState>((set, get) => ({
   lessonReview: false,
   notice: "",
   noticeAt: 0,
-  clock: finite(saved.clock),
+  clock: finite(saved.clock, 0, 1e15),
   attackUntil: 0,
   skillUntil: 0,
   dodgeUntil: 0,
