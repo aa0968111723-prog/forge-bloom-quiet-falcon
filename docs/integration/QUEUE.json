@@ -2489,6 +2489,34 @@
       "integrationPr": 187,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/187",
       "nextAction": "None. The retry from 95c5886 and the quest-mark whitelist from 624ff44 are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-cloud-follow",
+      "line": "backend",
+      "scope": "When a continued upload is removed while that write is in flight, the client writes the chosen local save back and does not queue the upload again after a disconnect.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-cloud-follow-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "5deed92acb02435b35861e0e96399e5613ee702a",
+      "headSha": "bfbf34103baeb4349afb9c810fb7bd3d5a4d2f63",
+      "dependencies": ["backend-cloud-retry"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "none",
+        "typecheck": "pass",
+        "npmTest": "349 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Dnl7wjlJ.js unchanged",
+        "browser": "8164. The standing route completed on the second run.",
+        "route": "8164 second run: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty. First run died with EIO while closing the reload screenshot."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "b3964c016b0dfdb177b90cf45185ee61954d52d2",
+      "integrationPr": 190,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/190",
+      "nextAction": "None. The continued-upload write-back from bfbf341 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

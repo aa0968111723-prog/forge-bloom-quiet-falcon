@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T05:16:00Z",
+  "updated_at": "2026-11-12T05:22:21Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "5deed92",
+  "base": "90fa4f8",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -33,7 +33,8 @@
     "merged main at 1c8f11e and kept quest marks on ground loot in the cloud document",
     "a continued upload that the player drops is written back from the chosen local file",
     "a dropped upload that disconnects is not retried, and is written back only when that send already landed",
-    "quest marks on ground loot, library floor 3, and the content hash survive a database restart and a revision restore"
+    "quest marks on ground loot, library floor 3, and the content hash survive a database restart and a revision restore",
+    "merged main at 90fa4f8; the continued-upload write-back was already on this branch"
   ],
   "verification": {
     "npm_test": "351 pass, 0 fail; quest loot and its content hash survive a database restart and revision restore",
