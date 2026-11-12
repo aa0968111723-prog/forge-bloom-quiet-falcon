@@ -78,7 +78,7 @@ export type QuickbarPlacement = {
 const QUICK_SLOTS = 5;
 const QUICK_GAP = 8;
 const QUICK_MIN = 44;
-const QUICK_PREFERRED = 96;
+const QUICK_PREFERRED = 56;
 
 function packVertical(strip: CssRect): QuickbarPlacement {
   const slotH = Math.min(

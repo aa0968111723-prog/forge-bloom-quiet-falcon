@@ -106,8 +106,58 @@
 .tk-mobile .tk-mobile-notice {
   pointer-events: none;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.25;
+  height: auto;
+}
+
+.tk-mobile .ad-lesson {
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  max-width: none;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.tk-mobile .ad-lesson button,
+.tk-mobile .ad-lesson-review {
+  pointer-events: auto;
+}
+
+.tk-mobile .ad-quickbar .ad-key {
+  display: none;
+}
+
+.tk-mobile .ad-lesson-review {
+  top: auto;
+  left: 128px;
+  bottom: calc(148px + var(--tk-sab));
+}
+
+.tk-mobile .ad-interact,
+.tk-mobile .gv-dock,
+.tk-mobile .ad-interior-bar,
+.tk-mobile .ad-anomaly {
+  left: 128px;
+  right: 84px;
+  width: auto;
+  max-width: none;
+  transform: none;
+}
+
+.tk-mobile .ad-interact,
+.tk-mobile .gv-dock {
+  top: auto;
+  bottom: calc(136px + var(--tk-sab));
+}
+
+.tk-mobile .ad-interior-bar,
+.tk-mobile .ad-anomaly {
+  top: auto;
+  bottom: calc(188px + var(--tk-sab));
 }
 
 .tk-mobile .tk-mobile-tray {

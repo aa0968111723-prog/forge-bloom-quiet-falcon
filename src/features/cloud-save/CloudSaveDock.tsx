@@ -13,6 +13,7 @@ import {
  */
 export function CloudSaveDock() {
   const [open, setOpen] = useState(false);
+  const [phone, setPhone] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("訪客");
@@ -28,6 +29,13 @@ export function CloudSaveDock() {
       }),
     [],
   );
+
+  useEffect(() => {
+    const apply = () => setPhone(Math.min(window.innerWidth, window.innerHeight) <= 500);
+    apply();
+    window.addEventListener("resize", apply);
+    return () => window.removeEventListener("resize", apply);
+  }, []);
 
   useEffect(() => {
     if (!controller.activeUser()) return;
@@ -104,48 +112,48 @@ export function CloudSaveDock() {
   }
 
   return (
-    <aside style={panel}>
-      <button type="button" style={toggle} onClick={() => setOpen((value) => !value)}>
-        雲端同步（選配）
+    <aside style={phone ? (open ? phoneSheet : phoneChip) : panel}>
+      <button type="button" style={phone ? phoneToggle : toggle} onClick={() => setOpen((value) => !value)}>
+        {phone && !open ? "雲端" : "雲端同步（選配）"}
       </button>
       {open ? (
         <div>
           <p style={copy}>{note}</p>
           <label style={copy}>
             名稱
-            <input style={field} value={name} onChange={(event) => setName(event.target.value)} />
+            <input style={phone ? phoneField : field} value={name} onChange={(event) => setName(event.target.value)} />
           </label>
           <label style={copy}>
             信箱
-            <input style={field} value={email} onChange={(event) => setEmail(event.target.value)} />
+            <input style={phone ? phoneField : field} value={email} onChange={(event) => setEmail(event.target.value)} />
           </label>
           <label style={copy}>
             密碼
             <input
-              style={field}
+              style={phone ? phoneField : field}
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
           </label>
-          <div style={row}>
-            <button type="button" style={button} onClick={() => void signUp()}>
+          <div style={phone ? phoneRow : row}>
+            <button type="button" style={phone ? phoneButton : button} onClick={() => void signUp()}>
               註冊
             </button>
-            <button type="button" style={button} onClick={() => void signIn()}>
+            <button type="button" style={phone ? phoneButton : button} onClick={() => void signIn()}>
               登入
             </button>
-            <button type="button" style={button} onClick={() => void signOut()}>
+            <button type="button" style={phone ? phoneButton : button} onClick={() => void signOut()}>
               登出
             </button>
           </div>
-          <div style={row}>
-            <button type="button" style={button} onClick={() => void refresh()}>
+          <div style={phone ? phoneRow : row}>
+            <button type="button" style={phone ? phoneButton : button} onClick={() => void refresh()}>
               檢查雲端
             </button>
             <button
               type="button"
-              style={button}
+              style={phone ? phoneButton : button}
               onClick={() =>
                 void controller.uploadLocal().then((result) => {
                   if (result.status === "uploaded") {
@@ -171,7 +179,7 @@ export function CloudSaveDock() {
             </button>
             <button
               type="button"
-              style={button}
+              style={phone ? phoneButton : button}
               onClick={() =>
                 void controller.keepLocalOnly().then(() => setNote("保留本機，不上傳。"))
               }
@@ -179,10 +187,10 @@ export function CloudSaveDock() {
               先留在本機
             </button>
           </div>
-          <div style={row}>
+          <div style={phone ? phoneRow : row}>
             <button
               type="button"
-              style={button}
+              style={phone ? phoneButton : button}
               onClick={() =>
                 void controller.keepRemoteVersion().then((result) => {
                   if (result.status === "downloaded") {
@@ -202,7 +210,7 @@ export function CloudSaveDock() {
             </button>
             <button
               type="button"
-              style={button}
+              style={phone ? phoneButton : button}
               onClick={() =>
                 void controller.keepLocalVersion().then((result) => setNote(JSON.stringify(result)))
               }
@@ -211,7 +219,7 @@ export function CloudSaveDock() {
             </button>
             <button
               type="button"
-              style={button}
+              style={phone ? phoneButton : button}
               onClick={() =>
                 void controller.restorePrevious().then((result) => {
                   if (result.status === "restored") {
@@ -232,7 +240,7 @@ export function CloudSaveDock() {
             </button>
             <button
               type="button"
-              style={button}
+              style={phone ? phoneButton : button}
               onClick={() =>
                 void controller.listRevisions().then((result) => {
                   if (result.status !== "ready") {
@@ -258,14 +266,14 @@ export function CloudSaveDock() {
             </button>
           </div>
           {revisions ? (
-            <div style={row}>
+            <div style={phone ? phoneRow : row}>
               {revisions
                 .filter((item) => item.revision !== headRevision)
                 .map((item) => (
                   <button
                     key={item.revision}
                     type="button"
-                    style={button}
+                    style={phone ? phoneButton : button}
                     onClick={() =>
                       void controller.restoreRevision(item.revision).then((result) => {
                         if (result.status === "restored") {
@@ -318,8 +326,50 @@ const toggle: CSSProperties = {
   borderRadius: 8,
   padding: "6px 8px",
 };
+const phoneChip: CSSProperties = {
+  position: "fixed",
+  right: "calc(8px + env(safe-area-inset-right, 0px))",
+  top: 88,
+  zIndex: 4,
+  width: 72,
+  padding: 0,
+  background: "transparent",
+};
+const phoneSheet: CSSProperties = {
+  position: "fixed",
+  left: 12,
+  right: 12,
+  top: "calc(12px + env(safe-area-inset-top, 0px))",
+  zIndex: 40,
+  maxHeight: "70vh",
+  overflow: "auto",
+  padding: 10,
+  borderRadius: 12,
+  background: "#102f37",
+  color: "#f4efe4",
+  border: "1px solid rgba(244, 239, 228, 0.35)",
+};
+const phoneToggle: CSSProperties = {
+  width: "100%",
+  minHeight: 44,
+  background: "rgba(16, 47, 55, 0.92)",
+  color: "#f4efe4",
+  border: "1px solid rgba(244,239,228,0.4)",
+  borderRadius: 8,
+  padding: "6px 8px",
+};
 const copy: CSSProperties = { fontSize: 12, lineHeight: 1.4, margin: "8px 0" };
 const field: CSSProperties = { width: "100%", marginTop: 4 };
+const phoneField: CSSProperties = {
+  ...field,
+  minHeight: 44,
+  boxSizing: "border-box",
+  background: "#f4efe4",
+  color: "#102f37",
+  border: "1px solid rgba(244, 239, 228, 0.45)",
+  borderRadius: 8,
+  padding: "8px 10px",
+};
 const row: CSSProperties = { display: "flex", gap: 6, flexWrap: "wrap" };
 const button: CSSProperties = {
   border: 0,
@@ -328,3 +378,5 @@ const button: CSSProperties = {
   background: "#d7efe8",
   color: "#102f37",
 };
+const phoneRow: CSSProperties = { ...row, marginTop: 8 };
+const phoneButton: CSSProperties = { ...button, minHeight: 44, padding: "10px 12px" };
