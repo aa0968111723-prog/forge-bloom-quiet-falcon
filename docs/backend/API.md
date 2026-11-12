@@ -130,7 +130,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 - `writeLocal` 只寫 `tamkang-rpg-v2`，不發請求。
 - 未登入時 `plan()` 是 `local_only`。
 - 雲端 404 是 `need_first_sync`。`uploadFirstSync` 才會帶 `confirmFirstSync: true`。`keepLocalOnly` 不上傳。
-- 沒有本機存檔時是 `need_download`，要呼叫 `downloadCloud` 才寫入。雲端空資料不會清本機。下載和恢復會先檢查存檔白名單，並核對內容雜湊；對不上就不覆蓋本機。
+- 沒有本機存檔時是 `need_download`，要呼叫 `downloadCloud` 才寫入。雲端空資料不會清本機。下載和恢復會先檢查存檔白名單，並核對內容雜湊；對不上就不覆蓋本機。寫入本機後會告訴進行中的遊戲，自動存檔不會把剛下載的進度蓋掉，玩家再選擇保留現有進度或改用這份。
 - 本機與雲端不同，且本機記錄的 revision 不等於伺服器：`conflict`。`keepRemoteVersion` / `keepLocalVersion` 才解決。
 - 網路失敗的 PUT 進 `tamkang-cloud-save-queue:<userId>`。同一個帳號只留最後一次上傳。`flush` 只送目前帳號的佇列；重試同一筆時沿用原來的 `requestId`，退避 1s、2s、4s，上限 30s。
 - `logout` 只清目前帳號標記，不刪 RPG 存檔，也不把上一個帳號的佇列送給下一個帳號。

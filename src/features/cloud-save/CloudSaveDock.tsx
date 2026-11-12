@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { noteCloudSave } from "@/game/rpg/store";
 import {
   createCloudSaveController,
   memoryStorage,
@@ -43,6 +44,11 @@ export function CloudSaveDock() {
       cancel = true;
     };
   }, [controller]);
+
+  function holdDownloadedSave(): void {
+    const text = controller.readLocal();
+    if (text) noteCloudSave(text);
+  }
 
   async function refresh() {
     setPlan(await controller.plan());
@@ -180,7 +186,10 @@ export function CloudSaveDock() {
               onClick={() =>
                 void controller.keepRemoteVersion().then((result) => {
                   if (result.status === "downloaded") {
-                    setNote(`已下載雲端版本 ${result.revision}。`);
+                    holdDownloadedSave();
+                    setNote(
+                      `已下載雲端版本 ${result.revision}。進行中的遊戲會先詢問要不要改用這份。`,
+                    );
                     return;
                   }
                   setNote(
@@ -206,7 +215,10 @@ export function CloudSaveDock() {
               onClick={() =>
                 void controller.restorePrevious().then((result) => {
                   if (result.status === "restored") {
-                    setNote(`已恢復上一份雲端版本。現在是版本 ${result.revision}。`);
+                    holdDownloadedSave();
+                    setNote(
+                      `已恢復上一份雲端版本。現在是版本 ${result.revision}。進行中的遊戲會先詢問要不要改用這份。`,
+                    );
                     return;
                   }
                   setPlan(result);
@@ -257,7 +269,10 @@ export function CloudSaveDock() {
                     onClick={() =>
                       void controller.restoreRevision(item.revision).then((result) => {
                         if (result.status === "restored") {
-                          setNote(`已恢復版本 ${item.revision}。現在是版本 ${result.revision}。`);
+                          holdDownloadedSave();
+                          setNote(
+                            `已恢復版本 ${item.revision}。現在是版本 ${result.revision}。進行中的遊戲會先詢問要不要改用這份。`,
+                          );
                           setHeadRevision(result.revision);
                           return;
                         }

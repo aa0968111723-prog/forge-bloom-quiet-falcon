@@ -2636,6 +2636,13 @@ function scheduleSave() {
     useRpg.setState({ saved: "pending" });
   saveTimer = setTimeout(flushSave, SAVE_DELAY);
 }
+export function noteCloudSave(text: string): void {
+  if (typeof text !== "string" || text.length === 0 || text === lastWritten) return;
+  foreignText = text;
+  clearSaveTimer();
+  useRpg.setState({ saveConflict: true });
+  useGame.setState({ settingsOpen: false });
+}
 function acceptLocalSave() {
   foreignText = null;
   useRpg.setState({ saveConflict: false });
