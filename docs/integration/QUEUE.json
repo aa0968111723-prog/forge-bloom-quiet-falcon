@@ -4671,11 +4671,11 @@
         "route": "pass. gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision_conflict, cloudXp 47, logout 401, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #121 by itself."
+      "merged": true,
+      "mergeSha": "9acf00f6b244450db6dbbc2b41caef64d92cb434",
+      "integrationPr": 312,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/312",
+      "nextAction": "None. The palace-hall corner camera from 3ce5f17 is already in this integration. Do not merge PR #121 by itself."
     }
   ]
 }
