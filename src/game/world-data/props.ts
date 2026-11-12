@@ -7,7 +7,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LIBRARY, PALACE, palaceHallZs, planters } from "./landmarks.ts";
 import { COLLIDERS } from "./colliders.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
@@ -146,8 +146,10 @@ function avenueProps(): PropInstance[] {
       out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z - 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));
       out.push(prop("bench", s * (AVENUE_PAVED_WIDTH / 2 + 1.4), z + 9, "avenue", s > 0 ? -Math.PI / 2 : Math.PI / 2));
       out.push(prop("bin", s * (AVENUE_PAVED_WIDTH / 2 + 1.5), z - 11, "avenue"));
-      out.push(prop("planter", s * (AVENUE_PAVED_WIDTH / 2 + 2.6), z, "avenue", 0, 1, 6));
     }
+  }
+  for (const bed of planters()) {
+    if (bed.zone === "avenue") out.push(prop("planter", bed.x, bed.z, bed.zone, bed.rotationY, 1, bed.length));
   }
   for (let k = 0; k < 5; k++) {
     const z = AXIS.avenueSouthZ - 22 - k * 42;
@@ -205,8 +207,8 @@ function northProps(): PropInstance[] {
   out.push(prop("bin", LIBRARY_RAMP.x - 3.4, LIBRARY_RAMP.z + LIBRARY_RAMP.length / 2 + 1.2, "library"));
   out.push(prop("utility-box", LIBRARY.center[0] + 26, AXIS.libraryFrontZ + 4, "library", -Math.PI / 2));
   out.push(prop("hydrant", -6, AXIS.libraryFrontZ + 4, "library"));
-  for (let k = 0; k < 8; k++) {
-    out.push(prop("planter", -18 + k * 5.4, AXIS.libraryFrontZ + 14, "library", 0, 1, 4.2));
+  for (const bed of planters()) {
+    if (bed.zone === "library") out.push(prop("planter", bed.x, bed.z, bed.zone, bed.rotationY, 1, bed.length));
   }
   return out;
 }

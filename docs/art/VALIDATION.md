@@ -359,3 +359,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 58 輪（欄杆擋人）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs scripts/library-ramp.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 站在坡道中線不被推開。站在東側欄杆 x=-1.05 會被推到 x=-1.530，移開 0.48 m。南端外 1.2 m 的入口也不被推開。估計路網仍是一個相連的格網。克難坡仍沒有欄杆。沒有新增音效。欄杆留在第 57 輪。`build:site` 產物 `AdventureApp-C6frxvLx.js`。
+
+## 第 59 輪（花台）— 2026-11-12
+
+`node --test scripts/planter-stop.test.mjs scripts/route-walk.test.mjs scripts/campus-registry.test.mjs scripts/world-data.test.mjs` 通過。`tsc --noEmit` 通過。18 個花台和網格用同一組座標，寬 0.8 m。半徑 0.42 m 站在西側花台中心會被推開。大道中線、圖書館花台之間 x=11.7 的空檔、主巡禮和三條折線都不被推開。宮燈折線先回到大道南端，教室門口從花台南側繞進。圖書館折線沿中線走到海豚基座以南，再從花台外側走到館門。地被改種在花台外側，圖書館花圃改到花台南邊。定步白天從大道走向西側花台，頁面無錯誤，停在 x=−4.78：`docs/art/evidence/props/planter.jpg`。花台位置仍是 estimated。欄杆擋人留在第 58 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DSOveVRo.js`。

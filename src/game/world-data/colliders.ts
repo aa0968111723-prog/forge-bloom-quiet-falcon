@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LANDMARKS, LIBRARY, PALACE, palaceHallZs, planterFootprint, planters } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -89,6 +89,11 @@ function buildColliders(): AABB[] {
       continue;
     }
     out.push(box(s.position[0], s.position[1], s.size[0], s.size[2]));
+  }
+
+  for (const bed of planters()) {
+    const footprint = planterFootprint(bed);
+    out.push(box(footprint.x, footprint.z, footprint.width, footprint.depth));
   }
 
   // Library ramp rails. The bars are outside the 1.6 m deck; the centre stays open.

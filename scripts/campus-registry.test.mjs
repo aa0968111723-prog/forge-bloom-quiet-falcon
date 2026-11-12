@@ -155,7 +155,7 @@ test("three walk routes stay estimated and can detour", () => {
   const blockedVia = recomputeRoute("kenan-to-palace", [{ minX: -1, maxX: 1, minZ: -1, maxZ: 1 }]);
   assert.equal(blockedVia.recomputed, true);
   assert.ok(!blockedVia.polyline.some((point) => point[0] === 0 && point[1] === 0));
-  const detour = recomputeRoute("kenan-to-palace", [{ minX: -6, maxX: -2, minZ: -78, maxZ: -74 }]);
+  const detour = recomputeRoute("kenan-to-palace", [{ minX: -6, maxX: -2, minZ: -71, maxZ: -69 }]);
   assert.ok(detour.polyline.length > ROUTE_SPECS[0].polyline.length);
   assert.equal(detour.status, "幾何尚未依現勘重算");
   assert.equal(REALITY_COMPARE_LAYERS.visible[0], "layer.campus");
