@@ -589,4 +589,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 `node --test scripts/chueh-veranda.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。覺軒是 veranda-hall。文學館仍是 lit-hall。濯纓苑仍是 garden-house。坡頂高於共用的 2.6 m，半徑小於共用扁錐。迴廊接到南牆，也比樓身窄。定步白天南向，頁面無錯誤：`docs/art/evidence/chueh/veranda.jpg`。看得到迴廊、坡頂和「覺軒」。外形仍是 estimated。第 115 輪的松濤陽台留著。沒有新增音效。`build:site` 產物 `AdventureApp-C_T2ORH-.js`。
 ## 第 117 輪（海事博物館裙牆）— 2026-11-12
 
-`node --test scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。船身底座高於足跡最低角，空隙大於 2 m。裙牆頂貼著樓底，底貼著最低角。南邊入口 z = -230，在裙牆南緣外面。白樓的空隙小於 1.5 m，沒有裙牆。定步白天從西邊看，頁面無錯誤：`docs/art/evidence/museum/skirt.jpg`。看得到樓底的深色裙牆接到草地。裙牆仍是 estimated。第 116 輪的覺軒留著。沒有新增音效。`build:site` 產物 `AdventureApp-zHNBwpfp.js`。
+`node --test scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。船身有 0.16 rad 的偏角。裙牆跟著這個偏角轉，西南角落在裙牆裡面。不轉的話那個角落會伸出南緣。南邊入口在轉動後的裙牆外面。白樓的空隙小於 1.5 m，沒有裙牆。定步白天從西邊看，頁面無錯誤：`docs/art/evidence/museum/skirt.jpg`。看得到樓底的深色裙牆接到草地。裙牆仍是 estimated。第 116 輪的覺軒留著。沒有新增音效。`build:site` 產物 `AdventureApp-zHNBwpfp.js`。
