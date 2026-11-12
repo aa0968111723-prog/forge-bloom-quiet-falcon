@@ -5487,7 +5487,7 @@
       "mergeSha": "44930d450b8108943813911204bbfd4764eb93b3",
       "integrationPr": 341,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/341",
-      "nextAction": "None. The pool-deck spawn from 6ae3b4fb is already in this integration. This is on integration PR #341. Do not merge PR #279 by itself. The phone HUD commit d74acab2 is in the following integration and is not on main yet."
+      "nextAction": "None. The pool-deck spawn from 6ae3b4fb is already in this integration. This is on integration PR #341. Do not merge PR #279 by itself. The phone HUD commit d74acab2 is on integration PR #342."
     },
     {
       "id": "art-phone-hud",
@@ -5511,11 +5511,11 @@
         "route": "8267 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. Narrow semester text still reads."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR. It is not on main yet. The next art commit is e149387c on PR #283. Do not merge PR #283 or PR #281 by itself."
+      "merged": true,
+      "mergeSha": "5b0adafe2d4fd769c5c4d17007c543a0180a0977",
+      "integrationPr": 342,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/342",
+      "nextAction": "None. The phone HUD from d74acab2 is already in this integration. This is on integration PR #342. Do not merge PR #281 by itself. The next art commit is e149387c on PR #283."
     }
   ]
 }
