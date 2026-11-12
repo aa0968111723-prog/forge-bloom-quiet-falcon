@@ -4167,11 +4167,11 @@
         "route": "8223: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "2c8d98af340106fc30fc745c413c8e2fae04aa4a",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #169 by itself."
+      "integrationPr": 294,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/294",
+      "nextAction": "None. The indoor follow camera from 7ded28e3 is already in this integration. Do not merge PR #169 by itself."
     }
   ]
 }
