@@ -502,6 +502,10 @@ function restoreQuest(raw: unknown, items: Record<string, number>) {
   }
   return Object.keys(next).length ? next : undefined;
 }
+function bringLootCoord(value: number, min: number, max: number) {
+  if (Math.abs(value) <= 100_000) return value;
+  return Math.min(max, Math.max(min, value));
+}
 function restoreLoot(raw: unknown): Loot[] {
   if (!Array.isArray(raw)) return [];
   return raw
@@ -523,9 +527,10 @@ function restoreLoot(raw: unknown): Loot[] {
         ]).filter(([, n]) => Number(n) > 0),
       );
       const quest = restoreQuest(l.quest, items);
-      return quest
-        ? { id: l.id, x: l.x, z: l.z, items, quest }
-        : { id: l.id, x: l.x, z: l.z, items };
+      const id = l.id.slice(0, 80) || crypto.randomUUID();
+      const x = bringLootCoord(l.x, WORLD_BOUNDS.minX + 8, WORLD_BOUNDS.maxX - 8);
+      const z = bringLootCoord(l.z, WORLD_BOUNDS.minZ + 8, WORLD_BOUNDS.maxZ - 8);
+      return quest ? { id, x, z, items, quest } : { id, x, z, items };
     });
 }
 function restorePosition(raw: unknown) {
