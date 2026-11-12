@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:50:00Z",
+  "updated_at": "2026-11-12T06:30:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "b579dff",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -22,10 +22,14 @@
     "a signed-in reward asks the server first and does not grant an event the server already recorded",
     "a queued upload is not sent when the browser session belongs to a different account",
     "a cloud document that fails the whitelist or the content hash does not replace the local save",
-    "a later offline upload replaces the earlier queued save for that account and flushes once"
+    "a later offline upload replaces the earlier queued save for that account and flushes once",
+    "a downloaded cloud save is held while the game is running, so the autosave does not replace it",
+    "choosing the downloaded save resumes a living interior instead of leaving the player outside and dropping the floor",
+    "choosing the remote save or restoring a revision drops that account's queued upload and leaves reward receipts and other accounts queued",
+    "flush removes only the items it finished, so a receipt queued during an upload stays and a dropped upload is not sent"
   ],
   "verification": {
-    "npm_test": "333 pass, 0 fail; a later offline upload replaces the queued save",
+    "npm_test": "339 pass, 0 fail; flush keeps a receipt queued during an upload",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

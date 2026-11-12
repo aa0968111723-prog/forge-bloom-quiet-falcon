@@ -526,16 +526,23 @@ export function createCloudSaveController(options: {
     if (gate !== "ok") return { sent: 0, paused: true };
     const items = readQueue(userId).sort((a, b) => a.nextAt - b.nextAt);
     let sent = 0;
-    const kept: QueueItem[] = [];
+    const finished = new Set<string>();
+    const retry = new Map<string, QueueItem>();
+    const stillQueued = (item: QueueItem) =>
+      readQueue(userId).some((current) => current.id === item.id && current.kind === item.kind);
+    const writeRemaining = () => {
+      writeQueue(
+        userId,
+        readQueue(userId).flatMap((current) => {
+          if (finished.has(current.id)) return [];
+          return [retry.get(current.id) ?? current];
+        }),
+      );
+    };
     for (const item of items) {
-      if (item.userId !== userId) {
-        kept.push(item);
-        continue;
-      }
-      if (item.nextAt > now()) {
-        kept.push(item);
-        continue;
-      }
+      if (item.userId !== userId) continue;
+      if (!stillQueued(item)) continue;
+      if (item.nextAt > now()) continue;
       let response: Response;
       try {
         response = await cloudFetch(
@@ -548,16 +555,16 @@ export function createCloudSaveController(options: {
         );
       } catch {
         const attempts = item.attempts + 1;
-        kept.push({
+        retry.set(item.id, {
           ...item,
           attempts,
           nextAt: now() + Math.min(30_000, 1_000 * 2 ** (attempts - 1)),
         });
         continue;
       }
+      if (!stillQueued(item)) continue;
       if (response.status === 401) {
-        kept.push(item, ...items.slice(items.indexOf(item) + 1));
-        writeQueue(userId, kept);
+        writeRemaining();
         return { sent, paused: true };
       }
       const payload = await response.json().catch(() => null);
@@ -570,18 +577,22 @@ export function createCloudSaveController(options: {
         ) {
           writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
         }
+        finished.add(item.id);
         sent += 1;
         continue;
       }
-      if (response.status === 409 || response.status === 422) continue;
+      if (response.status === 409 || response.status === 422) {
+        finished.add(item.id);
+        continue;
+      }
       const attempts = item.attempts + 1;
-      kept.push({
+      retry.set(item.id, {
         ...item,
         attempts,
         nextAt: now() + Math.min(30_000, 1_000 * 2 ** (attempts - 1)),
       });
     }
-    writeQueue(userId, kept);
+    writeRemaining();
     return { sent, paused: false };
   }
 
