@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T10:36:30Z",
+  "updated_at": "2026-11-12T10:42:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "f2656a5",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -135,10 +135,11 @@
     "a direct import keeps a living interior floor",
     "merged main at 6655b94; legal experience, defeats, and clock were already on this branch",
     "healing indoors still writes the living floor",
-    "merged main at f2656a5; the direct living interior was already on this branch"
+    "merged main at f2656a5; the direct living interior was already on this branch",
+    "a landmark stamp is in the rpg save before the next move"
   ],
   "verification": {
-    "npm_test": "429 pass, 0 fail; healing indoors still writes the living floor",
+    "npm_test": "430 pass, 0 fail; a landmark stamp is in the rpg save before the next move",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

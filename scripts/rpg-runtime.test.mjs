@@ -5026,13 +5026,14 @@ test("settings sections keep the selected choice, the default, and the live pose
   URL.revokeObjectURL = () => {};
   try {
     r.applySettings("export");
-    const exported = JSON.parse(savedData.get(RPG_SAVE_KEY));
+    const exportedText = savedData.get(RPG_SAVE_KEY);
+    const exported = JSON.parse(exportedText);
     assert.equal(exported.pilgrimage.timeOfDay, "night");
     assert.equal(exported.pilgrimage.muted, true);
     assert.equal(exported.graphics, undefined);
     r.applySettings("time", "day");
     r.applySettings("volume", "audible");
-    assert.equal(useRpg.getState().importSave(savedData.get(RPG_SAVE_KEY)), true);
+    assert.equal(useRpg.getState().importSave(exportedText), true);
     assert.equal(useGame.getState().timeOfDay, "night");
     assert.equal(useGame.getState().muted, true);
     assert.equal(r.loadLocal().timeOfDay, "night");
