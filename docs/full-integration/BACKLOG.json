@@ -1,0 +1,431 @@
+{
+  "updated": "2026-11-12T03:55:00Z",
+  "items": [
+    {
+      "id": "FI-MUTEX",
+      "status": "blocked",
+      "note": "bc-4054e39b on cursor/integration-art-m1-3395 is RUNNING and is the only writer of main. This line stops at a reviewable PR."
+    },
+    {
+      "id": "FI-DEPT",
+      "status": "verified",
+      "merged": false,
+      "deployed": false,
+      "note": "catalogIdFor / rpgIdFor. Chemistry save id maps to chemistry and science. med-info stays catalog-only. Name aliases: 數學系 and 化學系."
+    },
+    {
+      "id": "FI-SEMESTER",
+      "status": "verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Browser route: locked at 1/3 while midterm, then three kills and one claim of mission first. xp 666, text 期末 · 委託已結算. Reload and second client stay finals. A second claim does not pay."
+    },
+    {
+      "id": "FI-SUPPLY",
+      "status": "verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Main-game supply at the first crate. xp 44 includes the existing discovery +12 and the errand +12. Claimed once. Reload keeps department, xp 44, notes 21, midterm."
+    },
+    {
+      "id": "FI-PLACE",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Main game at 8ef6496. Palace-avenue ghost says 請保留克難坡通行空間 and places nothing. Cancel clears build mode. One lantern places, the same spot does not place a second, xp stays 44, errand id stays once. 1280x720 and 390x780. 390 is a fine pointer."
+    },
+    {
+      "id": "FI-VARIETY",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Published gameplay head d82bf00 wired on af7b669. Night patrol at estimated (0,-40). Wrong clue, then peace route, claim once. xp 500 notes 22. Session key tamkang-gameplay-variety-v1 is not a second bag."
+    },
+    {
+      "id": "FI-KINDS",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "quiz, report, exam, and final were hit on the earlier route. All nine college skills were then fired from fresh title picks: engineering 65→25, science 65→13, humanities 65→31, business 65→33, language 65→27, education 65→37, international 65→30, computing 65→15, health 65→43."
+    },
+    {
+      "id": "FI-EQUIP",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "final-1 is reduced with the existing attack(), cooldown cleared between swings so the clock does not jump. The victory button claims semester and grants the badge. Bag shows 卸下徽章. Reload and the second API client keep equipped and the lantern. Semester stays midterm."
+    },
+    {
+      "id": "FI-FACULTY",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Shen's opening after a Gu clash. Data and redo each moved store xp from 58 to 76 and left notes at 19. The card showed level 2, 16/180, hp 108. Week-1 stayed. The next clash line followed the flag and was later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-SHEN-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Shen's clash on AdventureApp-B2sSdjRz.js at 1280x720. Public and office each moved store xp from 76 to 84 and notes from 19 to 20. The card showed 24/180, hp 108, focus 100. Week-1 stayed. Standing at Liang discovered business-o and added 12, so reload kept xp 96 and the flag-specific opening. Both of Liang's opening choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-LIANG-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Liang's opening on the pre-rebuild bundle AdventureApp-B2sSdjRz.js at 1280x720. Ours and mine each moved store xp from 96 to 114 and left notes at 20. The card showed 54/180. Week-1 stayed. The +18 is quest 6 plus discover-place 12. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-LIANG-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Liang's clash on AdventureApp-BoDdWjJ4.js at 1280x720. Both and later each moved store xp from 114 to 122 and notes from 20 to 21. The card showed 62/180. Week-1 stayed. Gu Heng's time choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-GU-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Gu's time choices on AdventureApp-BztmqH0m.js at 1280x720. Corridor and defer each moved store xp from 122 to 130 and left notes at 21. The card showed 70/180, hp 108, focus 100. Week-1 stayed. Standing at Qiu discovered commons and added 12, so reload kept xp 142 and the flag-specific opening. Qiu's opening choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-QIU-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Qiu's opening on the pre-rebuild AdventureApp-BztmqH0m.js at 1280x720. Listen and studio each moved store xp from 142 to 160 and left notes at 21. The card showed 100/180, hp 108, focus 100. Week-1 stayed. The +18 is quest 6 plus discover-place 12. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-QIU-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Qiu's clash on the pre-rebuild AdventureApp-BztmqH0m.js at 1280x720. Club and review each moved store xp from 160 to 168 and notes from 21 to 22. The card showed 108/180, hp 108, focus 100. Week-1 stayed. Her turn choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-QIU-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Qiu's turn on the pre-rebuild AdventureApp-BztmqH0m.js at 1280x720. Note and names each moved store xp from 168 to 180 and left notes at 22. The card showed 120/180. Week-1 stayed. The +12 is turn 8 plus studio turn 4. Liang's turn choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-LIANG-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Liang's turn on AdventureApp-CJBhF4Kt.js at 1280x720. Split and list each moved store xp from 180 to 188 and left notes at 22. The card showed 128/180. Week-1 stayed. The +8 is the turn stage. Shen's record choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-SHEN-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Shen's record choices on AdventureApp-CJBhF4Kt.js at 1280x720. Show and rebuild each moved store xp from 188 to 196 and left notes at 22. The card showed 136/180. Week-1 stayed. The +8 is the turn stage. Qiu's posting choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-QIU-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Qiu's posting on AdventureApp-CJBhF4Kt.js at 1280x720. Swap and post each moved store xp from 196 to 206 and notes from 22 to 23. The card showed 146/180. Week-1 stayed. The +10 is the after stage and the note is the after reward. Gu's closing choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-GU-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Gu's closing on AdventureApp-D3TATbW2.js at 1280x720. Mend and hour each moved store xp from 206 to 216 and notes from 23 to 24. The card showed 156/180. Week-1 stayed. The +10 is the after stage. This beat has no studio main. Shen's short-note choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-SHEN-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Shen's short note on AdventureApp-D3TATbW2.js at 1280x720. Note and oral each moved store xp from 216 to 226 and notes from 24 to 25. The card showed 166/180. Week-1 stayed. The +10 is the after stage. This beat has no studio main. Liang's poster choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-LIANG-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Liang's poster on AdventureApp-C7szpjke.js at 1280x720. Board and wait each moved store xp from 226 to 240 and notes from 25 to 26. The card showed level 3, 0/300, hp 116/116. Week-1 stayed. The +14 is after 10 plus studio after 4. Talking again showed the nothing-new notice. The four-person main line ends here."
+    },
+    {
+      "id": "FI-HE-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian He's opening at the estimated education post on AdventureApp-C7szpjke.js at 1280x720. Standing discovered the site first, so xp was 12. Prereq and fixed each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60. Week-1 stayed. The +18 is meet 6 plus discover-place 12. Notes 18 are the fresh bag. No studio quest. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-HE-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian He's clash on AdventureApp-C7szpjke.js at 1280x720. Own and friend each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her signature choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-HE-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian He's signature on AdventureApp-C7szpjke.js at 1280x720. Sign and switch each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. Her closing choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-HE-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian He's closing on AdventureApp-C7szpjke.js at 1280x720. Lock and backup each moved store xp from 46 to 56 and notes from 19 to 20. The card showed level 1, 56/60. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice. Her course line ends here."
+    },
+    {
+      "id": "FI-XI-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Cheng Xi's opening at the estimated engineering post on AdventureApp-CdIK2TH9.js at 1280x720. Standing discovered the site first, so xp was 12. Ask and own each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60. Week-1 stayed. The +18 is meet 6 plus discover-place 12. Notes 18 are the fresh bag. No studio quest. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-XI-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Cheng Xi's clash on AdventureApp-C7szpjke.js at 1280x720. Out and hold each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her consent choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-XI-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Cheng Xi's consent on AdventureApp-Deis1R0q.js at 1280x720. Self and consent each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. Her closing choices were later paid in a separate pair of semesters. The sloped rails in this bundle were not walked."
+    },
+    {
+      "id": "FI-XI-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Cheng Xi's closing on AdventureApp-Deis1R0q.js at 1280x720. Method and sample each moved store xp from 46 to 56 and notes from 19 to 20. The card showed level 1, 56/60. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice. Her ethics line ends here."
+    },
+    {
+      "id": "FI-WEI-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Wei Ning's opening at the estimated science hall on AdventureApp-CZDjMJrv.js at 1280x720. Standing discovered the site first, so xp was 12. Limit and round each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60. Week-1 stayed. The +18 is meet 6 plus discover-place 12. Notes 18 are the fresh bag. No studio quest. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-WEI-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Wei Ning's clash on AdventureApp-BWW4JLDV.js at 1280x720. Empty and count each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her turn choices were later paid in a separate pair of semesters. The track infield in this bundle was not walked."
+    },
+    {
+      "id": "FI-WEI-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Wei Ning's turn on AdventureApp-BWW4JLDV.js at 1280x720. Drop and keep each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. Her closing choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-WEI-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Wei Ning's closing on AdventureApp-BWW4JLDV.js at 1280x720. Submit and follow each moved store xp from 46 to 56 and notes from 19 to 20. The card showed level 1, 56/60. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice. Her survey line ends here."
+    },
+    {
+      "id": "FI-AN-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid An Cheng's opening at the estimated foreign-language building on AdventureApp-D7mo77Od.js at 1280x720. Standing discovered the site first, so xp was 12. Word and source each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60. Week-1 stayed. The +18 is meet 6 plus discover-place 12. Notes 18 are the fresh bag. No studio quest. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-AN-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid An Cheng's clash at the estimated foreign-language building on AdventureApp-CuRKjyE6.js at 1280x720. Bracket and cut each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her field-column choices were later paid in a separate pair of semesters. The earlier EIO run is not evidence."
+    },
+    {
+      "id": "FI-AN-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid An Cheng's field-column choices at the estimated foreign-language building on AdventureApp-DjCbJVkI.js at 1280x720. Both and oral each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. Her posting choices were later paid in a separate pair of semesters. Two earlier EIO runs are not evidence."
+    },
+    {
+      "id": "FI-AN-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid An Cheng's posting choices at the estimated foreign-language building on AdventureApp-CJXsxJis.js at 1280x720. Post and one each moved store xp from 46 to 56 and notes from 19 to 20. The outcome card showed level 1, 56/60, hp 100. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice. By then the card showed hp 84 while the group report stayed 145/145. Reload kept xp 56, notes 20, hp 84, and that notice. Her wording line ends here."
+    },
+    {
+      "id": "FI-MENG-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Meng Zhao's opening at the estimated chemistry building, dx 0 dz 12, on AdventureApp-DyYCDMBl.js at 1280x720. She is the chemistry director, not Shen Zhuo. Standing discovered the site first, so xp was 12. Safety and both each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60, hp 100. Week-1 stayed. The +18 is meet 6 plus discover-place 12. Notes 18 are the fresh bag. No studio quest. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-MENG-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Meng Zhao's clash at the estimated chemistry building, dx 0 dz 12, on the same AdventureApp-DyYCDMBl.js at 1280x720. Rest and share each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60, hp 100. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her maintenance choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-MENG-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Meng Zhao's maintenance choices at the estimated chemistry building, dx 0 dz 12, on AdventureApp-CfPomlhN.js at 1280x720. Yield and talk each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60, hp 100. Week-1 stayed. The +8 is the turn stage. This beat adds no note and has no studio quest. Her posting choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-MENG-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Meng Zhao's posting choices at the estimated chemistry building, dx 0 dz 12, on AdventureApp-DtR2SJf-.js at 1280x720. Post and give each moved store xp from 46 to 56 and notes from 19 to 20. The card showed level 1, 56/60, hp 100. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice and left the panel closed. Reload kept xp 56, notes 20, and that notice. Her hours line ends here. npm test was 402 pass / 0 fail on merge 9221a61."
+    },
+    {
+      "id": "FI-SANG-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Sang Zhi's opening at the estimated business building, dx 12 dz 0, on AdventureApp-MvA5zcmv.js at 1280x720. She is a business professor, not a director. Standing was already inside the building discovery radius, so xp was 12 and the click added no campus discovery id. Swap and joint each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60, hp 100, and named 教授 · 企業管理學系. Week-1 stayed. The +18 is meet 6 plus the post explore 12. The post id is not a campus site. No studio quest and no note. Her clash choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-SANG-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Sang Zhi's clash at the estimated business building, dx 12 dz 0, on AdventureApp-VE0tEC2H.js at 1280x720. Wait and draft each moved store xp from 30 to 38 and notes from 18 to 19. The click added no campus discovery. The card showed level 1, 38/60, hp 100. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her speaking choices were later paid in a separate pair of semesters."
+    },
+    {
+      "id": "FI-SANG-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Sang Zhi's speaking choices at the estimated business building, dx 12 dz 0, on AdventureApp-mqgMY3sR.js at 1280x720. Own and half each moved store xp from 38 to 46 and left notes at 19. The click added no campus discovery. The card showed level 1, 46/60, hp 100. Week-1 stayed. The +8 is the turn stage. This beat adds no note and has no studio quest. The hand-in lead followed the clash flag: wait reloaded onto 可以交了, and draft reloaded onto 它還在. Both hand-in buttons were later paid in a separate pair of semesters. npm test was 406 pass / 0 fail on merge 9b935d7."
+    },
+    {
+      "id": "FI-SANG-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Sang Zhi's hand-in choices at the estimated business building, dx 12 dz 0, on AdventureApp-BlcRgD1R.js at 1280x720. Hand and fix each moved store xp from 46 to 56 and notes from 19 to 20. The click added no campus discovery. The card showed level 1, 56/60, hp 100, and the notes toast. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. The opening lead followed fac-sang-draft. Talking again showed the nothing-new notice and left the panel closed. Reload kept xp 56, notes 20, and that notice. Her case line ends here. npm test was 408 pass / 0 fail on merge b6d6d2d."
+    },
+    {
+      "id": "FI-JIANG-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jiang Zhao's opening at the estimated business building, dx 0 dz 12, on AdventureApp-BjWzmiAr.js at 1280x720. She is the business director. Standing was already inside the building discovery radius, so xp was 12 and the click added no campus discovery id. Hear and class each moved store xp from 12 to 30 and left notes at 18. The card showed level 1, 30/60, hp 100, and named 系主任 · 企業管理學系. Week-1 stayed. The +18 is meet 6 plus the post explore 12. The post id is not a campus site. No studio quest and no note. The clash line did not follow the opening flag. Both clash choices were later paid in a separate pair of semesters. npm test was 409 pass / 0 fail on merge 811273d."
+    },
+    {
+      "id": "FI-JIANG-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jiang Zhao's clash at the estimated business building, dx 0 dz 12, on AdventureApp-DEg0qO28.js at 1280x720. Shift and corner each moved store xp from 30 to 38 and notes from 18 to 19. The click added no campus discovery. The card showed level 1, 38/60, hp 100, and the notes toast. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. The turn line did not follow the clash flag. A fresh semester has neither fac-he-prereq nor fac-he-fixed, so both routes reloaded onto the default 暫定表 line. Both turn choices were later paid in a separate pair of semesters. npm test was 412 pass / 0 fail on merge 1777ccc."
+    },
+    {
+      "id": "FI-JIANG-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jiang Zhao's schedule choices at the estimated business building, dx 0 dz 12, on AdventureApp-DEg0qO28.js at 1280x720. Carry and temp each moved store xp from 38 to 46 and left notes at 19. The click added no campus discovery. The card showed level 1, 46/60, hp 100. Week-1 stayed. The +8 is the turn stage. This beat adds no note and has no studio quest. Neither fac-he-prereq nor fac-he-fixed was set, so both routes opened on the default 暫定表 line. The formal-table line did not follow this choice. Both formal choices were later paid in a separate pair of semesters. npm test was 414 pass / 0 fail on merge 6c75885."
+    },
+    {
+      "id": "FI-JIANG-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jiang Zhao's formal-table choices at the estimated business building, dx 0 dz 12, on AdventureApp-DEg0qO28.js at 1280x720. Final and blank each moved store xp from 46 to 56 and notes from 19 to 20. The click added no campus discovery. The card showed level 1, 56/60, hp 100, and the notes toast. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. Talking again showed the nothing-new notice and left the panel closed. Reload kept xp 56, notes 20, and that notice. Her schedule line ends here. npm test was 417 pass / 0 fail on merge a06b55c."
+    },
+    {
+      "id": "FI-HENG-MEET",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian Heng's opening at the estimated administration building, dx 12 dz 0, on AdventureApp-B1vE3ZD5.js at 1280x720. Ask and write each moved store xp from 12 to 30 and left notes at 18. The click added no campus discovery. The card showed level 1, 30/60, hp 100, and named 教授 · 外交與國際關係學系. Week-1 stayed. The +6 is the meet stage and the other +12 is the post explore. No studio quest. The clash line did not follow the opening flag. Both routes reloaded onto 沒有把兩句合成一句. Both clash choices were later paid in a separate pair of semesters. npm test was 419 pass / 0 fail on merge 7012ae0."
+    },
+    {
+      "id": "FI-HENG-CLASH",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian Heng's check at the estimated administration building, dx 12 dz 0, on AdventureApp-Dt7w4AzO.js at 1280x720. Check and unsure each moved store xp from 30 to 38 and notes from 18 to 19. The click added no campus discovery. The card showed level 1, 38/60, hp 100, and the notes toast. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. The line has no flagLines. Talking again left the panel closed because fac-he-met and fac-jiang-met were false. The notice said the previous matter is unfinished. Reload kept xp 38, notes 19, and that notice. Both turn choices were later paid in a separate pair of semesters that also met Jian He and Jiang Zhao. npm test was 420 pass / 0 fail on merge bb5c592."
+    },
+    {
+      "id": "FI-HENG-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters met Jian He and Jiang Zhao, paid Jian Heng's opening and check, then paid his side-by-side choices at the estimated administration building on AdventureApp-Bw-pCWgi.js at 1280x720. Both and swap each moved store xp from 98 to 106 and left notes at 19. The click added no campus discovery. The card showed level 2, 46/180, hp 108. Week-1 stayed. The +8 is the turn stage. This beat adds no note and has no studio quest. Prereq plus hear opened 先留了先修. Fixed plus class opened 不能改期. Prereq plus class, and fixed plus hear, were not opened. The return line followed fac-heng-swap. Both return choices were later paid in a separate pair of semesters. npm test was 422 pass / 0 fail on merge ceb3c3d."
+    },
+    {
+      "id": "FI-HENG-AFTER",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Jian Heng's return at the estimated administration building on AdventureApp-BO6mrBP4.js at 1280x720. Return and draft each moved store xp from 106 to 116 and notes from 19 to 20. The click added no campus discovery. The card showed level 2, 56/180, hp 108, and the notes toast. Week-1 stayed. The +10 is the after stage and the note is the after reward. No studio quest. The line followed fac-heng-swap. Talking again showed the nothing-new notice and left the panel closed. Reload kept xp 116, notes 20, and that notice. This cross line ends here. npm test was 423 pass / 0 fail on merge 8fd2618."
+    },
+    {
+      "id": "FI-XU-HUI",
+      "status": "wired",
+      "merged": true,
+      "deployed": false,
+      "note": "Xu Hui from main #182 is on this branch at the estimated library post. Quest rewards still use quest-reward. Ground quest loot no longer increments gathered. This line did not click her. docs/quest-play/evidence is the other line's record."
+    },
+    {
+      "id": "FI-COLLECT",
+      "status": "browser-verified",
+      "merged": true,
+      "deployed": false,
+      "note": "Collection quests from main are on this branch. On AdventureApp-BztmqH0m.js a fresh architecture semester defeated report-1 and report-2, then claimed reports once. Store xp went 110 to 160, notes 18 to 22, parts 20 to 26. gathered stayed 0. Reload kept the receipt and week-1. The other three collection missions stayed at 0. npm test on the #168 merge was 329 pass / 0 fail."
+    },
+    {
+      "id": "FI-CLOUD",
+      "status": "verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Guest local_only, login revision 1, second API client sees midterm, 200+409 revision_conflict, offline queue, logout 401. Static dist has no revision_conflict or cloud-save string."
+    },
+    {
+      "id": "FI-ART-QUEUE",
+      "status": "owned-by-other-integrator",
+      "note": "main eccee6d notes the unnamed narrative place #242. GitHub lists that PR as MERGED. The same range also has #241. GitHub lists #241 as CLOSED and mergeCommit is null; the commits are on main. Game commits 264a94c and f90a3c8, merged here as 08de580. A narrative clock outside the cloud range and an unnamed place stay uploadable. The adventure chunk became AdventureApp-DyYCDMBl.js. This line did not replay those imports. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+    },
+    {
+      "id": "FI-GEAR",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Gear code is already on main via PR #133. This branch adds cloud checks for loadout, gear, quarantine, quarantineGear, and heldBuild. Route at 1280x720 crafted a plain repair-wrench, durability 48, accessory stayed badge. Reload and second client kept both slots. Notes ended at 18."
+    },
+    {
+      "id": "FI-OTHER-LINES",
+      "status": "faculty-followup-open",
+      "note": "Faculty #139, encounters #136, ramp #143, and gear contract #144 are on main and on this branch. Nine college skills were played from the title picker. Do not merge those lines again."
+    },
+    {
+      "id": "FI-INTERIOR",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Fresh civil-engineering semester on AdventureApp-B2sSdjRz.js at 1280x720. Library floor 2 survived 繼續學期, xp 12, week-1, exit (10, -290). Chemistry exit (288, -243.5) xp 24. Gym exit (166, -104.5) xp 36. The extra 12s are existing site discovery. Import of an indoor file still stands at the door. A downed continue stays outside; that path is a unit test. The other integrator merged this onto main as PR #155 from e2d26ff."
+    },
+    {
+      "id": "FI-BROWSER-REST",
+      "status": "not-verified-here",
+      "note": "Both Gu time choices were paid on fresh architecture semesters. Store xp went 122 to 130 and notes stayed 21. Discovering commons then added 12, so reload kept xp 142. Qiu's opening followed the flag and was left unpaid. Week-1 stayed. The other three collection missions are still at 0. Variety tip 3270f9f has new encounter files and a stale store.ts."
+    }
+  ]
+}

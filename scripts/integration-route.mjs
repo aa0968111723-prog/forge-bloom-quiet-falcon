@@ -17,6 +17,8 @@ import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { launchBrowser, startSemester, waitForTitle } from "./art/lib/capture.mjs";
+import { buildSpot } from "../src/game/rpg/prompts.ts";
+import { validatePlacement } from "../src/game/rpg/rules.ts";
 
 await register(
   pathToFileURL(
@@ -41,6 +43,38 @@ function notesOf(doc) {
   return slot?.quantity ?? 0;
 }
 
+function slotCount(doc, itemId) {
+  const slot = doc.slots?.find((row) => row.itemId === itemId);
+  return slot?.quantity ?? 0;
+}
+
+function legalResearchPose(buildings) {
+  for (let x = -80; x <= 80; x += 4) {
+    for (let z = -80; z <= 40; z += 4) {
+      const player = { x, z: z + 6 };
+      const spot = buildSpot(player.x, player.z, 0);
+      if (validatePlacement("research", spot.x, spot.z, 0, buildings, player) == null) {
+        return { x: player.x, z: player.z, yaw: 0 };
+      }
+    }
+  }
+  return null;
+}
+
+function legalLanternPose() {
+  for (let x = -80; x <= 80; x += 4) {
+    for (let z = -80; z <= 40; z += 4) {
+      const player = { x, z: z + 5 };
+      const spot = buildSpot(player.x, player.z, 0);
+      if (spot.x !== x || spot.z !== z) continue;
+      if (validatePlacement("lantern", spot.x, spot.z, 0, [], player) == null) {
+        return { x: player.x, z: player.z, yaw: 0 };
+      }
+    }
+  }
+  return null;
+}
+
 async function shot(page, name) {
   const path = join(outDir, `${name}.png`);
   await page.screenshot({ path });
@@ -62,6 +96,9 @@ async function readLive(page) {
       hp: rpg.hp,
       panel: rpg.panel,
       claimed: rpg.claimed,
+      buildKind: rpg.buildKind,
+      buildings: rpg.buildings.map((item) => item.kind),
+      equipped: rpg.equipped,
       semester: rpg.narrative.semester,
       collegeId: rpg.narrative.collegeId,
       semesterText:
@@ -174,6 +211,66 @@ async function playOffline(page) {
   await leave.waitFor({ state: "visible", timeout: 15000 });
   await leave.click();
   await page.waitForFunction(() => window.__rpgQA.rpg.getState().interiorId === null);
+
+  const illegalSpot = buildSpot(0, 10, 0);
+  assert.equal(
+    validatePlacement("lantern", illegalSpot.x, illegalSpot.z, 0, [], { x: 0, z: 10 }),
+    "請保留克難坡通行空間",
+  );
+  await page.evaluate(() => window.__controlsTest.setPose(0, 10, 0));
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 2));
+  const xpBeforeBuild = (await readLive(page)).xp;
+  await page.getByRole("button", { name: "建造", exact: true }).click();
+  const lanternCard = page.locator("article").filter({
+    has: page.getByRole("heading", { name: "守夜宮燈" }),
+  });
+  await lanternCard.getByRole("button", { name: "放置" }).click();
+  await page.locator(".ad-interact").getByText("請保留克難坡通行空間").waitFor();
+  await page.locator(".ad-interact").getByRole("button", { name: "放置" }).click();
+  const refused = await readLive(page);
+  assert.deepEqual(refused.buildings, []);
+  assert.equal(refused.xp, xpBeforeBuild);
+  assert.equal(refused.claimed.filter((id) => id === "quest-errand-campus-post").length, 1);
+  await shot(page, "05b-illegal-place");
+  await page.locator(".ad-interact").getByRole("button", { name: "結束建造" }).click();
+  assert.equal((await readLive(page)).buildKind, null);
+
+  const legalPose = legalLanternPose();
+  assert.ok(legalPose);
+  await page.evaluate(
+    ({ x, z, yaw }) => window.__controlsTest.setPose(x, z, yaw),
+    legalPose,
+  );
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 2));
+  await page.getByRole("button", { name: "建造", exact: true }).click();
+  await lanternCard.getByRole("button", { name: "放置" }).click();
+  const placeBar = page.locator(".ad-interact");
+  await placeBar.getByRole("button", { name: "結束建造" }).waitFor();
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await shot(page, "05c-place-desktop");
+  await page.setViewportSize({ width: 390, height: 780 });
+  await page.waitForFunction(() => window.innerWidth === 390);
+  await shot(page, "05c-place-narrow");
+  await page.setViewportSize({ width: 960, height: 600 });
+  const xpAtPlace = (await readLive(page)).xp;
+  await placeBar.getByRole("button", { name: "放置" }).click();
+  const placed = await readLive(page);
+  assert.deepEqual(placed.buildings, ["lantern"]);
+  assert.equal(placed.xp, xpAtPlace);
+  assert.equal(placed.claimed.filter((id) => id === "quest-errand-campus-post").length, 1);
+  await placeBar.getByRole("button", { name: "放置" }).click();
+  const overlapped = await readLive(page);
+  assert.deepEqual(overlapped.buildings, ["lantern"]);
+  assert.equal(overlapped.xp, xpAtPlace);
+  await placeBar.getByRole("button", { name: "結束建造" }).click();
+  assert.equal((await readLive(page)).buildKind, null);
+  await shot(page, "05d-lantern");
+  note("build-place", {
+    refused: refused.buildings.length,
+    placed: placed.buildings,
+    xp: placed.xp,
+  });
+
   await page.evaluate(() => {
     const enemy = window.__rpgQA.rpg.getState().enemies.find((item) => item.id === "quiz-2");
     window.__controlsTest.setPose(enemy.x, enemy.z + 2.4, 0);
@@ -183,9 +280,325 @@ async function playOffline(page) {
   await page.evaluate(() => window.__rpgQA.rpg.getState().attack(false));
   const struck = await readLive(page);
   assert.ok(struck.enemyHp < armed.enemyHp, `quiz-2 stayed at ${struck.enemyHp}`);
-  assert.equal(struck.xp, errand.xp);
+  assert.equal(struck.xp, armed.xp);
+  assert.equal(struck.claimed.filter((id) => id === "quest-errand-campus-post").length, 1);
   await shot(page, "05-combat");
   note("combat", { before: armed.enemyHp, after: struck.enemyHp, xp: struck.xp });
+
+  const fought = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg;
+    const enemy = rpg.getState().enemies.find((item) => item.id === "final-1");
+    window.__controlsTest.setPose(enemy.x, enemy.z + 2.4, 0);
+    let hp = enemy.hp;
+    for (let i = 0; i < 40 && hp > 0; i += 1) {
+      rpg.setState({ attackUntil: 0 });
+      rpg.getState().attack(false);
+      hp = rpg.getState().enemies.find((item) => item.id === "final-1")?.hp ?? 0;
+    }
+    return { hp, boss: rpg.getState().boss };
+  });
+  assert.equal(fought.hp, 0);
+  assert.equal(fought.boss, 1);
+  const claimReward = page.getByRole("button", { name: "領取獎勵，繼續探索" });
+  await claimReward.waitFor({ state: "visible", timeout: 15000 });
+  await claimReward.click();
+  await page.waitForFunction(() => window.__rpgQA.game.getState().phase === "playing");
+  const rewarded = await readLive(page);
+  assert.ok(rewarded.claimed.includes("semester"));
+  assert.equal(rewarded.semester, "midterm");
+  assert.equal(rewarded.equipped, false);
+  await page.getByRole("button", { name: "背包", exact: true }).click();
+  await page.getByRole("button", { name: "五虎崗徽章 1 個" }).click();
+  await page.getByRole("button", { name: "裝備徽章" }).click();
+  const worn = await readLive(page);
+  assert.equal(worn.equipped, true);
+  assert.deepEqual(worn.buildings, ["lantern"]);
+  await shot(page, "05e-badge");
+  await page.getByRole("dialog", { name: "背包" }).getByRole("button", { name: "關閉" }).click();
+  const retry = page.getByRole("button", { name: "回到克難坡，重新出發" });
+  if (await retry.isVisible().catch(() => false)) {
+    await retry.click();
+    await page.waitForFunction(() => window.__rpgQA.rpg.getState().hp > 0);
+    const stood = await readLive(page);
+    assert.equal(stood.equipped, true);
+    assert.deepEqual(stood.buildings, ["lantern"]);
+  }
+  note("equip-badge", {
+    equipped: worn.equipped,
+    claimed: worn.claimed.includes("semester"),
+    semester: worn.semester,
+    buildings: worn.buildings,
+  });
+
+  await page.evaluate(() => {
+    const enemy = window.__rpgQA.rpg.getState().enemies.find((item) => item.id === "report-1");
+    window.__controlsTest.setPose(enemy.x, enemy.z + 2.4, 0);
+    window.__rpgQA.rpg.setState({
+      panel: null,
+      buildKind: null,
+      focus: 100,
+      skillUntil: 0,
+      attackUntil: 0,
+    });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 2));
+  const reportBefore = await page.evaluate(
+    () => window.__rpgQA.rpg.getState().enemies.find((item) => item.id === "report-1").hp,
+  );
+  await page.locator(".ad-quickbar").getByRole("button", { name: /^技能/ }).click();
+  const reportAfter = await page.evaluate(
+    () => window.__rpgQA.rpg.getState().enemies.find((item) => item.id === "report-1").hp,
+  );
+  assert.ok(reportAfter < reportBefore, `report-1 stayed at ${reportAfter}`);
+  const exam = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg;
+    const enemy = rpg.getState().enemies.find((item) => item.id === "exam-1");
+    window.__controlsTest.setPose(enemy.x, enemy.z + 2.4, 0);
+    rpg.setState({ panel: null, buildKind: null, attackUntil: 0 });
+    const before = enemy.hp;
+    rpg.getState().attack(false);
+    const after = rpg.getState().enemies.find((item) => item.id === "exam-1")?.hp ?? before;
+    return { before, after, kind: enemy.kind };
+  });
+  assert.ok(exam.after < exam.before, `exam-1 stayed at ${exam.after}`);
+  note("monster-kinds", {
+    quiz: "earlier swing",
+    report: { before: reportBefore, after: reportAfter, via: "skill-button" },
+    exam,
+    final: "defeated earlier",
+  });
+
+  await page.evaluate(() => {
+    window.__controlsTest.setPose(0, -40, 0);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 4));
+  const dock = page.locator("[data-gv=dock]");
+  await dock.waitFor({ state: "visible", timeout: 15000 });
+  await shot(page, "07-variety-dock");
+  const xpBeforeVariety = (await readLive(page)).xp;
+  await dock.click();
+  const panel = page.locator("[data-gv=panel]");
+  await panel.getByRole("button", { name: "開始查看線索" }).click();
+  await panel.getByRole("button", { name: "閉館鈴後有人往圖書館跑。" }).click();
+  await panel.getByRole("button", { name: "送出這組線索" }).click();
+  await panel.getByRole("button", { name: "閉館鈴後有人往圖書館跑。" }).click();
+  await panel.getByRole("button", { name: "第三盞的開關是暖的。" }).click();
+  await panel.getByRole("button", { name: "有人把筆記放在第三盞下面。" }).click();
+  await panel.getByRole("button", { name: "送出這組線索" }).click();
+  await panel.locator("[data-gv=puzzle-0]").click();
+  await panel.locator("[data-gv=puzzle-2]").click();
+  await panel.locator("[data-gv=peace]").click();
+  await panel.getByRole("button", { name: "在原地等一拍" }).click();
+  await panel.getByRole("button", { name: "走到第三盞" }).click();
+  await panel.getByRole("button", { name: "在原地等一拍" }).click();
+  await panel.getByRole("button", { name: "走到傳達桌" }).click();
+  await panel.locator("[data-gv=claim]").click();
+  const varied = await readLive(page);
+  assert.ok(varied.claimed.includes("quest-gv-night-peace"));
+  assert.equal(varied.xp, xpBeforeVariety + 36);
+  assert.equal(varied.semester, "midterm");
+  assert.deepEqual(varied.buildings, ["lantern"]);
+  await panel.locator("[data-gv=claim]").click();
+  assert.equal((await readLive(page)).xp, varied.xp);
+  await shot(page, "07b-variety-claimed");
+  await panel.getByRole("button", { name: "關閉" }).click();
+  note("variety-peace", {
+    xp: varied.xp,
+    claimed: "quest-gv-night-peace",
+    semester: varied.semester,
+  });
+
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.evaluate(() => {
+    window.__controlsTest.setPose(297.8, -243.5, Math.PI);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null, notice: "" });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 6));
+  const shenTalk = page.getByRole("button", { name: "與沈酌交談" });
+  await shenTalk.waitFor({ state: "visible", timeout: 15000 });
+  const xpBeforeShen = (await readLive(page)).xp;
+  await shenTalk.click();
+  const shen = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg.getState();
+    return { panel: rpg.panel, notice: rpg.notice, xp: rpg.xp };
+  });
+  assert.equal(shen.panel, null);
+  assert.match(shen.notice, /沒有新的話/);
+  assert.equal(shen.xp, xpBeforeShen);
+  assert.equal(shen.notice.includes("quest-faculty-shen"), false);
+  await shot(page, "08c-shen-quiet");
+  note("faculty-quiet", { notice: shen.notice, xp: shen.xp });
+
+  await page.evaluate(() => {
+    window.__controlsTest.setPose(294.8, -74.5, Math.PI);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 8));
+  const facultyTalk = page.getByRole("button", { name: "與顧衡交談" });
+  await facultyTalk.waitFor({ state: "visible", timeout: 15000 });
+  await facultyTalk.click();
+  const narrative = page.locator("#narrative-scroll");
+  await narrative.waitFor({ state: "visible", timeout: 15000 });
+  await narrative.getByRole("button", { name: "交談", exact: true }).click();
+  const lineChoice = page.getByRole("button", { name: "我先補剖面，補完再請你看。" });
+  const failChoice = page.getByRole("button", { name: "我帶了失敗的那一版，想先聽你怎麼看。" });
+  await lineChoice.waitFor({ state: "visible", timeout: 15000 });
+  await failChoice.waitFor({ state: "visible", timeout: 15000 });
+  await shot(page, "08-faculty-choices");
+  const beforeFaculty = await readLive(page);
+  await lineChoice.click();
+  const met = await readLive(page);
+  assert.ok(met.claimed.includes("quest-faculty-gu-meet"));
+  assert.ok(met.claimed.includes("quest-faculty-studio-meet"));
+  assert.equal(met.xp, beforeFaculty.xp + 22);
+  assert.equal(met.semester, "midterm");
+  const facultyFlags = await page.evaluate(() => {
+    const flags = window.__rpgQA.rpg.getState().narrative.flags;
+    return { line: flags["fac-gu-meet-line"] === true, fail: flags["fac-gu-meet-fail"] === true };
+  });
+  assert.equal(facultyFlags.line, true);
+  assert.equal(facultyFlags.fail, false);
+  await shot(page, "08b-faculty-line");
+  const leaveFaculty = page.getByRole("button", { name: "繼續自由探索" });
+  await leaveFaculty.click();
+  note("faculty-gu", {
+    choice: "fac-gu-meet-line",
+    otherChoiceVisible: "我帶了失敗的那一版，想先聽你怎麼看。",
+    xp: met.xp,
+    semester: met.semester,
+  });
+
+  const copperCrate = SUPPLY_NODES[3];
+  await page.evaluate(({ x, z }) => {
+    window.__controlsTest.setPose(x, z, 0);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
+  }, copperCrate);
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 4));
+  const copperButton = page.locator(".ad-interact button");
+  await copperButton.waitFor({ state: "visible", timeout: 15000 });
+  const copperLabel = await copperButton.innerText();
+  assert.match(copperLabel, /銅線圈/);
+  const copperBefore = await page.evaluate(() => window.__rpgQA.inventory.count("copper"));
+  await copperButton.click();
+  const copperAfter = await page.evaluate(() => window.__rpgQA.inventory.count("copper"));
+  assert.equal(copperAfter, copperBefore + 1);
+  assert.ok(copperAfter >= 2, `copper stayed at ${copperAfter}`);
+
+  const standingBuildings = await page.evaluate(() =>
+    window.__rpgQA.rpg.getState().buildings.map((item) => ({
+      id: item.id,
+      kind: item.kind,
+      x: item.x,
+      z: item.z,
+      rotation: item.rotation,
+      hp: item.hp,
+    })),
+  );
+  const researchPose = legalResearchPose(standingBuildings);
+  assert.ok(researchPose);
+  await page.getByRole("button", { name: "建造", exact: true }).click();
+  const researchCard = page.locator("article").filter({
+    has: page.getByRole("heading", { name: "研究桌" }),
+  });
+  await researchCard.getByRole("button", { name: "放置" }).click();
+  await page.evaluate(
+    ({ x, z, yaw }) => window.__controlsTest.setPose(x, z, yaw),
+    researchPose,
+  );
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 2));
+  const researchBar = page.locator(".ad-interact");
+  await researchBar.getByRole("button", { name: "放置" }).click();
+  const researched = await readLive(page);
+  assert.ok(researched.buildings.includes("research"));
+  assert.ok(researched.buildings.includes("lantern"));
+  await researchBar.getByRole("button", { name: "結束建造" }).click();
+  await page.evaluate(() => {
+    const desk = window.__rpgQA.rpg.getState().buildings.find((item) => item.kind === "research");
+    window.__controlsTest.setPose(desk.x, desk.z + 2.2, 0);
+    window.__rpgQA.rpg.setState({ panel: null, buildKind: null });
+  });
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 2));
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.getByRole("button", { name: "背包", exact: true }).click();
+  const wrenchCard = page.locator("[aria-label=製作] article").filter({ hasText: "修復扳手" });
+  await wrenchCard.getByRole("button", { name: "製作" }).click();
+  await page.getByRole("button", { name: "修復扳手 1 個" }).click();
+  await page.locator("button.ad-primary").filter({ hasText: /^裝備$/ }).click();
+  const wornGear = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg.getState();
+    const row = rpg.gear.find((item) => item.itemId === "repair-wrench");
+    return {
+      tool: rpg.loadout.tool,
+      accessory: rpg.loadout.accessory,
+      durability: row?.durability ?? null,
+    };
+  });
+  assert.equal(wornGear.tool, "repair-wrench");
+  assert.equal(wornGear.accessory, "badge");
+  assert.ok(wornGear.durability > 0);
+  await shot(page, "09-wrench");
+  await page.getByRole("button", { name: "關閉" }).click();
+  note("craft-wrench", wornGear);
+
+  await page.setViewportSize({ width: 1280, height: 720 });
+  assert.equal((await readLive(page)).semester, "midterm");
+  await page.getByRole("button", { name: "學期委託" }).click();
+  const lockedMission = page.locator("article").filter({
+    has: page.getByRole("heading", { name: "第一堂異象課" }),
+  });
+  const lockedButton = lockedMission.getByRole("button", { name: "領取獎勵" });
+  await lockedButton.waitFor({ state: "visible", timeout: 15000 });
+  assert.equal(await lockedButton.isDisabled(), true);
+  await shot(page, "10-mission-locked");
+  await page.getByRole("button", { name: "關閉" }).click();
+  const kills = await page.evaluate(() => {
+    const rpg = window.__rpgQA.rpg;
+    for (const id of ["quiz-2", "quiz-1", "report-1", "exam-1"]) {
+      if (rpg.getState().kills >= 3) break;
+      const enemy = rpg.getState().enemies.find((item) => item.id === id);
+      if (!enemy || enemy.hp <= 0) continue;
+      window.__controlsTest.setPose(enemy.x, enemy.z + 2.4, 0);
+      let hp = enemy.hp;
+      for (let i = 0; i < 40 && hp > 0; i += 1) {
+        rpg.setState({ attackUntil: 0, panel: null });
+        rpg.getState().attack(false);
+        hp = rpg.getState().enemies.find((item) => item.id === id)?.hp ?? 0;
+      }
+    }
+    return rpg.getState().kills;
+  });
+  assert.ok(kills >= 3, `kills stayed at ${kills}`);
+  const armedMission = await readLive(page);
+  assert.equal(armedMission.semester, "midterm");
+  assert.equal(armedMission.claimed.includes("first"), false);
+  await page.getByRole("button", { name: "學期委託" }).click();
+  const mission = page.locator("article").filter({
+    has: page.getByRole("heading", { name: "第一堂異象課" }),
+  });
+  const xpBeforeClaim = (await readLive(page)).xp;
+  await mission.getByRole("button", { name: "領取獎勵" }).click();
+  const claimedMission = await readLive(page);
+  assert.ok(claimedMission.claimed.includes("first"));
+  assert.equal(claimedMission.claimed.filter((id) => id === "first").length, 1);
+  assert.equal(claimedMission.semester, "finals");
+  assert.equal(claimedMission.semesterText, "期末 · 委託已結算");
+  assert.equal(claimedMission.xp, xpBeforeClaim + 60);
+  assert.equal(await mission.getByRole("button", { name: "已領取" }).isDisabled(), true);
+  const paidOnce = await page.evaluate(() => {
+    const before = window.__rpgQA.rpg.getState().xp;
+    window.__rpgQA.rpg.getState().claim("first");
+    return window.__rpgQA.rpg.getState().xp === before;
+  });
+  assert.equal(paidOnce, true);
+  await page.getByRole("button", { name: "關閉" }).click();
+  await shot(page, "10b-finals");
+  note("mission-first", {
+    kills,
+    xp: claimedMission.xp,
+    semester: claimedMission.semester,
+    text: claimedMission.semesterText,
+  });
 
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const savedText = await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2"));
@@ -199,13 +612,38 @@ async function playOffline(page) {
   assert.equal(reloaded.xp, saved.xp);
   assert.ok(reloaded.claimed.includes("quest-orient-gate"));
   assert.ok(reloaded.claimed.includes("quest-errand-campus-post"));
-  assert.equal(reloaded.semester, "midterm");
+  assert.ok(reloaded.claimed.includes("semester"));
+  assert.ok(reloaded.claimed.includes("quest-gv-night-peace"));
+  assert.ok(reloaded.claimed.includes("quest-faculty-gu-meet"));
+  assert.ok(reloaded.claimed.includes("quest-faculty-studio-meet"));
+  assert.ok(reloaded.claimed.includes("first"));
+  assert.equal(reloaded.claimed.filter((id) => id === "first").length, 1);
+  assert.equal(reloaded.semester, "finals");
+  assert.equal(reloaded.equipped, true);
+  assert.ok(reloaded.buildings.includes("lantern"));
+  assert.ok(reloaded.buildings.includes("research"));
+  const reloadedGear = await page.evaluate(() => window.__rpgQA.rpg.getState().loadout);
+  assert.equal(reloadedGear.tool, "repair-wrench");
+  assert.equal(reloadedGear.accessory, "badge");
   assert.equal(reloaded.flag, true);
+  const reloadedFaculty = await page.evaluate(() => {
+    const flags = window.__rpgQA.rpg.getState().narrative.flags;
+    return flags["fac-gu-meet-line"] === true && flags["fac-gu-meet-fail"] !== true;
+  });
+  assert.equal(reloadedFaculty, true);
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const reloadedDoc = JSON.parse(await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2")));
   assert.equal(notesOf(reloadedDoc), notesOf(saved));
+  assert.equal(slotCount(reloadedDoc, "badge"), 1);
+  assert.equal(reloadedDoc.equipped, true);
   await shot(page, "06-reloaded");
-  note("save-reload", { xp: reloaded.xp, notes: notesOf(reloadedDoc), departmentId: reloaded.departmentId });
+  note("save-reload", {
+    xp: reloaded.xp,
+    notes: notesOf(reloadedDoc),
+    departmentId: reloaded.departmentId,
+    equipped: reloaded.equipped,
+    buildings: reloaded.buildings,
+  });
   assert.deepEqual(api, []);
   report.apiRequests = api;
   return reloadedDoc;
@@ -357,11 +795,25 @@ async function syncCloud(document) {
     assert.equal(remote.departmentId, document.departmentId);
     assert.ok(remote.claimed.includes("quest-orient-gate"));
     assert.ok(remote.claimed.includes("quest-errand-campus-post"));
-    assert.equal(remote.narrative.semester, "midterm");
+    assert.ok(remote.claimed.includes("semester"));
+    assert.ok(remote.claimed.includes("quest-gv-night-peace"));
+    assert.ok(remote.claimed.includes("quest-faculty-gu-meet"));
+    assert.equal(remote.narrative.flags["fac-gu-meet-line"], true);
+    assert.ok(remote.claimed.includes("first"));
+    assert.equal(remote.narrative.semester, "finals");
+    assert.equal(remote.equipped, true);
+    assert.equal(remote.loadout.tool, "repair-wrench");
+    assert.equal(remote.loadout.accessory, "badge");
+    assert.ok(remote.gear.some((row) => row.itemId === "repair-wrench" && row.quality === "plain"));
+    assert.equal(remote.buildings.length, 2);
+    assert.ok(remote.buildings.some((row) => row.kind === "lantern"));
+    assert.ok(remote.buildings.some((row) => row.kind === "research"));
     note("second-client", {
       xp: remote.xp,
       departmentId: remote.departmentId,
       semester: remote.narrative.semester,
+      equipped: remote.equipped,
+      buildings: remote.buildings.length,
     });
 
     const leftDoc = { ...document, xp: document.xp + 3 };

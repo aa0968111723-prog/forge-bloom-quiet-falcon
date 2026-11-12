@@ -1574,7 +1574,7 @@ textarea:focus-visible,
     font-size: 7px;
   }
   .ad-interact {
-    bottom: 90px;
+    bottom: 176px;
     font-size: var(--ad-type);
     padding: 9px 10px;
     gap: 7px;
