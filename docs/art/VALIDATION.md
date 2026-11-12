@@ -431,3 +431,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 76 輪（司令臺坡面）— 2026-11-12
 
 `node --test scripts/stand-deck.test.mjs` 通過。`tsc --noEmit` 通過。地面網格在台外畫出同一條坡，人站在坡上時腳下有土。台面高度留在第 75 輪。台高仍是 estimated。沒有新增音效。`build:site` 產物 `AdventureApp-CAvp3y0D.js`。
+
+## 第 77 輪（路人畫質）— 2026-11-12
+
+`node --test scripts/npc-lod.test.mjs` 通過。`tsc --noEmit` 通過。高畫質路人用角色組，140 m 外不繪製。低畫質改用程序學生，90 m 外不繪製，不載入 npc-kit。定步低畫質站在宮燈大道，頁面無錯誤：`docs/art/evidence/npc/low.jpg`。路上看得到走路的學生。司令臺坡面留在第 76 輪。沒有新增音效。

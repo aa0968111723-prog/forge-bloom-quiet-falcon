@@ -5,6 +5,8 @@ import { Student } from "./Student";
 import { terrainHeight } from "./world";
 import { ArtBoundary } from "./art/ArtBoundary";
 import { NpcCharacter } from "./art/character/NpcCharacter";
+import { npcDrawRange, npcUsesDetailedKit } from "./npc-lod";
+import { quality } from "./quality";
 
 /**
  * NPC walking loops on the real-scale campus. Students walk the avenue paving,
@@ -59,13 +61,13 @@ const ACCENTS = ["#1a3f6d", "#3d4f63", "#5b3d32", "#1a3f6d", "#2c4a3a"];
  */
 const ROSTER = ["avenue-freshman", "colonnade-architect", "plaza-linguist", "library-researcher", "kenan-athlete"];
 
-/** Beyond this the walker is not drawn; the campus is ~1 km across. */
-const DRAW_RANGE = 140;
-
 const QA = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("qa") === "1";
 
 function Walker({ path, accent, phase }: { path: [number, number][]; accent: string; phase: number }) {
   const ref = useRef<THREE.Group>(null);
+  const tier = quality().tier;
+  const drawRange = npcDrawRange(tier);
+  const detailed = npcUsesDetailedKit(tier);
   const speed = 1.35 + (phase % 5) * 0.12;
   const distRef = useRef(0);
   const segs = useMemo(() => {
@@ -99,7 +101,7 @@ function Walker({ path, accent, phase }: { path: [number, number][]; accent: str
     if (ref.current) {
       ref.current.position.set(x, terrainHeight(x, z), z);
       ref.current.rotation.y = yaw + Math.PI;
-      ref.current.visible = Math.hypot(camera.position.x - x, camera.position.z - z) < DRAW_RANGE;
+      ref.current.visible = Math.hypot(camera.position.x - x, camera.position.z - z) < drawRange;
       if (QA) {
         const qa = (window.__npcQA ??= { walkers: [] });
         qa.walkers[phase] = { id: ROSTER[phase % ROSTER.length], x, y: ref.current.position.y, z, yaw: yaw + Math.PI };
@@ -112,11 +114,15 @@ function Walker({ path, accent, phase }: { path: [number, number][]; accent: str
   const standIn = <Student speed={0.7} accent={accent} castShadow={false} />;
   return (
     <group ref={ref}>
-      <ArtBoundary id="char.npc-kit" fallback={standIn}>
-        <Suspense fallback={standIn}>
-          <NpcCharacter presetId={ROSTER[phase % ROSTER.length]} speed={speed} />
-        </Suspense>
-      </ArtBoundary>
+      {detailed ? (
+        <ArtBoundary id="char.npc-kit" fallback={standIn}>
+          <Suspense fallback={standIn}>
+            <NpcCharacter presetId={ROSTER[phase % ROSTER.length]} speed={speed} />
+          </Suspense>
+        </ArtBoundary>
+      ) : (
+        standIn
+      )}
     </group>
   );
 }

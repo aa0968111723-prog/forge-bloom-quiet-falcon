@@ -284,12 +284,15 @@
       "depends": [
         "ART-030"
       ],
-      "status": "in_progress",
-      "acceptance": "主角 LOD1 完成（9.1k，省電畫質使用，重測回到基準）；NPC 人群 LOD 待角色組完成",
+      "status": "needs_review",
+      "acceptance": "主角 LOD1 完成（9.1k，省電畫質使用，重測回到基準）；低畫質 NPC 用程序學生，近距離才畫",
       "evidence": [
-        "docs/art/evidence/m1/route/after-lod-low.json"
+        "docs/art/evidence/m1/route/after-lod-low.json",
+        "src/game/npc-lod.ts",
+        "scripts/npc-lod.test.mjs",
+        "docs/art/evidence/npc/low.jpg"
       ],
-      "notes": "主角 LOD1 完成；NPC 組以 LOD1 細節建置（每人 7.7–9.7 k 三角形）並在 140 m 外不繪製。"
+      "notes": "主角 LOD1 完成。高畫質 NPC 用角色組，140 m 外不繪製。低畫質改用程序學生，90 m 外不繪製，不載入 npc-kit。宮燈大道低畫質仍看得到走路的學生。"
     },
     {
       "id": "ART-034",

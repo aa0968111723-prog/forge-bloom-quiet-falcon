@@ -474,3 +474,12 @@
 ## 下一步
 
 見 `CHECKPOINT.json`。司令臺台面已能站人。後方小間仍擋住。台高仍是 estimated。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+## 階段：路人畫質（ART-033 的一部分）
+
+高畫質路人用角色組，140 m 外不繪製。低畫質改用程序學生，90 m 外不繪製，不載入 npc-kit。宮燈大道低畫質仍看得到走路的學生。游泳館留著。
+
+畫面：`docs/art/evidence/npc/low.jpg`。測試：`scripts/npc-lod.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。低畫質路人已改用程序學生。游泳館與課程標記留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
