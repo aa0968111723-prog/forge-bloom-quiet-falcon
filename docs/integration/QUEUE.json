@@ -5600,6 +5600,34 @@
       "integrationPr": 345,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/345",
       "nextAction": "None. The sand pit from 4310e4c1 is already in this integration. This is on integration PR #345. Do not merge PR #287 by itself. The next art commit is 13baaacf549ad971be0a3c2b1ff9e1e0bb53df6c on PR #289."
+    },
+    {
+      "id": "art-zebra",
+      "line": "art",
+      "scope": "Six zebra bars sit on the slope apron between the gate piers. Their south edge stays on the apron and clear of the bollards. The paint is flat and walkable.",
+      "status": "verified",
+      "pr": 289,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/289",
+      "integrationBranch": "cursor/integration-zebra-3395",
+      "sourceBranch": "cursor/gate-crosswalk-1a71",
+      "baseSha": "2952971bc0f031ea7c231aa550a9dea8e01b99b1",
+      "headSha": "13baaacf549ad971be0a3c2b1ff9e1e0bb53df6c",
+      "dependencies": ["art-sand-pit"],
+      "sharedFiles": ["src/game/world-data/crosswalk.ts", "src/game/landmarks/KenanSlope.tsx", "scripts/gate-crosswalk.test.mjs"],
+      "checks": {
+        "conflicts": "The bars are painted on the slope apron. They have no collision. The sand pit and the finish stripe stay.",
+        "typecheck": "pass",
+        "npmTest": "475 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CD48jCI7.js sha256 31f097a4a0c4228aaef545d46278675c7ea37f24d1130e39343b5457d7dac14d. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8271/",
+        "route": "8271 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User zbTSfhM21wH4tSmF0s7FUZxUItjFouT2."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Recorded before the integration PR. The zebra crossing from 13baaacf is in this branch and is not on main yet. Do not merge PR #289 by itself. The next art commit is 9ba627807e8ee240c0b4bc335a046af7604a3150 on PR #290."
     }
   ]
 }
