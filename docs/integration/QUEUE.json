@@ -1878,7 +1878,7 @@
       "id": "art-prop-clearance",
       "line": "art",
       "scope": "Street lamps that landed inside solids move 1.2 m outside the nearest wall. The library name plate faces south of its wall. Positions stay estimated.",
-      "status": "verified",
+      "status": "merged",
       "pr": 138,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/138",
       "integrationBranch": "cursor/integration-prop-clearance-3395",
@@ -1896,11 +1896,11 @@
         "route": "8143: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #138 by itself. Do not merge PR #122: its game code is older than main and its route places a lantern before the player has parts."
+      "merged": true,
+      "mergeSha": "6d3aac67351028f419a620a345693288b6d4a880",
+      "integrationPr": 141,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/141",
+      "nextAction": "None. The lamp clearance from e092064 is already in this integration. Do not merge PR #138 by itself. Do not merge PR #122."
     }
   ]
 }
