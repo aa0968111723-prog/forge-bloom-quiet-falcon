@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T08:55:00Z",
+      "updated": "2026-11-12T09:05:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3556,6 +3556,32 @@
       "integrationPr": 253,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/253",
       "nextAction": "None. The clipped variety note from 7eb68b82 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-empty-seed",
+      "line": "backend",
+      "scope": "Import and snapshot replace an empty narrative seed, or a seed of 64 characters, with campus. A seed of 1 to 63 characters stays, and the rng and memory stay. A raw upload of an empty or 64-character seed is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-empty-seed-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "311dca109656b90a47b9ef01b5640213d9bbe741",
+      "headSha": "1ae37943a7e9873121fa53656b684560cd12991d",
+      "dependencies": ["backend-long-note"],
+      "sharedFiles": ["src/game/rpg/narrative-bridge.ts", "src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T08:07:01Z and the empty seed line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "405 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-deMaQQIO.js",
+        "browser": "8202. The standing route completed.",
+        "route": "8202: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "3a2be39685e190865b8da4f5470d2a02b0d9f860",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
