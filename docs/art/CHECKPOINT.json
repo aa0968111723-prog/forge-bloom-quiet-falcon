@@ -56,7 +56,7 @@
     "typecheck": "pass",
     "npm_test": "ship-bow and unused-textures pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-CAvp3y0D.js",
+    "build_site": "AdventureApp-7L6j7Fgv.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [

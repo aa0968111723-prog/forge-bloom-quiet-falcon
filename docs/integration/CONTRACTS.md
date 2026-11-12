@@ -20,7 +20,7 @@
 | `creature.report` | `kind === "report"` | `CreatureActor` | 同上 |
 | `creature.exam` | `kind === "exam"` | `CreatureActor` | 同上 |
 | `creature.final` | `kind === "final"` | `CreatureActor` | 同上 |
-| `char.npc-kit` | 五條既有路徑上的 NPC | `NpcCharacter` | 改回程序 `Student` |
+| `char.npc-kit` | 五條既有路徑上的 NPC。高畫質 140 m 內用角色組。低畫質用程序學生，90 m 外不繪製 | 高畫質 `NpcCharacter`，低畫質程序 `Student` | 角色組失敗時改回程序 `Student` |
 
 URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`：釋放複製材質與骨架 bone texture，不釋放共享幾何。
 

@@ -434,4 +434,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 77 輪（路人畫質）— 2026-11-12
 
-`node --test scripts/npc-lod.test.mjs` 通過。`tsc --noEmit` 通過。高畫質路人用角色組，140 m 外不繪製。低畫質改用程序學生，90 m 外不繪製，不載入 npc-kit。定步低畫質站在宮燈大道，頁面無錯誤：`docs/art/evidence/npc/low.jpg`。路上看得到走路的學生。司令臺坡面留在第 76 輪。沒有新增音效。
+`node --test scripts/npc-lod.test.mjs` 通過。`tsc --noEmit` 通過。高畫質路人用角色組，140 m 外不繪製。低畫質改用程序學生，90 m 外不繪製，不載入 npc-kit。定步低畫質站在宮燈大道，頁面無錯誤：`docs/art/evidence/npc/low.jpg`。路上看得到走路的學生。司令臺坡面留在第 76 輪。沒有新增音效。`build:site` 產物 `AdventureApp-7L6j7Fgv.js`。
