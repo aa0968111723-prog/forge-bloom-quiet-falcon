@@ -5567,11 +5567,11 @@
         "route": "8269 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User 0aY8qQpnyVo6Hw6Bu4yBISc5EsqLSvwf."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Recorded before the integration PR. The track finish stripe from 7f328f22 is in this branch and is not on main yet. Do not merge PR #285 by itself. The next art commit is 4310e4c123ee454c282dd5445738ef5570712fdc on PR #287."
+      "merged": true,
+      "mergeSha": "b5d90256d11bb02d8b34fa955af1179956db06af",
+      "integrationPr": 344,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/344",
+      "nextAction": "None. The track finish stripe from 7f328f22 is already in this integration. This is on integration PR #344. Do not merge PR #285 by itself. The next art commit is 4310e4c123ee454c282dd5445738ef5570712fdc on PR #287."
     }
   ]
 }
