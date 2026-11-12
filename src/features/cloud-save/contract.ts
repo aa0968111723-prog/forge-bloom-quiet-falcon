@@ -10,6 +10,8 @@ export const CLOUD_ACTIVE_USER_KEY = "tamkang-cloud-save-active-user";
 export const MAX_SAVE_BYTES = 262_144;
 export const SAVE_HISTORY_LIMIT = 8;
 export const MAX_BUILDINGS = 48;
+/** Supply nodes plus one cooldown for every built station. */
+export const MAX_HARVEST_KEYS = MAX_BUILDINGS + 64;
 export const MAX_SLOTS = 24;
 /** A full campus snapshot: facilities, bags, narrative maps, loot, and one variety board. */
 export const MAX_DOCUMENT_KEYS = 8_000;
@@ -650,17 +652,24 @@ function checkCountMap(value: unknown, keys: readonly string[], label: string): 
   return { ok: true, document: {} };
 }
 
+function harvestKeyOk(key: string): boolean {
+  if (UNSAFE_KEY.has(key)) return false;
+  if (!key.startsWith("facility:")) return ID_PATTERN.test(key);
+  const id = key.slice("facility:".length);
+  return id.length >= 1 && id.length <= 80 && !UNSAFE_KEY.has(id);
+}
+
 function checkHarvested(value: unknown): ValidationResult {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return { ok: false, code: "invalid_document", message: "採集時間格式不正確。" };
   }
   const row = value as Record<string, unknown>;
   const keys = Object.keys(row);
-  if (keys.length > 64) {
+  if (keys.length > MAX_HARVEST_KEYS) {
     return { ok: false, code: "invalid_document", message: "採集時間超過上限。" };
   }
   for (const key of keys) {
-    if (!ID_PATTERN.test(key) || !finiteIn(row[key], 0, 1e15)) {
+    if (!harvestKeyOk(key) || !finiteIn(row[key], 0, 1e15)) {
       return { ok: false, code: "invalid_document", message: "採集時間不正確。" };
     }
   }

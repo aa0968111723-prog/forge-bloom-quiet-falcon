@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { MAX_DOCUMENT_KEYS, validateRpgDocument } from "../src/features/cloud-save/contract.ts";
+import { SUPPLY_NODES } from "../src/game/rpg/campus.ts";
 import { emptyFelled, emptyGathered } from "../src/game/rpg/data.ts";
 
 const base = {
@@ -241,4 +242,29 @@ test("quest marks on ground loot stay in the cloud document", () => {
   });
   assert.equal(over.ok, false);
   if (!over.ok) assert.equal(over.code, "invalid_document");
+});
+
+test("a full campus of harvest cooldowns still passes the cloud contract", () => {
+  const until = 1_700_000_000_000;
+  const stationId = "Imported-Desk-".padEnd(60, "a");
+  const harvested = Object.fromEntries(SUPPLY_NODES.map((node) => [node.id, until]));
+  const buildings = Array.from({ length: 48 }, (_, index) => {
+    const id = index === 0 ? stationId : `station-${index}`.padEnd(36, "b");
+    harvested[`facility:${id}`] = until;
+    return { id, kind: "desk", x: index, z: index + 1, rotation: 0, hp: 100 };
+  });
+  const checked = validateRpgDocument({ ...base, buildings, harvested });
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+
+  const oversized = validateRpgDocument({
+    ...base,
+    harvested: { [`facility:${"a".repeat(81)}`]: until },
+  });
+  assert.equal(oversized.ok, false);
+  if (!oversized.ok) assert.equal(oversized.code, "invalid_document");
+
+  const crowded = Object.fromEntries(Array.from({ length: 113 }, (_, index) => [`node-${index}`, until]));
+  const tooMany = validateRpgDocument({ ...base, harvested: crowded });
+  assert.equal(tooMany.ok, false);
+  if (!tooMany.ok) assert.match(tooMany.message, /超過上限/);
 });

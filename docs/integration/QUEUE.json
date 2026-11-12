@@ -2825,6 +2825,34 @@
       "integrationPr": 208,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/208",
       "nextAction": "None. The dropped-upload follow-up read from a899394 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-harvest-keys",
+      "line": "backend",
+      "scope": "The cloud harvest map accepts every supply node plus one cooldown for each of 48 built stations, 112 keys in total. A facility id is 1 to 80 characters. More keys, a longer id, or an unsafe key is rejected.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-harvest-keys-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "bd69066176a9843af03ce46cad0c9181280739d6",
+      "headSha": "42a7b3f4f4180fa123477519eeab1ae9130294e4",
+      "dependencies": ["backend-drop-read", "backend-harvest-hold"],
+      "sharedFiles": ["src/features/cloud-save/contract.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json auto-merged. Kept the newer 2026-11-12T06:09:07Z entry and the harvest-keys line.",
+        "typecheck": "pass",
+        "npmTest": "371 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-wsEEgaCK.js unchanged",
+        "browser": "8176. The standing route completed.",
+        "route": "8176: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "ac6f8e046b337cddac87da1b3a6f16ac18eacc7d",
+      "integrationPr": 210,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/210",
+      "nextAction": "None. The harvest cooldown whitelist from 42a7b3f is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
