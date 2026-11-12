@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T07:49:32Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "6e90df9",
+  "base": "1b24d66",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -89,7 +89,8 @@
     "a narrative place the cloud cannot name still uploads",
     "merged main at 6e90df9; the repaired ground pile was already on this branch",
     "a narrative timer outside the cloud range still uploads",
-    "an empty narrative key still uploads the named entries"
+    "an empty narrative key still uploads the named entries",
+    "merged main at 1b24d66; the move-lesson anchor was already on this branch"
   ],
   "verification": {
     "npm_test": "400 pass, 0 fail; an empty narrative key still uploads the named entries",

@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T07:43:03Z",
+      "updated": "2026-11-12T07:49:04Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3248,6 +3248,34 @@
       "integrationPr": 234,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/234",
       "nextAction": "None. The repaired ground pile from a90f2b37 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-move-anchor",
+      "line": "backend",
+      "scope": "When a move lesson anchor is outside the cloud coordinate range, import stands the player at the restored position and keeps the move lesson. An anchor inside the range stays where it was. A raw upload of an anchor past that range is still rejected.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-move-anchor-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "6e90df91337bbedef22e537643807282f55af101",
+      "headSha": "d415927981ea3d8206470ba3e6f4609e0dd8aeda",
+      "dependencies": ["backend-loot-pile"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json and store.ts auto-merged. Kept 2026-11-12T07:32:59Z and the unusable-anchor line.",
+        "typecheck": "pass",
+        "npmTest": "394 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-B7Fd-hdc.js",
+        "browser": "8191. The standing route completed.",
+        "route": "8191: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "832c66283385bf315d0a74578b52342f813625b7",
+      "integrationPr": 235,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/235",
+      "nextAction": "None. The move-lesson anchor from d4159279 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
