@@ -4424,6 +4424,34 @@
       "integrationPr": 303,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/303",
       "nextAction": "None. The unused textures from 06f41bde are already in this integration. Do not merge PR #154 by itself."
+    },
+    {
+      "id": "art-museum-bow",
+      "line": "art",
+      "scope": "The maritime museum bow covers the forward face and comes to a point ahead of it. The four triangles wind inward, so the outside is culled. Bow length stays estimated.",
+      "status": "verified",
+      "pr": 127,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/127",
+      "integrationBranch": "cursor/integration-museum-bow-3395",
+      "sourceBranch": "cursor/museum-bow-1a71",
+      "baseSha": "d4d99a56d6fec89e714f09ac008d22377dd0dc54",
+      "headSha": "2d81b0be99d8fbf98fc04f0a6f4dfe9b0fa46b8b",
+      "dependencies": ["art-unused-textures"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx", "scripts/ship-bow.test.mjs"],
+      "checks": {
+        "conflicts": "capture-art and docs/art. ShipMass replaced the old cone. Kept earlier milestones. build_site set to AdventureApp-CM7g8qKG.js.",
+        "typecheck": "pass",
+        "npmTest": "439 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CM7g8qKG.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "8232",
+        "route": "8232: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "c49bc2ac77f3a728901d1ed007a6a73c52ca9877",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. The next commit is d0fd98b, which flips the winding. Do not merge PR #127 by itself."
     }
   ]
 }

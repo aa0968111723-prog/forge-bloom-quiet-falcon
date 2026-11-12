@@ -414,4 +414,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 72 輪（海事博物館船首）— 2026-11-12
 
-`node --test scripts/ship-bow.test.mjs` 通過。`tsc --noEmit` 通過。船首底邊落在前臉內側 0.08 m，四個角蓋滿前臉的高和寬，尖端在前臉前方、高度在船身中線。四個三角面的繞序朝內。船身長度仍是 estimated。未引用貼圖留在第 71 輪。沒有新增音效。`build:site` 產物 `BUNDLE_AFTER_BUILD`。
+`node --test scripts/ship-bow.test.mjs` 通過。`tsc --noEmit` 通過。船首底邊落在前臉內側 0.08 m，四個角蓋滿前臉的高和寬，尖端在前臉前方、高度在船身中線。四個三角面的繞序朝內。船身長度仍是 estimated。未引用貼圖留在第 71 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CM7g8qKG.js`。

@@ -1341,13 +1341,21 @@ PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒
 
 瀏覽器 `http://127.0.0.1:8231/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；同時上傳時較早落地的那一邊是經驗加 3，所以雲端經驗是 47；斷線的加 1 留在佇列；登出 401。`pageErrors` 空。幀時間是 SwiftShader。第一次跑到戰鬥後瀏覽器關閉時遇到 EIO，同一條路線重跑通過。靜態產物換了，所以重跑這條路線。
 
-## 未引用的照片貼圖移出靜態站（本輪）
+## 未引用的照片貼圖移出靜態站
 
 來源 `06f41bd` 接到 `af57061`。美術文件衝突。球場球網、機車格和先前的里程留著。JS 產物仍是 `AdventureApp-BNiW9u13.js`。測試數從 437 變成 438。
 
 `public/textures` 不存在。`src` 與 `index.html` 沒有 `/textures/`。刪掉的四張是 grass.jpg 393,689 bytes、palace-wall.jpg 274,113、roof.jpg 259,235、stone.jpg 272,724，合計 1,199,761 bytes。`build:site` 之後 `dist/textures` 不存在，`dist/assets` 也沒有 `cloud-save` 或 `DATABASE_URL`。材質庫仍是 `public/materials/tamkang`。meshopt 與 KTX2 仍是 planned。`npm run typecheck` 通過。`npm test` 438 通過，其中「unreferenced photo textures are not part of the static site」涵蓋這項。
 
 JS 產物的檔名和大小都沒變，跨系統路線沒有重跑，仍是 8231 那一次：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；同時上傳時較早落地的那一邊是經驗加 3，所以雲端經驗是 47；斷線的加 1 留在佇列；登出 401。`pageErrors` 空。
+
+## 海事博物館船首接到前臉（本輪）
+
+來源 `2d81b0b` 接到 `d4d99a5`。截圖腳本和美術文件衝突。未引用貼圖、球場球網和先前的里程留著。檢查點的靜態產物改成這棵樹的 `AdventureApp-CM7g8qKG.js`。測試數從 438 變成 439。
+
+船首底邊落在前臉內側 0.08 m，四個角蓋滿前臉的高和寬，尖端在前臉前方、高度在船身中線。四個三角面的繞序朝內，外側會被剔除。船身長度仍是 estimated。`npm run typecheck` 通過。`npm test` 439 通過，其中「the maritime museum bow covers the forward face」涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8232/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；同時上傳時較早落地的那一邊是經驗加 3，所以雲端經驗是 47；斷線的加 1 留在佇列；登出 401。`pageErrors` 空。幀時間是 SwiftShader。靜態產物換了，所以重跑這條路線。
 
 ## 本輪沒有驗的項目
 
