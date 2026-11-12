@@ -108,6 +108,35 @@ export function registerTrunkBoxes(boxes: readonly AABB[]) {
   trunkBoxes = boxes.slice();
 }
 
+/** Specimen trunks registered by vegetation. Sweep casts read this; it stays out of COLLIDERS. */
+export function trunkAabbs(): readonly AABB[] {
+  return trunkBoxes;
+}
+
+/** Short enough that an 80 ms dodge at 13 m/s cannot step past a trunk's centre. */
+export const COLLISION_SUBSTEP = 0.2;
+
+export function substepCollision(
+  x: number,
+  z: number,
+  dx: number,
+  dz: number,
+  radius: number,
+  collide: (x: number, z: number, radius: number) => { x: number; z: number } = (px, pz, r) =>
+    resolveCollision(px, pz, r),
+): { x: number; z: number } {
+  const dist = Math.hypot(dx, dz);
+  const n = Math.max(1, Math.ceil(dist / COLLISION_SUBSTEP));
+  let px = x;
+  let pz = z;
+  for (let i = 0; i < n; i++) {
+    const next = collide(px + dx / n, pz + dz / n, radius);
+    px = next.x;
+    pz = next.z;
+  }
+  return { x: px, z: pz };
+}
+
 /** Island kerb of the dolphin roundabout, kept out of COLLIDERS so it is walkable. */
 export const DOLPHIN_ISLAND = {
   center: [0, AXIS.dolphinZ] as const,

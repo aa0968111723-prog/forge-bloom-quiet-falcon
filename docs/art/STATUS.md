@@ -387,7 +387,7 @@
 
 ## 階段：樹幹（ART-085 的一部分）
 
-校區裡點名的 134 棵樹，樹幹會擋住半徑 0.42 m 的身體。從西邊走向坡底那棵榕樹會停在樹幹外。灌木和地面植物沒有樹幹。巡禮折線和估計路網仍走得過。樹位仍是 estimated。遠景散佈的樹仍可走過去。田徑場內圈留著。
+校區裡點名的 134 棵樹，樹幹會擋住半徑 0.42 m 的身體。從西邊走向坡底那棵榕樹會停在樹幹外。80 ms、13 m/s 的閃避拆成 0.2 m 的小步，不會穿到樹幹另一側。灌木和地面植物沒有樹幹。巡禮折線和估計路網仍走得過。樹位仍是 estimated。遠景散佈的樹仍可走過去。田徑場內圈留著。
 
 畫面：`docs/art/evidence/planting/trunk.jpg`。測試：`scripts/tree-stop.test.mjs`、`scripts/route-walk.test.mjs`、`scripts/campus-links.test.mjs`。
 
