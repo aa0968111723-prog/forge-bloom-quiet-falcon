@@ -34,6 +34,8 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 `engineering` 的技能名稱是「結構脈衝」（傷害 40、範圍 12、冷卻 6）。`StructuralPulse` 讀 `attackFx`：範圍用 `attackFx.range`，命中對象用 `attackFx.hits`。其他學院的施放也讀 `attackFx`，各自畫 `CollegeCasts`。商管金幣只有一個命中點時，終點沿圓周散開，不疊在同一點。普攻光刃在 `src/game/art/vfx/basic-swing.ts`，跟著 0.46 秒攻擊片段從角色右側移到左側，蓄力幀在身前，長度約前臂，不跟著 `attackFx.range` 放大。
 
+`char.student-kit` 的每個動作片段取 17 個時間點，比較背包正面的蒙皮頂點和同一高度的外套背面。揹帶仍綁在胸口，不計入這段間隙。最靠近的是 run，間隙 22.0 mm。背包骨轉 90 度會穿進外套 116.7 mm，測試會失敗。靜止姿勢的外套環檢查仍在。這不是第二套角色。
+
 敵人 id 與種類（`src/game/rpg/data.ts`）：`quiz-1`…`quiz-4`、`report-1`、`report-2`、`exam-1`、`exam-2`、`final-1`。判定半徑仍是 `ENEMY_TYPES[kind].radius + 2.5`。預警圈用這個半徑。
 
 委託面板的 `claim(id)` 只結 `MISSIONS`。同一個 `claimed` 陣列也收校園事件的 `quest-*` id。校園獎勵走 `grantQuestReward`，不另開背包。學期故事裡還有另一個同名函式，兩本帳沒有合併。

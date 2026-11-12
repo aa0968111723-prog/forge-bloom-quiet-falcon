@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T00:00:00Z",
+      "updated": "2026-11-12T00:12:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1425,6 +1425,32 @@
       "integrationPr": 103,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/103",
       "nextAction": "None. The science-hall patch from 42980bb is already in this integration. Do not merge PR #90 by itself. Next is PR #91 at head 94e090f, then PR #93, then PR #96, then PR #97 at head 615c426, then PR #99 at head 15aff8c, then PR #101 at head 5c92b44, then PR #102 at head 3a2b5df. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-backpack-clearance",
+      "line": "art",
+      "scope": "Each student-kit clip samples the skinned backpack front against the jacket back. The closest sample is run at 22.0 mm. Pitching the bag bone 90 degrees intersects by 116.7 mm and fails the test. Straps stay on the chest and are not part of the gap.",
+      "status": "verified",
+      "pr": 91,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/91",
+      "integrationBranch": "cursor/integration-backpack-clearance-3395",
+      "sourceBranch": "cursor/backpack-clearance-1a71",
+      "baseSha": "2189e5a6bcd0",
+      "headSha": "94e090f65f2b9c640d0027476af707cd2fb0bb1e",
+      "dependencies": ["art-science-hall"],
+      "sharedFiles": ["art/characters/student-kit/backpack.ts", "scripts/art-pipeline.test.mjs"],
+      "checks": {
+        "conflicts": "The new clip test was inserted after the rest-pose check. Art docs keep the later rounds and add the skinned measurement. The earlier bone-origin commit dbf0bbe is not on main; this integration takes the skinned-vertex check from 94e090f.",
+        "typecheck": "pass",
+        "npmTest": "265 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8128. The playable AdventureApp chunk matches the science-hall build. No new posed capture; the change is a measurement. pageErrors empty on the route",
+        "route": "8128: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art-pipeline.test.mjs"],
+      "merged": false,
+      "mergeSha": "6bd8f021cc6a2e61a01ead6d96d5da6e701b9536",
+      "nextAction": "Do not merge PR #91 by itself. Next is PR #93, then PR #96, then PR #97 at head 615c426, then PR #99 at head 15aff8c, then PR #101 at head 5c92b44, then PR #102 at head 3a2b5df."
     }
   ]
 }
