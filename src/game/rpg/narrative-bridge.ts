@@ -50,16 +50,22 @@ export function narrativeClock(time: TimeOfDay): {
 /** Fired, resolved, and flag maps. Recent stays at 3. Forty dropped later faculty consequences. */
 export const NARRATIVE_SAVE_LIMIT = 200;
 
+function keepNarrativeKey(key: string) {
+  return key.length >= 1 && key.length < 80;
+}
+
 function stringList(value: unknown, limit: number): string[] {
   if (!Array.isArray(value)) return [];
-  return value.filter((item): item is string => typeof item === "string" && item.length < 80).slice(0, limit);
+  return value
+    .filter((item): item is string => typeof item === "string" && item.length >= 1 && item.length < 80)
+    .slice(0, limit);
 }
 
 function boolMap(value: unknown): Record<string, boolean> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const out: Record<string, boolean> = {};
   for (const [key, entry] of Object.entries(value).slice(0, NARRATIVE_SAVE_LIMIT)) {
-    if (typeof entry === "boolean" && key.length < 80) out[key] = entry;
+    if (typeof entry === "boolean" && keepNarrativeKey(key)) out[key] = entry;
   }
   return out;
 }
@@ -68,7 +74,7 @@ function stringMap(value: unknown): Record<string, string> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const out: Record<string, string> = {};
   for (const [key, entry] of Object.entries(value).slice(0, NARRATIVE_SAVE_LIMIT)) {
-    if (typeof entry === "string" && key.length < 80 && entry.length <= 80) out[key] = entry;
+    if (typeof entry === "string" && keepNarrativeKey(key) && entry.length <= 80) out[key] = entry;
   }
   return out;
 }
@@ -84,7 +90,7 @@ function numberMap(value: unknown): Record<string, number> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const out: Record<string, number> = {};
   for (const [key, entry] of Object.entries(value).slice(0, NARRATIVE_SAVE_LIMIT)) {
-    if (typeof entry === "number" && Number.isFinite(entry) && key.length < 80) {
+    if (typeof entry === "number" && Number.isFinite(entry) && keepNarrativeKey(key)) {
       out[key] = bringTimer(entry);
     }
   }
@@ -95,6 +101,10 @@ function clampTimerMap(map: Record<string, number>) {
   let changed = false;
   const next: Record<string, number> = {};
   for (const [key, value] of Object.entries(map)) {
+    if (!keepNarrativeKey(key)) {
+      changed = true;
+      continue;
+    }
     const brought = Number.isFinite(value) ? bringTimer(value) : value;
     next[key] = brought;
     if (brought !== value) changed = true;

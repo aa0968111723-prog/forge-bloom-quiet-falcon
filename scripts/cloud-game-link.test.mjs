@@ -566,3 +566,67 @@ test("a narrative timer outside the cloud range still uploads", () => {
   assert.equal(reloaded.narrative.memory["npc-chen-yu:last"], memory);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("an empty narrative key still uploads the named entries", () => {
+  const memory = "還在圖書館。";
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    narrative: {
+      version: 1,
+      seed: "campus",
+      rngState: 12,
+      minute: 480,
+      cooldowns: { "": 900, "event-bell": 1200 },
+      flags: { "": true, "seen-gate": true },
+      memory: { "": "空白", "npc-chen-yu:last": memory },
+      fired: ["", "event-rain"],
+    },
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(Object.hasOwn(saved.narrative.cooldowns, ""), false);
+  assert.equal(saved.narrative.cooldowns["event-bell"], 1200);
+  assert.equal(Object.hasOwn(saved.narrative.flags, ""), false);
+  assert.equal(saved.narrative.flags["seen-gate"], true);
+  assert.equal(Object.hasOwn(saved.narrative.memory, ""), false);
+  assert.equal(saved.narrative.memory["npc-chen-yu:last"], memory);
+  assert.deepEqual(saved.narrative.fired, ["event-rain"]);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.narrative.cooldowns["event-bell"], 1200);
+  assert.equal(reloaded.narrative.memory["npc-chen-yu:last"], memory);
+  assert.deepEqual(reloaded.narrative.fired, ["event-rain"]);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
+
+test("a quest claim longer than the cloud allows still uploads the others", () => {
+  const keptQuest = `quest-${"b".repeat(58)}`;
+  const droppedQuest = `quest-${"a".repeat(59)}`;
+  assert.equal(keptQuest.length, 64);
+  assert.equal(droppedQuest.length, 65);
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    claimed: ["first", droppedQuest, keptQuest, "explorer"],
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(saved.claimed, ["first", keptQuest, "explorer"]);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.deepEqual(reloaded.claimed, ["first", keptQuest, "explorer"]);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});
