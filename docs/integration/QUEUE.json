@@ -5259,9 +5259,11 @@
         "route": "8258 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "3642c769e87ae53b930927930b49b05eafaca804",
-      "nextAction": "Open the integration PR. Do not merge PR #267 by itself. The gym clerestory commit c3ce7704 is still separate."
+      "integrationPr": 333,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/333",
+      "nextAction": "None. The forecourt seat from 44bf4c9f is already in this integration. Do not merge PR #267 by itself. The gym clerestory commit c3ce7704 is still separate."
     }
   ]
 }
