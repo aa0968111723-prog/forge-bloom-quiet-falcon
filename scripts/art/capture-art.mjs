@@ -583,6 +583,22 @@ try {
       const live = await page.evaluate(() => window.__rpgQA.game.getState().timeOfDay);
       await shot(page, time, `timeOfDay=${live} wuhu field`);
     }
+  } else if (scenario === "courts") {
+    await hideHud(page);
+    await setPose(page, 425, -560, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(425, -595);
+      window.__controlsTest.setPhoto({
+        yaw: 0.35,
+        distance: 42,
+        height: 22,
+        lookY: 0,
+        target: { x: 425, y: y + 1, z: -595 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "wuhu", "two marked courts on the wuhu field");
   } else if (scenario === "interiors") {
     // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
     // These are game layouts, not surveyed rooms. Enter, look, exit, and check

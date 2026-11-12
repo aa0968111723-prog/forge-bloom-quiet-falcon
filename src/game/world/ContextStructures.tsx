@@ -28,6 +28,7 @@ import {
 } from "../world-data/zones/secondary.ts";
 import { type PlaneItem } from "./InstancedPlanes";
 import { makeSignTexture, useCampusSigns, useFontTick } from "./labels";
+import { courtMarkings } from "../world-data/court-lines.ts";
 import { worldUvBox } from "./geometry";
 
 /**
@@ -232,12 +233,23 @@ export function ContextStructures({
                   )}
                 />
               </mesh>
-              {(s.id === "volleyball-court" || s.id === "wuhu-courts") && (
-                <mesh position={[0, 1.15, 0]}>
-                  <boxGeometry args={[0.06, 2.3, s.size[2] * 0.6]} />
-                  <meshStandardMaterial color="#f3eee4" />
-                </mesh>
-              )}
+              {courtMarkings(s.id, s.size).map((line, i) => (
+                <group key={`${s.id}-line-${i}`}>
+                  <mesh
+                    position={[line.x, 0.11, line.z]}
+                    rotation={line.axis === "z" ? [0, Math.PI / 2, 0] : [0, 0, 0]}
+                  >
+                    <boxGeometry args={[line.length, 0.02, 0.08]} />
+                    <meshBasicMaterial color="#f4efe4" />
+                  </mesh>
+                  {line.net && (
+                    <mesh position={[line.x, 1.2, line.z]}>
+                      <boxGeometry args={[line.length, 2.1, 0.04]} />
+                      <meshStandardMaterial color="#f3eee4" />
+                    </mesh>
+                  )}
+                </group>
+              ))}
               {s.id === "track" && (
                 <>
                   <mesh

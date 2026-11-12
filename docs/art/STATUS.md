@@ -343,6 +343,12 @@
 
 畫面：`docs/art/evidence/courts/field-day.jpg`、`field-wet.jpg`。測試：`scripts/wet-surface.test.mjs`。
 
+## 階段：綜合球場標線（ART-067 的一部分）
+
+五虎崗綜合球場是兩塊有邊線、中線和球網的場。排球場有一圈邊線。標線都在草皮裡面。田徑場仍是跑道環，停車場仍是車格。標線尺寸仍是 estimated。雨後草皮仍把顏色乘小。樹仍留在場外。
+
+畫面：`docs/art/evidence/courts/wuhu.jpg`。測試：`scripts/court-lines.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。球場在雨後會變暗。草皮已不種樹。圖書館坡道已升到台基。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。綜合球場已有兩塊標線。雨後場地會變暗。草皮已不種樹。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
