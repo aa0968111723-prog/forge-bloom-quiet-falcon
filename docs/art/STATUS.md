@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：車阻（ART-084 的一部分）
+
+坡底兩根和海豚圓環十根車阻會擋住半徑 0.42 m 的身體。從西邊走向坡底西側那根會停在柱面外。圖書館巡禮從圓環東北側的缺口出去，圓環中線和三條折線仍走得過。柱位仍是 estimated。坡道欄杆和田徑場內圈留著。
+
+畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
