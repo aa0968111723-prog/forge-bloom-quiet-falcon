@@ -387,3 +387,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 65 輪（松濤二館）— 2026-11-12
 
 `node --test scripts/dorm-front.test.mjs scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。松濤二館是 dorm-front。一、三、四、五館仍是 dorm-block。麗澤仍是 intl-dorm。門廳低於樓高的四分之一，玻璃在南牆外，雨遮接到南牆。門面仍是 estimated。教育館留在第 64 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BMq2a5-L.js`。
+
+## 第 66 輪（坡道旁的家具）— 2026-11-12
+
+`node --test scripts/ramp-furniture.test.mjs` 通過。`tsc --noEmit` 通過。六張圖書館長椅的 1.7 m 座椅範圍，坡道高度都是 0。八個花台的整段也是 0。靠坡的那張長椅在 x=-4.8。對準坡道的花台比坡道南端更南。位置仍是 estimated。松濤二館留在第 65 輪。沒有新增音效。`build:site` 產物 `AdventureApp-B6lbdES4.js`。

@@ -548,6 +548,22 @@ try {
       "rise",
       `north ${lift.north.toFixed(2)} south ${lift.south.toFixed(2)} off-ramp ${lift.off.toFixed(2)}`,
     );
+  } else if (scenario === "furniture") {
+    await hideHud(page);
+    await setPose(page, -6, -278, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(-4, -290);
+      window.__controlsTest.setPhoto({
+        yaw: 0.15,
+        distance: 14,
+        height: 3.6,
+        lookY: 1.1,
+        target: { x: -3.4, y: y + 0.3, z: -289 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "clear", "bench and planter clear of the library ramp");
   } else if (scenario === "field") {
     await hideHud(page);
     await setPose(page, 425, -560, Math.PI);
