@@ -5403,7 +5403,33 @@
       "mergeSha": "c9222b3cad3aa8c9ebe3fe5eb3da8eaeb79664b8",
       "integrationPr": 338,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/338",
-      "nextAction": "None. The activity-room court from 5511da85 is already in this integration. Do not merge PR #276 by itself. The later activity-room line commit f4e9fae3 is still separate."
+      "nextAction": "None. The activity-room court from 5511da85 is already in this integration. Do not merge PR #276 by itself. The later activity-room line commit f4e9fae3 is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-one-court",
+      "line": "art",
+      "scope": "The activity room keeps one set of 11 floor marks. The older lines at x=±8.5 and z=±5.5 are gone. The marks are flat and do not collide.",
+      "status": "verified",
+      "pr": 276,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/276",
+      "integrationBranch": "cursor/integration-one-court-3395",
+      "sourceBranch": "cursor/gym-court-1a71",
+      "baseSha": "d52dc849b51a1822a6a5e7e3179941f1debc0aa7",
+      "headSha": "f4e9fae3468e295fd5a5655d74057b292409240e",
+      "dependencies": ["art-gym-court"],
+      "sharedFiles": ["src/game/rpg/interior-layout.ts", "src/game/rpg/AdventureWorld.tsx", "src/game/rpg/InteriorDetails.tsx", "scripts/activity-court.test.mjs"],
+      "checks": {
+        "conflicts": "The hoop bases still stop a body. Floor paint comes from one list. The classroom and reading room do not get the lines.",
+        "typecheck": "pass",
+        "npmTest": "470 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BeLoy1Vt.js sha256 96f35de576b92afee8e2795020da108f1a30439d04de060b5ac2f516137d512d. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8264/",
+        "route": "8264 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "82912ea4c2edcdbe5656d0e0a61a90a5929be127",
+      "nextAction": "Open the integration PR. Do not merge PR #276 by itself. The swimming-hall pool commit 26a70194 is still separate."
     }
   ]
 }
