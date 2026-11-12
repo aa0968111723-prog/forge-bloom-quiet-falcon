@@ -5708,6 +5708,30 @@
       "integrationPr": 349,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/349",
       "nextAction": "None. The variety checkpoint now points at 7c65c1b5. This is on integration PR #349. Do not merge PR #128 by itself. That line has no newer game commit."
+    },
+    {
+      "id": "content-bag-growth",
+      "title": "Let the same bag grow and let barriers cover the player",
+      "status": "verified",
+      "pr": 129,
+      "branch": "cursor/items-equipment-building-15c5",
+      "headSha": "bd2e531c6bf9d4d92165d9eb26640a508db450f6",
+      "dependencies": ["content-student-encounters"],
+      "sharedFiles": ["src/game/rpg/store.ts", "src/features/cloud-save/contract.ts", "src/features/items-equipment-building/gear.ts"],
+      "checks": {
+        "conflicts": "Kept harvest and document key caps, and the variety-write error on import. Raised MAX_SLOTS to 36 and allowed pockets 0 through 8.",
+        "typecheck": "pass",
+        "npmTest": "480 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CroGWghJ.js sha256 617cfa27b067cad7503826c8619e45cee08bd7359ee8e0dc1fd6fd948e29ff9d. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8274/",
+        "route": "8274 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User VOJyD3dq0jx25cln1a3j4m8cllWqnjzF."
+      },
+      "conflicts": ["src/features/cloud-save/contract.ts", "src/game/rpg/store.ts"],
+      "merged": false,
+      "mergeSha": "3f660c291e6e9b3978478f578fa007362d5285f4",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "None. The same bag can grow to 36 slots and a nearby barrier adds mitigation once. It is not on main yet. Do not merge PR #129 by itself. The next commit on that PR is 731c7c9a4ddb795bd98c4cf305955cc84e4d4f82."
     }
   ]
 }
