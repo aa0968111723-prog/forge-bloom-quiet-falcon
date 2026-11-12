@@ -77,7 +77,7 @@ import { promptDecision } from "./prompts";
 import { input, type PointerEndKind, type TouchZone } from "./input";
 import { quickbarPlace, touchLayout, type CssRect, type QuickbarPlacement, type SafeInsets, type TouchLayout } from "./touch-layout";
 import "./mobile/mobile.css";
-import { compactStatus, isMobileViewport, mobileHudLayout, panelClosePlan } from "./mobile";
+import { compactStatus, isMobileViewport, mobileHudLayout, panelClosePlan, type MobileHudModel } from "./mobile";
 import { mapDragDecision } from "./mobile/map-gesture";
 import { AdventureCombatHud } from "./AdventureCombatHud";
 import { usePerformance } from "./performance";
@@ -1661,6 +1661,19 @@ function LessonLayer({
     lesson === "done" &&
     phase === "playing" &&
     !readout.review;
+  const box = useViewportBox();
+  const mobile = coarse && isMobileViewport(box.width, box.height);
+  const lessonHud = mobile ? mobileHudLayout(box.width, box.height, box.insets) : null;
+  const lessonStyle: CSSProperties | undefined = lessonHud
+    ? {
+        position: "absolute",
+        left: lessonHud.look.x,
+        top: lessonHud.look.y,
+        width: lessonHud.look.w,
+        maxWidth: lessonHud.look.w,
+        transform: "none",
+      }
+    : undefined;
   return (
     <>
       {showCard && readout.objective ? (
@@ -1669,6 +1682,7 @@ function LessonLayer({
           role="status"
           data-lesson={readout.step ?? ""}
           data-anchor={`${anchor?.x ?? ""},${anchor?.z ?? ""}`}
+          style={lessonStyle}
         >
           <strong>{readout.objective}</strong>
           {readout.prompt ? <em>{readout.prompt}</em> : null}
@@ -1711,6 +1725,67 @@ function LessonLayer({
           <TouchControls look={false} />
         </div>
       ) : null}
+    </>
+  );
+}
+function MobileChrome({
+  hud,
+  panel,
+  mapLesson,
+}: {
+  hud: MobileHudModel;
+  panel: RpgPanel | null;
+  mapLesson: string | null;
+}) {
+  const specs = [
+    ...PANELS,
+    ["settings", CHROME_CONTROLS.settings, Pause, ""] as const,
+  ];
+  const placed = new Set(hud.launchers.map((item) => item.id));
+  const button = (id: (typeof specs)[number][0], label: string, Icon: (typeof specs)[number][2], rect?: CssRect) => (
+    <button
+      key={id}
+      id={id === "settings" ? "tk-mobile-open-settings" : `tk-mobile-open-${id}`}
+      className="ad-icon ad-raise-icon"
+      title={label}
+      aria-label={label}
+      style={rect ? { position: "absolute", ...place(rect) } : undefined}
+      {...pressAttrs("icon", panel === id ? "selected" : "ready")}
+      onClick={() => {
+        if (id === "settings") {
+          openSettings();
+          return;
+        }
+        useRpg.getState().setPanel(panel === id ? null : id);
+      }}
+    >
+      <Icon size={19} />
+    </button>
+  );
+  return (
+    <>
+      {hud.launchers.map((launcher) => {
+        const spec = specs.find((item) => item[0] === launcher.id);
+        if (!spec) return null;
+        return button(spec[0], spec[1], spec[2], launcher.rect);
+      })}
+      {hud.tray ? (
+        <div className="tk-mobile-tray tk-mobile-hit" style={{ position: "absolute", ...place(hud.tray) }}>
+          {specs
+            .filter((item) => !placed.has(item[0]))
+            .sort((a, b) => Number(b[0] === "settings") - Number(a[0] === "settings"))
+            .map((item) => button(item[0], item[1], item[2]))}
+        </div>
+      ) : null}
+      <button
+        className="ad-minimap"
+        style={{ position: "absolute", ...place(hud.minimap), padding: 2 }}
+        aria-label={mapLesson ? `${CHROME_CONTROLS.openMap}，${mapLesson}` : CHROME_CONTROLS.openMap}
+        onClick={() => useRpg.getState().setPanel("map")}
+      >
+        <MapGraphic compact />
+        {mapLesson ? <span className="ad-minimap-lesson">{mapLesson}</span> : null}
+      </button>
     </>
   );
 }
@@ -2014,6 +2089,10 @@ export function AdventureHud() {
         <>
           {mobile && <CompactStatusCard />}
           <VarietyDock />
+          {mobile && mobileHud ? (
+            <MobileChrome hud={mobileHud} panel={state.panel} mapLesson={mapLesson} />
+          ) : null}
+          {mobile ? null : (
           <header className="ad-hud-top">
             {mobile ? null : <Status />}
             <div className="ad-hud-right" style={mobile ? { marginLeft: "auto" } : undefined}>
@@ -2053,6 +2132,7 @@ export function AdventureHud() {
               </button>
             </div>
           </header>
+          )}
           <Nearby coarse={coarse} />
           {phase === "playing" && !state.panel && !state.down && (
             <>
@@ -2192,14 +2272,29 @@ export function AdventureHud() {
           role="status"
           style={
             mobileHud
-              ? {
-                  left: mobileHud.notice.x,
-                  top: mobileHud.notice.y,
-                  width: mobileHud.notice.w,
-                  height: mobileHud.notice.h,
-                  transform: "none",
-                  maxWidth: mobileHud.notice.w,
-                }
+              ? mobileHud.notice.w >= 160
+                ? {
+                    position: "absolute",
+                    left: mobileHud.notice.x,
+                    top: mobileHud.notice.y,
+                    width: mobileHud.notice.w,
+                    height: "auto",
+                    minHeight: 44,
+                    maxHeight: 88,
+                    transform: "none",
+                    maxWidth: mobileHud.notice.w,
+                  }
+                : {
+                    position: "absolute",
+                    left: mobileHud.look.x,
+                    top: mobileHud.look.y + Math.max(0, mobileHud.look.h - 72),
+                    width: mobileHud.look.w,
+                    height: "auto",
+                    minHeight: 44,
+                    maxHeight: 72,
+                    transform: "none",
+                    maxWidth: mobileHud.look.w,
+                  }
               : undefined
           }
           {...pressMark("overlay", "ready")}

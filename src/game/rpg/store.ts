@@ -1355,7 +1355,7 @@ export const useRpg = create<RpgState>((set, get) => ({
     set({ departmentId: id, panel: null, freshStart: false });
     useGame.setState({ phase: "playing", snapCam: true });
     get().notify(
-      "學期開始。J 普攻、Q 科系技能、空白鍵閃避；先到宮燈大道探索。",
+      "學期開始。用畫面上的普攻、技能和閃避。先去宮燈大道。",
     );
     noteLesson("department");
   },
