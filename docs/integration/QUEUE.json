@@ -5263,7 +5263,33 @@
       "mergeSha": "3642c769e87ae53b930927930b49b05eafaca804",
       "integrationPr": 333,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/333",
-      "nextAction": "None. The forecourt seat from 44bf4c9f is already in this integration. Do not merge PR #267 by itself. The gym clerestory commit c3ce7704 is still separate."
+      "nextAction": "None. The forecourt seat from 44bf4c9f is already in this integration. Do not merge PR #267 by itself. The gym clerestory commit c3ce7704 is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-gym-glow",
+      "line": "art",
+      "scope": "The gym clerestory stays dark by day and glows warm when the lamps are on.",
+      "status": "verified",
+      "pr": 269,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/269",
+      "integrationBranch": "cursor/integration-gym-glow-3395",
+      "sourceBranch": "cursor/gym-glow-1a71",
+      "baseSha": "65fb3f9b8ac9f2776731cbdc9de70ae7ca2f0626",
+      "headSha": "c3ce77043e9525533c4f21baadbb76177995ea94",
+      "dependencies": ["art-girl-seat"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/gym-glow.test.mjs"],
+      "checks": {
+        "conflicts": "The forecourt seat, shelves, and earlier outdoor colliders stay. The clerestory uses the same warm lamp colour as the avenue.",
+        "typecheck": "pass",
+        "npmTest": "466 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-D_74TDC1.js sha256 2ce01832c8d3ff8ba436ea892c097dc175bad9ab0567623e1821321703ac09df. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8259/",
+        "route": "8259 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "6dabb15e48b7340dd3f6c2a60d3b5f78a777027c",
+      "nextAction": "Open the integration PR. Do not merge PR #269 by itself. The scroll-words commit 5fe60b19 is still separate."
     }
   ]
 }
