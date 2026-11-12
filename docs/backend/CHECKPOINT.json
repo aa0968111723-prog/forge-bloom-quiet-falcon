@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:09:07Z",
+  "updated_at": "2026-11-12T06:12:39Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -53,10 +53,12 @@
     "a restore revision conflict from another account is not offered as this save",
     "merged main at 4f300a7; the upload response confirm and continued-upload confirm were already on this branch",
     "a dropped upload is not recorded when the landed read belongs to another account",
-    "every supply node and all 48 built stations can cool down in one cloud save"
+    "every supply node and all 48 built stations can cool down in one cloud save",
+    "merged main at 7611148; the revision-conflict account confirm was already on this branch",
+    "a reward receipt from another account does not settle this device's grant"
   ],
   "verification": {
-    "npm_test": "371 pass, 0 fail; every supply node and all 48 built stations can cool down in one cloud save",
+    "npm_test": "374 pass, 0 fail; a reward receipt from another account does not settle this device's grant",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
