@@ -167,6 +167,30 @@ test("upload follows first sync, later revisions, conflict, and the signed-in qu
   assert.equal(queued.queuedCount("user-b"), 0);
 });
 
+test("a later offline upload replaces the queued save for that account", async () => {
+  const cloud = fakeCloud();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  cloud.setOffline(true);
+  assert.equal((await client.uploadLocal()).status, "queued");
+  client.writeLocal(JSON.stringify(save(2)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  assert.equal(client.queuedCount("user-a"), 1);
+  cloud.setOffline(false);
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(cloud.puts.length, 1);
+  assert.equal(cloud.puts[0].document.xp, 2);
+  assert.equal(cloud.puts[0].confirmFirstSync, true);
+  assert.equal(cloud.puts[0].requestId, "uploadreq0002");
+});
+
 test("a reloaded client retries one request id without a second revision", async () => {
   const cloud = fakeCloud();
   const storage = memoryStorage();

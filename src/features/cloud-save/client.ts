@@ -749,7 +749,10 @@ export function createCloudSaveController(options: {
   }
 
   function enqueue(item: QueueItem): void {
-    const items = readQueue(item.userId).filter((current) => current.id !== item.id);
+    const items = readQueue(item.userId).filter((current) => {
+      if (current.id === item.id) return false;
+      return !(item.kind === "put" && current.kind === "put");
+    });
     items.push(item);
     writeQueue(item.userId, items);
   }
