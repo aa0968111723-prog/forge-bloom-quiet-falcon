@@ -325,6 +325,12 @@
 
 畫面：`docs/art/evidence/props/business.jpg`、`museum.jpg`。測試：`scripts/prop-clearance.test.mjs`。
 
+## 階段：圖書館坡道（ART-084 的一部分）
+
+前廣場的坡道從南端貼地升到北端 1.05 m，接到台基前。北端停在南牆外。坡道外側 0.5 m 內高度收到地面。人站在這道坡上。坡度仍是 estimated。路燈仍停在牆外。
+
+畫面：`docs/art/evidence/ramp/slope.jpg`。測試：`scripts/library-ramp.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。路燈中心已留在牆外。化學館已從實驗樓方塊分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。圖書館坡道已升到台基。路燈中心已留在牆外。化學館已從實驗樓方塊分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

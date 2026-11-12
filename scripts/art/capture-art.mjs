@@ -525,6 +525,29 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "museum", "street lamp south of the maritime museum");
+  } else if (scenario === "slope") {
+    // Library forecourt ramp, high end just outside the south wall.
+    await hideHud(page);
+    await setPose(page, -2, -292.6, Math.PI);
+    const lift = await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const g = window.__rpgQA.ground;
+      const y = g(8, -292.6);
+      window.__controlsTest.setPhoto({
+        yaw: 0.04,
+        distance: 11,
+        height: 1.5,
+        lookY: 1.1,
+        target: { x: -2, y: y + 0.4, z: -293 },
+      });
+      return { south: g(-2, -285.6), north: g(-2, -299.6), off: y };
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(
+      page,
+      "rise",
+      `north ${lift.north.toFixed(2)} south ${lift.south.toFixed(2)} off-ramp ${lift.off.toFixed(2)}`,
+    );
   } else if (scenario === "interiors") {
     // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
     // These are game layouts, not surveyed rooms. Enter, look, exit, and check
