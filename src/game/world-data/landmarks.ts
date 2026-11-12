@@ -81,6 +81,14 @@ export const LIBRARY = {
   floorHeight: 4.0,
 } as const;
 
+/** The two porch columns under the library canopy, in world XZ. */
+export function libraryPorchPosts(): { x: number; z: number }[] {
+  return ([-1, 1] as const).map((side) => ({
+    x: LIBRARY.center[0] - 8 + side * 8,
+    z: LIBRARY.center[1] + LIBRARY.length / 2 + 3.4,
+  }));
+}
+
 /**
  * 宮燈教室 rows: five halls a side, mirrored about the avenue.
  *
