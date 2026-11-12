@@ -262,6 +262,7 @@ export function createCloudSaveController(options: {
     writeLocal(JSON.stringify(accepted.document));
     if (userId) {
       writeMeta(userId, { revision: remote.head.revision, contentHash: accepted.hash });
+      dropQueuedPuts(userId);
     }
     return { status: "downloaded", revision: remote.head.revision };
   }
@@ -405,6 +406,7 @@ export function createCloudSaveController(options: {
         if (typeof payload.revision === "number") {
           writeMeta(userId, { revision: payload.revision, contentHash: accepted.hash });
         }
+        dropQueuedPuts(userId);
       }
       return { status: "restored", revision: payload.revision };
     } catch {
@@ -746,6 +748,13 @@ export function createCloudSaveController(options: {
       headers.set("if-match", `"${init.ifMatch}"`);
     }
     return options.fetch(`${base}${path}`, { method: init.method, headers, body: init.body });
+  }
+
+  function dropQueuedPuts(userId: string): void {
+    writeQueue(
+      userId,
+      readQueue(userId).filter((item) => item.kind !== "put"),
+    );
   }
 
   function enqueue(item: QueueItem): void {
