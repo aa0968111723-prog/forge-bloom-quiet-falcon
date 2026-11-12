@@ -275,6 +275,12 @@
 
 畫面：`docs/art/evidence/map/lesson.jpg`。測試：`scripts/lesson-marker.test.mjs`。
 
+## 階段：會文館（ART-065 的一部分）
+
+教學區這棟不再跟教育館共用教學樓基座。現在是底層柱廊、淺色上層和木色壓簷。教育館與外國語文大樓仍是教學樓。文學館仍是坡頂。柱廊外形仍是 estimated。課程標記留著。
+
+畫面：`docs/art/evidence/seminar/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。課程標記在展開地圖上可讀。工學館、化學館與工學大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。會文館已從教學樓分開。教育館、文學館與課程標記留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

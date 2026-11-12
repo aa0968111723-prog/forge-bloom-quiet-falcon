@@ -49,7 +49,8 @@ export type SecondaryStructure = {
     | "memorial-tower"
     | "arena"
     | "science-hall"
-    | "workshop";
+    | "workshop"
+    | "seminar-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -343,6 +344,21 @@ export function studioProfile(size: readonly [number, number, number]) {
  * Older workshop hall for 工學館. The brick base and roof monitor are estimated.
  * Chemistry keeps the lab block and its roof plant.
  */
+/**
+ * Seminar porch for 會文館. The piers are an estimated silhouette.
+ * 教育館 stays a classroom block.
+ */
+export function seminarProfile(size: readonly [number, number, number]) {
+  const porchD = 1.5;
+  const porchH = Math.min(3.4, Math.max(2.8, size[1] * 0.22));
+  return {
+    porchH,
+    porchD,
+    porchZ: size[2] / 2 + porchD / 2,
+    pierW: 0.5,
+  };
+}
+
 export function workshopProfile(size: readonly [number, number, number]) {
   const baseH = Math.max(3.2, size[1] * 0.3);
   return {
@@ -495,6 +511,7 @@ function campusKind(site: {
   if (site.id === "engineering") return "eng-tower";
   if (site.id === "science") return "science-hall";
   if (site.id === "old-engineering") return "workshop";
+  if (site.id === "hweiwen") return "seminar-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";
