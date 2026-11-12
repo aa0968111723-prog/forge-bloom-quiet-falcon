@@ -7,7 +7,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LIBRARY, PALACE, palaceHallZs, signPosts } from "./landmarks.ts";
 import { COLLIDERS } from "./colliders.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
@@ -90,9 +90,13 @@ function kenanProps(): PropInstance[] {
   out.push(prop("bench", -2.7, KENAN_LANDING_Z[0] - 2.2, "kenan", 0));
   out.push(prop("bench", 2.7, KENAN_LANDING_Z[0] - 2.2, "kenan", Math.PI));
   out.push(prop("bin", 3.3, KENAN_LANDING_Z[1] + 1.2, "kenan"));
-  out.push(prop("sign-post", -3.4, KENAN_LANDING_Z[1] + 1.0, "kenan", Math.PI / 2));
+  for (const post of signPosts()) {
+    if (post.zone === "kenan" && post.scale === 1) out.push(prop("sign-post", post.x, post.z, post.zone, post.rotationY, post.scale));
+  }
   // Bottom entrance.
-  out.push(prop("sign-post", -4.6, KENAN.bottomZ + 3.4, "kenan", Math.PI / 2, 1.15));
+  for (const post of signPosts()) {
+    if (post.zone === "kenan" && post.scale !== 1) out.push(prop("sign-post", post.x, post.z, post.zone, post.rotationY, post.scale));
+  }
   out.push(prop("noticeboard", 5.1, KENAN.bottomZ + 5.6, "kenan", -Math.PI / 2));
   out.push(prop("tactile-strip", 0, AXIS.gateZ + 2.4, "kenan", 0, 1, 5.2));
   out.push(prop("hydrant", -5.9, AXIS.gateZ + 4.2, "kenan"));
@@ -121,7 +125,9 @@ function plazaProps(): PropInstance[] {
     out.push(prop("bench", Math.sin(t) * (PLAZA_RADIUS - 2.4), Math.cos(t) * (PLAZA_RADIUS - 2.4), "plaza", t + Math.PI));
   }
   out.push(prop("bin", PLAZA_RADIUS - 1.6, -4.2, "plaza"));
-  out.push(prop("sign-post", -4.2, -PLAZA_RADIUS + 1.2, "plaza", 0, 1.1));
+  for (const post of signPosts()) {
+    if (post.zone === "plaza") out.push(prop("sign-post", post.x, post.z, post.zone, post.rotationY, post.scale));
+  }
   out.push(prop("potted-plant", -2.6, 2.4, "plaza"));
   out.push(prop("potted-plant", 2.6, 2.4, "plaza"));
   return out;
@@ -155,7 +161,11 @@ function avenueProps(): PropInstance[] {
     out.push(prop("drain-grate", AVENUE_PAVED_WIDTH / 2 + 0.18, z, "avenue"));
     out.push(prop("hydrant", -(AVENUE_PAVED_WIDTH / 2 + 3.9), z - 6, "avenue"));
     out.push(prop("utility-box", AVENUE_PAVED_WIDTH / 2 + 4.2, z + 8, "avenue", -Math.PI / 2));
-    out.push(prop("sign-post", -(AVENUE_PAVED_WIDTH / 2 + 1.1), z + 16, "avenue", 0, 1));
+    for (const post of signPosts()) {
+      if (post.zone === "avenue" && post.z === z + 16) {
+        out.push(prop("sign-post", post.x, post.z, post.zone, post.rotationY, post.scale));
+      }
+    }
   }
   return out;
 }
@@ -175,7 +185,9 @@ function northProps(): PropInstance[] {
   ] as const) {
     out.push(prop("street-lamp", x, z, "dolphin", 0, 1.1));
   }
-  out.push(prop("sign-post", -12, AXIS.dolphinZ + 16, "dolphin", 0, 1.2));
+  for (const post of signPosts()) {
+    if (post.zone === "dolphin") out.push(prop("sign-post", post.x, post.z, post.zone, post.rotationY, post.scale));
+  }
 
   const [w, d] = SCROLL_PLAZA_SIZE;
   for (let k = 0; k < 6; k++) {

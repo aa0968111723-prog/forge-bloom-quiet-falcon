@@ -359,3 +359,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 58 輪（欄杆擋人）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs scripts/library-ramp.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 站在坡道中線不被推開。站在東側欄杆 x=-1.05 會被推到 x=-1.530，移開 0.48 m。南端外 1.2 m 的入口也不被推開。估計路網仍是一個相連的格網。克難坡仍沒有欄杆。沒有新增音效。欄杆留在第 57 輪。`build:site` 產物 `AdventureApp-C6frxvLx.js`。
+
+## 第 59 輪（指示牌）— 2026-11-12
+
+`node --test scripts/sign-stop.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs` 通過。`tsc --noEmit` 通過。九塊指示牌和網格用同一組座標。牌面寬 1.15 m，會跟著縮放和朝向轉，厚 0.16 m。半徑 0.42 m 站在宮燈大道西側牌心會被推開。牌南 1.6 m、主巡禮和三條折線的轉折點不被推開。折線走完全程仍到得了門口。路燈離牌超過 1.2 m。長在牌裡的杜鵑往北移了 0.7 m。定步白天從南邊走去，頁面無錯誤，停在 z=−19.50：`docs/art/evidence/props/sign.jpg`。牌位仍是 estimated。欄杆擋人留在第 58 輪。沒有新增音效。`build:site` 產物 `AdventureApp-Big0zMXk.js`。

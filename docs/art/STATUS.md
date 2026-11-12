@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：指示牌（ART-084 的一部分）
+
+九塊校園指示牌會擋住半徑 0.42 m 的身體。從南邊走向宮燈大道西側那塊會停在牌面外。大道中線和三條巡禮折線仍走得過。長在牌裡的杜鵑往北移了 0.7 m。牌位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/sign.jpg`。測試：`scripts/sign-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。指示牌已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

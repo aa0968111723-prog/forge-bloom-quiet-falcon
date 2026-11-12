@@ -9,7 +9,7 @@ import {
 } from "./axis.ts";
 import { COLLIDERS } from "./colliders.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LIBRARY, PALACE, palaceHallZs, signFootprint, signPosts } from "./landmarks.ts";
 import { hash2 } from "./math.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SECONDARY_STRUCTURES } from "./zones/secondary.ts";
@@ -129,7 +129,18 @@ function avenuePlanting(): PlantInstance[] {
   let i = 0;
   for (let z = AXIS.avenueSouthZ - 1.4; z > AXIS.avenueNorthZ; z -= 2.3, i++) {
     for (const s of [-1, 1] as const) {
-      out.push(plant("azalea", s * vergeX, z, 0.82 + (i % 4) * 0.09, 0));
+      let plantZ = z;
+      const plantX = s * vergeX;
+      for (const post of signPosts()) {
+        const footprint = signFootprint(post);
+        const inside =
+          plantX > footprint.x - footprint.width / 2 &&
+          plantX < footprint.x + footprint.width / 2 &&
+          plantZ > footprint.z - footprint.depth / 2 &&
+          plantZ < footprint.z + footprint.depth / 2;
+        if (inside) plantZ += 0.7;
+      }
+      out.push(plant("azalea", plantX, plantZ, 0.82 + (i % 4) * 0.09, 0));
       if (i % 5 === 2) out.push(plant("groundcover", s * (vergeX + 1.2), z, 1, 0));
     }
   }
