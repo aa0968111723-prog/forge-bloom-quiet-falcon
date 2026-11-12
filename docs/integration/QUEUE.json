@@ -2461,6 +2461,32 @@
       "integrationPr": 185,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/185",
       "nextAction": "None. The flush behavior from 1f6d733, fdc0228, and 7644d81 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-cloud-retry",
+      "line": "backend",
+      "scope": "A failed upload retries the newest local file under a new request id and continues only when the cloud still holds this device's last write. Optional quest marks on ground loot stay in the cloud document.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-cloud-retry-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "2ec905984a0215cf51e49fb7226a5a11ea546f08",
+      "headSha": "624ff44833d94b1d0b98d6d0fe21d2fd09a050d3",
+      "dependencies": ["backend-cloud-flush", "content-psych-story"],
+      "sharedFiles": ["src/features/cloud-save/client.ts", "src/features/cloud-save/contract.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json base field. Kept 1c8f11e. Client and contract applied cleanly.",
+        "typecheck": "pass",
+        "npmTest": "348 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Dnl7wjlJ.js unchanged",
+        "browser": "8163. The standing route completed.",
+        "route": "8163: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": false,
+      "mergeSha": "0b55924116a10408c51209ce17605b5b47497704",
+      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
