@@ -928,3 +928,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 30 減 12 是 18，也就是開場 6 加上崗位探索 12。崗位 id 不是校園據點。過程欄那一句不看這次是對調還是一起寫。
 
 畫面：`/opt/cursor/artifacts/integration-sang-meet/swap-outcome.png`、`swap-next.png`、`joint-outcome.png`、`joint-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次朝聖清單匯入。
+
+## 桑知的兩個衝突選項
+
+這段打在 `AdventureApp-VE0tEC2H.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-By1IlaLF.js`。`main` 尖端 `311dca1` 註記 PR #253，GitHub 上這份 PR 的狀態是 MERGED。同一段的 PR #251 也是 MERGED。遊戲變更是 `16acb95` 和 `e940772`。合併提交 `d010850`。主遊戲檔 889744 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-sang-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-sang-clash` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 405 通過、0 失敗。對象是合併 `d010850` |
+| `npm run build:site` | 產出 `index-By1IlaLF.js` 與 `AdventureApp-VE0tEC2H.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場。點衝突之前存檔經驗 30、筆記 18。這一次點選沒有新增校園發現項目。
+
+- 「結論先空著，等過程到了再寫。」之前先選對調。存檔經驗 38，筆記 19。結果句「等不是退組。」畫面是 1 級、「經驗 38/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。對話卡仍寫教授、企業管理學系。學期仍是第一週。再交談，她說「只夠一個人的份量」。兩個報告選項都在。離開不結算，沒有 `quest-faculty-case-turn`。`quest-faculty-case-clash` 只有一筆。沒有工作室任務。重載後經驗 38、筆記 19，再交談仍是這一句。
+- 「用已有的過程寫暫定結論，標清楚。」之前先選一起寫。經驗同樣 30→38，筆記 18→19。結果句「現在不要寫成定稿。」報告仍是「只夠一個人的份量」。離開不結算。重載後這一句還在，生命仍是 100/100。
+
+38 減 30 是 8，也就是衝突階段的經驗。筆記加 1。報告那一句不看這次是空著等還是標成暫定。
+
+畫面：`/opt/cursor/artifacts/integration-sang-clash/wait-outcome.png`、`wait-next.png`、`draft-outcome.png`、`draft-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這兩種玩法筆記匯入。
