@@ -1,6 +1,5 @@
 import {
   AVENUE_PAVED_WIDTH,
-  AVENUE_PLANTING_WIDTH,
   AXIS,
   DOLPHIN_ISLAND_RADIUS,
   PLAZA_RADIUS,
@@ -10,7 +9,7 @@ import {
 import { COLLIDERS, registerTrunkBoxes, type AABB } from "./colliders.ts";
 import { SECONDARY_STRUCTURES } from "./zones/secondary.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LANTERN_BASE, LIBRARY, PALACE, lanternPosts, palaceHallZs, planters, textSignAabb, textSigns } from "./landmarks.ts";
+import { LANTERN_BASE, LIBRARY, PALACE, lanternPosts, palaceHallZs, planters, signFootprint, signPosts, textSignAabb, textSigns } from "./landmarks.ts";
 import { hash2 } from "./math.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 
@@ -156,12 +155,22 @@ function plazaPlanting(): PlantInstance[] {
  */
 function avenuePlanting(): PlantInstance[] {
   const out: PlantInstance[] = [];
-  const vergeX = AVENUE_PAVED_WIDTH / 2 + AVENUE_PLANTING_WIDTH / 2;
   const hedgeX = Math.abs(lanternPosts()[0].x) + LANTERN_BASE / 2 + 0.35;
   let i = 0;
   for (let z = AXIS.avenueSouthZ - 1.4; z > AXIS.avenueNorthZ; z -= 2.3, i++) {
     for (const s of [-1, 1] as const) {
-      out.push(plant("azalea", s * hedgeX, z, 0.82 + (i % 4) * 0.09, 0));
+      let plantZ = z;
+      const plantX = s * hedgeX;
+      for (const post of signPosts()) {
+        const footprint = signFootprint(post);
+        const inside =
+          plantX > footprint.x - footprint.width / 2 &&
+          plantX < footprint.x + footprint.width / 2 &&
+          plantZ > footprint.z - footprint.depth / 2 &&
+          plantZ < footprint.z + footprint.depth / 2;
+        if (inside) plantZ += 0.7;
+      }
+      out.push(plant("azalea", plantX, plantZ, 0.82 + (i % 4) * 0.09, 0));
       if (i % 5 === 2) {
         const outer = Math.abs(planters()[0].x) + 0.4 + 0.45;
         out.push(plant("groundcover", s * outer, z, 1, 0));

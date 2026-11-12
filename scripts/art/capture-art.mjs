@@ -1588,6 +1588,20 @@ try {
     await frames(page, 4);
     await shot(page, "unit", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x > -22.6) throw new Error(`walked through the AC cabinet ${JSON.stringify(stopped)}`);
+  } else if (scenario === "signpost") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, -4.1, -17, 0);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 40);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.55, distance: 5.4, height: 2.1, lookY: 1.5 });
+    });
+    await frames(page, 4);
+    await shot(page, "sign", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.z < -20.4) throw new Error(`walked through the sign ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

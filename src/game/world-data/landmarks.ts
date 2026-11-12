@@ -470,6 +470,44 @@ export function acUnitFootprint(unit: { x: number; z: number; rotationY: number 
   };
 }
 
+/** Campus direction sign. The board is 1.15 m wide before scale. */
+export const SIGN_POST = { width: 1.15, depth: 0.16 } as const;
+
+/** The nine direction signs, in world XZ. The mesh and the collider both use this list. */
+export function signPosts(): { x: number; z: number; rotationY: number; scale: number; zone: string }[] {
+  const posts = [
+    { x: -3.4, z: KENAN_LANDING_Z[1] + 1, rotationY: Math.PI / 2, scale: 1, zone: "kenan" },
+    { x: -4.6, z: KENAN.bottomZ + 3.4, rotationY: Math.PI / 2, scale: 1.15, zone: "kenan" },
+    { x: -4.2, z: -PLAZA_RADIUS + 1.2, rotationY: 0, scale: 1.1, zone: "plaza" },
+    { x: -12, z: AXIS.dolphinZ + 16, rotationY: 0, scale: 1.2, zone: "dolphin" },
+  ];
+  for (let k = 0; k < 5; k++) {
+    const z = AXIS.avenueSouthZ - 22 - k * 42;
+    posts.push({
+      x: -(AVENUE_PAVED_WIDTH / 2 + 1.1),
+      z: z + 16,
+      rotationY: 0,
+      scale: 1,
+      zone: "avenue",
+    });
+  }
+  return posts;
+}
+
+/** Axis-aligned footprint of a rotated direction sign. */
+export function signFootprint(post: { x: number; z: number; rotationY: number; scale: number }) {
+  const along = Math.abs(Math.cos(post.rotationY));
+  const across = Math.abs(Math.sin(post.rotationY));
+  const width = SIGN_POST.width * post.scale;
+  const depth = SIGN_POST.depth * post.scale;
+  return {
+    x: post.x,
+    z: post.z,
+    width: width * along + depth * across,
+    depth: width * across + depth * along,
+  };
+}
+
 export const LANDMARKS: RealityLandmark[] = [
   {
     id: "kenan",
