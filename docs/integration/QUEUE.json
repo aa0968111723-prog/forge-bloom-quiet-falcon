@@ -2410,7 +2410,7 @@
       "id": "content-psych-story",
       "line": "content",
       "scope": "Xu Hui stands outside the library and quotes the player's attribution and recovery choice. Both paths pay once through the existing narrative growth and do not name a semester. Quest or dialogue leftovers on the ground do not raise gathered.",
-      "status": "verified",
+      "status": "merged",
       "pr": 160,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/160",
       "integrationBranch": "cursor/integration-psych-story-3395",
@@ -2428,9 +2428,11 @@
         "route": "8161: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty. Xu Hui xp 0 to 18 to 26 to 36, gathered stayed 0."
       },
       "conflicts": ["src/game/rpg/store.ts"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "546676be861ef80ca5f75b780ed2d07a45ce3d16",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #160 by itself."
+      "integrationPr": 182,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/182",
+      "nextAction": "None. The Xu Hui story from c5c489b and the ground quest-loot mark from e8b97ca are already in this integration. Do not merge PR #160 by itself."
     }
   ]
 }
