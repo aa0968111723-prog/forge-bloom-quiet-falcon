@@ -590,9 +590,11 @@
       "evidence": [
         "scripts/context-lod.test.mjs",
         "docs/art/evidence/integrated/hall.jpg",
-        "docs/art/evidence/memorial/tower.jpg"
+        "docs/art/evidence/memorial/tower.jpg",
+        "docs/art/evidence/meadow/figure.jpg",
+        "scripts/shepherd-figure.test.mjs"
       ],
-      "notes": "覺生綜合大樓從教學樓基座改成玻璃基座加退縮的淺色上層。驚聲大樓從綠瓦坡頂改成石色樓身、深色基座和平頂壓簷，沒有瓦頂。文學館仍是坡頂。圖書館仍用既有量體。精度仍是 estimated，不是實測立面。"
+      "notes": "覺生綜合大樓從教學樓基座改成玻璃基座加退縮的淺色上層。驚聲大樓從綠瓦坡頂改成石色樓身、深色基座和平頂壓簷，沒有瓦頂。文學館仍是坡頂。圖書館仍用既有量體。牧羊草坪放了一座「唱自己的歌」的立姿剪影，1.6 m 石座會擋人，蓋章點在南邊。五虎碑還沒有放到場景裡。精度仍是 estimated，不是實測立面。"
     },
     {
       "id": "ART-064",
