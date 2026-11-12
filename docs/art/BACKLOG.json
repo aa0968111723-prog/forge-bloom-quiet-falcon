@@ -740,9 +740,11 @@
         "docs/art/evidence/reitaku/house.jpg",
         "docs/art/evidence/faculty/house.jpg",
         "docs/art/evidence/sungtao/front.jpg",
-        "scripts/dorm-front.test.mjs"
+        "docs/art/evidence/sungtao/balcony.jpg",
+        "scripts/dorm-front.test.mjs",
+        "scripts/dorm-balcony.test.mjs"
       ],
-      "notes": "麗澤國際學舍從暖色宿舍改成淺灰綠牆、底層玻璃門廳和平頂橫樑。松濤一、三、四、五館仍是暖色宿舍加屋頂量體。松濤二館的紀錄有文錙藝術中心和美食廣場，南向加了底層玻璃和雨遮，屋頂量體留著。實棟學人宿舍從學生宿舍改成淺色樓身、南向門廊，沒有屋頂量體。門廊貼著南牆。精度仍是 estimated。"
+      "notes": "麗澤國際學舍從暖色宿舍改成淺灰綠牆、底層玻璃門廳和平頂橫樑。松濤一、三、四、五館仍是暖色宿舍加屋頂量體，南向每一層上層有一條陽台。松濤二館的紀錄有文錙藝術中心和美食廣場，南向加了底層玻璃和雨遮，屋頂量體留著，上層也有同一條陽台。實棟學人宿舍從學生宿舍改成淺色樓身、南向門廊，沒有屋頂量體，也沒有這些陽台。門廊貼著南牆。精度仍是 estimated。陽台仍是 estimated。"
     },
     {
       "id": "ART-069",

@@ -1339,6 +1339,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "literature hall eave");
+  } else if (scenario === "dormbalcony") {
+    await hideHud(page);
+    await setPose(page, 292, -330, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(292, -365);
+      window.__controlsTest.setPhoto({
+        yaw: 0.55,
+        distance: 42,
+        height: 12,
+        lookY: 4,
+        target: { x: 292, y: y + 12, z: -365 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "sungtao balconies");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

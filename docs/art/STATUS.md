@@ -704,5 +704,11 @@
 
 畫面：`docs/art/evidence/humanities/hall.jpg`。測試：`scripts/lit-hall.test.mjs`。
 
+## 階段：松濤陽台（ART-068 的一部分）
+
+松濤一、三、四、五館的南向，地面層以上每一層有一條陽台。松濤二館仍是底層玻璃和雨遮，上層也有同一條陽台。麗澤和實棟不共用這條陽台。位置仍是 estimated。
+
+畫面：`docs/art/evidence/sungtao/balcony.jpg`。測試：`scripts/dorm-balcony.test.mjs`。
+
 ## 下一步
-見 `CHECKPOINT.json`。文學館已有綠瓦平簷。商管大樓已有深色玻璃底座和退縮的樓身。四座公告牌已寫著校園公告、請沿步道行走。坡底入口已有六條斑馬線。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。>>>>>>> cee451f2 (Give the literature hall a flat eave instead of a hip roof.)
+見 `CHECKPOINT.json`。松濤宿舍已有南向陽台。文學館已有綠瓦平簷。商管大樓已有深色玻璃底座和退縮的樓身。四座公告牌已寫著校園公告、請沿步道行走。坡底入口已有六條斑馬線。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
