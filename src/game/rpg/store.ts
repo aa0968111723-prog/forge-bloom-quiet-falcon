@@ -445,14 +445,27 @@ function restoreCountMap<T extends string>(
   }
   return next;
 }
+function harvestStillCooling(value: unknown, now: number): number | null {
+  if (typeof value !== "number" || !Number.isFinite(value)) return null;
+  if (value <= now || value >= now + 180_001) return null;
+  return value;
+}
 function restoreHarvest(raw: unknown): Record<string, number> {
   const result: Record<string, number> = {};
-  if (raw && typeof raw === "object")
-    for (const node of SUPPLY_NODES) {
-      const t = (raw as Record<string, unknown>)[node.id];
-      if (typeof t === "number" && Number.isFinite(t) && t > Date.now() && t < Date.now() + 180_001)
-        result[node.id] = t;
-    }
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return result;
+  const source = raw as Record<string, unknown>;
+  const now = Date.now();
+  for (const node of SUPPLY_NODES) {
+    const time = harvestStillCooling(source[node.id], now);
+    if (time != null) result[node.id] = time;
+  }
+  for (const [key, value] of Object.entries(source)) {
+    if (!key.startsWith("facility:")) continue;
+    const id = key.slice("facility:".length);
+    if (id.length < 1 || id.length > 80) continue;
+    const time = harvestStillCooling(value, now);
+    if (time != null) result[key] = time;
+  }
   return result;
 }
 function restoreQuest(raw: unknown, items: Record<string, number>) {

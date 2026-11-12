@@ -671,6 +671,8 @@ test("validated import applies one snapshot and leaves the previous save untouch
       [supply.id]: freshHarvest,
       [stale.id]: -5,
       [distantHarvest.id]: Date.now() + 999_999,
+      [`facility:${desk.id}`]: freshHarvest,
+      "facility:cooled-too-far": Date.now() + 999_999,
     },
     position: { x: door.x, z: door.z, yaw: 1.25 },
     pilgrimage: { visited: ["kenan"], timeOfDay: "day", muted: false },
@@ -703,6 +705,8 @@ test("validated import applies one snapshot and leaves the previous save untouch
   assert.equal(rpg.harvested[supply.id], freshHarvest);
   assert.equal(rpg.harvested[stale.id], undefined);
   assert.equal(rpg.harvested[distantHarvest.id], undefined);
+  assert.equal(rpg.harvested[`facility:${desk.id}`], freshHarvest);
+  assert.equal(rpg.harvested["facility:cooled-too-far"], undefined);
   assert.equal(live.playerX, door.x);
   assert.equal(live.playerZ, door.z);
   assert.equal(live.playerYaw, 1.25);
@@ -721,6 +725,7 @@ test("validated import applies one snapshot and leaves the previous save untouch
   assert.deepEqual(parsed.position, { x: door.x, z: door.z, yaw: 1.25 });
   assert.equal(parsed.harvested[supply.id], freshHarvest);
   assert.equal(parsed.harvested[stale.id], undefined);
+  assert.equal(parsed.harvested[`facility:${desk.id}`], freshHarvest);
   useRpg.setState({
     departmentId: DEPARTMENTS[0].id,
     claimed: [],
@@ -737,6 +742,7 @@ test("validated import applies one snapshot and leaves the previous save untouch
   assert.deepEqual(useRpg.getState().claimed, ["first"]);
   assert.deepEqual(inventory.slots(), parsed.slots);
   assert.equal(useRpg.getState().buildings.length, 1);
+  assert.equal(useRpg.getState().harvested[`facility:${desk.id}`], freshHarvest);
   assert.equal(useGame.getState().playerX, door.x);
   assert.equal(useGame.getState().playerZ, door.z);
   assert.equal(useRpg.getState().hp, 90);

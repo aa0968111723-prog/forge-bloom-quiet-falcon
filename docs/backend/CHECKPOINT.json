@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:35:59Z",
+  "updated_at": "2026-11-12T05:41:13Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "327520d",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -40,10 +40,11 @@
     "a session blip after the account is confirmed still asks the server before granting a reward",
     "merged main at 269020c; the library ramp rail colliders stay outside the save format",
     "a session blip still writes the chosen local file back after a dropped upload has already landed",
-    "merged main at 327520d; the session recheck was already on this branch"
+    "merged main at 327520d; the session recheck was already on this branch",
+    "a built station's harvest cooldown still inside 180 seconds survives import and a cloud reload"
   ],
   "verification": {
-    "npm_test": "355 pass, 0 fail; a session blip still writes the chosen file back after a dropped upload lands",
+    "npm_test": "356 pass, 0 fail; a built station cooldown survives import and a cloud reload",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
