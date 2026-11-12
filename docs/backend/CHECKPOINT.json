@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:52:24Z",
+  "updated_at": "2026-11-12T05:55:36Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -45,10 +45,12 @@
     "merged main at 7570724; the session-blip reward check was already on this branch",
     "a restored cloud save is not applied when the session changes account or the confirm read blips",
     "merged main at 32a15ad; the session-blip save write-back was already on this branch",
-    "an upload response is not recorded when the session changes account or the confirm read blips"
+    "an upload response is not recorded when the session changes account or the confirm read blips",
+    "merged main at 987c5a7; the built-station harvest cooldown was already on this branch",
+    "a continued upload is not recorded when the session changes account or the confirm read blips"
   ],
   "verification": {
-    "npm_test": "361 pass, 0 fail; a session change does not record another account's upload revision",
+    "npm_test": "363 pass, 0 fail; a session change does not record a continued upload",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
