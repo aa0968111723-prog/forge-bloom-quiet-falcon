@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T08:13:16Z",
+  "updated_at": "2026-11-12T08:16:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "f4929b4",
+  "base": "eccee6d",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -99,7 +99,8 @@
     "merged main at 09c7d7c; the clamped quarantine durability was already on this branch",
     "an empty narrative seed still uploads the campus memory",
     "merged main at f4929b4; the folded narrative clock was already on this branch",
-    "an old harvest cooldown still uploads the stations that are cooling"
+    "an old harvest cooldown still uploads the stations that are cooling",
+    "merged main at eccee6d; the unnamed narrative place was already on this branch"
   ],
   "verification": {
     "npm_test": "406 pass, 0 fail; an old harvest cooldown still uploads the stations that are cooling",
