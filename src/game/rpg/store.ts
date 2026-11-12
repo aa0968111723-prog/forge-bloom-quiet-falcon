@@ -60,6 +60,8 @@ import { COFFEE_HEAL, FOCUS_CAP, itemVerdict, TEA_FOCUS } from "./itemdetail.ts"
 import { loadLocal, saveLocal } from "../save";
 import { coerceTimeOfDay } from "../world-data/lighting";
 import { departmentById } from "../departments";
+import { rpgIdFor } from "../contracts/departments.ts";
+import { errandReward, stampSemester } from "../contracts/semester.ts";
 
 export const RPG_SAVE_KEY = "tamkang-rpg-v2";
 export type LessonMark =
@@ -201,7 +203,7 @@ const finite = (v: unknown, fallback = 0, max = 1_000_000) =>
     ? Math.min(max, Math.max(0, v))
     : fallback;
 function knownDepartment(id: unknown) {
-  return typeof id === "string" && DEPARTMENTS.some((d) => d.id === id) ? id : null;
+  return rpgIdFor(typeof id === "string" ? id : null);
 }
 export function readLesson(value: unknown, departmentId: string | null): LessonMark {
   if (
@@ -469,10 +471,6 @@ const LEGACY_ITEMS: Record<string, string> = {
   "stamp-ink": "notes",
   "first-aid": "coffee",
 };
-const LEGACY_NAMES: Record<string, string> = {
-  數學系: "應用數學與數據科學學系",
-  化學系: "化學學系",
-};
 type ImportReason =
   | "json"
   | "version"
@@ -520,12 +518,7 @@ function negativeNumber(value: unknown) {
   return typeof value === "number" && Number.isFinite(value) && value < 0;
 }
 function legacyDepartment(id: unknown) {
-  if (typeof id !== "string") return null;
-  if (DEPARTMENTS.some((d) => d.id === id)) return id;
-  const oldName = departmentById(id)?.name;
-  if (!oldName) return null;
-  const name = LEGACY_NAMES[oldName] ?? oldName;
-  return DEPARTMENTS.find((d) => d.name === name)?.id ?? null;
+  return knownDepartment(id);
 }
 function readSlots(
   raw: unknown,
@@ -658,11 +651,7 @@ function prepareImport(
         muted: typeof pilgrimageRaw.muted === "boolean" ? pilgrimageRaw.muted : null,
       }
     : null;
-  const departmentId = legacy
-    ? legacyDepartment(record.departmentId)
-    : DEPARTMENTS.some((d) => d.id === record.departmentId)
-      ? (record.departmentId as string)
-      : null;
+  const departmentId = legacyDepartment(record.departmentId);
   const lesson = readLesson(record.lesson, departmentId);
   const stand = importedStand(record.position, buildings.buildings);
   return {
@@ -785,6 +774,28 @@ function layRemainder(
 ) {
   return Object.keys(left).length ? stash(loot, x, z, left) : loot;
 }
+function mergeCounts(base: Record<string, number>, extra: Record<string, number>) {
+  const out = { ...base };
+  for (const [id, amount] of Object.entries(extra)) {
+    if (amount > 0) out[id] = (out[id] ?? 0) + amount;
+  }
+  return out;
+}
+function errandState(s: RpgState, at: { x: number; z: number }, left: Record<string, number>) {
+  const offer = errandReward(s.claimed);
+  if (!offer) return null;
+  const bonus = give({ notes: offer.notes });
+  const claimed = [...s.claimed, offer.id];
+  const spilled = mergeCounts(left, bonus.left);
+  return {
+    claimed,
+    ...xpPatch(s, offer.xp),
+    narrative: stampSemester(s.narrative, claimed),
+    loot: layRemainder(s.loot, at.x, at.z, spilled),
+    accepted: bonus.accepted,
+    left: spilled,
+  };
+}
 
 function give(items: { [id: string]: number | undefined }) {
   const accepted: Record<string, number> = {};
@@ -809,9 +820,7 @@ function xpPatch(s: RpgState, amount: number) {
   };
 }
 export const useRpg = create<RpgState>((set, get) => ({
-  departmentId: DEPARTMENTS.some((d) => d.id === saved.departmentId)
-    ? (saved.departmentId as string)
-    : null,
+  departmentId: legacyDepartment(saved.departmentId),
   xp: finite(saved.xp),
   hp: finite(saved.hp, 100, 400),
   focus: finite(saved.focus, 100, 100),
@@ -822,8 +831,11 @@ export const useRpg = create<RpgState>((set, get) => ({
   boss: Math.floor(finite(saved.boss, 0, 1)),
   discoveries: strings(saved.discoveries),
   claimed: strings(saved.claimed).filter(keepClaim),
-  narrative: readNarrativeSession(
-    saved && typeof saved === "object" && "narrative" in saved ? saved.narrative : undefined,
+  narrative: stampSemester(
+    readNarrativeSession(
+      saved && typeof saved === "object" && "narrative" in saved ? saved.narrative : undefined,
+    ),
+    strings(saved.claimed).filter(keepClaim),
   ),
   narrativeUi: null,
   buildings: restoreBuildings(saved.buildings),
@@ -1156,7 +1168,17 @@ export const useRpg = create<RpgState>((set, get) => ({
       ],
       built: s.built + 1,
     });
-    s.notify(`已建造${recipe.name}，可繼續放置或按 Esc 結束。`);
+    const settled = errandState(get(), { x, z }, {});
+    if (settled) {
+      const { accepted, left, ...patch } = settled;
+      set(patch);
+      s.notify(
+        intakeNotice(accepted, left, `已建造${recipe.name}。這次放置把學期推進到期中，只記一次。`),
+      );
+    } else {
+      set({ narrative: stampSemester(get().narrative, get().claimed) });
+      s.notify(`已建造${recipe.name}，可繼續放置或按 Esc 結束。`);
+    }
     return true;
   },
   demolish: (id) => {
@@ -1208,10 +1230,12 @@ export const useRpg = create<RpgState>((set, get) => ({
     if (progress < m.target) return;
     const { accepted, left } = give({ ...m.reward });
     const g = useGame.getState();
+    const claimed = [...s.claimed, id];
     set({
-      claimed: [...s.claimed, id],
+      claimed,
       ...xpPatch(s, m.xp),
       loot: layRemainder(s.loot, g.playerX, g.playerZ, left),
+      narrative: stampSemester(s.narrative, claimed),
     });
     s.notify(intakeNotice(accepted, left, `完成委託：${m.name}`));
   },
@@ -1262,7 +1286,7 @@ export const useRpg = create<RpgState>((set, get) => ({
       claimed,
       discoveries,
       loot: layRemainder(s.loot, g.playerX, g.playerZ, paid.left),
-      narrative: result.play.session,
+      narrative: stampSemester(result.play.session, claimed),
       narrativeUi: ui,
     });
     const note = ui.notice ?? ui.outcome ?? "這段對話結束了。";
@@ -1500,7 +1524,7 @@ export const useRpg = create<RpgState>((set, get) => ({
         checkpoint: save.stand,
         interiorId: null,
         buildKind: null,
-        narrative: readNarrativeSession(narrativeField(text)),
+        narrative: stampSemester(readNarrativeSession(narrativeField(text)), save.claimed),
         narrativeUi: null,
       });
       if (save.pilgrimage) {
@@ -1625,11 +1649,28 @@ function runPrompt(choice: PromptChoice) {
     const node = SUPPLY_NODES.find((item) => item.id === choice.targetId);
     if (!node) return;
     const { accepted, left } = give({ ...node.items });
-    useRpg.setState({
-      harvested: { ...s.harvested, [node.id]: Date.now() + 180_000 },
-      loot: layRemainder(s.loot, node.x, node.z, left),
-    });
-    s.notify(intakeNotice(accepted, left, "找到校園物資"));
+    const settled = errandState(s, node, left);
+    if (settled) {
+      const { accepted: bonus, left: spilled, ...patch } = settled;
+      useRpg.setState({
+        harvested: { ...s.harvested, [node.id]: Date.now() + 180_000 },
+        ...patch,
+      });
+      s.notify(
+        intakeNotice(
+          mergeCounts(accepted, bonus),
+          spilled,
+          "找到校園物資。這次補給把學期推進到期中，只記一次。",
+        ),
+      );
+    } else {
+      useRpg.setState({
+        harvested: { ...s.harvested, [node.id]: Date.now() + 180_000 },
+        loot: layRemainder(s.loot, node.x, node.z, left),
+        narrative: stampSemester(s.narrative, s.claimed),
+      });
+      s.notify(intakeNotice(accepted, left, "找到校園物資"));
+    }
     return;
   }
   if (choice.kind === "enter" || choice.kind === "arrive") {

@@ -297,6 +297,10 @@ textarea:focus-visible,
   display: block;
   margin-top: 3px;
 }
+.ad-status-title .ad-semester {
+  font-size: 13px;
+  line-height: 1.3;
+}
 .ad-readout {
   grid-column: 1 / -1;
   display: flex;

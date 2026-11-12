@@ -12,6 +12,7 @@ import {
 } from "../../features/narrative/play.ts";
 import type { NarrativeSession, Play, PlayUi } from "../../features/narrative/types.ts";
 import { pickLine } from "../../features/narrative/conditions.ts";
+import { semesterPhase } from "../contracts/semester.ts";
 import { collegeOf } from "./growth/tree.ts";
 import { readV2Progress } from "./growth/progress.ts";
 import type { GrowthState } from "./growth/types.ts";
@@ -155,6 +156,7 @@ export function alignSession(
   return {
     ...session,
     ...clock,
+    semester: semesterPhase(input.growth.claimedQuests),
     collegeId: collegeOf(input.growth),
     departmentId: input.growth.catalogDepartmentId,
     mode: "exploring",

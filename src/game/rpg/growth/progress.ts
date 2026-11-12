@@ -1,11 +1,10 @@
 import {
-  DEPARTMENTS,
   ZERO_MODIFIERS,
   departmentById,
   skillModifiers,
   type SkillModifiers,
 } from "../../departments.ts";
-import { DEPARTMENTS as RPG_DEPARTMENTS } from "../data.ts";
+import { catalogIdFor } from "../../contracts/departments.ts";
 import { collegeOf, learnCurrentRanks } from "./tree.ts";
 import {
   EMPTY_BAG,
@@ -19,8 +18,6 @@ const XP_SOURCES: readonly XpSource[] = ["explore", "combat", "quest"];
 
 /** Same amount store.discover adds the first time a site is found. */
 export const DISCOVER_XP = 12;
-
-const CATALOG_BY_NAME = new Map(DEPARTMENTS.map((department) => [department.name, department.id]));
 
 const MOD_KEYS = Object.keys(ZERO_MODIFIERS) as (keyof SkillModifiers)[];
 
@@ -37,11 +34,7 @@ const MOD_LABELS: Record<keyof SkillModifiers, string> = {
 };
 
 export function resolveCatalogDepartmentId(saved: string | null | undefined): string | null {
-  if (!saved) return null;
-  if (departmentById(saved)) return saved;
-  const rpg = RPG_DEPARTMENTS.find((department) => department.id === saved);
-  if (!rpg) return null;
-  return CATALOG_BY_NAME.get(rpg.name) ?? null;
+  return catalogIdFor(saved);
 }
 
 export function compareDepartments(a: string, b: string) {

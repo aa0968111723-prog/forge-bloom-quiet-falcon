@@ -62,6 +62,12 @@ async function readLive(page) {
       hp: rpg.hp,
       panel: rpg.panel,
       claimed: rpg.claimed,
+      semester: rpg.narrative.semester,
+      collegeId: rpg.narrative.collegeId,
+      semesterText:
+        document.querySelector(".ad-semester")?.textContent ??
+        document.querySelector(".tk-mobile-semester")?.textContent ??
+        null,
       flag: rpg.narrative.flags["gate-asked-map"] === true,
       resolved: rpg.narrative.resolved.includes("evt-gate-orientation"),
       enemyHp: enemy?.hp ?? null,
@@ -112,6 +118,8 @@ async function playOffline(page) {
   const paid = await readLive(page);
   assert.ok(paid.claimed.includes("quest-orient-gate"));
   assert.equal(paid.flag, true);
+  assert.equal(paid.collegeId, "science");
+  assert.equal(paid.semester, "week-1");
   assert.ok(paid.xp > before.xp);
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const paidSave = JSON.parse(await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2")));
@@ -122,13 +130,39 @@ async function playOffline(page) {
   const dismiss = page.getByRole("button", { name: "繼續自由探索" });
   if (await dismiss.isVisible().catch(() => false)) await dismiss.click();
   await page.evaluate(() => window.__rpgQA.rpg.getState().narrativeDismiss());
+  const { SUPPLY_NODES } = await import("../src/game/rpg/campus.ts");
+  const crate = SUPPLY_NODES[0];
+  await page.evaluate(({ x, z }) => window.__controlsTest.setPose(x, z, 0), crate);
+  await page.evaluate(() => window.__rpgQA.step(1 / 30, 4));
+  const beforeErrand = await readLive(page);
+  await page.locator(".ad-interact button").click();
+  const errand = await readLive(page);
+  assert.ok(errand.claimed.includes("quest-errand-campus-post"));
+  assert.equal(errand.xp, beforeErrand.xp + 12);
+  assert.equal(errand.semester, "midterm");
+  assert.equal(errand.semesterText, "期中 · 擊退三隻異象");
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await shot(page, "04b-semester-desktop");
+  await page.setViewportSize({ width: 390, height: 780 });
+  await page.waitForFunction(() => window.innerWidth === 390);
+  await shot(page, "04c-semester-narrow");
+  const narrow = await readLive(page);
+  assert.equal(narrow.semesterText, "期中 · 擊退三隻異象");
+  await page.setViewportSize({ width: 960, height: 600 });
+  note("campus-errand", {
+    xp: errand.xp,
+    semester: errand.semester,
+    claimed: errand.claimed,
+    semesterText: errand.semesterText,
+    narrowText: narrow.semesterText,
+  });
   await page.evaluate(() => window.__controlsTest.setPose(60, 70.5, 0));
   await page.evaluate(() => window.__rpgQA.step(1 / 30, 4));
   const again = page.getByRole("button", { name: "進入大門警衛站" });
   await again.click();
   const second = await readLive(page);
   assert.equal(second.panel === "narrative", false);
-  assert.equal(second.xp, paid.xp);
+  assert.equal(second.xp, errand.xp);
   assert.equal(second.resolved, true);
   const inside = await page.evaluate(() => window.__rpgQA.rpg.getState().interiorId);
   assert.equal(inside, "main-gate");
@@ -149,7 +183,7 @@ async function playOffline(page) {
   await page.evaluate(() => window.__rpgQA.rpg.getState().attack(false));
   const struck = await readLive(page);
   assert.ok(struck.enemyHp < armed.enemyHp, `quiz-2 stayed at ${struck.enemyHp}`);
-  assert.equal(struck.xp, paid.xp);
+  assert.equal(struck.xp, errand.xp);
   await shot(page, "05-combat");
   note("combat", { before: armed.enemyHp, after: struck.enemyHp, xp: struck.xp });
 
@@ -164,6 +198,8 @@ async function playOffline(page) {
   assert.equal(reloaded.departmentId, saved.departmentId);
   assert.equal(reloaded.xp, saved.xp);
   assert.ok(reloaded.claimed.includes("quest-orient-gate"));
+  assert.ok(reloaded.claimed.includes("quest-errand-campus-post"));
+  assert.equal(reloaded.semester, "midterm");
   assert.equal(reloaded.flag, true);
   await page.evaluate(() => window.dispatchEvent(new Event("pagehide")));
   const reloadedDoc = JSON.parse(await page.evaluate(() => localStorage.getItem("tamkang-rpg-v2")));
@@ -320,7 +356,13 @@ async function syncCloud(document) {
     assert.equal(remote.xp, document.xp);
     assert.equal(remote.departmentId, document.departmentId);
     assert.ok(remote.claimed.includes("quest-orient-gate"));
-    note("second-client", { xp: remote.xp, departmentId: remote.departmentId });
+    assert.ok(remote.claimed.includes("quest-errand-campus-post"));
+    assert.equal(remote.narrative.semester, "midterm");
+    note("second-client", {
+      xp: remote.xp,
+      departmentId: remote.departmentId,
+      semester: remote.narrative.semester,
+    });
 
     const leftDoc = { ...document, xp: document.xp + 3 };
     const rightDoc = { ...document, xp: document.xp + 7 };
