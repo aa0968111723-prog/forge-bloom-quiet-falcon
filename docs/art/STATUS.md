@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：書架讓位（ART-081 的一部分）
+
+閱讀室兩側的書架改貼牆。層板內緣 9.06、書本內緣 9.18，都在身體最外緣 9 之外，也在牆內面 9.45 之內。人站到房間碰撞邊緣不會穿進書架。房間仍不是實測。田徑場內圈留著。
+
+畫面：`docs/art/evidence/shelves/east.jpg`。測試：`scripts/shelf-clear.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。閱讀室書架已讓出身體。田徑場內圈仍是草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
