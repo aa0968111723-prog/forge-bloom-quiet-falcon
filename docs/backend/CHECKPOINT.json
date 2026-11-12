@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T08:20:24Z",
+  "updated_at": "2026-11-12T08:28:30Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "26828b9",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -102,10 +102,11 @@
     "an old harvest cooldown still uploads the stations that are cooling",
     "merged main at eccee6d; the unnamed narrative place was already on this branch",
     "a full quarantine list still uploads the campus save",
-    "merged main at 26828b9; the clamped narrative timers were already on this branch"
+    "merged main at 26828b9; the clamped narrative timers were already on this branch",
+    "a crowded ground pile still uploads every item"
   ],
   "verification": {
-    "npm_test": "407 pass, 0 fail; a full quarantine list still uploads the campus save",
+    "npm_test": "408 pass, 0 fail; a crowded ground pile still uploads every item",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

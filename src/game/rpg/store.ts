@@ -858,6 +858,42 @@ export { maxHp };
 let previousPhase: "title" | "setup" | "playing" | "paused" | "codex" = "playing";
 const LOOT_PILES = 100;
 const LOOT_STACK = 99;
+const LOOT_ITEM_KEYS = 16;
+
+function lootSliceId(id: string, index: number) {
+  if (index === 0) return id.slice(0, 80) || crypto.randomUUID();
+  const mark = `:${index}`;
+  return `${id.slice(0, 80 - mark.length)}${mark}`;
+}
+
+function cloudLoot(piles: Loot[]) {
+  const out: Loot[] = [];
+  for (const pile of piles) {
+    const ids = Object.keys(pile.items);
+    const chunks = ids.length > LOOT_ITEM_KEYS ? Math.ceil(ids.length / LOOT_ITEM_KEYS) : 1;
+    for (let chunk = 0; chunk < chunks; chunk += 1) {
+      const slice = ids.slice(chunk * LOOT_ITEM_KEYS, (chunk + 1) * LOOT_ITEM_KEYS);
+      if (!slice.length) continue;
+      const items: Record<string, number> = {};
+      const quest: Record<string, number> = {};
+      for (const id of slice) {
+        items[id] = pile.items[id];
+        const marked = pile.quest?.[id];
+        if (marked) quest[id] = marked;
+      }
+      const next: Loot = {
+        id: chunk === 0 ? pile.id : lootSliceId(pile.id, chunk * LOOT_ITEM_KEYS),
+        x: pile.x,
+        z: pile.z,
+        items,
+      };
+      if (Object.keys(quest).length) next.quest = quest;
+      out.push(next);
+      if (out.length === LOOT_PILES) return out;
+    }
+  }
+  return out;
+}
 
 function grantList(items: Record<string, number>) {
   return ITEMS.flatMap((item) =>
@@ -897,7 +933,8 @@ function stash(
         (entry) =>
           Math.abs(entry.x - x) <= 0.05 &&
           Math.abs(entry.z - z) <= 0.05 &&
-          (entry.items[id] ?? 0) < LOOT_STACK,
+          (entry.items[id] ?? 0) < LOOT_STACK &&
+          (id in entry.items || Object.keys(entry.items).length < LOOT_ITEM_KEYS),
       );
       if (!pile) {
         if (next.length >= LOOT_PILES) break;
@@ -2585,7 +2622,7 @@ function snapshot() {
     heldBuild: s.heldBuild,
     slots: inventory.slots(),
     harvested: cloudHarvest(s.harvested),
-    loot: s.loot,
+    loot: cloudLoot(s.loot),
     clock: s.clock,
     position,
     pilgrimage: { visited: cloudVisited(g.visited), timeOfDay: g.timeOfDay, muted: g.muted },

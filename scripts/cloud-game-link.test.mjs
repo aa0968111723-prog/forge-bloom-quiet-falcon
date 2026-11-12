@@ -948,3 +948,75 @@ test("a full quarantine list still uploads the campus save", () => {
   assert.equal(reloaded.hp, 80);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("a crowded ground pile still uploads every item", () => {
+  const ids = [
+    "notes",
+    "parts",
+    "coffee",
+    "tea",
+    "credit",
+    "badge",
+    "copper",
+    "glass",
+    "cloth",
+    "herb",
+    "ink",
+    "chalk",
+    "resin",
+    "mint",
+    "bandage",
+    "lamp-oil",
+    "field-lamp",
+  ];
+  const items = Object.fromEntries(ids.map((id) => [id, id === "notes" ? 2 : 1]));
+  const building = { id: "station-1", kind: "rest", x: 12, z: -20, rotation: 0, hp: 40 };
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    buildings: [building],
+    loot: [{ id: "pile-wide", x: 12, z: 18, items, quest: { notes: 1 } }],
+  });
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.ok(saved.loot.every((pile) => Object.keys(pile.items).length <= 16));
+  const kept = {};
+  for (const pile of saved.loot) {
+    for (const [id, count] of Object.entries(pile.items)) kept[id] = (kept[id] ?? 0) + count;
+  }
+  assert.equal(kept.notes, 2);
+  assert.equal(kept["field-lamp"], 1);
+  assert.equal(kept.copper, 1);
+  assert.equal(saved.loot.find((pile) => pile.items.notes).quest.notes, 1);
+  assert.equal(saved.loot.find((pile) => pile.items.notes).id, "pile-wide");
+  assert.equal(saved.buildings[0].id, "station-1");
+  assert.equal(saved.hp, 80);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  const again = {};
+  for (const pile of reloaded.loot) {
+    for (const [id, count] of Object.entries(pile.items)) again[id] = (again[id] ?? 0) + count;
+  }
+  assert.equal(again.notes, 2);
+  assert.equal(again["field-lamp"], 1);
+  assert.equal(reloaded.loot.find((pile) => pile.items.notes).quest.notes, 1);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+
+  const narrow = Object.fromEntries(ids.slice(0, 16).map((id) => [id, 1]));
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    buildings: [building],
+    loot: [{ id: "pile-fit", x: 4, z: 8, items: narrow }],
+  });
+  useRpg.getState().keepProgress();
+  const fitted = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(fitted.loot.length, 1);
+  assert.equal(fitted.loot[0].id, "pile-fit");
+  assert.equal(Object.keys(fitted.loot[0].items).length, 16);
+  assert.equal(validateRpgDocument(fitted).ok, true);
+});
