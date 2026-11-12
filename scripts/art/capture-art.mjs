@@ -1346,6 +1346,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "chemistry hall");
+  } else if (scenario === "seminar") {
+    await hideHud(page);
+    await setPose(page, 242, -304, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(218, -334);
+      window.__controlsTest.setPhoto({
+        yaw: -0.7,
+        distance: 36,
+        height: 10,
+        lookY: 0,
+        target: { x: 218, y: y + 6, z: -334 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "hweiwen seminar hall");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

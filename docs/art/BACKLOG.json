@@ -633,9 +633,10 @@
         "docs/art/evidence/media/o.jpg",
         "docs/art/evidence/language/hall.jpg",
         "docs/art/evidence/education/hall.jpg",
+        "docs/art/evidence/seminar/hall.jpg",
         "scripts/class-hall.test.mjs"
       ],
-      "notes": "傳播館 O、Q 從坡頂改成深色基座、淺色上層和屋頂天線。文學館仍是坡頂。天線不是實測。精度仍是 estimated。外國語文大樓從教學樓基座改成底層長廊玻璃和南向退縮的上層。教育館改成灰基座、淺色教室樓身、南向雨遮和樓層遮陽。會文館仍是教學樓。舊的 foreign-lang-hall 不合併。雨遮外形仍是 estimated。"
+      "notes": "傳播館 O、Q 從坡頂改成深色基座、淺色上層和屋頂天線。文學館仍是坡頂。天線不是實測。精度仍是 estimated。外國語文大樓從教學樓基座改成底層長廊玻璃和南向退縮的上層。教育館改成灰基座、淺色教室樓身、南向雨遮和樓層遮陽。會文館從教學樓基座改成底層柱廊和淺色上層。柱廊貼著南牆。舊的 foreign-lang-hall 不合併。柱廊外形仍是 estimated。"
     },
     {
       "id": "ART-066",

@@ -20,6 +20,7 @@ import {
   studioProfile,
   watchPostProfile,
   chemHallProfile,
+  seminarProfile,
   workshopProfile,
 } from "../src/game/world-data/zones/secondary.ts";
 
@@ -136,7 +137,13 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.kind, "stand");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.accuracy, "estimated");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.kind, "lab-block");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "study-block");
+  const seminar = SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen");
+  assert.equal(seminar?.kind, "seminar-hall");
+  assert.equal(seminar?.accuracy, "estimated");
+  assert.notEqual(seminar?.kind, "study-block");
+  const porch = seminarProfile(seminar.size);
+  assert.ok(porch.porchZ - porch.porchD / 2 >= seminar.size[2] / 2 - 0.02, "the porch meets the south wall");
+  assert.ok(porch.porchH < seminar.size[1] * 0.35, "the porch stays the ground storey");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "class-hall");
   const language = SECONDARY_STRUCTURES.find((item) => item.id === "foreign");
   assert.equal(language?.kind, "language-hall");
@@ -210,7 +217,7 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "class-hall");
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "foreign")?.kind, "language-hall");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "study-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "seminar-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.accuracy, "estimated");
   for (const id of ["sungtao", "chemistry", "swimming"]) {

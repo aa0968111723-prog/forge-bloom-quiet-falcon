@@ -454,3 +454,13 @@
 ## 下一步
 
 見 `CHECKPOINT.json`。船首已接到前臉。未引用的四張貼圖已移出靜態站。球網已改成柱子和細帶。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+
+## 階段：會文館（ART-065 的一部分）
+
+教學區這棟不再是教學樓基座。現在是底層柱廊、淺色上層和木色壓簷。柱廊貼著南牆。教育館仍是灰基座和南向雨遮。外國語文大樓仍是底層長廊。文學館仍是坡頂。柱廊外形仍是 estimated。船首留著。
+
+畫面：`docs/art/evidence/seminar/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。會文館已從教學樓分開。教育館、外國語文大樓與船首留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

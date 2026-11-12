@@ -57,7 +57,8 @@ export type SecondaryStructure = {
     | "garden-house"
     | "language-hall"
     | "chem-hall"
-    | "class-hall";
+    | "class-hall"
+    | "seminar-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -388,6 +389,21 @@ export function chemHallProfile(size: readonly [number, number, number]) {
     stackH: Math.min(2.8, Math.max(1.8, size[1] * 0.16)),
     stackX: size[0] * 0.28,
     stackZ: -size[2] * 0.12,
+  };
+}
+
+/**
+ * Seminar porch for 會文館. The piers are an estimated silhouette.
+ * Education stays a class hall. The foreign-language building stays a language hall.
+ */
+export function seminarProfile(size: readonly [number, number, number]) {
+  const porchD = 1.5;
+  const porchH = Math.min(3.4, Math.max(2.8, size[1] * 0.22));
+  return {
+    porchH,
+    porchD,
+    porchZ: size[2] / 2 + porchD / 2,
+    pierW: 0.5,
   };
 }
 
@@ -739,6 +755,7 @@ function campusKind(site: {
   if (site.id === "foreign") return "language-hall";
   if (site.id === "education") return "class-hall";
   if (site.id === "chemistry") return "chem-hall";
+  if (site.id === "hweiwen") return "seminar-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.id === "sungtao-2") return "dorm-front";
   if (site.theme === "dorm") return "dorm-block";
