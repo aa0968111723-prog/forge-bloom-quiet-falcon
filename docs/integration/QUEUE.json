@@ -2573,6 +2573,34 @@
       "integrationPr": 194,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/194",
       "nextAction": "None. The rail bodies from 002453c are already in this integration. Do not merge PR #165 by itself. Re-check the collider when the sloped rails from PR #163 land."
+    },
+    {
+      "id": "backend-session-gate",
+      "line": "backend",
+      "scope": "A flush checks the signed-in account before each queued item and stops when the session changes. A cloud read checks the account again before it replaces the local save.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-session-gate-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "269020c6164fd4d84a2f8dd894aacdb4b4aa446b",
+      "headSha": "7d115d0442b20d78237421be77598bd53dc8d922",
+      "dependencies": ["backend-cloud-drop"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T05:25:20Z entry and the session-change line.",
+        "typecheck": "pass",
+        "npmTest": "353 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-B0KWHzwD.js unchanged",
+        "browser": "8167. The standing route completed.",
+        "route": "8167: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "7212b942634eb5944bb9fd0495cd249b0acedc5a",
+      "integrationPr": 196,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/196",
+      "nextAction": "None. The session recheck from 7d115d0 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
