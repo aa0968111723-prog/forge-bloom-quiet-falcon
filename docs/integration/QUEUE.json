@@ -4816,6 +4816,32 @@
       "integrationPr": 317,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/317",
       "nextAction": "None. The trunk dodge from 2b50ea05 is already in this integration. Do not merge PR #232 by itself. The gate-pier commit f8696f0c is still separate."
+    },
+    {
+      "id": "art-gate-pier",
+      "line": "art",
+      "scope": "Two 1 m piers at the Shuiyuan Street campus gate stop a walking body. The opening under the beam stays clear. An 80 ms dodge takes 0.2 m substeps and cannot cross a pier.",
+      "status": "verified",
+      "pr": 236,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/236",
+      "integrationBranch": "cursor/integration-gate-pier-3395",
+      "sourceBranch": "cursor/gate-pier-1a71",
+      "baseSha": "5894db74e21e4c7247b6ff70706dda05a9d727f1",
+      "headSha": "f8696f0c22f0fbeda9aff60072dba7680ba3d2bc",
+      "dependencies": ["art-tree-dodge"],
+      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world-data/landmarks.ts", "src/game/world/Signage.tsx", "scripts/gate-pier.test.mjs"],
+      "checks": {
+        "conflicts": "Slope-bottom piers, bollards, lamp poles, trunk boxes, and the single 0.2 m substep stayed. Campus-gate piers joined COLLIDERS. The opening under the beam stays clear.",
+        "typecheck": "pass",
+        "npmTest": "451 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-JPvLtEAH.js sha256 0b5b6cb9ad18c889d20529e2060995fa9b7418178bd8a188527b1665f1acde01. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8243/",
+        "route": "8243 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "08b97834ad3872ff5e81613200142fc698b62e78",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #236 by itself. The text-sign commit 23614a9a is still separate."
     }
   ]
 }
