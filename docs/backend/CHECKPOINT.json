@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T09:39:10Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "1be6a82",
+  "base": "d5b89c4",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -119,7 +119,8 @@
     "merged main at dd6a7f3; the refused upload resume was already on this branch",
     "a full ground still keeps every kind when one pile must split",
     "merged main at 1be6a82; the follow-up stop resume was already on this branch",
-    "a full stack ground still keeps an extra kind that already has room"
+    "a full stack ground still keeps an extra kind that already has room",
+    "merged main at d5b89c4; the full-pile split was already on this branch"
   ],
   "verification": {
     "npm_test": "418 pass, 0 fail; a full stack ground still keeps an extra kind that already has room",
