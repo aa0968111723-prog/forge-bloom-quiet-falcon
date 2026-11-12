@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：游泳館夜窗（ART-067 的一部分）
+
+紹謨紀念游泳館的南向高窗在路燈亮起時發冷水色。白天仍是原來的玻璃色，強度是 0。館身、基座和屋頂長脊留著。體育館的高窗這一輪沒有改。水道長度仍待測。外形仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/pool/night.jpg`。測試：`scripts/pool-glow.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。游泳館南向高窗在夜裡會亮。車阻已會擋人。田徑場內圈已有草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

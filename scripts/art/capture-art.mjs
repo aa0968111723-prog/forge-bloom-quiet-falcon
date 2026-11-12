@@ -699,6 +699,16 @@ try {
     await frames(page, 4);
     await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x > -2.4) throw new Error(`walked through the bollard ${JSON.stringify(stopped)}`);
+  } else if (scenario === "pool-night") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("night"));
+    await setPose(page, 236, -390, 0);
+    await frames(page, 16);
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.15, distance: 28, height: 6, lookY: 4 });
+    });
+    await frames(page, 6);
+    await shot(page, "south", "pool hall south glass at night, lamps on");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
