@@ -466,3 +466,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 240 減 226 是 14，也就是收尾 10 加工作室 `after` 的 4。筆記加 1。`levelForXp(240)` 是 3。下一階從 540 起，所以經驗條是 0/300。生命上限是 100 加每個等級 8，3 級是 116。四人主線在這一段結束。
 
 畫面：`/opt/cursor/artifacts/integration-liang-after/board-outcome.png`、`board-done.png`、`wait-outcome.png`、`wait-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 簡禾的兩個開場選項
+
+這段打在 `AdventureApp-C7szpjke.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-BEExzEd5.js`。`main` 尖端 `bd69066`（中斷上傳的後續讀取不記成另一個帳號，整合 PR #208；還原的版本衝突不拿出別人的存檔是 `fdce70c`，整合 PR #206；別人的版本衝突把上傳留在佇列是 `02f0882`，整合 PR #205），合併提交 `face129`。靜態重建仍是同一組檔名。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-he-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-he-meet` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 371 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出仍是 `index-BEExzEd5.js` 與 `AdventureApp-C7szpjke.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，直接站到教育館估計位置。點開場之前存檔經驗 12，那是站在原地發現教育館。筆記 18 是新學期背包原有的。
+
+- 「先看哪一門是另一門的先修。」存檔經驗 30，筆記 18。結果句「我沒有替你選生涯。」畫面是 1 級、「經驗 30/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「朋友可以坐在旁邊」。兩個衝突選項都在。離開不結算，沒有 `quest-faculty-course-clash`。`quest-faculty-course-meet` 只有一筆。沒有工作室任務。重載後經驗 30、筆記 18，再交談仍是這一句。
+- 「先看哪一門的時間不能改。」經驗同樣 12→30，筆記 18。結果句「這是時間，不是哪門比較重要。」衝突仍是「朋友可以坐在旁邊」。離開不結算。重載後這一句還在。
+
+30 減 12 是 18，也就是開場 6 加第一次走到崗位的探索 12。筆記沒有加。衝突不看這次選了先修還是不能改期。跟朋友那個旗標要到她更後面的收尾才改詞。
+
+畫面：`/opt/cursor/artifacts/integration-he-meet/prereq-outcome.png`、`prereq-next.png`、`fixed-outcome.png`、`fixed-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。

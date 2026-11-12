@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T06:17:00Z",
+  "updated": "2026-11-12T06:22:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "4f300a725f09f9b83f58dd93d751a44c26dbae9b",
-  "baseFull": "4f300a7 is origin/main. An upload response for another account stays queued, integration PR #203, game commit a11e747. A restored save is not applied after the session changes, 7535406, integration PR #202. A built station harvest cooldown survives import, 3d60236, integration PR #200. Merged here as fa86833a9e71. Dialogue was played after the rebuild on AdventureApp-C7szpjke.js. Content version stays 2.",
-  "playedBundle": "Liang after: dist/assets/AdventureApp-C7szpjke.js via index-BEExzEd5.js. Preview http://127.0.0.1:8088/ served that entry.",
-  "builtAfter": "npm run build:site after #203 wrote index-BEExzEd5.js and AdventureApp-C7szpjke.js. store.ts is in the adventure chunk. The static entry does not import the cloud client. The dist has no literal revision_conflict or DATABASE_URL.",
-  "gameSha": "fa86833a9e71364789b1e71c6adf343edec6fe06",
-  "verifiedHead": "fa86833a9e71364789b1e71c6adf343edec6fe06",
+  "base": "bd69066176a9843af03ce46cad0c9181280739d6",
+  "baseFull": "bd69066 is origin/main. A dropped upload's follow-up read does not record another account, integration PR #208, game commit c858af7. A restore revision conflict does not offer another account's save, fdce70c, integration PR #206. A revision conflict for another account keeps the queued upload, 02f0882, integration PR #205. Merged here as face129a0e0b. Dialogue was played on AdventureApp-C7szpjke.js. The rebuild kept that hash. Content version stays 2.",
+  "playedBundle": "Jian He meet: dist/assets/AdventureApp-C7szpjke.js via index-BEExzEd5.js. Preview http://127.0.0.1:8088/ served that entry.",
+  "builtAfter": "npm run build:site after #208 kept index-BEExzEd5.js and AdventureApp-C7szpjke.js. The static entry does not import the cloud client. The dist has no literal revision_conflict or DATABASE_URL.",
+  "gameSha": "face129a0e0b1688ce772b7006ce00c5cfe35ae7",
+  "verifiedHead": "face129a0e0b1688ce772b7006ce00c5cfe35ae7",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -15,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T06:04:00Z",
+    "checkedAt": "2026-11-12T06:18:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196, session-blip reward check #197, session-blip save write-back #198, station harvest cooldown #200, restore-session confirm #202, upload-account confirm #203. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196, session-blip reward check #197, session-blip save write-back #198, station harvest cooldown #200, restore-session confirm #202, upload-account confirm #203, revision-conflict account #205, restore revision-conflict #206, dropped-upload follow-up account #208. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -44,18 +44,19 @@
     "node --experimental-transform-types scripts/integration-qiu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-after",
     "node --experimental-transform-types scripts/integration-gu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-after",
     "node --experimental-transform-types scripts/integration-shen-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-after",
-    "node --experimental-transform-types scripts/integration-liang-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-after"
+    "node --experimental-transform-types scripts/integration-liang-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-after",
+    "node --experimental-transform-types scripts/integration-he-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-he-meet"
   ],
   "done": [
-    "Merged origin/main 4f300a7 (upload-account confirm #203, restore-session #202, station harvest #200) as fa86833. npx tsc --noEmit passed. npm test was 364 pass / 0 fail. build:site wrote AdventureApp-C7szpjke.js via index-BEExzEd5.js.",
-    "Two fresh architecture semesters paid Liang Wan's poster choices on that bundle. Board and wait each moved store xp from 226 to 240 and notes from 25 to 26. The +14 is after 10 plus studio after 4. levelForXp(240) is 3. The card showed 經驗 0/300 and 生命 116/116. Semester stayed week-1. Toast was 課堂筆記 ×1.",
-    "The four-person main line ends on this beat. Talking to Liang again showed 這段已經談完 and did not open a panel. Reload kept xp 240, notes 26, both quest-faculty-liang-after and quest-faculty-studio-after at one, and the same notice."
+    "Merged origin/main bd69066 (dropped-upload follow-up #208, restore conflict #206, revision-conflict account #205) as face129. npx tsc --noEmit passed. npm test was 371 pass / 0 fail. build:site kept AdventureApp-C7szpjke.js via index-BEExzEd5.js.",
+    "Two fresh architecture semesters paid Jian He's opening choices at the estimated education post. Standing there discovered the site, so xp was 12 before the click. Prereq and fixed each moved store xp from 12 to 30 and left notes at 18. The +18 is meet 6 plus discover-place 12. Notes 18 are the fresh bag. The card stayed level 1 and showed 30/60, hp 100, focus 100. Semester stayed week-1. No studio quest was claimed.",
+    "Her clash line was the same for both flags: 朋友可以坐在旁邊. Both clash choices were visible. Leaving unpaid omitted quest-faculty-course-clash. Reload kept xp 30, notes 18, and that line. quest-faculty-course-meet stayed at one."
   ],
   "todo": [
-    "Jian He's opening choices 先看哪一門是另一門的先修 and 先看哪一門的時間不能改 were not clicked. Her post is the estimated education site. Her meet has no studio main. The next beat is her clash.",
+    "Jian He's clash choices 我自己對過先修，不跟朋友的課表走 and 我先跟朋友同一門，下學期再補先修 were visible and not clicked. The friend flag changes her later after line, not this clash line.",
     "Xu Hui is wired at the estimated library post. This line did not click her. docs/quest-play/evidence screenshots are the other line's record.",
     "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked.",
-    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #203 already merged. Do not merge that branch again.",
+    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #208 already merged. Do not merge that branch again.",
     "Variety tip 3270f9f was the last fetched head. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
@@ -67,5 +68,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Jian He's opening choices at the estimated education post, 先看哪一門是另一門的先修 or 先看哪一門的時間不能改. A fresh semester can reach her without the four-person chain. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge harvest #200, restore #202, or upload-account #203 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Jian He's clash choices, 我自己對過先修，不跟朋友的課表走 or 我先跟朋友同一門，下學期再補先修. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge account checks #205, #206, or #208 again. Do not merge PR #32 head 1fc5887."
 }
