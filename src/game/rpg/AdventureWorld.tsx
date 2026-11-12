@@ -34,7 +34,7 @@ import { quality } from "../quality";
 import { signHost } from "./chrome";
 import { INTERIOR_CEILING_THICKNESS, INTERIOR_CEILING_Y } from "./interior-ceiling";
 import { detailedRoom, InteriorDetails, roomFinish } from "./InteriorDetails";
-import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
+import { LIBRARY_SHELF, ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
 import { Monster } from "./art/Monster";
 import { SkillEffects } from "./art/SkillEffects";
 import { StructuralPulse } from "../art/vfx/StructuralPulse";
@@ -569,7 +569,7 @@ function LibraryShelves({ floor }: { floor: number }) {
     for (const side of [-1, 1])
       for (let row = 0; row < 4; row++)
         for (let n = 0; n < 20; n++) {
-          m.makeTranslation(side * 9.1, 0.5 + row * 0.8, -5 + n * 0.24);
+          m.makeTranslation(side * LIBRARY_SHELF.bookX, 0.5 + row * 0.8, -5 + n * 0.24);
           ref.current.setMatrixAt(i, m);
           ref.current.setColorAt(
             i,
@@ -583,13 +583,13 @@ function LibraryShelves({ floor }: { floor: number }) {
   return (
     <group>
       <instancedMesh ref={ref} args={[undefined, undefined, 160]}>
-        <boxGeometry args={[0.3, 0.5, 0.17]} />
+        <boxGeometry args={[LIBRARY_SHELF.bookDepth, 0.5, 0.17]} />
         <meshStandardMaterial roughness={0.85} />
       </instancedMesh>
       {[-1, 1].flatMap((side) =>
         [0.15, 0.95, 1.75, 2.55, 3.35].map((y) => (
-          <mesh key={side + ":" + y} position={[side * 9.1, y, -2.7]}>
-            <boxGeometry args={[0.55, 0.12, 5.2]} />
+          <mesh key={side + ":" + y} position={[side * LIBRARY_SHELF.boardX, y, -2.7]}>
+            <boxGeometry args={[LIBRARY_SHELF.boardDepth, 0.12, 5.2]} />
             <meshStandardMaterial color="#7e7359" />
           </mesh>
         )),

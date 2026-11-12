@@ -516,3 +516,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/reading-carrel.test.mjs` 通過。`tsc --noEmit` 通過。閱讀室裡站在東側閱覽桌中心會被推開。教室同一點不會被推開。中間走道 (0, −5.4) 和南門 (0, 6.4) 不被推開。從南緣往北跨 1.04 m 仍停在中心南側，人也留在房間裡。閱覽桌和學生桌分開。室內行走只在閱讀室帶上這兩座桌子。講台仍只在宮燈教室。白天走進閱讀室會停在東側桌緣：`docs/art/evidence/carrel/east.jpg`。尺寸仍是 estimated。第 96 輪的講台留著。沒有新增音效。
 
+## 第 98 輪（書架讓位）— 2026-11-12
+
+`node --test scripts/shelf-clear.test.mjs` 通過。`tsc --noEmit` 通過。層板內緣 9.06、書本內緣 9.18，都大於身體最外緣 9，外緣都小於牆內面 9.45。白天站在閱讀室東牆邊，書架在身體外側：`docs/art/evidence/shelves/east.jpg`。尺寸仍是 estimated。第 97 輪的閱覽桌留著。沒有新增音效。
+

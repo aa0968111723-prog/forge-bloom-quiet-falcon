@@ -795,9 +795,11 @@
         "src/game/rpg/InteriorDetails.tsx",
         "docs/art/evidence/m2/public-interiors.jpg",
         "docs/art/evidence/carrel/east.jpg",
-        "scripts/reading-carrel.test.mjs"
+        "docs/art/evidence/shelves/east.jpg",
+        "scripts/reading-carrel.test.mjs",
+        "scripts/shelf-clear.test.mjs"
       ],
-      "notes": "既有遊戲室內，不是實測房間。閱讀室北牆有兩座帶擋板的閱覽桌，會擋住身體，中間走道留著。教室同一點沒有這兩座桌子。推出方向若會出房間就改走另一軸。進出後 interiorId 回到 null，hp 與主修保留，人站回各棟門外。材質庫 ART-084 仍未做。"
+      "notes": "既有遊戲室內，不是實測房間。閱讀室北牆有兩座帶擋板的閱覽桌，會擋住身體，中間走道留著。教室同一點沒有這兩座桌子。推出方向若會出房間就改走另一軸。書架改貼側牆：層板內緣在 9.06，書本內緣在 9.18，身體最外緣是 9，牆內面是 9.45。人站在牆邊不會穿進書架。進出後 interiorId 回到 null，hp 與主修保留，人站回各棟門外。材質庫 ART-084 仍未做。"
     },
     {
       "id": "ART-082",

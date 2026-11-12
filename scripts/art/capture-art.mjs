@@ -1132,6 +1132,17 @@ try {
     });
     await frames(page, 6);
     await shot(page, "east", `reading carrel, walked north and stopped ${JSON.stringify(stopped)}`);
+  } else if (scenario === "shelves") {
+    await hideHud(page);
+    await enterInterior(page, "library");
+    await setPose(page, 8.5, -2.6, -Math.PI / 2);
+    await frames(page, 16);
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.15, distance: 3.4, height: 1.45, lookY: 1.35 });
+    });
+    await frames(page, 6);
+    const stood = await page.evaluate(() => window.__controlsTest.getPosition());
+    await shot(page, "east", `library shelves clear of the body ${JSON.stringify(stood)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

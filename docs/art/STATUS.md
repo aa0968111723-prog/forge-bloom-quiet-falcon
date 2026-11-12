@@ -614,6 +614,12 @@
 
 畫面：`docs/art/evidence/carrel/east.jpg`。測試：`scripts/reading-carrel.test.mjs`。
 
+## 階段：書架讓位（ART-081 的一部分）
+
+閱讀室的層板內緣在 9.06，書本內緣在 9.18，都在身體最外緣 9 和牆內面 9.45 之間。人站在房間側邊不會穿進書架。閱覽桌留著。尺寸仍是 estimated。
+
+畫面：`docs/art/evidence/shelves/east.jpg`。測試：`scripts/shelf-clear.test.mjs`。
+
 ## 下一步
 
 見 `CHECKPOINT.json`。路燈燈柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
