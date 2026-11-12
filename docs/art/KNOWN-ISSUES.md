@@ -4,7 +4,7 @@
 
 | ID | 範圍 | 狀態 | 說明 | 下一步 |
 | --- | --- | --- | --- | --- |
-| KI-01 | 效能 | 已處理 | 新主角 20.9k 三角形讓本主機省電畫質室內 frame median 33.3 → 50 ms。已加 LOD1（9.1k）於省電畫質使用，重測回到 33.3／50 ms（STATUS.md）。 | NPC 套用角色組時沿用 LOD 規則 |
+| KI-01 | 效能 | 已處理 | 新主角 20.9k 三角形讓本主機省電畫質室內 frame median 33.3 → 50 ms。已加 LOD1（9.1k）於省電畫質使用，重測回到 33.3／50 ms（STATUS.md）。低畫質 NPC 用程序學生，90 m 外不繪製。 | 無 |
 | KI-02 | 傳輸 | needs_review | 省電畫質未壓縮傳輸 +0.8 MB（主角 LOD1 0.62 MB、考卷怪 0.17 MB）；高畫質 +1.3 MB。vite preview 未 gzip。 | 依量測評估 meshopt／KTX2（ART-015）；部署端確認 gzip |
 | KI-03 | 主角外觀 | needs_review | 鞋楦已加高並加圓頭與橡膠鞋頭，手指已分開；四肢仍偏細，待審閱。 | 審閱 `evidence/m2/protagonist-shoes-hands.jpg` |
 | KI-04 | 樣板場景 | needs_review | 宮燈大道沿用既有建物與宮燈；未依新方向精修碧瓦、窗格與宮燈燈頭。 | 併入 axis-54（ART-062） |

@@ -926,6 +926,25 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "older engineering workshop");
+  } else if (scenario === "npc-low") {
+    await hideHud(page);
+    await setPose(page, 8, -40, Math.PI);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await frames(page, 12);
+    const walker = await page.evaluate(() => window.__npcQA?.walkers?.[0] ?? null);
+    if (!walker) throw new Error("low-tier avenue walker was not reported");
+    await page.evaluate((at) => {
+      const y = window.__rpgQA.ground(at.x, at.z);
+      window.__controlsTest.setPhoto({
+        yaw: Math.PI * 0.85,
+        distance: 5.5,
+        height: 1.35,
+        lookY: 0,
+        target: { x: at.x, y: y + 1, z: at.z },
+      });
+    }, walker);
+    await frames(page, 4);
+    await shot(page, "avenue", `low-tier NPC stand-in at ${walker.x.toFixed(1)}, ${walker.z.toFixed(1)}`);
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);
