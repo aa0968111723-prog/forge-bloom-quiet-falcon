@@ -1101,6 +1101,71 @@ test("a full ground still keeps a variety overflow on the pile already there", (
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
 
+test("variety notes that miss the bag stay out of collection", () => {
+  inventory.clear();
+  let added = 1;
+  while (added > 0) added = inventory.add("parts", 99).added;
+  added = 1;
+  while (added > 0) added = inventory.add("notes", 99).added;
+  useGame.setState({
+    playerX: 12,
+    playerZ: 18,
+    playerYaw: 0,
+    phase: "playing",
+    plaqueId: null,
+  });
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    xp: 0,
+    departmentId: "math",
+    claimed: [],
+    discoveries: [],
+    gathered: { notes: 0, parts: 0, coffee: 0, tea: 0 },
+    buildings: [],
+    loot: [],
+    interiorId: null,
+    panel: null,
+    narrativeUi: null,
+    buildKind: null,
+    harvested: {},
+  });
+  const memory = emptyMemory();
+  memory.active = {
+    eventId: "gv-night-patrol",
+    phase: "success",
+    route: "peace",
+    board: null,
+    failReason: null,
+    receipt: "筆記送到了。",
+    tutorial: true,
+    caps: { equipped: false, skillRank: 1, built: 0, collegeId: null, discipline: null },
+  };
+  replaceMemory(memory);
+  const paid = claimVariety();
+  assert.equal(paid.paid, true);
+  assert.equal(paid.notes, 4);
+  const pile = useRpg.getState().loot.find((entry) => (entry.items.notes ?? 0) > 0);
+  assert.equal(pile.items.notes, 4);
+  assert.equal(pile.quest?.notes, 4);
+  assert.equal(useRpg.getState().gathered.notes, 0);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.loot.find((entry) => entry.quest?.notes).quest.notes, 4);
+  assert.equal(validateRpgDocument(saved).ok, true);
+  inventory.clear();
+  useRpg.setState({ panel: null, narrativeUi: null, interiorId: null, buildKind: null });
+  useGame.setState({
+    playerX: pile.x,
+    playerZ: pile.z,
+    playerYaw: 0,
+    phase: "playing",
+    plaqueId: null,
+  });
+  assert.equal(useRpg.getState().commitPrompt(), "pickup");
+  assert.equal(useRpg.getState().gathered.notes, 0);
+  assert.equal(useRpg.getState().loot.some((entry) => (entry.items.notes ?? 0) > 0), false);
+});
+
 test("a full ground still keeps every kind when one pile must split", () => {
   const ids = [
     "notes",
