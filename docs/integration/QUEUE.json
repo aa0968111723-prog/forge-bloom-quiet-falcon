@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T02:50:00Z",
+      "updated": "2026-11-12T07:31:47Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3161,6 +3161,37 @@
       "integrationPr": 229,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/229",
       "nextAction": "None. The wrapped look-around yaw from a42e4cd is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-memory-length",
+      "line": "backend",
+      "scope": "A campus memory value may be 80 characters. The cloud check and the local import both keep that line. 81 characters are still rejected. Keys must still be shorter than 80.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-memory-length-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "e5ef99ed4fa1524791aafe8ee4b38887392024b6",
+      "headSha": "ce2b4cde85721518a9dbcd4b7d3086037c8d5e8d",
+      "dependencies": ["backend-look-yaw"],
+      "sharedFiles": [
+        "src/features/cloud-save/contract.ts",
+        "src/game/rpg/narrative-bridge.ts"
+      ],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:24:56Z entry and the full-length memory line.",
+        "typecheck": "pass",
+        "npmTest": "391 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BeZ7VYZM.js",
+        "browser": "8188. The standing route completed.",
+        "route": "8188: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": true,
+      "mergeSha": "a378b3673c8bbeb24769d42eec0faa175c471e1f",
+      "integrationPr": 231,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/231",
+      "nextAction": "None. The 80-character campus memory from ce2b4cd is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-11-12T07:32:59Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "e5ef99e",
+  "base": "8daa1ef",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -80,7 +80,8 @@
     "a long ground-loot id still uploads with its items",
     "merged main at e5ef99e; the wrapped look-around yaw was already on this branch",
     "an unusable ground pile still uploads its items",
-    "a move lesson with an unusable anchor still uploads"
+    "a move lesson with an unusable anchor still uploads",
+    "merged main at 8daa1ef; the 80-character campus memory was already on this branch"
   ],
   "verification": {
     "npm_test": "394 pass, 0 fail; a move lesson with an unusable anchor still uploads",
