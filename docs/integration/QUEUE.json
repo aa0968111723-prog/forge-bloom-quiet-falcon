@@ -4340,6 +4340,34 @@
       "integrationPr": 300,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/300",
       "nextAction": "None. The scooter bays from d798fa23 are already in this integration. Do not merge PR #158 by itself."
+    },
+    {
+      "id": "art-parking-stripes",
+      "line": "art",
+      "scope": "The twelve centre stripes are gone. They ran 25.5 m through the aisle and cut the scooter bays. The edge bays stay, and the aisle is unmarked.",
+      "status": "verified",
+      "pr": 158,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/158",
+      "integrationBranch": "cursor/integration-parking-stripes-3395",
+      "sourceBranch": "cursor/parking-stalls-1a71",
+      "baseSha": "868456aef9435b3d4888796577e4d0a93d6f4072",
+      "headSha": "1788c30c470311e7902c405dd189dc57a0dde1c7",
+      "dependencies": ["art-scooter-bays"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "scripts/court-lines.test.mjs"],
+      "checks": {
+        "conflicts": "docs/art. Kept the scooter bays and the earlier milestones. The twelve centre stripes are removed. build_site set to AdventureApp-COgoRz7i.js.",
+        "typecheck": "pass",
+        "npmTest": "437 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-COgoRz7i.js",
+        "browser": "8230. The standing route completed.",
+        "route": "8230: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "32b616242df341234094d6b9f9cde663415d7733",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #158 by itself."
     }
   ]
 }
