@@ -315,3 +315,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 47 輪（植栽距離）— 2026-11-12
 
 `node --test scripts/planting-lod.test.mjs` 通過。`tsc --noEmit` 通過。距離 48 m 以內的植株留在近景，正好 48 m 和更遠的進遠景。樹木與灌木近景用模型，遠景改便宜樹冠。杜鵑、花圃、地被和青苔超出距離就不畫。棕櫚超出距離留便宜樹冠。定步白天站在宮燈大道，頁面無錯誤：`docs/art/evidence/planting/avenue.jpg`。近處看得到圓灌木和粉紅花圃。植栽位置仍是 estimated。外國語文大樓留在第 46 輪。沒有新增音效。
+
+## 第 48 輪（肩肘膝）— 2026-11-12
+
+`node --test --test-name-pattern "shoulders, elbows and knees" scripts/art-pipeline.test.mjs` 通過。每個動作片段取 17 個時間點，讀肩、肘、膝的本地旋轉。膝最多彎 94 度，肘最多彎 97 度，肩最多前舉 166 度。膝往後折到 -1.2 rad、肘往反方向折到 1.2 rad、肩再舉到 -3.5 rad，測試都會失敗。沒有新增音效。植栽距離留在第 47 輪。
