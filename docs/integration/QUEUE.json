@@ -2970,7 +2970,7 @@
       "id": "art-rail-slope",
       "line": "art",
       "scope": "Library ramp rails follow the sloped deck. The north post base is 0.921 m above the south post base, and each bar runs to the next post. The 0.12 m colliders stay on the same X as the posts.",
-      "status": "verified",
+      "status": "merged",
       "pr": 163,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/163",
       "integrationBranch": "cursor/integration-rail-slope-3395",
@@ -2988,9 +2988,11 @@
         "route": "8181: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/ramp-rails.test.mjs"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "c526b66f679c8fdc65e356490ab1a15c590d3f68",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #163 by itself."
+      "integrationPr": 220,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/220",
+      "nextAction": "None. The sloped library rails from c065645 are already in this integration. Do not merge PR #163 by itself."
     }
   ]
 }
