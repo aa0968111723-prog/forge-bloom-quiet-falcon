@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T07:54:41Z",
+      "updated": "2026-11-12T08:00:01Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3304,6 +3304,32 @@
       "integrationPr": 237,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/237",
       "nextAction": "None. The filtered campus discoveries from 9aea9404 are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-gear-durability",
+      "line": "backend",
+      "scope": "Import folds quarantined gear durability into 0..100000. A value already inside that range stays. Item id and quality stay. Worn catalog gear still clamps to its own maximum. A raw upload outside that range is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-gear-durability-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "b1f473d1a6ec3908a079bb4e476973d282908399",
+      "headSha": "a6a082510a7f0a898cb4cf7cfb9263f0946b9eb5",
+      "dependencies": ["backend-discoveries"],
+      "sharedFiles": ["src/features/items-equipment-building/gear.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json and gear.ts auto-merged. Kept 2026-11-12T07:40:08Z and the wild-durability line.",
+        "typecheck": "pass",
+        "npmTest": "396 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DCmKs76_.js",
+        "browser": "8193. The standing route completed.",
+        "route": "8193: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "eb496063cfd9ee5d7ed70c5a093d5d828c2cb488",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
