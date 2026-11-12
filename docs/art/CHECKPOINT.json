@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T00:40:00Z",
+  "updated": "2026-11-12T01:05:00Z",
   "task_ids": [
-    "ART-066"
+    "ART-086"
   ],
-  "branch": "cursor/office-block-1a71",
-  "base": "main@61ed00f0bfd4",
+  "branch": "cursor/light-times-1a71",
+  "base": "main@800d43d",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "lesson-marker 1 pass; full suite not re-run this round",
+    "npm_test": "lighting-times 1 pass; full suite not re-run this round",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "not re-run this round",
     "eslint_new_code": "0 errors"
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The administration building is a stone office block with a south entrance bay and two window bands. Education, foreign languages, and Hweiwen stay classroom blocks. The older admin-hall record stays separate. The entrance position is still unmeasured. The swimming hall stays a pale long hall with a roof spine. The open campus map still writes a two-character lesson label. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The palace avenue now has day, sunset, night, and wet frames from the same stand. Day lamps are off; sunset and night lamps are on; wet darkens the paving. This is not a measured daylight survey. The administration building stays a stone office block. Positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

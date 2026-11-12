@@ -795,14 +795,18 @@
       "depends": [
         "ART-084"
       ],
-      "status": "needs_review",
+      "status": "done",
       "acceptance": "三時段固定角度截圖",
       "evidence": [
         "src/game/world-data/lighting.ts",
         "src/game/world/Lighting.tsx",
-        "docs/art/evidence/m2/lighting-avenue.jpg"
+        "docs/art/evidence/lighting/day.jpg",
+        "docs/art/evidence/lighting/sunset.jpg",
+        "docs/art/evidence/lighting/night.jpg",
+        "docs/art/evidence/lighting/wet.jpg",
+        "scripts/lighting-times.test.mjs"
       ],
-      "notes": "同一站點 (0,-80) 的晴天、夕照、夜、雨後。夕照與夜路燈亮，雨後鋪面變濕。不是實測日照。"
+      "notes": "同一站點 (0,-80)、同一鏡頭的晴天、夕照、夜、雨後。晴天路燈滅；夕照與夜路燈亮；雨後鋪面變濕且有雨絲。不是實測日照。"
     },
     {
       "id": "ART-087",
