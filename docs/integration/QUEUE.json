@@ -4900,6 +4900,32 @@
       "integrationPr": 320,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/320",
       "nextAction": "None. The library plinth from e59376ac is already in this integration. Do not merge PR #240 by itself. The still-wind commit 427b2489 is still separate."
+    },
+    {
+      "id": "art-still-wind",
+      "line": "art",
+      "scope": "Reduced motion holds the wind clock and eases strength to 0, so canopies, shrubs and grass stop swaying. Turning motion back on restores a day wind.",
+      "status": "verified",
+      "pr": 243,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/243",
+      "integrationBranch": "cursor/integration-still-wind-3395",
+      "sourceBranch": "cursor/still-wind-1a71",
+      "baseSha": "4bce3d5cd10202211624dcf6a6438bb6f4fa65a3",
+      "headSha": "427b2489c5bc7dd73d515c4a3d2f2470e2b55c35",
+      "dependencies": ["art-library-plinth"],
+      "sharedFiles": ["src/game/world/wind.ts", "src/game/world/WindTicker.tsx", "scripts/wind-motion.test.mjs"],
+      "checks": {
+        "conflicts": "Library plinth, named boards, campus-gate piers, lamp poles, trunk boxes, and the rain still stay. Reduced motion now holds the wind clock and eases strength to 0.",
+        "typecheck": "pass",
+        "npmTest": "454 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-Dvwl2Lu9.js sha256 e5f63e51ea0405af89ecbbb0e0c671254cbfae62797f0db6167d9a8d74ee31b1. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8246/",
+        "route": "8246 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "be4e1d67dcd68c78de49971842829dc77899ce07",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #243 by itself. The still-water commit 0dd53a5c is still separate."
     }
   ]
 }
