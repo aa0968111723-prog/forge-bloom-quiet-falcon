@@ -5063,9 +5063,11 @@
         "route": "8251 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "93a52000a15afcdfdbc4dc9bcfd5b42f7468f4fd",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #252 by itself."
+      "integrationPr": 326,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/326",
+      "nextAction": "None. The five-tigers stele from 04fb8bac is already in this integration. Do not merge PR #252 by itself. The maritime airframes commit 2e07ebe2 is still separate."
     }
   ]
 }
