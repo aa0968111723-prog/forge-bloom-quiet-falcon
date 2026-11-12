@@ -10,7 +10,7 @@ import { CAMPUS_SITES } from "./campus";
 import { AdventurePlayer } from "./AdventurePlayer";
 import { AdventureHud } from "./AdventureHud";
 import { AdventureSystems, CampusExtension, Interior, PromptMarks } from "./AdventureWorld";
-import { useRpg } from "./store";
+import { inventory, useRpg } from "./store";
 import { terrainHeight } from "../world";
 import { usePerformance } from "./performance";
 function PerformanceBudget() {
@@ -46,7 +46,7 @@ function QaClock() {
   const get = useThree((s) => s.get);
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("qa") !== "1") return;
-    const qa = (window.__rpgQA ??= { rpg: useRpg, game: useGame });
+    const qa = (window.__rpgQA ??= { rpg: useRpg, game: useGame, inventory });
     qa.freeze = () => setFrameloop("never");
     qa.resume = () => setFrameloop("always");
     qa.step = (dt = 1 / 30, count = 1) => {
@@ -158,7 +158,7 @@ export default function AdventureApp() {
   }, []);
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("qa") !== "1") return;
-    window.__rpgQA = { rpg: useRpg, game: useGame, ground: terrainHeight };
+    window.__rpgQA = { rpg: useRpg, game: useGame, ground: terrainHeight, inventory };
     return () => {
       delete window.__rpgQA;
     };

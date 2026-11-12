@@ -10,7 +10,7 @@ npm test
 npm run dev
 ```
 
-開發伺服器在這台機器上是 `http://127.0.0.1:8080/`。不要重啟別人的程序。這一線沒有合併、沒有部署、沒有改正式資料。
+開發伺服器在這台機器上是 `http://127.0.0.1:8080/`。`?qa=1` 會把活著的 `inventory` 掛在 `window.__rpgQA`，建物上限的 draw call 就是這樣讀 `window.__perfTest.info` 的。不要重啟別人的程序。這一線沒有合併、沒有部署、沒有改正式資料。
 
 擁有 `src/features/items-equipment-building/**`、`docs/items-equipment-building/**`、`scripts/items-gear.test.mjs`。接到主遊戲的檔案是 `src/game/rpg/store.ts`、`data.ts`、`rules.ts`、`prompts.ts`、`itemdetail.ts`、`pack.ts`、`campus.ts`、`AdventureHud.tsx`、`AdventureWorld.tsx`、`AdventurePlayer.tsx`、`adventure.css`，以及 `scripts/rpg-runtime.test.mjs` 裡研究桌的合法座標（`place(45, -32)`，因為道路中心線在 z = -24）。
 
