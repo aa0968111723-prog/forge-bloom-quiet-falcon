@@ -576,3 +576,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 30 減 12 是 18，也就是開場 6 加第一次走到崗位的探索 12。筆記沒有加。衝突不看這次是先問每個人還是只用自己的。
 
 畫面：`/opt/cursor/artifacts/integration-xi-meet/ask-outcome.png`、`ask-next.png`、`own-outcome.png`、`own-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 程晰的兩個衝突選項
+
+這段打在 `AdventureApp-C7szpjke.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-BEExzEd5.js`。`main` 尖端 `6f75c3e`（資料庫停著時，直接上傳留在佇列，整合 PR #217，遊戲提交 `ef46fb6`），合併提交 `c1b0df1`。這次重建回到這組檔名。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-xi-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-xi-clash` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 380 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出是 `index-BEExzEd5.js` 與 `AdventureApp-C7szpjke.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場。點衝突之前存檔經驗 30、筆記 18。
+
+- 「沒有同意的檔先移出資料夾。」之前選了問每一個人。存檔經驗 38，筆記 19。結果句「現在這個資料夾裡只留能用的。」畫面是 1 級、「經驗 38/60」、生命 100/100、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。再交談，她說「你自己的作業也在裡面」。兩個同意選項都在。離開不結算，沒有 `quest-faculty-ethics-turn`。`quest-faculty-ethics-clash` 只有一筆。沒有工作室任務。重載後經驗 38、筆記 19，再交談仍是這一句。
+- 「先留著，標成未授權，不能拿去跑。」之前選了只用自己的那一份。經驗同樣 30→38，筆記 18→19。結果句「這不是已經同意，是隔離。」同意仍是「你自己的作業也在裡面」。離開不結算。重載後這一句還在。
+
+38 減 30 是 8，也就是衝突階段的經驗。筆記加 1。同意不看這次是移出還是留下。留檔那個旗標要到她更後面的收尾才改詞。
+
+畫面：`/opt/cursor/artifacts/integration-xi-clash/out-outcome.png`、`out-next.png`、`hold-outcome.png`、`hold-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。

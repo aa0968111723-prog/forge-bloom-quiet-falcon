@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T06:46:00Z",
+  "updated": "2026-11-12T06:51:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "d12a2d91ee58f2131df41b140f677965ea3397c2",
-  "baseFull": "d12a2d9 is origin/main. Quarantined imported items keep their ids in the cloud save, integration PR #215, game commit 371829b. Merged here as 977f75799357. Dialogue was played on AdventureApp-CdIK2TH9.js. This rebuild wrote new static filenames. The contract module is not in dist. Content version stays 2.",
-  "playedBundle": "Cheng Xi opening: dist/assets/AdventureApp-CdIK2TH9.js via index-DnUtITqM.js. Preview http://127.0.0.1:8088/ served that entry. AdventureApp is 886912 bytes.",
-  "builtAfter": "npm run build:site after #215 wrote index-DnUtITqM.js and AdventureApp-CdIK2TH9.js. The dist has no literal revision_conflict, DATABASE_URL, or 隔離裝備.",
-  "gameSha": "977f7579935733b05aa519a29bb12805326b7715",
-  "verifiedHead": "977f7579935733b05aa519a29bb12805326b7715",
+  "base": "6f75c3e67a9e767156be6cf3958f83cad2384022",
+  "baseFull": "6f75c3e is origin/main. A direct upload stays queued when the database is down, integration PR #217, game commit ef46fb6. Merged here as c1b0df1edb12. Dialogue was played on AdventureApp-C7szpjke.js. This rebuild wrote that earlier filename back. The cloud client is not in dist. Content version stays 2.",
+  "playedBundle": "Cheng Xi clash: dist/assets/AdventureApp-C7szpjke.js via index-BEExzEd5.js. Preview http://127.0.0.1:8088/ served that entry. AdventureApp is 886912 bytes.",
+  "builtAfter": "npm run build:site after #217 wrote index-BEExzEd5.js and AdventureApp-C7szpjke.js. The dist has no literal revision_conflict or DATABASE_URL.",
+  "gameSha": "c1b0df1edb1228744291a687aed9059b1814be0f",
+  "verifiedHead": "c1b0df1edb1228744291a687aed9059b1814be0f",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -15,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T06:42:00Z",
+    "checkedAt": "2026-11-12T06:47:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196, session-blip reward check #197, session-blip save write-back #198, station harvest cooldown #200, restore-session confirm #202, upload-account confirm #203, revision-conflict account #205, restore revision-conflict #206, dropped-upload follow-up account #208, harvest cooldown cloud whitelist #210, reward receipt account #211, lost direct upload #213, quarantine item ids #215. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196, session-blip reward check #197, session-blip save write-back #198, station harvest cooldown #200, restore-session confirm #202, upload-account confirm #203, revision-conflict account #205, restore revision-conflict #206, dropped-upload follow-up account #208, harvest cooldown cloud whitelist #210, reward receipt account #211, lost direct upload #213, quarantine item ids #215, database-down upload queue #217. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -49,18 +49,19 @@
     "node --experimental-transform-types scripts/integration-he-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-he-clash",
     "node --experimental-transform-types scripts/integration-he-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-he-turn",
     "node --experimental-transform-types scripts/integration-he-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-he-after",
-    "node --experimental-transform-types scripts/integration-xi-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-xi-meet"
+    "node --experimental-transform-types scripts/integration-xi-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-xi-meet",
+    "node --experimental-transform-types scripts/integration-xi-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-xi-clash"
   ],
   "done": [
-    "Merged origin/main d12a2d9 (quarantine item ids #215, game 371829b) as 977f757. npx tsc --noEmit passed. npm test was 378 pass / 0 fail. build:site wrote AdventureApp-CdIK2TH9.js via index-DnUtITqM.js. The dist has no revision_conflict, DATABASE_URL, or 隔離裝備.",
-    "Two fresh architecture semesters paid Cheng Xi's opening choices on that bundle. Standing at the estimated engineering post discovered the site first, so xp was 12. Ask and own each moved store xp from 12 to 30 and left notes at 18. The +18 is meet 6 plus discover-place 12. Notes 18 are the fresh bag. No studio quest. The card stayed level 1 and showed 30/60, hp 100, focus 100. Semester stayed week-1.",
-    "Her clash line was the same for both flags: 有人已經把檔丟進來了. Both clash choices were visible. Leaving unpaid omitted quest-faculty-ethics-clash. Reload kept xp 30, notes 18, and that line. quest-faculty-ethics-meet stayed at one."
+    "Merged origin/main 6f75c3e (database-down upload queue #217, game ef46fb6) as c1b0df1. npx tsc --noEmit passed. npm test was 380 pass / 0 fail. build:site wrote AdventureApp-C7szpjke.js via index-BEExzEd5.js. The dist has no revision_conflict or DATABASE_URL.",
+    "Two fresh architecture semesters paid Cheng Xi's clash choices on that bundle. Out and hold each moved store xp from 30 to 38 and notes from 18 to 19. The +8 is the clash stage and the note is the clash reward. No studio quest. The card stayed level 1 and showed 38/60, hp 100, focus 100. Semester stayed week-1. Toast was 課堂筆記 ×1.",
+    "Her consent line was the same for both flags: 你自己的作業也在裡面. Both consent choices were visible. Leaving unpaid omitted quest-faculty-ethics-turn. Reload kept xp 38, notes 19, and that line. quest-faculty-ethics-clash stayed at one. The hold flag changes her later after line, not this consent line."
   ],
   "todo": [
-    "Cheng Xi's clash choices 沒有同意的檔先移出資料夾 and 先留著，標成未授權，不能拿去跑 were visible and not clicked. The clash line does not follow the opening flag.",
+    "Cheng Xi's consent choices 把自己的也移出，直到我寫了同意 and 我寫一張同意，只覆蓋我自己的檔 were visible and not clicked. The consent line does not follow the clash flag.",
     "Xu Hui is wired at the estimated library post. This line did not click her. docs/quest-play/evidence screenshots are the other line's record.",
     "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked.",
-    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #215 already merged. Do not merge that branch again.",
+    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #217 already merged. Do not merge that branch again.",
     "Variety tip 3270f9f was the last fetched head. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
@@ -72,5 +73,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Cheng Xi's clash choices, 沒有同意的檔先移出資料夾 or 先留著，標成未授權，不能拿去跑. The clash line does not follow the opening flag. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge quarantine item ids #215 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Cheng Xi's consent choices, 把自己的也移出，直到我寫了同意 or 我寫一張同意，只覆蓋我自己的檔. The consent line does not follow the clash flag. The hold flag changes her later after line. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge database-down queue #217 again. Do not merge PR #32 head 1fc5887."
 }
