@@ -520,3 +520,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/shelf-clear.test.mjs` 通過。`tsc --noEmit` 通過。層板內緣 9.06、書本內緣 9.18，都大於身體最外緣 9，外緣都小於牆內面 9.45。白天站在閱讀室東牆邊，書架在身體外側：`docs/art/evidence/shelves/east.jpg`。尺寸仍是 estimated。第 97 輪的閱覽桌留著。沒有新增音效。
 
+## 第 99 輪（前庭石座）— 2026-11-12
+
+`node --test scripts/reading-girl.test.mjs` 通過。`tsc --noEmit` 通過。石座在西側長椅，坡道抬升是 0，坡道中線同一 z 仍抬高。石座中心會把人推開。從南緣往北跨 1.04 m 仍停在中心南側。坡道缺口不被推開。巡禮折線不經過石座。低畫質也畫出石座和人像。白天從南邊走向石座會停在座緣：`docs/art/evidence/girl/south.jpg`。位置仍是 estimated。第 98 輪的書架留著。沒有新增音效。
+

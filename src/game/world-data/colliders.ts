@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, SHEPHERD, TIGER_STELE, bollards, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
+import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -48,6 +48,8 @@ function buildColliders(): AABB[] {
     out.push({ minX: cx - hx, maxX: gapMinX, minZ: cz + hz, maxZ: cz + hz + margin });
     out.push({ minX: gapMaxX, maxX: cx + hx, minZ: cz + hz, maxZ: cz + hz + margin });
   }
+  // 館前「閱讀的女孩」的石座。西側長椅，不壓在坡道上。
+  out.push(box(READING_GIRL.x, READING_GIRL.z, READING_GIRL.pad, READING_GIRL.pad));
 
   // 克難坡 護牆 (left / right), stair section only — the aprons stay open.
   const wallOuter = KENAN.width / 2 + KENAN.wallThickness;

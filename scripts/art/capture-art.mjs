@@ -1143,6 +1143,22 @@ try {
     await frames(page, 6);
     const stood = await page.evaluate(() => window.__controlsTest.getPosition());
     await shot(page, "east", `library shelves clear of the body ${JSON.stringify(stood)}`);
+  } else if (scenario === "girl") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, -12, -291.2, 0);
+    await frames(page, 12);
+    await holdKeys(page, ["KeyW"]);
+    await page.waitForFunction(() => window.__controlsTest.getPosition().z < -292.3);
+    await frames(page, 8);
+    await holdKeys(page, []);
+    await frames(page, 8);
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.55, distance: 5.5, height: 1.7, lookY: 1.15 });
+    });
+    await frames(page, 6);
+    await shot(page, "south", `reading girl on the forecourt, stopped ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

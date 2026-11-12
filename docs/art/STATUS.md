@@ -620,6 +620,12 @@
 
 畫面：`docs/art/evidence/shelves/east.jpg`。測試：`scripts/shelf-clear.test.mjs`。
 
+## 階段：前庭石座（ART-063 的一部分）
+
+閱讀的女孩坐在圖書館前庭西側 1.4 m 石座上，會擋住半徑 0.42 m 的身體。石座不在坡道上。坡道中線仍走得過。低畫質也看得到她。書架留著。位置仍是 estimated。
+
+畫面：`docs/art/evidence/girl/south.jpg`。測試：`scripts/reading-girl.test.mjs`。
+
 ## 下一步
 
 見 `CHECKPOINT.json`。路燈燈柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

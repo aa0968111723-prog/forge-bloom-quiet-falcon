@@ -1,9 +1,7 @@
 import { useMemo } from "react";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
-import { LIBRARY, LIBRARY_BASE_MARGIN } from "../world-data/landmarks.ts";
-import { READING_GIRL_SEAT } from "../world-data/props.ts";
-import { quality } from "../quality";
+import { LIBRARY, LIBRARY_BASE_MARGIN, READING_GIRL } from "../world-data/landmarks.ts";
 import { worldUvBox } from "../world/geometry";
 import { InstancedPlanes, type PlaneItem } from "../world/InstancedPlanes";
 import { useCampusSigns } from "../world/labels";
@@ -15,14 +13,13 @@ import { ReadingGirl } from "./sculpture";
  * Recognition rests on three things rather than on detail: the horizontal
  * banding of nine continuous window bands, the mass stepping back as it climbs
  * (順山勢而建), and a deep recessed entrance under the second floor facing
- * 書卷廣場. 「閱讀的女孩」 sits on a bench in the forecourt.
+ * 書卷廣場. 「閱讀的女孩」 sits on a stone seat at the west forecourt bench, clear of the ramp.
  */
 const FLOOR = LIBRARY.floorHeight;
 
 export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolean }) {
   const mats = useTamkangMaterials();
   const signs = useCampusSigns();
-  const q = quality();
   const ground = useMemo(() => sampleGroundElevation(LIBRARY.center[0], LIBRARY.center[1]), []);
 
   const geos = useMemo(() => {
@@ -121,17 +118,21 @@ export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolea
         <meshStandardMaterial map={signs.library} roughness={0.55} />
       </mesh>
 
-      {q.tier === "high" && (
-        <group
-          position={[
-            READING_GIRL_SEAT.x - LIBRARY.center[0],
-            sampleGroundElevation(READING_GIRL_SEAT.x, READING_GIRL_SEAT.z) - ground,
-            READING_GIRL_SEAT.z - LIBRARY.center[1],
-          ]}
-        >
+      <group
+        position={[
+          READING_GIRL.x - LIBRARY.center[0],
+          sampleGroundElevation(READING_GIRL.x, READING_GIRL.z) - ground,
+          READING_GIRL.z - LIBRARY.center[1],
+        ]}
+      >
+        <mesh position={[0, 0.2, 0]} receiveShadow castShadow>
+          <boxGeometry args={[READING_GIRL.pad, 0.4, READING_GIRL.pad]} />
+          <meshStandardMaterial {...surface(mats["kenan/old-wall"], { wetness })} />
+        </mesh>
+        <group position={[0, 0.4, 0]}>
           <ReadingGirl material={surface(mats["campus/bronze"], { wetness })} />
         </group>
-      )}
+      </group>
     </group>
   );
 }

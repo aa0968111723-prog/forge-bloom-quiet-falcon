@@ -85,6 +85,16 @@ export const LIBRARY = {
 export const LIBRARY_BASE_MARGIN = 2.5;
 
 /**
+ * 「閱讀的女孩」 on the west forecourt bench, clear of the ramp.
+ * The seat is wide enough that one dodge stays on the near side.
+ */
+export const READING_GIRL = {
+  x: -12,
+  z: AXIS.libraryFrontZ + 6.4,
+  pad: 1.4,
+} as const;
+
+/**
  * 宮燈教室 rows: five halls a side, mirrored about the avenue.
  *
  * Single-storey halls whose green glazed roof carries about half the
