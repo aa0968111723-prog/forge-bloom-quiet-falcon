@@ -1,4 +1,4 @@
-import { inventory, maxHp, placeLoot, registerVarietySave, useRpg, flushSave } from "../../game/rpg/store.ts";
+import { carryReward, inventory, maxHp, registerVarietySave, useRpg, flushSave } from "../../game/rpg/store.ts";
 import { useGame } from "../../game/store.ts";
 import { DEPARTMENTS } from "../../game/rpg/data.ts";
 import { levelForXp } from "../../game/rpg/rules.ts";
@@ -47,28 +47,19 @@ function payVariety(intent: RewardIntent): PayResult {
   });
   const preview = settlementPreview(growth, intent.questId, intent.reward);
   if (!preview.paid) return { paid: false, already: true, xp: 0, notes: 0, credit: 0 };
-  const accepted: string[] = [];
-  const left: Record<string, number> = {};
-  for (const [id, amount] of [
-    ["notes", preview.notes],
-    ["credit", preview.credit],
-  ] as const) {
-    if (amount <= 0) continue;
-    const result = inventory.add(id, amount);
-    if (result.added > 0) accepted.push(`${id} ${result.added}`);
-    if (result.overflow > 0) left[id] = result.overflow;
-  }
+  const items: Record<string, number> = {};
+  if (preview.notes > 0) items.notes = preview.notes;
+  if (preview.credit > 0) items.credit = preview.credit;
+  const game = useGame.getState();
+  const carried = carryReward(items, { x: game.playerX, z: game.playerZ }, true);
+  const accepted = Object.entries(carried.accepted).map(([id, amount]) => `${id} ${amount}`);
   const claimed = [...rpg.claimed];
   for (const id of preview.claimed) {
     if (!claimed.includes(id)) claimed.push(id);
   }
   const xp = rpg.xp + preview.xp;
   const leveled = levelForXp(xp) > levelForXp(rpg.xp);
-  const game = useGame.getState();
-  const loot =
-    Object.keys(left).length > 0
-      ? placeLoot(rpg.loot, game.playerX, game.playerZ, left)
-      : rpg.loot;
+  const loot = carried.loot;
   useRpg.setState({
     xp,
     claimed,
