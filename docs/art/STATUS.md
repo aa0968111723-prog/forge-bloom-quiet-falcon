@@ -319,6 +319,12 @@
 
 畫面：`docs/art/evidence/chem/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：球場不種樹（ART-085 的一部分）
+
+散佈的樹不再落進球場、田徑場和停車場，外緣再留 3 m。五虎崗的草皮是空的，樹留在場外。植栽位置仍是 estimated。化學館仍是淺色館身和屋頂排氣箱。
+
+畫面：`docs/art/evidence/courts/open.jpg`。測試：`scripts/court-clearing.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。化學館已從實驗樓方塊分開。科學館、工學館與工學大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。球場草皮已不種樹。化學館已從實驗樓方塊分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

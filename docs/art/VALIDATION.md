@@ -323,3 +323,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 49 輪（鍾靈化學館）— 2026-11-12
 
 `node --test scripts/context-lod.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。鍾靈化學館是深色基座、淺色館身、南向玻璃和屋頂排氣箱，名牌寫著鍾靈化學館。沒有共用窗帶。玻璃貼著南牆，排氣箱留在屋頂範圍內。科學館仍是東側直玻璃，工學館仍是磚紅基座，工學大樓仍是退縮塔樓。精度仍是 estimated。門口步道測試仍通過。定步白天近景，頁面無錯誤：`docs/art/evidence/chem/hall.jpg`。肩肘膝留在第 48 輪。沒有新增音效。
+
+## 第 50 輪（球場不種樹）— 2026-11-12
+
+`node --test scripts/court-clearing.test.mjs` 通過。`tsc --noEmit` 通過。密度 1 的散佈樹沒有一棵落在球場、田徑場或停車場裡面，五虎崗外緣 2.9 m 內也沒有。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/open.jpg`。草皮是空的，樹在場外。植栽位置仍是 estimated。化學館留在第 49 輪。沒有新增音效。`build:site` 本輪未重跑。
