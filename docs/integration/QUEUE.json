@@ -4172,6 +4172,34 @@
       "integrationPr": 294,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/294",
       "nextAction": "None. The indoor follow camera from 7ded28e3 is already in this integration. Do not merge PR #169 by itself."
+    },
+    {
+      "id": "art-interior-door",
+      "line": "art",
+      "scope": "The south interior doorway is 2.5 m half-width and matches the wall opening. A 0.42 m body walking through the opening leaves the room. A body at x 2.8 beside the jamb stays inside. The gym does not block the reading-desk position. Walking out returns the player to that building's door.",
+      "status": "verified",
+      "pr": 171,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/171",
+      "integrationBranch": "cursor/integration-interior-door-3395",
+      "sourceBranch": "cursor/interior-door-1a71",
+      "baseSha": "d6099f3deb260749cd10acb52c56b26170478c17",
+      "headSha": "d3c8f66aef000aa01fcdb65f1223ce5c4748aea6",
+      "dependencies": ["art-follow-camera"],
+      "sharedFiles": ["src/game/rpg/AdventurePlayer.tsx", "src/game/rpg/physics/interior.ts", "scripts/interior-door.test.mjs", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "docs/art and capture-art.mjs. Kept the 2.5 m doorway and the ceiling look-down, bollard, infield, and ramp-rail sections. build_site set to AdventureApp-BvzNIml0.js.",
+        "typecheck": "pass",
+        "npmTest": "433 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BvzNIml0.js",
+        "browser": "8224. The standing route completed.",
+        "route": "8224: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "1d47c2e2e30b345f62fd85fb11da0931f2538c10",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #171 by itself."
     }
   ]
 }
