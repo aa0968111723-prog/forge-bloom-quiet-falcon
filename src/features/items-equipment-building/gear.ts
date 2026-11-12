@@ -206,6 +206,43 @@ export function readGear(raw: unknown): { gear: GearInstance[]; dropped: GearIns
   return { gear, dropped };
 }
 
+function gearRow(raw: unknown): GearInstance | null {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const record = raw as Record<string, unknown>;
+  const id = cleanId(record.id);
+  const itemId = cleanId(record.itemId);
+  if (!id || !itemId) return null;
+  return {
+    id,
+    itemId,
+    durability: typeof record.durability === "number" && Number.isFinite(record.durability) ? record.durability : 0,
+    quality: record.quality === "fine" ? "fine" : "plain",
+  };
+}
+
+/** Instances kept aside because their item id is not in this catalog. */
+export function readQuarantineGear(raw: unknown): GearInstance[] {
+  if (!Array.isArray(raw)) return [];
+  const rows: GearInstance[] = [];
+  for (const row of raw) {
+    const gear = gearRow(row);
+    if (!gear) continue;
+    if (rows.some((entry) => entry.id === gear.id || entry.itemId === gear.itemId)) continue;
+    rows.push(gear);
+  }
+  return rows.slice(0, 24);
+}
+
+/** Saved quarantine stays. Newly rejected instances are added beside it. */
+export function mergeQuarantineGear(saved: readonly GearInstance[], dropped: readonly GearInstance[]) {
+  const rows = [...saved];
+  for (const row of dropped) {
+    if (rows.some((entry) => entry.id === row.id || entry.itemId === row.itemId)) continue;
+    rows.push(row);
+  }
+  return rows.slice(0, 24);
+}
+
 export function readQuarantine(raw: unknown): QuarantineSlot[] {
   if (!Array.isArray(raw)) return [];
   const rows: QuarantineSlot[] = [];

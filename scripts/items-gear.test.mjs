@@ -29,7 +29,7 @@ globalThis.window = {
 const { ITEM_FACTS, EXTRA_RECIPES, factOf } = await import(
   "../src/features/items-equipment-building/catalog.ts"
 );
-const { gearBonus, ensureInstance, readLoadout, readGear } = await import(
+const { gearBonus, ensureInstance, readLoadout, readGear, readQuarantineGear, mergeQuarantineGear } = await import(
   "../src/features/items-equipment-building/gear.ts"
 );
 const { planCraft } = await import("../src/features/items-equipment-building/craft.ts");
@@ -41,7 +41,7 @@ const { meshBudget, MESH_PARTS } = await import(
 const { SPAWN } = await import("../src/game/world-data/landmarks.ts");
 const runtime = await import("../work/test-runtime/runtime.mjs");
 
-const { useRpg, useGame, inventory, RECIPES, ITEMS, DEPARTMENTS, validatePlacement, flushSave } = runtime;
+const { useRpg, useGame, inventory, RECIPES, ITEMS, DEPARTMENTS, validatePlacement, flushSave, promptDecision, promptSnap } = runtime;
 
 function reset() {
   inventory.clear();
@@ -327,4 +327,83 @@ test("failed use, full bag, unknown id, blocked entrance, and old save stay safe
   });
   assert.equal(plan.ok, false);
   flushSave();
+});
+
+test("a facility does not hide its own prompt, and quarantined gear survives another load", () => {
+  const kept = mergeQuarantineGear(
+    readQuarantineGear([{ id: "gear-lost", itemId: "unknown-relic", durability: 4, quality: "plain" }]),
+    readGear([]).dropped,
+  );
+  assert.equal(kept[0].itemId, "unknown-relic");
+  reset();
+  let supply = null;
+  for (let x = 20; x <= 160 && !supply; x += 5) {
+    for (let z = -15; z >= -120 && !supply; z -= 5) {
+      useGame.setState({ phase: "playing", plaqueId: null, playerX: x, playerZ: z + 2, playerYaw: 0 });
+      useRpg.setState({
+        buildings: [{ id: "supply-self", kind: "supply", x, z, rotation: 0, hp: 140 }],
+        loot: [],
+        panel: null,
+        interiorId: null,
+        buildKind: null,
+        harvested: {},
+      });
+      const choice = promptDecision(promptSnap());
+      if (choice?.kind === "facility" && choice.targetId === "supply-self") supply = { x, z };
+    }
+  }
+  assert.ok(supply);
+  useRpg.setState({
+    buildings: [
+      { id: "supply-self", kind: "supply", x: supply.x, z: supply.z, rotation: 0, hp: 140 },
+      { id: "wall", kind: "desk", x: supply.x, z: supply.z + 1, rotation: 0, hp: 180 },
+    ],
+  });
+  assert.notEqual(promptDecision(promptSnap())?.targetId, "supply-self");
+  const text = JSON.stringify({
+    version: 2,
+    hp: 80,
+    slots: [{ itemId: "notes", quantity: 1 }],
+    buildings: [],
+    gear: [],
+    quarantineGear: [{ id: "gear-lost", itemId: "unknown-relic", durability: 4, quality: "plain" }],
+  });
+  assert.equal(useRpg.getState().importSave(text), true);
+  assert.equal(useRpg.getState().quarantineGear[0].itemId, "unknown-relic");
+  useRpg.setState({ freshStart: false });
+  flushSave();
+  assert.equal(useRpg.getState().importSave(localStorage.getItem("tamkang-rpg-v2")), true);
+  assert.equal(useRpg.getState().quarantineGear.some((row) => row.itemId === "unknown-relic"), true);
+});
+
+test("an equipped wrench repairs the damaged facility from the prompt", () => {
+  reset();
+  inventory.add("repair-wrench", 1);
+  inventory.add("parts", 4);
+  let spot = null;
+  for (let x = 20; x <= 160 && !spot; x += 5) {
+    for (let z = -15; z >= -120 && !spot; z -= 5) {
+      useGame.setState({ phase: "playing", plaqueId: null, playerX: x, playerZ: z + 2, playerYaw: 0 });
+      useRpg.setState({
+        loadout: { tool: "repair-wrench", accessory: null, pack: null },
+        gear: [{ id: "gear-repair-wrench", itemId: "repair-wrench", durability: 48, quality: "plain" }],
+        buildings: [{ id: "hurt-desk", kind: "desk", x, z, rotation: 0, hp: 40 }],
+        loot: [],
+        panel: null,
+        interiorId: null,
+        buildKind: null,
+      });
+      const choice = promptDecision(promptSnap());
+      if (choice?.kind === "repair" && choice.targetId === "hurt-desk") spot = { x, z };
+    }
+  }
+  assert.ok(spot);
+  assert.equal(useRpg.getState().commitPrompt(), "repair");
+  assert.ok(useRpg.getState().buildings.find((building) => building.id === "hurt-desk").hp > 40);
+  assert.ok(useRpg.getState().gear.find((row) => row.itemId === "repair-wrench").durability < 48);
+  useGame.setState({ playerX: spot.x, playerZ: spot.z + 2 });
+  useRpg.setState({
+    buildings: [{ id: "research-1", kind: "research", x: spot.x, z: spot.z, rotation: 0, hp: 160 }],
+  });
+  assert.equal(useRpg.getState().serviceWrench(), true);
 });
