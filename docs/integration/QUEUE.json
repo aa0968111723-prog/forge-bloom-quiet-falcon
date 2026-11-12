@@ -4648,6 +4648,34 @@
       "integrationPr": 311,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/311",
       "nextAction": "None. The avenue light frames from 266e4b7 are already in this integration. Do not merge PR #118 by itself."
+    },
+    {
+      "id": "art-palace-camera",
+      "line": "art",
+      "scope": "The palace-hall corner follow camera stays on the view line and rises when less than 2.2 m of that line is clear. Indoor follow still stops under the ceiling.",
+      "status": "verified",
+      "pr": 121,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/121",
+      "integrationBranch": "cursor/integration-palace-camera-3395",
+      "sourceBranch": "cursor/colonnade-camera-1a71",
+      "baseSha": "d04f4c1a87995f818a85642f237f509d3803a3ac",
+      "headSha": "3ce5f17627c9390afb38047e2e140515c01754ea",
+      "dependencies": ["art-light-times"],
+      "sharedFiles": ["src/game/rpg/AdventurePlayer.tsx", "src/game/rpg/physics/camera.ts"],
+      "checks": {
+        "conflicts": "Indoor ceiling cap stayed. Outdoor follow now uses cameraClearance and rises under 2.2 m. Avenue frames, transfer budget, and the procedural student stayed.",
+        "typecheck": "pass",
+        "npmTest": "444 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DZ-huzUW.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8238/",
+        "route": "pass. gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision_conflict, cloudXp 47, logout 401, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #121 by itself."
     }
   ]
 }
