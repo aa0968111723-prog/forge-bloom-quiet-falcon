@@ -19,6 +19,8 @@ export function buildRepair(config: RepairConfig, peace: boolean): RepairBoard {
     slots,
     slotNames: [...config.slotNames],
     heat: config.heat,
+    objection: null,
+    checks: 0,
   };
 }
 

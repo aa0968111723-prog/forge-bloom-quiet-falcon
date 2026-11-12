@@ -15,6 +15,8 @@ export function buildRoute(config: RouteConfig, caps: Caps): RouteBoard {
     before: config.before ? [config.before[0], config.before[1]] : null,
     order: [],
     note: config.note,
+    objection: null,
+    checks: 0,
   };
 }
 

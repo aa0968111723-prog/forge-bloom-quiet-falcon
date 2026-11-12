@@ -93,7 +93,17 @@ export type RepairConfig = {
   slotNames: string[];
 };
 
-export type CombatKind = "quiz" | "report" | "exam" | "final";
+export type CombatKind =
+  | "quiz"
+  | "report"
+  | "exam"
+  | "final"
+  | "rollcall"
+  | "rollcall-late"
+  | "downpour"
+  | "downpour-slow"
+  | "flyer"
+  | "flyer-wide";
 
 export type ArcShape = {
   kind: "arc";
@@ -147,6 +157,13 @@ export type CombatState = {
   deskHp: number | null;
   nodes: Cell[];
   lit: boolean[];
+  seats: Cell[] | null;
+  seatIndex: number;
+  misses: number;
+  water: number | null;
+  shelter: Cell | null;
+  patrol: Cell[] | null;
+  patrolAt: number;
   guard: boolean;
   lastPlayerHit: number;
   lastEnemyHit: number;
@@ -187,6 +204,8 @@ export type RouteBoard = {
   before: [string, string] | null;
   order: string[];
   note: string;
+  objection: string | null;
+  checks: number;
 };
 
 export type RepairBoard = {
@@ -195,6 +214,8 @@ export type RepairBoard = {
   slots: (string | null)[];
   slotNames: string[];
   heat: number;
+  objection: string | null;
+  checks: number;
 };
 
 export type Board =
