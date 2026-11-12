@@ -373,6 +373,12 @@
 
 測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：盆栽（ART-084 的一部分）
+
+廣場兩盆和宮燈教室門前的 20 盆會擋住半徑 0.42 m 的身體。從大道走向西側南端那盆會停在樹冠外。大道中線和三條巡禮折線仍走得過。盆位仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/props/pot.jpg`。測試：`scripts/pot-stop.test.mjs`、`scripts/route-walk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。坡道欄杆已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。盆栽已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

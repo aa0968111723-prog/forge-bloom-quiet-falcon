@@ -7,7 +7,7 @@ import {
   SCROLL_PLAZA_SIZE,
 } from "./axis.ts";
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
-import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LIBRARY, PALACE, palaceHallZs, pottedPlants } from "./landmarks.ts";
 import { COLLIDERS } from "./colliders.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
@@ -122,8 +122,9 @@ function plazaProps(): PropInstance[] {
   }
   out.push(prop("bin", PLAZA_RADIUS - 1.6, -4.2, "plaza"));
   out.push(prop("sign-post", -4.2, -PLAZA_RADIUS + 1.2, "plaza", 0, 1.1));
-  out.push(prop("potted-plant", -2.6, 2.4, "plaza"));
-  out.push(prop("potted-plant", 2.6, 2.4, "plaza"));
+  for (const pot of pottedPlants()) {
+    if (pot.zone === "plaza") out.push(prop("potted-plant", pot.x, pot.z, pot.zone));
+  }
   return out;
 }
 
@@ -140,8 +141,11 @@ function avenueProps(): PropInstance[] {
   // Hall-front furniture: name plate, potted plants, AC units on the back wall.
   for (const z of palaceHallZs()) {
     for (const s of [-1, 1] as const) {
-      out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z + 4.2, "avenue"));
-      out.push(prop("potted-plant", s * (PALACE.offsetX - PALACE.hallDepth / 2 - 1.1), z - 4.2, "avenue"));
+      for (const pot of pottedPlants()) {
+        if (pot.zone === "avenue" && Math.sign(pot.x) === s && (pot.z === z + 4.2 || pot.z === z - 4.2)) {
+          out.push(prop("potted-plant", pot.x, pot.z, pot.zone));
+        }
+      }
       out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z + 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));
       out.push(prop("ac-unit", s * (PALACE.offsetX + PALACE.hallDepth / 2 + 0.4), z - 6.5, "avenue", s > 0 ? Math.PI / 2 : -Math.PI / 2));
       out.push(prop("bench", s * (AVENUE_PAVED_WIDTH / 2 + 1.4), z + 9, "avenue", s > 0 ? -Math.PI / 2 : Math.PI / 2));
