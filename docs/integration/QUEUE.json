@@ -2657,6 +2657,34 @@
       "integrationPr": 198,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/198",
       "nextAction": "None. The session-blip write-back from 26afab8 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-harvest-hold",
+      "line": "backend",
+      "scope": "A built station's harvest cooldown still inside 180 seconds survives import and a cloud reload. Expired times and ids outside 1 to 80 characters are dropped.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-harvest-hold-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "32a15adead659286c37976d1e0006396ae2958e1",
+      "headSha": "159e09f7188228d3fc9c6b951893f2225151f672",
+      "dependencies": ["backend-save-blip"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "store.ts restoreHarvest and docs/backend/CHECKPOINT.json. Kept stampSemester and the incoming facility cooldown. Checkpoint kept 2026-11-12T05:41:13Z.",
+        "typecheck": "pass",
+        "npmTest": "356 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-wsEEgaCK.js",
+        "browser": "8170. The standing route completed.",
+        "route": "8170: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": ["src/game/rpg/store.ts", "docs/backend/CHECKPOINT.json"],
+      "merged": true,
+      "mergeSha": "3d60236e0a7ca63066c14c939b6a805ec94bb93a",
+      "integrationPr": 200,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/200",
+      "nextAction": "None. The harvest cooldown hold from 159e09f is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
