@@ -1,40 +1,37 @@
 {
-  "updated": "2026-11-12T01:22:56Z",
+  "updated": "2026-11-12T01:45:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "4b88b772d4e21424dd14b502655c1239b1abd8bf",
-  "gameSha": "90768e40afcba821de2650955ee903b06b34cb73",
-  "head": "9c45f10509867c9bde1aa9a95e2e85f167a87e20",
-  "docsRecord": "2240f84663b2322874a443169c44829f5e351389",
+  "base": "468a516efb1649d08f0427f586c11f8d2341e12b",
+  "gameSha": "9c803bb",
+  "verifiedHead": "8ef6496c3e61ff60c1d956b1d012bd4750704971",
   "soleMerger": {
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
-    "branch": "cursor/integration-art-m1-3395",
     "status": "RUNNING",
-    "thisLineMerges": false
+    "thisLineMerges": false,
+    "alreadyMerged": "Integration PR #125 took the semester lookup. Integration PR #126 is the joint-bend check. Do not merge those again."
   },
   "commands": [
-    "npx tsc --noEmit",
     "npm test",
     "npm run build:site",
-    "node --test scripts/full-integration-contracts.test.mjs",
     "node --experimental-transform-types scripts/integration-route.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-route"
   ],
   "done": [
-    "One department lookup. RPG id is canonical when a row exists.",
-    "Semester phase is a function of claimed. Save key and version 2 stay.",
-    "Gate quest, one supply errand, midterm label, reload, and the existing cloud path on the static main game.",
-    "Legal lantern placement pays the errand once. A placement on the player and cancelBuild do not. Badge equip toggles on the same save."
+    "Semester lookup is on main via the other integrator.",
+    "Browser route refuses the palace-avenue lantern ghost, cancels, places one lantern, and does not pay the errand again.",
+    "The same route defeats final-1, claims the existing semester badge from the victory button, equips it, and keeps the lantern and badge across reload and the second cloud client.",
+    "Narrow interact bar sits above the quickbar at 390x780."
   ],
   "todo": [
-    "Drive legal placement, illegal placement, cancel, and badge equip through the browser main game.",
     "Play finals only after midterm and mission first.",
+    "Exercise report and exam, and the nine college skills, in the main game.",
     "When the other three lines publish branches, wire their shared store entry here. Do not open a second bag.",
-    "Leave art PR merges to the running integrator."
+    "Leave further art merges to the running integrator."
   ],
   "blocked": [
     "This line must not merge to main while bc-4054e39b is the writer of main.",
     "Phone and RTX 3060 are pending-device. This host forces SwiftShader.",
     "AGENTS.md is absent.",
-    "Faculty, gameplay, and item lines had no branches at 2026-11-12T01:22:56Z."
+    "Faculty, gameplay, and item lines still had no branches at 2026-11-12T01:45:00Z."
   ],
-  "next_action": "Do not merge. Re-fetch origin/main and the running integrator before any later merge decision. The next gap on this branch is the browser path for place, illegal place, cancel, and badge equip. Do not flip MAIN_INTEGRATION. Do not merge art source PRs #107, #108, #110, #111, #113, #115, #116, or #118, and do not merge the already integrated source PRs by themselves. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge. The reviewable remainder is the browser place, cancel, lantern, and badge path on PR #122. Re-fetch origin/main before another slice. Do not flip MAIN_INTEGRATION. Do not merge art source PRs that are already integrated, and do not merge PR #32 head 1fc5887."
 }

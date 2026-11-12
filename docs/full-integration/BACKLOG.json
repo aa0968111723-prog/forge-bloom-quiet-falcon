@@ -29,17 +29,17 @@
     },
     {
       "id": "FI-PLACE",
-      "status": "store-verified",
+      "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "place() on a legal lantern pays once. place() on the player returns false and does not pay. cancelBuild clears buildKind. Not yet clicked in the browser."
+      "note": "Main game at 8ef6496. Palace-avenue ghost says 請保留克難坡通行空間 and places nothing. Cancel clears build mode. One lantern places, the same spot does not place a second, xp stays 44, errand id stays once. 1280x720 and 390x780. 390 is a fine pointer."
     },
     {
       "id": "FI-EQUIP",
-      "status": "store-verified",
+      "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Existing badge equip toggles equipped. It is not an errand trigger. Not yet clicked in the browser."
+      "note": "final-1 is reduced with the existing attack(), cooldown cleared between swings so the clock does not jump. The victory button claims semester and grants the badge. Bag shows 卸下徽章. Reload and the second API client keep equipped and the lantern. Semester stays midterm."
     },
     {
       "id": "FI-CLOUD",
