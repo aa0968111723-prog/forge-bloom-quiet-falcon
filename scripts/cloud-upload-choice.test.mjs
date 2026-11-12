@@ -109,6 +109,9 @@ function fakeCloud() {
       remote = document;
       revision += 1;
     },
+    clear() {
+      remote = null;
+    },
     setSession(id) {
       sessionId = id;
     },
@@ -2205,4 +2208,63 @@ test("a signed-out save write stays queued for this account", async () => {
   const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
   assert.equal(head.revision, 1);
   assert.equal(head.document.xp, 4);
+});
+
+test("a queued upload lands when this account's cloud row is gone", async () => {
+  const cloud = fakeCloud();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  client.writeLocal(JSON.stringify(save(4)));
+  cloud.setOffline(true);
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  cloud.clear();
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(flushed.paused, false);
+  assert.equal(client.queuedCount("user-a"), 0);
+  const refused = cloud.puts.at(-2);
+  assert.equal(refused.confirmFirstSync, false);
+  assert.equal(refused.baseRevision, 1);
+  const landed = cloud.puts.at(-1);
+  assert.equal(landed.confirmFirstSync, true);
+  assert.equal(landed.baseRevision, 0);
+  assert.equal(landed.document.xp, 4);
+  assert.notEqual(landed.requestId, refused.requestId);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 1);
+  assert.equal(head.document.xp, 4);
+  assert.equal((await client.plan()).status, "in_sync");
+});
+
+test("an empty cloud does not take another account's queued upload", async () => {
+  const cloud = fakeCloud();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  client.writeLocal(JSON.stringify(save(4)));
+  cloud.setOffline(true);
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  cloud.clear();
+  cloud.setSession("user-b");
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.equal(flushed.paused, true);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(cloud.puts.length, 1);
+  assert.equal((await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).status, 404);
 });

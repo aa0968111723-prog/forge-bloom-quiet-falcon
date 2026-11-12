@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:55:07Z",
+  "updated_at": "2026-11-12T07:02:41Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "df20d53",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -67,10 +67,11 @@
     "merged main at d12a2d9; the quarantine item ids were already on this branch",
     "merged main at 6f75c3e; the database-down upload queue was already on this branch",
     "a variety run still uploads after the lifetime station count passes the standing cap of 48",
-    "merged main at df20d53; the sloped library rails stay outside the save format"
+    "merged main at df20d53; the sloped library rails stay outside the save format",
+    "a queued upload lands as a first sync when this account's cloud row is gone"
   ],
   "verification": {
-    "npm_test": "384 pass, 0 fail; a variety run still uploads after the lifetime station count passes the standing cap of 48",
+    "npm_test": "386 pass, 0 fail; a queued upload lands as a first sync when this account's cloud row is gone",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
