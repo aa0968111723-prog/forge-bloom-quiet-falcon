@@ -2298,7 +2298,7 @@
       "id": "backend-account-gate",
       "line": "backend",
       "scope": "Cloud reads and writes compare the signed-in session with the account stored on the device. A mismatch does not upload, download, restore, or grant a reward, and the original queue stays until that account's session is back.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-account-gate-3395",
@@ -2316,9 +2316,11 @@
         "route": "8157: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "760acd066a560c4a1f3ef5818eee0b27a992bcea",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 172,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/172",
+      "nextAction": "None. The account gate from 9c6c744 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
