@@ -97,6 +97,7 @@ export type RpgPanel =
   | "journal"
   | "map"
   | "narrative"
+  | "variety"
   | null;
 export type Loot = {
   id: string;
