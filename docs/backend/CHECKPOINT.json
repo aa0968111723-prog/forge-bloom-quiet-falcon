@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:40:00Z",
+  "updated_at": "2026-11-12T07:05:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "f317ceb",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -27,10 +27,11 @@
     "choosing the downloaded save resumes a living interior instead of leaving the player outside and dropping the floor",
     "choosing the remote save or restoring a revision drops that account's queued upload and leaves reward receipts and other accounts queued",
     "flush removes only the items it finished, so a receipt queued during an upload stays and a dropped upload is not sent",
-    "an upload that lands after the player keeps the cloud save is written back from the chosen local file"
+    "an upload that lands after the player keeps the cloud save is written back from the chosen local file",
+    "the first flush of a queued upload sends the current local file when the player kept playing offline"
   ],
   "verification": {
-    "npm_test": "340 pass, 0 fail; a landed upload is written back after the player keeps the cloud save",
+    "npm_test": "341 pass, 0 fail; the first flush sends the newest local file instead of the queued snapshot",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
