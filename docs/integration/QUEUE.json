@@ -3691,9 +3691,11 @@
         "route": "8206: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "fab55872bcba9cdaf11b5aad5f74ecb861e8c313",
-      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 262,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/262",
+      "nextAction": "None. The variety overflow join from 63740817 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
