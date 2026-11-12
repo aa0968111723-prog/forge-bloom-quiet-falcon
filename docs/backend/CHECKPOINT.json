@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T07:40:08Z",
+  "updated_at": "2026-11-12T07:45:33Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -83,10 +83,13 @@
     "a move lesson with an unusable anchor still uploads",
     "merged main at 8daa1ef; the 80-character campus memory was already on this branch",
     "a stray discovery still uploads the sites already found",
-    "an old piece of gear with a wild durability still uploads"
+    "an old piece of gear with a wild durability still uploads",
+    "merged main at 0f5da63; the trimmed ground-loot id was already on this branch",
+    "a narrative clock outside the cloud range still uploads",
+    "a narrative place the cloud cannot name still uploads"
   ],
   "verification": {
-    "npm_test": "396 pass, 0 fail; an old piece of gear with a wild durability still uploads",
+    "npm_test": "398 pass, 0 fail; a narrative place the cloud cannot name still uploads",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

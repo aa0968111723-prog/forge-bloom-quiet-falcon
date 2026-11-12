@@ -58,6 +58,8 @@ import {
   chooseAt,
   leaveAt,
   liveGrowth,
+  fitNarrativeClock,
+  fitNarrativeIdentity,
   readNarrativeSession,
   rewardDelta,
   talkAt,
@@ -2640,7 +2642,7 @@ function snapshot() {
     lessonAnchor: s.lesson === "move" ? s.lessonAnchor : null,
     interiorId: s.interiorId,
     floor: s.interiorId ? s.floor : 1,
-    narrative: s.narrative,
+    narrative: fitNarrativeIdentity(fitNarrativeClock(s.narrative)),
     ...(varietySave ? { variety: varietySave.capture() } : {}),
   };
 }
