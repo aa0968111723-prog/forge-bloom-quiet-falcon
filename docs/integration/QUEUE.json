@@ -2713,6 +2713,34 @@
       "integrationPr": 202,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/202",
       "nextAction": "None. The restore session confirm from 0dac69d is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-upload-account",
+      "line": "backend",
+      "scope": "An upload response, including a continued upload, is checked against the signed-in account again before the revision is recorded. A session change or a failed confirm leaves that upload queued.",
+      "status": "merged",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-upload-account-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "85ecd5d75dc854008f33903126ee5a0e6fa30291",
+      "headSha": "7b6bcbf37f619808d7f1a835ce81eb68d59a84be",
+      "dependencies": ["backend-restore-gate"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list on both commits. Kept 2026-11-12T05:55:36Z and both confirm lines.",
+        "typecheck": "pass",
+        "npmTest": "363 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-wsEEgaCK.js unchanged",
+        "browser": "8172. The standing route completed.",
+        "route": "8172: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "a11e747caba76fdea1a47174febd486e902daecf",
+      "integrationPr": 203,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/203",
+      "nextAction": "None. The upload response confirm from 7291692 and 7b6bcbf is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }

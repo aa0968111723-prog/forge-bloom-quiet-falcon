@@ -861,6 +861,14 @@ PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒
 
 瀏覽器 `http://127.0.0.1:8171/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
 
+## 上傳回應再對一次帳號（本輪）
+
+來源 `7291692`、`7b6bcbf` 接到 `85ecd5d`。後端檢查點只在時間和完成清單上有衝突，留下較新的 `2026-11-12T05:55:36Z` 和兩次上傳確認。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+上傳成功的回應在記下版本之前再對一次帳號。帳號換了或這次確認連不上，這筆上傳留在原帳號佇列，不把那個版本記成這台裝置的寫入。接續上傳也一樣。`npm run typecheck` 通過。`npm test` 363 通過，其中「a queued upload stays when its response arrives for another account」、「an upload is not recorded when the session changes before its response is accepted」、「a session blip does not retire a queued upload」、「a continued upload stays queued when its response arrives for another account」和「a session blip does not record a continued upload」涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8172/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
