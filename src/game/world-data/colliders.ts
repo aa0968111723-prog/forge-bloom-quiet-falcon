@@ -1,4 +1,4 @@
-import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
+import { AXIS, DOLPHIN_ISLAND_RADIUS, PLAZA_FLAGPOLE } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
@@ -55,6 +55,7 @@ function buildColliders(): AABB[] {
 
   // 驚聲銅像 plinth
   out.push(box(0, 0, 3.2, 3.2));
+  out.push(box(PLAZA_FLAGPOLE.x, PLAZA_FLAGPOLE.z, PLAZA_FLAGPOLE.base, PLAZA_FLAGPOLE.base));
 
   // 海豚里程碑 plinth on the roundabout island
   out.push(box(0, AXIS.dolphinZ, 3.4, 3.4));
