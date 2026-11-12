@@ -5007,9 +5007,11 @@
         "route": "8249 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "3f928b553c12c91571f07e94ecfbf5ca56311a90",
-      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #257 by itself. The shepherd-figure commit 622a00ba is still separate."
+      "integrationPr": 324,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/324",
+      "nextAction": "None. The still charm from 06507f79 is already in this integration. Do not merge PR #257 by itself. The shepherd-figure commit 622a00ba is still separate."
     }
   ]
 }
