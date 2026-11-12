@@ -1,0 +1,13 @@
+# 收集、負荷與巡邏
+
+本線擁有 `src/game/rpg/data.ts` 的委託與巡邏、`src/game/rpg/store.ts` 的收集與擊退計數、`src/game/rpg/AdventureHud.tsx` 的學期委託，以及 `scripts/quest-play.test.mjs`、`scripts/quest-play-capture.mjs`。
+
+儲存庫裡沒有 AGENTS.md。沒有另寫一份。
+
+這一層用記憶、負荷和提神來排委託，用注意力被拆開的地點來補巡邏。角色仍是既有的虛構名單。玩家不是受試者。文案不把喝一杯寫成治療，也不用連續登入、假性短缺或愧疚來推人。
+
+主遊戲入口是學期裡的「學期委託」，以及走到新的巡邏點。收集只算補給和掉落實際進袋的數量。領取委託不會把獎勵再算進收集。`MAIN_INTEGRATION` 沒有改。沒有新的科系 id，也沒有學期時鐘。
+
+十隻巡邏是小考或分組報告。東校區原本那串生成點沒有改。站點是估計位置。畫面是 SwiftShader、1280×720，以及 390×780 的觸控模擬。這不是手機，也不是 RTX 3060。
+
+細節見 VALIDATION.md、CHECKPOINT.json。

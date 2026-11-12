@@ -7858,3 +7858,58 @@ test("continuing a living semester returns to the saved public interior", () => 
   assert.equal(useGame.getState().playerX, door.x);
   assert.equal(useGame.getState().playerZ, door.z);
 });
+
+test("collection quests remember supplies and ignore other loads", async () => {
+  const { SUPPLY_NODES } = await import("../src/game/rpg/campus.ts");
+  const { MISSIONS } = await import("../src/game/rpg/data.ts");
+  inventory.clear();
+  useRpg.setState({
+    gathered: { notes: 0, parts: 0, coffee: 0, tea: 0 },
+    felled: { quiz: 0, report: 0, exam: 0, final: 0 },
+    claimed: [],
+    xp: 0,
+    panel: null,
+    loot: [],
+    harvested: {},
+    buildings: [],
+    interiorId: null,
+    buildKind: null,
+    hp: 100,
+    boss: 0,
+  });
+  const node = SUPPLY_NODES.find((entry) => entry.items.notes);
+  useGame.setState({
+    phase: "playing",
+    plaqueId: null,
+    playerX: node.x,
+    playerZ: node.z,
+    playerYaw: 0,
+    visited: [],
+  });
+  assert.equal(r.promptDecision(r.promptSnap()).kind, "supply");
+  assert.equal(useRpg.getState().commitPrompt(), "supply");
+  assert.equal(useRpg.getState().gathered.notes, node.items.notes);
+  inventory.remove("notes", inventory.count("notes"));
+  assert.equal(inventory.count("notes"), 0);
+  assert.equal(useRpg.getState().gathered.notes, node.items.notes);
+  useRpg.setState({
+    gathered: { notes: 12, parts: 12, coffee: 2, tea: 2 },
+  });
+  const beforeXp = useRpg.getState().xp;
+  useRpg.getState().claim("gather-notes");
+  assert.equal(useRpg.getState().claimed.includes("gather-notes"), true);
+  assert.equal(useRpg.getState().xp, beforeXp + MISSIONS.find((row) => row.id === "gather-notes").xp);
+  assert.equal(useRpg.getState().gathered.notes, 12);
+  useRpg.getState().claim("gather-notes");
+  assert.equal(useRpg.getState().xp, beforeXp + MISSIONS.find((row) => row.id === "gather-notes").xp);
+  useRpg.getState().claim("gather-parts");
+  assert.equal(useRpg.getState().claimed.includes("gather-parts"), true);
+  assert.equal(useRpg.getState().gathered.notes, 12);
+  const kills = useRpg.getState().kills;
+  r.hitEnemy({ hp: 1, kind: "quiz", x: 0, z: 0, state: "idle", hurt: 0, timer: 0, id: "quiz-test" }, 5);
+  assert.equal(useRpg.getState().felled.quiz, 1);
+  assert.equal(useRpg.getState().felled.report, 0);
+  r.hitEnemy({ hp: 1, kind: "report", x: 2, z: 0, state: "idle", hurt: 0, timer: 0, id: "report-test" }, 5);
+  assert.equal(useRpg.getState().felled.report, 1);
+  assert.equal(useRpg.getState().kills, kills + 2);
+});

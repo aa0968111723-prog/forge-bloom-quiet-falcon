@@ -350,6 +350,18 @@ export const ENCOUNTERS: {
   { id: "quiz-4", kind: "quiz", x: 124, z: -108 },
   { id: "exam-2", kind: "exam", x: 65, z: -70 },
   { id: "final-1", kind: "final", x: -55, z: -307 },
+  // Patrols sit where attention is already split: arriving, reading, looking, moving, group work.
+  // They stay off doors and faculty posts. Quiz is a sudden retrieval demand; report is a shared load.
+  { id: "patrol-gate", kind: "quiz", x: 78, z: 70.5 },
+  { id: "patrol-library", kind: "quiz", x: 28, z: -290 },
+  { id: "patrol-humanities", kind: "report", x: 106, z: -323.5 },
+  { id: "patrol-business", kind: "report", x: 110, z: -403.5 },
+  { id: "patrol-museum", kind: "quiz", x: 168, z: -230 },
+  { id: "patrol-track", kind: "quiz", x: 33, z: -465 },
+  { id: "patrol-faculty", kind: "report", x: 308, z: -535.5 },
+  { id: "patrol-commons", kind: "quiz", x: 184, z: -24 },
+  { id: "patrol-architecture", kind: "report", x: 309, z: -74.5 },
+  { id: "patrol-foreign", kind: "report", x: 179, z: -325 },
 ];
 for (const [i, site] of CAMPUS_SITES.filter((s) => s.x > 200 && !s.form)
   .filter((_, i) => i % 2 === 0)
@@ -402,4 +414,95 @@ export const MISSIONS = [
     reward: { credit: 5, badge: 1 },
     xp: 200,
   },
+  {
+    id: "gather-notes",
+    name: "把記得的帶回來",
+    description: "從補給或掉落收集 12 份課堂筆記。這是你提取過的記憶，用掉以後仍然算數。委託發的筆記不算。",
+    target: 12,
+    metric: "notes",
+    reward: { coffee: 2, tea: 2 },
+    xp: 40,
+  },
+  {
+    id: "gather-parts",
+    name: "手上的材料",
+    description: "收集 12 份零件。花掉是拿去用，不是把進度倒扣。",
+    target: 12,
+    metric: "parts",
+    reward: { notes: 6 },
+    xp: 40,
+  },
+  {
+    id: "gather-drinks",
+    name: "先把精神提起來",
+    description: "收集 4 份冰咖啡或烏龍茶。兩種都算提神，不是治療。",
+    target: 4,
+    metric: "drinks",
+    reward: { credit: 1 },
+    xp: 35,
+  },
+  {
+    id: "reports",
+    name: "先處理分組那一種",
+    description: "擊退 2 隻分組報告聚合體。小考和期中考是別的負荷，不算這一件。",
+    target: 2,
+    metric: "reports",
+    reward: { parts: 6, notes: 4 },
+    xp: 50,
+  },
 ] as const;
+
+export const GATHERED_ITEMS = ["notes", "parts", "coffee", "tea"] as const;
+export type GatheredItem = (typeof GATHERED_ITEMS)[number];
+export type Gathered = Record<GatheredItem, number>;
+export type Felled = Record<EnemyKind, number>;
+
+export function emptyGathered(): Gathered {
+  return { notes: 0, parts: 0, coffee: 0, tea: 0 };
+}
+
+export function emptyFelled(): Felled {
+  return { quiz: 0, report: 0, exam: 0, final: 0 };
+}
+
+export function addGathered(current: Gathered, accepted: Record<string, number>): Gathered {
+  const next = { ...current };
+  for (const id of GATHERED_ITEMS) {
+    const amount = accepted[id];
+    if (typeof amount === "number" && amount > 0) next[id] += Math.floor(amount);
+  }
+  return next;
+}
+
+export function missionProgress(
+  mission: { metric: string },
+  state: {
+    kills: number;
+    built: number;
+    boss: number;
+    discoveries: readonly unknown[];
+    gathered: Gathered;
+    felled: Felled;
+  },
+): number {
+  switch (mission.metric) {
+    case "discoveries":
+      return state.discoveries.length;
+    case "notes":
+      return state.gathered.notes;
+    case "parts":
+      return state.gathered.parts;
+    case "drinks":
+      return state.gathered.coffee + state.gathered.tea;
+    case "reports":
+      return state.felled.report;
+    case "kills":
+      return state.kills;
+    case "built":
+      return state.built;
+    case "boss":
+      return state.boss;
+    default:
+      return 0;
+  }
+}

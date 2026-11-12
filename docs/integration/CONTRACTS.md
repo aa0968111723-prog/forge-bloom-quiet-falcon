@@ -62,7 +62,7 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 
 高畫質的詳細樹冠半徑是 `vegetationRange` 48。樹木與灌木再遠換成便宜樹冠。杜鵑、花圃、地被和青苔超出這個距離就不畫。棕櫚超出距離留便宜樹冠。正好 48 m 算遠景。省電畫質本來就用 `simpleTrees`，70 m 是便宜樹冠的距離，不是第二個細模半徑。植株位置仍是 estimated。
 
-學期只看既有 `claimed`，不看電腦日期，也不另開獎勵帳。大門任務 `quest-orient-gate` 和補給委託 `quest-errand-campus-post` 都領取後是期中；再加上既有戰鬥任務 `first` 才是期末；否則是第一週。委託付經驗 12、筆記 2，只進既有背包，而且只記一次。合法放置結算同一次。兩份科系清冊都留著。查詢把「化學系／化學學系」「數學系／應用數學與數據科學學系」當別名。存檔仍用 RPG id，鍵仍是 `tamkang-rpg-v2`。`MAIN_INTEGRATION` 仍是 false。
+學期只看既有 `claimed`，不看電腦日期，也不另開獎勵帳。大門任務 `quest-orient-gate` 和補給委託 `quest-errand-campus-post` 都領取後是期中；再加上既有戰鬥任務 `first` 才是期末；否則是第一週。委託付經驗 12、筆記 2，只進既有背包，而且只記一次。合法放置結算同一次。收集委託的筆記、零件、咖啡和茶記在 `gathered`，花掉不倒扣，領獎發的筆記不寫進 `gathered`。分組報告只計 `felled.report`。兩份科系清冊都留著。查詢把「化學系／化學學系」「數學系／應用數學與數據科學學系」當別名。存檔仍用 RPG id，鍵仍是 `tamkang-rpg-v2`。`MAIN_INTEGRATION` 仍是 false。
 
 裝備、製作和臨時設施也走這只背包。主工具、配件、背包各一槽，格子仍是 24。徽章仍走原來的裝備，不加第二次生命。材料不足或數量不對就不扣。拆除與退還仍是一半，向下取整。負重、燈和採集加成寫在同一份 `tamkang-rpg-v2` 的 `loadout` 與 `gear`，不另開存檔。雲端契約會檢查這些欄位、隔離物品和手持設施；白名單以外的欄位不收。沒有這些欄位的舊存檔仍可上傳。
 
@@ -91,7 +91,7 @@ URL 帶內容雜湊。幾何與 atlas 共享。卸載只走 `releaseArtInstance`
 | 鍵 | 版本欄 | 內容 |
 | --- | --- | --- |
 | `tamkang-world-v1` | `version: 2`（`SAVE_VERSION`） | 巡禮造訪、光影、音量、畫質、舊背包與科系 |
-| `tamkang-rpg-v2` | `snapshot().version === 2` | 生命、專注、任務 `claimed`、建築、背包槽、裝備 `loadout` 與 `gear`、位置、室內，以及同一份存檔上的 `narrative` 事件記憶 |
+| `tamkang-rpg-v2` | `snapshot().version === 2` | 生命、專注、任務 `claimed`、建築、背包槽、裝備 `loadout` 與 `gear`、位置、室內、收集進度 `gathered`、擊退紀錄 `felled`，以及同一份存檔上的 `narrative` 事件記憶 |
 
 寫入是延遲 1.8 秒的本地 `localStorage`。另一個分頁寫入同一鍵時，`onForeignSave` 只把文字放進 `foreignText` 並把 `saveConflict` 設為 true，不直接覆蓋目前進度。玩家再選接受本機或接受外來。這是分頁衝突，不是雲端同步。
 
