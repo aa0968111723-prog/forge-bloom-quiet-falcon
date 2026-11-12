@@ -5179,7 +5179,33 @@
       "mergeSha": "c63315a8f86b8f9495dfd569bdaf8b7be2077598",
       "integrationPr": 330,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/330",
-      "nextAction": "None. The palace desk from e79fbbf0 is already in this integration. Do not merge PR #261 by itself. The reading-room carrel commit 64f336ca is still separate."
+      "nextAction": "None. The palace desk from e79fbbf0 is already in this integration. Do not merge PR #261 by itself. The reading-room carrel commit 64f336ca is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-reading-carrel",
+      "line": "art",
+      "scope": "The reading-room carrels stop a 0.42 m body. The centre aisle and the classroom stay open. The south door stays open.",
+      "status": "verified",
+      "pr": 263,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/263",
+      "integrationBranch": "cursor/integration-reading-carrel-3395",
+      "sourceBranch": "cursor/reading-carrel-1a71",
+      "baseSha": "825e8a8f802f911cd043e82a5deeca9065cf1546",
+      "headSha": "64f336cafe34f31dab52cf7554003c127311c2e6",
+      "dependencies": ["art-class-desk"],
+      "sharedFiles": ["src/game/rpg/interior-layout.ts", "src/game/rpg/rules.ts", "src/game/rpg/physics/interior.ts", "src/game/rpg/AdventurePlayer.tsx", "src/game/rpg/InteriorDetails.tsx", "scripts/reading-carrel.test.mjs"],
+      "checks": {
+        "conflicts": "The palace desk, hoop wall push, and outdoor colliders stay. Indoor steps pass the carrels only for the library.",
+        "typecheck": "pass",
+        "npmTest": "463 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-TAFS6WHn.js sha256 482d9d5d732794106b85f1a5a9ed5f7d045a8158dda15dee404aee2b727960a3. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8256/",
+        "route": "8256 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "3c4100a41cac3c2e0a0aea3bd22fb6fe0ee2064a",
+      "nextAction": "Open the integration PR. Do not merge PR #263 by itself. The shelf-clear commit bf82dc53 is still separate."
     }
   ]
 }
