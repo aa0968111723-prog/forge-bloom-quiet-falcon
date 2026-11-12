@@ -562,3 +562,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 109 輪（終點線）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。南直道有一條終點線，軸向是 Z，x=0，長度等於跑道內外緣的差。整條線落在跑道帶上，不在內圈橢圓裡，沒有球網。太小的場不畫。內圈仍是 5 條線。來源畫面：`docs/art/evidence/track/finish.jpg`。線寬仍是 estimated。第 108 輪的黑天鵝台座留著。沒有新增音效。
+
+## 第 110 輪（沙坑）— 2026-11-12
+
+`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。沙坑在內圈東側，3×8 m。四個角都在跑道內緣橢圓裡，西緣在白線外側。太小的場不畫。內圈仍是 5 條線，南直道終點線留著。來源畫面：`docs/art/evidence/track/pit.jpg`。尺寸仍是 estimated。第 109 輪的終點線留著。沒有新增音效。

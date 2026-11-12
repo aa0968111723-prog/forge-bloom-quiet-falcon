@@ -182,6 +182,32 @@ export function trackInfield(size: readonly [number, number, number]): CourtLine
   ];
 }
 
+export type TrackPit = { x: number; z: number; w: number; d: number };
+
+/**
+ * Sand pit on the grass east of the infield. Estimated size, flat, and
+ * clear of the painted pitch. Walkable: it is not a collider.
+ */
+export function trackPit(size: readonly [number, number, number]): TrackPit | null {
+  const inner = trackInnerAxes(size);
+  const w = 3;
+  const d = 8;
+  const x = inner.x * 0.62;
+  const z = 0;
+  const corners: [number, number][] = [
+    [x - w / 2, d / 2],
+    [x + w / 2, d / 2],
+    [x - w / 2, -d / 2],
+    [x + w / 2, -d / 2],
+  ];
+  if (corners.some(([cx, cz]) => (cx / inner.x) ** 2 + (cz / inner.z) ** 2 >= 1)) return null;
+  const pitch = trackInfield(size);
+  const side = pitch.find((line) => line.axis === "z" && line.x > 0);
+  const end = pitch.find((line) => line.axis === "x" && line.z > 0);
+  if (side && end && Math.abs(x) < side.x + w / 2 && Math.abs(z) < end.z + d / 2) return null;
+  return { x, z, w, d };
+}
+
 export function lineInsideTrackOval(line: CourtLine, size: readonly [number, number, number]) {
   const inner = trackInnerAxes(size);
   const hx = line.axis === "x" ? line.length / 2 : 0;

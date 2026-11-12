@@ -674,5 +674,11 @@
 
 畫面：`docs/art/evidence/track/finish.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：沙坑（ART-067 的一部分）
+
+田徑場內圈東側的草地上有一座 3×8 m 的沙坑和西端起跳板。沙坑在跑道內緣裡面，也不壓到 24×40 m 的白線。沙面可以走過去。尺寸仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/track/pit.jpg`。測試：`scripts/court-lines.test.mjs`。
+
 ## 下一步
-見 `CHECKPOINT.json`。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。田徑場內圈東側已有一座可走的沙坑。田徑場南直道已有終點線。海事博物館室內已有會擋人的黑天鵝台座。游泳館室內已有會擋人的水面。活動室地板只留一組標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
