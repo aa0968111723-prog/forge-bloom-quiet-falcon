@@ -399,3 +399,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 68 輪（機車停車場車格）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。停車場有 50 條線：兩條底線和 48 條分隔，南北各 23 個車格。每條線都在鋪面裡，最靠近中線的一端離中心至少 10 m。球場和田徑場沒有這些車格。尺寸仍是 estimated。閱讀的女孩留在第 67 輪。沒有新增音效。`build:site` 產物 `AdventureApp-HPXzNEa2.js`。
+
+## 第 69 輪（車道不再畫線）— 2026-11-12
+
+`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。停車場仍有 50 條車格線，南北各 23 個車格。貫穿中線的 12 條舊長條已拿掉，車道不再畫線。車格留在邊緣。尺寸仍是 estimated。機車格留在第 68 輪。沒有新增音效。`build:site` 產物 `BUNDLE_AFTER_BUILD`。

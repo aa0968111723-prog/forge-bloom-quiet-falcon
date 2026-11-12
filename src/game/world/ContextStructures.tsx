@@ -287,16 +287,6 @@ export function ContextStructures({
                   ))}
                 </>
               )}
-              {s.id === "parking" &&
-                Array.from({ length: 12 }, (_, i) => (
-                  <mesh
-                    key={i}
-                    position={[-s.size[0] / 2 + 4 + i * 4.5, 0.1, 0]}
-                  >
-                    <boxGeometry args={[0.12, 0.02, s.size[2] * 0.75]} />
-                    <meshBasicMaterial color="#e1d9b8" />
-                  </mesh>
-                ))}
             </group>
           );
         }

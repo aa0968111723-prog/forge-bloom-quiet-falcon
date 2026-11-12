@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import { courtMarkings, lineInsideCourt, lineInsideTrackOval, parkingStalls, trackInfield } from "../src/game/world-data/court-lines.ts";
@@ -27,6 +28,11 @@ test("open courts keep their painted lines inside the grass", () => {
     return near >= 10;
   });
   assert.equal(aisle, true);
+  const renderer = readFileSync(
+    new URL("../src/game/world/ContextStructures.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.equal(renderer.includes("s.size[2] * 0.75"), false);
 });
 
 test("the track infield is a pitch inside the oval", () => {
