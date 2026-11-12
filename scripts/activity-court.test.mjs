@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { ACTIVITY_COURT, activityCourtSegments } from "../src/game/rpg/interior-layout.ts";
+import { ACTIVITY_COURT, activityCourtSegments, gymFloorMarks } from "../src/game/rpg/interior-layout.ts";
 
 test("the activity room paints a court between the hoops", () => {
   const marks = activityCourtSegments();
@@ -25,4 +25,10 @@ test("the activity room paints a court between the hoops", () => {
   const sidelines = marks.filter((mark) => Math.abs(mark.position[2]) === halfZ);
   assert.equal(sidelines.length, 2);
   assert.ok(sidelines.every((mark) => mark.size[0] === halfX * 2));
+
+  const floor = gymFloorMarks();
+  assert.equal(floor.length, 11);
+  const centre = floor.find((mark) => mark.position[0] === 0 && mark.position[2] === 0);
+  assert.equal(centre.size[0], halfX * 2);
+  assert.ok(floor.every((mark) => Math.abs(mark.position[0]) !== 8.5 && Math.abs(mark.position[2]) !== 5.5));
 });

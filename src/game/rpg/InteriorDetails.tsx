@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { Color, Matrix4, type InstancedMesh } from "three";
-import { CLASSROOM_DESK, READING_CARRELS, ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
+import { CLASSROOM_DESK, READING_CARRELS, ROOM_TABLE_SIZE, ROOM_TABLES, gymFloorMarks } from "./interior-layout";
 
 type Point = [number, number, number];
 type Box = { at: Point; size: Point; color: string };
@@ -90,15 +90,14 @@ function wallAndFloor(room: DetailedRoom, floor: number) {
   }
   if (gym) {
     const line = "#e7d9b9";
-    for (const side of [-1, 1]) {
+    for (const mark of gymFloorMarks()) {
       detail.push(
-        box([0, 0.014, side * 5.5], [17, 0.012, 0.055], line),
-        box([side * 8.5, 0.014, 0], [0.055, 0.012, 11], line),
-        box([side * 5.3, 0.014, 0], [0.055, 0.012, 3.7], line),
+        box(
+          [mark.position[0], mark.position[1], mark.position[2]],
+          [mark.size[0], mark.size[1], mark.size[2]],
+          line,
+        ),
       );
-      for (const lane of [-1, 1]) {
-        detail.push(box([side * 6.9, 0.014, lane * 1.85], [3.2, 0.012, 0.055], line));
-      }
     }
   } else {
     const panel = museum ? "#233e4b" : trim;

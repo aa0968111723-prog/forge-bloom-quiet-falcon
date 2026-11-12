@@ -34,7 +34,7 @@ import { quality } from "../quality";
 import { signHost } from "./chrome";
 import { INTERIOR_CEILING_THICKNESS, INTERIOR_CEILING_Y } from "./interior-ceiling";
 import { detailedRoom, InteriorDetails, roomFinish } from "./InteriorDetails";
-import { ACTIVITY_COURT, LIBRARY_SHELF, ROOM_TABLE_SIZE, ROOM_TABLES, activityCourtSegments } from "./interior-layout";
+import { LIBRARY_SHELF, ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
 import { Monster } from "./art/Monster";
 import { SkillEffects } from "./art/SkillEffects";
 import { StructuralPulse } from "../art/vfx/StructuralPulse";
@@ -521,17 +521,12 @@ export function Interior() {
             <ringGeometry args={[1.7, 1.77, 40]} />
             <meshBasicMaterial color="#e9dbb1" />
           </mesh>
-          <mesh position={[0, 0.03, 0]}>
-            <boxGeometry args={[site.id === "gym" ? ACTIVITY_COURT.halfX * 2 : 17, 0.02, 0.06]} />
-            <meshBasicMaterial color="#e9dbb1" />
-          </mesh>
-          {site.id === "gym" &&
-            activityCourtSegments().map((mark, index) => (
-              <mesh key={index} position={mark.position}>
-                <boxGeometry args={mark.size} />
-                <meshBasicMaterial color="#e9dbb1" />
-              </mesh>
-            ))}
+          {site.id !== "gym" && (
+            <mesh position={[0, 0.03, 0]}>
+              <boxGeometry args={[17, 0.02, 0.06]} />
+              <meshBasicMaterial color="#e9dbb1" />
+            </mesh>
+          )}
           {[-1, 1].map((side) => (
             <group key={side} position={[side * 8, 0, 0]}>
               <mesh position={[0, 0.2, 0]} receiveShadow>

@@ -50,22 +50,31 @@ export const ACTIVITY_COURT = {
 
 export function activityCourtSegments() {
   const { halfX, halfZ, line, laneDepth, laneHalfZ } = ACTIVITY_COURT;
-  const y = 0.04;
+  const y = 0.014;
   const lane = (sign: 1 | -1) => {
     const baseline = sign * halfX;
     const inward = sign * (halfX - laneDepth);
     const mid = sign * (halfX - laneDepth / 2);
     return [
-      { position: [mid, y, laneHalfZ] as const, size: [laneDepth, 0.01, line] as const },
-      { position: [mid, y, -laneHalfZ] as const, size: [laneDepth, 0.01, line] as const },
-      { position: [inward, y, 0] as const, size: [line, 0.01, laneHalfZ * 2] as const },
-      { position: [baseline, y, 0] as const, size: [line, 0.01, halfZ * 2] as const },
+      { position: [mid, y, laneHalfZ] as const, size: [laneDepth, 0.012, line] as const },
+      { position: [mid, y, -laneHalfZ] as const, size: [laneDepth, 0.012, line] as const },
+      { position: [inward, y, 0] as const, size: [line, 0.012, laneHalfZ * 2] as const },
+      { position: [baseline, y, 0] as const, size: [line, 0.012, halfZ * 2] as const },
     ];
   };
   return [
-    { position: [0, y, halfZ] as const, size: [halfX * 2, 0.01, line] as const },
-    { position: [0, y, -halfZ] as const, size: [halfX * 2, 0.01, line] as const },
+    { position: [0, y, halfZ] as const, size: [halfX * 2, 0.012, line] as const },
+    { position: [0, y, -halfZ] as const, size: [halfX * 2, 0.012, line] as const },
     ...lane(1),
     ...lane(-1),
+  ];
+}
+
+/** The one set of floor paint for the gym. Replaces the older ±8.5 / ±5.5 court. */
+export function gymFloorMarks() {
+  const { halfX, line } = ACTIVITY_COURT;
+  return [
+    ...activityCourtSegments(),
+    { position: [0, 0.02, 0] as const, size: [halfX * 2, 0.012, line] as const },
   ];
 }
