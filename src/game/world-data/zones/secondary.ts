@@ -54,7 +54,8 @@ export type SecondaryStructure = {
     | "office-block"
     | "faculty-house"
     | "garden-house"
-    | "language-hall";
+    | "language-hall"
+    | "chem-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -345,8 +346,31 @@ export function studioProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * Chemistry hall for 鍾靈化學館. The south glass and roof stack are an
+ * estimated silhouette. The science hall keeps its glass bay, and the
+ * workshop keeps its brick base.
+ */
+export function chemHallProfile(size: readonly [number, number, number]) {
+  const stackW = Math.min(3.2, size[0] * 0.12);
+  const stackD = Math.min(3.2, size[2] * 0.14);
+  const glassH = Math.min(1.1, size[1] * 0.08);
+  return {
+    baseH: Math.min(1.8, Math.max(1.2, size[1] * 0.12)),
+    glassZ: size[2] / 2 + 0.08,
+    glassH,
+    glassW: size[0] * 0.62,
+    glassY: size[1] * 0.55,
+    stackW,
+    stackD,
+    stackH: Math.min(2.8, Math.max(1.8, size[1] * 0.16)),
+    stackX: size[0] * 0.28,
+    stackZ: -size[2] * 0.12,
+  };
+}
+
+/**
  * Older workshop hall for 工學館. The brick base and roof monitor are estimated.
- * Chemistry keeps the lab block and its roof plant.
+ * The engineering tower stays a set-back tower.
  */
 export function workshopProfile(size: readonly [number, number, number]) {
   const baseH = Math.max(3.2, size[1] * 0.3);
@@ -604,6 +628,7 @@ function campusKind(site: {
   if (site.id === "faculty") return "faculty-house";
   if (site.id === "yingyuan") return "garden-house";
   if (site.id === "foreign") return "language-hall";
+  if (site.id === "chemistry") return "chem-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

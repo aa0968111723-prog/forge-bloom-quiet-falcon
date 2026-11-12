@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T01:45:00Z",
+  "updated": "2026-11-12T02:00:00Z",
   "task_ids": [
-    "ART-034"
+    "ART-064"
   ],
-  "branch": "cursor/joint-limits-1a71",
-  "base": "main@c192152329f7",
+  "branch": "cursor/chem-hall-1a71",
+  "base": "main@468a516efb16",
   "commits": [
     {
       "sha": "cad192d",
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Every student-kit clip keeps the shoulder, elbow and knee inside the measured bend: knee 94 degrees, elbow 97 degrees, shoulder raise 166 degrees. A knee folded backward, an elbow folded the wrong way, or a shoulder raised further fails the test. Planting still splits at 48 m. The foreign-language hall stays a ground gallery. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The chemistry hall is a pale volume with a south glass band and a roof stack that stays on the roof. The science hall keeps its east glass bay. The workshop keeps its brick base. The engineering tower stays a set-back tower. Joint bends stay measured. The shape is estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }
