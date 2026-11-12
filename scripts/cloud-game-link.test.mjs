@@ -852,3 +852,39 @@ test("an empty narrative seed still uploads the campus memory", () => {
   assert.equal(folded.narrative.memory["npc-chen-yu:last"], memory);
   assert.equal(validateRpgDocument(folded).ok, true);
 });
+
+test("an old harvest cooldown still uploads the stations that are cooling", () => {
+  const supply = SUPPLY_NODES[0];
+  const now = Date.now();
+  const live = now + 60_000;
+  const harvested = {};
+  for (let index = 0; index < 120; index += 1) harvested[`facility:old-${index}`] = now - 1_000;
+  harvested[supply.id] = live;
+  harvested["facility:station-1"] = live;
+  harvested["facility:gone-station"] = live;
+  harvested["facility:constructor"] = live;
+  useRpg.setState({
+    freshStart: false,
+    hp: 80,
+    departmentId: "math",
+    interiorId: null,
+    harvested,
+    buildings: [{ id: "station-1", kind: "rest", x: 12, z: -20, rotation: 0, hp: 40 }],
+  });
+  useRpg.getState().keepProgress();
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.harvested["facility:old-0"], undefined);
+  assert.equal(saved.harvested["facility:gone-station"], live);
+  assert.equal(saved.harvested["facility:constructor"], undefined);
+  assert.equal(saved.harvested[supply.id], live);
+  assert.equal(saved.harvested["facility:station-1"], live);
+  assert.ok(Object.keys(saved.harvested).length <= 112);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.harvested[supply.id], live);
+  assert.equal(reloaded.harvested["facility:station-1"], live);
+  assert.equal(reloaded.harvested["facility:constructor"], undefined);
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+});

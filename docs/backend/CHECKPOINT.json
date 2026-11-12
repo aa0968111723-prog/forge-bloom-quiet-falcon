@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T08:07:01Z",
+  "updated_at": "2026-11-12T08:13:16Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -97,10 +97,12 @@
     "an empty variety note still uploads the named beats",
     "a long variety note still uploads the run",
     "merged main at 09c7d7c; the clamped quarantine durability was already on this branch",
-    "an empty narrative seed still uploads the campus memory"
+    "an empty narrative seed still uploads the campus memory",
+    "merged main at f4929b4; the folded narrative clock was already on this branch",
+    "an old harvest cooldown still uploads the stations that are cooling"
   ],
   "verification": {
-    "npm_test": "405 pass, 0 fail; an empty narrative seed still uploads the campus memory",
+    "npm_test": "406 pass, 0 fail; an old harvest cooldown still uploads the stations that are cooling",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
