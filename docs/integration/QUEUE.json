@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T08:10:47Z",
+      "updated": "2026-11-12T08:19:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3388,6 +3388,34 @@
       "integrationPr": 242,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/242",
       "nextAction": "None. The unnamed narrative place from 83a38aa3 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-narrative-timer",
+      "line": "backend",
+      "scope": "Import clamps narrative cooldowns and mutex times to -1e12..1e15. A time already inside that range stays. The memory stays. A raw upload of a timer outside that range is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-narrative-timer-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "eccee6d3e0022fc53b2148b344bf038376706bf5",
+      "headSha": "561a3e1b609a9f10fb95e3ca7550748d5267beeb",
+      "dependencies": ["backend-narrative-place"],
+      "sharedFiles": ["src/game/rpg/narrative-bridge.ts", "src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T07:47:43Z and the out-of-range timer line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "399 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DRJHvt5m.js",
+        "browser": "8196. The standing route completed on the rerun.",
+        "route": "8196: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. The first attempt stopped on an I/O error while writing a screenshot; the rerun passed."
+      },
+      "conflicts": [],
+      "merged": true,
+      "mergeSha": "b8c8a8367b93e77ba5e3b264ad029b8a7d7aabb4",
+      "integrationPr": 245,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/245",
+      "nextAction": "None. The clamped narrative timers from 561a3e1b are already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
