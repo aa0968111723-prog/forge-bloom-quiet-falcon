@@ -503,3 +503,13 @@
 ## 下一步
 
 見 `CHECKPOINT.json`。四時段截圖已留下。行政大樓已從教學樓分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+
+## 階段：宮燈教室轉角鏡頭（KI-18）
+
+西廳轉角的跟隨鏡頭留在視線上。舊的推出會甩開 2.6 m。水平距離不夠 2.2 m 就升高，人仍在畫面裡。迴廊外側直走仍保持約 5 m。實棟學人宿舍仍是淺色樓身和南向門廊。
+
+畫面：`docs/art/evidence/colonnade/corner.jpg`。測試：`scripts/physics-clock.test.mjs`。
+
+## 下一步
+
+見 `CHECKPOINT.json`。轉角鏡頭已留在視線上。實棟學人宿舍已從學生宿舍分開。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

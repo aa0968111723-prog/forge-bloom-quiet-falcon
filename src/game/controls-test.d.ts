@@ -46,6 +46,7 @@ declare global {
       getSpeed: () => number;
       setKeys?: (codes: string[]) => void;
       getPosition?: () => { x: number; y: number; z: number };
+      getCamera?: () => { x: number; y: number; z: number };
       setPose?: (x: number, z: number, yaw?: number) => void;
       /** Reality Compare Mode test hooks (F8 equivalent). */
       setBenchmark?: (id: string | null) => void;
@@ -54,7 +55,6 @@ declare global {
       setYaw?: (yaw: number) => void;
       /** QA: set the follow pitch. Indoors the rig still stays under the ceiling. */
       setPitch?: (pitch: number) => void;
-      getCamera?: () => { x: number; y: number; z: number };
       /** QA photo camera orbiting the player; null restores the follow camera. */
       setPhoto?: (p: { distance: number; height: number; yaw: number; lookY: number; target?: { x: number; y: number; z: number } } | null) => void;
     };

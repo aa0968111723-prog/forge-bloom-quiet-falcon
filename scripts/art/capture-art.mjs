@@ -730,7 +730,28 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "bow", "maritime museum bow on the hull");
-  } else if (scenario === "interiors") {
+  } else if (scenario === "colonnade") {
+    // West hall corner. The desired camera is inside the hall; the follow rig
+    // should stay outside and keep the character in frame. Coordinates match
+    // palaceHallZs()[2] in the colonnade camera test.
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, -9.7, -99.5, -Math.PI * 0.72);
+    await page.evaluate(() => window.__controlsTest.setPhoto(null));
+    await settle(page, { stableFrames: 4 });
+    const rig = await page.evaluate(() => {
+      const player = window.__controlsTest.getPosition();
+      const camera = window.__controlsTest.getCamera();
+      const dx = camera.x - player.x;
+      const dy = camera.y - player.y;
+      const dz = camera.z - player.z;
+      return {
+        player,
+        camera,
+        range: Math.hypot(dx, dy, dz),
+      };
+    });
+    await shot(page, "corner", `follow range ${rig.range.toFixed(2)} m at (${rig.player.x.toFixed(1)}, ${rig.player.z.toFixed(1)})`);  } else if (scenario === "interiors") {
     // Three public interiors already in the game: 宮燈教室, 圖書館閱讀桌, 體育館活動場.
     // These are game layouts, not surveyed rooms. Enter, look, exit, and check
     // that the semester (hp, department) survives and the player is back outdoors.
