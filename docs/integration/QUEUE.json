@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T01:20:00Z",
+      "updated": "2026-11-12T01:30:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1649,6 +1649,34 @@
       "integrationPr": 120,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/120",
       "nextAction": "None. The language-hall patch from d5a28c8 is already in this integration. Do not merge PR #105 by itself. Next is PR #107 at head 4dc3786, then PR #108 at head 6ac2cf3, then PR #110 at head eee5c91, then PR #111 at head 412b130, then PR #113 at head f2750c7, then PR #115 at head 9672ff3, then PR #116 at head 9a3d594, then PR #118 at head 266e4b7. Do not rerun the cross-system route unless the game SHA changes."
+    },
+    {
+      "id": "art-planting-lod",
+      "line": "art",
+      "scope": "Trees and shrubs stay detailed inside the high-quality 48 m range and switch to a cheap canopy beyond it. Azalea, flowerbeds, groundcover and moss drop out past that range. Palms keep a cheap canopy. A plant at exactly 48 m is far. Positions stay estimated.",
+      "status": "verified",
+      "pr": 107,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/107",
+      "integrationBranch": "cursor/integration-planting-lod-3395",
+      "sourceBranch": "cursor/planting-lod-1a71",
+      "baseSha": "4b88b772d4e21424dd14b502655c1239b1abd8bf",
+      "headSha": "4dc3786b01b9a163088a04e2e414f9b8f790ced6",
+      "dependencies": ["art-language-hall"],
+      "sharedFiles": ["src/game/world/Vegetation.tsx", "src/game/world-data/vegetation-lod.ts"],
+      "checks": {
+        "conflicts": "Art docs and the capture script. Vegetation.tsx and the new split function applied cleanly. Capture keeps the earlier scenarios and adds planting after the language hall. ART-085 keeps the planting title and adds the distance notes.",
+        "typecheck": "pass",
+        "npmTest": "267 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8136 high. 1280x720 shows round shrubs, pink beds, and trees behind the palace hall. 390x780 keeps shrubs, pink beds, and one tree. pageErrors empty",
+        "route": "8136: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
+      },
+      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #107 by itself. Next is PR #108 at head 6ac2cf3."
     }
   ]
 }

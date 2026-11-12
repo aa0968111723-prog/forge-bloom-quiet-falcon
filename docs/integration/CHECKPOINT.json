@@ -1,22 +1,17 @@
 {
-  "updated": "2026-11-12T01:22:00Z",
-  "branch": "main",
-  "mainSha": "1565a748126293dda110272bc62cd59fa98be29b",
-  "gameSha": "088a3ef64347b6cd2b7a3fc6b419827c63a5a228",
-  "activeItem": "art-language-hall",
-  "sourceHead": "d5a28c83b3a1efc2712c6e6a1bb81b4be3d1ab05",
-  "integrationHead": "088a3ef64347b6cd2b7a3fc6b419827c63a5a228",
+  "updated": "2026-11-12T01:30:00Z",
+  "branch": "cursor/integration-planting-lod-3395",
+  "mainSha": "4b88b772d4e21424dd14b502655c1239b1abd8bf",
+  "gameSha": "bb94b5e900d222b33ca5d584cb265d2cb74a16f8",
+  "activeItem": "art-planting-lod",
+  "sourceHead": "4dc3786b01b9a163088a04e2e414f9b8f790ced6",
+  "integrationHead": "bb94b5e900d222b33ca5d584cb265d2cb74a16f8",
   "verified": {
-    "language": "The foreign-language hall is a warm ground storey, a south gallery of glass, and a set-back pale upper block with two bands. 1280x720 shows the ground storey, gallery, set-back, bands, and nameplate. 390x780 is a south crop that keeps the bands, nameplate, gallery glass, and ground storey. The gallery shape is estimated. pageErrors empty.",
-    "route": "8135: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
+    "planting": "Trees and shrubs stay detailed inside the high-quality 48 m range and use a cheap canopy beyond it. Azalea, flowerbeds, groundcover and moss drop out past that range. Palms keep a cheap canopy. 1280x720 shows round shrubs, pink beds, and trees behind the palace hall. 390x780 keeps shrubs, pink beds, and one tree. Positions are estimated. pageErrors empty.",
+    "route": "8136: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, cloudXp 23, logout 401, pageErrors empty."
   },
-  "notMerged": [
-    "cursor/axis-silhouettes-1a71@1fc58872d019"
-  ],
-  "blocked": [
-    "INT-01",
-    "INT-12"
-  ],
+  "notMerged": ["cursor/axis-silhouettes-1a71@1fc58872d019"],
+  "blocked": ["INT-01", "INT-12"],
   "waiting": [],
-  "next_action": "The foreign-language hall is on main: a warm ground storey, a south gallery of glass, and a set-back pale upper block with two bands. The gallery shape is still estimated. Education and Hweiwen stay classroom blocks. The campus name for Hweiwen is 會文館. The older foreign-lang-hall record stays separate. Yingyuan stays a white garden house. Chemistry stays a lab block. The reviewing stand stays a low deck. Game code is 088a3ef64347b6cd2b7a3fc6b419827c63a5a228. The patch from d5a28c8 is in this integration; that source SHA is not an ancestor. Re-fetch origin/main. Next in-scope art is PR #107 (campus planting by distance, head 4dc3786), then PR #108 (shoulder, elbow, and knee bends, head 6ac2cf3), then PR #110 (chemistry hall, head eee5c91), then PR #111 (Hweiwen colonnade, head 412b130; the campus name is 會文館), then PR #113 (let the player stand on the reviewing deck, head f2750c7), then PR #115 (procedural student for low-quality NPC walkers, head 9672ff3), then PR #116 (measured game-art transfer budget, head 9a3d594), then PR #118 (day, sunset, night, and wet on the palace avenue, head 266e4b7). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Integration PR #120. Do not merge PR #105, PR #102, PR #101, PR #99, PR #97, PR #96, PR #93, PR #91, PR #90, PR #88, PR #86, PR #85, PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
+  "next_action": "Planting LOD is verified on cursor/integration-planting-lod-3395 and is not on main yet. Trees and shrubs stay detailed inside the high-quality 48 m range and use a cheap canopy beyond it. Azalea, flowerbeds, groundcover and moss drop out past that range. Palms keep a cheap canopy. A plant at exactly 48 m is far. Positions stay estimated. The foreign-language hall stays a ground gallery with a set-back upper block. Game code is bb94b5e900d222b33ca5d584cb265d2cb74a16f8, based on origin/main 4b88b772d4e2. The patch from 4dc3786 is in this integration; that source SHA is not an ancestor. Open the integration PR, note its number, then fast-forward main. Do not merge PR #107 by itself. Re-fetch origin/main before the next item. Next in-scope art is PR #108 (shoulder, elbow, and knee bends, head 6ac2cf3), then PR #110 (chemistry hall, head eee5c91), then PR #111 (Hweiwen colonnade, head 412b130; the campus name is 會文館), then PR #113 (let the player stand on the reviewing deck, head f2750c7), then PR #115 (procedural student for low-quality NPC walkers, head 9672ff3), then PR #116 (measured game-art transfer budget, head 9a3d594), then PR #118 (day, sunset, night, and wet on the palace avenue, head 266e4b7). Integrate each on its own branch after checking the current head. Do not merge those source PRs by themselves. Do not rerun the cross-system route unless the game SHA changes. Do not write a commit only to copy the tip SHA into mainSha. Do not merge PR #32 head 1fc5887. Do not merge PR #105, PR #102, PR #101, PR #99, PR #97, PR #96, PR #93, PR #91, PR #90, PR #88, PR #86, PR #85, PR #82, PR #80, PR #79, PR #77, PR #75, PR #73, PR #72, PR #70, PR #68, PR #67, PR #65, PR #63, PR #61, PR #59, PR #56, PR #54, PR #53, or PR #51 by themselves. INT-01 and INT-12 stay blocked. Do not invent a semester picker or a second reward store. Phone and RTX 3060 remain pending-device. Triangle counts stay the ones measured on 7507c59."
 }
