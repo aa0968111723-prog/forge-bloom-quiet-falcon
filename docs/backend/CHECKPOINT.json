@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-12T06:29:37Z",
+  "updated_at": "2026-11-12T06:31:00Z",
   "branch": "cursor/backend-db-link-6038",
-  "base": "bd69066",
+  "base": "e878f26",
   "milestone": "campus-interior-cloud-roundtrip",
   "completed": [
     "retested cloud save on main after the RPG cloud merge and later campus commits",
@@ -59,7 +59,8 @@
     "merged main at 3530de8; the restore revision-conflict confirm was already on this branch",
     "merged main at bd69066; the dropped-upload follow-up account check was already on this branch",
     "a lost direct upload continues the newer local file under a new request id",
-    "an imported unknown item stays in quarantine and can still upload"
+    "an imported unknown item stays in quarantine and can still upload",
+    "merged main at e878f26; the harvest whitelist and reward receipt confirm were already on this branch"
   ],
   "verification": {
     "npm_test": "377 pass, 0 fail; an imported unknown item stays in quarantine and can still upload",
