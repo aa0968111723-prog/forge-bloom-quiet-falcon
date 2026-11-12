@@ -685,6 +685,23 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "dolphin-motto") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 0, -221, 0);
+    await frames(page, 16);
+    await page.evaluate(() => {
+      const here = window.__controlsTest.getPosition();
+      window.__controlsTest.setPhoto({
+        yaw: 0.35,
+        distance: 6.5,
+        height: 1.35,
+        lookY: 0.85,
+        target: { x: 0, y: here.y, z: -226 },
+      });
+    });
+    await frames(page, 6);
+    await shot(page, "south", "dolphin plinth motto, both lines, day");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

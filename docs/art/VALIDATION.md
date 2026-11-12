@@ -367,3 +367,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 60 輪（田徑場內圈）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
+
+## 第 61 輪（海豚勉詞）— 2026-11-12
+
+`node --test scripts/dolphin-motto.test.mjs` 通過。`tsc --noEmit` 通過。兩行是「立足淡江，放眼世界」和「掌握資訊，開創未來」。定步白天，頁面無錯誤：`docs/art/evidence/dolphin-motto/south.jpg`。基座南面兩行都讀得到。字位仍是 estimated。沒有新增音效。`build:site` 產物 `AdventureApp-Dnmz0yqB.js`。
