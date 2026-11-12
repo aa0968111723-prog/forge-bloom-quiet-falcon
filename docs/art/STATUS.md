@@ -650,6 +650,12 @@
 
 畫面：`docs/art/evidence/pool/night.jpg`。測試：`scripts/pool-glow.test.mjs`。
 
+## 階段：活動室球場（ART-067 的一部分）
+
+紹謨紀念體育館室內是一塊有邊線、底線、中線、中圈和兩側禁區的場。底線在籃框與籃架之間。標線貼在木地板上，不擋人。籃架底座仍會擋人。宮燈教室和閱讀室沒有這些線。尺寸仍是 estimated。游泳館夜窗留著。
+
+畫面：`docs/art/evidence/gym/court.jpg`。測試：`scripts/activity-court.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。游泳館南向高窗在夜裡會亮。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。活動室已有球場標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

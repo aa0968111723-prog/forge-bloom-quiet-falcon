@@ -1213,6 +1213,15 @@ try {
     });
     await frames(page, 6);
     await shot(page, "south", "pool hall south glass at night, lamps on");
+  } else if (scenario === "gym-floor") {
+    await hideHud(page);
+    await enterInterior(page, "gym");
+    await setPose(page, 0, 1.2, Math.PI);
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.55, distance: 10, height: 7.2, lookY: 0.4 });
+    });
+    await frames(page, 8);
+    await shot(page, "court", "activity room court lines between the hoops");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
