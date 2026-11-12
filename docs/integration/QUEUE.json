@@ -3327,9 +3327,11 @@
         "route": "8193: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "eb496063cfd9ee5d7ed70c5a093d5d828c2cb488",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 239,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/239",
+      "nextAction": "None. The clamped quarantine durability from a6a08251 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
