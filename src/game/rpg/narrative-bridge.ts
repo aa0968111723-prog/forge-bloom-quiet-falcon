@@ -68,7 +68,7 @@ function stringMap(value: unknown): Record<string, string> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const out: Record<string, string> = {};
   for (const [key, entry] of Object.entries(value).slice(0, NARRATIVE_SAVE_LIMIT)) {
-    if (typeof entry === "string" && key.length < 80 && entry.length < 80) out[key] = entry;
+    if (typeof entry === "string" && key.length < 80 && entry.length <= 80) out[key] = entry;
   }
   return out;
 }
