@@ -3110,7 +3110,7 @@
       "id": "backend-reward-limit",
       "line": "backend",
       "scope": "A signed-in reward receipt that gets 429 grants once locally and stays on this account's queue. A 422 does not grant and is not queued.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-reward-limit-3395",
@@ -3128,9 +3128,11 @@
         "route": "8186: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "e4a1c81eed11b7f03f39ab45150340b742308259",
-      "nextAction": "Open the integration PR, then fast-forward. Do not merge PR #156 by itself."
+      "integrationPr": 228,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/228",
+      "nextAction": "None. The rate-limited reward from 0f88ef7 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
