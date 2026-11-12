@@ -1,6 +1,7 @@
 import {
   AVENUE_LENGTH,
   AVENUE_PAVED_WIDTH,
+  AVENUE_PLANTING_WIDTH,
   AXIS,
   DOLPHIN_ISLAND_RADIUS,
   PLAZA_ELEVATION,
@@ -103,6 +104,21 @@ export const PALACE = {
 
 export function palaceHallZs(): number[] {
   return Array.from({ length: PALACE.halls }, (_, i) => PALACE.firstZ - i * PALACE.pitch);
+}
+
+/** Stone base of a 宮燈, matching the avenue lantern cylinder. */
+export const LANTERN_BASE = 0.8;
+
+/** World XZ of the avenue lanterns. West row on the 12 m grid, east row half a step north. */
+export function lanternPosts(): { x: number; z: number }[] {
+  const lampX = AVENUE_PAVED_WIDTH / 2 + AVENUE_PLANTING_WIDTH * 0.45;
+  const spacing = 12;
+  const posts: { x: number; z: number }[] = [];
+  for (let z = AXIS.avenueSouthZ - 4; z > AXIS.avenueNorthZ + 2; z -= spacing) {
+    posts.push({ x: -lampX, z });
+    posts.push({ x: lampX, z: z - spacing / 2 });
+  }
+  return posts;
 }
 
 export const LANDMARKS: RealityLandmark[] = [

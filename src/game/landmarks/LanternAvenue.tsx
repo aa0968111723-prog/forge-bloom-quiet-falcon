@@ -2,6 +2,7 @@ import { useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
+import { LANTERN_BASE } from "../world-data/landmarks.ts";
 import { propsOfKind } from "../world-data/props.ts";
 import { worldUvCylinder } from "../world/geometry";
 
@@ -34,7 +35,7 @@ export function LanternAvenue({ wetness, lampsOn }: { wetness: number; lampsOn: 
     () => ({
       // 宮燈: pale stone column on a stepped base, hexagonal cream lantern
       // head, small green glazed cap — the silhouette the avenue is named for.
-      base: worldUvCylinder(0.3, 0.4, 0.55, 6, mats["kenan/old-wall"].spec.tile),
+      base: worldUvCylinder(0.3, LANTERN_BASE / 2, 0.55, 6, mats["kenan/old-wall"].spec.tile),
       post: worldUvCylinder(0.11, 0.15, POST_HEIGHT, 6, mats["kenan/retaining-wall"].spec.tile),
       lamp: new THREE.CylinderGeometry(0.34, 0.26, 0.72, 6),
       cap: new THREE.ConeGeometry(0.46, 0.34, 6),
