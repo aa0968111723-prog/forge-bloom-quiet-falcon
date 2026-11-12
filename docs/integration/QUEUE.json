@@ -4060,6 +4060,34 @@
       "integrationPr": 288,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/288",
       "nextAction": "None. The direct living interior from 92b3440a is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "art-interior-ceiling",
+      "line": "art",
+      "scope": "The shared public interior has a 20 by 16 m ceiling, 0.16 m thick, centered at 4.32 m, so its top meets the 4.4 m wall top. The palace classroom shows the slab. The room stays the existing game layout, not a survey.",
+      "status": "verified",
+      "pr": 169,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/169",
+      "integrationBranch": "cursor/integration-interior-ceiling-3395",
+      "sourceBranch": "cursor/interior-ceiling-1a71",
+      "baseSha": "f2656a53d2e2d55bb1c50f44e53ebc86c2cbce4b",
+      "headSha": "01ab365aac969e847d214a6dea4089780b42fe0f",
+      "dependencies": ["backend-direct-import"],
+      "sharedFiles": ["src/game/rpg/AdventureWorld.tsx", "scripts/art/capture-art.mjs", "docs/art/STATUS.md"],
+      "checks": {
+        "conflicts": "docs/art checkpoint, handoff, sources, status, validation, and capture-art. Kept the bollard, infield, and ramp-rail milestones and added the ceiling. AdventureWorld.tsx and the ceiling test auto-merged. npm test is 429.",
+        "typecheck": "pass",
+        "npmTest": "429 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BEjfJSKK.js",
+        "browser": "8220. The standing route completed. Palace classroom evidence shows the ceiling.",
+        "route": "8220: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "fef565f45b2df0f1bf458619fc29511d8ad79b61",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #169 by itself."
     }
   ]
 }
