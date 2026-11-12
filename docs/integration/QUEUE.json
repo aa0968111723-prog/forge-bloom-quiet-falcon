@@ -5572,6 +5572,34 @@
       "integrationPr": 344,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/344",
       "nextAction": "None. The track finish stripe from 7f328f22 is already in this integration. This is on integration PR #344. Do not merge PR #285 by itself. The next art commit is 4310e4c123ee454c282dd5445738ef5570712fdc on PR #287."
+    },
+    {
+      "id": "art-sand-pit",
+      "line": "art",
+      "scope": "The track infield has a 3 by 8 m sand pit east of the pitch, with a takeoff board on its west end. The pit stays inside the oval, clear of the white lines, and is walkable.",
+      "status": "verified",
+      "pr": 287,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/287",
+      "integrationBranch": "cursor/integration-sand-pit-3395",
+      "sourceBranch": "cursor/sand-pit-1a71",
+      "baseSha": "eca4e6844e306373bf8474d3ef3862c12f083d52",
+      "headSha": "4310e4c123ee454c282dd5445738ef5570712fdc",
+      "dependencies": ["art-track-finish"],
+      "sharedFiles": ["src/game/world-data/court-lines.ts", "src/game/world/ContextStructures.tsx", "scripts/court-lines.test.mjs"],
+      "checks": {
+        "conflicts": "The pit is painted with the infield lines and the finish stripe. It has no collision. Court nets and parking stalls stay.",
+        "typecheck": "pass",
+        "npmTest": "474 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-qujPokkI.js sha256 8cacb795d77835351c49787f883e78891b7296eb9f07fb1de1d61e84b4d866d8. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8270/",
+        "route": "8270 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User msVF0AwA9IjSNCBopHQSmxMJUfEhfx0g."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Recorded before the integration PR. The sand pit from 4310e4c1 is in this branch and is not on main yet. Do not merge PR #287 by itself. The next art commit is 13baaacf549ad971be0a3c2b1ff9e1e0bb53df6c on PR #289."
     }
   ]
 }
