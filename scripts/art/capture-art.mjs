@@ -710,6 +710,12 @@ try {
       return card ? card.innerText.replace(/\s+/g, " ").trim() : "missing";
     });
     await shot(page, "warn", `viewport ${width}x${height} ${warn}`);
+    await page.evaluate(() => {
+      window.__rpgQA.rpg.setState({ lesson: "move", lessonAnchor: { x: 0, z: -80 } });
+    });
+    await frames(page, 2);
+    const badge = await page.evaluate(() => document.querySelector(".ad-minimap-lesson")?.textContent ?? "missing");
+    await shot(page, "minimap", `lesson badge ${badge}`);
   } else if (scenario === "links") {
     // Estimated door walks that used to aim through the building or stop off the road.
     await hideHud(page);

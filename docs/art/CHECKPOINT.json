@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T05:40:00Z",
+  "updated": "2026-11-12T06:10:00Z",
   "task_ids": [
-    "ART-062"
+    "ART-090"
   ],
-  "branch": "cursor/garden-pavilion-1a71",
-  "base": "main@ebf0cde",
+  "branch": "cursor/minimap-lesson-1a71",
+  "base": "main@57fc468",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "garden-pavilion, court-lines, and wet-surface pass; full suite re-run on the integration branch",
+    "npm_test": "lesson-marker, garden-pavilion, and court-lines pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-D2eWEjyb.js",
+    "build_site": "AdventureApp-BL8Hzgt0.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The palace-side garden pavilion is four corner posts and a green roof. The center is walkable and the posts are solid. The other Chueh Hsuan building stays a hip roof. Scattered trees stay 6 m outside the pavilion and 3 m outside the courts. The Wuhu field still has two marked courts, and rain still scales the court colours down. The shape is estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The minimap shows the two-character lesson label. On a narrow window the lesson chip sits under the minimap so the department name stays readable. The garden pavilion stays four posts and a green roof. Court lines and wet colours stay. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

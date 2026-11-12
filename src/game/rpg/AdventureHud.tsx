@@ -1731,6 +1731,7 @@ export function AdventureHud() {
       buildKind: s.buildKind,
       saveConflict: s.saveConflict,
       incomingSave: s.incomingSave,
+      lesson: s.lesson,
     })),
   );
   const viewBox = useViewportBox();
@@ -1750,6 +1751,7 @@ export function AdventureHud() {
     );
   const mobile = coarse && isMobileViewport(viewBox.width, viewBox.height);
   const mobileHud = mobile ? mobileHudLayout(viewBox.width, viewBox.height, viewBox.insets) : null;
+  const mapLesson = lessonMapLabel(state.lesson);
   useEffect(() => {
     setCoarse(matchMedia("(pointer: coarse)").matches);
   }, []);
@@ -2041,10 +2043,11 @@ export function AdventureHud() {
               </nav>
               <button
                 className="ad-minimap"
-                aria-label={CHROME_CONTROLS.openMap}
+                aria-label={mapLesson ? `${CHROME_CONTROLS.openMap}，${mapLesson}` : CHROME_CONTROLS.openMap}
                 onClick={() => useRpg.getState().setPanel("map")}
               >
                 <MapGraphic compact />
+                {mapLesson ? <span className="ad-minimap-lesson">{mapLesson}</span> : null}
               </button>
             </div>
           </header>

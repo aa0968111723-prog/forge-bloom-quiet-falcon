@@ -17,4 +17,8 @@ test("the campus map uses a two-character lesson label", () => {
   }
   const hud = readFileSync(new URL("../src/game/rpg/AdventureHud.tsx", import.meta.url), "utf8");
   assert.match(hud, /!compact && \(\s*<text[\s\S]{0,280}lessonMapLabel\(lesson\)/);
+  assert.match(hud, /const mapLesson = lessonMapLabel\(state\.lesson\)/);
+  assert.match(hud, /className="ad-minimap-lesson">\{mapLesson\}/);
+  const css = readFileSync(new URL("../src/game/rpg/adventure.css", import.meta.url), "utf8");
+  assert.match(css, /\.ad-minimap-lesson \{[^}]*font-size: 12px/);
 });
