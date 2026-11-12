@@ -171,10 +171,12 @@ async function main() {
     await first.listening();
     const jar = createJar(origin);
     let calls = 0;
+    let firstPut = "";
     const storage = memoryStorage();
     const client = createCloudSaveController({
       fetch: async (url, init) => {
         calls += 1;
+        if (init?.method === "PUT" && !firstPut) firstPut = String(init.body ?? "");
         return jar.fetch(url, init);
       },
       baseUrl: origin,
@@ -238,6 +240,37 @@ async function main() {
       assert.equal(loaded.status, "downloaded");
       assert.equal(loaded.revision, 1);
       assertCampus(after.readLocal());
+
+      const replay = await jar2.fetch(`${origin}/api/cloud/saves/rpg`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          "x-cloud-save": "1",
+          "if-match": '"0"',
+        },
+        body: firstPut,
+      });
+      const replayed = await replay.json();
+      assert.equal(replay.status, 200, JSON.stringify(replayed));
+      assert.equal(replayed.idempotentReplay, true);
+      assert.equal(replayed.revision, 1);
+      assert.equal(replayed.document.interiorId, "library");
+      assert.equal(replayed.document.floor, 3);
+
+      const altered = JSON.parse(firstPut);
+      altered.document = { ...altered.document, xp: 99 };
+      const mismatch = await jar2.fetch(`${origin}/api/cloud/saves/rpg`, {
+        method: "PUT",
+        headers: { "content-type": "application/json", "x-cloud-save": "1" },
+        body: JSON.stringify(altered),
+      });
+      const mismatchBody = await mismatch.json();
+      assert.equal(mismatch.status, 409, JSON.stringify(mismatchBody));
+      assert.equal(mismatchBody.error.code, "idempotency_mismatch");
+      const unchanged = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg`)).json();
+      assert.equal(unchanged.revision, 1);
+      assert.equal(unchanged.document.xp, 40);
+      assert.equal(unchanged.document.floor, 3);
     } finally {
       await stopChild(second.child);
     }
