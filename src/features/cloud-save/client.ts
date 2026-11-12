@@ -497,9 +497,8 @@ export function createCloudSaveController(options: {
       return { granted: true };
     }
     const gate = await accountGate(userId);
-    const again = gate === "ok" ? await accountGate(userId) : gate;
-    if (again === "mismatch") return { granted: false };
-    if (again === "offline") {
+    if (gate === "mismatch") return { granted: false };
+    if (gate === "offline") {
       rememberReward(userId, record);
       enqueue({
         id: requestId,
@@ -512,6 +511,8 @@ export function createCloudSaveController(options: {
       grant();
       return { granted: true };
     }
+    const again = await accountGate(userId);
+    if (again === "mismatch") return { granted: false };
     try {
       const response = await cloudFetch("/api/cloud/saves/rpg/receipts", {
         method: "POST",

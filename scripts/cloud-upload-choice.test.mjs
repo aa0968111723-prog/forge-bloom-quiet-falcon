@@ -1284,3 +1284,35 @@ test("a session change is not given the other account's cloud save", async () =>
   assert.equal(downloaded.code, "account_mismatch");
   assert.equal(JSON.parse(client.readLocal()).xp, 1);
 });
+
+test("a session blip does not grant a reward the server already recorded", async () => {
+  let sessionReads = 0;
+  let posts = 0;
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) {
+      sessionReads += 1;
+      if (sessionReads === 2) throw new Error("session blip");
+      return sessionFor("user-a");
+    }
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      posts += 1;
+      const body = JSON.parse(init.body);
+      return jsonResponse(200, { applied: false, eventId: body.eventId });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+  });
+  client.bindAccount("user-a");
+  let grants = 0;
+  const result = await client.noteReward("gather-notes", () => {
+    grants += 1;
+  });
+  assert.equal(result.granted, false);
+  assert.equal(grants, 0);
+  assert.equal(posts, 1);
+  assert.equal(client.queuedCount("user-a"), 0);
+});
