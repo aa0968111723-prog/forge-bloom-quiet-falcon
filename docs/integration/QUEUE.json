@@ -2214,7 +2214,7 @@
       "id": "backend-cloud-revisions",
       "line": "backend",
       "scope": "A signed-in account can list up to 8 of its own cloud revision numbers and copy one back into the local save. A pruned revision does not change the local file or write a reward receipt. An older RPG file is rejected as legacy_rpg and is not written to the pilgrimage table.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-cloud-revisions-3395",
@@ -2232,9 +2232,11 @@
         "route": "8155: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "624b1e611edd8415f877f0d84aa76d116be5709c",
-      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 166,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/166",
+      "nextAction": "None. The chosen cloud revisions from 1c51c42 are already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
