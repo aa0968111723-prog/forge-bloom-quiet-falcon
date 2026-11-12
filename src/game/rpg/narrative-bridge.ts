@@ -82,6 +82,18 @@ function numberMap(value: unknown): Record<string, number> {
   return out;
 }
 
+const NARRATIVE_MINUTE_MAX = 1_000_000;
+
+/** Fold the saved clock into the range the cloud save accepts. In-range values stay put. */
+export function fitNarrativeClock<T extends { rngState: number; minute: number }>(session: T): T {
+  const rngState = Number.isFinite(session.rngState) ? session.rngState >>> 0 : 0;
+  const minute = Number.isFinite(session.minute)
+    ? Math.min(NARRATIVE_MINUTE_MAX, Math.max(0, session.minute))
+    : 0;
+  if (rngState === session.rngState && minute === session.minute) return session;
+  return { ...session, rngState, minute };
+}
+
 /** Keep a saved narrative session. A broken object starts a fresh campus session. */
 export function readNarrativeSession(raw: unknown): NarrativeSession {
   const blank = createSession("campus");
@@ -91,7 +103,7 @@ export function readNarrativeSession(raw: unknown): NarrativeSession {
   const weather = record.weather;
   const timeOfDay = record.timeOfDay;
   const semester = record.semester;
-  return {
+  return fitNarrativeClock({
     ...blank,
     seed: typeof record.seed === "string" && record.seed.length < 64 ? record.seed : blank.seed,
     rngState:
@@ -123,7 +135,7 @@ export function readNarrativeSession(raw: unknown): NarrativeSession {
     resolved: stringList(record.resolved, NARRATIVE_SAVE_LIMIT),
     activeEventId: null,
     mode: "exploring",
-  };
+  });
 }
 
 export function liveGrowth(input: {

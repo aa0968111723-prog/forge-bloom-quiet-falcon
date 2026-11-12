@@ -421,3 +421,56 @@ test("an old piece of gear with a wild durability still uploads", () => {
   assert.equal(reloaded.quarantineGear.find((row) => row.itemId === "kept-pin").durability, 40);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("a narrative clock outside the cloud range still uploads", () => {
+  const memory = "還在圖書館。";
+  const bad = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    narrative: {
+      version: 1,
+      seed: "campus",
+      rngState: -1,
+      minute: 2_000_000,
+      memory: { "npc-chen-yu:last": memory },
+    },
+  });
+  assert.equal(useRpg.getState().importSave(bad), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.narrative.rngState, 2 ** 32 - 1);
+  assert.equal(saved.narrative.minute, 1_000_000);
+  assert.equal(saved.narrative.memory["npc-chen-yu:last"], memory);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.narrative.rngState, 2 ** 32 - 1);
+  assert.equal(reloaded.narrative.minute, 1_000_000);
+  assert.equal(reloaded.narrative.memory["npc-chen-yu:last"], memory);
+
+  const good = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    narrative: {
+      version: 1,
+      seed: "campus",
+      rngState: 12,
+      minute: 480,
+      memory: { "npc-chen-yu:last": memory },
+    },
+  });
+  assert.equal(useRpg.getState().importSave(good), true);
+  const kept = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(kept.narrative.rngState, 12);
+  assert.equal(kept.narrative.minute, 480);
+  assert.equal(kept.narrative.memory["npc-chen-yu:last"], memory);
+  assert.equal(validateRpgDocument(kept).ok, true);
+});
