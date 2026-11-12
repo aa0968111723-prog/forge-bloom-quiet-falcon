@@ -7,6 +7,7 @@ import { useGame } from "../store";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import {
   CURATED_PLANTS,
+  TRUNK_BASE,
   scatterPlants,
   type PlantInstance,
   type PlantSpecies,
@@ -44,7 +45,7 @@ type SpeciesDraw = {
 
 const DRAW: Record<PlantSpecies, SpeciesDraw> = {
   banyan: {
-    trunk: [0.34, 0.52, 2.6],
+    trunk: [0.34, TRUNK_BASE.banyan, 2.6],
     trunkColor: "#5c4a38",
     canopy: [
       [2.9, 3.6, 0.62],
@@ -53,7 +54,7 @@ const DRAW: Record<PlantSpecies, SpeciesDraw> = {
     canopyColor: "#3d6242",
   },
   broadleaf: {
-    trunk: [0.2, 0.3, 2.9],
+    trunk: [0.2, TRUNK_BASE.broadleaf, 2.9],
     trunkColor: "#66503c",
     canopy: [
       [2.1, 4.0, 0.78],
@@ -62,7 +63,7 @@ const DRAW: Record<PlantSpecies, SpeciesDraw> = {
     canopyColor: "#48713f",
   },
   camphor: {
-    trunk: [0.24, 0.36, 3.8],
+    trunk: [0.24, TRUNK_BASE.camphor, 3.8],
     trunkColor: "#6e5a44",
     canopy: [
       [2.3, 5.2, 0.86],
@@ -71,7 +72,7 @@ const DRAW: Record<PlantSpecies, SpeciesDraw> = {
     canopyColor: "#557a44",
   },
   palm: {
-    trunk: [0.16, 0.24, 5.6],
+    trunk: [0.16, TRUNK_BASE.palm, 5.6],
     trunkColor: "#8a7458",
     canopy: [[1.7, 5.9, 0.34]],
     canopyColor: "#3f6d3b",

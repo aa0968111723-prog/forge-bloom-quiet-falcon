@@ -1,4 +1,4 @@
-import { COLLIDERS, resolveCollision, type AABB } from "../../world-data/colliders.ts";
+import { COLLIDERS, resolveCollision, trunkAabbs, type AABB } from "../../world-data/colliders.ts";
 import { sampleGroundElevation } from "../../world-data/elevation.ts";
 
 export type SweepQuery = {
@@ -107,7 +107,7 @@ function groundAt(x: number, z: number) {
  */
 export function sweepCircle(query: SweepQuery): SweepResult {
   const extra = query.extra ?? [];
-  const blocks = extra.length ? COLLIDERS.concat(extra) : COLLIDERS;
+  const blocks = COLLIDERS.concat(trunkAabbs(), extra);
   const expanded = blocks.map((box) => expand(box, query.radius));
   let x = query.x;
   let z = query.z;
