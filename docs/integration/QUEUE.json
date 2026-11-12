@@ -2769,6 +2769,32 @@
       "integrationPr": 205,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/205",
       "nextAction": "None. The revision-conflict account confirm from a8406d3 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-restore-conflict",
+      "line": "backend",
+      "scope": "A restore revision conflict is checked against the signed-in account before that save is offered. A session change leaves the local file unchanged. A failed confirm stays local. A confirmed same-account conflict is still offered.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-restore-conflict-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "76111485a12ce635cb56f441ea45ee1a9eafe165",
+      "headSha": "10716ae44ed06c6fb0b139967410bae8a4337bbf",
+      "dependencies": ["backend-conflict-account"],
+      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:02:37Z entry and the restore-conflict line.",
+        "typecheck": "pass",
+        "npmTest": "369 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-wsEEgaCK.js unchanged",
+        "browser": "8174. The standing route completed.",
+        "route": "8174: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": false,
+      "mergeSha": "fdce70c2b4ae7c9e644f734ec4faa10e649be327",
+      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }

@@ -877,6 +877,14 @@ PR #122 的 head 在這輪又改到 `48b1ac6`。和 `main` 比，遊戲程式沒
 
 瀏覽器 `http://127.0.0.1:8173/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
 
+## 指定版本恢復的版本衝突再對一次帳號（本輪）
+
+來源 `10716ae` 接到 `7611148`。後端檢查點只在時間和完成清單上有衝突，留下較新的 `2026-11-12T06:02:37Z` 和恢復衝突那一項。靜態產物仍是 `AdventureApp-wsEEgaCK.js`。
+
+指定版本恢復若收到版本衝突，在把那份存檔拿來選擇之前再對一次帳號。帳號換了就不提供選擇，確認連不上就維持本機。同一個帳號的衝突仍會提供選擇。`npm run typecheck` 通過。`npm test` 369 通過，其中「a revision conflict from another account is not offered as a restored save」、「a session blip does not offer a restored revision conflict」和「a same-account restore conflict still offers that cloud save」涵蓋這項。
+
+瀏覽器 `http://127.0.0.1:8174/`。同一站跨系統路線通過：大門經驗 20、筆記 19；補給後經驗 44、筆記 21、學期期中；突襲小考 65→45、經驗停在 44；存檔重載經驗 44、筆記 21、科系 `science-理學院-2`；revision 1；第二客戶端看到期中；`revision_conflict`；斷線時雲端經驗是 47；登出 401。`pageErrors` 空。幀時間是 SwiftShader。
+
 ## 本輪沒有驗的項目
 
 - 手機與真機上的雲端面板點擊。本輪在 Node 開發頁讀到面板文字，沒有在手機上操作
