@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T04:20:00Z",
+  "updated_at": "2026-11-12T04:30:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "e95c137",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -13,10 +13,11 @@
     "reloading a signed-in client retries the same request id without bumping revision",
     "merged the library ramp railings and proved a restarted database replays the original request id without changing revision or floor",
     "player can restore the previous cloud revision into the local save as a new head",
-    "player can list only their own revision numbers and restore a chosen one; pruned revisions and other accounts do not change the local save"
+    "player can list only their own revision numbers and restore a chosen one; pruned revisions and other accounts do not change the local save",
+    "backup of one account restores the save head, history, idempotency rows, and reward receipts without touching another account"
   ],
   "verification": {
-    "npm_test": "322 pass, 0 fail; chosen cloud revision restores, pruned and foreign revisions do not",
+    "npm_test": "322 pass, 0 fail; account backup restores history and receipts without touching another account",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
@@ -24,9 +25,5 @@
     "build_site": "npm run build:site passed; dist has no cloud-save or DATABASE_URL"
   },
   "next_action": "When a later merge adds a snapshot() field, extend the cloud whitelist and re-run npm test plus the live-save fixture. Do not merge or deploy.",
-  "out_of_scope": [
-    "competitive leaderboard",
-    "production deploy",
-    "art and campus geometry"
-  ]
+  "out_of_scope": ["competitive leaderboard", "production deploy", "art and campus geometry"]
 }
