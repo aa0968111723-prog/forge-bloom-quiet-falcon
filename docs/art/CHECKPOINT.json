@@ -57,7 +57,7 @@
     "typecheck": "pass",
     "npm_test": "lamp-stop, route-walk, world-data, campus-registry, and prop-clearance pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-D4pF067p.js",
+    "build_site": "AdventureApp-cYKh9qKa.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [

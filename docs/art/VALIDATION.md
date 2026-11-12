@@ -370,4 +370,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 61 輪（路燈燈柱）— 2026-11-12
 
-`node --test scripts/lamp-stop.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/campus-registry.test.mjs scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。五十九根路燈的燈柱和網格用同一組座標，直徑 0.18 m。半徑 0.42 m 站在克難坡西側柱心會被推開。柱西 1.2 m、主巡禮和三條折線的轉折點不被推開。三條折線在廣場北側先回到中線。圖書館折線和主巡禮從海豚到書卷時走路燈東側，走完全程仍到得了門口。定步白天從西邊走向克難坡路燈，頁面無錯誤，停在 x=-5.66：`docs/art/evidence/props/lamp.jpg`。燈位仍是 estimated。田徑場內圈留在第 60 輪。沒有新增音效。`build:site` 產物 `AdventureApp-D4pF067p.js`。
+`node --test scripts/lamp-stop.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/campus-registry.test.mjs scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。五十九根路燈的燈柱和網格用同一組座標，直徑 0.18 m。半徑 0.42 m 站在克難坡西側柱心會被推開。柱西 1.2 m、主巡禮和三條折線的轉折點不被推開。三條折線在廣場北側先回到中線。圖書館折線和主巡禮從海豚到書卷時走路燈東側，走完全程仍到得了門口。定步白天從西邊走向克難坡路燈，頁面無錯誤，停在 x=-5.66：`docs/art/evidence/props/lamp.jpg`。燈位仍是 estimated。田徑場內圈留在第 60 輪。沒有新增音效。一次 13/24 m 的閃避若只看終點，會從 (66.2, 8) 那根的西面被推到東面；拆成 0.2 m 的小步後停在西面。掃掠從 (65.2, 8) 往東 2 m 會撞上燈柱，終點留在柱心以西。`build:site` 產物 `AdventureApp-cYKh9qKa.js`。
