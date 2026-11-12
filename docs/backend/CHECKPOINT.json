@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T07:05:00Z",
+  "updated_at": "2026-11-12T05:02:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "b579dff",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -28,10 +28,11 @@
     "choosing the remote save or restoring a revision drops that account's queued upload and leaves reward receipts and other accounts queued",
     "flush removes only the items it finished, so a receipt queued during an upload stays and a dropped upload is not sent",
     "an upload that lands after the player keeps the cloud save is written back from the chosen local file",
-    "the first flush of a queued upload sends the current local file when the player kept playing offline"
+    "the first flush of a queued upload sends the current local file when the player kept playing offline",
+    "a failed upload retries the newest local file under a new request id, and continues only when the cloud still holds this device's last write"
   ],
   "verification": {
-    "npm_test": "341 pass, 0 fail; the first flush sends the newest local file instead of the queued snapshot",
+    "npm_test": "344 pass, 0 fail; a failed upload retries the newest local file and does not overwrite another device",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

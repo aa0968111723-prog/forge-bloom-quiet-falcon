@@ -24,6 +24,7 @@ function fakeCloud() {
   let revision = 0;
   let offline = false;
   let dropNextPut = false;
+  let rejectNextPut = false;
   const seen = new Map();
   const puts = [];
   let ids = 0;
@@ -41,6 +42,10 @@ function fakeCloud() {
     }
     const body = JSON.parse(init.body);
     puts.push(body);
+    if (rejectNextPut && method === "PUT") {
+      rejectNextPut = false;
+      throw new Error("socket closed");
+    }
     if (seen.has(body.requestId)) return jsonResponse(200, seen.get(body.requestId));
     if (!remote) {
       if (body.confirmFirstSync !== true || body.baseRevision !== 0) {
@@ -96,6 +101,13 @@ function fakeCloud() {
     },
     dropNext() {
       dropNextPut = true;
+    },
+    rejectNext() {
+      rejectNextPut = true;
+    },
+    replace(document) {
+      remote = document;
+      revision += 1;
     },
     setSession(id) {
       sessionId = id;
@@ -915,4 +927,116 @@ test("the first flush sends the newest local file instead of the queued snapshot
   const planned = await client.plan();
   assert.equal(planned.status, "in_sync");
   assert.equal(planned.revision, 2);
+});
+
+test("a retry after more offline play sends the newest file under a new request id", async () => {
+  const cloud = fakeCloud();
+  let clock = 1_000;
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    now: () => clock,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  client.writeLocal(JSON.stringify(save(6)));
+  cloud.setOffline(false);
+  cloud.rejectNext();
+  const failed = await client.flush();
+  assert.equal(failed.sent, 0);
+  assert.equal(cloud.puts.at(-1).document.xp, 6);
+  const failedId = cloud.puts.at(-1).requestId;
+  clock += 60_000;
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(9)));
+  cloud.setOffline(false);
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(cloud.puts.at(-1).document.xp, 9);
+  assert.notEqual(cloud.puts.at(-1).requestId, failedId);
+  assert.equal(cloud.puts.at(-1).baseRevision, 1);
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 2);
+});
+
+test("a dropped upload that already landed is continued from that revision", async () => {
+  const cloud = fakeCloud();
+  let clock = 1_000;
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    now: () => clock,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(6)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  cloud.dropNext();
+  assert.equal((await client.flush()).sent, 0);
+  assert.equal(cloud.puts.at(-1).document.xp, 6);
+  clock += 60_000;
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(9)));
+  cloud.setOffline(false);
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.deepEqual(
+    cloud.puts.filter((body) => body.document).map((body) => body.document.xp),
+    [1, 6, 9, 9],
+  );
+  assert.equal(cloud.puts.at(-1).baseRevision, 2);
+  assert.notEqual(cloud.puts.at(-1).requestId, cloud.puts[1].requestId);
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 3);
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+});
+
+test("a retry does not overwrite another device's save", async () => {
+  const cloud = fakeCloud();
+  let clock = 1_000;
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    now: () => clock,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(1)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(4)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  cloud.rejectNext();
+  assert.equal((await client.flush()).sent, 0);
+  cloud.replace(save(7));
+  clock += 60_000;
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(9)));
+  cloud.setOffline(false);
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 0);
+  assert.equal(
+    cloud.puts.some((body) => body.document?.xp === 9 && body.baseRevision === 2),
+    false,
+  );
+  assert.equal(JSON.parse(client.readLocal()).xp, 9);
+  const planned = await client.plan();
+  assert.equal(planned.status, "conflict");
+  assert.equal(planned.remote.document.xp, 7);
 });
