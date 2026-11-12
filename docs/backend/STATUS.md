@@ -23,4 +23,4 @@
 
 沒有合併 `main`，沒有部署。
 
-收集委託的 `gathered` 與 `felled` 已在同一份白名單。下一步：內容或玩法若再新增 `snapshot()` 欄位，先補 `src/features/cloud-save/contract.ts` 的白名單再讓存檔上傳。不要在同步路徑執行內容檔。
+收集委託的 `gathered` 與 `felled` 已在同一份白名單，並跟圖書館樓層一起經過上傳、下載與程序重開。沒有這兩個欄位的舊存檔仍可上傳。舊版 RPG 匯入檔仍是 `legacy_rpg`，不會寫進巡禮表。下一步：內容或玩法若再新增 `snapshot()` 欄位，先補 `src/features/cloud-save/contract.ts` 的白名單再讓存檔上傳。不要在同步路徑執行內容檔。
