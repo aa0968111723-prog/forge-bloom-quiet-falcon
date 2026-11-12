@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:50:00Z",
+  "updated_at": "2026-11-12T06:00:00Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "4fb1fa4",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -22,10 +22,11 @@
     "a signed-in reward asks the server first and does not grant an event the server already recorded",
     "a queued upload is not sent when the browser session belongs to a different account",
     "a cloud document that fails the whitelist or the content hash does not replace the local save",
-    "a later offline upload replaces the earlier queued save for that account and flushes once"
+    "a later offline upload replaces the earlier queued save for that account and flushes once",
+    "a downloaded cloud save is held while the game is running, so the autosave does not replace it"
   ],
   "verification": {
-    "npm_test": "333 pass, 0 fail; a later offline upload replaces the queued save",
+    "npm_test": "334 pass, 0 fail; a running game does not overwrite a downloaded cloud save",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
