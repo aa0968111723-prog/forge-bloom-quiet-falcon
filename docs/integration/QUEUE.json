@@ -5760,7 +5760,7 @@
     {
       "id": "art-business-podium",
       "title": "Give the business building a glass podium and a set-back shaft",
-      "status": "verified",
+      "status": "merged",
       "pr": 177,
       "branch": "cursor/business-hall-1a71",
       "headSha": "15991ca7e345553dfa5ffb27217a79bb17f6b004",
@@ -5775,11 +5775,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User Y6iTr0J76468VLbzpWviPi1BzNUecEhs."
       },
       "conflicts": ["src/game/world/ContextStructures.tsx", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "41cc456bfb0114d48f6e9866c30cf9a83fbe1a8f",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #177 by itself. The next game commit is PR #178 cee451f28cf5, the literature hall flat eave."
+      "integrationPr": 352,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/352",
+      "nextAction": "This is on integration PR #352. Do not merge PR #177 by itself. The next game commit is PR #178 cee451f28cf5, the literature hall flat eave."
     }
   ]
 }
