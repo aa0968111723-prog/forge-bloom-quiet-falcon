@@ -5487,7 +5487,35 @@
       "mergeSha": "44930d450b8108943813911204bbfd4764eb93b3",
       "integrationPr": 341,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/341",
-      "nextAction": "None. The pool-deck spawn from 6ae3b4fb is already in this integration. This is on integration PR #341. Do not merge PR #279 by itself. The next art commit is d74acab2 on PR #281."
+      "nextAction": "None. The pool-deck spawn from 6ae3b4fb is already in this integration. This is on integration PR #341. Do not merge PR #279 by itself. The phone HUD commit d74acab2 is in the following integration and is not on main yet."
+    },
+    {
+      "id": "art-phone-hud",
+      "line": "art",
+      "scope": "On a phone, chrome follows the measured touch rects and stays off the stick, the look zone, and the minimap. The cloud-save control opens as a solid sheet. Wider screens keep the previous panel.",
+      "status": "verified",
+      "pr": 281,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/281",
+      "integrationBranch": "cursor/integration-phone-hud-3395",
+      "sourceBranch": "cursor/mobile-play-ui-fb25",
+      "baseSha": "7268efb3ada8ee06f9572d14b67fe2283e105484",
+      "headSha": "d74acab23eedc58aa48dc8cca9e651b8c6e57cfb",
+      "dependencies": ["art-pool-deck"],
+      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/mobile/mobile.css", "src/features/cloud-save/CloudSaveDock.tsx", "src/game/rpg/touch-layout.ts", "src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "none. The swimming-hall deck spawn stays. The narrow 390 by 780 semester line still reads.",
+        "typecheck": "pass",
+        "npmTest": "471 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BsHSlZPF.js sha256 175fd83c53fcddd458db0e8fb8fcfb03334e278cf76de4f4b105a99a36763037. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8267/",
+        "route": "8267 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. Narrow semester text still reads."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR. It is not on main yet. The next art commit is e149387c on PR #283. Do not merge PR #283 or PR #281 by itself."
     }
   ]
 }
