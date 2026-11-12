@@ -2522,6 +2522,17 @@ function wrapYaw(yaw: number) {
   const turn = Math.PI * 2;
   return yaw - turn * Math.floor(yaw / turn);
 }
+function cloudVisited(ids: readonly string[]) {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const id of ids) {
+    if (id.length < 1 || id.length > 64 || seen.has(id)) continue;
+    seen.add(id);
+    out.push(id);
+    if (out.length === 32) break;
+  }
+  return out;
+}
 function snapshot() {
   const s = useRpg.getState();
   const g = useGame.getState(),
@@ -2560,7 +2571,7 @@ function snapshot() {
     loot: s.loot,
     clock: s.clock,
     position,
-    pilgrimage: { visited: g.visited, timeOfDay: g.timeOfDay, muted: g.muted },
+    pilgrimage: { visited: cloudVisited(g.visited), timeOfDay: g.timeOfDay, muted: g.muted },
     lesson: s.lesson,
     lessonAnchor: s.lesson === "move" ? s.lessonAnchor : null,
     interiorId: s.interiorId,
