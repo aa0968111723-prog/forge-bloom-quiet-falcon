@@ -972,7 +972,7 @@ function checkCaps(value: unknown): ValidationResult {
   if (typeof row.equipped !== "boolean") {
     return { ok: false, code: "invalid_document", message: "多樣玩法能力快照必須包含裝備狀態。" };
   }
-  if (!integerIn(row.skillRank, 1, 5) || !integerIn(row.built, 0, 48)) {
+  if (!integerIn(row.skillRank, 1, 5) || !integerIn(row.built, 0, 10_000_000)) {
     return { ok: false, code: "invalid_document", message: "多樣玩法能力快照數值不正確。" };
   }
   if (row.collegeId != null && (typeof row.collegeId !== "string" || row.collegeId.length > 80)) {

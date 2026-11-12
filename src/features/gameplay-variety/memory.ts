@@ -89,7 +89,7 @@ function runOf(value: unknown): Run | null {
           : 1,
       built:
         typeof raw.caps?.built === "number" && raw.caps.built > 0
-          ? Math.min(48, Math.floor(raw.caps.built))
+          ? Math.min(1_000_000, Math.floor(raw.caps.built))
           : 0,
       collegeId: typeof raw.caps?.collegeId === "string" ? raw.caps.collegeId : null,
       discipline: typeof raw.caps?.discipline === "string" ? raw.caps.discipline : null,

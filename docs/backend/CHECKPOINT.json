@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T06:43:34Z",
+  "updated_at": "2026-11-12T06:54:51Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -63,10 +63,13 @@
     "merged main at e878f26; the harvest whitelist and reward receipt confirm were already on this branch",
     "a database outage keeps the upload the player already asked to send",
     "merged main at 9dfcec9; the lost direct upload was already on this branch",
-    "an expired session keeps this account's upload and reward"
+    "an expired session keeps this account's upload and reward",
+    "merged main at d12a2d9; the quarantine item ids were already on this branch",
+    "merged main at 6f75c3e; the database-down upload queue was already on this branch",
+    "a variety run still uploads after the lifetime station count passes the standing cap of 48"
   ],
   "verification": {
-    "npm_test": "382 pass, 0 fail; an expired session keeps this account's upload and reward",
+    "npm_test": "384 pass, 0 fail; a variety run still uploads after the lifetime station count passes the standing cap of 48",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
