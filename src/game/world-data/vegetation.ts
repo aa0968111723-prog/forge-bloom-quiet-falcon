@@ -13,7 +13,6 @@ import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { hash2 } from "./math.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
-import { SECONDARY_STRUCTURES } from "./zones/secondary.ts";
 
 /**
  * Reality placement for planting.
