@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T05:36:42Z",
+  "updated": "2026-11-12T05:50:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "b745f27f725e33bc94a1cb47399b198c54130bbb",
-  "baseFull": "b745f27 is origin/main. A dropped upload stays dropped, integration PR #192. Merged here as d0c95aa340b1. Faculty files and the adventure chunk are unchanged. Dialogue was played on AdventureApp-CJBhF4Kt.js. Content version stays 2.",
-  "playedBundle": "Qiu after: dist/assets/AdventureApp-CJBhF4Kt.js via index-Dkr69rSJ.js. Preview http://127.0.0.1:8088/. The post-merge build emitted the same file names.",
-  "builtAfter": "npm run build:site after #192 wrote the same index-Dkr69rSJ.js and AdventureApp-CJBhF4Kt.js. The static entry does not import the cloud client. The dist has no literal revision_conflict or DATABASE_URL.",
-  "gameSha": "d0c95aa340b11d6aaefd211a6a534f00a73ef4d8",
-  "verifiedHead": "d0c95aa340b11d6aaefd211a6a534f00a73ef4d8",
+  "base": "327520d5275192e47637d0c1bad4535c71d034a5",
+  "baseFull": "327520d is origin/main. A session change stops the upload queue, integration PR #196, game commit 7212b94. Library ramp rail bodies are a745ddf, integration PR #194. Merged here as 91b1c83dd610. Dialogue was played after the rebuild on AdventureApp-D3TATbW2.js. This line did not walk the rails. Content version stays 2.",
+  "playedBundle": "Gu after: dist/assets/AdventureApp-D3TATbW2.js via index-Dl3m_ZgE.js. Preview http://127.0.0.1:8088/ served that entry.",
+  "builtAfter": "npm run build:site after #196 wrote index-Dl3m_ZgE.js and AdventureApp-D3TATbW2.js. The hash moved because colliders.ts is in the adventure chunk. The static entry does not import the cloud client. The dist has no literal revision_conflict or DATABASE_URL.",
+  "gameSha": "91b1c83dd6107a49414d493bfcaa64079d795eb6",
+  "verifiedHead": "91b1c83dd6107a49414d493bfcaa64079d795eb6",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -15,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T05:26:00Z",
+    "checkedAt": "2026-11-12T05:37:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -41,18 +41,19 @@
     "node --experimental-transform-types scripts/integration-qiu-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-turn",
     "node --experimental-transform-types scripts/integration-liang-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-liang-turn",
     "node --experimental-transform-types scripts/integration-shen-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-shen-turn",
-    "node --experimental-transform-types scripts/integration-qiu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-after"
+    "node --experimental-transform-types scripts/integration-qiu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-qiu-after",
+    "node --experimental-transform-types scripts/integration-gu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-after"
   ],
   "done": [
-    "Merged origin/main b745f27 (dropped upload #192) as d0c95aa. npx tsc --noEmit passed. npm test was 352 pass / 0 fail. build:site kept AdventureApp-CJBhF4Kt.js.",
-    "Two fresh architecture semesters paid Qiu Ning's posting choices on that bundle. Swap: store xp 196 to 206, notes 22 to 23, outcome 我改的是順序. Post: same xp and notes, outcome 我沒有把它拿掉. The card stayed level 2 and showed 146/180, hp 108, focus 100. Semester stayed week-1. Toast was 課堂筆記 ×1. The +10 is the after stage.",
-    "Gu Heng's next line followed the earlier crack flag: 它已經在, or 裂縫還不在圖上. Both of his choices were visible. Leaving unpaid omitted quest-faculty-gu-after. Reload kept xp 206, notes 23, and that line. quest-faculty-qiu-after stayed at one."
+    "Merged origin/main 327520d (session-account queue stop #196, ramp rail bodies #194) as 91b1c83. npx tsc --noEmit passed. npm test was 354 pass / 0 fail. build:site wrote AdventureApp-D3TATbW2.js via index-Dl3m_ZgE.js.",
+    "Two fresh architecture semesters paid Gu Heng's closing choices on that bundle. Mend: store xp 206 to 216, notes 23 to 24, outcome 沒做完的地方還在圖上. Hour: same xp and notes, outcome 不是另一次報名. The card stayed level 2 and showed 156/180, hp 108, focus 100. Semester stayed week-1. Toast was 課堂筆記 ×1. The +10 is the after stage. This beat has no studio main.",
+    "Shen Zhuo's next line followed the earlier record flag: 你說評圖要帶來, or 它之前沒有公開. Both of her short-note choices were visible. Leaving unpaid omitted quest-faculty-shen-after. Reload kept xp 216, notes 24, and that line. quest-faculty-gu-after stayed at one."
   ],
   "todo": [
-    "Gu Heng's closing choices 現在把缺的裂縫和紀錄補進正式圖面 and 圖先維持這樣，我用你留下的時段補 were visible and not clicked.",
+    "Shen Zhuo's short-note choices 請你寫一張短記，讓我夾進圖 and 不用字條。我自己在評圖上說 were visible and not clicked.",
     "Xu Hui is wired at the estimated library post. This line did not click her. docs/quest-play/evidence screenshots are the other line's record.",
     "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked.",
-    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #192 already merged. Do not merge that branch again.",
+    "The backend agent was still RUNNING. This check did not re-read their branch tip past what #196 already merged. Do not merge that branch again.",
     "Variety tip 3270f9f was the last fetched head. catalog.ts and combat.ts differ. Their store.ts is behind this branch. Wire new encounters into the current store; do not merge the branch wholesale. Variety abort is still unplayed.",
     "The 390x780 frame shows the quickbar over the character's lower body. That window is a fine pointer, not a coarse-pointer phone HUD.",
     "Gesture clips were not re-timed. Dialogue stills do not prove animation smoothness."
@@ -64,5 +65,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Gu Heng's closing choices, 現在把缺的裂縫和紀錄補進正式圖面 or 圖先維持這樣，我用你留下的時段補. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge dropped upload #192 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Shen Zhuo's short-note choices, 請你寫一張短記，讓我夾進圖 or 不用字條。我自己在評圖上說. Liang's poster follows that beat and was not opened. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge session-account #196 or ramp rail bodies #194 again. Do not merge PR #32 head 1fc5887."
 }

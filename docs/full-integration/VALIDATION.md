@@ -400,3 +400,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 206 減 196 是 10，也就是收尾階段的經驗。筆記加 1。顧衡的開場看先前的裂縫旗標，不看這次是對調還是照貼。
 
 畫面：`/opt/cursor/artifacts/integration-qiu-after/swap-outcome.png`、`swap-next.png`、`post-outcome.png`、`post-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
+
+## 顧衡的兩個收尾選項
+
+這段打在 `AdventureApp-D3TATbW2.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-Dl3m_ZgE.js`。`main` 尖端 `327520d`（換帳號停佇列，整合 PR #196；坡道欄杆碰撞是 `a745ddf`，整合 PR #194），合併提交 `91b1c83`。靜態重建換了檔名，因為碰撞體在冒險主程式裡。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。這條線沒有去走坡道。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-gu-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-gu-after` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過。對象是合併後的原始碼 |
+| `npm test` | 354 通過、0 失敗。對象是合併後的原始碼 |
+| `npm run build:site` | 通過。產出 `index-Dl3m_ZgE.js` 與 `AdventureApp-D3TATbW2.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系。先結算到邱寧的貼表。點收尾之前存檔經驗 206、筆記 23。
+
+- 「現在把缺的裂縫和紀錄補進正式圖面。」存檔經驗 216，筆記 24。結果句「沒做完的地方還在圖上。」畫面是 2 級、「經驗 156/180」、生命 108/108、專注 100/100。提示「已入袋：課堂筆記 ×1」。學期仍是第一週。走到沈酌，她說「你說評圖要帶來」。兩個短記選項都在。離開不結算，沒有 `quest-faculty-shen-after`。`quest-faculty-gu-after` 只有一筆。重載後經驗 216、筆記 24，再交談仍是這一句。
+- 「圖先維持這樣，我用你留下的時段補。」經驗同樣 206→216，筆記 23→24。結果句「不是另一次報名。」沈酌說「它之前沒有公開」。離開不結算。重載後這一句還在。
+
+216 減 206 是 10，也就是收尾階段的經驗。筆記加 1。這一段沒有 `main`，所以沒有工作室加成。沈酌的短記看先前是帶來評圖還是留在紀錄，不看這次是補進圖面還是用留下的時段。
+
+畫面：`/opt/cursor/artifacts/integration-gu-after/mend-outcome.png`、`mend-next.png`、`hour-outcome.png`、`hour-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。
