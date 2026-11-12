@@ -7,7 +7,7 @@ import {
   SCROLL_PLAZA_SIZE,
   corridorHalfWidth,
 } from "./axis.ts";
-import { COLLIDERS } from "./colliders.ts";
+import { COLLIDERS, registerTrunkBoxes, type AABB } from "./colliders.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { hash2 } from "./math.ts";
@@ -50,6 +50,19 @@ const plant = (
   scale = 1,
   rotationY = 0,
 ): PlantInstance => ({ species, x, z, scale, rotationY });
+
+/** Bottom radius of each trunk, matching the cylinder in Vegetation. Shrubs and ground plants have none. */
+export const TRUNK_BASE = {
+  banyan: 0.52,
+  broadleaf: 0.3,
+  camphor: 0.36,
+  palm: 0.24,
+} as const;
+
+export function trunkDiameter(row: PlantInstance): number | null {
+  const base = TRUNK_BASE[row.species as keyof typeof TRUNK_BASE];
+  return base === undefined ? null : base * 2 * row.scale;
+}
 
 function blockedByOpenPavilion(x: number, z: number, margin: number): boolean {
   return SECONDARY_STRUCTURES.some((s) => {
@@ -230,6 +243,21 @@ export const CURATED_PLANTS: PlantInstance[] = [
   ...dolphinAndScrollPlanting(),
   ...libraryPlanting(),
 ];
+
+registerTrunkBoxes(
+  CURATED_PLANTS.flatMap((row): AABB[] => {
+    const diameter = trunkDiameter(row);
+    if (diameter === null) return [];
+    return [
+      {
+        minX: row.x - diameter / 2,
+        maxX: row.x + diameter / 2,
+        minZ: row.z - diameter / 2,
+        maxZ: row.z + diameter / 2,
+      },
+    ];
+  }),
+);
 
 /**
  * Backdrop scatter. Deliberately excluded from every `reality` zone: it starts

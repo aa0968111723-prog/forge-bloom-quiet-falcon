@@ -101,6 +101,13 @@ function buildColliders(): AABB[] {
 
 export const COLLIDERS: AABB[] = buildColliders();
 
+/** Specimen trunks, registered by vegetation after placement. Kept out of COLLIDERS so a tree is not inside itself. */
+let trunkBoxes: AABB[] = [];
+
+export function registerTrunkBoxes(boxes: readonly AABB[]) {
+  trunkBoxes = boxes.slice();
+}
+
 /** Island kerb of the dolphin roundabout, kept out of COLLIDERS so it is walkable. */
 export const DOLPHIN_ISLAND = {
   center: [0, AXIS.dolphinZ] as const,
@@ -119,7 +126,7 @@ export function resolveCollision(
 ): { x: number; z: number } {
   let px = x;
   let pz = z;
-  const blocks = extra.length ? COLLIDERS.concat(extra as AABB[]) : COLLIDERS;
+  const blocks = extra.length ? COLLIDERS.concat(trunkBoxes, extra as AABB[]) : COLLIDERS.concat(trunkBoxes);
   for (const b of blocks) {
     const cx = Math.min(Math.max(px, b.minX), b.maxX);
     const cz = Math.min(Math.max(pz, b.minZ), b.maxZ);
