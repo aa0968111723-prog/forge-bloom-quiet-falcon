@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, PALACE, bollards, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
+import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, bollards, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -31,6 +31,22 @@ function buildColliders(): AABB[] {
 
   // 覺生紀念圖書館
   out.push(box(LIBRARY.center[0], LIBRARY.center[1], LIBRARY.width, LIBRARY.length));
+  // The 1.1 m plinth skirt. The ramp keeps a gap in the south edge.
+  {
+    const margin = LIBRARY_BASE_MARGIN;
+    const cx = LIBRARY.center[0];
+    const cz = LIBRARY.center[1];
+    const hx = LIBRARY.width / 2;
+    const hz = LIBRARY.length / 2;
+    const gapPad = 0.6;
+    const gapMinX = LIBRARY_RAMP.x - LIBRARY_RAMP.width / 2 - LIBRARY_RAMP.skirt - gapPad;
+    const gapMaxX = LIBRARY_RAMP.x + LIBRARY_RAMP.width / 2 + LIBRARY_RAMP.skirt + gapPad;
+    out.push({ minX: cx - hx - margin, maxX: cx - hx, minZ: cz - hz - margin, maxZ: cz + hz + margin });
+    out.push({ minX: cx + hx, maxX: cx + hx + margin, minZ: cz - hz - margin, maxZ: cz + hz + margin });
+    out.push({ minX: cx - hx, maxX: cx + hx, minZ: cz - hz - margin, maxZ: cz - hz });
+    out.push({ minX: cx - hx, maxX: gapMinX, minZ: cz + hz, maxZ: cz + hz + margin });
+    out.push({ minX: gapMaxX, maxX: cx + hx, minZ: cz + hz, maxZ: cz + hz + margin });
+  }
 
   // 克難坡 護牆 (left / right), stair section only — the aprons stay open.
   const wallOuter = KENAN.width / 2 + KENAN.wallThickness;

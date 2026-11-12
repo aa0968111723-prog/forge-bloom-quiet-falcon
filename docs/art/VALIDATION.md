@@ -468,3 +468,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/text-sign.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。五塊帶字路牌和網格用同一組座標。牌子轉過的角度展開成軸對齊的盒子。半徑 0.42 m 站在坡底「克難坡」牌心會被推開。牌西 1.2 m、主巡禮和三條折線的轉折點不被推開。80 ms、13 m/s 的閃避拆成 0.2 m 的小步，停在靠近的一側。掃掠也會碰到牌子。定步白天從西邊走向坡底那塊，頁面無錯誤：`docs/art/evidence/signs/kenan-board.jpg`。牌位仍是 estimated。校門門柱留在第 84 輪。沒有新增音效。
 
+## 第 86 輪（圖書館台基）— 2026-11-12
+
+`node --test scripts/library-plinth.test.mjs scripts/library-ramp.test.mjs scripts/ramp-rails.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。圖書館台基比牆面每邊多出 2.5 m，高 1.1 m，和模型同一組數字。半徑 0.42 m 站在南緣會被推開。南緣外側 1.2 m 不被推開。坡道中線和左右各 0.5 m、主巡禮和三條折線的轉折點不被推開。定步白天從南邊走向台基，頁面無錯誤：`docs/art/evidence/library/plinth.jpg`。尺寸仍是 estimated。帶字路牌留在第 85 輪。沒有新增音效。
+

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { surface, useTamkangMaterials } from "../materials/context";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
-import { LIBRARY } from "../world-data/landmarks.ts";
+import { LIBRARY, LIBRARY_BASE_MARGIN } from "../world-data/landmarks.ts";
 import { READING_GIRL_SEAT } from "../world-data/props.ts";
 import { quality } from "../quality";
 import { worldUvBox } from "../world/geometry";
@@ -32,7 +32,12 @@ export function Library({ wetness, lampsOn }: { wetness: number; lampsOn: boolea
       lower: worldUvBox(LIBRARY.width, FLOOR * 3, LIBRARY.length, facadeTile),
       middle: worldUvBox(LIBRARY.width - 8, FLOOR * 3, LIBRARY.length - 5, facadeTile),
       upper: worldUvBox(LIBRARY.width - 18, FLOOR * 3, LIBRARY.length - 9, facadeTile),
-      base: worldUvBox(LIBRARY.width + 5, 1.1, LIBRARY.length + 5, mats["campus/plaza-tile"].spec.tile),
+      base: worldUvBox(
+        LIBRARY.width + LIBRARY_BASE_MARGIN * 2,
+        1.1,
+        LIBRARY.length + LIBRARY_BASE_MARGIN * 2,
+        mats["campus/plaza-tile"].spec.tile,
+      ),
     };
   }, [mats]);
 
