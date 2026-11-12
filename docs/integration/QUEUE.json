@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T07:49:04Z",
+      "updated": "2026-11-12T07:54:41Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -3276,6 +3276,32 @@
       "integrationPr": 235,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/235",
       "nextAction": "None. The move-lesson anchor from d4159279 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-discoveries",
+      "line": "backend",
+      "scope": "Save and import keep only campus-site discovery ids. Extra text is dropped, and a site already found stays, so the file can still upload. A raw upload of a discovery outside that list is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-discoveries-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "1b24d666d8fff5d728d0c7d0f02717b94ebc158f",
+      "headSha": "9aea9404d8c11fb3740f60a2fb048704a39721c9",
+      "dependencies": ["backend-move-anchor"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed list. Kept the newer 2026-11-12T07:37:12Z entry and the stray-discovery line. store.ts merged cleanly.",
+        "typecheck": "pass",
+        "npmTest": "395 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BzMNFSE0.js",
+        "browser": "8192. The standing route completed.",
+        "route": "8192: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "merged": false,
+      "mergeSha": "20458c55183756248f4d0f81245d127f814b5b89",
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
