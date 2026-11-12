@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-12T01:40:00Z",
+  "updated": "2026-11-12T03:50:00Z",
   "branch": "cursor/items-equipment-building-15c5",
-  "head": "21c0ad7ae41b6f3e795506cec4136e8a27120836",
+  "head": "bd2e531c6bf9d4d92165d9eb26640a508db450f6",
   "base": "5e9dc40",
-  "implementation": "7ffdd018e4cb131355daefbfd311a8c9da0e10a8",
+  "implementation": "bd2e531c6bf9d4d92165d9eb26640a508db450f6",
   "rerun": ["npx tsc --noEmit", "npm test"],
   "done": [
     "live loop: grant, craft at a research desk, equip, light bonus, place, overlap refusal, demolish refund, import",
@@ -11,10 +11,12 @@
     "atomic takeCost, half refund, keep-out at 0.42 m",
     "equipped boolean maps to the accessory slot; unknown ids go to quarantine",
     "a saved heldBuild is put back on import",
-    "SwiftShader draw calls at 48 research desks: 191, 266, then 200 after demolish"
+    "SwiftShader draw calls at 48 research desks: 191, 266, then 200 after demolish",
+    "same bag grows: field pack +4 while worn, sewn pockets +4 twice, ceiling 36",
+    "barrier cover stacks once with ward-pin mitigation"
   ],
   "todo": [
-    "integration whitelist for loadout, gear, quarantine, quarantineGear, heldBuild",
+    "integration whitelist for loadout, gear, quarantine, quarantineGear, heldBuild, pockets",
     "phone and discrete-GPU capture"
   ],
   "blocked": [
@@ -26,5 +28,5 @@
     "AGENTS.md was not in the repo",
     "docs/items-equipment-building/ did not exist"
   ],
-  "next_action": "Leave this branch for review. Do not merge it from the feature line. The integration line should whitelist the five optional save keys before a cloud round-trip is treated as durable. Re-run npm test and npx tsc --noEmit on 7ffdd018e4cb131355daefbfd311a8c9da0e10a8."
+  "next_action": "Leave this branch for review. Do not merge it from the feature line. The integration line should whitelist the six optional save keys, including pockets, before a cloud round-trip is treated as durable. Re-run npm test and npx tsc --noEmit on bd2e531c6bf9d4d92165d9eb26640a508db450f6."
 }
