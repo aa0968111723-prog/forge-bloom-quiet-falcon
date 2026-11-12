@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T01:45:00Z",
+  "updated": "2026-11-12T01:50:00Z",
   "task_ids": [
-    "ART-034"
+    "ART-084"
   ],
-  "branch": "cursor/joint-limits-1a71",
-  "base": "main@c192152329f7",
+  "branch": "cursor/ramp-rails-1a71",
+  "base": "main@468a516",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,7 +55,7 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "lesson-marker 1 pass; full suite not re-run this round",
+    "npm_test": "ramp-rails 1 pass; full suite not re-run this round",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
     "build_site": "not re-run this round",
     "eslint_new_code": "0 errors"
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "Every student-kit clip keeps the shoulder, elbow and knee inside the measured bend: knee 94 degrees, elbow 97 degrees, shoulder raise 166 degrees. A knee folded backward, an elbow folded the wrong way, or a shoulder raised further fails the test. Planting still splits at 48 m. The foreign-language hall stays a ground gallery. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The library ramp has a railing on each side, with posts including both ends. The rails sit outside the 1.6 m deck. Kenan stays rail-free. Rail positions are estimated. Joint bends stay inside the measured envelope. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

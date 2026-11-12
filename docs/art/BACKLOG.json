@@ -776,9 +776,11 @@
       "evidence": [
         "src/game/world/Props.tsx",
         "src/game/world-data/props.ts",
-        "docs/art/evidence/m2/lighting-avenue.jpg"
+        "docs/art/evidence/m2/lighting-avenue.jpg",
+        "docs/art/evidence/ramp/rails.jpg",
+        "scripts/ramp-rails.test.mjs"
       ],
-      "notes": "宮燈、路燈、長椅、花台、消防栓等以 InstancedMesh 畫在主遊戲 World 上。宮燈大道定步畫面看得到燈柱、花台與鋪面。"
+      "notes": "宮燈、路燈、長椅、花台、消防栓等以 InstancedMesh 畫在主遊戲 World 上。宮燈大道定步畫面看得到燈柱、花台與鋪面。圖書館坡道兩側各有一道欄杆，立柱含兩端。克難坡仍不設欄杆。欄杆位置仍是 estimated。"
     },
     {
       "id": "ART-085",

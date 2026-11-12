@@ -313,6 +313,12 @@
 
 測試：`scripts/art-pipeline.test.mjs`。
 
+## 階段：圖書館坡道欄杆（ART-084 的一部分）
+
+坡道左右各一道欄杆，立柱含兩端。欄杆在 1.6 m 坡道外側。克難坡仍不設欄杆。欄杆位置仍是 estimated。肩肘膝的彎曲範圍留著。
+
+畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。肩、肘、膝已有數值範圍。植栽與外國語文大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。肩、肘、膝已有數值範圍。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

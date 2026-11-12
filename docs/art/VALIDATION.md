@@ -319,3 +319,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 48 輪（肩肘膝）— 2026-11-12
 
 `node --test --test-name-pattern "shoulders, elbows and knees" scripts/art-pipeline.test.mjs` 通過。每個動作片段取 17 個時間點，讀肩、肘、膝的本地旋轉。膝最多彎 94 度，肘最多彎 97 度，肩最多前舉 166 度。膝往後折到 -1.2 rad、肘往反方向折到 1.2 rad、肩再舉到 -3.5 rad，測試都會失敗。沒有新增音效。植栽距離留在第 47 輪。
+
+## 第 49 輪（圖書館坡道欄杆）— 2026-11-12
+
+`node --test scripts/ramp-rails.test.mjs` 通過。`tsc --noEmit` 通過。圖書館坡道長 14 m，左右各一道同長欄杆，離坡道中線 0.95 m，在 1.6 m 寬的坡面外側。立柱含兩端，至少 8 根。克難坡沒有欄杆。定步白天近景，頁面無錯誤：`docs/art/evidence/ramp/rails.jpg`。兩側都看得到橫桿和立柱。欄杆位置仍是 estimated。肩肘膝留在第 48 輪。沒有新增音效。`build:site` 本輪未重跑。
