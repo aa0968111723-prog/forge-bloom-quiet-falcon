@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { Color, Matrix4, type InstancedMesh } from "three";
-import { ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
+import { READING_CARRELS, ROOM_TABLE_SIZE, ROOM_TABLES } from "./interior-layout";
 
 type Point = [number, number, number];
 type Box = { at: Point; size: Point; color: string };
@@ -129,6 +129,15 @@ function studyTables(room: "palace" | "library") {
   ]);
 }
 
+function readingCarrels() {
+  return READING_CARRELS.flatMap(({ x, z, width, depth }) => [
+    box([x, 0.78, z + 0.06], [width, 0.08, depth - 0.14], "#a58252"),
+    box([x, 0.38, z + 0.06], [width - 0.14, 0.72, depth - 0.28], "#536858"),
+    box([x, 1.15, z - depth / 2 + 0.05], [width, 0.72, 0.08], "#6d5a42"),
+    box([x + 0.12, 0.86, z + 0.08], [0.32, 0.04, 0.22], "#d9d0b4"),
+  ]);
+}
+
 function museumCases() {
   return ROOM_TABLES.flatMap(({ x, z }, index) => [
     box([x, 0.38, z], [1.56, 0.76, 0.86], "#304c58"),
@@ -153,7 +162,8 @@ export function InteriorDetails({ room, floor }: { room: DetailedRoom; floor: nu
   const furniture = useMemo(() => {
     if (room === "museum") return museumCases();
     if (room === "gym") return [];
-    return studyTables(room);
+    const tables = studyTables(room);
+    return room === "library" ? tables.concat(readingCarrels()) : tables;
   }, [room]);
   return (
     <>

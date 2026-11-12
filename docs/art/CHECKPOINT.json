@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T04:30:00Z",
+  "updated": "2026-11-12T14:20:00Z",
   "task_ids": [
-    "ART-067"
+    "ART-081"
   ],
-  "branch": "cursor/track-infield-1a71",
-  "base": "main@e95c137",
+  "branch": "cursor/reading-carrel-1a71",
+  "base": "main@3b5a11c",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "court-lines passes; full suite re-run on the integration branch",
-    "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "rebuilt on the integration branch",
+    "npm_test": "reading-carrel and physics-clock pass",
+    "art_validate_rebuild": "not re-run; no art pipeline outputs changed",
+    "build_site": "AdventureApp-Csd9hnF4.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The track infield is a 24 by 40 m pitch with a centre line and no net. The lines stay inside the inner oval. The library ramp rails still follow the deck and still push a 0.42 m body off the rail. Sizes stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The reading room now has two north-wall carrels that stop a 0.42 m body. The centre aisle and the classroom stay open. A push that would leave the room uses the other axis. The track infield is still a 24 by 40 m pitch. The room is not surveyed. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }
