@@ -81,6 +81,13 @@ export const LIBRARY = {
   floorHeight: 4.0,
 } as const;
 
+/** 「閱讀的女孩」 on the library forecourt. The seat is wide enough that one dodge stays on the near side. */
+export const READING_GIRL = {
+  x: -2,
+  z: AXIS.libraryFrontZ + 6.4,
+  pad: 1.4,
+} as const;
+
 /**
  * 宮燈教室 rows: five halls a side, mirrored about the avenue.
  *

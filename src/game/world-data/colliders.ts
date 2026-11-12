@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { LANDMARKS, LIBRARY, PALACE, READING_GIRL, palaceHallZs } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -31,6 +31,8 @@ function buildColliders(): AABB[] {
 
   // 覺生紀念圖書館
   out.push(box(LIBRARY.center[0], LIBRARY.center[1], LIBRARY.width, LIBRARY.length));
+  // 館前「閱讀的女孩」的石座。
+  out.push(box(READING_GIRL.x, READING_GIRL.z, READING_GIRL.pad, READING_GIRL.pad));
 
   // 克難坡 護牆 (left / right), stair section only — the aprons stay open.
   const wallOuter = KENAN.width / 2 + KENAN.wallThickness;
