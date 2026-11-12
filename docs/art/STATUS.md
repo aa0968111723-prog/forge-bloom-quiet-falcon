@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：文學館（ART-065 的一部分）
+
+文學館不再和覺軒共用尖坡頂。樓身是淺色，南向有寬窗，屋頂是一圈綠瓦平簷。外形是 estimated，不是實測立面。
+
+畫面：`docs/art/evidence/humanities/hall.jpg`。測試：`scripts/lit-hall.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。文學館已有平簷。覺軒仍是坡頂。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
