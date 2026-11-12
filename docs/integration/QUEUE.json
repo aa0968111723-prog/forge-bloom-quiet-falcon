@@ -4451,7 +4451,35 @@
       "mergeSha": "c49bc2ac77f3a728901d1ed007a6a73c52ca9877",
       "integrationPr": 304,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/304",
-      "nextAction": "None. The seated bow from 2d81b0be is already in this integration. The next commit is d0fd98b, which flips the winding. Do not merge PR #127 by itself."
+      "nextAction": "None. The seated bow from 2d81b0be is already in this integration. The outward winding is the next item. Do not merge PR #127 by itself."
+    },
+    {
+      "id": "art-bow-outward",
+      "line": "art",
+      "scope": "The maritime museum bow faces point outward: bottom down, top up, south +Z, north -Z. The bow still covers the forward face. Bow length stays estimated.",
+      "status": "verified",
+      "pr": 127,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/127",
+      "integrationBranch": "cursor/integration-bow-outward-3395",
+      "sourceBranch": "cursor/museum-bow-1a71",
+      "baseSha": "96720f720edc539028df8f8db715862ba1411199",
+      "headSha": "d0fd98b396808f0f33b994eabd12771c02063ff3",
+      "dependencies": ["art-museum-bow"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx", "scripts/ship-bow.test.mjs"],
+      "checks": {
+        "conflicts": "docs/art handoff and validation. shipBowTriangles replaced the inward winding. build_site set to AdventureApp-DsvdB1IF.js.",
+        "typecheck": "pass",
+        "npmTest": "439 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DsvdB1IF.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "8233",
+        "route": "8233: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "9b4a67b38d3a868c1eafdafecfbaf43b4f92596d",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #127 by itself."
     }
   ]
 }

@@ -418,4 +418,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 73 輪（船首朝外）— 2026-11-12
 
-`node --test scripts/ship-bow.test.mjs` 通過。`tsc --noEmit` 通過。船首底邊仍落在前臉內側 0.08 m。四個面的法線朝外：底面向下、頂面向上、南面 +Z、北面 -Z。船首外側是實心的。船身長度仍是 estimated。船首位置留在第 72 輪。沒有新增音效。`build:site` 產物 `BUNDLE_AFTER_BUILD`。
+`node --test scripts/ship-bow.test.mjs` 通過。`tsc --noEmit` 通過。船首底邊仍落在前臉內側 0.08 m。四個面的法線朝外：底面向下、頂面向上、南面 +Z、北面 -Z。船首外側是實心的。船身長度仍是 estimated。船首位置留在第 72 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DsvdB1IF.js`。
