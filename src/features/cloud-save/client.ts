@@ -545,7 +545,10 @@ export function createCloudSaveController(options: {
         grant();
         return { granted: true };
       }
-      if (response.status !== 401 && response.status < 500) return { granted: false };
+      // 429 is decided before the receipt is stored, same as a lost 5xx response.
+      if (response.status !== 401 && response.status !== 429 && response.status < 500) {
+        return { granted: false };
+      }
     } catch {
       // The account is signed in, but the server cannot be reached.
     }

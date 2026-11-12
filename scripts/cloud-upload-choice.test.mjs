@@ -2268,3 +2268,83 @@ test("an empty cloud does not take another account's queued upload", async () =>
   assert.equal(cloud.puts.length, 1);
   assert.equal((await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).status, 404);
 });
+
+test("a rate-limited reward is granted once and stays with this account", async () => {
+  let sessionId = "user-a";
+  let limited = true;
+  const receipts = [];
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor(sessionId);
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      const body = JSON.parse(init.body);
+      if (limited) {
+        return jsonResponse(429, { error: { code: "rate_limited", message: "請求過於頻繁，請稍後再試。" } });
+      }
+      receipts.push({ sessionId, eventId: body.eventId });
+      return jsonResponse(200, { applied: true, eventId: body.eventId });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+    randomId: () => "rewardrate0001",
+  });
+  client.bindAccount("user-a");
+  let grants = 0;
+  const grant = () => {
+    grants += 1;
+  };
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, true);
+  assert.equal(grants, 1);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, false);
+  assert.equal(grants, 1);
+  sessionId = "user-b";
+  const blocked = await client.flush();
+  assert.equal(blocked.sent, 0);
+  assert.equal(blocked.paused, true);
+  assert.equal(receipts.length, 0);
+  assert.equal(client.queuedCount("user-a"), 1);
+  assert.equal(client.queuedCount("user-b"), 0);
+  sessionId = "user-a";
+  limited = false;
+  const flushed = await client.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(flushed.paused, false);
+  assert.deepEqual(receipts, [{ sessionId: "user-a", eventId: "gather-notes" }]);
+  assert.equal((await client.noteReward("gather-notes", grant)).granted, false);
+  assert.equal(grants, 1);
+  assert.equal(client.queuedCount("user-a"), 0);
+});
+
+test("a rejected reward receipt is not granted or queued", async () => {
+  let posts = 0;
+  const fetch = async (url, init = {}) => {
+    if (String(url).includes("/api/auth/get-session")) return sessionFor("user-a");
+    if ((init.method ?? "GET") === "POST" && String(url).endsWith("/receipts")) {
+      posts += 1;
+      return jsonResponse(422, { error: { code: "invalid_document", message: "獎勵事件 id 不正確。" } });
+    }
+    return jsonResponse(404, { error: { code: "not_found", message: "尚未有雲端存檔。" } });
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage: memoryStorage(),
+  });
+  client.bindAccount("user-a");
+  let grants = 0;
+  assert.equal(
+    (
+      await client.noteReward("gather-notes", () => {
+        grants += 1;
+      })
+    ).granted,
+    false,
+  );
+  assert.equal(grants, 0);
+  assert.equal(posts, 1);
+  assert.equal(client.queuedCount("user-a"), 0);
+});
