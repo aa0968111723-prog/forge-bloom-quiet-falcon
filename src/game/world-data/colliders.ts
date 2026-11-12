@@ -101,6 +101,42 @@ function buildColliders(): AABB[] {
 
 export const COLLIDERS: AABB[] = buildColliders();
 
+/** Lamp poles are registered after props clear themselves off these boxes, so they stay out of COLLIDERS. */
+let poleBoxes: AABB[] = [];
+
+export function registerPoleBoxes(boxes: readonly AABB[]) {
+  poleBoxes = boxes.slice();
+}
+
+/** Lamp shafts registered by props. Sweep casts read this; it stays out of COLLIDERS. */
+export function poleAabbs(): readonly AABB[] {
+  return poleBoxes;
+}
+
+/** Short enough that a 13 m/s dodge cannot step past the centre of a 0.18 m pole. */
+export const COLLISION_SUBSTEP = 0.2;
+
+export function substepCollision(
+  x: number,
+  z: number,
+  dx: number,
+  dz: number,
+  radius: number,
+  collide: (x: number, z: number, radius: number) => { x: number; z: number } = (px, pz, r) =>
+    resolveCollision(px, pz, r),
+): { x: number; z: number } {
+  const dist = Math.hypot(dx, dz);
+  const n = Math.max(1, Math.ceil(dist / COLLISION_SUBSTEP));
+  let px = x;
+  let pz = z;
+  for (let i = 0; i < n; i++) {
+    const next = collide(px + dx / n, pz + dz / n, radius);
+    px = next.x;
+    pz = next.z;
+  }
+  return { x: px, z: pz };
+}
+
 /** Island kerb of the dolphin roundabout, kept out of COLLIDERS so it is walkable. */
 export const DOLPHIN_ISLAND = {
   center: [0, AXIS.dolphinZ] as const,
@@ -119,7 +155,7 @@ export function resolveCollision(
 ): { x: number; z: number } {
   let px = x;
   let pz = z;
-  const blocks = extra.length ? COLLIDERS.concat(extra as AABB[]) : COLLIDERS;
+  const blocks = extra.length ? COLLIDERS.concat(poleBoxes, extra as AABB[]) : COLLIDERS.concat(poleBoxes);
   for (const b of blocks) {
     const cx = Math.min(Math.max(px, b.minX), b.maxX);
     const cz = Math.min(Math.max(pz, b.minZ), b.maxZ);

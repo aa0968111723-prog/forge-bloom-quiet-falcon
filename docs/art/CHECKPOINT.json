@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T04:30:00Z",
+  "updated": "2026-11-12T07:30:00Z",
   "task_ids": [
-    "ART-067"
+    "ART-084"
   ],
-  "branch": "cursor/track-infield-1a71",
-  "base": "main@e95c137",
+  "branch": "cursor/lamp-stop-1a71",
+  "base": "main@fff4452",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "court-lines passes; full suite re-run on the integration branch",
+    "npm_test": "lamp-stop, route-walk, world-data, campus-registry, and prop-clearance pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "rebuilt on the integration branch",
+    "build_site": "AdventureApp-cYKh9qKa.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The track infield is a 24 by 40 m pitch with a centre line and no net. The lines stay inside the inner oval. The library ramp rails still follow the deck and still push a 0.42 m body off the rail. Sizes stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "A 0.42 m body on a street-lamp pole is pushed off the shaft. The three pilgrimage lines stay on the slope centre until they are past the north plaza lamp, and the library line passes east of the lamp on the dolphin-to-scroll diagonal. Lamp positions stay estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }
