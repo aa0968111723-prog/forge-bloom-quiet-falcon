@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T07:32:59Z",
+  "updated_at": "2026-11-12T07:37:12Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "1c8f11e",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -80,10 +80,12 @@
     "a long ground-loot id still uploads with its items",
     "merged main at e5ef99e; the wrapped look-around yaw was already on this branch",
     "an unusable ground pile still uploads its items",
-    "a move lesson with an unusable anchor still uploads"
+    "a move lesson with an unusable anchor still uploads",
+    "merged main at 8daa1ef; the 80-character campus memory was already on this branch",
+    "a stray discovery still uploads the sites already found"
   ],
   "verification": {
-    "npm_test": "394 pass, 0 fail; a move lesson with an unusable anchor still uploads",
+    "npm_test": "395 pass, 0 fail; a stray discovery still uploads the sites already found",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
