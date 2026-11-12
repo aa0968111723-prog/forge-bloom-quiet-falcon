@@ -4284,6 +4284,34 @@
       "integrationPr": 298,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/298",
       "nextAction": "None. The library furniture from 30580d30 is already in this integration. Do not merge PR #152 by itself."
+    },
+    {
+      "id": "art-reading-girl",
+      "line": "art",
+      "scope": "The reading girl sits on the west library bench at x=-12, where the ramp lift is zero, and her feet use the ground there. The ramp centre at that same z is still above the plaza. The bench nearest the ramp stays at x=-4.8. The seat is estimated.",
+      "status": "verified",
+      "pr": 151,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/151",
+      "integrationBranch": "cursor/integration-reading-girl-3395",
+      "sourceBranch": "cursor/reading-girl-1a71",
+      "baseSha": "8a592c7f62f22080e9d871338f1ad0e0a94588dd",
+      "headSha": "c44667c1efdf0f26ef07ac3eca4f59627343e31f",
+      "dependencies": ["art-ramp-furniture"],
+      "sharedFiles": ["src/game/landmarks/Library.tsx", "src/game/world-data/props.ts", "scripts/reading-girl.test.mjs"],
+      "checks": {
+        "conflicts": "props.ts bench loop, docs/art, and capture-art.mjs. Kept the moved benches and seated her on the west bench at x=-12. build_site set to AdventureApp-6wIH-ZA2.js.",
+        "typecheck": "pass",
+        "npmTest": "437 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-6wIH-ZA2.js",
+        "browser": "8228. The standing route completed.",
+        "route": "8228: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "9ee703a3c9544e169badb6a873148e4e5b4203af",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #151 by itself."
     }
   ]
 }
