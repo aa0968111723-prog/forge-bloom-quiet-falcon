@@ -53,7 +53,7 @@
     "typecheck": "pass",
     "npm_test": "485 pass / 0 fail",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-zHNBwpfp.js",    "eslint_new_code": "0 errors"  },  "evidence": [    "docs/art/evidence/baseline/",    "docs/art/evidence/m1/ (protagonist-*, combat-*, realplay/, route/)",
+    "build_site": "AdventureApp-B-ChdU8U.js",    "eslint_new_code": "0 errors"  },  "evidence": [    "docs/art/evidence/baseline/",    "docs/art/evidence/m1/ (protagonist-*, combat-*, realplay/, route/)",
     "artifact: m1-lantern-avenue-gameplay.mp4",
     "docs/art/evidence/m2/"
   ],

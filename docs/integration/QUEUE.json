@@ -5876,6 +5876,30 @@
       "integrationPr": 356,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/356",
       "nextAction": "This is on integration PR #356. Do not merge PR #183 by itself. The next game commit is a47283832cca, which rotates the skirt with the hull."
+    },
+    {
+      "id": "art-skirt-rotate",
+      "title": "Rotate the museum skirt with the hull",
+      "status": "verified",
+      "pr": 183,
+      "branch": "cursor/museum-skirt-1a71",
+      "headSha": "a47283832ccac59e97bf57355750687a57c9f310",
+      "dependencies": ["art-museum-skirt"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kept the later art milestones. The skirt group now uses the hull rotation, and the low corner comes from the rotated footprint.",
+        "typecheck": "pass",
+        "npmTest": "485 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-B-ChdU8U.js sha256 912a689b2e38eb60958dadf4699ad4028b8ebf3b7fdf0ee5e4395b75da21f7ca. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8280/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User 72HkIcXfHIAZn1sgjTAaZwUzmSLrJgeM."
+      },
+      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "b29dffb881b9e836a5cb25ffa93c1ed7430ea133",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #183 by itself. The next game commit is 096a480e67ac9630ef7d009b2ebfd8e7e03109e9, the gym downhill skirt."
     }
   ]
 }
