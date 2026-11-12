@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-12T04:00:00Z",
+  "updated": "2026-11-12T04:50:00Z",
   "task_ids": [
-    "ART-084"
+    "ART-065"
   ],
-  "branch": "cursor/ramp-rails-1a71",
-  "base": "main@4793fde",
+  "branch": "cursor/lit-hall-1a71",
+  "base": "main@38b6f9f",
   "commits": [
     {
       "sha": "cad192d",
@@ -55,9 +55,9 @@
   },
   "tests": {
     "typecheck": "pass",
-    "npm_test": "ramp-rails passes; full suite re-run on the integration branch",
+    "npm_test": "lit-hall and context-lod pass; full suite re-run on the integration branch",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-BL8Hzgt0.js",
+    "build_site": "AdventureApp-D99JsBaC.js",
     "eslint_new_code": "0 errors"
   },
   "evidence": [
@@ -86,5 +86,5 @@
     "ART-092": "no licensed audio source",
     "ART-101": "no phone or GPU for device measurements"
   },
-  "next_action": "The library ramp has a railing on each side of the current deck, with posts including both ends. The rails sit outside the 1.6 m deck. Kenan stays rail-free. The minimap lesson label, garden pavilion, court lines, and wet colours stay. Rail positions are estimated. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
+  "next_action": "The literature hall has a flat green eave and a wide south window. Chueh Hsuan keeps the hip roof. The eave is an estimated silhouette, not a survey. Phone and RTX 3060 stay pending-device. Do not add unlicensed audio."
 }

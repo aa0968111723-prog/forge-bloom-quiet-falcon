@@ -45,7 +45,7 @@ test("white-hall and chuehhsuan are not the generic slab", () => {
   const shaft = memorialProfile(memorial.size);
   assert.ok(shaft.glassZ > memorial.size[2] / 2, "memorial glass sits on the south face");
   assert.ok(shaft.baseH < memorial.size[1] * 0.25, "the base stays the ground storey");
-  assert.equal(humanities?.kind, "hip-roof-block");
+  assert.equal(humanities?.kind, "lit-hall");
   assert.equal(white?.accuracy, "estimated");
   assert.equal(hall?.accuracy, "estimated");
 });
@@ -148,7 +148,7 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-o")?.kind, "media-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-q")?.kind, "media-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-o")?.accuracy, "estimated");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "hip-roof-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "lit-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "integrated")?.accuracy, "estimated");
   const hall = SECONDARY_STRUCTURES.find((item) => item.id === "integrated");
   const profile = linkedHallProfile(hall.size);
@@ -180,12 +180,12 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(veranda.wallY - veranda.bodyH / 2 >= veranda.baseH - 1e-6, "the wall sits on the plinth");
   assert.ok(veranda.roofH < garden.size[1], "the hip roof stays a cap");
   assert.ok(veranda.roofR < Math.hypot(garden.size[0], garden.size[2]) * 0.5, "the roof does not use the academic cone");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "hip-roof-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "lit-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "conference")?.kind, "forum-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "conference")?.accuracy, "estimated");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "audiovisual")?.kind, "auditorium");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "audiovisual")?.accuracy, "estimated");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "hip-roof-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "humanities")?.kind, "lit-hall");
   const studio = SECONDARY_STRUCTURES.find((item) => item.id === "architecture");
   assert.equal(studio?.kind, "studio-block");
   assert.equal(studio?.accuracy, "estimated");

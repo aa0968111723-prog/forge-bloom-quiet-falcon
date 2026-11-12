@@ -669,6 +669,22 @@ try {
       });
       await shot(page, `${id}-outside`, `${role} exited ${JSON.stringify(outside)}`);
     }
+  } else if (scenario === "lithall") {
+    await hideHud(page);
+    await setPose(page, 88, -300, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(88, -338);
+      window.__controlsTest.setPhoto({
+        yaw: 0.45,
+        distance: 40,
+        height: 14,
+        lookY: 2,
+        target: { x: 88, y: y + 9, z: -338 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "literature hall eave");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
