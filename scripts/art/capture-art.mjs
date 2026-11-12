@@ -1462,6 +1462,20 @@ try {
     await frames(page, 4);
     await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.z < -298) throw new Error(`walked through the porch post ${JSON.stringify(stopped)}`);
+  } else if (scenario === "flagbase") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, -8.6, 0, 0);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 40);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 1.15, distance: 6.5, height: 2.1, lookY: 0.9 });
+    });
+    await frames(page, 4);
+    await shot(page, "base", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.z < -3.8) throw new Error(`walked through the flagpole base ${JSON.stringify(stopped)}`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

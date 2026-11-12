@@ -610,3 +610,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 122 輪（圖書館雨遮柱）— 2026-11-12
 
 `node --test scripts/library-posts.test.mjs` 通過。`tsc --noEmit` 通過。雨遮兩根柱子在南牆外。半徑 0.42 m 站在柱心會被推開。兩柱中間和圖書館門口不會被推開。從南邊走向柱子時，人停在柱面外。頁面無錯誤：`docs/art/evidence/library/porch-post.jpg`。柱位仍是 estimated。宮燈迴廊柱留在第 121 輪。沒有新增音效。
+
+## 第 123 輪（旗杆石座）— 2026-11-12
+
+`node --test scripts/flag-base.test.mjs` 通過。`tsc --noEmit` 通過。旗杆石座和網格用同一組座標，底徑 1.9 m。半徑 0.42 m 站在座心會被推開。銅像南側、石座東側和巡禮折線各點不會被推開。從南邊走向石座時，人停在石座近側。頁面無錯誤：`docs/art/evidence/plaza/flagpole.jpg`。石座位置仍是 estimated。圖書館雨遮柱留在第 122 輪。沒有新增音效。

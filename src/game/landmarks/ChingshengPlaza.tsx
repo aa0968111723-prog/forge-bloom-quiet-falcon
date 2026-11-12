@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import * as THREE from "three";
 import { surface, useTamkangMaterials } from "../materials/context";
-import { AXIS, PLAZA_ELEVATION, PLAZA_RADIUS } from "../world-data/axis.ts";
+import { AXIS, PLAZA_ELEVATION, PLAZA_FLAGPOLE, PLAZA_RADIUS } from "../world-data/axis.ts";
 import { makeSignTexture, useFontTick } from "../world/labels";
 import { worldUvBox } from "../world/geometry";
 import { BronzeBust } from "./sculpture";
@@ -81,9 +81,9 @@ export function ChingshengPlaza({ wetness }: { wetness: number }) {
       </group>
 
       {/* Flagpole on the plaza rim, as at the head of the slope. */}
-      <group position={[-PLAZA_RADIUS + 2.4, 0, -3.5]}>
+      <group position={[PLAZA_FLAGPOLE.x, 0, PLAZA_FLAGPOLE.z - AXIS.plazaCenterZ]}>
         <mesh position={[0, 0.28, 0]} receiveShadow>
-          <cylinderGeometry args={[0.8, 0.95, 0.56, 12]} />
+          <cylinderGeometry args={[0.8, PLAZA_FLAGPOLE.base / 2, 0.56, 12]} />
           <meshStandardMaterial {...stone} />
         </mesh>
         <mesh position={[0, 5.2, 0]} castShadow>

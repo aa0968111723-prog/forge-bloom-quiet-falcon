@@ -1,4 +1,4 @@
-import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
+import { AXIS, DOLPHIN_ISLAND_RADIUS, PLAZA_FLAGPOLE } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { BOLLARD, CAMPUS_GATE, LANDMARKS, LIBRARY, LIBRARY_BASE_MARGIN, PALACE, READING_GIRL, SHEPHERD, TIGER_STELE, bollards, libraryPorchPosts, palaceColumns, palaceHallZs, textSignAabb, textSigns } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
@@ -86,6 +86,7 @@ function buildColliders(): AABB[] {
 
   // 驚聲銅像 plinth
   out.push(box(0, 0, 3.2, 3.2));
+  out.push(box(PLAZA_FLAGPOLE.x, PLAZA_FLAGPOLE.z, PLAZA_FLAGPOLE.base, PLAZA_FLAGPOLE.base));
 
   // 牧羊草坪的紀念雕塑。石座連人一起擋，蓋章點留在南側。
   out.push(box(SHEPHERD.x, SHEPHERD.z, SHEPHERD.pad, SHEPHERD.pad));

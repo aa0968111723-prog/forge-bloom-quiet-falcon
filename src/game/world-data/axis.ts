@@ -22,6 +22,16 @@ export const PLAZA_ELEVATION = KENAN_TOTAL_RISE + 0.216;
 /** Radius of the circular plaza at the head of the slope. */
 export const PLAZA_RADIUS = 11;
 
+/**
+ * Stone drum under the plaza flagpole, west of the statue.
+ * Bottom diameter matches the cylinder in ChingshengPlaza.
+ */
+export const PLAZA_FLAGPOLE = {
+  x: -PLAZA_RADIUS + 2.4,
+  z: -3.5,
+  base: 1.9,
+} as const;
+
 /** Published length of 宮燈大道. */
 export const AVENUE_LENGTH = 200;
 
