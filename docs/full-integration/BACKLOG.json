@@ -221,7 +221,14 @@
       "status": "browser-verified",
       "merged": false,
       "deployed": false,
-      "note": "Two fresh architecture semesters paid Wei Ning's clash on AdventureApp-BWW4JLDV.js at 1280x720. Empty and count each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Both turn buttons were visible and unpaid. Reload kept xp 38 and notes 19. The track infield in this bundle was not walked."
+      "note": "Two fresh architecture semesters paid Wei Ning's clash on AdventureApp-BWW4JLDV.js at 1280x720. Empty and count each moved store xp from 30 to 38 and notes from 18 to 19. The card showed level 1, 38/60. Week-1 stayed. The +8 is the clash stage and the note is the clash reward. No studio quest. Her turn choices were later paid in a separate pair of semesters. The track infield in this bundle was not walked."
+    },
+    {
+      "id": "FI-WEI-TURN",
+      "status": "browser-verified",
+      "merged": false,
+      "deployed": false,
+      "note": "Two fresh architecture semesters paid Wei Ning's turn on AdventureApp-BWW4JLDV.js at 1280x720. Drop and keep each moved store xp from 38 to 46 and left notes at 19. The card showed level 1, 46/60. Week-1 stayed. The +8 is the turn stage. This beat has no note reward and no studio main. Both after buttons were visible and unpaid. Reload kept xp 46 and notes 19."
     },
     {
       "id": "FI-XU-HUI",
@@ -247,7 +254,7 @@
     {
       "id": "FI-ART-QUEUE",
       "status": "owned-by-other-integrator",
-      "note": "main 7c44b17 notes track infield pitch #225. Game commit ab3d088, merged here as 61aa4fb. A grass pitch with no net sits inside the track oval. The adventure chunk became AdventureApp-BWW4JLDV.js. This line did not walk the infield. docs/art/evidence/track/infield.jpg is the other integrator's record. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
+      "note": "main fff4452 notes empty-cloud queued upload #226. Game commit a488180, merged here as 7ca2b5f. A queued upload lands as a first sync when this account's cloud row is gone. The adventure chunk stayed AdventureApp-BWW4JLDV.js. Backend was still RUNNING and this check did not re-read their tip past that merge. Variety tip 3270f9f is not an ancestor; do not take their store.ts."
     },
     {
       "id": "FI-GEAR",
