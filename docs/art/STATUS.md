@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：迴廊柱（ART-062 的一部分）
+
+宮燈教室迴廊的紅柱現在有碰撞。柱心會把人推開，兩根柱中間仍走得過，大道中線也不受影響。
+
+畫面：`docs/art/evidence/palace/column.jpg`。測試：`scripts/column-stop.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。迴廊柱已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
