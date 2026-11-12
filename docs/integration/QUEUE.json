@@ -4984,6 +4984,32 @@
       "integrationPr": 323,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/323",
       "nextAction": "None. The still title from 119f5c3f is already in this integration. Do not merge PR #246 by itself. The still-charm commit 06507f79 is still separate."
+    },
+    {
+      "id": "art-still-charm",
+      "line": "art",
+      "scope": "Reduced motion rests the hair tail and the turtle charm. Ordinary movement still leads the charm.",
+      "status": "verified",
+      "pr": 257,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/257",
+      "integrationBranch": "cursor/integration-still-charm-3395",
+      "sourceBranch": "cursor/still-charm-1a71",
+      "baseSha": "42fc0570e1bce9b387a578290e9482f8801ab6b1",
+      "headSha": "06507f79b5d767702141da32845a83b43bafc52c",
+      "dependencies": ["art-still-title"],
+      "sharedFiles": ["src/game/art/character/sway.ts", "src/game/art/character/Protagonist.tsx", "scripts/still-charm.test.mjs"],
+      "checks": {
+        "conflicts": "The still title camera, still river, still wind, library plinth, named boards, campus-gate piers, lamp poles, and trunk boxes stay. Reduced motion now rests the hair tail and the turtle charm.",
+        "typecheck": "pass",
+        "npmTest": "457 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DQ-WLzuq.js sha256 b2b4903ffacf3fb847cac060dfd7638ecfe3684758d985eb2acfad894e7dcc66. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8249/",
+        "route": "8249 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "3f928b553c12c91571f07e94ecfbf5ca56311a90",
+      "nextAction": "Fast-forward this integration after the PR opens. Do not merge PR #257 by itself. The shepherd-figure commit 622a00ba is still separate."
     }
   ]
 }
