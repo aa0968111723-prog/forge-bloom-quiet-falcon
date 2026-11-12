@@ -2886,7 +2886,7 @@
       "id": "backend-lost-upload",
       "line": "backend",
       "scope": "A direct upload whose response disappears is queued as already sent, without recording a revision. Later local progress uses a new request id and the newer local file.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-lost-upload-3395",
@@ -2904,9 +2904,11 @@
         "route": "8178: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +7 side won the race so cloudXp 51, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "66fb33550c0f1f02492a9ce10ed4edf2e44db28a",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 213,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/213",
+      "nextAction": "None. The lost direct upload from df0b23c is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
