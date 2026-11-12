@@ -385,6 +385,12 @@
 
 畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
 
+## 階段：圖書館台基（ART-063 的一部分）
+
+圖書館台基比牆面每邊多出 2.5 m，高 1.1 m，會擋住半徑 0.42 m 的身體。從南邊走向台基南緣會停在邊緣外。坡道中線從缺口走上去。尺寸仍是 estimated。田徑場內圈留著。
+
+畫面：`docs/art/evidence/library/plinth.jpg`。測試：`scripts/library-plinth.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。圖書館台基已會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

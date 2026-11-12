@@ -367,3 +367,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 60 輪（田徑場內圈）— 2026-11-12
 
 `node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
+
+## 第 61 輪（圖書館台基）— 2026-11-12
+
+`node --test scripts/library-plinth.test.mjs scripts/library-ramp.test.mjs scripts/ramp-rails.test.mjs scripts/route-walk.test.mjs scripts/world-data.test.mjs scripts/prop-clearance.test.mjs` 通過。`tsc --noEmit` 通過。台基每邊比牆面多出 2.5 m，和模型同一組數字。半徑 0.42 m 站在南緣中線會被推開。南緣外 1.2 m、坡道中線、坡道北端和主巡禮轉折點不被推開。館名牌掛在牆面、台基上方，平面落在台基範圍內。定步白天從南邊走向台基，頁面無錯誤，停在 z=-297.08：`docs/art/evidence/library/plinth.jpg`。尺寸仍是 estimated。田徑場內圈留在第 60 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BUYQ2U2g.js`。
