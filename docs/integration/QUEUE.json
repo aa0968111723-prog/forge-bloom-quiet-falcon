@@ -1906,7 +1906,7 @@
       "id": "art-library-ramp",
       "line": "art",
       "scope": "The library forecourt ramp rises 1.05 m from the plaza to the plinth. The player walks that surface, and the mesh uses the same height. The rise stays estimated. Lamps and the south-facing name plate stay outside the walls.",
-      "status": "verified",
+      "status": "merged",
       "pr": 134,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/134",
       "integrationBranch": "cursor/integration-library-ramp-3395",
@@ -1924,11 +1924,11 @@
         "route": "8144: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
       "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/props.ts"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #134 by itself."
+      "merged": true,
+      "mergeSha": "21f8fb724102058679d69daab0752aab044be7f1",
+      "integrationPr": 143,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/143",
+      "nextAction": "None. The library ramp through 75128e0 is already in this integration. Do not merge PR #134 by itself. Do not merge PR #122."
     }
   ]
 }
