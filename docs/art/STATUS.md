@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：坡底斑馬線（ART-062 的一部分）
+
+坡底入口鋪面上有六條斑馬線，夾在兩根門柱中間。南緣留在鋪面裡，也離坡底車阻一截。線是平塗，不擋人。間距仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/gates/crosswalk.jpg`。測試：`scripts/gate-crosswalk.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。坡底入口已有斑馬線。車阻已會擋人。田徑場內圈已有草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

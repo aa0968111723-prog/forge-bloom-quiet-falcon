@@ -699,6 +699,22 @@ try {
     await frames(page, 4);
     await shot(page, "post", `stopped ${JSON.stringify(stopped)}`);
     if (stopped.x > -2.4) throw new Error(`walked through the bollard ${JSON.stringify(stopped)}`);
+  } else if (scenario === "gate-cross") {
+    await hideHud(page);
+    await setPose(page, 0, 98, 0);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(0, 86.4);
+      window.__controlsTest.setPhoto({
+        yaw: 0.15,
+        distance: 14,
+        height: 5,
+        lookY: 0.2,
+        target: { x: 0, y, z: 86.4 },
+      });
+    });
+    await frames(page, 8);
+    await shot(page, "zebra", "zebra bars on the slope apron");
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
