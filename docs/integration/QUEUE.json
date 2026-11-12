@@ -4480,6 +4480,34 @@
       "integrationPr": 305,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/305",
       "nextAction": "None. The outward bow from d0fd98b is already in this integration. Do not merge PR #127 by itself."
+    },
+    {
+      "id": "art-hweiwen-hall",
+      "line": "art",
+      "scope": "Hweiwen is a seminar hall with a ground colonnade and a pale upper storey. The colonnade meets the south wall and stays the ground storey. Education stays a class hall. The foreign-language building stays a language hall. The colonnade is estimated.",
+      "status": "verified",
+      "pr": 111,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/111",
+      "integrationBranch": "cursor/integration-hweiwen-hall-3395",
+      "sourceBranch": "cursor/seminar-hall-1a71",
+      "baseSha": "0256726f8f45e5cd07e6d2b9a495cd3a61526532",
+      "headSha": "412b1303d416aa63e5a3c8fc270c2abb290adcb2",
+      "dependencies": ["art-bow-outward"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx", "scripts/context-lod.test.mjs", "scripts/class-hall.test.mjs"],
+      "checks": {
+        "conflicts": "kind union, campusKind, render blocks, capture scenario, and art docs. Education stayed class-hall and foreign stayed language-hall. build_site set to AdventureApp-D5dZSqEe.js.",
+        "typecheck": "pass",
+        "npmTest": "439 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-D5dZSqEe.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "8234",
+        "route": "8234: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "cc50aa3bb43b6d2cc7bbfd984ddac0aa6aaf6725",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #111 by itself."
     }
   ]
 }
