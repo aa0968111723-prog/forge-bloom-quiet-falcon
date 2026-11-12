@@ -4704,6 +4704,34 @@
       "integrationPr": 313,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/313",
       "nextAction": "None. The street-lamp heads from 2b45515 are already in this integration. Do not merge PR #124 by itself."
+    },
+    {
+      "id": "art-lamp-stop",
+      "line": "art",
+      "scope": "Fifty-nine street-lamp poles are 0.18 m across and push a 0.42 m body off the shaft. Pilgrimage lines step past the north plaza lamp and the lamp on the dolphin-to-scroll diagonal.",
+      "status": "verified",
+      "pr": 230,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/230",
+      "integrationBranch": "cursor/integration-lamp-stop-3395",
+      "sourceBranch": "cursor/lamp-stop-1a71",
+      "baseSha": "2ae9c1010d227b79e67d604acbbf916f054839ab",
+      "headSha": "5eb28d7f4554cfa85f838f1925f246613b217101",
+      "dependencies": ["art-street-lamps"],
+      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/axis.ts"],
+      "checks": {
+        "conflicts": "Bollard gap, library ramp, and lamp heads stayed. Pole boxes register after props clear the building boxes. The dodge commit was not taken.",
+        "typecheck": "pass",
+        "npmTest": "447 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-5RJ8Cyy1.js. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8240/",
+        "route": "pass on rerun. gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision_conflict, cloudXp 47, logout 401, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, then fast-forward main. Do not merge PR #230 by itself. The dodge commit 39e2dbb is still separate."
     }
   ]
 }
