@@ -697,6 +697,76 @@ export function createCloudSaveController(options: {
       }
       return "drop";
     };
+    const landOnEmptyCloud = async (
+      item: QueueItem,
+      pending: QueueItem,
+    ): Promise<"sent" | "queued" | "pause" | "drop"> => {
+      if (pending.kind !== "put" || pending.body.confirmFirstSync === true) return "drop";
+      if (!stillQueued(item)) return "drop";
+      const prepared = prepareLocal();
+      const document = prepared.ok ? prepared.document : pending.body.document;
+      if (!document) return "drop";
+      const requestId = randomId();
+      const follow: QueueItem = {
+        ...pending,
+        id: requestId,
+        attempts: 0,
+        body: {
+          ...pending.body,
+          requestId,
+          baseRevision: 0,
+          confirmFirstSync: true,
+          document,
+        },
+      };
+      try {
+        const response = await cloudFetch("/api/cloud/saves/rpg", {
+          method: "PUT",
+          body: JSON.stringify(follow.body),
+          ifMatch: 0,
+        });
+        if (response.status === 401) {
+          if (!stillQueued(item)) return "drop";
+          remember(item, follow);
+          return "pause";
+        }
+        const saved = await response.json().catch(() => null);
+        if (
+          response.ok &&
+          typeof saved?.revision === "number" &&
+          typeof saved?.contentHash === "string"
+        ) {
+          const confirmed = await accountGate(userId);
+          if (confirmed !== "ok") {
+            if (!stillQueued(item)) return "drop";
+            remember(item, {
+              ...follow,
+              attempts: Math.max(1, follow.attempts),
+              nextAt: now(),
+            });
+            return "pause";
+          }
+          writeMeta(userId, { revision: saved.revision, contentHash: saved.contentHash });
+          return "sent";
+        }
+        if (response.status === 429 || response.status >= 500) {
+          if (!stillQueued(item)) return "drop";
+          remember(item, { ...follow, attempts: 1, nextAt: now() + 1_000 });
+          return "queued";
+        }
+        if (response.status === 409 && saved?.error?.code === "revision_conflict") {
+          return adoptOwnGhost(item, follow, saved);
+        }
+      } catch {
+        if (!stillQueued(item)) {
+          await repairDroppedPut(follow);
+          return "drop";
+        }
+        remember(item, { ...follow, attempts: 1, nextAt: now() + 1_000 });
+        return "queued";
+      }
+      return "drop";
+    };
     for (const item of items) {
       if (item.userId !== userId) continue;
       if (!stillQueued(item)) continue;
@@ -784,6 +854,20 @@ export function createCloudSaveController(options: {
           }
           writeRemaining();
           return { sent, paused: true };
+        }
+        if (
+          pending.kind === "put" &&
+          payload?.error?.code === "first_sync_required" &&
+          pending.body.confirmFirstSync !== true
+        ) {
+          const landed = await landOnEmptyCloud(item, pending);
+          if (landed === "pause") {
+            writeRemaining();
+            return { sent, paused: true };
+          }
+          if (landed !== "queued") finished.add(item.id);
+          if (landed === "sent") sent += 1;
+          continue;
         }
         const ghost = await adoptOwnGhost(item, pending, payload);
         if (ghost === "pause") {
