@@ -1,0 +1,48 @@
+{
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "post": {
+    "x": 2,
+    "z": -274
+  },
+  "retrieve": [
+    {
+      "before": 0,
+      "after": {
+        "xp": 18,
+        "gathered": 0,
+        "panel": null
+      }
+    },
+    {
+      "before": 18,
+      "after": {
+        "xp": 26,
+        "gathered": 0,
+        "panel": null
+      }
+    },
+    {
+      "before": 26,
+      "after": {
+        "xp": 36,
+        "gathered": 0,
+        "panel": null
+      }
+    }
+  ],
+  "done": {
+    "kind": "talk",
+    "notice": "這位現在沒有新的話說。上一件事還沒完成，或這段已經談完。",
+    "gathered": 0
+  },
+  "mobile": {
+    "scrollHeight": 322,
+    "clientHeight": 322,
+    "overflow": "auto",
+    "close": {
+      "width": 44,
+      "height": 44
+    },
+    "coarse": true
+  }
+}

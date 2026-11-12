@@ -1,4 +1,5 @@
 import { facultyCard } from "../../features/faculty-story/cast.ts";
+import { psychCard } from "../../features/psych-story/cast.ts";
 import { departmentById } from "../departments.ts";
 import { CAMPUS_SITES } from "./campus.ts";
 import { choicesFor, eventLine, narrativeCatalog } from "./narrative-bridge.ts";
@@ -15,7 +16,7 @@ export function NarrativePanel() {
   const line = eventLine(ui.eventId, narrative);
   const choices = ui.phase === "talking" ? choicesFor(play) : [];
   const speaker = narrativeCatalog().events.find((event) => event.id === ui.eventId)?.npcIds[0];
-  const card = speaker ? facultyCard(speaker) : null;
+  const card = speaker ? facultyCard(speaker) ?? psychCard(speaker) : null;
   const unit = card ? departmentById(card.unitId) : null;
   const canEnter = CAMPUS_SITES.some((site) => site.id === narrative.placeId);
   return (
