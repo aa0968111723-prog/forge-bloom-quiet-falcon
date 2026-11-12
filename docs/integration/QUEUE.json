@@ -2942,7 +2942,7 @@
       "id": "backend-db-queue",
       "line": "backend",
       "scope": "While the session is still valid, a 503, 429, or 5xx response keeps the upload the player already asked to send on that account's queue, counted as already sent. A rejected save is not queued.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-db-queue-3395",
@@ -2960,9 +2960,11 @@
         "route": "8180: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "ef46fb6484eae285c41c8ed6584512d1138f2436",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 217,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/217",
+      "nextAction": "None. The database-down upload queue from ab9e517 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
