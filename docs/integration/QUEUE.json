@@ -2494,7 +2494,7 @@
       "id": "backend-cloud-follow",
       "line": "backend",
       "scope": "When a continued upload is removed while that write is in flight, the client writes the chosen local save back and does not queue the upload again after a disconnect.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-cloud-follow-3395",
@@ -2512,9 +2512,11 @@
         "route": "8164 second run: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty. First run died with EIO while closing the reload screenshot."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "b3964c016b0dfdb177b90cf45185ee61954d52d2",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 190,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/190",
+      "nextAction": "None. The continued-upload write-back from bfbf341 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
