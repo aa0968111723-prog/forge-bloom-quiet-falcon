@@ -484,3 +484,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/title-camera.test.mjs` 通過。`tsc --noEmit` 通過。減少動態時標題鏡頭停在 (-13, 31.5, 13)。時間 0 的一般動態，x 仍是 -13，z 是 14.8。時間 10 的一般動態，x 和 z 都離開中心。鏡頭中心附近沒有樹冠。系統減少動態的標題頁，頁面無錯誤：`docs/art/evidence/motion/still-title.jpg`。河面和雲的停留在第 88 輪。沒有新增音效。
 
+## 第 90 輪（吊飾停住）— 2026-11-12
+
+`node --test scripts/still-charm.test.mjs` 通過。`tsc --noEmit` 通過。減少動態時髮尾和小龜的目標都是 0。吊飾從 0.45 經過阻尼後回到 0.02 以內。普通向前速度仍把髮尾帶離 0。宮燈教室內、減少動態的背包畫面：`docs/art/evidence/charm/backpack.jpg`。標題鏡頭留在第 89 輪。沒有新增音效。
+

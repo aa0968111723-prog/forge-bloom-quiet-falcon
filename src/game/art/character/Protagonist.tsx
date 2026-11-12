@@ -5,7 +5,9 @@ import { quality } from "../../quality";
 import { DEPARTMENTS } from "../../rpg/data";
 import { useRpg } from "../../rpg/store";
 import { useArtModel } from "../assets";
+import { useReducedArtMotion } from "../motion";
 import { CharacterAnimator, type ActionLayer } from "./animator";
+import { createSpring, stepSpring, swayTargets } from "./sway.ts";
 import { applyHeadLook, captureLookBase, createLookPose, restoreLookBase } from "./look";
 
 export type PlayerActions = {
@@ -28,28 +30,20 @@ const FALLBACK_KIT = {
   stride: { walk: 2.96, run: 5.8 },
 };
 
-type Spring = { x: number; vx: number; z: number; vz: number };
-const spring = (): Spring => ({ x: 0, vx: 0, z: 0, vz: 0 });
-
-function stepSpring(s: Spring, tx: number, tz: number, k: number, damping: number, dt: number) {
-  s.vx += (k * (tx - s.x) - damping * s.vx) * dt;
-  s.vz += (k * (tz - s.z) - damping * s.vz) * dt;
-  s.x += s.vx * dt;
-  s.z += s.vz * dt;
-}
-
 /**
  * The player character, loaded from the exported student kit.
  *
  * Every action is triggered by a real game event — `attackFx` (attack or
  * skill), `hurtUntil`, the controller's accepted dodge and interaction — and
  * the animation never feeds back into combat. Hair tail and turtle charm
- * swing on damped springs from the body's own motion.
+ * swing on damped springs from the body's own motion, and rest when the
+ * player asks for reduced motion.
  */
 /** Hero mesh on the high tier, the LOD1 mesh (same rig and clips) on the low tier. */
 export const PROTAGONIST_ART = { high: "char.student-kit", low: "char.student-kit-lod1" } as const;
 
 export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
+  const reduced = useReducedArtMotion();
   const [artId] = useState(() => PROTAGONIST_ART[quality().tier]);
   const { root, clips } = useArtModel(artId);
   const kit = useMemo(() => {
@@ -82,7 +76,7 @@ export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
     dodge: actionRef.current.dodgeSerial,
     interact: actionRef.current.interactSerial,
   });
-  const motion = useRef({ hair: spring(), charm: spring(), last: new THREE.Vector3(), vel: new THREE.Vector3(), primed: false });
+  const motion = useRef({ hair: createSpring(), charm: createSpring(), last: new THREE.Vector3(), vel: new THREE.Vector3(), primed: false });
   const tmp = useMemo(() => ({ world: new THREE.Vector3(), local: new THREE.Vector3(), q: new THREE.Quaternion() }), []);
   const lookPose = useRef(createLookPose());
   const lookReady = useRef(false);
@@ -145,22 +139,9 @@ export function Protagonist({ speedRef, lookRef, actionRef }: Props) {
     m.vel.lerp(v, 0.5);
     const forward = THREE.MathUtils.clamp(m.vel.z, -9, 9);
     const side = THREE.MathUtils.clamp(m.vel.x, -9, 9);
-    stepSpring(
-      m.hair,
-      THREE.MathUtils.clamp(forward * 0.045 - accel.z * 0.004, -0.25, 0.55),
-      THREE.MathUtils.clamp(-side * 0.05 + accel.x * 0.004, -0.4, 0.4),
-      70,
-      9,
-      dt,
-    );
-    stepSpring(
-      m.charm,
-      THREE.MathUtils.clamp(forward * 0.07 - accel.z * 0.01, -0.5, 0.9),
-      THREE.MathUtils.clamp(-side * 0.08 + accel.x * 0.008, -0.6, 0.6),
-      55,
-      5,
-      dt,
-    );
+    const sway = swayTargets(forward, side, accel.z, accel.x, reduced);
+    stepSpring(m.hair, sway.hairX, sway.hairZ, 70, 9, dt);
+    stepSpring(m.charm, sway.charmX, sway.charmZ, 55, 5, dt);
     bones.hairTail.rotation.set(m.hair.x, 0, m.hair.z);
     bones.charm.rotation.set(m.charm.x, 0, m.charm.z);
 

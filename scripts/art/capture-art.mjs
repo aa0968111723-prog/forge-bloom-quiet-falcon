@@ -100,7 +100,7 @@ try {
   page.setDefaultTimeout(180000);
   page.on("pageerror", (e) => pageErrors.push(e.message));
   page.on("console", (m) => m.type() === "error" && pageErrors.push("console: " + m.text()));
-  if (scenario === "still-wind" || scenario === "still-water" || scenario === "still-title") await page.emulateMedia({ reducedMotion: "reduce" });
+  if (scenario === "still-wind" || scenario === "still-water" || scenario === "still-title" || scenario === "still-charm") await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(gameUrl(base, { tier }), { waitUntil: "domcontentloaded" });
   await waitForTitle(page);
   const gl = await webglInfo(page);
@@ -993,6 +993,14 @@ try {
     });
     await frames(page, 4);
     await shot(page, "shore", "reduced motion, cloudy, looking toward the river");
+  } else if (scenario === "still-charm") {
+    await enterInterior(page, "palace");
+    await setPose(page, 0, 1.5, 0);
+    await frames(page, 20);
+    await hideHud(page);
+    const reduced = await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
+    await photo(page, Math.PI * 0.15, { distance: 1.05, height: 1.25, lookY: 1.05 });
+    await shot(page, "backpack", `reduced motion ${reduced}, backpack and turtle charm at rest targets`);
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });

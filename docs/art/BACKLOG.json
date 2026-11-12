@@ -151,8 +151,11 @@
       "evidence": [
         "docs/art/evidence/m1/protagonist-front.jpg",
         "docs/art/evidence/m1/protagonist-poses.jpg",
-        "docs/art/evidence/m1/protagonist-face.jpg"
-      ]
+        "docs/art/evidence/m1/protagonist-face.jpg",
+        "docs/art/evidence/charm/backpack.jpg",
+        "scripts/still-charm.test.mjs"
+      ],
+      "notes": "減少動態時，髮尾和小龜吊飾的彈簧目標回到 0，晃動會停住。走路動畫仍跟著真實移動。沒有新增音效。"
     },
     {
       "id": "ART-021",
