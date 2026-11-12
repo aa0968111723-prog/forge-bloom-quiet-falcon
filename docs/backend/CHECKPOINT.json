@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T07:43:29Z",
+  "updated_at": "2026-11-12T07:45:33Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "0f5da63",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -85,10 +85,11 @@
     "a stray discovery still uploads the sites already found",
     "an old piece of gear with a wild durability still uploads",
     "merged main at 0f5da63; the trimmed ground-loot id was already on this branch",
-    "a narrative clock outside the cloud range still uploads"
+    "a narrative clock outside the cloud range still uploads",
+    "a narrative place the cloud cannot name still uploads"
   ],
   "verification": {
-    "npm_test": "397 pass, 0 fail; a narrative clock outside the cloud range still uploads",
+    "npm_test": "398 pass, 0 fail; a narrative place the cloud cannot name still uploads",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
