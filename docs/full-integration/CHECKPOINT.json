@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T08:23:00Z",
+  "updated": "2026-11-12T08:30:00Z",
   "branch": "cursor/integration-full-game-f7e4",
-  "base": "eccee6d3e0022fc53b2148b344bf038376706bf5",
-  "baseFull": "eccee6d is origin/main. It notes integration PR #242. GitHub lists that PR as MERGED. The same range also has PR #241. GitHub lists #241 as CLOSED and mergeCommit is null; the commits are on main. The game changes are 264a94c and f90a3c8: a narrative clock outside the cloud range and an unnamed place stay uploadable. Merged here as 08de58079f16. Dialogue was played on AdventureApp-DyYCDMBl.js. Content version stays 2.",
-  "playedBundle": "Meng Zhao clash: dist/assets/AdventureApp-DyYCDMBl.js via index-CuYsTjzn.js. Preview http://127.0.0.1:8088/ served that entry. AdventureApp is 888972 bytes. Her opening was on the same bundle. main had not moved, so this slice did not rebuild.",
-  "builtAfter": "npm run build:site after #242 wrote index-CuYsTjzn.js and AdventureApp-DyYCDMBl.js, 888972 bytes. An Cheng's posting stays on AdventureApp-CJXsxJis.js. The dist has no literal revision_conflict or DATABASE_URL.",
-  "gameSha": "08de58079f16515b84e0cc51e46e141dc0dbfe5a",
-  "verifiedHead": "08de58079f16515b84e0cc51e46e141dc0dbfe5a",
+  "base": "26828b9914afe399884dccf281c5458e18f40196",
+  "baseFull": "26828b9 is origin/main. It notes integration PR #245. GitHub lists that PR as MERGED. The game change is b8c8a83: cooldown and mutex times outside the cloud range stay uploadable. Merged here as b0c737a17d18. Dialogue was played on AdventureApp-CfPomlhN.js. Content version stays 2.",
+  "playedBundle": "Meng Zhao maintenance: dist/assets/AdventureApp-CfPomlhN.js via index-DxOHV2Jz.js. Preview http://127.0.0.1:8088/ served that entry. AdventureApp is 889331 bytes. Her clash stays on AdventureApp-DyYCDMBl.js.",
+  "builtAfter": "npm run build:site after #245 wrote index-DxOHV2Jz.js and AdventureApp-CfPomlhN.js, 889331 bytes. Meng Zhao's clash stays on AdventureApp-DyYCDMBl.js. The dist has no literal revision_conflict or DATABASE_URL.",
+  "gameSha": "b0c737a17d182f58fc7257487b1bda24104b139f",
+  "verifiedHead": "b0c737a17d182f58fc7257487b1bda24104b139f",
   "facultySource": "main via integration PR #139, source recorded as 246eadf",
   "varietySource": "main via integration PR #136",
   "pavilionSource": "main 57fc468 via integration PR #150, game commit 80a8159. Source PR recorded by the other integrator as #145 at 193f29d. Do not merge #150 or #145 again. This line did not replay their screenshots.",
@@ -15,9 +15,9 @@
     "bcId": "bc-4054e39b-9fa6-4a4b-a25e-e1ee4a333395",
     "status": "RUNNING",
     "branch": "cursor/integration-art-m1-3395",
-    "checkedAt": "2026-11-12T08:18:00Z",
+    "checkedAt": "2026-11-12T08:24:00Z",
     "thisLineMerges": false,
-    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196, session-blip reward check #197, session-blip save write-back #198, station harvest cooldown #200, restore-session confirm #202, upload-account confirm #203, revision-conflict account #205, restore revision-conflict #206, dropped-upload follow-up account #208, harvest cooldown cloud whitelist #210, reward receipt account #211, lost direct upload #213, quarantine item ids #215, database-down upload queue #217, sloped library rails #220, expired-session upload queue #222, variety-run station count #223, track infield pitch #225, empty-cloud queued upload #226, rate-limited reward #228, wrapped look-around yaw #229, 80-character campus memory #231, trimmed ground-loot id #233, repaired ground pile #234, move-lesson anchor #235, filtered campus discoveries #237, clamped quarantine durability #239, folded narrative clock #241, unnamed narrative place #242. Do not merge those again."
+    "alreadyMerged": "Gear #133, encounters #136, faculty #139, lamps #141, ramp #143, gear contract #144, court clearing #146, wet courts #147, court lines #149, pavilion #150, minimap label #153, living interior #155, ramp railings #159, live campus snapshot #162, collection quests #164, collection cloud restart #168, once-only rewards #170, cloud integrity #173, cloud-hold save #176, cloud resume #179, Xu Hui #182, cloud retry #187, dropped upload #192, ramp rail bodies #194, session-account queue stop #196, session-blip reward check #197, session-blip save write-back #198, station harvest cooldown #200, restore-session confirm #202, upload-account confirm #203, revision-conflict account #205, restore revision-conflict #206, dropped-upload follow-up account #208, harvest cooldown cloud whitelist #210, reward receipt account #211, lost direct upload #213, quarantine item ids #215, database-down upload queue #217, sloped library rails #220, expired-session upload queue #222, variety-run station count #223, track infield pitch #225, empty-cloud queued upload #226, rate-limited reward #228, wrapped look-around yaw #229, 80-character campus memory #231, trimmed ground-loot id #233, repaired ground pile #234, move-lesson anchor #235, filtered campus discoveries #237, clamped quarantine durability #239, folded narrative clock #241, unnamed narrative place #242, narrative timer clamp #245. Do not merge those again."
   },
   "commands": [
     "npx tsc --noEmit",
@@ -62,15 +62,16 @@
     "node --experimental-transform-types scripts/integration-an-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-an-turn",
     "node --experimental-transform-types scripts/integration-an-after.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-an-after",
     "node --experimental-transform-types scripts/integration-meng-meet.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-meng-meet",
-    "node --experimental-transform-types scripts/integration-meng-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-meng-clash"
+    "node --experimental-transform-types scripts/integration-meng-clash.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-meng-clash",
+    "node --experimental-transform-types scripts/integration-meng-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-meng-turn"
   ],
   "done": [
-    "Re-fetched origin/main at eccee6d. It had not moved past the merge 08de580. npm test 399 pass / 0 fail and AdventureApp-DyYCDMBl.js via index-CuYsTjzn.js, 888972 bytes, still belong to that merge. This slice did not rebuild and did not re-run the suite.",
-    "Two fresh architecture semesters paid Meng Zhao's clash choices at the estimated chemistry building, dx 0 dz 12, on that bundle. Rest and share each moved store xp from 30 to 38 and notes from 18 to 19. The +8 is the clash stage and the note is the clash reward. This beat has no studio main. The card stayed level 1 and showed 38/60, hp 100, focus 100. Semester stayed week-1.",
-    "Both routes then opened the same maintenance line, 保養要優先. Her clash beat has no flagLines. Both turn buttons were visible and unpaid. Reload kept xp 38, notes 19, and that line. quest-faculty-hours-clash stayed at one. quest-faculty-hours-turn was absent."
+    "Merged origin/main 26828b9 (narrative timers outside the cloud range stay uploadable, game b8c8a83, GitHub MERGED as PR #245) as b0c737a. npx tsc --noEmit passed. npm test was 400 pass / 0 fail. build:site wrote AdventureApp-CfPomlhN.js via index-DxOHV2Jz.js, 889331 bytes. The dist has no revision_conflict or DATABASE_URL.",
+    "Two fresh architecture semesters paid Meng Zhao's maintenance choices at the estimated chemistry building, dx 0 dz 12, on that bundle. Yield and talk each moved store xp from 38 to 46 and left notes at 19. The +8 is the turn stage. This beat adds no note and has no studio main. The card stayed level 1 and showed 46/60, hp 100, focus 100. Semester stayed week-1.",
+    "Both routes then opened the same posting line, 可以貼了. Her turn beat has no flagLines. Both after buttons were visible and unpaid. Reload kept xp 46, notes 19, and that line. quest-faculty-hours-turn stayed at one. quest-faculty-hours-after was absent."
   ],
   "todo": [
-    "Meng Zhao's maintenance choices 保養優先。我改到你留的另一格 and 我只做不碰儀器的討論，保養照舊 were visible and not clicked. Her turn beat requires fac-meng-clash and has no flagLines.",
+    "Meng Zhao's posting choices 表就這樣貼。我的格子維持現在這樣 and 讓出的那格寫給下一組，不自己留 were visible and not clicked. Her after beat requires fac-meng-turn and has no flagLines.",
     "Xu Hui is wired at the estimated library post. This line did not click her. docs/quest-play/evidence screenshots are the other line's record.",
     "gather-notes, gather-parts, and gather-drinks stayed at 0. The ten patrol points were not walked.",
     "The sloped library rails from #220 are on this branch. This line did not walk them. docs/art/evidence/ramp/slope-rails.jpg is the other integrator's record.",
@@ -86,5 +87,5 @@
     "Gesture timing is pending a recording, not a still frame.",
     "ESLint on the touched files still reports the existing store.ts useFacility rules-of-hooks error and the unused dirty warning. They are outside this diff. This is not a full-repo lint pass."
   ],
-  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Meng Zhao's maintenance choices at the estimated chemistry building, dx 0 dz 12, 保養優先。我改到你留的另一格 or 我只做不碰儀器的討論，保養照舊. Her turn beat requires fac-meng-clash and has no flagLines. She is not Shen Zhuo. The track infield and the sloped rails were not walked here. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge the folded narrative clock #241 or the unnamed narrative place #242 again. Do not merge PR #32 head 1fc5887."
+  "next_action": "Do not merge while bc-4054e39b is writing main. Re-fetch origin/main before the next slice. Next playable gap is one of Meng Zhao's posting choices at the estimated chemistry building, dx 0 dz 12, 表就這樣貼。我的格子維持現在這樣 or 讓出的那格寫給下一組，不自己留. Her after beat requires fac-meng-turn and has no flagLines. She is not Shen Zhuo. The track infield and the sloped rails were not walked here. Xu Hui is wired and unplayed on this line. The other three collection missions are still at 0. Variety tip 3270f9f needs a store-safe wire. Do not flip MAIN_INTEGRATION. Do not merge the narrative timer clamp #245 again. Do not merge PR #32 head 1fc5887."
 }

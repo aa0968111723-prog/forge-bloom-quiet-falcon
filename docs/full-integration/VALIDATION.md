@@ -862,3 +862,25 @@ quiz 仍從 65 到 45。接著對既有的 `final-1` 連續使用普攻。路線
 38 減 30 是 8，也就是衝突階段的經驗。筆記加 1。保養那一句不看這次是用剩下的還是各讓十五分鐘。
 
 畫面：`/opt/cursor/artifacts/integration-meng-clash/rest-outcome.png`、`rest-next.png`、`share-outcome.png`、`share-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。
+
+## 孟昭的兩個保養選項
+
+這段打在 `AdventureApp-CfPomlhN.js`，預覽 `http://127.0.0.1:8088/` 的入口是 `index-DxOHV2Jz.js`。`main` 尖端 `26828b9` 註記 PR #245，GitHub 上這份 PR 的狀態是 MERGED。遊戲變更是 `b8c8a83`。合併提交 `b0c737a`。主遊戲檔 889331 bytes。`dist` 沒有字面 `revision_conflict` 或 `DATABASE_URL`。
+
+| 指令 | 結果 |
+| --- | --- |
+| `node --experimental-transform-types scripts/integration-meng-turn.mjs http://127.0.0.1:8088/ /opt/cursor/artifacts/integration-meng-turn` | 通過，exit 0。`pageErrors` 空 |
+| `npx tsc --noEmit` | 通過 |
+| `npm test` | 400 通過、0 失敗。對象是合併 `b0c737a` |
+| `npm run build:site` | 產出 `index-DxOHV2Jz.js` 與 `AdventureApp-CfPomlhN.js` |
+
+1280×720。瀏覽器 `/usr/bin/google-chrome`，啟動參數含 `--enable-unsafe-swiftshader`。這台主機是 SwiftShader，細指標桌面視窗。
+
+兩局都從標題選建築學系，先結算開場和衝突。點保養之前存檔經驗 38、筆記 19。
+
+- 「保養優先。我改到你留的另一格。」之前先請她說哪一段不能借，衝突選剩下的時段。存檔經驗 46，筆記仍是 19。結果句「保養那格我沒有借給任何人。」畫面是 1 級、「經驗 46/60」、生命 100/100、專注 100/100。學期仍是第一週。再交談，她說「可以貼了」。兩個貼表選項都在。離開不結算，沒有 `quest-faculty-hours-after`。`quest-faculty-hours-turn` 只有一筆。沒有工作室任務。重載後經驗 46、筆記 19，再交談仍是這一句。
+- 「我只做不碰儀器的討論，保養照舊。」之前先聽兩個都能用的時段，衝突各讓十五分鐘。經驗同樣 38→46，筆記停在 19。結果句「但不碰同一個櫃子。」貼表仍是「可以貼了」。離開不結算。重載後這一句還在，生命仍是 100/100。
+
+46 減 38 是 8，也就是保養階段的經驗。這一拍不加筆記。貼表那一句不看這次是改格還是只討論。
+
+畫面：`/opt/cursor/artifacts/integration-meng-turn/yield-outcome.png`、`yield-next.png`、`talk-outcome.png`、`talk-reloaded.png`。固定畫面不能用來宣稱手勢流暢。崗位座標仍是 estimated。田徑場內野和坡道側欄沒有走。這條線沒有另做這次計時匯入。
