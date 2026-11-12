@@ -363,3 +363,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 59 輪（欄杆跟著坡）— 2026-11-12
 
 `node --test scripts/ramp-rails.test.mjs` 通過。`tsc --noEmit` 通過。同一道欄杆的北側柱腳高於南側。連接兩端的桿，本地 +Z 對準這段升高。立柱的 X 仍落在 0.12 m 的碰撞上。克難坡仍沒有欄杆。定步白天，頁面無錯誤：`docs/art/evidence/ramp/slope-rails.jpg`。橫桿沿著坡面上去。位置仍是 estimated。欄杆留在第 57 輪的位置。沒有新增音效。
+
+## 第 60 輪（田徑場內圈）— 2026-11-12
+
+`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。田徑場內圈有 5 條線，沒有球網。每條線的端點都在跑道內圈橢圓裡。20×20 m 的小場不會畫。定步白天俯看，頁面無錯誤：`docs/art/evidence/track/infield.jpg`。看得到 24×40 m 的白線和中線，外圈仍是跑道。尺寸仍是 estimated。坡道欄杆留著。沒有新增音效。
