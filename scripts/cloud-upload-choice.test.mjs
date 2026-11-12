@@ -833,3 +833,57 @@ test("flush does not send an upload dropped while an earlier item is in flight",
   assert.deepEqual(sent, []);
   assert.equal(client.queuedCount("user-a"), 0);
 });
+
+test("an upload that lands after the player keeps the cloud save is put back", async () => {
+  const storage = memoryStorage();
+  const cloud = fakeCloud();
+  const key = "tamkang-cloud-save-queue:user-a";
+  const fetch = async (url, init) => {
+    if ((init?.method ?? "GET") === "PUT") {
+      const items = JSON.parse(storage.getItem(key) ?? "[]");
+      if (items.some((item) => item.kind === "put")) {
+        storage.setItem("tamkang-rpg-v2", JSON.stringify(save(3)));
+        storage.setItem(
+          key,
+          JSON.stringify([
+            {
+              id: "reward-gather-notes",
+              userId: "user-a",
+              kind: "receipt",
+              body: { eventId: "gather-notes", requestId: "reward-gather-notes" },
+              attempts: 0,
+              nextAt: 0,
+            },
+          ]),
+        );
+      }
+    }
+    return cloud.fetch(url, init);
+  };
+  const client = createCloudSaveController({
+    fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.bindAccount("user-a");
+  client.writeLocal(JSON.stringify(save(3)));
+  assert.equal((await client.uploadLocal()).status, "uploaded");
+  cloud.setOffline(true);
+  client.writeLocal(JSON.stringify(save(8)));
+  assert.equal((await client.uploadLocal()).status, "queued");
+  cloud.setOffline(false);
+  await client.flush();
+  assert.deepEqual(
+    cloud.puts.filter((body) => body.document).map((body) => body.document.xp),
+    [3, 8, 3],
+  );
+  assert.equal(cloud.puts.at(-1).baseRevision, 2);
+  assert.equal(JSON.parse(client.readLocal()).xp, 3);
+  const left = JSON.parse(storage.getItem(key));
+  assert.equal(left.length, 1);
+  assert.equal(left[0].kind, "receipt");
+  const planned = await client.plan();
+  assert.equal(planned.status, "in_sync");
+  assert.equal(planned.revision, 3);
+});

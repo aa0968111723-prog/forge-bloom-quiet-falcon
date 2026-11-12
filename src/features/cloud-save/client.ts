@@ -562,25 +562,35 @@ export function createCloudSaveController(options: {
         });
         continue;
       }
-      if (!stillQueued(item)) continue;
       if (response.status === 401) {
         writeRemaining();
         return { sent, paused: true };
       }
       const payload = await response.json().catch(() => null);
       if (response.ok) {
-        if (
-          item.kind === "put" &&
-          payload &&
-          typeof payload.revision === "number" &&
-          typeof payload.contentHash === "string"
-        ) {
-          writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
+        const revision = payload && typeof payload.revision === "number" ? payload.revision : null;
+        const contentHash =
+          payload && typeof payload.contentHash === "string" ? payload.contentHash : null;
+        const queued = stillQueued(item);
+        if (item.kind === "put" && revision != null && contentHash != null && !queued) {
+          if (readQueue(userId).some((current) => current.kind === "put")) {
+            bumpQueuedPutBase(userId, revision);
+            writeMeta(userId, { revision, contentHash });
+          } else {
+            await restoreChosenSave(userId, revision, contentHash);
+          }
+          continue;
         }
-        finished.add(item.id);
-        sent += 1;
+        if (revision != null && contentHash != null && item.kind === "put") {
+          writeMeta(userId, { revision, contentHash });
+        }
+        if (queued) {
+          finished.add(item.id);
+          sent += 1;
+        }
         continue;
       }
+      if (!stillQueued(item)) continue;
       if (response.status === 409 || response.status === 422) {
         finished.add(item.id);
         continue;
@@ -759,6 +769,63 @@ export function createCloudSaveController(options: {
       headers.set("if-match", `"${init.ifMatch}"`);
     }
     return options.fetch(`${base}${path}`, { method: init.method, headers, body: init.body });
+  }
+
+  function bumpQueuedPutBase(userId: string, revision: number): void {
+    writeQueue(
+      userId,
+      readQueue(userId).map((current) => {
+        if (current.kind !== "put") return current;
+        const base = current.body.baseRevision;
+        if (typeof base !== "number" || base >= revision) return current;
+        return { ...current, body: { ...current.body, baseRevision: revision } };
+      }),
+    );
+  }
+
+  async function restoreChosenSave(
+    userId: string,
+    revision: number,
+    serverHash: string,
+  ): Promise<void> {
+    const gate = await accountGate(userId);
+    const prepared = gate === "ok" ? prepareLocal() : { ok: false as const };
+    if (!prepared.ok) {
+      writeMeta(userId, { revision, contentHash: serverHash });
+      return;
+    }
+    const localHash = await sha256Hex(canonicalJson(prepared.document));
+    if (localHash === serverHash) {
+      writeMeta(userId, { revision, contentHash: serverHash });
+      return;
+    }
+    try {
+      const response = await cloudFetch("/api/cloud/saves/rpg", {
+        method: "PUT",
+        body: JSON.stringify({
+          schemaVersion: CLOUD_SCHEMA_VERSION,
+          contentVersion: CLOUD_CONTENT_VERSION,
+          baseRevision: revision,
+          confirmFirstSync: false,
+          requestId: randomId(),
+          document: prepared.document,
+        }),
+        ifMatch: revision,
+      });
+      const payload = await response.json().catch(() => null);
+      if (
+        response.ok &&
+        payload &&
+        typeof payload.revision === "number" &&
+        typeof payload.contentHash === "string"
+      ) {
+        writeMeta(userId, { revision: payload.revision, contentHash: payload.contentHash });
+        return;
+      }
+    } catch {
+      // The chosen file stays on this device. The next check shows the mismatch.
+    }
+    writeMeta(userId, { revision, contentHash: serverHash });
   }
 
   function dropQueuedPuts(userId: string): void {
