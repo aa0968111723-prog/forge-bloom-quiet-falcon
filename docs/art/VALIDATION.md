@@ -287,3 +287,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 40 輪（工學館）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。工學館是磚紅基座、淺色上層、南向玻璃和屋頂小間，名牌寫著工學館。沒有實驗樓的屋頂設備。化學館仍是實驗樓。工學大樓仍是退縮塔樓。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/workshop/hall.jpg`。背包淨空留在第 39 輪。
+
+## 第 41 輪（肩肘膝）— 2026-11-12
+
+`node --test --test-name-pattern "shoulders, elbows and knees" scripts/art-pipeline.test.mjs` 通過。每個動作片段取 17 個時間點，讀肩、肘、膝的本地旋轉。膝最多彎 94 度，肘最多彎 97 度，肩最多前舉 166 度。膝往後折到 -1.2 rad、肘往反方向折到 1.2 rad、肩再舉到 -3.5 rad，測試都會失敗。沒有新增音效。工學館留在第 40 輪。
