@@ -57,6 +57,7 @@ import {
   ITEMS,
   MISSIONS,
   RECIPES,
+  missionProgress,
   ENEMY_TYPES,
   type Discipline,
 } from "./data";
@@ -590,15 +591,16 @@ function JournalPanel() {
       boss: s.boss,
       discoveries: s.discoveries,
       claimed: s.claimed,
+      gathered: s.gathered,
+      felled: s.felled,
     })),
   );
   return (
     <>
-      <p className="ad-lead">這個學期的目標，記在這裡。</p>
+      <p className="ad-lead">還沒做完的會留在這裡。筆記是你帶走的記憶，喝的是提神，報告是另一種負荷。</p>
       <div className="ad-missions">
         {MISSIONS.map((m) => {
-          const progress =
-              m.metric === "discoveries" ? s.discoveries.length : s[m.metric],
+          const progress = missionProgress(m, s),
             done = s.claimed.includes(m.id);
           return (
             <article key={m.id}>
