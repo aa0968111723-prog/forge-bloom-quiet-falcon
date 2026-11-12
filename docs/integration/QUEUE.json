@@ -2578,7 +2578,7 @@
       "id": "backend-session-gate",
       "line": "backend",
       "scope": "A flush checks the signed-in account before each queued item and stops when the session changes. A cloud read checks the account again before it replaces the local save.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-session-gate-3395",
@@ -2596,9 +2596,11 @@
         "route": "8167: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "7212b942634eb5944bb9fd0495cd249b0acedc5a",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 196,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/196",
+      "nextAction": "None. The session recheck from 7d115d0 is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
