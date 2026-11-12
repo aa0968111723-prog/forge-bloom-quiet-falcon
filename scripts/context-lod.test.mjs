@@ -63,9 +63,14 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(porch.glassZ > house.size[2] / 2, "faculty door sits on the south face");
   assert.ok(porch.porchW < house.size[0] * 0.4, "the porch stays narrower than the house");
   assert.ok(porch.porchZ - porch.porchD / 2 >= house.size[2] / 2 - 0.02, "the porch meets the south wall");
-  for (const id of ["sungtao", "sungtao-2", "sungtao-3", "sungtao-4", "sungtao-5"]) {
+  for (const id of ["sungtao", "sungtao-3", "sungtao-4", "sungtao-5"]) {
     assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === id)?.kind, "dorm-block");
   }
+  const front = SECONDARY_STRUCTURES.find((item) => item.id === "sungtao-2");
+  assert.equal(front?.kind, "dorm-front");
+  assert.equal(front?.accuracy, "estimated");
+  assert.notEqual(front?.kind, "dorm-block");
+  assert.notEqual(front?.kind, "intl-dorm");
   const post = SECONDARY_STRUCTURES.find((item) => item.id === "security");
   assert.equal(post?.kind, "watch-post");
   assert.equal(post?.accuracy, "estimated");
