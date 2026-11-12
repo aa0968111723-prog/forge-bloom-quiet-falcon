@@ -306,15 +306,26 @@ export function resolveInterior(
   furnished = true,
   stands = false,
 ) {
-  let px = Math.max(-9 + radius, Math.min(9 - radius, x)),
-    pz = Math.max(-7 + radius, Math.min(7 - radius, z));
+  const minX = -9 + radius, maxX = 9 - radius, minZ = -7 + radius, maxZ = 7 - radius;
+  let px = Math.max(minX, Math.min(maxX, x)),
+    pz = Math.max(minZ, Math.min(maxZ, z));
   if (stands) {
     for (const stand of HOOP_STANDS) {
       const half = stand.size / 2 + radius;
       if (Math.abs(px - stand.x) >= half || Math.abs(pz - stand.z) >= half) continue;
-      if (half - Math.abs(px - stand.x) < half - Math.abs(pz - stand.z))
-        px = stand.x + (px >= stand.x ? half : -half);
-      else pz = stand.z + (pz >= stand.z ? half : -half);
+      const pushX = stand.x + (px >= stand.x ? half : -half);
+      const pushZ = stand.z + (pz >= stand.z ? half : -half);
+      const penX = half - Math.abs(px - stand.x);
+      const penZ = half - Math.abs(pz - stand.z);
+      const xOk = pushX >= minX && pushX <= maxX;
+      const zOk = pushZ >= minZ && pushZ <= maxZ;
+      if (penX < penZ && xOk) px = pushX;
+      else if (zOk) pz = pushZ;
+      else if (xOk) px = pushX;
+      else {
+        px = Math.max(minX, Math.min(maxX, px));
+        pz = Math.max(minZ, Math.min(maxZ, pz));
+      }
     }
   }
   if (!furnished) return { x: px, z: pz };

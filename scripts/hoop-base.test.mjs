@@ -17,4 +17,16 @@ test("activity-room hoop bases stop a body and leave the classroom open", () => 
   const face = east.x - east.size / 2 - 0.42;
   const dodged = resolveInterior(face + 1.04, east.z, 0.42, false, true);
   assert.ok(dodged.x < east.x, `dodge crossed the stand to ${dodged.x}`);
+  const limit = 9 - 0.42;
+  for (const side of [1, -1]) {
+    const slipped = resolveInterior(side * limit, 0.26, 0.42, false, true);
+    assert.ok(Math.abs(slipped.x) <= limit + 1e-6, `pushed through the wall to ${slipped.x}`);
+    assert.ok(Math.abs(slipped.z) <= 7 - 0.42 + 1e-6);
+    const half = east.size / 2 + 0.42;
+    const standX = side * east.x;
+    assert.ok(
+      Math.abs(slipped.x - standX) >= half - 1e-6 || Math.abs(slipped.z - east.z) >= half - 1e-6,
+      `still inside the stand at ${slipped.x},${slipped.z}`,
+    );
+  }
 });
