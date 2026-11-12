@@ -354,4 +354,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 57 輪（機車停車場車格）— 2026-11-12
 
-`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。停車場有 50 條線：兩條底線和 48 條分隔，南北各 23 個車格。每條線都在 60×34 m 的鋪面裡，最靠近中線的一端離中心至少 10 m。球場和田徑場沒有這些車格。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/parking.jpg`。深色鋪面上看得到兩排白線和中間走道。尺寸仍是 estimated。小地圖課程字留在第 56 輪。沒有新增音效。`build:site` 產物 `AdventureApp-DcTpn5aF.js`。
+`node --test scripts/court-lines.test.mjs` 通過。`tsc --noEmit` 通過。停車場有 50 條線：兩條底線和 48 條分隔，南北各 23 個車格。每條線都在 60×34 m 的鋪面裡，最靠近中線的一端離中心至少 10 m。球場和田徑場沒有這些車格。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/parking.jpg`。深色鋪面上看得到兩排白線和中間走道。舊的 12 條貫穿中線的長條已拿掉。尺寸仍是 estimated。小地圖課程字留在第 56 輪。沒有新增音效。`build:site` 產物 `AdventureApp-CbxrmGMh.js`。
