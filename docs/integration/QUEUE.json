@@ -5661,7 +5661,7 @@
       "id": "content-student-encounters",
       "line": "content",
       "scope": "Roll call, hillside rain, and club flyers each have two layouts and do not chase. A wrong route or repair can be edited twice. Rewards still settle once.",
-      "status": "verified",
+      "status": "merged",
       "pr": 128,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/128",
       "integrationBranch": "cursor/integration-student-encounters-3395",
@@ -5679,11 +5679,11 @@
         "route": "8273 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true. User FMYrJ5z82Dj1Kwsr1hjajYcoNElF3Cha."
       },
       "conflicts": [],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Recorded before the integration PR. The student encounters from 7c65c1b5 are in this branch and are not on main yet. Do not merge PR #128 by itself. The next commit on that PR is 3270f9f8ebb4d08fb37c8a31c6d596c5f4219f69."
+      "merged": true,
+      "mergeSha": "c3174c67ab53cd665b11caf2565a83d832ce5183",
+      "integrationPr": 348,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/348",
+      "nextAction": "None. The student encounters from 7c65c1b5 are already in this integration. This is on integration PR #348. Do not merge PR #128 by itself. The next commit on that PR is 3270f9f8ebb4d08fb37c8a31c6d596c5f4219f69."
     }
   ]
 }
