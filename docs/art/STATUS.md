@@ -361,6 +361,12 @@
 
 畫面：`docs/art/evidence/hud/minimap-desktop.jpg`、`minimap-narrow.jpg`。測試：`scripts/lesson-marker.test.mjs`。
 
+## 階段：機車停車場車格（ART-067 的一部分）
+
+五虎崗機車停車場不再是一整片灰。南北兩排各 23 個車格，寬 2.4 m、深 4 m，中間留走道。線都在鋪面裡。田徑場仍是跑道環。車格尺寸仍是 estimated。小地圖課程字留著。
+
+畫面：`docs/art/evidence/courts/parking.jpg`。測試：`scripts/court-lines.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。小地圖已寫課程的兩個字。覺軒花園已改成可走的亭子。綜合球場已有兩塊標線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。機車停車場已有車格。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
