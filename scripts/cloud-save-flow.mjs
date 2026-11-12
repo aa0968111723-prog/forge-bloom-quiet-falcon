@@ -827,12 +827,38 @@ async function verifyProcessRestart() {
     const origin = `http://127.0.0.1:${port}`;
     const jar = createJar(origin);
     await signUp(jar, origin, "restart@example.com");
+    const firstDoc = {
+      ...JSON.parse(rpgText(15, ["first", "gather-notes"])),
+      gathered: { notes: 12, parts: 0, coffee: 0, tea: 0 },
+      felled: { quiz: 0, report: 2, exam: 0, final: 0 },
+    };
     const saved = await putJson(
       jar,
       origin,
-      saveBody(JSON.parse(rpgText(15)), { confirmFirstSync: true, requestId: "restart-upload-1" }),
+      saveBody(firstDoc, { confirmFirstSync: true, requestId: "restart-upload-1" }),
     );
-    assert.equal(saved.status, 200, await saved.text());
+    const savedBody = await saved.json();
+    assert.equal(saved.status, 200, JSON.stringify(savedBody));
+    assert.equal(savedBody.revision, 1);
+    const receipt = await jar.fetch(`${origin}/api/cloud/saves/rpg/receipts`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-cloud-save": "1" },
+      body: JSON.stringify({ eventId: "gather-notes", requestId: "restart-reward-01" }),
+    });
+    const receiptBody = await receipt.json();
+    assert.equal(receipt.status, 200, JSON.stringify(receiptBody));
+    assert.equal(receiptBody.applied, true);
+    const updated = await putJson(
+      jar,
+      origin,
+      saveBody(
+        { ...firstDoc, gathered: { ...firstDoc.gathered, notes: 13 } },
+        { baseRevision: 1, confirmFirstSync: false, requestId: "restart-upload-2" },
+      ),
+    );
+    const updatedBody = await updated.json();
+    assert.equal(updated.status, 200, JSON.stringify(updatedBody));
+    assert.equal(updatedBody.revision, 2);
     assert.equal(await stopChild(first.child), 0);
     const second = spawnServices(env);
     try {
@@ -841,7 +867,36 @@ async function verifyProcessRestart() {
       await signIn(jar2, origin, "restart@example.com");
       const loaded = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg`)).json();
       assert.equal(loaded.document.xp, 15);
-      assert.equal(loaded.revision, 1);
+      assert.equal(loaded.revision, 2);
+      assert.equal(loaded.document.gathered.notes, 13);
+      assert.equal(loaded.document.felled.report, 2);
+      assert.equal(loaded.document.claimed.includes("gather-notes"), true);
+      const history = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg/revisions`)).json();
+      assert.deepEqual(
+        history.revisions.map((item) => item.revision).sort((left, right) => left - right),
+        [1, 2],
+      );
+      assert.equal(JSON.stringify(history).includes('"document"'), false);
+      const repeated = await jar2.fetch(`${origin}/api/cloud/saves/rpg/receipts`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-cloud-save": "1" },
+        body: JSON.stringify({ eventId: "gather-notes", requestId: "restart-reward-02" }),
+      });
+      const repeatedBody = await repeated.json();
+      assert.equal(repeated.status, 200, JSON.stringify(repeatedBody));
+      assert.equal(repeatedBody.applied, false);
+      const replayed = await jar2.fetch(`${origin}/api/cloud/saves/rpg/receipts`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-cloud-save": "1" },
+        body: JSON.stringify({ eventId: "gather-notes", requestId: "restart-reward-01" }),
+      });
+      const replayedBody = await replayed.json();
+      assert.equal(replayed.status, 200, JSON.stringify(replayedBody));
+      assert.equal(replayedBody.idempotentReplay, true);
+      assert.equal(replayedBody.applied, true);
+      const still = await (await jar2.fetch(`${origin}/api/cloud/saves/rpg`)).json();
+      assert.equal(still.revision, 2);
+      assert.equal(still.document.gathered.notes, 13);
     } finally {
       await stopChild(second.child);
     }
