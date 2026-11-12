@@ -3864,6 +3864,32 @@
       "integrationPr": 275,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/275",
       "nextAction": "None. The stack-room overflow from e93edbf8 is already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-merge-marks",
+      "line": "backend",
+      "scope": "When two full-ground piles merge, quest marks add together. Two notes piles each marked 1 become 2, and the split pile's notes mark makes the total 3. Notes stay at 100. The field lamp stays at 1. Every mark stays within that pile's count. hp 80 and station-1 stay.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-merge-marks-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "b03df4b3f5c57c1739aeb6094fc7f2acc00a5789",
+      "headSha": "2fbbad8207cc0deb4cb1935a1ebdae57fd176610",
+      "dependencies": ["backend-stack-room"],
+      "sharedFiles": ["src/game/rpg/store.ts"],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T09:42:39Z, the merge note at d5b89c4, and the quest-mark line. npm_test set to 420 because main already had the bollard test. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "420 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BWn6iYtn.js",
+        "browser": "8213. The standing route completed.",
+        "route": "8213: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "ac3220fe520d10a0cd3b3cb2bd05bddf10add4e4",
+      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
