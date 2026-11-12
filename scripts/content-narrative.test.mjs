@@ -34,14 +34,21 @@ const catalog = loadCatalog();
 test("catalog validates and does not claim the long-term targets or main-game integration", () => {
   const report = validateCatalog(catalog);
   assert.deepEqual(report.errors, []);
-  const contentEvents = catalog.events.filter((event) => !event.id.startsWith("evt-faculty-"));
+  const contentEvents = catalog.events.filter(
+    (event) => !event.id.startsWith("evt-faculty-") && !event.id.startsWith("evt-psych-"),
+  );
   const facultyEvents = catalog.events.filter((event) => event.id.startsWith("evt-faculty-"));
+  const psychEvents = catalog.events.filter((event) => event.id.startsWith("evt-psych-"));
   assert.equal(contentEvents.length, 10);
   assert.equal(facultyEvents.length, 48);
+  assert.equal(psychEvents.length, 3);
   assert.equal(
-    catalog.quests.filter((quest) => quest.arc && !quest.id.startsWith("quest-faculty-")).length,
+    catalog.quests.filter(
+      (quest) => quest.arc && !quest.id.startsWith("quest-faculty-") && !quest.id.startsWith("quest-psych-"),
+    ).length,
     1,
   );
+  assert.equal(catalog.quests.filter((quest) => quest.arc && quest.id.startsWith("quest-psych-")).length, 1);
   assert.equal(
     catalog.quests.filter((quest) => quest.arc && quest.id.startsWith("quest-faculty-")).length,
     13,
@@ -74,7 +81,7 @@ test("place rows keep aliases and never use surveyed", () => {
   assert.match(library?.claims.map((claim) => claim.text).join(" ") ?? "", /2,806/);
   const zones = new Set(
     catalog.events
-      .filter((event) => !event.id.startsWith("evt-faculty-"))
+      .filter((event) => !event.id.startsWith("evt-faculty-") && !event.id.startsWith("evt-psych-"))
       .map((event) => catalog.places.find((place) => place.id === event.placeId)?.zone),
   );
   assert.equal(zones.size, 7);

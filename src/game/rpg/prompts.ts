@@ -1,4 +1,5 @@
 import { facultyPosts, nearestFacultyPost, FACULTY_REACH } from "../../features/faculty-story/posts.ts";
+import { nearestPsychPost, psychPosts, PSYCH_REACH } from "../../features/psych-story/posts.ts";
 import { LANDMARKS, landmarkAt, terrainHeight } from "../world.ts";
 import { CAMPUS_SITES, SUPPLY_NODES, siteEntrance } from "./campus.ts";
 import { ITEMS, RECIPES, type BuildKind } from "./data.ts";
@@ -418,6 +419,10 @@ export function promptDecision(snap: PromptSnap): PromptChoice | null {
   if (post && inSight(snap, post.x, post.z)) {
     return choice("talk", `與${post.name}交談`, "交談", post.placeId, post.x, post.z);
   }
+  const classmate = nearestPsychPost(snap.playerX, snap.playerZ);
+  if (classmate && inSight(snap, classmate.x, classmate.z)) {
+    return choice("talk", `與${classmate.name}交談`, "交談", classmate.placeId, classmate.x, classmate.z);
+  }
   const site = CAMPUS_SITES.find((item) => {
     const door = siteEntrance(item);
     return Math.hypot(door.x - snap.playerX, door.z - snap.playerZ) < 5;
@@ -678,6 +683,21 @@ export function promptLabels(
         plateReach,
         NAMEPLATE_SCALE,
         terrainHeight(post.x, post.z) + 2.2,
+      );
+    }
+    for (const classmate of psychPosts()) {
+      const near = Math.hypot(snap.playerX - classmate.x, snap.playerZ - classmate.z) < PSYCH_REACH;
+      add("talk", classmate.placeId, "交談", classmate.x, classmate.z, near, PROMPT_MARKER_SCALE);
+      const plateReach = Math.hypot(view.x - classmate.x, view.z - classmate.z) < NAMEPLATE_REACH;
+      add(
+        "name",
+        "psych:" + classmate.id,
+        classmate.name,
+        classmate.x,
+        classmate.z,
+        plateReach,
+        NAMEPLATE_SCALE,
+        terrainHeight(classmate.x, classmate.z) + 2.2,
       );
     }
     for (const landmark of LANDMARKS) {

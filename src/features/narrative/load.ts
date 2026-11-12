@@ -7,6 +7,7 @@ import briefsJson from "../../../content/narrative/briefs.json" with { type: "js
 import ossJson from "../../../content/narrative/oss.json" with { type: "json" };
 import manifestJson from "../../../content/narrative/manifest.json" with { type: "json" };
 import { facultySlice } from "../faculty-story/build.ts";
+import { psychSlice } from "../psych-story/build.ts";
 import { buildPlaces } from "./places.ts";
 import { CONTENT_REVISION } from "./types.ts";
 import type {
@@ -25,12 +26,13 @@ export function loadCatalog(): Catalog {
     throw new Error(`content revision ${manifestJson.revision} does not match ${CONTENT_REVISION}`);
   }
   const faculty = facultySlice();
+  const psych = psychSlice();
   return {
     revision: CONTENT_REVISION,
-    places: [...buildPlaces(), ...faculty.places],
-    npcs: [...(npcsJson as NpcRecord[]), ...faculty.npcs],
-    quests: [...(questsJson as QuestRecord[]), ...faculty.quests],
-    events: [...(eventsJson as EventRecord[]), ...faculty.events],
+    places: [...buildPlaces(), ...faculty.places, ...psych.places],
+    npcs: [...(npcsJson as NpcRecord[]), ...faculty.npcs, ...psych.npcs],
+    quests: [...(questsJson as QuestRecord[]), ...faculty.quests, ...psych.quests],
+    events: [...(eventsJson as EventRecord[]), ...faculty.events, ...psych.events],
     assets: assetsJson as AssetRecord[],
     units: unitsJson as OfficialUnits,
     briefs: briefsJson as BriefRecord[],
