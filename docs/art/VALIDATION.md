@@ -307,3 +307,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 45 輪（濯纓苑／校史館）— 2026-11-11
 
 `node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。濯纓苑／校史館是白牆、木色基座、綠瓦坡頂和南向迴廊，名牌寫著濯纓苑／校史館。沒有圖書館外牆，坡頂也比學術樓的錐頂收得更緊。迴廊貼著南牆。白牆從木色基座頂接到坡頂底。文學館與覺軒仍是坡頂。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/garden/house.jpg`。實棟學人宿舍留在第 44 輪。沒有新增音效。
+
+## 第 46 輪（外國語文大樓）— 2026-11-11
+
+`node --test scripts/context-lod.test.mjs` 通過。`tsc --noEmit` 通過。外國語文大樓是暖色底層、南向長廊玻璃和退縮的淺色上層，名牌寫著外國語文大樓。上層窗帶貼著退縮的牆，沒有共用窗帶。教育館與會文館仍是教學樓。舊的 foreign-lang-hall 不合併。精度仍是 estimated。定步白天近景，頁面無錯誤：`docs/art/evidence/language/hall.jpg`。濯纓苑留在第 45 輪。沒有新增音效。

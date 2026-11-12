@@ -295,6 +295,12 @@
 
 畫面：`docs/art/evidence/garden/house.jpg`。測試：`scripts/context-lod.test.mjs`。
 
+## 階段：外國語文大樓（ART-065 的一部分）
+
+教學區這棟不再跟教育館共用教學樓基座。現在是暖色底層、南向長廊玻璃和退縮的淺色上層。教育館與會文館仍是教學樓。舊的 foreign-lang-hall 不合併。長廊外形仍是 estimated。濯纓苑留著。
+
+畫面：`docs/art/evidence/language/hall.jpg`。測試：`scripts/context-lod.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。濯纓苑已從學術坡頂分開。文學館、覺軒與實棟學人宿舍留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。外國語文大樓已從教學樓分開。教育館、會文館與濯纓苑留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

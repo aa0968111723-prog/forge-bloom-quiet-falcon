@@ -15,6 +15,7 @@ import {
   facultyHouseProfile,
   memorialProfile,
   officeProfile,
+  languageHallProfile,
   scienceHallProfile,
   studioProfile,
   watchPostProfile,
@@ -121,6 +122,15 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.notEqual(SECONDARY_STRUCTURES.find((item) => item.id === "reviewing")?.kind, "lab-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "study-block");
+  const language = SECONDARY_STRUCTURES.find((item) => item.id === "foreign");
+  assert.equal(language?.kind, "language-hall");
+  assert.equal(language?.accuracy, "estimated");
+  assert.notEqual(language?.kind, "study-block");
+  const gallery = languageHallProfile(language.size);
+  assert.ok(gallery.galleryZ > language.size[2] / 2, "language gallery sits on the south face");
+  assert.ok(gallery.upperSouth + 0.08 < language.size[2] / 2, "upper bands sit on the set-back wall");
+  assert.ok(gallery.galleryH < language.size[1] * 0.3, "the gallery stays the ground storey");
+  assert.equal(SECONDARY_STRUCTURES.some((item) => item.id === "foreign-lang-hall"), false);
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-building")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "business-building")?.accuracy, "estimated");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "integrated")?.kind, "linked-hall");
@@ -182,7 +192,7 @@ test("dorm, lab, and sport masses stay distinct and estimated", () => {
   assert.ok(door.bayW < office.size[0] * 0.35, "the entrance bay stays narrow");
   assert.ok(door.bayH < office.size[1] * 0.3, "the entrance bay stays on the ground");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.kind, "study-block");
-  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "foreign")?.kind, "study-block");
+  assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "foreign")?.kind, "language-hall");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "hweiwen")?.kind, "study-block");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "main-gate")?.kind, "gate");
   assert.equal(SECONDARY_STRUCTURES.find((item) => item.id === "education")?.accuracy, "estimated");

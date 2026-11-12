@@ -53,7 +53,8 @@ export type SecondaryStructure = {
     | "pool-hall"
     | "office-block"
     | "faculty-house"
-    | "garden-house";
+    | "garden-house"
+    | "language-hall";
   cluster: CampusCluster;
   /** Player can walk up to a door approach; solid kinds also have colliders. */
   walkable: boolean;
@@ -513,6 +514,25 @@ export function arenaProfile(size: readonly [number, number, number]) {
 }
 
 /**
+ * Teaching hall for 外國語文大樓. The ground gallery and south set-back are
+ * an estimated silhouette. 教育館 and 會文館 stay classroom blocks. The older
+ * foreign-lang-hall record stays separate.
+ */
+export function languageHallProfile(size: readonly [number, number, number]) {
+  const galleryH = Math.min(3.6, Math.max(3, size[1] * 0.18));
+  const upperD = size[2] - 2.2;
+  const upperZ = -0.7;
+  return {
+    galleryH,
+    galleryW: size[0] * 0.72,
+    galleryZ: size[2] / 2 + 0.08,
+    upperD,
+    upperZ,
+    upperSouth: upperZ + upperD / 2,
+  };
+}
+
+/**
  * Named science hall for 騮先紀念科學館. The south glass bay is an estimated
  * silhouette. Chemistry keeps the lab block and its roof plant.
  */
@@ -583,6 +603,7 @@ function campusKind(site: {
   if (site.id === "administration") return "office-block";
   if (site.id === "faculty") return "faculty-house";
   if (site.id === "yingyuan") return "garden-house";
+  if (site.id === "foreign") return "language-hall";
   if (site.theme === "arts") return "hip-roof-block";
   if (site.theme === "dorm") return "dorm-block";
   if (site.theme === "lab") return "lab-block";

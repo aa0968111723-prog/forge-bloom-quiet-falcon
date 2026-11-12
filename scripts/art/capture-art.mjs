@@ -881,6 +881,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "house", "yingyuan garden house");
+  } else if (scenario === "language") {
+    await hideHud(page);
+    await setPose(page, 185, -300, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(155, -340);
+      window.__controlsTest.setPhoto({
+        yaw: -0.65,
+        distance: 46,
+        height: 14,
+        lookY: 0,
+        target: { x: 155, y: y + 8, z: -340 },
+      });
+    });
+    await settle(page, { stableFrames: 3 });
+    await shot(page, "hall", "foreign language hall");
   } else if (scenario === "roads") {
     await hideHud(page);
     await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
