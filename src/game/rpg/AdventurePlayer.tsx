@@ -76,6 +76,8 @@ export function AdventurePlayer() {
           radius,
           CAMPUS_SITES.find((s) => s.id === useRpg.getState().interiorId)
             ?.theme !== "sport",
+          CAMPUS_SITES.find((s) => s.id === useRpg.getState().interiorId)
+            ?.theme === "sport",
         )
       : resolveBuildings(x, z, radius, useRpg.getState().buildings);
   const { camera, gl } = useThree();
@@ -285,8 +287,8 @@ export function AdventurePlayer() {
     if (sp > 0.4) {
       const interiorId = useRpg.getState().interiorId;
       if (interiorId) {
-        const furnished =
-          CAMPUS_SITES.find((s) => s.id === interiorId)?.theme !== "sport";
+        const theme = CAMPUS_SITES.find((s) => s.id === interiorId)?.theme;
+        const furnished = theme !== "sport";
         const step = stepInterior(
           pos.current.x,
           pos.current.z,
@@ -294,6 +296,7 @@ export function AdventurePlayer() {
           vel.current.z * delta,
           PLAYER_R,
           furnished,
+          theme === "sport",
         );
         pos.current.x = step.x;
         pos.current.z = step.z;

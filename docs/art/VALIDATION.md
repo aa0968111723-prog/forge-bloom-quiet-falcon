@@ -500,3 +500,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 `node --test scripts/museum-exhibits.test.mjs` 通過。`tsc --noEmit` 通過。兩架展示機的中心都會把人推開。南門仍走得過。一次 1.04 m 的位移不會穿到機身另一側。巡禮折線和點名的樹不踩在機身上。白天從南邊走向戰鬥機會停在外側：`docs/art/evidence/exhibits/jet.jpg`、`heli.jpg`。外形與位置仍是 estimated。旋翼不轉。五虎碑留在第 92 輪。沒有新增音效。
 
+## 第 94 輪（籃架底座）— 2026-11-12
+
+`node --test scripts/hoop-base.test.mjs` 通過。`tsc --noEmit` 通過。活動室裡站在東側籃架中心會被推開。教室裡同一點不會被底座推開。南門 (0, 6.4) 不被推開。從西緣往東跨 1.04 m 仍停在中心西側。室內行走走的是同一個步進，運動主題才帶上底座。白天走進體育館會停在座緣：`docs/art/evidence/hoop/stand.jpg`。尺寸仍是 estimated。展示機留在第 93 輪。沒有新增音效。
+
