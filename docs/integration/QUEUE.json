@@ -4615,11 +4615,11 @@
         "route": "not rerun. The static bundle stayed AdventureApp-7L6j7Fgv.js. The last route on 8237 still stands: cloudXp 47, revision_conflict, pageErrors empty."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "4d78edd2a4cbc445b3430b231d722755c2fdb48b",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #116 by itself."
+      "integrationPr": 310,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/310",
+      "nextAction": "None. The transfer budget from 9a3d594 is already in this integration. Do not merge PR #116 by itself."
     }
   ]
 }
