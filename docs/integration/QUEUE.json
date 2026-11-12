@@ -5235,7 +5235,33 @@
       "mergeSha": "0a448897056ba8aececa71c77cd04d9ede2bde46",
       "integrationPr": 332,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/332",
-      "nextAction": "None. The shelf clearance from bf82dc53 is already in this integration. Do not merge PR #266 by itself. The reading-girl commit 44bf4c9f is still separate."
+      "nextAction": "None. The shelf clearance from bf82dc53 is already in this integration. Do not merge PR #266 by itself. The reading-girl commit 44bf4c9f is in this integration and is not on main yet."
+    },
+    {
+      "id": "art-girl-seat",
+      "line": "art",
+      "scope": "The reading girl sits on a 1.4 m stone seat at the west forecourt bench. The seat stops a body and stays off the ramp.",
+      "status": "verified",
+      "pr": 267,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/267",
+      "integrationBranch": "cursor/integration-girl-seat-3395",
+      "sourceBranch": "cursor/girl-seat-1a71",
+      "baseSha": "39558a179b87654686cdecf6c06723094b83b0f6",
+      "headSha": "44bf4c9f7620b01ecdfc6749aceb1bcae5082531",
+      "dependencies": ["art-shelf-clear"],
+      "sharedFiles": ["src/game/landmarks/Library.tsx", "src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "scripts/reading-girl.test.mjs"],
+      "checks": {
+        "conflicts": "The shelf clearance, plinth skirt, and ramp gap stay. The seat is on the west bench at x=-12, not on the ramp centre.",
+        "typecheck": "pass",
+        "npmTest": "465 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-C3lU_aFC.js sha256 09480652dd20d27f9e45bb0dbee123fae5d7b226c9c8bca7b64d49853a05605b. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "http://127.0.0.1:8258/",
+        "route": "8258 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "3642c769e87ae53b930927930b49b05eafaca804",
+      "nextAction": "Open the integration PR. Do not merge PR #267 by itself. The gym clerestory commit c3ce7704 is still separate."
     }
   ]
 }
