@@ -2998,7 +2998,7 @@
       "id": "backend-session-expired",
       "line": "backend",
       "scope": "A 401 or a session with no user is not another account. This account's upload and reward stay queued. A save write that comes back signed out is queued with the same request id.",
-      "status": "verified",
+      "status": "merged",
       "pr": 156,
       "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
       "integrationBranch": "cursor/integration-session-expired-3395",
@@ -3016,9 +3016,11 @@
         "route": "8182: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
       "conflicts": ["docs/backend/CHECKPOINT.json"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "bf54ca7925d14831063c5a721a0d4206555bee00",
-      "nextAction": "Record the integration PR, then fast-forward main. Do not merge PR #156 by itself."
+      "integrationPr": 222,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/222",
+      "nextAction": "None. The expired-session queue from 9a085af is already in this integration. Do not merge PR #156 by itself."
     }
   ]
 }
