@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:32:19Z",
+  "updated_at": "2026-11-12T05:35:42Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "269020c",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -38,10 +38,11 @@
     "a flush stops before the next upload when the session changes account, and that other account's save is not applied locally",
     "merged main at b745f27; the disconnect repair and quest-loot restart proof were already on this branch",
     "a session blip after the account is confirmed still asks the server before granting a reward",
-    "merged main at 269020c; the library ramp rail colliders stay outside the save format"
+    "merged main at 269020c; the library ramp rail colliders stay outside the save format",
+    "a session blip still writes the chosen local file back after a dropped upload has already landed"
   ],
   "verification": {
-    "npm_test": "354 pass, 0 fail; a session blip does not grant a reward the server already recorded",
+    "npm_test": "355 pass, 0 fail; a session blip still writes the chosen file back after a dropped upload lands",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",
