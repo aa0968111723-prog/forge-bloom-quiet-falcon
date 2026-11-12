@@ -335,3 +335,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 52 輪（球場不種樹）— 2026-11-12
 
 `node --test scripts/court-clearing.test.mjs` 通過。`tsc --noEmit` 通過。密度 1 的散佈樹沒有一棵落在球場、田徑場或停車場裡面，五虎崗外緣 2.9 m 內也沒有。定步白天俯看，頁面無錯誤：`docs/art/evidence/courts/open.jpg`。草皮是空的，樹在場外。植栽位置仍是 estimated。圖書館坡道留在第 51 輪。沒有新增音效。`build:site` 產物 `AdventureApp-D2eWEjyb.js`。
+
+## 第 53 輪（雨後場地）— 2026-11-12
+
+`node --test scripts/wet-surface.test.mjs` 通過。`tsc --noEmit` 通過。晴天的球場草色是 `#5d8a52`。雨後把顏色乘小，亮度下降，粗糙度也下降。停車場和跑道同樣變暗、變滑。這些顏色比材質庫的濕灰還深，所以不把灰色混進去。同一鏡頭的五虎崗，頁面無錯誤：`docs/art/evidence/courts/field-day.jpg`、`field-wet.jpg`。不是實測日照。球場不種樹留在第 52 輪。沒有新增音效。
