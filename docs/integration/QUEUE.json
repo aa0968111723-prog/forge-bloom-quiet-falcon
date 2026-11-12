@@ -4200,6 +4200,34 @@
       "integrationPr": 295,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/295",
       "nextAction": "None. The interior doorway from d3c8f66a is already in this integration. Do not merge PR #171 by itself."
+    },
+    {
+      "id": "art-education-hall",
+      "line": "art",
+      "scope": "The education hall has its own classroom mass: a south canopy 3.1 m high, narrower than the block, and past the south wall, plus one shade per upper floor. Hweiwen stays a study block. The foreign-language hall stays a language hall. The canopy is an estimated silhouette.",
+      "status": "verified",
+      "pr": 174,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/174",
+      "integrationBranch": "cursor/integration-education-hall-3395",
+      "sourceBranch": "cursor/class-hall-1a71",
+      "baseSha": "f6d2d5c6e3478a2dfcfbd51ef2d63b96ea11116f",
+      "headSha": "6d41e545ecb9549ee5940999c92c438ac615e480",
+      "dependencies": ["art-interior-door"],
+      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx", "scripts/class-hall.test.mjs", "scripts/context-lod.test.mjs"],
+      "checks": {
+        "conflicts": "docs/art and capture-art.mjs. Kept the education-hall canopy and the doorway, ceiling look-down, bollard, infield, and ramp-rail sections. build_site set to AdventureApp-D2jQsO3t.js.",
+        "typecheck": "pass",
+        "npmTest": "434 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-D2jQsO3t.js",
+        "browser": "8225. The standing route completed.",
+        "route": "8225: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty. Rerun because the static bundle changed."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "7753d0085a98f95e99611bf412e8b3ebe37af0d1",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Fast-forward this branch onto main after the integration PR exists. Do not merge PR #174 by itself."
     }
   ]
 }
