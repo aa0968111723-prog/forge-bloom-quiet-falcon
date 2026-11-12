@@ -5399,9 +5399,11 @@
         "route": "8263 passed: cloudXp 47, revision_conflict, pageErrors empty, ok true."
       },
       "conflicts": [],
-      "merged": false,
+      "merged": true,
       "mergeSha": "c9222b3cad3aa8c9ebe3fe5eb3da8eaeb79664b8",
-      "nextAction": "Open the integration PR. Do not merge PR #276 by itself. The later activity-room line commit f4e9fae3 is still separate."
+      "integrationPr": 338,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/338",
+      "nextAction": "None. The activity-room court from 5511da85 is already in this integration. Do not merge PR #276 by itself. The later activity-room line commit f4e9fae3 is still separate."
     }
   ]
 }
