@@ -287,3 +287,46 @@ test("an unusable ground pile still uploads its items", async () => {
   assert.equal(kept.quest.notes, 2);
   assert.equal(validateRpgDocument(reloaded).ok, true);
 });
+
+test("a move lesson with an unusable anchor still uploads", () => {
+  const bad = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    lesson: "move",
+    lessonAnchor: { x: 200_000, z: -200_000 },
+    position: { x: 12, z: -20, yaw: 0.2 },
+  });
+  assert.equal(useRpg.getState().importSave(bad), true);
+  const saved = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(saved.lesson, "move");
+  assert.ok(saved.lessonAnchor);
+  assert.ok(Math.abs(saved.lessonAnchor.x) <= 100_000);
+  assert.ok(Math.abs(saved.lessonAnchor.z) <= 100_000);
+  const checked = validateRpgDocument(saved);
+  assert.equal(checked.ok, true, checked.ok ? "" : checked.message);
+  assert.equal(useRpg.getState().importSave(JSON.stringify(saved)), true);
+  const reloaded = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(reloaded.lesson, "move");
+  assert.equal(validateRpgDocument(reloaded).ok, true);
+
+  const good = JSON.stringify({
+    version: 2,
+    hp: 80,
+    xp: 12,
+    departmentId: "math",
+    slots: [],
+    buildings: [],
+    lesson: "move",
+    lessonAnchor: { x: 10, z: 20 },
+    position: { x: 12, z: -20, yaw: 0.2 },
+  });
+  assert.equal(useRpg.getState().importSave(good), true);
+  const kept = JSON.parse(localStorage.getItem(RPG_SAVE_KEY));
+  assert.equal(kept.lessonAnchor.x, 10);
+  assert.equal(kept.lessonAnchor.z, 20);
+  assert.equal(validateRpgDocument(kept).ok, true);
+});

@@ -264,7 +264,9 @@ function readAnchor(value: unknown) {
     typeof point.x !== "number" ||
     typeof point.z !== "number" ||
     !Number.isFinite(point.x) ||
-    !Number.isFinite(point.z)
+    !Number.isFinite(point.z) ||
+    Math.abs(point.x) > 100_000 ||
+    Math.abs(point.z) > 100_000
   )
     return null;
   return { x: point.x, z: point.z };
