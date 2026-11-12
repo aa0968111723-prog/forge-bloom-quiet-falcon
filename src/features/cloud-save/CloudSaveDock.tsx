@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { createCloudSaveController, memoryStorage, type SyncPlan } from "./client";
 
 /**
@@ -20,6 +20,20 @@ export function CloudSaveDock() {
       }),
     [],
   );
+
+  useEffect(() => {
+    if (!controller.activeUser()) return;
+    let cancel = false;
+    void controller.flush().then(() => {
+      if (cancel) return;
+      void controller.plan().then((next) => {
+        if (!cancel) setPlan(next);
+      });
+    });
+    return () => {
+      cancel = true;
+    };
+  }, [controller]);
 
   async function refresh() {
     setPlan(await controller.plan());

@@ -19,6 +19,8 @@ function fakeCloud() {
   let remote = null;
   let revision = 0;
   let offline = false;
+  let dropNextPut = false;
+  const seen = new Map();
   const puts = [];
   let ids = 0;
   const fetch = async (_url, init = {}) => {
@@ -31,6 +33,7 @@ function fakeCloud() {
     }
     const body = JSON.parse(init.body);
     puts.push(body);
+    if (seen.has(body.requestId)) return jsonResponse(200, seen.get(body.requestId));
     if (!remote) {
       if (body.confirmFirstSync !== true || body.baseRevision !== 0) {
         return jsonResponse(409, {
@@ -40,7 +43,13 @@ function fakeCloud() {
       }
       remote = body.document;
       revision = 1;
-      return jsonResponse(200, await head());
+      const created = await head();
+      seen.set(body.requestId, created);
+      if (dropNextPut) {
+        dropNextPut = false;
+        throw new Error("socket closed");
+      }
+      return jsonResponse(200, created);
     }
     if (body.baseRevision !== revision) {
       return jsonResponse(409, {
@@ -50,7 +59,13 @@ function fakeCloud() {
     }
     remote = body.document;
     revision += 1;
-    return jsonResponse(200, await head());
+    const updated = await head();
+    seen.set(body.requestId, updated);
+    if (dropNextPut) {
+      dropNextPut = false;
+      throw new Error("socket closed");
+    }
+    return jsonResponse(200, updated);
   };
   async function head() {
     return {
@@ -70,6 +85,9 @@ function fakeCloud() {
     },
     bump() {
       revision += 1;
+    },
+    dropNext() {
+      dropNextPut = true;
     },
     nextId() {
       ids += 1;
@@ -136,4 +154,38 @@ test("upload follows first sync, later revisions, conflict, and the signed-in qu
   assert.equal(queuedCloud.puts.at(-1).confirmFirstSync, true);
   assert.equal(queued.queuedCount("user-a"), 0);
   assert.equal(queued.queuedCount("user-b"), 0);
+});
+
+test("a reloaded client retries one request id without a second revision", async () => {
+  const cloud = fakeCloud();
+  const storage = memoryStorage();
+  const client = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  client.writeLocal(JSON.stringify(save(8)));
+  client.bindAccount("user-a");
+  cloud.dropNext();
+  assert.equal((await client.uploadLocal()).status, "queued");
+  assert.equal(client.queuedCount("user-a"), 1);
+
+  const reloaded = createCloudSaveController({
+    fetch: cloud.fetch,
+    baseUrl: "http://127.0.0.1",
+    storage,
+    randomId: () => cloud.nextId(),
+  });
+  assert.equal(reloaded.activeUser(), "user-a");
+  const flushed = await reloaded.flush();
+  assert.equal(flushed.sent, 1);
+  assert.equal(cloud.puts.length, 2);
+  assert.equal(cloud.puts[0].requestId, cloud.puts[1].requestId);
+  const again = await reloaded.flush();
+  assert.equal(again.sent, 0);
+  assert.equal(cloud.puts.length, 2);
+  const head = await (await cloud.fetch("http://127.0.0.1/api/cloud/saves/rpg")).json();
+  assert.equal(head.revision, 1);
+  assert.equal(head.document.xp, 8);
 });

@@ -116,7 +116,7 @@ Cookie 沿用 Better Auth 的 `__Host-`、`Secure`、`SameSite=Lax`。正式環�
 
 ## 客戶端上傳
 
-面板的「上傳本機」呼叫 `uploadLocal`。沒有雲端列時才送 `confirmFirstSync: true` 與 `baseRevision: 0`。已有 revision 時用本機記下的 revision 續寫，`confirmFirstSync` 為 false。雲端 revision 已經前進時不送寫入，回到衝突選擇。網路失敗的寫入留在該帳號佇列；登入時只送出目前帳號的佇列。
+面板的「上傳本機」呼叫 `uploadLocal`。沒有雲端列時才送 `confirmFirstSync: true` 與 `baseRevision: 0`。已有 revision 時用本機記下的 revision 續寫，`confirmFirstSync` 為 false。雲端 revision 已經前進時不送寫入，回到衝突選擇。網路失敗的寫入留在該帳號佇列。面板重新載入且本機仍記著該帳號時會再送一次；登入時也只送出目前帳號的佇列。相同 `requestId` 重送不會增加 revision。
 
 ## 客戶端
 
