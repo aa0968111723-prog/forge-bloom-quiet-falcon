@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T09:12:00Z",
+  "updated": "2026-11-12T09:12:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -71,8 +71,12 @@
       "sourceBranch": "cursor/fix-quiz-windup-pause-3395",
       "baseSha": "1ece406816874671abf048092bd3a6ac6e85af48",
       "headSha": "1ad31aabe5cd429f34763ca8feb1f562e50f7ad5",
-      "dependencies": ["art-m1"],
-      "sharedFiles": ["src/game/art/creatures/QuizCreature.tsx"],
+      "dependencies": [
+        "art-m1"
+      ],
+      "sharedFiles": [
+        "src/game/art/creatures/QuizCreature.tsx"
+      ],
       "contractVersion": {
         "artSchema": 1,
         "savePilgrimage": 2,
@@ -102,7 +106,10 @@
       "sourceBranch": "cursor/tamkang-art-pipeline-1a71",
       "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
       "headSha": "8d5ffd08dad9f1727a2028bdf683f7355844d9c7",
-      "dependencies": ["art-m1", "quiz-windup-pause"],
+      "dependencies": [
+        "art-m1",
+        "quiz-windup-pause"
+      ],
       "sharedFiles": [
         "src/game/art/assets.ts",
         "src/game/art/character/Protagonist.tsx",
@@ -154,7 +161,9 @@
       "sourceBranch": "feature/backend-game-services",
       "baseSha": "71f4d3c4742fab66b0d82edff38c7e6c39497f67",
       "headSha": "a38ef8e41cfddc9520e60b62a992bae16a4648d5",
-      "dependencies": ["art-m2"],
+      "dependencies": [
+        "art-m2"
+      ],
       "sharedFiles": [
         "src/lib/db.ts",
         "src/routes/index.tsx",
@@ -199,7 +208,10 @@
       "sourceBranch": "cursor/college-poses-campus-1a71",
       "baseSha": "f842edeb6c51496ce0c6de5dd05cabd68d57df0b",
       "headSha": "c1a3bb3e12733eb5311d4cbdce6b738467167abf",
-      "dependencies": ["art-m2", "backend-sync"],
+      "dependencies": [
+        "art-m2",
+        "backend-sync"
+      ],
       "sharedFiles": [
         "src/game/art/character/NpcCharacter.tsx",
         "src/game/art/character/Protagonist.tsx",
@@ -243,8 +255,13 @@
       "sourceBranch": "feature/game-content-world",
       "baseSha": "c95d9c34bb0c3eefe4d2d2e1cd845586cedd9dfc",
       "headSha": "54a997edb483995486917a6a39b7b70a44189578",
-      "dependencies": ["backend-sync"],
-      "sharedFiles": ["src/routeTree.gen.ts", "tsconfig.json"],
+      "dependencies": [
+        "backend-sync"
+      ],
+      "sharedFiles": [
+        "src/routeTree.gen.ts",
+        "tsconfig.json"
+      ],
       "contractVersion": null,
       "checks": {
         "diffRead": true,
@@ -278,8 +295,13 @@
       "sourceBranch": "main",
       "baseSha": "51bbe4d6d17fb7754288cf57b2d735fec5db3630",
       "headSha": "c279651248e0da2c006fa36a00f8ccb805febb9c",
-      "dependencies": ["content-narrative"],
-      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx"],
+      "dependencies": [
+        "content-narrative"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts",
+        "src/game/rpg/AdventureHud.tsx"
+      ],
       "checks": {
         "typecheck": "pass",
         "npmTest": "244 pass / 0 fail",
@@ -304,8 +326,13 @@
       "sourceBranch": "cursor/college-cast-ground-1a71",
       "baseSha": "d8cb6dc22ec438878c747a21a973d4d7af6f3cbe",
       "headSha": "1b0e78e674001f045092ec839d64df00518c8bd0",
-      "dependencies": ["art-college-poses"],
-      "sharedFiles": ["src/game/art/vfx/college-casts.ts", "scripts/art-pipeline.test.mjs"],
+      "dependencies": [
+        "art-college-poses"
+      ],
+      "sharedFiles": [
+        "src/game/art/vfx/college-casts.ts",
+        "scripts/art-pipeline.test.mjs"
+      ],
       "checks": {
         "conflicts": "none",
         "typecheck": "pass",
@@ -332,8 +359,13 @@
       "baseSha": "c17d276bc8b6b00ad31e5fd9b9e8ca928f51d454",
       "headSha": "bb219f562d4b7a5e164c7c36978d95e800c20918",
       "note": "Head moved from 3c85358 to bb219f5 before this merge. The later commit only adds lighting evidence.",
-      "dependencies": ["art-cast-ground"],
-      "sharedFiles": ["docs/art/registry.json", "scripts/campus-registry.test.mjs"],
+      "dependencies": [
+        "art-cast-ground"
+      ],
+      "sharedFiles": [
+        "docs/art/registry.json",
+        "scripts/campus-registry.test.mjs"
+      ],
       "checks": {
         "conflicts": "none",
         "typecheck": "pass",
@@ -358,15 +390,24 @@
       "sourceBranch": "cursor/college-poses-campus-1a71",
       "baseSha": "394b86ab6dcea74cdfe342326c5d3bfdf5fa9cbc",
       "headSha": "879ffdfafe65f0da55d411ab0150ef789ee59ca0",
-      "dependencies": ["art-college-poses"],
-      "sharedFiles": ["src/game/rpg/art/SkillEffects.tsx", "scripts/art-runtime.test.mjs"],
+      "dependencies": [
+        "art-college-poses"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/art/SkillEffects.tsx",
+        "scripts/art-runtime.test.mjs"
+      ],
       "checks": {
         "conflicts": "art checkpoint, art validation, art-runtime test. Kept releaseArtInstance, the NPC assemble test, and the newer ART-090 checkpoint. Added the slash test and the swing validation section.",
         "typecheck": "pass",
         "npmTest": "246 pass / 0 fail",
         "browser": "avenue basic attack, short slash moves left, chemistry skill still draws ground arcs and hits 1, pageErrors empty"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art-runtime.test.mjs"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/VALIDATION.md",
+        "scripts/art-runtime.test.mjs"
+      ],
       "merged": true,
       "mergeSha": "27e180cefd4648995db484e875660f9b821df64b",
       "integrationPr": 21,
@@ -383,8 +424,14 @@
       "sourceBranch": null,
       "baseSha": "37ee4d5a8177dfdfe4d9a0c11899fb8d1d148ee6",
       "headSha": "5f7b6aa157917a8bd7e3d7cb6c32032ac1b8fc17",
-      "dependencies": ["art-basic-swing", "content-narrative-campus", "backend-cloud-save"],
-      "sharedFiles": ["scripts/integration-route.mjs"],
+      "dependencies": [
+        "art-basic-swing",
+        "content-narrative-campus",
+        "backend-cloud-save"
+      ],
+      "sharedFiles": [
+        "scripts/integration-route.mjs"
+      ],
       "checks": {
         "conflicts": "none",
         "browser": "chemistry major, xp 20, notes 19, quest once, quiz-2 65 to 45, reload kept the save, pageErrors empty, no /api requests",
@@ -406,7 +453,9 @@
       "sourceBranch": "cursor/hud-status-1a71",
       "baseSha": "b567b60ffc7bf0a0091f1e79a87dbaa2a8c9012e",
       "headSha": "aeda26c3622de77ffbd66c8e86d73627f3d40150",
-      "dependencies": ["art-basic-swing"],
+      "dependencies": [
+        "art-basic-swing"
+      ],
       "sharedFiles": [
         "src/game/rpg/status.ts",
         "src/game/rpg/AdventureHud.tsx",
@@ -442,7 +491,9 @@
       "sourceBranch": null,
       "baseSha": "ebafa14e7ffa5a5735c673cf3017335cd613a2ad",
       "headSha": "803fe62f053ddb9bf4513af0493b2df7d01fc741",
-      "dependencies": ["art-hud-status"],
+      "dependencies": [
+        "art-hud-status"
+      ],
       "sharedFiles": [],
       "checks": {
         "conflicts": "none",
@@ -465,8 +516,13 @@
       "sourceBranch": "cursor/district-links-1a71",
       "baseSha": "c59aaacbb4628363e8771f5a27b009f94b212092",
       "headSha": "f48a2c50e7ad2b4fed139f1f54c0db5fa34e8c77",
-      "dependencies": ["art-hud-status"],
-      "sharedFiles": ["src/game/rpg/rules.ts", "src/game/rpg/AdventureWorld.tsx"],
+      "dependencies": [
+        "art-hud-status"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/rules.ts",
+        "src/game/rpg/AdventureWorld.tsx"
+      ],
       "checks": {
         "conflicts": "art checkpoint, handoff, status, validation, capture-art. Kept the HUD capture and added the links scenario.",
         "typecheck": "pass",
@@ -497,8 +553,13 @@
       "sourceBranch": "cursor/hud-cue-wrap-1a71",
       "baseSha": "7ffe826929a97c37986233e0da165b058167e722",
       "headSha": "1340a897c0ccdce1326d6fe697c09bb28e96ab2f",
-      "dependencies": ["art-district-links"],
-      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/adventure.css"],
+      "dependencies": [
+        "art-district-links"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/AdventureHud.tsx",
+        "src/game/rpg/adventure.css"
+      ],
       "checks": {
         "conflicts": "art checkpoint, art validation, capture-art. Kept the links scenario and added the warn shot inside hud.",
         "typecheck": "pass",
@@ -507,7 +568,11 @@
         "browser": "8095 at 1280 and 390: 受傷, 低生命, 恢復 outside the bar; narrow target top 268 below status bottom 214; pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
       "merged": true,
       "mergeSha": "78379ae0d2b6f8cfed6335ce440a8bb44044101e",
       "nextAction": "None. Source 1340a89 is an ancestor of main. The open-gate change after it is a new game SHA."
@@ -523,8 +588,14 @@
       "sourceBranch": "cursor/axis-silhouettes-1a71",
       "baseSha": "b55f31181a470695f62870e6801e9c5f1b8a7bfe",
       "headSha": "d930724c98cf8190352ea3fa58ec16c15ac0f84b",
-      "dependencies": ["art-hud-cue-wrap"],
-      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "dependencies": [
+        "art-hud-cue-wrap"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/colliders.ts",
+        "src/game/world-data/zones/secondary.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "checks": {
         "conflicts": "art checkpoint next_action only. Kept the cue-wrap note and recorded the open piers.",
         "typecheck": "pass",
@@ -533,7 +604,9 @@
         "browser": "8096 at 1280x720: both gates show two red posts and a green beam, the character stands in the opening, pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "df1731751b389d02e16025b47e0c0d54e57a25cc",
       "nextAction": "Game commit d930724 is on main. PR #32 head 1fc5887 only renames an older art checkpoint branch field and still says ART-069. Do not merge that commit. The context-LOD change after it is a new game SHA."
@@ -549,8 +622,13 @@
       "sourceBranch": "cursor/context-lod-1a71",
       "baseSha": "528a56f855ec",
       "headSha": "18dee4cc998cd9f5cbe0e62281607dd292e441c9",
-      "dependencies": ["art-axis-gates"],
-      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "dependencies": [
+        "art-axis-gates"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/zones/secondary.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "checks": {
         "conflicts": "Kept gate piers and added white-block, hip-roof chuehhsuan, and distance LOD. Capture keeps gates and halls.",
         "typecheck": "pass",
@@ -559,7 +637,14 @@
         "browser": "8097 low tier at 1280x720: near white hall shows the flat cap and window bands; at about 160 m those details are gone and the mass remains. Chuehhsuan shows a green hip roof up close. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world-data/zones/secondary.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "merged": true,
       "mergeSha": "0515383cd770c8d5c6afb3960f08f0c1918842d0",
       "nextAction": "None. Source 18dee4c is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
@@ -575,8 +660,13 @@
       "sourceBranch": "cursor/theme-masses-1a71",
       "baseSha": "eaa9b72116b3",
       "headSha": "748608a05489d936fa7b0eb304ce144b52c32272",
-      "dependencies": ["art-context-lod"],
-      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "dependencies": [
+        "art-context-lod"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/zones/secondary.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "checks": {
         "conflicts": "Kept gate in the kind union and campusKind. Capture keeps gates and adds themes. Arts use the hip roof; dorm, lab, and sport have their own masses.",
         "typecheck": "pass",
@@ -585,7 +675,13 @@
         "browser": "8098 low tier at 1280x720 and 390x780: sungtao is warm, chemistry is cool with a roof unit, swimming is a low green hall. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "scripts/art/capture-art.mjs",
+        "src/game/world-data/zones/secondary.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "merged": true,
       "mergeSha": "c8a12829637649e07675d5d10accc3b9c70c82c3",
       "nextAction": "None. Source 748608a is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
@@ -601,8 +697,13 @@
       "sourceBranch": "cursor/study-masses-1a71",
       "baseSha": "3204c78b6b84",
       "headSha": "d0d1cfa6b43c84d5966e72ed6028847c8a635ec1",
-      "dependencies": ["art-theme-masses"],
-      "sharedFiles": ["src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "dependencies": [
+        "art-theme-masses"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/zones/secondary.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "checks": {
         "conflicts": "The source returned slab-block for gates. Kept gate in campusKind and the gate renderer. Capture keeps gates and adds study.",
         "typecheck": "pass",
@@ -611,7 +712,13 @@
         "browser": "8099 low tier at 1280x720 and 390x780: education shows a dark base, light upper volume, and cornice. Gates still show two red posts and a green beam with the character in the opening. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "scripts/art/capture-art.mjs",
+        "src/game/world-data/zones/secondary.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "merged": true,
       "mergeSha": "7799f6b8cc2ff1413fb42022284465d027f9469f",
       "nextAction": "None. Source d0d1cfa is an ancestor of main. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
@@ -627,8 +734,13 @@
       "sourceBranch": "cursor/skill-glyphs-1a71",
       "baseSha": "b1e6ba934cf9",
       "headSha": "dde692f0d9764fb110d24da55f8085d8982f2e7c",
-      "dependencies": ["art-study-masses"],
-      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/adventure.css"],
+      "dependencies": [
+        "art-study-masses"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/AdventureHud.tsx",
+        "src/game/rpg/adventure.css"
+      ],
       "checks": {
         "conflicts": "Art checkpoint and validation only. Kept the study-mass notes and added the glyph round.",
         "typecheck": "pass",
@@ -637,7 +749,10 @@
         "browser": "8100 low tier at 1280x720 and 390x780: engineering glyph is lucide-drafting-compass, hurt card says 受傷, edge shadow is inset 0 0 72px 18px. All nine disciplines switch. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "8954c5320d91ae56d16604e37c36f09cdc47096c",
       "nextAction": "None. Source dde692f is an ancestor of main. Do not merge PR #40 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
@@ -653,8 +768,12 @@
       "sourceBranch": "cursor/map-zones-1a71",
       "baseSha": "b9c44773542b",
       "headSha": "944b2c9cedabde9dc71ed5bc13690b2acbf30952",
-      "dependencies": ["art-skill-glyphs"],
-      "sharedFiles": ["src/game/rpg/AdventureHud.tsx"],
+      "dependencies": [
+        "art-skill-glyphs"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/AdventureHud.tsx"
+      ],
       "checks": {
         "conflicts": "Art backlog, checkpoint, and validation. Kept skill-glyph notes and added the seven-zone legend. Capture keeps icons, gates, study, and adds zones.",
         "typecheck": "pass",
@@ -663,7 +782,11 @@
         "browser": "8101 low tier at 1280x720 and 390x780: map panel open, legend lists 軸線 書圖 理工 教學 文藝 運動 生活, buildings have district strokes. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "50464e5a1483fa99d14967bdc6ab4c660c758623",
       "nextAction": "None. Source 944b2c9 is an ancestor of main. Do not merge PR #42 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
@@ -679,8 +802,12 @@
       "sourceBranch": "cursor/tree-lod-1a71",
       "baseSha": "4f3239af893c",
       "headSha": "dd628b145038c2b0ec561fe6f25a58bcb51d044f",
-      "dependencies": ["art-map-zones"],
-      "sharedFiles": ["src/game/quality.ts"],
+      "dependencies": [
+        "art-map-zones"
+      ],
+      "sharedFiles": [
+        "src/game/quality.ts"
+      ],
       "checks": {
         "conflicts": "Art checkpoint, validation, and the capture script. Kept the zones scenario and added budget. Gate kind, study masses, and skill glyphs stay.",
         "typecheck": "pass",
@@ -689,7 +816,11 @@
         "browser": "8102 high tier at (0,-80): 1280x720 is 1560511 triangles and 458 draws; 390x780 is 1558783 triangles and 388 draws. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
       "merged": true,
       "mergeSha": "94fec8e497d9013ec351e8f322da4b2f278b9df4",
       "nextAction": "None. Source dd628b1 is an ancestor of main. Do not merge PR #45 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
@@ -705,8 +836,12 @@
       "sourceBranch": "cursor/title-camera-1a71",
       "baseSha": "1e980af13e81",
       "headSha": "eab68c7aaf892cace9d34f3a5c0ef5a989221f09",
-      "dependencies": ["art-tree-lod"],
-      "sharedFiles": ["src/game/world-data/vegetation.ts"],
+      "dependencies": [
+        "art-tree-lod"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/vegetation.ts"
+      ],
       "checks": {
         "conflicts": "Art checkpoint and known issues. Kept the 48 m budget note and marked KI-10 done. Capture keeps budget and zones, and adds title.",
         "typecheck": "pass",
@@ -715,7 +850,10 @@
         "browser": "8103 high tier title: 1280x720 and 390x780 show the statue plaza and palace. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/KNOWN-ISSUES.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/KNOWN-ISSUES.md"
+      ],
       "merged": true,
       "mergeSha": "adfd28af237a6a5759940d63080b186caad1deb0",
       "nextAction": "None. Source eab68c7 is an ancestor of main. Do not merge PR #46 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
@@ -731,8 +869,12 @@
       "sourceBranch": "cursor/business-mass-1a71",
       "baseSha": "3950e2aa15dd",
       "headSha": "70dd633a0748bafaf11c79b9f3b44c35b6497653",
-      "dependencies": ["art-title-camera"],
-      "sharedFiles": ["src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-title-camera"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Art checkpoint and validation. Kept the title-camera round and added the business podium as the next round. Capture keeps title and budget, and adds business. Gate kind stays.",
         "typecheck": "pass",
@@ -741,7 +883,10 @@
         "browser": "8104 high tier at (132,-158): 1280x720 and 390x780 show the dark base and light upper storey. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "79515b67f3e6d355b21db3aedce83f329d32e2e8",
       "nextAction": "None. Source 70dd633 is an ancestor of main. Do not merge PR #49 by itself. Do not merge PR #32 head 1fc5887. Do not rerun the route unless the game SHA changes."
@@ -757,8 +902,13 @@
       "sourceBranch": "cursor/sign-names-1a71",
       "baseSha": "95bd4d42035c",
       "headSha": "9a7ae33a174286b2552aadf42a097b47b2ecd364",
-      "dependencies": ["art-business-mass"],
-      "sharedFiles": ["src/game/rpg/campus.ts", "src/game/world-data/registry/index.ts"],
+      "dependencies": [
+        "art-business-mass"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/campus.ts",
+        "src/game/world-data/registry/index.ts"
+      ],
       "checks": {
         "conflicts": "Art checkpoint, handoff, status, and the capture script. Kept the business round and added the sign-name round as round 17. Capture keeps business and title, and adds signs. Gate kind stays.",
         "typecheck": "pass",
@@ -767,7 +917,12 @@
         "browser": "8105 high tier: 1280x720 and 390x780 show 騮先紀念科學館 and 紹謨紀念游泳館. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "scripts/art/capture-art.mjs"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "scripts/art/capture-art.mjs"
+      ],
       "merged": true,
       "mergeSha": "267167bcf9b9eec17829578b85ca354dc8587073",
       "integrationPr": 52,
@@ -785,7 +940,9 @@
       "sourceBranch": "cursor/coin-spread-1a71",
       "baseSha": "5f6080baa691",
       "headSha": "07d1a0b",
-      "dependencies": ["art-sign-names"],
+      "dependencies": [
+        "art-sign-names"
+      ],
       "sharedFiles": [
         "src/game/art/vfx/basic-swing.ts",
         "src/game/art/vfx/college-casts.ts",
@@ -799,7 +956,12 @@
         "browser": "8106 high tier: 1280x720 and 390x780 show the coins spread on travel, and the slash on contact. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "45674fb0b02f55b17b24588b341c8f688f2f2ef9",
       "integrationPr": 55,
@@ -817,7 +979,9 @@
       "sourceBranch": "cursor/river-vista-1a71",
       "baseSha": "abef230dcbbc",
       "headSha": "4bd41a494244e4c20c5e24058b03e998f775e5f6",
-      "dependencies": ["art-coin-spread"],
+      "dependencies": [
+        "art-coin-spread"
+      ],
       "sharedFiles": [
         "src/game/world/Terrain.tsx",
         "src/game/world-data/colliders.ts",
@@ -831,7 +995,11 @@
         "browser": "8107 high tier: 1280x720 and 390x780 show the river and ridges from the meadow. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md"
+      ],
       "merged": true,
       "mergeSha": "87aa4c80b77e5f52c88c18e323e818cc44ddf167",
       "integrationPr": 57,
@@ -849,8 +1017,12 @@
       "sourceBranch": "cursor/river-vista-1a71",
       "baseSha": "8d9b97911d3a",
       "headSha": "f7584b3e8fa702c334b173698cf179af9e8409c4",
-      "dependencies": ["art-river-vista"],
-      "sharedFiles": ["src/game/world-data/colliders.ts"],
+      "dependencies": [
+        "art-river-vista"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/colliders.ts"
+      ],
       "checks": {
         "conflicts": "none",
         "typecheck": "pass",
@@ -877,7 +1049,9 @@
       "sourceBranch": "cursor/route-remeasure-1a71",
       "baseSha": "61ee069559f7",
       "headSha": "c635b97fe7fb25c513b1face74efe434cdfb6d14",
-      "dependencies": ["art-shore-save"],
+      "dependencies": [
+        "art-shore-save"
+      ],
       "sharedFiles": [],
       "checks": {
         "conflicts": "Did not cherry-pick the source docs. Those counts were from an older dev server. This record is a new capture on the current static build.",
@@ -905,8 +1079,12 @@
       "sourceBranch": "cursor/touch-targets-1a71",
       "baseSha": "ea5aef46bc03",
       "headSha": "2b8f9fb59c73f9cce51f4f5cb2dbc950eb6515e3",
-      "dependencies": ["art-route-measure"],
-      "sharedFiles": ["src/game/rpg/adventure.css"],
+      "dependencies": [
+        "art-route-measure"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/adventure.css"
+      ],
       "checks": {
         "conflicts": "Art checkpoint, handoff, status, and validation. Kept the route remeasure as round 20 and added phone icons as round 21. Capture keeps vista and adds phone.",
         "typecheck": "pass",
@@ -915,7 +1093,12 @@
         "browser": "8109 high. 390x780 tool 44x44, quickbar svg 24x24. 1280x720 tool 42x42, skill glyph 21x21. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "d8f6df92c2e33898b9d08c8e016506823ca012e2",
       "integrationPr": 62,
@@ -933,8 +1116,14 @@
       "sourceBranch": "cursor/weather-tier-1a71",
       "baseSha": "a81566621292",
       "headSha": "7f9fbe4e6b1171c43cdd953bb18f0f9acd532df4",
-      "dependencies": ["art-touch-icons"],
-      "sharedFiles": ["src/game/world/World.tsx", "src/game/world/Rain.tsx", "src/game/world/rain-count.ts"],
+      "dependencies": [
+        "art-touch-icons"
+      ],
+      "sharedFiles": [
+        "src/game/world/World.tsx",
+        "src/game/world/Rain.tsx",
+        "src/game/world/rain-count.ts"
+      ],
       "checks": {
         "conflicts": "Art checkpoint, handoff, status, and validation. Kept phone icons as round 21 and added rain as round 22. Capture keeps phone and vista, and adds rain.",
         "typecheck": "pass",
@@ -943,7 +1132,12 @@
         "browser": "8110. high 1280x720, low 1280x720, high 390x780 on the wet avenue. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "5f2ce19d1da511d1e7507e4266321dc71a3195eb",
       "integrationPr": 64,
@@ -961,8 +1155,12 @@
       "sourceBranch": "cursor/weather-tier-1a71",
       "baseSha": "5e994732fdfc",
       "headSha": "70fc091ffa922719e4fab4473a296733affe4388",
-      "dependencies": ["art-rain-tier"],
-      "sharedFiles": ["src/game/world/Rain.tsx"],
+      "dependencies": [
+        "art-rain-tier"
+      ],
+      "sharedFiles": [
+        "src/game/world/Rain.tsx"
+      ],
       "checks": {
         "conflicts": "none",
         "typecheck": "pass",
@@ -989,8 +1187,13 @@
       "sourceBranch": "cursor/library-mass-1a71",
       "baseSha": "fb932d2671c4",
       "headSha": "e09a90ff0563494a3dd155f9679e71c22186a7f2",
-      "dependencies": ["art-rain-motion"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-rain-motion"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Art checkpoint, handoff, status, and validation. Kept rain as round 22 and added the hall as round 23. Capture keeps rain and phone, and adds integrated.",
         "typecheck": "pass",
@@ -999,7 +1202,12 @@
         "browser": "8112 high. 1280x720 and 390x780 show the glass base, set-back upper volume, and the nameplate. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "21f72cde3fbb53847de214d2791abb0f73b5ce4d",
       "integrationPr": 69,
@@ -1017,8 +1225,13 @@
       "sourceBranch": "cursor/culture-mass-1a71",
       "baseSha": "4bd138fa234b",
       "headSha": "a8558b5ac1ad9a53c1df966744c1c770399c15ba",
-      "dependencies": ["art-library-mass"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-library-mass"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the mass renderer, the capture script, the LOD test, and the art docs. Kept linked-hall and added forum-hall. Capture keeps integrated and adds forum.",
         "typecheck": "pass",
@@ -1027,7 +1240,16 @@
         "browser": "8113 high. 1280x720 and 390x780 show the low pale volume, south glass, overhang, and the nameplate. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "e3a3059a2a1a783830266293064bf6476f1a0ba7",
       "integrationPr": 71,
@@ -1045,8 +1267,13 @@
       "sourceBranch": "cursor/reviewing-stand-1a71",
       "baseSha": "1ee26e649c68",
       "headSha": "1e077d1d3a9d49b2d59bef4600667080dda44a43",
-      "dependencies": ["art-forum-hall"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-forum-hall"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the mass renderer, the capture script, and the art docs. Kept linked-hall and forum-hall and added stand. Capture keeps integrated and forum, and adds stand.",
         "typecheck": "pass",
@@ -1055,7 +1282,15 @@
         "browser": "8114 high. 1280x720 and 390x780 show the low deck, rear booth, and canopy. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "60c07ff4b7708de2b9323bd800b595e3729a2895",
       "integrationPr": 74,
@@ -1073,8 +1308,13 @@
       "sourceBranch": "cursor/wind-shed-1a71",
       "baseSha": "a07defcb432c",
       "headSha": "916a19e4e633ccafe2fdeec96afb7647c82fe8bf",
-      "dependencies": ["art-reviewing-stand"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-reviewing-stand"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the mass renderer, the capture script, and the art docs. Kept linked-hall, forum-hall, and stand, and added shed. Capture keeps integrated, forum, and stand, and adds shed.",
         "typecheck": "pass",
@@ -1083,7 +1323,15 @@
         "browser": "8115 high. 1280x720 and 390x780 show the long low shed, roof duct, and intake. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "43be21f4f0b8a12ac520c7a25f4e200a0e959192",
       "integrationPr": 76,
@@ -1101,8 +1349,13 @@
       "sourceBranch": "cursor/reitaku-mass-1a71",
       "baseSha": "24ffb9da4c9e",
       "headSha": "add55fe64bed7476e6a5ebb3ebfcb3a82cb1ca7f",
-      "dependencies": ["art-wind-shed"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-wind-shed"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the capture script, and the art docs. The mass renderer auto-merged. Kept linked-hall, forum-hall, stand, and shed, and added intl-dorm. Capture keeps the earlier scenarios and adds reitaku.",
         "typecheck": "pass",
@@ -1111,7 +1364,14 @@
         "browser": "8116 high. 1280x720 shows the gray-green tower, glass lobby, flat cornice, and nameplate. 390x780 is the same mass closer. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "7a07836c575366aa280313b9ab9ee02381c794c5",
       "integrationPr": 78,
@@ -1129,8 +1389,13 @@
       "sourceBranch": "cursor/media-halls-1a71",
       "baseSha": "f82692dd2ae1",
       "headSha": "ede67057db9469f881ad8d01fb3559ebe9ef4398",
-      "dependencies": ["art-reitaku-mass"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-reitaku-mass"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the mass renderer, the capture script, and the art docs. Kept linked-hall, forum-hall, stand, shed, and intl-dorm, and added media-hall. Capture keeps the earlier scenarios and adds media.",
         "typecheck": "pass",
@@ -1139,7 +1404,15 @@
         "browser": "8117 high. 1280x720 and 390x780 show the dark base, pale upper volume, roof mast, and the nameplate. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "95e9f682bb44281a1061580b58329335b9645eb7",
       "integrationPr": 81,
@@ -1157,8 +1430,13 @@
       "sourceBranch": "cursor/auditorium-1a71",
       "baseSha": "3b4498ad24ba",
       "headSha": "8517cae23f13e20b56d2b67909ba1129ee7f4820",
-      "dependencies": ["art-media-halls"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-media-halls"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the mass renderer, the capture script, and the art docs. Kept the earlier kinds and added auditorium. Capture keeps the earlier scenarios and adds auditorium.",
         "typecheck": "pass",
@@ -1167,7 +1445,15 @@
         "browser": "8118 high. 1280x720 and 390x780 show the dark hall, stage tower, and the nameplate. pageErrors empty",
         "route": "same server: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "b805fae8286418332bae03ea2943c03228e377cd",
       "integrationPr": 83,
@@ -1185,8 +1471,12 @@
       "sourceBranch": "cursor/kenan-walk-1a71",
       "baseSha": "9b74d14f0cfc",
       "headSha": "3c9cf1da3529aa621718972b905d685f55c55ab1",
-      "dependencies": ["art-auditorium"],
-      "sharedFiles": ["src/game/world-data/registry/index.ts"],
+      "dependencies": [
+        "art-auditorium"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/registry/index.ts"
+      ],
       "checks": {
         "conflicts": "Art checkpoint, handoff, status, and validation only. The registry and the walk test applied cleanly. Kept the auditorium notes and numbered this round 30.",
         "typecheck": "pass",
@@ -1195,7 +1485,12 @@
         "browser": "The polylines are not drawn. The walk test moves a 0.42 m body to each door and up the Kenan centreline.",
         "route": "8119: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "e5751d9952ddfa2630373cbd1bb23595f6c0861d",
       "integrationPr": 84,
@@ -1213,8 +1508,13 @@
       "sourceBranch": "cursor/studio-mass-1a71",
       "baseSha": "6128e709bf85",
       "headSha": "55a42fbde735a17a31c1915e18cd6786a6c227f8",
-      "dependencies": ["art-kenan-walk"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-kenan-walk"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added studio-block. Capture keeps the earlier scenarios and adds studio.",
         "typecheck": "pass",
@@ -1223,7 +1523,18 @@
         "browser": "8120 high. 1280x720 shows the concrete volume, south glass, canopy, roof monitor, and the nameplate. 390x780 is a closer crop of the same face. pageErrors empty",
         "route": "8120: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "988405462bb4c97b777d0d9bd3a20211f8f8341d",
       "integrationPr": 87,
@@ -1241,8 +1552,13 @@
       "sourceBranch": "cursor/activity-hall-1a71",
       "baseSha": "761496327269",
       "headSha": "4bf084a309da13933d2bb3b8a659ab2150d0e292",
-      "dependencies": ["art-studio-mass"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-studio-mass"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the profile functions, glazing skip, the mass renderer, the capture script, and the art docs. The lod test auto-merged. Kept the earlier kinds and added activity-hall. Capture keeps the earlier scenarios and adds activity.",
         "typecheck": "pass",
@@ -1251,7 +1567,17 @@
         "browser": "8121 high. 1280x720 shows the lobby, south glass, canopy, set-back upper volume, and the nameplate. 390x780 is a closer crop of the same face. pageErrors empty",
         "route": "8121: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "320747d19a9a143d80e9cfbea8f2971adbbcc81c",
       "integrationPr": 89,
@@ -1269,8 +1595,13 @@
       "sourceBranch": "cursor/watch-post-1a71",
       "baseSha": "33bc10634f09",
       "headSha": "8e6f1e6c752e59c999a388413b05d1549c502898",
-      "dependencies": ["art-activity-hall"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-activity-hall"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the profile functions, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added watch-post. Capture keeps the earlier scenarios and adds watch.",
         "typecheck": "pass",
@@ -1279,7 +1610,17 @@
         "browser": "8122 high. 1280x720 shows the low booth, south window, roof mast, and the nameplate. 390x780 is a closer crop of the same face. pageErrors empty",
         "route": "8122: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "770bcdad32277494215bbfb3a206a117aa300a15",
       "integrationPr": 92,
@@ -1297,8 +1638,13 @@
       "sourceBranch": "cursor/eng-tower-1a71",
       "baseSha": "592b6a1488b7",
       "headSha": "e0c5feef2fe3002d7f4d885f8b3ab3ec10efc08c",
-      "dependencies": ["art-watch-post"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-watch-post"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, the profile functions, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added eng-tower. Capture keeps the earlier scenarios and adds engineering.",
         "typecheck": "pass",
@@ -1307,7 +1653,18 @@
         "browser": "8123 high. 1280x720 shows the dark podium, set-back tower, two glass strips, cornice, and the nameplate. 390x780 is a closer crop of the set-back face. pageErrors empty",
         "route": "8123: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "924f9a5be5bf63e857d4ca520276bfebe055d2b0",
       "integrationPr": 94,
@@ -1325,8 +1682,12 @@
       "sourceBranch": "cursor/road-clearance-1a71",
       "baseSha": "26c82cfb9688",
       "headSha": "15c555cf1aab9710e6d26ea2bf82b78fd51ea7c6",
-      "dependencies": ["art-eng-tower"],
-      "sharedFiles": ["src/game/rpg/campus.ts"],
+      "dependencies": [
+        "art-eng-tower"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/campus.ts"
+      ],
       "checks": {
         "conflicts": "Capture script and art docs. The road points applied directly. Capture keeps the earlier scenarios and adds roads. ART-069 keeps the pilgrimage note and adds the centerline sentence.",
         "typecheck": "pass",
@@ -1335,7 +1696,15 @@
         "browser": "8124 high. 1280x720 shows the path along the hall and through the Dazhong piers. 390x780 hall is a close crop; the gate crop still shows the opening. pageErrors empty",
         "route": "8124: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
       "merged": true,
       "mergeSha": "bf5f7c6c00fae2593e3988c3c0ab3714e6db1050",
       "integrationPr": 95,
@@ -1353,8 +1722,13 @@
       "sourceBranch": "cursor/language-hall-1a71",
       "baseSha": "d1627c4e0f0c",
       "headSha": "27a50b0264cee10c0c0fcbc6c10e61603ebdf88f",
-      "dependencies": ["art-road-clearance"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-road-clearance"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, the profile functions, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added memorial-tower. Capture keeps the earlier scenarios and adds memorial.",
         "typecheck": "pass",
@@ -1363,7 +1737,17 @@
         "browser": "8125 high. 1280x720 shows the dark base, stone shaft, three bands, flat parapet, ground glass, and the nameplate. 390x780 is a closer crop of the same face. pageErrors empty",
         "route": "8125: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "39f1e05fbb35bc7b4c8ea292114128015880effa",
       "integrationPr": 98,
@@ -1381,8 +1765,13 @@
       "sourceBranch": "cursor/gym-arena-1a71",
       "baseSha": "357de45571c7",
       "headSha": "65302430ec6bef11c95491a9de2a38d13554cd2a",
-      "dependencies": ["art-language-hall"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-language-hall"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, the profile functions, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added arena. Capture keeps the earlier scenarios and adds gym. ART-067 keeps the reviewing-stand note and adds the gym sentence.",
         "typecheck": "pass",
@@ -1391,7 +1780,17 @@
         "browser": "8126 high. 1280x720 shows the pale body, dark plinth, south clerestory, flat overhang, and the nameplate. 390x780 is a closer crop; the overhang, clerestory, and plate stay in frame, and the plinth is mostly behind the foreground trees. pageErrors empty",
         "route": "8126: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "56b33416657bd216894afce6dc8d61545685a7db",
       "integrationPr": 100,
@@ -1409,8 +1808,13 @@
       "sourceBranch": "cursor/science-hall-1a71",
       "baseSha": "36b3112fd50c",
       "headSha": "42980bb273987a091663201239fa40a2be848b0d",
-      "dependencies": ["art-gym-arena"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-gym-arena"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, the profile functions, campusKind, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added science-hall before the theme switch. Capture keeps the earlier scenarios and adds science. ART-064 keeps the wind, studio, and tower notes and adds the science sentence.",
         "typecheck": "pass",
@@ -1419,7 +1823,18 @@
         "browser": "8127 high. 1280x720 shows the pale body, east glass bay, parapet, and the nameplate. 390x780 is a closer crop; the parapet and plate stay in frame, and the east bay sits outside the right edge. pageErrors empty",
         "route": "8127: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "aa682293a908ba7a15b3f82d42efb77111abdc2a",
       "integrationPr": 103,
@@ -1437,8 +1852,13 @@
       "sourceBranch": "cursor/backpack-clearance-1a71",
       "baseSha": "2189e5a6bcd0",
       "headSha": "94e090f65f2b9c640d0027476af707cd2fb0bb1e",
-      "dependencies": ["art-science-hall"],
-      "sharedFiles": ["art/characters/student-kit/backpack.ts", "scripts/art-pipeline.test.mjs"],
+      "dependencies": [
+        "art-science-hall"
+      ],
+      "sharedFiles": [
+        "art/characters/student-kit/backpack.ts",
+        "scripts/art-pipeline.test.mjs"
+      ],
       "checks": {
         "conflicts": "The new clip test was inserted after the rest-pose check. Art docs keep the later rounds and add the skinned measurement. The earlier bone-origin commit dbf0bbe is not on main; this integration takes the skinned-vertex check from 94e090f.",
         "typecheck": "pass",
@@ -1447,7 +1867,14 @@
         "browser": "8128. The playable AdventureApp chunk matches the science-hall build. No new posed capture; the change is a measurement. pageErrors empty on the route",
         "route": "8128: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art-pipeline.test.mjs"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art-pipeline.test.mjs"
+      ],
       "merged": true,
       "mergeSha": "6bd8f021cc6a2e61a01ead6d96d5da6e701b9536",
       "integrationPr": 104,
@@ -1465,8 +1892,13 @@
       "sourceBranch": "cursor/workshop-hall-1a71",
       "baseSha": "9068ea30c23d",
       "headSha": "37cc7aad753430807a5e1c86258161a774562468",
-      "dependencies": ["art-backpack-clearance"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-backpack-clearance"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, the profile functions, campusKind, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added workshop after science-hall and before the theme switch. Capture keeps the earlier scenarios and adds workshop. ART-064 keeps the wind, studio, tower, and science notes and replaces the old-engineering lab sentence with the workshop sentence.",
         "typecheck": "pass",
@@ -1475,7 +1907,18 @@
         "browser": "8129 high. 1280x720 shows the brick base, pale upper volume, south glass, roof monitor, and the nameplate. 390x780 is a closer crop; the brick base, glass, nameplate, and roof monitor stay in frame. pageErrors empty",
         "route": "8129: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "608bcb725559802f5b4cef5eff9280f8ba74bd31",
       "integrationPr": 106,
@@ -1493,8 +1936,13 @@
       "sourceBranch": "cursor/lesson-marker-1a71",
       "baseSha": "ca8e8b8d67c4",
       "headSha": "267b413c07eae3e4c7c84882516554a030b0ed72",
-      "dependencies": ["art-workshop-hall"],
-      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/lesson-label.ts"],
+      "dependencies": [
+        "art-workshop-hall"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/AdventureHud.tsx",
+        "src/game/rpg/lesson-label.ts"
+      ],
       "checks": {
         "conflicts": "Art docs keep rounds 34 through 40 and add the lesson label as round 41. ART-090 keeps the status, skill, hurt, and zone notes and adds the two-character map label. Capture keeps the earlier scenarios and adds lesson before budget.",
         "typecheck": "pass",
@@ -1503,7 +1951,13 @@
         "browser": "8130 high. 1280x720 and 390x780 both show 移動 above the gold ring on the open map. pageErrors empty",
         "route": "8130: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "1463b50237e7c1b4e59961e22b6462cbc6b6ce2f",
       "integrationPr": 109,
@@ -1521,8 +1975,13 @@
       "sourceBranch": "cursor/pool-hall-1a71",
       "baseSha": "5e9dc4004366",
       "headSha": "615c426c83c03dcedc5ddddd24560140a74aa23c",
-      "dependencies": ["art-lesson-marker"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-lesson-marker"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, glazing skip, the mass renderer, the lod test, and the art docs. Kept the earlier kinds and added pool-hall after workshop and before the theme switch. Capture keeps the earlier scenarios and adds pool. ART-067 keeps the stand and gym notes and adds the pool sentence.",
         "typecheck": "pass",
@@ -1531,7 +1990,17 @@
         "browser": "8131 high. 1280x720 shows the pale hall, south clerestory, roof spine, and nameplate; the plinth sits at the ground and is partly behind trees. 390x780 is a roof crop; the spine and clerestory stay in frame, the nameplate is a sliver at the right edge, and the plinth is below the frame. pageErrors empty",
         "route": "8131: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "7bf6e428de57619eba52623ab5cc2872d3f83495",
       "integrationPr": 112,
@@ -1549,8 +2018,13 @@
       "sourceBranch": "cursor/office-block-1a71",
       "baseSha": "61ed00f0bfd4",
       "headSha": "15aff8c82e1bebb11359986f087d8affd088b97d",
-      "dependencies": ["art-pool-hall"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-pool-hall"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, glazing skip, the mass renderer, the capture script, the lod test, and the art docs. Kept the earlier kinds and added office-block after pool-hall and before the theme switch. Capture keeps the earlier scenarios and adds office. ART-066 keeps the conference, audiovisual, and activity notes and adds the administration sentence.",
         "typecheck": "pass",
@@ -1559,7 +2033,17 @@
         "browser": "8132 high. 1280x720 shows the stone shaft, two window bands, south entrance glass, cornice, and nameplate; the plinth sits at the ground. 390x780 keeps the bands, entrance glass, nameplate, and cornice; the plinth is a thin strip at the ground. pageErrors empty",
         "route": "8132: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "dcc7fa6b5849b455d5bdca319dbf7e120b8fa2f9",
       "integrationPr": 114,
@@ -1577,8 +2061,13 @@
       "sourceBranch": "cursor/faculty-house-1a71",
       "baseSha": "800d43d94fc7",
       "headSha": "5c92b44666221af0d8ffdd48c0ea8e6fb84e58e8",
-      "dependencies": ["art-office-block"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-office-block"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, glazing skip, the porch profile, the capture script, and the art docs. The faculty renderer landed before the dorm block. Kept the earlier kinds and added faculty-house after office-block and before the theme switch. Capture keeps the earlier scenarios and adds faculty. ART-068 keeps the Reitaku note and adds the faculty sentence.",
         "typecheck": "pass",
@@ -1587,7 +2076,16 @@
         "browser": "8133 high. 1280x720 shows the pale shaft, two window bands, south porch, door glass, and nameplate, with no dorm roof penthouse. 390x780 keeps the bands, nameplate, and porch; the door glass is a sliver behind a tree. pageErrors empty",
         "route": "8133: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "a8c5a425f501a73753a6157e20efdda03e1e7310",
       "integrationPr": 117,
@@ -1605,8 +2103,13 @@
       "sourceBranch": "cursor/garden-house-1a71",
       "baseSha": "65507cdc2a25",
       "headSha": "e478b9ca07041a6197d228c4d4788203051941d9",
-      "dependencies": ["art-faculty-house"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-faculty-house"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, glazing skip, the garden profile, the capture script, and the art docs. Kept the earlier kinds and added garden-house after faculty-house and before the theme switch. The follow-up seats the wall from the plinth to the roof. Capture keeps the earlier scenarios and adds garden. ART-066 keeps the conference, audiovisual, activity, and office notes and adds the Yingyuan sentence.",
         "typecheck": "pass",
@@ -1615,7 +2118,17 @@
         "browser": "8134 high. 1280x720 shows the white walls, timber plinth, tighter green hip roof, south veranda, and nameplate. 390x780 keeps the plinth, wall, roof, and veranda, with part of the nameplate. pageErrors empty",
         "route": "8134: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "c5716878b7c3eabb30feae679cade5e132852898",
       "integrationPr": 119,
@@ -1633,8 +2146,13 @@
       "sourceBranch": "cursor/language-bay-1a71",
       "baseSha": "1565a748126293dda110272bc62cd59fa98be29b",
       "headSha": "d5a28c83b3a1efc2712c6e6a1bb81b4be3d1ab05",
-      "dependencies": ["art-garden-house"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-garden-house"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campusKind, glazing skip, the language profile, the renderer import, the capture script, the lod test, and the art docs. Kept the earlier kinds and added language-hall after garden-house and before the theme switch. Capture keeps the earlier scenarios and adds language. Education and Hweiwen stay study-block.",
         "typecheck": "pass",
@@ -1643,7 +2161,17 @@
         "browser": "8135 high. 1280x720 shows the warm ground storey, south gallery, set-back pale upper block, two bands, and nameplate. 390x780 keeps the bands, nameplate, gallery glass, and ground storey. pageErrors empty",
         "route": "8135: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "scripts/context-lod.test.mjs", "src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "scripts/context-lod.test.mjs",
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "merged": true,
       "mergeSha": "088a3ef64347b6cd2b7a3fc6b419827c63a5a228",
       "integrationPr": 120,
@@ -1661,8 +2189,13 @@
       "sourceBranch": "cursor/planting-lod-1a71",
       "baseSha": "4b88b772d4e21424dd14b502655c1239b1abd8bf",
       "headSha": "4dc3786b01b9a163088a04e2e414f9b8f790ced6",
-      "dependencies": ["art-language-hall"],
-      "sharedFiles": ["src/game/world/Vegetation.tsx", "src/game/world-data/vegetation-lod.ts"],
+      "dependencies": [
+        "art-language-hall"
+      ],
+      "sharedFiles": [
+        "src/game/world/Vegetation.tsx",
+        "src/game/world-data/vegetation-lod.ts"
+      ],
       "checks": {
         "conflicts": "Art docs and the capture script. Vegetation.tsx and the new split function applied cleanly. Capture keeps the earlier scenarios and adds planting after the language hall. ART-085 keeps the planting title and adds the distance notes.",
         "typecheck": "pass",
@@ -1671,7 +2204,14 @@
         "browser": "8136 high. 1280x720 shows round shrubs, pink beds, and trees behind the palace hall. 390x780 keeps shrubs, pink beds, and one tree. pageErrors empty",
         "route": "8136: xp 20, notes 19, quest once, quiz-2 65 to 45, revision 1, second client, revision_conflict, offline queue cloudXp 23, logout 401"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
       "merged": true,
       "mergeSha": "bb94b5e900d222b33ca5d584cb265d2cb74a16f8",
       "integrationPr": 123,
@@ -1689,8 +2229,13 @@
       "sourceBranch": "cursor/integration-full-game-f7e4",
       "baseSha": "5d078927dbdd95c0602ca547053b935f967c6e2e",
       "headSha": "9c45f10509867c9bde1aa9a95e2e85f167a87e20",
-      "dependencies": ["art-planting-lod"],
-      "sharedFiles": ["src/game/rpg/store.ts", "scripts/integration-route.mjs"],
+      "dependencies": [
+        "art-planting-lod"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts",
+        "scripts/integration-route.mjs"
+      ],
       "checks": {
         "conflicts": "none. Cherry-picked 90768e4 then 9c45f10. Left the source docs/full-integration files out.",
         "typecheck": "pass",
@@ -1717,8 +2262,12 @@
       "sourceBranch": "cursor/joint-limits-1a71",
       "baseSha": "c192152329f7f669ee808394007701a7987f4ea2",
       "headSha": "6ac2cf30a1436f3c47e7c83e0d2e38fd1e58f8b4",
-      "dependencies": ["content-semester-claimed"],
-      "sharedFiles": ["scripts/art-pipeline.test.mjs"],
+      "dependencies": [
+        "content-semester-claimed"
+      ],
+      "sharedFiles": [
+        "scripts/art-pipeline.test.mjs"
+      ],
       "checks": {
         "conflicts": "Art docs only. The test applied cleanly. ART-034 keeps the backpack 116.7 mm note and adds the joint sentence.",
         "typecheck": "pass",
@@ -1727,7 +2276,13 @@
         "browser": "not rerun. The measurement does not draw a new mesh",
         "route": "not rerun. Game code stays 9c803bb"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "1f973902310f1edeaad8146f3bd8e93173d99c8c",
       "integrationPr": 126,
@@ -1745,8 +2300,13 @@
       "sourceBranch": "cursor/chem-hall-1a71",
       "baseSha": "468a516efb1649d08f0427f586c11f8d2341e12b",
       "headSha": "eee5c917073dc7d5dc413880b03fea0daf385284",
-      "dependencies": ["art-joint-limits"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts"],
+      "dependencies": [
+        "art-joint-limits"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/zones/secondary.ts"
+      ],
       "checks": {
         "conflicts": "Kind union, campus kind, renderer, and art docs. Administration stays office-block. Hweiwen stays a study block.",
         "typecheck": "pass",
@@ -1755,7 +2315,16 @@
         "browser": "8138 at 1280x720 and 390x780. Nameplate 鍾靈化學館. Roof stack stays on the roof. pageErrors empty.",
         "route": "8138: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401. First attempt died on a browser close after combat; the rerun passed."
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/context-lod.test.mjs", "src/game/world-data/zones/secondary.ts", "src/game/world/ContextStructures.tsx"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/context-lod.test.mjs",
+        "src/game/world-data/zones/secondary.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "merged": true,
       "mergeSha": "927f2b676cc33af53ed142ff5cd59de99d33d1cd",
       "integrationPr": 130,
@@ -1773,8 +2342,14 @@
       "sourceBranch": "cursor/items-equipment-building-15c5",
       "baseSha": "e1f52fdb6c6095e74daa0aa0ad59dd11b1304051",
       "headSha": "11ddebac59af45c87e170b7e2172a7576203ede5",
-      "dependencies": ["art-chem-hall"],
-      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx", "src/game/rpg/AdventureApp.tsx"],
+      "dependencies": [
+        "art-chem-hall"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts",
+        "src/game/rpg/AdventureHud.tsx",
+        "src/game/rpg/AdventureApp.tsx"
+      ],
       "checks": {
         "conflicts": "store.ts place and supply only. New builds and moves still settle the errand once. The gather hook's extra note shares that bag.",
         "typecheck": "pass after the QA hook type names inventory",
@@ -1783,7 +2358,9 @@
         "browser": "8139 at 1280x720 and 390x780. Bag reads 4/24 and carry 80. Three slots are empty. pageErrors empty.",
         "route": "8139: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401"
       },
-      "conflicts": ["src/game/rpg/store.ts"],
+      "conflicts": [
+        "src/game/rpg/store.ts"
+      ],
       "merged": true,
       "mergeSha": "504d560961256cbb1b7205bec7bc1622b9479b67",
       "integrationPr": 133,
@@ -1801,8 +2378,14 @@
       "sourceBranch": "cursor/gameplay-variety-fb95",
       "baseSha": "afb6cbd0a731a68a10ebd4edb2a26571c1ed3205",
       "headSha": "61f6e6ad1b74387e4b270652ba7768b000dab68e",
-      "dependencies": ["content-items-gear"],
-      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx", "src/game/rpg/AdventureApp.tsx"],
+      "dependencies": [
+        "content-items-gear"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts",
+        "src/game/rpg/AdventureHud.tsx",
+        "src/game/rpg/AdventureApp.tsx"
+      ],
       "checks": {
         "conflicts": "Imports in AdventureApp and AdventureHud. Gear, semester, and the bag stayed.",
         "typecheck": "pass",
@@ -1811,7 +2394,10 @@
         "browser": "8140. 1280x720 opens 宮燈夜巡 and says to match the clues first. 390x780 shows the 宮燈夜巡 button. pageErrors empty.",
         "route": "8140: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401"
       },
-      "conflicts": ["src/game/rpg/AdventureApp.tsx", "src/game/rpg/AdventureHud.tsx"],
+      "conflicts": [
+        "src/game/rpg/AdventureApp.tsx",
+        "src/game/rpg/AdventureHud.tsx"
+      ],
       "merged": true,
       "mergeSha": "d0c9d91a25d27e987a83fdf052b30da3aa3f133d",
       "integrationPr": 136,
@@ -1829,8 +2415,14 @@
       "sourceBranch": "cursor/gameplay-variety-fb95",
       "baseSha": "d8d6d90931323e2cccffb4089f5f543f08f0c398",
       "headSha": "94c0b8ad9bcc8b0dce9b669d9825dc2f9b51903c",
-      "dependencies": ["content-encounters"],
-      "sharedFiles": ["src/game/rpg/store.ts", "src/features/gameplay-variety/host.ts", "src/features/gameplay-variety/runtime.ts"],
+      "dependencies": [
+        "content-encounters"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts",
+        "src/features/gameplay-variety/host.ts",
+        "src/features/gameplay-variety/runtime.ts"
+      ],
       "checks": {
         "conflicts": "store.ts auto-merged. Gear, semester, and the bag stayed.",
         "typecheck": "pass",
@@ -1857,8 +2449,15 @@
       "sourceBranch": "cursor/faculty-story-75f5",
       "baseSha": "dca0984bb0956a85b687d6083e2b4d25768990bf",
       "headSha": "246eadff0bdac585bea28e3e49cd212d0e52f100",
-      "dependencies": ["content-encounter-import"],
-      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/AdventureApp.tsx", "src/game/rpg/store.ts", "src/game/rpg/narrative-bridge.ts"],
+      "dependencies": [
+        "content-encounter-import"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/AdventureHud.tsx",
+        "src/game/rpg/AdventureApp.tsx",
+        "src/game/rpg/store.ts",
+        "src/game/rpg/narrative-bridge.ts"
+      ],
       "checks": {
         "conflicts": "AdventureHud close and scroll ids. Narrative uses narrative-close and narrative-scroll. Variety stays off the generic panel plan. Gear, semester, the bag, and the failed variety write stayed.",
         "typecheck": "pass",
@@ -1867,7 +2466,9 @@
         "browser": "8142. 1280x720 shows Gu Heng's three choices. Choosing the section raises xp from 12 to 34 and claims quest-faculty-gu-meet and quest-faculty-studio-meet. Reload stays at 34. 390x780 scrolls to 離開，不結算. Close button is 44x44. pageErrors empty.",
         "route": "8142: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["src/game/rpg/AdventureHud.tsx"],
+      "conflicts": [
+        "src/game/rpg/AdventureHud.tsx"
+      ],
       "merged": true,
       "mergeSha": "afa63cc3eaa5e7ed196b8bf6d32b13d2bbf40e10",
       "integrationPr": 139,
@@ -1885,8 +2486,12 @@
       "sourceBranch": "cursor/prop-clearance-1a71",
       "baseSha": "f5ac6538072dc5ba303f3de6d5893e5d90f72f2e",
       "headSha": "e092064cebb4c9079160cfe6a312829596ac5176",
-      "dependencies": ["content-faculty-story"],
-      "sharedFiles": ["src/game/world-data/props.ts"],
+      "dependencies": [
+        "content-faculty-story"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/props.ts"
+      ],
       "checks": {
         "conflicts": "none",
         "typecheck": "pass",
@@ -1913,8 +2518,15 @@
       "sourceBranch": "cursor/library-slope-1a71",
       "baseSha": "54dfe86879bb0998cd30a43d3a082c2385cde4e3",
       "headSha": "75128e0801b42435963d1c673c5784a10fb76748",
-      "dependencies": ["art-prop-clearance"],
-      "sharedFiles": ["src/game/world-data/props.ts", "src/game/world.ts", "src/game/world/Props.tsx", "scripts/art/capture-art.mjs"],
+      "dependencies": [
+        "art-prop-clearance"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/props.ts",
+        "src/game/world.ts",
+        "src/game/world/Props.tsx",
+        "scripts/art/capture-art.mjs"
+      ],
       "checks": {
         "conflicts": "art docs, capture-art.mjs, and the props import. Kept clearOfSolids, the south-facing name plate, and the ramp.",
         "typecheck": "pass",
@@ -1923,7 +2535,16 @@
         "browser": "8144. 1280x720 and 390x780 show the player on the ramp. north 20.74 south 19.51 off 19.59. pageErrors empty.",
         "route": "8144: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/props.ts"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world-data/props.ts"
+      ],
       "merged": true,
       "mergeSha": "21f8fb724102058679d69daab0752aab044be7f1",
       "integrationPr": 143,
@@ -1941,8 +2562,12 @@
       "sourceBranch": "cursor/integration-full-game-f7e4",
       "baseSha": "a91b3bda2910a8b4e85cf897ec74ea6202f8b374",
       "headSha": "a76918e497a5a84ff700fbc6f75bb19a4108a82f",
-      "dependencies": ["content-items-gear"],
-      "sharedFiles": ["src/features/cloud-save/contract.ts"],
+      "dependencies": [
+        "content-items-gear"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/contract.ts"
+      ],
       "checks": {
         "conflicts": "none. Only contract.ts was taken from a76918e.",
         "typecheck": "pass",
@@ -1969,8 +2594,13 @@
       "sourceBranch": "cursor/court-clearing-1a71",
       "baseSha": "d32e7149fded701b7dcdc3c2ac1446baca1b71b1",
       "headSha": "5739cd39ad1bb0d2e668ca126ec44476c4315423",
-      "dependencies": ["art-library-ramp"],
-      "sharedFiles": ["src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs"],
+      "dependencies": [
+        "art-library-ramp"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/vegetation.ts",
+        "scripts/art/capture-art.mjs"
+      ],
       "checks": {
         "conflicts": "art docs and capture-art.mjs. Kept rounds 1-51 and the ramp and lamp captures. Court clearing is round 52.",
         "typecheck": "pass",
@@ -1979,7 +2609,14 @@
         "browser": "8146. 1280x720 and 390x780 show the Wuhu grass empty and trees outside. pageErrors empty.",
         "route": "8146: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
       "merged": true,
       "mergeSha": "a26b87d4a5bbd83dbee6ed405d7ef9b1dcf7c2a4",
       "integrationPr": 146,
@@ -1997,8 +2634,13 @@
       "sourceBranch": "cursor/wet-courts-1a71",
       "baseSha": "7c85a4245368b2bfe3ea5d6589f969030bdc82d9",
       "headSha": "41771bb357140ecc20c726f4d28675a46be9d0fd",
-      "dependencies": ["art-court-clearing"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "scripts/art/capture-art.mjs"],
+      "dependencies": [
+        "art-court-clearing"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "scripts/art/capture-art.mjs"
+      ],
       "checks": {
         "conflicts": "art docs and capture-art.mjs. Kept rounds 1-52 and the field, slope, and cleared captures. Wet courts are round 53. The follow-up scales colour down instead of mixing in grey.",
         "typecheck": "pass",
@@ -2007,7 +2649,14 @@
         "browser": "8147. 1280x720 and 390x780 show the Wuhu court darker in the rain, with rain streaks and trees outside. pageErrors empty.",
         "route": "8147: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
       "merged": true,
       "mergeSha": "560f21df18e764961295f9e2e3a4a0c88cf9f2a6",
       "integrationPr": 147,
@@ -2025,8 +2674,13 @@
       "sourceBranch": "cursor/court-lines-1a71",
       "baseSha": "9dd707e6ce718322391a832af74213ec562b9827",
       "headSha": "06a75dcb0d4c12e6e58311ac6dfabffd7a1a16da",
-      "dependencies": ["art-wet-courts"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "scripts/art/capture-art.mjs"],
+      "dependencies": [
+        "art-wet-courts"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "scripts/art/capture-art.mjs"
+      ],
       "checks": {
         "conflicts": "art docs and capture-art.mjs. Kept rounds 1-53 and the wet, field, slope, and cleared captures. Court lines are round 54. ContextStructures kept wetSurface and the two-court markings.",
         "typecheck": "pass",
@@ -2035,7 +2689,14 @@
         "browser": "8148. 1280x720 and 390x780 show two marked courts. Rain still darkens the grass and the lines remain. pageErrors empty.",
         "route": "8148: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs"
+      ],
       "merged": true,
       "mergeSha": "27ceb69e566f849012db9b77fa2f6fcb6da00f3c",
       "integrationPr": 149,
@@ -2053,8 +2714,14 @@
       "sourceBranch": "cursor/garden-pavilion-1a71",
       "baseSha": "ebf0cde0c70d133d842953948907510aa1793e6c",
       "headSha": "193f29d1ccbcf6517607c3382af73906ad325b24",
-      "dependencies": ["art-court-lines"],
-      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs"],
+      "dependencies": [
+        "art-court-lines"
+      ],
+      "sharedFiles": [
+        "src/game/world/ContextStructures.tsx",
+        "src/game/world-data/vegetation.ts",
+        "scripts/art/capture-art.mjs"
+      ],
       "checks": {
         "conflicts": "art docs, capture-art.mjs, and vegetation.ts. Kept court clearing and rounds 1-54. The pavilion is round 55. ContextStructures kept wet colours, court lines, and the open posts.",
         "typecheck": "pass",
@@ -2063,7 +2730,15 @@
         "browser": "8149. 1280x720 shows the green roof, a red post, and the open floor. 390x780 shows the roof and floor. pageErrors empty.",
         "route": "8149: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/vegetation.ts"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world-data/vegetation.ts"
+      ],
       "merged": true,
       "mergeSha": "80a8159f46feaf0182650c9d3489b6c4009d6c3e",
       "integrationPr": 150,
@@ -2081,8 +2756,14 @@
       "sourceBranch": "cursor/minimap-lesson-1a71",
       "baseSha": "57fc468db87d0b021a5a46c63483b9ce00dc0578",
       "headSha": "9f89d1c91c6f8d58cffb450916b8de69e835aa8a",
-      "dependencies": ["art-garden-pavilion"],
-      "sharedFiles": ["src/game/rpg/AdventureHud.tsx", "src/game/rpg/adventure.css", "scripts/art/capture-art.mjs"],
+      "dependencies": [
+        "art-garden-pavilion"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/AdventureHud.tsx",
+        "src/game/rpg/adventure.css",
+        "scripts/art/capture-art.mjs"
+      ],
       "checks": {
         "conflicts": "art docs. Kept rounds 1-55. The minimap label is round 56. Capture kept the existing hud shots and added the lesson badge.",
         "typecheck": "pass",
@@ -2091,7 +2772,13 @@
         "browser": "8150. 1280x720 and 390x780 show 移動 on the minimap. Department name 土木工程學系 stays readable. pageErrors empty.",
         "route": "8150: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "5dd000cdb77ad3219ecb602c89469d52a1ce9aa8",
       "integrationPr": 153,
@@ -2109,8 +2796,14 @@
       "sourceBranch": "cursor/integration-full-game-f7e4",
       "baseSha": "53ec394fa1acfc055360b7108bcc5e827fe39fa9",
       "headSha": "e2d26ffd200150d99c2237bafc14be2e552af5eb",
-      "dependencies": ["content-faculty-story"],
-      "sharedFiles": ["src/game/rpg/store.ts", "src/game/rpg/home.ts", "src/game/rpg/AdventureApp.tsx"],
+      "dependencies": [
+        "content-faculty-story"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts",
+        "src/game/rpg/home.ts",
+        "src/game/rpg/AdventureApp.tsx"
+      ],
       "checks": {
         "conflicts": "docs/full-integration were deleted on main and left out. The interiors harness was left out. Game files applied cleanly.",
         "typecheck": "pass",
@@ -2119,7 +2812,13 @@
         "browser": "8151. The standing route completed with pageErrors empty.",
         "route": "8151: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["docs/full-integration/BACKLOG.json", "docs/full-integration/CHECKPOINT.json", "docs/full-integration/HANDOFF.md", "docs/full-integration/STATUS.md", "docs/full-integration/VALIDATION.md"],
+      "conflicts": [
+        "docs/full-integration/BACKLOG.json",
+        "docs/full-integration/CHECKPOINT.json",
+        "docs/full-integration/HANDOFF.md",
+        "docs/full-integration/STATUS.md",
+        "docs/full-integration/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "42b5e5922113dac6227167164c5ecdd564d9f66a",
       "integrationPr": 155,
@@ -2137,8 +2836,14 @@
       "sourceBranch": "cursor/ramp-rails-1a71",
       "baseSha": "4793fde2aa28d62e7abaaa083113d288fa9ba3be",
       "headSha": "1dce1141859efe5a8dd45c77b54a437f9a20b5f5",
-      "dependencies": ["art-library-ramp"],
-      "sharedFiles": ["src/game/world-data/props.ts", "src/game/world/Props.tsx", "scripts/art/capture-art.mjs"],
+      "dependencies": [
+        "art-library-ramp"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/props.ts",
+        "src/game/world/Props.tsx",
+        "scripts/art/capture-art.mjs"
+      ],
       "checks": {
         "conflicts": "art docs, capture-art.mjs, props.ts, and Props.tsx. Kept rounds 1-56, the ramp mesh, and the current LIBRARY_RAMP position. Rails are round 57.",
         "typecheck": "pass",
@@ -2147,7 +2852,17 @@
         "browser": "8152. 1280x720 and 390x780 show a railing on each side of the ramp. pageErrors empty.",
         "route": "8152: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty. First browser close hit EIO; the rerun passed."
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/art/capture-art.mjs", "src/game/world-data/props.ts", "src/game/world/Props.tsx"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/art/capture-art.mjs",
+        "src/game/world-data/props.ts",
+        "src/game/world/Props.tsx"
+      ],
       "merged": true,
       "mergeSha": "70cf72c50e8d7a5df1e95d6e3e94ac3f459e0461",
       "integrationPr": 159,
@@ -2165,8 +2880,14 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "83fa529a22ce12d60c38c20c318de8b067427d75",
       "headSha": "7182c6e6e5c3bff98d61e3c6f09290476ec0e7bb",
-      "dependencies": ["backend-gear-contract"],
-      "sharedFiles": ["src/features/cloud-save/contract.ts", "src/features/cloud-save/client.ts", "src/features/cloud-save/CloudSaveDock.tsx"],
+      "dependencies": [
+        "backend-gear-contract"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/contract.ts",
+        "src/features/cloud-save/client.ts",
+        "src/features/cloud-save/CloudSaveDock.tsx"
+      ],
       "checks": {
         "conflicts": "none. The cloud-save files and backend notes were taken from 7f400ba onto main.",
         "typecheck": "pass",
@@ -2193,8 +2914,16 @@
       "sourceBranch": "cursor/quest-play-75f5",
       "baseSha": "e95c137109e10d61e9e77c3b56cf111937b722f3",
       "headSha": "4628005319eb91a3f3931eb1088080687111da95",
-      "dependencies": ["content-faculty-story", "backend-campus-snapshot"],
-      "sharedFiles": ["src/game/rpg/data.ts", "src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx", "src/features/cloud-save/contract.ts"],
+      "dependencies": [
+        "content-faculty-story",
+        "backend-campus-snapshot"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/data.ts",
+        "src/game/rpg/store.ts",
+        "src/game/rpg/AdventureHud.tsx",
+        "src/features/cloud-save/contract.ts"
+      ],
       "checks": {
         "conflicts": "store.ts supply settlement and the end of rpg-runtime.test.mjs. Kept the gear bonus, the semester errand, and the interior-resume test. Gathered counts the supplies actually accepted, not the errand notes.",
         "typecheck": "pass",
@@ -2203,7 +2932,10 @@
         "browser": "8154. 1280x720 shows the gate patrol and the journal at 4/12 notes. pageErrors empty.",
         "route": "8154: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["src/game/rpg/store.ts", "scripts/rpg-runtime.test.mjs"],
+      "conflicts": [
+        "src/game/rpg/store.ts",
+        "scripts/rpg-runtime.test.mjs"
+      ],
       "merged": true,
       "mergeSha": "f73b76a9abe50fcb43ca93d94366eb95c80f71d8",
       "integrationPr": 164,
@@ -2221,8 +2953,16 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "b579dff364fdcb190323f1ee61b7dd1d4a233e99",
       "headSha": "1c51c42fe1696bbb824bfbcf077030ea864d7fc3",
-      "dependencies": ["backend-campus-snapshot"],
-      "sharedFiles": ["src/features/cloud-save/client.ts", "src/features/cloud-save/CloudSaveDock.tsx", "src/features/cloud-save/contract.ts", "src/server/cloud/http.ts", "src/server/cloud/service.ts"],
+      "dependencies": [
+        "backend-campus-snapshot"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts",
+        "src/features/cloud-save/CloudSaveDock.tsx",
+        "src/features/cloud-save/contract.ts",
+        "src/server/cloud/http.ts",
+        "src/server/cloud/service.ts"
+      ],
       "checks": {
         "conflicts": "none. The three commits applied onto main and kept gathered and felled.",
         "typecheck": "pass",
@@ -2249,8 +2989,15 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "f46fe066ed2508d533003056ff3b0bf3657ef1fd",
       "headSha": "a9afa5cf584ad5ce5666ec241d62d310c9cc4e9a",
-      "dependencies": ["backend-cloud-revisions", "content-collection-quests"],
-      "sharedFiles": ["scripts/cloud-campus-roundtrip.mjs", "scripts/cloud-live-save.test.mjs", "scripts/cloud-save-flow.mjs"],
+      "dependencies": [
+        "backend-cloud-revisions",
+        "content-collection-quests"
+      ],
+      "sharedFiles": [
+        "scripts/cloud-campus-roundtrip.mjs",
+        "scripts/cloud-live-save.test.mjs",
+        "scripts/cloud-save-flow.mjs"
+      ],
       "checks": {
         "conflicts": "none. The two test commits applied onto the revision integration.",
         "typecheck": "pass",
@@ -2277,8 +3024,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "997ff0db34a1a7acf38ce916c62cf14751749aa8",
       "headSha": "0106bb5d2df0eb4b9b9ff94ffb69421a15f8b373",
-      "dependencies": ["backend-cloud-counts"],
-      "sharedFiles": ["src/features/cloud-save/client.ts", "scripts/cloud-upload-choice.test.mjs"],
+      "dependencies": [
+        "backend-cloud-counts"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts",
+        "scripts/cloud-upload-choice.test.mjs"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamp only. The client applied cleanly.",
         "typecheck": "pass",
@@ -2287,7 +3039,9 @@
         "browser": "8156. The standing route completed with pageErrors empty.",
         "route": "8156: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "f272577a7b7faf5e7477f4919d796a67a1d10b8b",
       "integrationPr": 170,
@@ -2305,8 +3059,14 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "4fb1fa47085af4e997e62b2d4493c13d61d59b9a",
       "headSha": "9c6c74457ed5230d886fb685ee2ac7ad65841e2c",
-      "dependencies": ["backend-reward-once"],
-      "sharedFiles": ["src/features/cloud-save/client.ts", "src/features/cloud-save/CloudSaveDock.tsx", "scripts/cloud-upload-choice.test.mjs"],
+      "dependencies": [
+        "backend-reward-once"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts",
+        "src/features/cloud-save/CloudSaveDock.tsx",
+        "scripts/cloud-upload-choice.test.mjs"
+      ],
       "checks": {
         "conflicts": "none. The account gate applied onto the once-only reward client.",
         "typecheck": "pass",
@@ -2333,8 +3093,14 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "11e350c3e8ad603e38a1bdb9304b04d6e7bc6002",
       "headSha": "5ffb8fc1ad39937aa638f72ed0e1366a7bdeb29f",
-      "dependencies": ["backend-account-gate"],
-      "sharedFiles": ["src/features/cloud-save/client.ts", "src/features/cloud-save/CloudSaveDock.tsx", "scripts/cloud-upload-choice.test.mjs"],
+      "dependencies": [
+        "backend-account-gate"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts",
+        "src/features/cloud-save/CloudSaveDock.tsx",
+        "scripts/cloud-upload-choice.test.mjs"
+      ],
       "checks": {
         "conflicts": "none. Both commits applied onto the account-gate client. Backend checkpoint notes auto-merged.",
         "typecheck": "pass",
@@ -2361,8 +3127,14 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "2f689345637d0208863e1374d17ab7d38ff5f95c",
       "headSha": "bb86c66a1a108ecaeb5ea4a55caea9e69e1912cb",
-      "dependencies": ["backend-cloud-integrity"],
-      "sharedFiles": ["src/game/rpg/store.ts", "src/features/cloud-save/CloudSaveDock.tsx", "scripts/cloud-game-link.test.mjs"],
+      "dependencies": [
+        "backend-cloud-integrity"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts",
+        "src/features/cloud-save/CloudSaveDock.tsx",
+        "scripts/cloud-game-link.test.mjs"
+      ],
       "checks": {
         "conflicts": "The source commit also reformatted store.ts and AdventureHud.tsx. Only noteCloudSave and the dock hold were taken. Collection progress, interior resume, and the account gate stayed.",
         "typecheck": "pass",
@@ -2371,7 +3143,10 @@
         "browser": "8159. The standing route completed with pageErrors empty.",
         "route": "8159: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty"
       },
-      "conflicts": ["src/game/rpg/store.ts", "src/game/rpg/AdventureHud.tsx"],
+      "conflicts": [
+        "src/game/rpg/store.ts",
+        "src/game/rpg/AdventureHud.tsx"
+      ],
       "merged": true,
       "mergeSha": "40aeba883dd04b6e0a5d529c544aa67cca23bf68",
       "integrationPr": 176,
@@ -2389,8 +3164,15 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "38b6f9f68000874729bbba307a3a7a1e2e3a636a",
       "headSha": "936ad5b71e067440aa72080fa49df8a705b2b76e",
-      "dependencies": ["backend-cloud-hold"],
-      "sharedFiles": ["src/game/rpg/store.ts", "src/features/cloud-save/client.ts", "scripts/cloud-game-link.test.mjs", "scripts/cloud-upload-choice.test.mjs"],
+      "dependencies": [
+        "backend-cloud-hold"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts",
+        "src/features/cloud-save/client.ts",
+        "scripts/cloud-game-link.test.mjs",
+        "scripts/cloud-upload-choice.test.mjs"
+      ],
       "checks": {
         "conflicts": "none. The interior continue and the queue drop applied onto the cloud-hold client.",
         "typecheck": "pass",
@@ -2417,8 +3199,16 @@
       "sourceBranch": "cursor/quest-play-75f5",
       "baseSha": "f317ceb4448d45222ad6a7a60e290246d2da094d",
       "headSha": "a735de020fd201e9bbf742f9b188cc39653d7262",
-      "dependencies": ["content-collection-quests", "content-faculty-story"],
-      "sharedFiles": ["src/features/psych-story/build.ts", "src/game/rpg/store.ts", "src/game/rpg/prompts.ts", "src/features/narrative/load.ts"],
+      "dependencies": [
+        "content-collection-quests",
+        "content-faculty-story"
+      ],
+      "sharedFiles": [
+        "src/features/psych-story/build.ts",
+        "src/game/rpg/store.ts",
+        "src/game/rpg/prompts.ts",
+        "src/features/narrative/load.ts"
+      ],
       "checks": {
         "conflicts": "store.ts claim and narrativeChoose. Kept stampSemester and marked leftover rewards with layRemainder(..., true).",
         "typecheck": "pass",
@@ -2427,7 +3217,9 @@
         "browser": "8161. Xu Hui capture and the standing route completed.",
         "route": "8161: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty. Xu Hui xp 0 to 18 to 26 to 36, gathered stayed 0."
       },
-      "conflicts": ["src/game/rpg/store.ts"],
+      "conflicts": [
+        "src/game/rpg/store.ts"
+      ],
       "merged": true,
       "mergeSha": "546676be861ef80ca5f75b780ed2d07a45ce3d16",
       "integrationPr": 182,
@@ -2445,8 +3237,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "1c8f11e079fe93ef9abba8aff8854d99c8153caf",
       "headSha": "7644d8104afc2be866a0b781383816e3ccd89e2a",
-      "dependencies": ["backend-cloud-resume"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-cloud-resume"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamp and completed list. Kept the newer line note. Client applied cleanly.",
         "typecheck": "pass",
@@ -2455,7 +3251,9 @@
         "browser": "8162. The standing route completed.",
         "route": "8162: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "e8e268048ef8e852aefa42b9a6714d10f87dc1aa",
       "integrationPr": 185,
@@ -2473,8 +3271,14 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "2ec905984a0215cf51e49fb7226a5a11ea546f08",
       "headSha": "624ff44833d94b1d0b98d6d0fe21d2fd09a050d3",
-      "dependencies": ["backend-cloud-flush", "content-psych-story"],
-      "sharedFiles": ["src/features/cloud-save/client.ts", "src/features/cloud-save/contract.ts"],
+      "dependencies": [
+        "backend-cloud-flush",
+        "content-psych-story"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts",
+        "src/features/cloud-save/contract.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json base field. Kept 1c8f11e. Client and contract applied cleanly.",
         "typecheck": "pass",
@@ -2483,7 +3287,9 @@
         "browser": "8163. The standing route completed.",
         "route": "8163: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "0b55924116a10408c51209ce17605b5b47497704",
       "integrationPr": 187,
@@ -2501,8 +3307,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "5deed92acb02435b35861e0e96399e5613ee702a",
       "headSha": "bfbf34103baeb4349afb9c810fb7bd3d5a4d2f63",
-      "dependencies": ["backend-cloud-retry"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-cloud-retry"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "none",
         "typecheck": "pass",
@@ -2529,8 +3339,14 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "90fa4f8b52f1ee8b69653b3a8875570ca7766207",
       "headSha": "c04dd7b38f5ee29d09ef705f6259342a1629b1ce",
-      "dependencies": ["backend-cloud-follow", "backend-cloud-retry"],
-      "sharedFiles": ["src/features/cloud-save/client.ts", "scripts/cloud-save-flow.mjs"],
+      "dependencies": [
+        "backend-cloud-follow",
+        "backend-cloud-retry"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts",
+        "scripts/cloud-save-flow.mjs"
+      ],
       "checks": {
         "conflicts": "none",
         "typecheck": "pass",
@@ -2557,8 +3373,12 @@
       "sourceBranch": "cursor/rail-stop-1a71",
       "baseSha": "b745f27f725e33bc94a1cb47399b198c54130bbb",
       "headSha": "002453c78a88fffbc902ce6859d0a3cd6a7294e3",
-      "dependencies": ["art-ramp-rails"],
-      "sharedFiles": ["src/game/world-data/colliders.ts"],
+      "dependencies": [
+        "art-ramp-rails"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/colliders.ts"
+      ],
       "checks": {
         "conflicts": "none",
         "typecheck": "pass",
@@ -2585,8 +3405,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "269020c6164fd4d84a2f8dd894aacdb4b4aa446b",
       "headSha": "7d115d0442b20d78237421be77598bd53dc8d922",
-      "dependencies": ["backend-cloud-drop"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-cloud-drop"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T05:25:20Z entry and the session-change line.",
         "typecheck": "pass",
@@ -2613,8 +3437,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "327520d5275192e47637d0c1bad4535c71d034a5",
       "headSha": "0b254d5814d49e7ab6518268cdb97aa197a2158d",
-      "dependencies": ["backend-session-gate"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-session-gate"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T05:32:04Z entry and the session-blip line.",
         "typecheck": "pass",
@@ -2641,8 +3469,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "75707243802168b0ee06526c4f1d86466e24e5fa",
       "headSha": "26afab80a6e2e3931007712d22fe2b104b1eaa7d",
-      "dependencies": ["backend-reward-blip", "backend-cloud-drop"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-reward-blip",
+        "backend-cloud-drop"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T05:35:42Z entry and the write-back line.",
         "typecheck": "pass",
@@ -2669,8 +3502,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "32a15adead659286c37976d1e0006396ae2958e1",
       "headSha": "159e09f7188228d3fc9c6b951893f2225151f672",
-      "dependencies": ["backend-save-blip"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-save-blip"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "store.ts restoreHarvest and docs/backend/CHECKPOINT.json. Kept stampSemester and the incoming facility cooldown. Checkpoint kept 2026-11-12T05:41:13Z.",
         "typecheck": "pass",
@@ -2679,7 +3516,10 @@
         "browser": "8170. The standing route completed.",
         "route": "8170: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
-      "conflicts": ["src/game/rpg/store.ts", "docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "src/game/rpg/store.ts",
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "3d60236e0a7ca63066c14c939b6a805ec94bb93a",
       "integrationPr": 200,
@@ -2697,8 +3537,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "987c5a78f6fcea070eda5f306e9da36b6886727b",
       "headSha": "0dac69da5a304a8700b97243515a605771f1dae9",
-      "dependencies": ["backend-harvest-hold", "backend-session-gate"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-harvest-hold",
+        "backend-session-gate"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T05:47:56Z entry and the restore-confirm line.",
         "typecheck": "pass",
@@ -2725,8 +3570,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "85ecd5d75dc854008f33903126ee5a0e6fa30291",
       "headSha": "7b6bcbf37f619808d7f1a835ce81eb68d59a84be",
-      "dependencies": ["backend-restore-gate"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-restore-gate"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list on both commits. Kept 2026-11-12T05:55:36Z and both confirm lines.",
         "typecheck": "pass",
@@ -2753,8 +3602,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "4f300a725f09f9b83f58dd93d751a44c26dbae9b",
       "headSha": "a8406d33c9ed4d7533d47984cbca41677aaaacc0",
-      "dependencies": ["backend-upload-account"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-upload-account"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json auto-merged. Kept the newer 2026-11-12T05:58:41Z entry and the revision-conflict line.",
         "typecheck": "pass",
@@ -2781,8 +3634,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "76111485a12ce635cb56f441ea45ee1a9eafe165",
       "headSha": "10716ae44ed06c6fb0b139967410bae8a4337bbf",
-      "dependencies": ["backend-conflict-account"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-conflict-account"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:02:37Z entry and the restore-conflict line.",
         "typecheck": "pass",
@@ -2791,7 +3648,9 @@
         "browser": "8174. The standing route completed.",
         "route": "8174: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "fdce70c2b4ae7c9e644f734ec4faa10e649be327",
       "integrationPr": 206,
@@ -2809,8 +3668,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "3530de8ebf7ce0f51911a14bcd640e8133965891",
       "headSha": "a899394a23c061fd2aba6b40b451de79e860ed6d",
-      "dependencies": ["backend-restore-conflict"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-restore-conflict"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:06:24Z entry and the follow-up-read line.",
         "typecheck": "pass",
@@ -2819,7 +3682,9 @@
         "browser": "8175. The standing route completed.",
         "route": "8175: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "c858af75a8dba8078acee141ba27e85f55c62d2b",
       "integrationPr": 208,
@@ -2837,8 +3702,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "bd69066176a9843af03ce46cad0c9181280739d6",
       "headSha": "42a7b3f4f4180fa123477519eeab1ae9130294e4",
-      "dependencies": ["backend-drop-read", "backend-harvest-hold"],
-      "sharedFiles": ["src/features/cloud-save/contract.ts"],
+      "dependencies": [
+        "backend-drop-read",
+        "backend-harvest-hold"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/contract.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json auto-merged. Kept the newer 2026-11-12T06:09:07Z entry and the harvest-keys line.",
         "typecheck": "pass",
@@ -2865,8 +3735,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "ca2f2897246af879279af6b416fcb65238d8f6e0",
       "headSha": "089b9d89cea999cf562669a014a50befc61b9193",
-      "dependencies": ["backend-harvest-keys", "backend-reward-blip"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-harvest-keys",
+        "backend-reward-blip"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:12:39Z entry and the reward-receipt line.",
         "typecheck": "pass",
@@ -2875,7 +3750,9 @@
         "browser": "8177. The standing route completed.",
         "route": "8177: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "e2030bf80cd27fe98445323898b56ac4ca838046",
       "integrationPr": 211,
@@ -2893,8 +3770,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "e878f261f13a4fd172bebbf7da94d3d3198cb83b",
       "headSha": "df0b23c5ae1bdab2414aee7194fdf0e4fd195c58",
-      "dependencies": ["backend-reward-receipt"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-reward-receipt"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:19:51Z entry and the lost-upload line.",
         "typecheck": "pass",
@@ -2903,7 +3784,9 @@
         "browser": "8178. The standing route completed.",
         "route": "8178: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +7 side won the race so cloudXp 51, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "66fb33550c0f1f02492a9ce10ed4edf2e44db28a",
       "integrationPr": 213,
@@ -2921,8 +3804,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "9dfcec968b7cf9eca5bc6392c9720b2c45f8eb9f",
       "headSha": "b1131cb236c2ed7f919a3911847e3c49fadfadf7",
-      "dependencies": ["backend-lost-upload"],
-      "sharedFiles": ["src/features/cloud-save/contract.ts"],
+      "dependencies": [
+        "backend-lost-upload"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/contract.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json auto-merged. No manual conflict.",
         "typecheck": "pass",
@@ -2949,8 +3836,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "d12a2d91ee58f2131df41b140f677965ea3397c2",
       "headSha": "ab9e517bc665c2184ebf96331d871282e131d47e",
-      "dependencies": ["backend-quarantine-ids"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-quarantine-ids"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:34:34Z entry and the database-outage line.",
         "typecheck": "pass",
@@ -2959,7 +3850,9 @@
         "browser": "8180. The standing route completed.",
         "route": "8180: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "ef46fb6484eae285c41c8ed6584512d1138f2436",
       "integrationPr": 217,
@@ -2977,8 +3870,14 @@
       "sourceBranch": "cursor/slope-rails-1a71",
       "baseSha": "6f75c3e67a9e767156be6cf3958f83cad2384022",
       "headSha": "c065645ff8fff048a825a707e7932ce971cede8c",
-      "dependencies": ["art-rail-body"],
-      "sharedFiles": ["src/game/world/Props.tsx", "src/game/world-data/props.ts", "src/game/world-data/railing-frame.ts"],
+      "dependencies": [
+        "art-rail-body"
+      ],
+      "sharedFiles": [
+        "src/game/world/Props.tsx",
+        "src/game/world-data/props.ts",
+        "src/game/world-data/railing-frame.ts"
+      ],
       "checks": {
         "conflicts": "Art docs and ramp-rails.test.mjs. Kept the body-block assertions and the slope assertions. Post X stays on the rail line.",
         "typecheck": "pass",
@@ -2987,7 +3886,15 @@
         "browser": "8181. The standing route completed on the second run after an I/O close.",
         "route": "8181: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md", "scripts/ramp-rails.test.mjs"],
+      "conflicts": [
+        "docs/art/BACKLOG.json",
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md",
+        "scripts/ramp-rails.test.mjs"
+      ],
       "merged": true,
       "mergeSha": "c526b66f679c8fdc65e356490ab1a15c590d3f68",
       "integrationPr": 220,
@@ -3005,8 +3912,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "df20d533330d0c5a1e0c492671441e7ac55e4f91",
       "headSha": "9a085af967d93b80bca275799daf6f0cf3590d22",
-      "dependencies": ["backend-db-queue"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-db-queue"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:43:34Z entry and the expired-session line.",
         "typecheck": "pass",
@@ -3015,7 +3926,9 @@
         "browser": "8182. The standing route completed.",
         "route": "8182: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "bf54ca7925d14831063c5a721a0d4206555bee00",
       "integrationPr": 222,
@@ -3033,8 +3946,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "2925e8a1fbfc481618ede110cb93c6e504711346",
       "headSha": "d014318b463c2019d40070a61832f808792b29be",
-      "dependencies": ["backend-session-expired"],
-      "sharedFiles": ["src/features/cloud-save/contract.ts", "src/features/gameplay-variety/memory.ts"],
+      "dependencies": [
+        "backend-session-expired"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/contract.ts",
+        "src/features/gameplay-variety/memory.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T06:54:51Z entry and the variety-built line.",
         "typecheck": "pass",
@@ -3043,7 +3961,9 @@
         "browser": "8183. The standing route completed.",
         "route": "8183: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "f490dd3f6e8a0865e1c0ea0be5a0a3a0b110aaa2",
       "integrationPr": 223,
@@ -3061,8 +3981,13 @@
       "sourceBranch": "cursor/track-infield-1a71",
       "baseSha": "873d8317b3053bb434c7c98bf680e710c4183858",
       "headSha": "6bf79fe534be7edc98799f4c60596cb0a5764d41",
-      "dependencies": ["art-rail-slope"],
-      "sharedFiles": ["src/game/world-data/court-lines.ts", "src/game/world/ContextStructures.tsx"],
+      "dependencies": [
+        "art-rail-slope"
+      ],
+      "sharedFiles": [
+        "src/game/world-data/court-lines.ts",
+        "src/game/world/ContextStructures.tsx"
+      ],
       "checks": {
         "conflicts": "Art docs. Kept the slope-rail notes and added the infield as round 60. Game files applied cleanly.",
         "typecheck": "pass",
@@ -3071,7 +3996,13 @@
         "browser": "8184. The standing route completed.",
         "route": "8184: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "conflicts": [
+        "docs/art/CHECKPOINT.json",
+        "docs/art/HANDOFF.md",
+        "docs/art/SOURCES.md",
+        "docs/art/STATUS.md",
+        "docs/art/VALIDATION.md"
+      ],
       "merged": true,
       "mergeSha": "ab3d088555c0da0b1d3435cc333ff19972a8454d",
       "integrationPr": 225,
@@ -3089,8 +4020,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "7c44b1785ca9c21785bbea5bd33c1f6ee51c2de1",
       "headSha": "320a53601b12f80ec2a6484538a0af208b1ee91b",
-      "dependencies": ["backend-variety-built"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-variety-built"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:02:41Z entry and the empty-cloud line.",
         "typecheck": "pass",
@@ -3099,7 +4034,9 @@
         "browser": "8185. The standing route completed.",
         "route": "8185: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "a488180ee96845a1a3c3018172f55b9183d9eb3e",
       "integrationPr": 226,
@@ -3117,8 +4054,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "fff44522d11ddd3ad72df19757f5b52dd0bdb153",
       "headSha": "0f88ef7a2540ac114f6b87060911b1fa8d17ca67",
-      "dependencies": ["backend-empty-cloud"],
-      "sharedFiles": ["src/features/cloud-save/client.ts"],
+      "dependencies": [
+        "backend-empty-cloud"
+      ],
+      "sharedFiles": [
+        "src/features/cloud-save/client.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:11:41Z entry and the rate-limit line.",
         "typecheck": "pass",
@@ -3127,7 +4068,9 @@
         "browser": "8186. The standing route completed.",
         "route": "8186: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "e4a1c81eed11b7f03f39ab45150340b742308259",
       "integrationPr": 228,
@@ -3145,8 +4088,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "0e5b7a0f742cccfb5678f2fddbf68963e267689f",
       "headSha": "a42e4cda038036010a4cc7e436d482613e2ca433",
-      "dependencies": ["backend-reward-limit"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-reward-limit"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:18:03Z entry and the look-around line. store.ts merged cleanly.",
         "typecheck": "pass",
@@ -3155,7 +4102,9 @@
         "browser": "8187. The standing route completed.",
         "route": "8187: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "59f8cc49d7efb5c3b13d7f248daeedcb09686458",
       "integrationPr": 229,
@@ -3173,7 +4122,9 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "e5ef99ed4fa1524791aafe8ee4b38887392024b6",
       "headSha": "ce2b4cde85721518a9dbcd4b7d3086037c8d5e8d",
-      "dependencies": ["backend-look-yaw"],
+      "dependencies": [
+        "backend-look-yaw"
+      ],
       "sharedFiles": [
         "src/features/cloud-save/contract.ts",
         "src/game/rpg/narrative-bridge.ts"
@@ -3186,7 +4137,9 @@
         "browser": "8188. The standing route completed.",
         "route": "8188: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "a378b3673c8bbeb24769d42eec0faa175c471e1f",
       "integrationPr": 231,
@@ -3204,8 +4157,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "8daa1ef5c026fc2bc1355c9053a09a51e2919fc5",
       "headSha": "ba24f0cbc13311bb16372d3c5bd8ad9eb5a1ae11",
-      "dependencies": ["backend-memory-length"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-memory-length"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:28:10Z entry and the long ground-loot id line. store.ts merged cleanly.",
         "typecheck": "pass",
@@ -3214,7 +4171,9 @@
         "browser": "8189. The standing route completed.",
         "route": "8189: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "79cdcaedbe0dc147731a5ac794e8f467f524dd1b",
       "integrationPr": 233,
@@ -3232,8 +4191,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "0f5da63d25f5c5bf3f457628a9d96aa3579c870e",
       "headSha": "a90f2b37337354e15f3c18f0e5c82d094002f89a",
-      "dependencies": ["backend-loot-id"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-loot-id"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json timestamps and completed list. Kept the newer 2026-11-12T07:30:24Z entry and the unusable ground pile line. store.ts merged cleanly.",
         "typecheck": "pass",
@@ -3242,7 +4205,9 @@
         "browser": "8190. The standing route completed.",
         "route": "8190: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "6ac1cb2637e175d92be0281ca043b152ca05691b",
       "integrationPr": 234,
@@ -3260,8 +4225,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "6e90df91337bbedef22e537643807282f55af101",
       "headSha": "d415927981ea3d8206470ba3e6f4609e0dd8aeda",
-      "dependencies": ["backend-loot-pile"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-loot-pile"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json and store.ts auto-merged. Kept 2026-11-12T07:32:59Z and the unusable-anchor line.",
         "typecheck": "pass",
@@ -3288,8 +4257,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "1b24d666d8fff5d728d0c7d0f02717b94ebc158f",
       "headSha": "9aea9404d8c11fb3740f60a2fb048704a39721c9",
-      "dependencies": ["backend-move-anchor"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-move-anchor"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json completed list. Kept the newer 2026-11-12T07:37:12Z entry and the stray-discovery line. store.ts merged cleanly.",
         "typecheck": "pass",
@@ -3298,7 +4271,9 @@
         "browser": "8192. The standing route completed.",
         "route": "8192: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
       },
-      "conflicts": ["docs/backend/CHECKPOINT.json"],
+      "conflicts": [
+        "docs/backend/CHECKPOINT.json"
+      ],
       "merged": true,
       "mergeSha": "20458c55183756248f4d0f81245d127f814b5b89",
       "integrationPr": 237,
@@ -3316,8 +4291,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "b1f473d1a6ec3908a079bb4e476973d282908399",
       "headSha": "a6a082510a7f0a898cb4cf7cfb9263f0946b9eb5",
-      "dependencies": ["backend-discoveries"],
-      "sharedFiles": ["src/features/items-equipment-building/gear.ts"],
+      "dependencies": [
+        "backend-discoveries"
+      ],
+      "sharedFiles": [
+        "src/features/items-equipment-building/gear.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json and gear.ts auto-merged. Kept 2026-11-12T07:40:08Z and the wild-durability line.",
         "typecheck": "pass",
@@ -3344,8 +4323,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "09c7d7c9581e65d8e761a04956757dbf84f47b0f",
       "headSha": "aac0f666d18f44b330ba33c23cbef8feec69c56d",
-      "dependencies": ["backend-gear-durability"],
-      "sharedFiles": ["src/game/rpg/narrative-bridge.ts", "src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-gear-durability"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/narrative-bridge.ts",
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T07:43:29Z and the out-of-range clock line. store.ts auto-merged.",
         "typecheck": "pass",
@@ -3372,8 +4356,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "f4929b4c978533374617e51e5a4b093afa3d18c4",
       "headSha": "83a38aa347bc0cdd10a5fa869eff93b948d0a447",
-      "dependencies": ["backend-narrative-clock"],
-      "sharedFiles": ["src/game/rpg/narrative-bridge.ts", "src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-narrative-clock"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/narrative-bridge.ts",
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json and store.ts auto-merged. Kept 2026-11-12T07:45:33Z and the unnamed-place line.",
         "typecheck": "pass",
@@ -3400,8 +4389,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "eccee6d3e0022fc53b2148b344bf038376706bf5",
       "headSha": "561a3e1b609a9f10fb95e3ca7550748d5267beeb",
-      "dependencies": ["backend-narrative-place"],
-      "sharedFiles": ["src/game/rpg/narrative-bridge.ts", "src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-narrative-place"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/narrative-bridge.ts",
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T07:47:43Z and the out-of-range timer line. store.ts auto-merged.",
         "typecheck": "pass",
@@ -3428,8 +4422,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "26828b9914afe399884dccf281c5458e18f40196",
       "headSha": "7c82d000fe98666abdd2d1ce1e7942f41dbab8f5",
-      "dependencies": ["backend-narrative-timer"],
-      "sharedFiles": ["src/game/rpg/narrative-bridge.ts"],
+      "dependencies": [
+        "backend-narrative-timer"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/narrative-bridge.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json auto-merged. Kept 2026-11-12T07:49:32Z and the empty-key line.",
         "typecheck": "pass",
@@ -3456,8 +4454,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "5bc4ad8bdef8dbd71eb870de89c1348e2ced2bdb",
       "headSha": "31a01db5e89534fac06ee9737727c297bfebbc97",
-      "dependencies": ["backend-narrative-key"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-narrative-key"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T07:52:01Z and the long-claim line. store.ts auto-merged.",
         "typecheck": "pass",
@@ -3484,8 +4486,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "a91731f643a748f0bd4af693c21b00e10085605c",
       "headSha": "5d1f25932c8b4998410065c49c974ed82b97671f",
-      "dependencies": ["backend-quest-claim"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-quest-claim"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json and store.ts auto-merged. Kept 2026-11-12T07:54:01Z and the long pilgrimage line.",
         "typecheck": "pass",
@@ -3512,8 +4518,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "a0806b69a7f447bfdac454fbafe5e79cc55ffd37",
       "headSha": "73a0298e9a3bf281f92b5c678bc2376f183b2de4",
-      "dependencies": ["backend-pilgrimage-list"],
-      "sharedFiles": ["src/features/gameplay-variety/memory.ts"],
+      "dependencies": [
+        "backend-pilgrimage-list"
+      ],
+      "sharedFiles": [
+        "src/features/gameplay-variety/memory.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T07:59:27Z and the empty variety note line. memory.ts applied cleanly.",
         "typecheck": "pass",
@@ -3540,8 +4550,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "cfa1cbdc85ac3703747b21925eed5b56d4b2e238",
       "headSha": "7eb68b82f7f47425d1845c3c61a097f1c5468582",
-      "dependencies": ["backend-empty-note"],
-      "sharedFiles": ["src/features/gameplay-variety/memory.ts"],
+      "dependencies": [
+        "backend-empty-note"
+      ],
+      "sharedFiles": [
+        "src/features/gameplay-variety/memory.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json auto-merged. Kept 2026-11-12T08:03:45Z and the long variety note line.",
         "typecheck": "pass",
@@ -3568,8 +4582,13 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "311dca109656b90a47b9ef01b5640213d9bbe741",
       "headSha": "1ae37943a7e9873121fa53656b684560cd12991d",
-      "dependencies": ["backend-long-note"],
-      "sharedFiles": ["src/game/rpg/narrative-bridge.ts", "src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-long-note"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/narrative-bridge.ts",
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T08:07:01Z and the empty seed line. store.ts auto-merged.",
         "typecheck": "pass",
@@ -3596,8 +4615,12 @@
       "sourceBranch": "cursor/backend-db-link-6038",
       "baseSha": "95d35d16a2c6fd685a6c74b7a5ebc772cb1e0357",
       "headSha": "92c9490546f115370dd6bb80b251a5fa9ac6daf2",
-      "dependencies": ["backend-empty-seed"],
-      "sharedFiles": ["src/game/rpg/store.ts"],
+      "dependencies": [
+        "backend-empty-seed"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
       "checks": {
         "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T08:13:16Z and the old harvest line. store.ts auto-merged.",
         "typecheck": "pass",
@@ -3612,6 +4635,36 @@
       "integrationPr": 256,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/256",
       "nextAction": "None. The trimmed harvest cooldowns from 92c94905 are already in this integration. Do not merge PR #156 by itself."
+    },
+    {
+      "id": "backend-quarantine-full",
+      "line": "backend",
+      "scope": "A snapshot and an import keep the first 24 quarantine rows. A 25th row such as extra-book is dropped when the list is already full. When the list has room, the extra bag item joins with its quantity. A raw upload of more than 24 quarantine rows is still rejected.",
+      "status": "verified",
+      "pr": 156,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/156",
+      "integrationBranch": "cursor/integration-quarantine-full-3395",
+      "sourceBranch": "cursor/backend-db-link-6038",
+      "baseSha": "459e60e8bb7295460d71e9e624388a1888b50206",
+      "headSha": "ea8f79d5906e6c8b46e45cfd7b1ba62e8eebed89",
+      "dependencies": [
+        "backend-harvest-pile"
+      ],
+      "sharedFiles": [
+        "src/game/rpg/store.ts"
+      ],
+      "checks": {
+        "conflicts": "docs/backend/CHECKPOINT.json completed tail only. Kept 2026-11-12T08:20:24Z, the merge note at eccee6d, and the full quarantine line. store.ts auto-merged.",
+        "typecheck": "pass",
+        "npmTest": "407 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-D0wh4st4.js",
+        "browser": "8204. The standing route completed.",
+        "route": "8204: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, reload xp 44 notes 21, revision 1, second client midterm, revision_conflict, the +3 side won the race so cloudXp 47, the disconnected +1 stayed queued, logout 401, pageErrors empty."
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": "d4a1cba0d52bf7c408072e808b97d7d2740013ac",
+      "nextAction": "Open the integration PR, note its number, and fast-forward main. Do not merge PR #156 by itself."
     }
   ]
 }
