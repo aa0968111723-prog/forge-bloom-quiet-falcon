@@ -3,7 +3,7 @@
   "branch": "cursor/gameplay-variety-fb95",
   "base": "origin/main",
   "baseSha": "65507cd",
-  "head": "filled-after-commit",
+  "head": "6ac14a2bb33d57484a8f8da9c0e7574860fbf87f",
   "commands": [
     "node --test scripts/gameplay-variety.test.mjs",
     "npx tsc --noEmit"

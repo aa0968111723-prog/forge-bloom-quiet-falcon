@@ -2,7 +2,7 @@
 
 ## 指令
 
-在 `cursor/gameplay-variety-fb95`：
+在 `cursor/gameplay-variety-fb95`，功能提交 `6ac14a2bb33d57484a8f8da9c0e7574860fbf87f`：
 
 - `node --test scripts/gameplay-variety.test.mjs`：14 項通過。涵蓋六類覆蓋、和平鏈、護送失敗與重試、路障連線、時間窗線索、閥門重置、路線預算與順序、修復規則、扇形／長條不是圓形、打斷／護盾／保護／解除、選事、中止、存讀、結算只付一次、報告異象可打贏。
 - `npx tsc --noEmit`：通過。

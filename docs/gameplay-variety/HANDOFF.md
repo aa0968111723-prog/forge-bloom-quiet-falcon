@@ -1,6 +1,6 @@
 # 交接
 
-分支 `cursor/gameplay-variety-fb95`，從 `origin/main` `65507cd` 拉出。只推這條分支，不合併。
+分支 `cursor/gameplay-variety-fb95`，功能提交 `6ac14a2bb33d57484a8f8da9c0e7574860fbf87f`，從 `origin/main` `65507cd` 拉出。只推這條分支，不合併。
 
 擁有 `src/features/gameplay-variety/**`、`docs/gameplay-variety/**`、`scripts/gameplay-variety.test.mjs`。主遊戲只加了面板 token `variety`、HUD 掛載與場景上的地面環。沒有改敵人表、敘事旗標或別人的未提交檔案。
 
