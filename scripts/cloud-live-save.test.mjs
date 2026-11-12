@@ -268,3 +268,68 @@ test("a full campus of harvest cooldowns still passes the cloud contract", () =>
   assert.equal(tooMany.ok, false);
   if (!tooMany.ok) assert.match(tooMany.message, /超過上限/);
 });
+
+test("a variety run can record more lifetime stations than the standing cap", () => {
+  const caps = {
+    equipped: false,
+    skillRank: 1,
+    built: 49,
+    collegeId: null,
+    discipline: null,
+  };
+  const playing = validateRpgDocument({
+    ...base,
+    built: 49,
+    variety: {
+      version: 1,
+      active: {
+        eventId: "gv-night-patrol",
+        phase: "briefing",
+        route: null,
+        failReason: null,
+        receipt: null,
+        tutorial: true,
+        board: null,
+        caps,
+      },
+    },
+  });
+  assert.equal(playing.ok, true, playing.ok ? "" : playing.message);
+
+  const still = validateRpgDocument({
+    ...base,
+    variety: {
+      version: 1,
+      active: {
+        eventId: "gv-night-patrol",
+        phase: "briefing",
+        route: null,
+        failReason: null,
+        receipt: null,
+        tutorial: true,
+        board: null,
+        caps: { ...caps, built: 10_000_000 },
+      },
+    },
+  });
+  assert.equal(still.ok, true, still.ok ? "" : still.message);
+
+  const over = validateRpgDocument({
+    ...base,
+    variety: {
+      version: 1,
+      active: {
+        eventId: "gv-night-patrol",
+        phase: "briefing",
+        route: null,
+        failReason: null,
+        receipt: null,
+        tutorial: true,
+        board: null,
+        caps: { ...caps, built: 10_000_001 },
+      },
+    },
+  });
+  assert.equal(over.ok, false);
+  if (!over.ok) assert.equal(over.code, "invalid_document");
+});
