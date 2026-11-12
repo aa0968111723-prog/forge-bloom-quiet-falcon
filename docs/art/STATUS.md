@@ -391,6 +391,12 @@
 
 畫面：`docs/art/evidence/props/bollard.jpg`。測試：`scripts/bollard-stop.test.mjs`、`scripts/route-walk.test.mjs`。
 
+## 階段：沙坑（ART-067 的一部分）
+
+田徑場內圈東側的草地上有一座 3×8 m 的沙坑和西端起跳板。沙坑在跑道內緣裡面，也不壓到 24×40 m 的白線。沙面可以走過去。尺寸仍是 estimated。車阻留著。
+
+畫面：`docs/art/evidence/track/pit.jpg`。測試：`scripts/court-lines.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。車阻已會擋人。田徑場內圈已有草地界線。坡道欄杆跟著坡面升高，也會擋人。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。田徑場內圈東側已有沙坑。車阻已會擋人。田徑場內圈已有草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

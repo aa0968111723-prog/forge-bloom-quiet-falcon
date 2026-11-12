@@ -30,7 +30,7 @@ import {
 } from "../world-data/zones/secondary.ts";
 import { type PlaneItem } from "./InstancedPlanes";
 import { makeSignTexture, useCampusSigns, useFontTick } from "./labels";
-import { courtMarkings, trackInfield } from "../world-data/court-lines.ts";
+import { courtMarkings, trackInfield, trackPit } from "../world-data/court-lines.ts";
 import { worldUvBox } from "./geometry";
 
 /**
@@ -283,6 +283,22 @@ export function ContextStructures({
                       <meshBasicMaterial color="#f4efe4" />
                     </mesh>
                   ))}
+                  {(() => {
+                    const pit = trackPit(s.size);
+                    if (!pit) return null;
+                    return (
+                      <group position={[pit.x, 0, pit.z]}>
+                        <mesh position={[0, 0.08, 0]} receiveShadow>
+                          <boxGeometry args={[pit.w, 0.04, pit.d]} />
+                          <meshStandardMaterial color="#d6bc86" roughness={0.95} />
+                        </mesh>
+                        <mesh position={[-pit.w / 2 - 0.12, 0.1, 0]}>
+                          <boxGeometry args={[0.18, 0.02, 1.22]} />
+                          <meshBasicMaterial color="#f4efe4" />
+                        </mesh>
+                      </group>
+                    );
+                  })()}
                 </>
               )}
               {s.id === "parking" &&
