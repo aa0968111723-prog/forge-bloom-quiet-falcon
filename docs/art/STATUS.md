@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：田徑場內圈（ART-067 的一部分）
+
+田徑場內圈不再是一整片草。中間是 24×40 m 的白線和一條中線，線留在跑道內圈裡，沒有球網。跑道環和分道留著。尺寸仍是 estimated。坡道欄杆留著。
+
+畫面：`docs/art/evidence/track/infield.jpg`。測試：`scripts/court-lines.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。田徑場內圈已有草地界線。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
