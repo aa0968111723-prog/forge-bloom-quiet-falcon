@@ -15,6 +15,7 @@ export { WORLD_BOUNDS } from "./world-data/origin.ts";
 import { PLAZA_ELEVATION } from "./world-data/axis.ts";
 import { landmarkAt as landmarkAtImpl } from "./world-data/colliders.ts";
 import { sampleGroundElevation } from "./world-data/elevation.ts";
+import { standDeckLift } from "./world-data/zones/secondary.ts";
 import { kenanStepElevation } from "./world-data/kenan.ts";
 import { LANDMARKS as REALITY_LANDMARKS, SPAWN as REALITY_SPAWN } from "./world-data/landmarks.ts";
 import type { RealityLandmark } from "./world-data/landmarks.ts";
@@ -59,7 +60,7 @@ export const SPAWN = { x: REALITY_SPAWN.x, y: REALITY_SPAWN.y + 0.1, z: REALITY_
 
 /** Ground height the player walks on. Stepped through 克難坡. */
 export function terrainHeight(x: number, z: number): number {
-  return sampleGroundElevation(x, z);
+  return sampleGroundElevation(x, z) + standDeckLift(x, z);
 }
 
 /** Legacy helper: stair-centreline height, or null off the slope. */

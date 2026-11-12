@@ -910,6 +910,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "hall", "older engineering workshop");
+  } else if (scenario === "deck") {
+    await hideHud(page);
+    await setPose(page, -75, -418, Math.PI);
+    await page.evaluate(() => {
+      window.__rpgQA.game.getState().setTime("day");
+      const y = window.__rpgQA.ground(-75, -418);
+      window.__controlsTest.setPhoto({
+        yaw: 0.35,
+        distance: 9,
+        height: 2.2,
+        lookY: 0,
+        target: { x: -75, y: y + 1.3, z: -418 },
+      });
+    });
+    await settle(page, { stableFrames: 4 });
+    await shot(page, "stand", "player standing on the reviewing deck");
   } else if (scenario === "study") {
     await hideHud(page);
     await setPose(page, 224, -69.5, Math.PI);

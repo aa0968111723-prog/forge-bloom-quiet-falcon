@@ -275,6 +275,12 @@
 
 畫面：`docs/art/evidence/map/lesson.jpg`。測試：`scripts/lesson-marker.test.mjs`。
 
+## 階段：司令臺台面（ART-067 的一部分）
+
+司令臺的台面可以走上去。人站在台上時比周圍地面高 1.25 m，四周 3.2 m 是坡。後方小間和兩根棚柱仍擋住。台高仍是 estimated。課程標記留著。
+
+畫面：`docs/art/evidence/stand/walk.jpg`。測試：`scripts/stand-deck.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。課程標記在展開地圖上可讀。工學館、化學館與工學大樓留著。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。司令臺台面已能站人。後方小間仍擋住。台高仍是 estimated。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

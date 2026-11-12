@@ -8,6 +8,7 @@ import {
   corridorHalfWidth,
 } from "./axis.ts";
 import { COLLIDERS } from "./colliders.ts";
+import { SECONDARY_STRUCTURES } from "./zones/secondary.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
 import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { hash2 } from "./math.ts";
@@ -51,8 +52,20 @@ const plant = (
 ): PlantInstance => ({ species, x, z, scale, rotationY });
 
 function blockedByBuilding(x: number, z: number, margin: number): boolean {
-  return COLLIDERS.some(
-    (b) => x > b.minX - margin && x < b.maxX + margin && z > b.minZ - margin && z < b.maxZ + margin,
+  if (
+    COLLIDERS.some(
+      (b) => x > b.minX - margin && x < b.maxX + margin && z > b.minZ - margin && z < b.maxZ + margin,
+    )
+  ) {
+    return true;
+  }
+  return SECONDARY_STRUCTURES.some(
+    (s) =>
+      s.kind === "stand" &&
+      x > s.position[0] - s.size[0] / 2 - margin &&
+      x < s.position[0] + s.size[0] / 2 + margin &&
+      z > s.position[1] - s.size[2] / 2 - margin &&
+      z < s.position[1] + s.size[2] / 2 + margin,
   );
 }
 

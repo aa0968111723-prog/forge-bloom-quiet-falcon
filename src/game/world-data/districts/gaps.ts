@@ -91,7 +91,7 @@ const FIXTURE_NOTES: Partial<Record<string, string>> = {
   swimming: "標示已對上秘書處的紹謨紀念游泳館。水道長度仍待測。",
   track: "田徑場跑道分道、彎道與入口待測。舊圖號仍缺。",
   "wuhu-courts": "綜合球場分區與網柱待測。",
-  reviewing: "司令臺台高、台深與入口待測。",
+  reviewing: "司令臺台面可以走上去，台高 1.25 m 與坡長仍是估計。小間仍擋住。",
   parking: "機車區車格與邊界待測。地面畫線不是已核對碰撞。",
   tigers: "五虎碑基座待測。五虎坡是否同一處，沒有證據前不改名。",
   reitaku: "麗澤室內未核准，外觀門廳也沒有量測。",

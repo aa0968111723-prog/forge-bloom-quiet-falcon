@@ -291,3 +291,7 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 ## 第 41 輪（課程地圖標記）— 2026-11-11
 
 `node --test scripts/lesson-marker.test.mjs` 通過。`tsc --noEmit` 通過。五個進行中的課程步驟各對應兩個字：選系、移動、補給、普攻、技能。完成與沒有課程時不寫字。字只畫在展開的校園地圖，小地圖仍是金圈。定步把課程設成移動、標記放在 (0, -80)，打開地圖，頁面無錯誤：`docs/art/evidence/map/lesson.jpg`。金圈上方看得到「移動」。工學館留在第 40 輪。沒有新增音效。
+
+## 第 42 輪（司令臺台面）— 2026-11-12
+
+`node --test scripts/stand-deck.test.mjs scripts/campus-links.test.mjs` 通過。`tsc --noEmit` 通過。半徑 0.42 m 可以站在司令臺南半台面，不會被推出台外。後方小間仍把人推開。台面比周圍地面高 1.25 m，台緣外 1.6 m 是一半高度，再外 8 m 回到地面。門口步道測試仍通過。定步站在台上，頁面無錯誤：`docs/art/evidence/stand/walk.jpg`。台高仍是 estimated。課程標記留在第 41 輪。沒有新增音效。

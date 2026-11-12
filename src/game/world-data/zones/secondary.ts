@@ -306,6 +306,42 @@ export function gatePiers(s: Pick<SecondaryStructure, "position" | "size">) {
   }));
 }
 
+/** Deck height of a reviewing stand. The booth and posts stay solid. */
+export const STAND_DECK_H = 1.25;
+/** Metres outside the deck where the ramp returns to the surrounding ground. */
+export const STAND_RAMP = 3.2;
+
+/** Booth and roof posts. The deck between them is walkable. */
+export function standBlocks(s: Pick<SecondaryStructure, "position" | "size">) {
+  const boothZ = s.position[1] - s.size[2] * 0.28;
+  const postZ = s.position[1] + s.size[2] * 0.28;
+  return [
+    { x: s.position[0], z: boothZ, w: 7.2, d: 3.2 },
+    ...[-1, 1].map((side) => ({
+      x: s.position[0] + side * s.size[0] * 0.34,
+      z: postZ,
+      w: 0.28,
+      d: 0.28,
+    })),
+  ];
+}
+
+/** Extra metres the player stands above the terrain on a reviewing deck. */
+export function standDeckLift(x: number, z: number): number {
+  let lift = 0;
+  for (const s of SECONDARY_STRUCTURES) {
+    if (s.kind !== "stand") continue;
+    const outside = Math.hypot(
+      Math.max(0, Math.abs(x - s.position[0]) - s.size[0] / 2),
+      Math.max(0, Math.abs(z - s.position[1]) - s.size[2] / 2),
+    );
+    if (outside >= STAND_RAMP) continue;
+    const t = outside <= 0 ? 1 : 1 - outside / STAND_RAMP;
+    lift = Math.max(lift, STAND_DECK_H * t);
+  }
+  return lift;
+}
+
 /** Window bands, names, and roof caps drop off past this distance. The mass stays. */
 export function contextDetailLimit(tier: "high" | "low") {
   return tier === "low" ? 48 : 90;
