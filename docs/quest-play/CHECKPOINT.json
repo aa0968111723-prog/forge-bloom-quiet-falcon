@@ -1,0 +1,27 @@
+{
+  "owner": "quest-play",
+  "branch": "cursor/quest-play-75f5",
+  "head": "4628005319eb91a3f3931eb1088080687111da95",
+  "commands": [
+    "node --test scripts/quest-play.test.mjs",
+    "npm test",
+    "npm run typecheck",
+    "PW_CHROMIUM_PATH=/usr/bin/google-chrome node scripts/quest-play-capture.mjs"
+  ],
+  "done": [
+    "Four journal quests: notes as retrieval, parts that survive spending, drinks as arousal, reports as one kind of load",
+    "Claim rewards do not advance gathered counts, and a second claim does not pay again",
+    "Ten quiz or report patrols stay off doors, buildings, and faculty posts",
+    "SwiftShader journal and patrol captures at 1280x720",
+    "390x780 coarse-pointer journal scrolls and the close control is 44px"
+  ],
+  "todo": [
+    "An attribution choice whose later line quotes the actual choice, paid once through the existing reward bridge",
+    "Device play on a phone and on a discrete GPU"
+  ],
+  "blockers": [
+    "Campus positions are estimated.",
+    "The captures use SwiftShader. 390x780 with touch emulation is not a phone."
+  ],
+  "next_action": "Add one NarrativeSession choice about attribution. The later line must quote that choice, and the reward must use the existing bridge once."
+}
