@@ -1,6 +1,6 @@
 import { AXIS, DOLPHIN_ISLAND_RADIUS } from "./axis.ts";
 import { KENAN, KENAN_TOP_Z } from "./kenan.ts";
-import { LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
+import { CAMPUS_GATE, LANDMARKS, LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
@@ -53,6 +53,11 @@ function buildColliders(): AABB[] {
   out.push(box(-KENAN.bottomApronWidth / 2 - 0.5, AXIS.gateZ, 1.1, 1.1));
   out.push(box(KENAN.bottomApronWidth / 2 + 0.5, AXIS.gateZ, 1.1, 1.1));
 
+  // 水源街校門 piers. The beam stays open overhead.
+  for (const side of [-1, 1] as const) {
+    out.push(box(side * CAMPUS_GATE.halfSpan, CAMPUS_GATE.z, CAMPUS_GATE.pier, CAMPUS_GATE.pier));
+  }
+
   // 驚聲銅像 plinth
   out.push(box(0, 0, 3.2, 3.2));
 
@@ -100,6 +105,30 @@ function buildColliders(): AABB[] {
 }
 
 export const COLLIDERS: AABB[] = buildColliders();
+
+/** Short enough that an 80 ms dodge at 13 m/s cannot step past a 1 m pier's centre. */
+export const COLLISION_SUBSTEP = 0.2;
+
+export function substepCollision(
+  x: number,
+  z: number,
+  dx: number,
+  dz: number,
+  radius: number,
+  collide: (x: number, z: number, radius: number) => { x: number; z: number } = (px, pz, r) =>
+    resolveCollision(px, pz, r),
+): { x: number; z: number } {
+  const dist = Math.hypot(dx, dz);
+  const n = Math.max(1, Math.ceil(dist / COLLISION_SUBSTEP));
+  let px = x;
+  let pz = z;
+  for (let i = 0; i < n; i++) {
+    const next = collide(px + dx / n, pz + dz / n, radius);
+    px = next.x;
+    pz = next.z;
+  }
+  return { x: px, z: pz };
+}
 
 /** Island kerb of the dolphin roundabout, kept out of COLLIDERS so it is walkable. */
 export const DOLPHIN_ISLAND = {
