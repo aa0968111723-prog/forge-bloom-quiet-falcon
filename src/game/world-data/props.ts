@@ -9,7 +9,8 @@ import {
 import { KENAN, KENAN_LANDING_Z, KENAN_TOP_Z, kenanDrainPositions } from "./kenan.ts";
 import { LIBRARY, PALACE, palaceHallZs } from "./landmarks.ts";
 import { COLLIDERS } from "./colliders.ts";
-import { LIBRARY_RAMP } from "./library-ramp.ts";
+import { sampleGroundElevation } from "./elevation.ts";
+import { LIBRARY_RAMP, libraryRampLift } from "./library-ramp.ts";
 import { PATH_SEGMENTS } from "./paths.ts";
 
 /**
@@ -76,6 +77,18 @@ export function railingPoint(x: number, z: number, rotationY: number, along: num
     x: x + along * Math.sin(rotationY),
     z: z + along * Math.cos(rotationY),
   };
+}
+
+/** Deck or skirt height under a railing post. The rail follows this, not a level line. */
+export function railingSurfaceY(x: number, z: number) {
+  return sampleGroundElevation(x, z) + libraryRampLift(x, z);
+}
+
+export function railingPostBases(rail: { x: number; z: number; rotationY: number; length?: number }) {
+  return railingPostOffsets(rail.length ?? 1).map((along) => {
+    const point = railingPoint(rail.x, rail.z, rail.rotationY, along);
+    return { ...point, y: railingSurfaceY(point.x, point.z) };
+  });
 }
 
 function kenanProps(): PropInstance[] {

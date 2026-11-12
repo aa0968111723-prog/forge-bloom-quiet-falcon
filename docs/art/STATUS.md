@@ -367,6 +367,12 @@
 
 畫面：`docs/art/evidence/ramp/rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
 
+## 階段：欄杆跟著坡（ART-084 的一部分）
+
+圖書館坡道兩側的欄杆不再是一根水平桿。立柱站在坡面上，橫桿逐段連過去。北側柱腳比南側高 0.92 m。克難坡仍不設欄杆。位置仍是 estimated。
+
+畫面：`docs/art/evidence/ramp/slope-rails.jpg`。測試：`scripts/ramp-rails.test.mjs`。
+
 ## 下一步
 
-見 `CHECKPOINT.json`。圖書館坡道已有兩側欄杆。小地圖已寫課程的兩個字。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。
+見 `CHECKPOINT.json`。坡道欄杆已跟著坡面升高。手機與 RTX 3060 仍是 pending-device。不要加入沒有授權的音效。

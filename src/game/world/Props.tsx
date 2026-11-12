@@ -3,7 +3,8 @@ import * as THREE from "three";
 import { quality } from "../quality";
 import { sampleGroundElevation } from "../world-data/elevation.ts";
 import { libraryRampTriangles } from "../world-data/library-ramp.ts";
-import { PROPS, railingPoint, railingPostOffsets, type PropInstance, type PropKind } from "../world-data/props.ts";
+import { railingSegmentFrame } from "../world-data/railing-frame.ts";
+import { PROPS, railingPostBases, type PropInstance, type PropKind } from "../world-data/props.ts";
 import { VendorModel, type VendorInstance } from "./vendor";
 
 /**
@@ -79,11 +80,8 @@ function buildParts(kind: PropKind): Part[] {
     case "gutter":
       return [{ geometry: box(0.36, 0.06, 1), material: { color: "#5c5f61", roughness: 0.8 }, offset: [0, 0.015, 0], stretchZ: true }];
     case "railing":
-      // Boxes, not cylinders: only a box stretches cleanly along the strip.
-      return [
-        { geometry: box(0.06, 0.06, 1), material: METAL_GREY, offset: [0, 0.96, 0], stretchZ: true },
-        { geometry: box(0.05, 0.05, 1), material: METAL_GREY, offset: [0, 0.55, 0], stretchZ: true },
-      ];
+      // Drawn by RailingRun so the bars follow the ramp instead of one level box.
+      return [];
     case "bollard":
       return [{ geometry: cyl(0.09, 0.11, 0.85, 8), material: CONCRETE, offset: [0, 0.42, 0], castShadow: true }];
     case "utility-box":
@@ -142,20 +140,31 @@ function LibraryRampMesh() {
   );
 }
 
-function RailingPosts({ instances }: { instances: PropInstance[] }) {
-  const posts = useMemo(
-    () =>
-      instances.flatMap((p) =>
-        railingPostOffsets(p.length ?? 1).map((along) => railingPoint(p.x, p.z, p.rotationY, along)),
-      ),
-    [instances],
-  );
+function RailingRun({ instances }: { instances: PropInstance[] }) {
+  const posts = useMemo(() => instances.flatMap((rail) => railingPostBases(rail)), [instances]);
+  const bars = useMemo(() => {
+    const out: ReturnType<typeof railingSegmentFrame>[] = [];
+    for (const rail of instances) {
+      const bases = railingPostBases(rail);
+      for (let i = 1; i < bases.length; i++) {
+        for (const height of [0.96, 0.55]) {
+          out.push(
+            railingSegmentFrame(
+              { ...bases[i - 1], y: bases[i - 1].y + height },
+              { ...bases[i], y: bases[i].y + height },
+            ),
+          );
+        }
+      }
+    }
+    return out;
+  }, [instances]);
   const ref = useRef<THREE.InstancedMesh>(null);
   useLayoutEffect(() => {
     const mesh = ref.current;
     if (!mesh) return;
     posts.forEach((post, i) => {
-      dummy.position.set(post.x, sampleGroundElevation(post.x, post.z) + 0.51, post.z);
+      dummy.position.set(post.x, post.y + 0.51, post.z);
       dummy.rotation.set(0, 0, 0);
       dummy.scale.set(1, 1, 1);
       dummy.updateMatrix();
@@ -166,10 +175,18 @@ function RailingPosts({ instances }: { instances: PropInstance[] }) {
   }, [posts]);
   if (posts.length === 0) return null;
   return (
-    <instancedMesh ref={ref} args={[undefined, undefined, posts.length]} castShadow>
-      <cylinderGeometry args={[0.035, 0.04, 1.02, 6]} />
-      <meshStandardMaterial {...METAL_GREY} />
-    </instancedMesh>
+    <group>
+      <instancedMesh ref={ref} args={[undefined, undefined, posts.length]} castShadow>
+        <cylinderGeometry args={[0.035, 0.04, 1.02, 6]} />
+        <meshStandardMaterial {...METAL_GREY} />
+      </instancedMesh>
+      {bars.map((bar, i) => (
+        <mesh key={i} position={[bar.x, bar.y, bar.z]} quaternion={bar.quaternion} castShadow>
+          <boxGeometry args={[0.05, 0.05, bar.length]} />
+          <meshStandardMaterial {...METAL_GREY} />
+        </mesh>
+      ))}
+    </group>
   );
 }
 
@@ -253,7 +270,7 @@ export function Props({ lampsOn: _lampsOn }: { lampsOn: boolean }) {
             {parts.map((part, i) => (
               <PartLayer key={i} part={part} instances={instances} />
             ))}
-            {kind === "railing" && <RailingPosts instances={instances} />}
+            {kind === "railing" && <RailingRun instances={instances} />}
           </group>
         );
       })}

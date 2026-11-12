@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import * as THREE from "three";
+
 import { LIBRARY_RAMP } from "../src/game/world-data/library-ramp.ts";
-import { PROPS, railingPostOffsets, railingPoint } from "../src/game/world-data/props.ts";
+import { railingSegmentFrame } from "../src/game/world-data/railing-frame.ts";
+import { PROPS, railingPostBases, railingPostOffsets, railingPoint } from "../src/game/world-data/props.ts";
 
 test("the library ramp has a railing on each side", () => {
   const ramp = PROPS.find((p) => p.kind === "ramp" && p.zone === "library");
@@ -29,4 +32,14 @@ test("the library ramp has a railing on each side", () => {
     assert.equal(end.z, rail.z - rail.length / 2);
   }
   assert.equal(PROPS.filter((p) => p.kind === "railing" && p.zone === "kenan").length, 0);
+  const bases = railingPostBases(rails[0]);
+  const south = bases[bases.length - 1];
+  const north = bases[0];
+  assert.ok(north.z < south.z);
+  assert.ok(north.y - south.y > 0.6, `rail rises ${north.y - south.y}`);
+  const frame = railingSegmentFrame(south, north);
+  const aimed = new THREE.Vector3(0, 0, 1).applyQuaternion(frame.quaternion);
+  const rise = north.y - south.y;
+  assert.ok(Math.abs(aimed.y - rise / frame.length) < 0.02);
+  assert.ok(aimed.z < 0);
 });
