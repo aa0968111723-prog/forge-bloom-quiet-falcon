@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T05:55:36Z",
+  "updated_at": "2026-11-12T05:58:41Z",
   "branch": "cursor/backend-db-link-6038",
   "base": "987c5a7",
   "milestone": "campus-interior-cloud-roundtrip",
@@ -47,10 +47,11 @@
     "merged main at 32a15ad; the session-blip save write-back was already on this branch",
     "an upload response is not recorded when the session changes account or the confirm read blips",
     "merged main at 987c5a7; the built-station harvest cooldown was already on this branch",
-    "a continued upload is not recorded when the session changes account or the confirm read blips"
+    "a continued upload is not recorded when the session changes account or the confirm read blips",
+    "a revision conflict from another account does not drop the queued upload or offer that save"
   ],
   "verification": {
-    "npm_test": "363 pass, 0 fail; a session change does not record a continued upload",
+    "npm_test": "366 pass, 0 fail; a revision conflict from another account does not drop the queued upload",
     "typecheck": "tsc --noEmit passed",
     "focused": "cloud-live-save, cloud-gear-contract, narrative-bridge",
     "campus_roundtrip": "scripts/cloud-campus-roundtrip.mjs passed",

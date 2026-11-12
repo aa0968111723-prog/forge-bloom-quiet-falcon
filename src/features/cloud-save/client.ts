@@ -760,6 +760,18 @@ export function createCloudSaveController(options: {
       }
       if (!stillQueued(item)) continue;
       if (response.status === 409 || response.status === 422) {
+        const confirmed = await accountGate(userId);
+        if (confirmed !== "ok") {
+          if (stillQueued(item)) {
+            remember(item, {
+              ...pending,
+              attempts: Math.max(1, pending.attempts),
+              nextAt: now(),
+            });
+          }
+          writeRemaining();
+          return { sent, paused: true };
+        }
         const ghost = await adoptOwnGhost(item, pending, payload);
         if (ghost === "pause") {
           writeRemaining();
@@ -865,6 +877,19 @@ export function createCloudSaveController(options: {
         payload?.error?.code === "revision_conflict" &&
         payload.server
       ) {
+        const confirmed = await accountGate(userId);
+        if (confirmed !== "ok") {
+          enqueue({
+            id: String(body.requestId),
+            userId,
+            kind: "put",
+            body,
+            attempts: 1,
+            nextAt: now(),
+          });
+          if (confirmed === "offline") return { status: "queued" };
+          return { status: "error", code: "account_mismatch", message: ACCOUNT_MISMATCH };
+        }
         return {
           status: "conflict",
           localText: readLocal() ?? "",
