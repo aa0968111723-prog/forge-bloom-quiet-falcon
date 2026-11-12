@@ -1,5 +1,5 @@
 {
-      "updated": "2026-11-12T01:30:00Z",
+      "updated": "2026-11-12T01:40:00Z",
   "base": "main",
   "baseSha": "df3611adaf2640673e8a07d8179bfa696517313b",
   "items": [
@@ -1677,6 +1677,34 @@
       "integrationPr": 123,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/123",
       "nextAction": "None. The planting patch from 4dc3786 is already in this integration. Do not merge PR #107 by itself. Next art is PR #108 at head 6ac2cf3. PR #122 at head 2649bbb derives the semester from claimed quests; do not merge that source PR by itself."
+    },
+    {
+      "id": "content-semester-claimed",
+      "line": "content",
+      "scope": "Semester follows existing claimed quests. The gate quest plus the campus errand is midterm. Those plus the existing combat mission first is finals. The errand pays 12 xp and 2 notes once into the existing bag. Both department catalogs stay. MAIN_INTEGRATION stays false.",
+      "status": "verified",
+      "pr": 122,
+      "prUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/122",
+      "integrationBranch": "cursor/integration-semester-claimed-3395",
+      "sourceBranch": "cursor/integration-full-game-f7e4",
+      "baseSha": "5d078927dbdd95c0602ca547053b935f967c6e2e",
+      "headSha": "9c45f10509867c9bde1aa9a95e2e85f167a87e20",
+      "dependencies": ["art-planting-lod"],
+      "sharedFiles": ["src/game/rpg/store.ts", "scripts/integration-route.mjs"],
+      "checks": {
+        "conflicts": "none. Cherry-picked 90768e4 then 9c45f10. Left the source docs/full-integration files out.",
+        "typecheck": "pass",
+        "npmTest": "270 pass / 0 fail",
+        "buildSite": "pass",
+        "browser": "8137. 1280x720 status card shows 期中 · 擊退三隻異象. 390x780 reads the same sentence. pageErrors empty",
+        "route": "8137: gate xp 20 notes 19, errand xp 44 notes 21 semester midterm, quiz-2 65 to 45, revision 1, second client midterm, revision_conflict, cloudXp 47, logout 401"
+      },
+      "conflicts": [],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "Open the integration PR, note its number, then fast-forward main. Do not merge PR #122 by itself. Next art is PR #108 at head 6ac2cf3."
     }
   ]
 }
