@@ -48,9 +48,9 @@
   },
   "tests": {
     "typecheck": "pass",
-   "npm_test": "489 pass / 0 fail",
+   "npm_test": "490 pass / 0 fail",
     "art_validate_rebuild": "0 errors, 0 warnings, byte-identical rebuild",
-    "build_site": "AdventureApp-DMaOgDme.js",    "eslint_new_code": "0 errors"  },  "evidence": [    "docs/art/evidence/baseline/",    "docs/art/evidence/m1/ (protagonist-*, combat-*, realplay/, route/)",    "artifact: m1-lantern-avenue-gameplay.mp4",    "docs/art/evidence/m2/"  ],
+    "build_site": "AdventureApp-DisE7tdn.js",    "eslint_new_code": "0 errors"  },  "evidence": [    "docs/art/evidence/baseline/",    "docs/art/evidence/m1/ (protagonist-*, combat-*, realplay/, route/)",    "artifact: m1-lantern-avenue-gameplay.mp4",    "docs/art/evidence/m2/"  ],
   "known_issues": [
     "KI-02",
     "KI-03",
