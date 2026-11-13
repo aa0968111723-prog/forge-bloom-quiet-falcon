@@ -915,6 +915,18 @@ export function structureGroundY(s: SecondaryStructure): number {
   return sampleGroundElevation(s.position[0], s.position[1]);
 }
 
+/** Axis-aligned bounds of a footprint after its yaw. A zero yaw matches the raw size. */
+export function rotatedFootprint(s: SecondaryStructure) {
+  const hx = s.size[0] / 2;
+  const hz = s.size[2] / 2;
+  const cos = Math.abs(Math.cos(s.rotationY));
+  const sin = Math.abs(Math.sin(s.rotationY));
+  return {
+    halfW: hx * cos + hz * sin,
+    halfD: hx * sin + hz * cos,
+  };
+}
+
 /** Local footprint corner, then the same Y rotation the building group uses. */
 export function footprintCorner(s: SecondaryStructure, dx: number, dz: number) {
   const cos = Math.cos(s.rotationY);
@@ -946,3 +958,4 @@ export function foundationSpan(s: SecondaryStructure) {
   }
   return { deck, low, gap: deck - low };
 }
+

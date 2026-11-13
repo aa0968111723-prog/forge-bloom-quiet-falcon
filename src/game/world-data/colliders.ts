@@ -5,7 +5,7 @@ import { LIBRARY_RAMP } from "./library-ramp.ts";
 import { WORLD_BOUNDS } from "./origin.ts";
 import { SHORE_X } from "./vista.ts";
 import { exhibitFootprint, MUSEUM_EXHIBITS } from "./exhibits.ts";
-import { SECONDARY_STRUCTURES, gatePiers, pavilionPosts, standBlocks } from "./zones/secondary.ts";
+import { SECONDARY_STRUCTURES, gatePiers, pavilionPosts, rotatedFootprint, standBlocks } from "./zones/secondary.ts";
 
 export type AABB = { minX: number; maxX: number; minZ: number; maxZ: number };
 
@@ -133,7 +133,8 @@ function buildColliders(): AABB[] {
       for (const block of standBlocks(s)) out.push(box(block.x, block.z, block.w, block.d));
       continue;
     }
-    out.push(box(s.position[0], s.position[1], s.size[0], s.size[2]));
+    const span = rotatedFootprint(s);
+    out.push(box(s.position[0], s.position[1], span.halfW * 2, span.halfD * 2));
   }
 
   // 海事博物館舷側的展示機。機身連機翼一起擋，南門留在館外。

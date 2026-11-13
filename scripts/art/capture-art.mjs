@@ -1646,6 +1646,22 @@ try {
     });
     await settle(page, { stableFrames: 3 });
     await shot(page, "west", "Q hall downhill skirt");
+  } else if (scenario === "hullcorner") {
+    await hideHud(page);
+    await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
+    await setPose(page, 128.9, -232, 0);
+    await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
+    await frames(page, 45);
+    await page.evaluate(() => window.__controlsTest.setKeys([]));
+    const stopped = await page.evaluate(() => window.__controlsTest.getPosition());
+    await page.evaluate(() => {
+      window.__controlsTest.setPhoto({ yaw: 0.2, distance: 9, height: 3.2, lookY: 1.2 });
+    });
+    await frames(page, 4);
+    await shot(page, "corner", `stopped ${JSON.stringify(stopped)}`);
+    if (stopped.z < -241) {
+      throw new Error(`walked through the hull corner ${JSON.stringify(stopped)}`);
+    }
   } else if (scenario === "icons") {
     await setPose(page, 0, -80, 0);
     await settle(page, { stableFrames: 3 });
