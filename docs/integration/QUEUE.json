@@ -5948,6 +5948,30 @@
       "integrationPr": 359,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/359",
       "nextAction": "This is on integration PR #359. Do not merge PR #186 by itself. The next game commit is 37318f33ab251dc9a3b51e3677c25945f22fecf3, the activity hall downhill skirt."
+    },
+    {
+      "id": "art-commons-skirt",
+      "title": "Fill the downhill gap under the activity hall",
+      "status": "open",
+      "pr": 188,
+      "branch": "cursor/commons-skirt-1a71",
+      "headSha": "37318f33ab251dc9a3b51e3677c25945f22fecf3",
+      "dependencies": ["art-foreign-skirt"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the rotated museum skirt, the gym skirt, the language hall skirt, and footprintCorner. The activity hall has no yaw, and its skirt follows that rotation. Art notes kept the later milestones and appended this skirt.",
+        "typecheck": "pass",
+        "npmTest": "488 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CoRhY3ts.js sha256 8c23bb2fde5c9fa2a9abb7287cd5ffef112f74c408593cbae9aa2f2a5843e1c2. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8283/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User BZq6uBEY0n7RhwcMsu3KSGteXqIJlnNy."
+      },
+      "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "12218da1",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #188 by itself. The next game commit is ceefcf1e93c40a93e104912bb35a1ea1e21aad9a, the palace columns that stop a walk."
     }
   ]
 }
