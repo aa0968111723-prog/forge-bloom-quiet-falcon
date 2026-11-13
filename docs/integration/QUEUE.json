@@ -6308,6 +6308,28 @@
       "integrationPr": 374,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/374",
       "nextAction": "This is on integration PR #374. Do not merge PR #224 by itself. f5ee0ba2 already has its subject and bollards() on main, so it is not the next pick."
+    },
+    {
+      "id": "art-q-skirt",
+      "title": "Fill the downhill gap under broadcast hall Q",
+      "status": "integrated",
+      "pr": 189,
+      "branch": "cursor/q-skirt-1a71",
+      "headSha": "90fcf139c3dd69cbda823eb2cc99f87598f100dc",
+      "dependencies": ["art-hydrant-stop"],
+      "sharedFiles": ["src/game/world/ContextStructures.tsx", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the activity hall, language hall, gym, and museum skirts. Broadcast hall Q gains a skirt from the centre deck to the northwest corner. The south door stays outside it.",
+        "typecheck": "pass",
+        "npmTest": "503 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BAtIxlid.js sha256 afcc026e5dc8154e429addf74c586e9a0584647acb639dce8a90d7df8c3743e4. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8298/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User Gqfl9kR4nKFzzPHxJpEVQNGsaFySdvrY."
+      },
+      "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "95833ec9",
+      "nextAction": "It is not on main yet. Do not merge PR #189 by itself. The next game commit is 6b688abd, the rotated building-corner collider."
     }
   ]
 }
