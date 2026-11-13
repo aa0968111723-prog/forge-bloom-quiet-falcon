@@ -613,4 +613,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 123 輪（旗杆石座）— 2026-11-12
 
-`node --test scripts/flag-base.test.mjs` 通過。`tsc --noEmit` 通過。旗杆石座和網格用同一組座標，底徑 1.9 m。半徑 0.42 m 站在座心會被推開。銅像南側、石座東側和巡禮折線各點不會被推開。從南邊走向石座時，人停在石座近側。頁面無錯誤：`docs/art/evidence/plaza/flagpole.jpg`。石座位置仍是 estimated。圖書館雨遮柱留在第 122 輪。沒有新增音效。
+`node --test scripts/flag-base.test.mjs` 通過。`tsc --noEmit` 通過。旗杆石座和網格用同一組座標，底徑 1.9 m。半徑 0.42 m 站在座心會被推開。銅像南側、石座東側和巡禮折線各點不會被推開。從南邊走向石座時，人停在石座近側。頁面無錯誤：`docs/art/evidence/plaza/flagpole.jpg`。石座位置仍是 estimated。圖書館雨遮柱留在第 122 輪。沒有新增音效。`build:site` 產物 `AdventureApp-BAWS-IWp.js`。
