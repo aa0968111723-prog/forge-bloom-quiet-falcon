@@ -6000,7 +6000,7 @@
     {
       "id": "art-library-posts",
       "title": "Stop the player from walking through the library porch posts",
-      "status": "open",
+      "status": "merged",
       "pr": 195,
       "branch": "cursor/library-posts-1a71",
       "headSha": "af29ecf71905e699ee8dc2505a370545c51324b5",
@@ -6015,11 +6015,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User tJmlSq8Sb0k8nun7IylROFlKmOtdusNg."
       },
       "conflicts": ["src/game/landmarks/Library.tsx", "src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "f371493b",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #195 by itself. The next game commit is 99a443deb8c43789443f253f77c583b28de707a4, the plaza flagpole base that stops a walk."
+      "integrationPr": 362,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/362",
+      "nextAction": "This is on integration PR #362. Do not merge PR #195 by itself. The next game commit is 99a443deb8c43789443f253f77c583b28de707a4, the plaza flagpole base that stops a walk."
     }
   ]
 }
