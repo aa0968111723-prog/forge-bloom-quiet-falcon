@@ -299,9 +299,9 @@ export function namedWalkableBuildings(): SecondaryStructure[] {
   return SECONDARY_STRUCTURES.filter((s) => s.walkable && s.kind !== "court");
 }
 
-/** Door approach on the south face, a few metres off the wall. */
+/** Door approach on the south face, a few metres off the solid, yaw included. */
 export function buildingApproachPoint(s: SecondaryStructure): { x: number; z: number } {
-  return { x: s.position[0], z: s.position[1] + s.size[2] / 2 + 3.4 };
+  return { x: s.position[0], z: s.position[1] + rotatedFootprint(s).halfD + 3.4 };
 }
 
 /** Side piers of a guard gate. The span between them stays walkable. */

@@ -275,15 +275,21 @@ export function clearOfSolids(x: number, z: number, margin = 1.2) {
     let moved = false;
     for (const box of COLLIDERS) {
       if (px <= box.minX - margin || px >= box.maxX + margin || pz <= box.minZ - margin || pz >= box.maxZ + margin) continue;
-      const left = px - (box.minX - margin);
-      const right = box.maxX + margin - px;
-      const down = pz - (box.minZ - margin);
-      const up = box.maxZ + margin - pz;
-      const nearest = Math.min(left, right, down, up);
-      if (nearest === left) px = box.minX - margin;
-      else if (nearest === right) px = box.maxX + margin;
-      else if (nearest === down) pz = box.minZ - margin;
-      else pz = box.maxZ + margin;
+      const exits = [
+        { gap: px - (box.minX - margin), apply: () => { px = box.minX - margin; } },
+        { gap: box.maxX + margin - px, apply: () => { px = box.maxX + margin; } },
+        { gap: pz - (box.minZ - margin), apply: () => { pz = box.minZ - margin; } },
+        { gap: box.maxZ + margin - pz, apply: () => { pz = box.maxZ + margin; } },
+      ];
+      // A rotated hall can make the side exit a centimetre nearer than the face
+      // in front of the road. Keep the lamp on that face.
+      let best = 0;
+      for (let i = 1; i < exits.length; i++) {
+        const closer = exits[i].gap < exits[best].gap - 0.01;
+        const tieTowardFace = Math.abs(exits[i].gap - exits[best].gap) <= 0.01 && i >= 2 && best < 2;
+        if (closer || tieTowardFace) best = i;
+      }
+      exits[best].apply();
       moved = true;
     }
     if (!moved) break;

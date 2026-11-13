@@ -162,9 +162,9 @@
         "status": "pending-survey",
         "accuracy": "estimated",
         "x": 118,
-        "z": -168.5,
+        "z": -168,
         "clearWidthM": null,
-        "explicitInProgram": false
+        "explicitInProgram": true
       },
       "lod": "shared-campus-mesh",
       "relation": null

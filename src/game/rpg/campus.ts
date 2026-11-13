@@ -54,6 +54,8 @@ export const CAMPUS_SITES: CampusSite[] = [
     floors: 8,
     theme: "study",
     existing: true,
+    // Rotated footprint reaches z -169.4; the default door at -168.5 is inside a 1.1 m walk.
+    entrance: [118, -168],
   },
   {
     id: "gym",
