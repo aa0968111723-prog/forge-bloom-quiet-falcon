@@ -6207,11 +6207,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User pB7yzCPTsoWWt03SP0EPHIRwrkrIxoCE."
       },
       "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/registry/index.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "fc3590ae",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #216 by itself. The next game commit is 81ae7431, the palace AC cabinets that stop a walk."
+      "integrationPr": 370,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/370",
+      "nextAction": "This is on integration PR #370. Do not merge PR #216 by itself. The next game commit is 81ae7431, the palace AC cabinets that stop a walk."
     }
   ]
 }
