@@ -6327,9 +6327,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User Gqfl9kR4nKFzzPHxJpEVQNGsaFySdvrY."
       },
       "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "95833ec9",
-      "nextAction": "It is not on main yet. Do not merge PR #189 by itself. The next game commit is 6b688abd, the rotated building-corner collider."
+      "integrationPr": 375,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/375",
+      "nextAction": "This is on integration PR #375. Do not merge PR #189 by itself. The next game commit is 6b688abd, the rotated building-corner collider."
     }
   ]
 }
