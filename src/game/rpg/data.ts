@@ -341,9 +341,9 @@ export const ENCOUNTERS: {
   x: number;
   z: number;
 }[] = [
-  { id: "quiz-1", kind: "quiz", x: -5, z: -48 },
-  { id: "quiz-2", kind: "quiz", x: 5, z: -104 },
-  { id: "report-1", kind: "report", x: -4, z: -165 },
+  { id: "quiz-1", kind: "quiz", x: -5.7, z: -48 },
+  { id: "quiz-2", kind: "quiz", x: 5.7, z: -104 },
+  { id: "report-1", kind: "report", x: -5.7, z: -165 },
   { id: "quiz-3", kind: "quiz", x: 7, z: -208 },
   { id: "exam-1", kind: "exam", x: -7, z: -241 },
   { id: "report-2", kind: "report", x: 83, z: -174 },

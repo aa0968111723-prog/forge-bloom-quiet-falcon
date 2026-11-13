@@ -617,4 +617,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 124 輪（宮燈燈座）— 2026-11-12
 
-`node --test scripts/lantern-stop.test.mjs` 通過。`tsc --noEmit` 通過。宮燈石燈座和網格用同一組座標，直徑 0.8 m。半徑 0.42 m 站在燈心會被推開。鋪面中線和相鄰兩燈中間不會被推開。杜鵑改種在燈座外側。從南邊走向西側第一盞燈時，人停在燈座近側。頁面無錯誤：`docs/art/evidence/avenue/lantern.jpg`。燈位仍是 estimated。旗杆石座留在第 123 輪。沒有新增音效。
+`node --test scripts/lantern-stop.test.mjs` 通過。`tsc --noEmit` 通過。宮燈石燈座和網格用同一組座標，直徑 0.8 m。半徑 0.42 m 站在燈心會被推開。鋪面中線和相鄰兩燈中間不會被推開。杜鵑改種在燈座外側。到宮燈教室的折線先回到大道中線。到圖書館的折線在最後一盞燈南側轉向東，避開燈座和海豚圓環的南車阻。`quiz-1`、`quiz-2`、`report-1` 往外站到 x=±5.7。從南邊走向西側第一盞燈時，人停在燈座近側。頁面無錯誤：`docs/art/evidence/avenue/lantern.jpg`。燈位仍是 estimated。旗杆石座留在第 123 輪。沒有新增音效。
