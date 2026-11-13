@@ -6284,6 +6284,28 @@
       "integrationPr": 373,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/373",
       "nextAction": "This is on integration PR #373. Do not merge PR #221 by itself. The next game commit is e34089fb, the hydrants that stop a walk."
+    },
+    {
+      "id": "art-hydrant-stop",
+      "title": "Stop a walking body on the seven hydrants",
+      "status": "integrated",
+      "pr": 224,
+      "branch": "cursor/hydrant-stop-1a71",
+      "headSha": "e34089fbda07b93aad03a2c4c146820fe01cd7c3",
+      "dependencies": ["art-pot-stop"],
+      "sharedFiles": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the potted plants, direction signs, AC cabinets, bins, benches, planters, utility cabinets, noticeboards, scroll wall, lantern bases, flagpole, porch posts and palace columns. Seven hydrants share one list with the mesh. The avenue centre and the three pilgrimage lines stay open.",
+        "typecheck": "pass",
+        "npmTest": "502 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-hbsSbus5.js sha256 32336e2ad64d6a4e815073550afd34fed2b09e9040744ef1e9144ff6d127ed0f. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8297/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User 3DVMLAhc7qHulhN4tFYNJDbhJ9PaKrQQ."
+      },
+      "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "4e0c71ce",
+      "nextAction": "It is not on main yet. Do not merge PR #224 by itself. f5ee0ba2 already has its subject and bollards() on main, so it is not the next pick."
     }
   ]
 }
