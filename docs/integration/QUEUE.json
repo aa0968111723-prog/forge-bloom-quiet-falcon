@@ -6332,6 +6332,28 @@
       "integrationPr": 375,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/375",
       "nextAction": "This is on integration PR #375. Do not merge PR #189 by itself. The next game commit is 6b688abd, the rotated building-corner collider."
+    },
+    {
+      "id": "art-rotated-collider",
+      "title": "Cover rotated building corners with the collider",
+      "status": "integrated",
+      "pr": 191,
+      "branch": "cursor/rotated-collider-1a71",
+      "headSha": "6b688abd666965eb5951dc37f26e5cf8cd0e094c",
+      "dependencies": ["art-q-skirt"],
+      "sharedFiles": ["src/game/world-data/colliders.ts", "src/game/world-data/zones/secondary.ts"],
+      "checks": {
+        "conflicts": "Kept the museum exhibits, the Q skirt, and the later colliders. The museum and business halls use a yawed footprint. Zero yaw still matches the raw size. The museum door stays outside. The business entrance moves to z=-168. The service-road lamp stays in front of the business hall.",
+        "typecheck": "pass",
+        "npmTest": "504 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DJ-NUxmH.js sha256 fd82e219a55ae25298a2bf408ef7bc167d5c102b7d42fb14c00becc1707c43ce. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8299/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User 441z4MwzwDIYAVcjlyiUiPTDuCSClT0f."
+      },
+      "conflicts": ["src/game/world-data/colliders.ts", "src/game/world-data/zones/secondary.ts", "src/game/rpg/campus.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs", "docs/art/registry.json", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "f89688eb6e29c1b2dcabb9a9bb7fce607fb88f54",
+      "nextAction": "It is not on main yet. Do not merge PR #191 by itself. No later cursor tip adds a test file that main lacks."
     }
   ]
 }
