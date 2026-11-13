@@ -6260,6 +6260,30 @@
       "integrationPr": 372,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/372",
       "nextAction": "This is on integration PR #372. Do not merge PR #219 by itself. The next game commit is 53d79f9f, the potted plants that stop a walk."
+    },
+    {
+      "id": "art-pot-stop",
+      "title": "Stop the player from walking through potted plants",
+      "status": "integrated",
+      "pr": 221,
+      "branch": "cursor/pot-stop-1a71",
+      "headSha": "53d79f9ffc2246ddc48c7e642a9380cc134133c2",
+      "dependencies": ["art-sign-stop"],
+      "sharedFiles": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the direction signs, AC cabinets, bins, benches, planters, utility cabinets, noticeboards, scroll wall, lantern bases, flagpole, porch posts and palace columns. Twenty-two pots share one list with the mesh. The avenue centre and the three pilgrimage lines stay open.",
+        "typecheck": "pass",
+        "npmTest": "501 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-C2HJvJnm.js sha256 f9241941281f00ccbd1ad3ec1346cb8dfe0f41f88d5788d66687d23a0e2e8852. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8296/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User yZdydSNziyFA3kUKqL85Hq9yg5Hu8DSU."
+      },
+      "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "ba1f7546",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #221 by itself. The next game commit is e34089fb, the hydrants that stop a walk."
     }
   ]
 }
