@@ -597,4 +597,4 @@ exam 與 final 的四面照取自真實出生點，樹木擋住部分輪廓。�
 
 ## 第 119 輪（外語大樓裙牆）— 2026-11-12
 
-`node --test scripts/foreign-skirt.test.mjs scripts/gym-skirt.test.mjs scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。樓身底座高於西南角，空隙大於 2 m。這棟沒有偏角，裙牆和樓身對齊。南邊入口的局部 z 在裙牆南緣外面。白樓的空隙小於 1.5 m，沒有裙牆。體育館裙牆和跟著船身轉的海事博物館裙牆留著。定步白天從西南看，頁面無錯誤：`docs/art/evidence/language/skirt.jpg`。看得到深色裙牆在近角接到草地。裙牆仍是 estimated。第 118 輪的體育館裙牆留著。沒有新增音效。
+`node --test scripts/foreign-skirt.test.mjs scripts/gym-skirt.test.mjs scripts/museum-skirt.test.mjs` 通過。`tsc --noEmit` 通過。樓身底座高於西南角，空隙大於 2 m。這棟沒有偏角，裙牆和樓身對齊。南邊入口的局部 z 在裙牆南緣外面。白樓的空隙小於 1.5 m，沒有裙牆。體育館裙牆和跟著船身轉的海事博物館裙牆留著。定步白天從西南看，頁面無錯誤：`docs/art/evidence/language/skirt.jpg`。看得到深色裙牆在近角接到草地。裙牆仍是 estimated。第 118 輪的體育館裙牆留著。沒有新增音效。`build:site` 產物 `AdventureApp-wy56B77r.js`。
