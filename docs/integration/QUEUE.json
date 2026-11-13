@@ -6068,6 +6068,30 @@
       "integrationPr": 364,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/364",
       "nextAction": "This is on integration PR #364. Do not merge PR #199 by itself. Route commit 8821a5e24af745ce1f53d94d9d3426bf156dd31d is included in 1c502c48. Do not cherry-pick it again. The next game commit is 7638099e959f71a1b4e7b43ca55ba51839b717b1, the scroll plaza west wall that stops a walk."
+    },
+    {
+      "id": "art-scroll-wall",
+      "title": "Stop the player from walking through the scroll plaza west wall",
+      "status": "open",
+      "pr": 204,
+      "branch": "cursor/scroll-wall-1a71",
+      "headSha": "7638099e959f71a1b4e7b43ca55ba51839b717b1",
+      "dependencies": ["art-lantern-stop"],
+      "sharedFiles": ["src/game/world-data/axis.ts", "src/game/world-data/colliders.ts", "src/game/landmarks/ScrollPlaza.tsx", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the lantern bases, flagpole, porch posts, palace columns and museum exhibits. The west wall shares one box with the mesh. The plaza centre and the three pilgrimage lines stay open.",
+        "typecheck": "pass",
+        "npmTest": "493 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CNxGN4BN.js sha256 587dfeea2384bf80ebbd031e74f85aa86fc5c46863d42689cf53311dc3ece7b4. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8288/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User ehFkmKnpjlbWlVFOwLg7g24ULAMmGDDZ."
+      },
+      "conflicts": ["src/game/world-data/colliders.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #204 by itself. The next game commit is e9513c70ef4e197dbc90cd6a203ff52e1624a977, the campus noticeboards that stop a walk."
     }
   ]
 }
