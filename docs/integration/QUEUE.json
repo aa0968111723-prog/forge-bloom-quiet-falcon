@@ -6140,6 +6140,30 @@
       "integrationPr": 367,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/367",
       "nextAction": "This is on integration PR #367. Do not merge PR #209 by itself. The next game commit is 905d265553ed2205f417acd142b0024c0f362501, the campus planters that stop a walk."
+    },
+    {
+      "id": "art-planter-stop",
+      "title": "Stop the player from walking through campus planters",
+      "status": "integrated",
+      "pr": 212,
+      "branch": "cursor/planter-stop-1a71",
+      "headSha": "905d265553ed2205f417acd142b0024c0f362501",
+      "dependencies": ["art-utility-stop"],
+      "sharedFiles": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/registry/index.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the utility cabinets, noticeboards, scroll wall, lantern bases, flagpole, porch posts and palace columns. Eighteen planters share one list with the mesh. The avenue centre, the library gap and the three pilgrimage lines stay open. The ramp trough stays south of the lip. The west trough at the second hall sits south of the door.",
+        "typecheck": "pass",
+        "npmTest": "496 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-CGsHp8e5.js sha256 274e6af4de3fa1bac4d3827147aa7f32351916193d388eee060071bf65a6499f. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8291/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User H0JRxvq4uzBNXHmnSURIzN8OW9wQBU6x."
+      },
+      "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/registry/index.ts", "src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #212 by itself. The next game commit is 92bf77a6, the campus benches that stop a walk."
     }
   ]
 }
