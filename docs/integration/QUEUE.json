@@ -6231,11 +6231,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User iko1GIFhHGO3pSQA9tP76kd5X75ZZHi8."
       },
       "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "35b1b26a",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #218 by itself. The next game commit is e80ab4eb, the campus direction signs that stop a walk."
+      "integrationPr": 371,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/371",
+      "nextAction": "This is on integration PR #371. Do not merge PR #218 by itself. The next game commit is e80ab4eb, the campus direction signs that stop a walk."
     }
   ]
 }
