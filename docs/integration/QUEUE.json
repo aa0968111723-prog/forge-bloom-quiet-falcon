@@ -6236,6 +6236,30 @@
       "integrationPr": 371,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/371",
       "nextAction": "This is on integration PR #371. Do not merge PR #218 by itself. The next game commit is e80ab4eb, the campus direction signs that stop a walk."
+    },
+    {
+      "id": "art-sign-stop",
+      "title": "Stop the player from walking through campus direction signs",
+      "status": "integrated",
+      "pr": 219,
+      "branch": "cursor/sign-stop-1a71",
+      "headSha": "e80ab4ebf91f44ed66ea8360ca8cc7ee6166a74a",
+      "dependencies": ["art-ac-stop"],
+      "sharedFiles": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the AC cabinets, bins, benches, planters, utility cabinets, noticeboards, scroll wall, lantern bases, flagpole, porch posts and palace columns. Nine signs share one list with the mesh. The avenue boards sit west of the lantern drums, and the north board clears the hall planter. The avenue centre and the three pilgrimage lines stay open.",
+        "typecheck": "pass",
+        "npmTest": "500 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DfuHg7le.js sha256 10504a999783afdeda64a0d2563ba461a91d55d053c39135da0d9f18ab0cc5dc. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8295/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User KXx3InVe5KPDKVGD1nLs6YhSl77yRqtK."
+      },
+      "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "5556f828",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #219 by itself. The next game commit is 53d79f9f, the potted plants that stop a walk."
     }
   ]
 }
