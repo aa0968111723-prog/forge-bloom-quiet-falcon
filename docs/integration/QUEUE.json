@@ -5972,6 +5972,30 @@
       "integrationPr": 360,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/360",
       "nextAction": "This is on integration PR #360. Do not merge PR #188 by itself. The next game commit is ceefcf1e93c40a93e104912bb35a1ea1e21aad9a, the palace columns that stop a walk."
+    },
+    {
+      "id": "art-column-stop",
+      "title": "Stop the player walking through palace columns",
+      "status": "open",
+      "pr": 193,
+      "branch": "cursor/column-stop-1a71",
+      "headSha": "ceefcf1e93c40a93e104912bb35a1ea1e21aad9a",
+      "dependencies": ["art-commons-skirt"],
+      "sharedFiles": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/landmarks/PalaceClassrooms.tsx", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the later landmark lists and added palaceColumns beside them. The mesh and the collider share that list. The follow camera along the row now stops and rises. Art notes kept the later milestones and appended this stop.",
+        "typecheck": "pass",
+        "npmTest": "489 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-DMaOgDme.js sha256 b885cd652f80411fdc896509d09d3efb33b398176e1e973aa503d76ef198ddb0. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8284/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User up9QDmpRYRopd9iNgjnVL3tBGhelJy0o."
+      },
+      "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "f68407e2",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #193 by itself. The next game commit is af29ecf71905e699ee8dc2505a370545c51324b5, the library porch posts that stop a walk."
     }
   ]
 }
