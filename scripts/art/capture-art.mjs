@@ -1401,7 +1401,8 @@ try {
       });
     });
     await settle(page, { stableFrames: 3 });
-    await shot(page, "west", "gym downhill skirt");  } else if (scenario === "foreignskirt") {
+    await shot(page, "west", "gym downhill skirt");
+  } else if (scenario === "foreignskirt") {
     await hideHud(page);
     await setPose(page, 120, -370, 0);
     await page.evaluate(() => {
@@ -1416,7 +1417,8 @@ try {
       });
     });
     await settle(page, { stableFrames: 3 });
-    await shot(page, "west", "language hall downhill skirt");  } else if (scenario === "commonsskirt") {
+    await shot(page, "west", "language hall downhill skirt");
+  } else if (scenario === "commonsskirt") {
     await hideHud(page);
     await setPose(page, 130, -60, 0);
     await page.evaluate(() => {
