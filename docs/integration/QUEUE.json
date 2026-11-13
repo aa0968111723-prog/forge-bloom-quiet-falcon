@@ -6096,7 +6096,7 @@
     {
       "id": "art-notice-stop",
       "title": "Stop the player from walking through campus noticeboards",
-      "status": "open",
+      "status": "merged",
       "pr": 207,
       "branch": "cursor/notice-stop-1a71",
       "headSha": "e9513c70ef4e197dbc90cd6a203ff52e1624a977",
@@ -6111,11 +6111,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User 2J2svWTPgkvtcSSrwMDGKnonZbVTgc5g."
       },
       "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
-      "mergeSha": null,
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #207 by itself. The next game commit is 2ddc297c4d5e13fd78ff6b1abe9cb433908e6c66, the utility cabinets that stop a walk."
+      "merged": true,
+      "mergeSha": "a692fb63",
+      "integrationPr": 366,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/366",
+      "nextAction": "This is on integration PR #366. Do not merge PR #207 by itself. The next game commit is 2ddc297c4d5e13fd78ff6b1abe9cb433908e6c66, the utility cabinets that stop a walk."
     }
   ]
 }
