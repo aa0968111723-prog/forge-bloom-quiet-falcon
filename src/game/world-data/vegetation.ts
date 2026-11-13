@@ -252,8 +252,9 @@ function libraryPlanting(): PlantInstance[] {
   ] as const) {
     out.push(plant("banyan", x, z, s, x * 0.11));
   }
+  // South of the library planters and north of the scroll-plaza benches.
   for (let k = 0; k < 10; k++) {
-    out.push(plant("flowerbed", -22 + k * 5.2, AXIS.libraryFrontZ + 17.5, 1, 0));
+    out.push(plant("flowerbed", -22 + k * 5.2, AXIS.libraryFrontZ + 19, 1, 0));
   }
   return out;
 }
