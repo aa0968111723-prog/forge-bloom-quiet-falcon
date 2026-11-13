@@ -5952,7 +5952,7 @@
     {
       "id": "art-commons-skirt",
       "title": "Fill the downhill gap under the activity hall",
-      "status": "open",
+      "status": "merged",
       "pr": 188,
       "branch": "cursor/commons-skirt-1a71",
       "headSha": "37318f33ab251dc9a3b51e3677c25945f22fecf3",
@@ -5967,11 +5967,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User BZq6uBEY0n7RhwcMsu3KSGteXqIJlnNy."
       },
       "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "12218da1",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #188 by itself. The next game commit is ceefcf1e93c40a93e104912bb35a1ea1e21aad9a, the palace columns that stop a walk."
+      "integrationPr": 360,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/360",
+      "nextAction": "This is on integration PR #360. Do not merge PR #188 by itself. The next game commit is ceefcf1e93c40a93e104912bb35a1ea1e21aad9a, the palace columns that stop a walk."
     }
   ]
 }
