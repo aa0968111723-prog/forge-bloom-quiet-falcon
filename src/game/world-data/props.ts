@@ -188,11 +188,9 @@ function avenueProps(): PropInstance[] {
         out.push(prop("utility-box", cabinet.x, cabinet.z, cabinet.zone, cabinet.rotationY));
       }
     }
-    for (const post of signPosts()) {
-      if (post.zone === "avenue" && post.z === z + 16) {
-        out.push(prop("sign-post", post.x, post.z, post.zone, post.rotationY, post.scale));
-      }
-    }
+  }
+  for (const post of signPosts()) {
+    if (post.zone === "avenue") out.push(prop("sign-post", post.x, post.z, post.zone, post.rotationY, post.scale));
   }
   return out;
 }

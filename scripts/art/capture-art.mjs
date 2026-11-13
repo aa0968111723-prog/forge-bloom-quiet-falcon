@@ -1591,7 +1591,7 @@ try {
   } else if (scenario === "signpost") {
     await hideHud(page);
     await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
-    await setPose(page, -4.1, -17, 0);
+    await setPose(page, -5.195, -17, 0);
     await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
     await frames(page, 40);
     await page.evaluate(() => window.__controlsTest.setKeys([]));

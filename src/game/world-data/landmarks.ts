@@ -482,10 +482,14 @@ export function signPosts(): { x: number; z: number; rotationY: number; scale: n
     { x: -12, z: AXIS.dolphinZ + 16, rotationY: 0, scale: 1.2, zone: "dolphin" },
   ];
   for (let k = 0; k < 5; k++) {
-    const z = AXIS.avenueSouthZ - 22 - k * 42;
+    const along = AXIS.avenueSouthZ - 22 - k * 42;
+    // West of the lantern drum, so a body 1.6 m north of the board stays clear of the stone.
+    const x = -(Math.abs(lanternPosts()[0].x) + LANTERN_BASE / 2 + SIGN_POST.width / 2 + 0.05);
+    // The north board would sit in the hall planter. It moves north of that trough and the lantern.
+    const z = k === 4 ? -184 : along + 16;
     posts.push({
-      x: -(AVENUE_PAVED_WIDTH / 2 + 1.1),
-      z: z + 16,
+      x,
+      z,
       rotationY: 0,
       scale: 1,
       zone: "avenue",
