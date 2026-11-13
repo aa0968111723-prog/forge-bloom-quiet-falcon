@@ -5928,7 +5928,7 @@
     {
       "id": "art-foreign-skirt",
       "title": "Fill the downhill gap under the foreign-language hall",
-      "status": "verified",
+      "status": "merged",
       "pr": 186,
       "branch": "cursor/foreign-skirt-1a71",
       "headSha": "6cbab119c8940aeb641f9af00d7182880d6e2336",
@@ -5943,11 +5943,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User OFjgkQpUHG5657Jx4eCkEMk1xC88QEh0."
       },
       "conflicts": ["src/game/world/ContextStructures.tsx", "src/game/world-data/zones/secondary.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "ef02d42175ce0ad4d868805afab9e3ca9d175b2c",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #186 by itself. The next game commit is 37318f33ab251dc9a3b51e3677c25945f22fecf3, the activity hall downhill skirt."
+      "integrationPr": 359,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/359",
+      "nextAction": "This is on integration PR #359. Do not merge PR #186 by itself. The next game commit is 37318f33ab251dc9a3b51e3677c25945f22fecf3, the activity hall downhill skirt."
     }
   ]
 }
