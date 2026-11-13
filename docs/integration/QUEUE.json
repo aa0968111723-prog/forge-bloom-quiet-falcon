@@ -6116,6 +6116,30 @@
       "integrationPr": 366,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/366",
       "nextAction": "This is on integration PR #366. Do not merge PR #207 by itself. The next game commit is 2ddc297c4d5e13fd78ff6b1abe9cb433908e6c66, the utility cabinets that stop a walk."
+    },
+    {
+      "id": "art-utility-stop",
+      "title": "Stop the player from walking through utility cabinets",
+      "status": "open",
+      "pr": 209,
+      "branch": "cursor/utility-stop-1a71",
+      "headSha": "2ddc297c4d5e13fd78ff6b1abe9cb433908e6c66",
+      "dependencies": ["art-notice-stop"],
+      "sharedFiles": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the noticeboards, scroll wall, lantern bases, flagpole, porch posts and palace columns. The seven cabinets share one list with the mesh. The space beside the cabinets and the three pilgrimage lines stay open.",
+        "typecheck": "pass",
+        "npmTest": "495 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-D4NlSPDR.js sha256 7f4a7d90397a95f9e5e2334ab980de41133fc15244adde7321e81576e65adda7. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8290/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User edfNsNzSlHGt8hgx0RXn7PECUxLbcc0U."
+      },
+      "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": null,
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #209 by itself. The next game commit is 905d265553ed2205f417acd142b0024c0f362501, the campus planters that stop a walk."
     }
   ]
 }
