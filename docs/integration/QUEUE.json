@@ -6024,7 +6024,7 @@
     {
       "id": "art-flag-base",
       "title": "Stop the player from walking through the plaza flagpole base",
-      "status": "picked",
+      "status": "merged",
       "pr": 201,
       "branch": "cursor/flag-base-1a71",
       "headSha": "99a443deb8c43789443f253f77c583b28de707a4",
@@ -6039,11 +6039,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User 1dlRWQDCUOExPomzmt9XlsMhtCS02CYO."
       },
       "conflicts": ["scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "78519a9d",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #201 by itself. The next game commit is 8821a5e24af745ce1f53d94d9d3426bf156dd31d, the palace and library walks that return to the avenue centre before the lantern bases."
+      "integrationPr": 363,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/363",
+      "nextAction": "This is on integration PR #363. Do not merge PR #201 by itself. The next game commit is 8821a5e24af745ce1f53d94d9d3426bf156dd31d, the palace and library walks that return to the avenue centre before the lantern bases."
     }
   ]
 }
