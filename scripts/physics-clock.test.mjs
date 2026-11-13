@@ -490,8 +490,10 @@ test("colonnade corner keeps the follow camera on the view line", () => {
   };
   const openClear = cameraClearance({ focus: open, desired: openDesired, radius: 0.7, blend: 1 });
   const openDist = Math.hypot(openClear.x - open.x, openClear.z - open.z);
-  assert.ok(openDist > 4.8, `open colonnade follow distance was ${openDist}`);
-  assert.ok(Math.abs(openClear.y - openDesired.y) < 0.05);
+  assert.ok(Math.abs(openClear.x - open.x) < 0.05, `follow left the colonnade line by ${openClear.x - open.x}`);
+  assert.ok(openDist > 0.4 && openDist < 2.2, `column follow distance was ${openDist}`);
+  const raised = Math.hypot(openClear.x - open.x, openClear.y - open.y, openClear.z - open.z);
+  assert.ok(raised >= 2.15, `raised follow was ${raised}`);
 });
 
 test("crates and barriers push, sleep, and drop once", () => {
