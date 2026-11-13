@@ -6351,9 +6351,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User 441z4MwzwDIYAVcjlyiUiPTDuCSClT0f."
       },
       "conflicts": ["src/game/world-data/colliders.ts", "src/game/world-data/zones/secondary.ts", "src/game/rpg/campus.ts", "src/game/world-data/props.ts", "scripts/art/capture-art.mjs", "docs/art/registry.json", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "f89688eb6e29c1b2dcabb9a9bb7fce607fb88f54",
-      "nextAction": "It is not on main yet. Do not merge PR #191 by itself. No later cursor tip adds a test file that main lacks."
+      "integrationPr": 376,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/376",
+      "nextAction": "This is on integration PR #376. Do not merge PR #191 by itself. No later cursor tip adds a test file that main lacks."
     }
   ]
 }
