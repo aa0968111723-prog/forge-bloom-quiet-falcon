@@ -6255,11 +6255,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User KXx3InVe5KPDKVGD1nLs6YhSl77yRqtK."
       },
       "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "5556f828",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #219 by itself. The next game commit is 53d79f9f, the potted plants that stop a walk."
+      "integrationPr": 372,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/372",
+      "nextAction": "This is on integration PR #372. Do not merge PR #219 by itself. The next game commit is 53d79f9f, the potted plants that stop a walk."
     }
   ]
 }
