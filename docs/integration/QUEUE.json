@@ -6183,11 +6183,11 @@
         "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User Kr877rOJsaTKJTqzucYVaJXeJUr3EBGE."
       },
       "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/registry/index.ts", "src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
-      "merged": false,
+      "merged": true,
       "mergeSha": "a2c1b6ce",
-      "integrationPr": null,
-      "integrationPrUrl": null,
-      "nextAction": "It is not on main yet. Do not merge PR #214 by itself. The next game commit is 76107808, the campus bins that stop a walk."
+      "integrationPr": 369,
+      "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/369",
+      "nextAction": "This is on integration PR #369. Do not merge PR #214 by itself. The next game commit is 76107808, the campus bins that stop a walk."
     }
   ]
 }
