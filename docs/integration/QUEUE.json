@@ -6044,6 +6044,30 @@
       "integrationPr": 363,
       "integrationPrUrl": "https://github.com/aa0968111723-prog/forge-bloom-quiet-falcon/pull/363",
       "nextAction": "This is on integration PR #363. Do not merge PR #201 by itself. The next game commit is 8821a5e24af745ce1f53d94d9d3426bf156dd31d, the palace and library walks that return to the avenue centre before the lantern bases."
+    },
+    {
+      "id": "art-lantern-stop",
+      "title": "Stop the player from walking through avenue lantern bases",
+      "status": "picked",
+      "pr": 199,
+      "branch": "cursor/lantern-stop-1a71",
+      "headSha": "2291865dfcb32623be3cc832a9da5d3de7c4134e",
+      "dependencies": ["art-flag-base"],
+      "sharedFiles": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/vegetation.ts", "src/game/world-data/registry/index.ts", "src/game/rpg/data.ts", "scripts/art/capture-art.mjs"],
+      "checks": {
+        "conflicts": "Kept the flagpole, porch posts, palace columns and museum exhibits. Lantern drums share one list with the mesh. The palace line returns to the avenue centre. The library line steps east south of the last drum and the dolphin bollard. quiz-1, quiz-2 and report-1 stand at x=±5.7. Route commit 8821a5e2 is included in 1c502c48.",
+        "typecheck": "pass",
+        "npmTest": "492 pass / 0 fail",
+        "buildSite": "pass. AdventureApp-BqwjlUf6.js sha256 c60c4f6695dd535c2c73e071b7a1d49337c516e718781d6d8cfa91324a030180. No cloud-save or DATABASE_URL in dist/assets.",
+        "browser": "route on http://127.0.0.1:8287/",
+        "route": "pass. cloudXp 47, revision_conflict, logout 401, pageErrors empty, ok true. User mGeYXGOOiNAgjvkPe2aDTpTAl7gghmqa."
+      },
+      "conflicts": ["src/game/world-data/landmarks.ts", "src/game/world-data/colliders.ts", "src/game/world-data/props.ts", "src/game/world-data/vegetation.ts", "scripts/art/capture-art.mjs", "docs/art/BACKLOG.json", "docs/art/CHECKPOINT.json", "docs/art/HANDOFF.md", "docs/art/SOURCES.md", "docs/art/STATUS.md", "docs/art/VALIDATION.md"],
+      "merged": false,
+      "mergeSha": "1c502c48",
+      "integrationPr": null,
+      "integrationPrUrl": null,
+      "nextAction": "It is not on main yet. Do not merge PR #199 by itself. Route commit 8821a5e24af745ce1f53d94d9d3426bf156dd31d is included in 1c502c48. Do not cherry-pick it again. The next game commit is 7638099e959f71a1b4e7b43ca55ba51839b717b1, the scroll plaza west wall that stops a walk."
     }
   ]
 }
