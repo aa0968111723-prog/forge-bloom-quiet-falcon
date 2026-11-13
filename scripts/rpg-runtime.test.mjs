@@ -171,7 +171,7 @@ test("each department discipline has an active skill that damages, consumes focu
 test("combat has facing, range, death, XP and recoverable loot", () => {
   const enemy = useRpg.getState().enemies[0];
   enemy.hp = 1;
-  useGame.setState({ playerYaw: Math.PI });
+  useGame.setState({ playerX: enemy.x + 0.7, playerZ: enemy.z + 3, playerYaw: Math.PI });
   useRpg.getState().attack();
   assert.equal(enemy.hp, 1, "wrong-facing attack misses");
   useRpg.setState({ attackUntil: 0 });

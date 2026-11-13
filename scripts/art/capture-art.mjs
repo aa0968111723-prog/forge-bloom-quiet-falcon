@@ -1535,7 +1535,7 @@ try {
   } else if (scenario === "planter") {
     await hideHud(page);
     await page.evaluate(() => window.__rpgQA.game.getState().setTime("day"));
-    await setPose(page, -3.2, -76, Math.PI / 2);
+    await setPose(page, -3.2, -73, Math.PI / 2);
     await page.evaluate(() => window.__controlsTest.setKeys(["KeyW"]));
     await frames(page, 40);
     await page.evaluate(() => window.__controlsTest.setKeys([]));

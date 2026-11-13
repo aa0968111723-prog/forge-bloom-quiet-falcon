@@ -15,7 +15,7 @@ test("planters stop a body and the pilgrimage lines stay open", () => {
     placed.map((prop) => [prop.x, prop.z, prop.length, prop.zone]),
     beds.map((bed) => [bed.x, bed.z, bed.length, bed.zone]),
   );
-  const west = beds.find((bed) => bed.zone === "avenue" && bed.x < 0 && bed.z === -76);
+  const west = beds.find((bed) => bed.zone === "avenue" && bed.x < 0 && bed.z === -73);
   assert.ok(west);
   const blocked = resolveCollision(west.x, west.z, 0.42);
   assert.ok(Math.abs(blocked.x - west.x) > 0.2);

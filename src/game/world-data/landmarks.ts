@@ -290,17 +290,21 @@ export function planters(): { x: number; z: number; rotationY: number; length: n
   const beds = [];
   for (const z of palaceHallZs()) {
     for (const side of [-1, 1] as const) {
+      // The west trough at the second hall sits south of the door. The colonnade
+      // leaves a step narrower than the 2 m walk grid, so the trough stays off that step.
+      const doorHall = z === PALACE.firstZ - PALACE.pitch && side < 0;
       beds.push({
         x: side * (AVENUE_PAVED_WIDTH / 2 + 2.6),
-        z,
+        z: doorHall ? z + 3 : z,
         rotationY: 0,
-        length: 6,
+        length: doorHall ? 3.6 : 6,
         zone: "avenue",
       });
     }
   }
   const rampX = LIBRARY.center[0] - 20;
-  const rampSouth = LIBRARY.center[1] + LIBRARY.length / 2 + 7.4 + 7 + 2.5;
+  // South of the ramp lip and of the standing point just past it.
+  const rampSouth = LIBRARY.center[1] + LIBRARY.length / 2 + 7.4 + 7 + 3.9;
   for (let k = 0; k < 8; k++) {
     const x = -18 + k * 5.4;
     const crossesRamp = Math.abs(x - rampX) < 1.7;

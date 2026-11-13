@@ -341,7 +341,8 @@ export const ENCOUNTERS: {
   x: number;
   z: number;
 }[] = [
-  { id: "quiz-1", kind: "quiz", x: -5.7, z: -48 },
+  // West of the avenue planters and east of the colonnade, so a fight can leave the hall line.
+  { id: "quiz-1", kind: "quiz", x: -7.2, z: -48 },
   { id: "quiz-2", kind: "quiz", x: 5.7, z: -104 },
   { id: "report-1", kind: "report", x: -5.7, z: -165 },
   { id: "quiz-3", kind: "quiz", x: 7, z: -208 },
